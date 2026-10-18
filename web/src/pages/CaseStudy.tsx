@@ -4,28 +4,21 @@ import { PageHero } from "../components/PageHero.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import { LIVE_MIN_BUGS } from "../lib/feedback.ts";
-import { REPO_URL } from "../lib/links.ts";
 import { useReveal } from "../lib/reveal.ts";
 import { href } from "../lib/router.ts";
 
-const adr = (n: string) => `${REPO_URL}/blob/main/docs/decisions/${n}`;
 
-const DECISIONS: [string, string, string][] = [
+const DECISIONS: [string, string][] = [
   ["Measure first, build second",
-    "The evaluation harness came before the search engine: every issue is searched at the commit it was filed against, and the answer key is the functions the real fix changed. Every claimed improvement has a paired bootstrap test.",
-    "0001-eval-first.md"],
+    "The evaluation harness came before the search engine: every issue is searched at the commit it was filed against, and the answer key is the functions the real fix changed. Every claimed improvement has a paired bootstrap test."],
   ["A cascade: cheap over everything, expensive over little",
-    "Code-aware keyword search over every function, then learned ranking over a few hundred, then a fine-tuned language model over the top 20 to 50. Each stage is kept only if it measurably beats the one before.",
-    "0007-fine-tuned-cross-encoder.md"],
+    "Code-aware keyword search over every function, then learned ranking over a few hundred, then a fine-tuned language model over the top 20 to 50. Each stage is kept only if it measurably beats the one before."],
   ["The same engine, twice",
-    "The website runs a TypeScript port of the Python engine in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so the browser inherits the measured accuracy.",
-    "0009-in-browser-search.md"],
+    "The website runs a TypeScript port of the Python engine in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so the browser inherits the measured accuracy."],
   ["A GPU only where it pays",
-    "The full pipeline's reranker runs on a GPU server for the website only after a test, fixed in advance, showed +2.6 points; a second test showed the browser's own language model could then be skipped, saving 50 MB and about 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects.",
-    "0021-website-server-reranker.md"],
+    "The full pipeline's reranker runs on a GPU server for the website only after a test, fixed in advance, showed +2.6 points; a second test showed the browser's own language model could then be skipped, saving 50 MB and about 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects."],
   ["Six languages, each earning its ranker",
-    "JavaScript, TypeScript, Go, Java and Rust were added with a rule written before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation. All six passed, by 12 to 24.",
-    "0025-more-languages.md"],
+    "JavaScript, TypeScript, Go, Java and Rust were added with a rule written before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation. All six passed, by 12 to 24."],
 ];
 
 const FAILED: [string, string][] = [
@@ -99,10 +92,10 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="kicker">Decisions</p>
         <h2>What mattered most.</h2>
         <ol class="case-list">
-          {DECISIONS.map(([title, text, file]) => (
+          {DECISIONS.map(([title, text]) => (
             <li key={title}>
               <h3>{title}</h3>
-              <p>{text} <a href={adr(file)} target="_blank" rel="noopener">Decision record ↗</a></p>
+              <p>{text}</p>
             </li>
           ))}
         </ol>
@@ -129,8 +122,6 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="kicker">Go deeper</p>
         <div class="case-links">
           <a class="btn primary" href={href("search")}>Try it on a repository</a>
-          <a class="btn" href={REPO_URL} target="_blank" rel="noopener">Source on GitHub ↗</a>
-          <a class="btn" href={`${REPO_URL}/tree/main/docs/decisions`} target="_blank" rel="noopener">All decision records ↗</a>
           <a class="btn" href={href("explore")}>Watch it on real bugs</a>
         </div>
       </section>

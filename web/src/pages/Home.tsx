@@ -130,7 +130,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
       <section class="hero">
         <div class="hero-grid" aria-hidden="true" />
         <div class="container hero-text">
-          <p class="badge">Open source · Runs in your browser · Six languages</p>
+          <p class="badge">Free · Runs in your browser · Six languages</p>
           <h1>Find the code behind any bug report.</h1>
           <p class="lede">
             Paste an issue, a stack trace or a one-line description. Allfather parses the repository into functions and ranks every one with BM25,
@@ -212,7 +212,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
       <section class="section cta-band">
         <div class="container narrow center reveal">
           <h2>Find the fix in your own repository.</h2>
-          <p class="section-lede">Free, open source, and nothing to install.</p>
+          <p class="section-lede">Free, and nothing to install.</p>
           <a class="btn primary large" href={href("search")}>Start searching</a>
         </div>
       </section>
