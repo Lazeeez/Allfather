@@ -10,6 +10,7 @@ export interface LoadStatus {
   text: string;
   fraction: number | null;
   error: boolean;
+  phase?: string;
 }
 
 export interface Results {
@@ -71,7 +72,7 @@ export function useSearchWorker() {
         const files = msg.total > 1 ? ` ${msg.done.toLocaleString()} / ${msg.total.toLocaleString()} files`
           : totalUnknown && msg.done > 0 ? ` ${msg.done.toLocaleString()} files` : "";
         furthest.current = Math.max(furthest.current, overallProgress(msg.phase, msg.done, msg.total));
-        setStatus({ text: `${msg.phase}…${files}`, fraction: totalUnknown ? null : furthest.current, error: false });
+        setStatus({ text: `${msg.phase}…${files}`, fraction: totalUnknown ? null : furthest.current, error: false, phase: msg.phase });
         return;
       }
       case "loaded":

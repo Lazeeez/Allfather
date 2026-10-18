@@ -83,6 +83,7 @@ function Ladder({ list, gold }: { list: string[]; gold: Set<string> }) {
   return (
     <span class="ladder" aria-hidden="true">
       {Array.from({ length: 10 }, (_, i) => <i key={i} class={hits.includes(i) ? (i === hits[0] ? "hit first" : "hit") : ""} />)}
+      <b class="seek" style={{ "--to": hits.length ? hits[0] : -0.6 }} />
     </span>
   );
 }

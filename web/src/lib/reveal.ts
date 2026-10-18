@@ -4,14 +4,14 @@ import { useEffect, useState } from "preact/hooks";
 export const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Adds `in` to every `.reveal` under `root` the first time it scrolls into view, including ones
+ * Adds `in` to every `.reveal` and `.line` under `root` the first time it scrolls into view, including ones
  * rendered later (sections that wait for data), which a MutationObserver hands to the observer.
  */
 export function useReveal(root: RefObject<HTMLElement>) {
   useEffect(() => {
     const el = root.current;
     if (!el) return;
-    const pending = () => el.querySelectorAll<HTMLElement>(".reveal:not(.in)");
+    const pending = () => el.querySelectorAll<HTMLElement>(".reveal:not(.in), .line:not(.in)");
     if (reducedMotion() || !("IntersectionObserver" in window)) {
       const show = () => pending().forEach((r) => r.classList.add("in"));
       show();

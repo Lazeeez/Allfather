@@ -1,5 +1,6 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { type Page, href } from "../lib/router.ts";
+import { reducedMotion } from "../lib/reveal.ts";
 import { save } from "../lib/storage.ts";
 import { Emblem } from "./Emblem.tsx";
 
@@ -11,10 +12,26 @@ const current = (): Theme => (document.documentElement.dataset.theme === "dark" 
 function ThemeToggle() {
   const [theme, setTheme] = useState<Theme>(current);
   const next: Theme = theme === "dark" ? "light" : "dark";
-  const flip = () => {
-    // Applied right away, not in an effect: effects wait for the next paint.
-    document.documentElement.dataset.theme = next;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#0f1424" : "#faf7f0");
+  const flip = (e: MouseEvent) => {
+    // Applied directly, not in an effect (effects wait for the next paint), inside a view transition where the browser has one.
+    const apply = () => {
+      document.documentElement.dataset.theme = next;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#0f1424" : "#faf7f0");
+    };
+    const doc = document as Document & { startViewTransition?: (update: () => void) => { ready: Promise<void> } };
+    if (!doc.startViewTransition || reducedMotion()) apply();
+    else {
+      const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      const x = r.left + r.width / 2;
+      const y = r.top + r.height / 2;
+      const end = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      doc.startViewTransition(apply).ready.then(() => {
+        document.documentElement.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${end}px at ${x}px ${y}px)`] },
+          { duration: 650, easing: "cubic-bezier(.2, .7, .2, 1)", pseudoElement: "::view-transition-new(root)" },
+        );
+      }, () => {});
+    }
     setTheme(next);
     save("theme", next);
   };
@@ -30,6 +47,30 @@ function ThemeToggle() {
 }
 
 export const Logo = () => <Emblem />;
+
+const LONG_PAGES = new Set<Page>(["how", "benchmarks", "case"]);
+
+function ReadProgress() {
+  const bar = useRef<HTMLElement>(null);
+  useEffect(() => {
+    let frame = 0;
+    const draw = () => {
+      frame = 0;
+      const room = document.documentElement.scrollHeight - innerHeight;
+      bar.current?.style.setProperty("transform", `scaleX(${room > 0 ? Math.min(1, scrollY / room) : 0})`);
+    };
+    const queue = () => { if (!frame) frame = requestAnimationFrame(draw); };
+    draw();
+    addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    return () => {
+      removeEventListener("scroll", queue);
+      removeEventListener("resize", queue);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
+  return <div class="read-progress" aria-hidden="true"><i ref={bar} /></div>;
+}
 
 const LINKS: [Page, string][] = [["search", "Search"], ["how", "How it works"], ["benchmarks", "Benchmarks"], ["explore", "Explore"], ["case", "Case study"]];
 
@@ -56,6 +97,7 @@ export function Nav({ page }: { page: Page }) {
           </button>
         </div>
       </div>
+      {LONG_PAGES.has(page) && <ReadProgress key={page} />}
     </header>
   );
 }

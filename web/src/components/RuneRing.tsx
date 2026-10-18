@@ -21,20 +21,25 @@ export const RUNES = [
 ];
 
 const RING = [...RUNES, ...RUNES];
+export const RING_SIZE = RING.length;
 const STEP = 360 / RING.length;
 
-export function RuneRing() {
+export const runeAngle = (i: number) => i * STEP - 90;
+
+export function RuneRing({ spin = 0, near, busy = false }: { spin?: number; near?: ReadonlySet<number>; busy?: boolean }) {
   return (
-    <div class="rune-ring" aria-hidden="true">
-      <svg class="ring-outer" viewBox="-200 -200 400 400">
-        <circle r="197" pathLength={1} class="draw" />
-        {RING.map((d, i) => (
-          <g key={i} class="rune" style={{ "--i": i }} transform={`rotate(${i * STEP}) translate(0 -174) scale(1.25) translate(-4 -8)`}>
-            <path d={d} />
-          </g>
-        ))}
-        <circle r="152" pathLength={1} class="draw" />
-      </svg>
+    <div class={`rune-ring${busy ? " typing" : ""}`} aria-hidden="true">
+      <div class="ring-spin" style={{ transform: `rotate(${spin}deg)` }}>
+        <svg class="ring-outer" viewBox="-200 -200 400 400">
+          <circle r="197" pathLength={1} class="draw" />
+          {RING.map((d, i) => (
+            <g key={i} class={`rune${near?.has(i) ? " near" : ""}`} style={{ "--i": i }} transform={`rotate(${i * STEP}) translate(0 -174) scale(1.25) translate(-4 -8)`}>
+              <path d={d} />
+            </g>
+          ))}
+          <circle r="152" pathLength={1} class="draw" />
+        </svg>
+      </div>
       <svg class="ring-inner" viewBox="-200 -200 400 400">
         {Array.from({ length: 72 }, (_, i) => (
           <line key={i} transform={`rotate(${i * 5})`} y1={-140} y2={i % 6 ? -136 : -130} />

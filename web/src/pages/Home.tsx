@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { Bookmarklet } from "../components/Bookmarklet.tsx";
 import { Seer } from "../components/Emblem.tsx";
 import { Icon, type IconName } from "../components/Icons.tsx";
-import { RuneRing } from "../components/RuneRing.tsx";
+import { RING_SIZE, RuneRing, runeAngle } from "../components/RuneRing.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import showcase from "../assets/showcase.json";
-import { useReveal } from "../lib/reveal.ts";
+import { reducedMotion, useReveal } from "../lib/reveal.ts";
 import { load, save } from "../lib/storage.ts";
 import { href } from "../lib/router.ts";
 import { issueNumber } from "../engine/github.ts";
@@ -33,7 +33,7 @@ function UsageLine() {
   );
 }
 
-function QuickStart() {
+function QuickStart({ onType, onAim }: { onType: () => void; onAim: (target: HTMLElement | null) => void }) {
   const [repo, setRepo] = useState("");
   const live = useLive();
   const go = (name: string) => {
@@ -43,9 +43,10 @@ function QuickStart() {
     <form class="quickstart" onSubmit={(e) => { e.preventDefault(); if (repo.trim()) go(repo); }}>
       <div class="quickstart-box">
         <span class="quickstart-prefix" aria-hidden="true">github.com/</span>
-        <input type="text" value={repo} onInput={(e) => setRepo(e.currentTarget.value)} placeholder="owner/repository" aria-label="GitHub repository"
+        <input type="text" value={repo} onInput={(e) => { setRepo(e.currentTarget.value); onType(); }} placeholder="owner/repository" aria-label="GitHub repository"
           autoComplete="off" spellcheck={false} />
-        <button class="btn primary" type="submit">Search it</button>
+        <button class="btn primary" type="submit" onMouseEnter={(e) => onAim(e.currentTarget)} onMouseLeave={() => onAim(null)}
+          onFocus={(e) => onAim(e.currentTarget)} onBlur={() => onAim(null)}>Search it</button>
       </div>
       <p class="quickstart-examples">
         or try {EXAMPLES.map((name, i) => (
@@ -76,8 +77,37 @@ function Preview() {
     save("showcase", next);
     return EXAMPLES_RUN[next];
   });
+  const box = useRef<HTMLDivElement>(null);
+  const [typedTo, setTypedTo] = useState(0);
+  const [typed, setTyped] = useState(false);
+  useEffect(() => {
+    const full = ex.title.length;
+    if (reducedMotion() || !("IntersectionObserver" in window) || !box.current) {
+      setTypedTo(full);
+      setTyped(true);
+      return;
+    }
+    let timer = 0;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e?.isIntersecting) return;
+      io.disconnect();
+      const step = Math.max(12, Math.min(32, 900 / full));
+      let i = 0;
+      const tick = () => {
+        i += 1;
+        setTypedTo(i);
+        timer = window.setTimeout(i < full ? tick : () => setTyped(true), i < full ? step : 250);
+      };
+      timer = window.setTimeout(tick, 350);
+    }, { threshold: 0.35 });
+    io.observe(box.current);
+    return () => {
+      io.disconnect();
+      clearTimeout(timer);
+    };
+  }, [ex]);
   return (
-    <div class="preview reveal" aria-label={`Example: searching ${ex.repo} for a real bug report`} role="img">
+    <div ref={box} class={`preview reveal${typed ? " typed" : ""}`} aria-label={`Example: searching ${ex.repo} for a real bug report`} role="img">
       <div class="preview-bar">
         <i /><i /><i /><span>{ex.repo} · SWE-bench Lite</span>
         <span class="preview-state">
@@ -88,7 +118,9 @@ function Preview() {
       <div class="preview-body">
         <div class="preview-issue">
           <span class="preview-label">Bug report</span>
-          <p>{ex.title}</p>
+          <p class="typed-title">
+            <span>{ex.title.slice(0, typedTo)}</span>{!typed && <span class="caret" />}<span class="untyped">{ex.title.slice(typedTo)}</span>
+          </p>
           <code>{ex.code}</code>
         </div>
         <ol class="preview-results">
@@ -124,6 +156,34 @@ const TITLE = ["Find", "the", "code", "behind", "any", "bug", "report."];
 export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | null }) {
   const root = useRef<HTMLDivElement>(null);
   useReveal(root);
+  const [spin, setSpin] = useState(0);
+  const [typing, setTyping] = useState(false);
+  const [near, setNear] = useState<Set<number> | undefined>(undefined);
+  const typingTimer = useRef(0);
+  const onType = () => {
+    if (reducedMotion()) return;
+    setSpin((s) => s + 6);
+    setTyping(true);
+    clearTimeout(typingTimer.current);
+    typingTimer.current = window.setTimeout(() => setTyping(false), 900);
+  };
+  const onAim = (target: HTMLElement | null) => {
+    const ring = root.current?.querySelector<HTMLElement>(".rune-ring");
+    const outer = ring?.querySelector<SVGElement>(".ring-outer");
+    if (!target || !ring || !outer || getComputedStyle(ring).display === "none") return setNear(undefined);
+    const t = getComputedStyle(outer).transform;
+    const m = t && t !== "none" ? new DOMMatrix(t) : new DOMMatrix();
+    const turn = (Math.atan2(m.b, m.a) * 180) / Math.PI + spin;
+    const r = ring.getBoundingClientRect();
+    const b = target.getBoundingClientRect();
+    const want = (Math.atan2(b.top + b.height / 2 - (r.top + r.height / 2), b.left + b.width / 2 - (r.left + r.width / 2)) * 180) / Math.PI;
+    const picked = new Set<number>();
+    for (let i = 0; i < RING_SIZE; i++) {
+      const d = ((((runeAngle(i) + turn - want) % 360) + 540) % 360) - 180;
+      if (Math.abs(d) < 26) picked.add(i);
+    }
+    setNear(picked);
+  };
   const fn = summary ? stagesAt(summary, "function").at(-1)! : null;
   const fl = summary ? stagesAt(summary, "file").at(-1)! : null;
   const browser = lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
@@ -131,7 +191,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
   return (
     <div ref={root}>
       <section class="hero">
-        <RuneRing />
+        <RuneRing spin={spin} near={near} busy={typing} />
         <div class="container hero-text">
           <p class="badge intro" style={{ "--d": ".05s" }}>Free · Runs in your browser · Six languages</p>
           <h1 aria-label={TITLE.join(" ")}>
@@ -141,7 +201,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
             Paste an issue, a stack trace or a one-line description. Allfather parses the repository into functions and ranks every one with BM25,
             learned rankers and code embeddings, showing the evidence behind each result.
           </p>
-          <div class="intro" style={{ "--d": ".5s" }}><QuickStart /></div>
+          <div class="intro" style={{ "--d": ".5s" }}><QuickStart onType={onType} onAim={onAim} /></div>
         </div>
         <div class="container wide"><Preview /></div>
       </section>
@@ -165,7 +225,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         </div>
       </section>
 
-      <section class="section alt">
+      <section class="section alt line">
         <div class="container">
           <div class="reveal">
             <p class="kicker">How it works</p>
@@ -192,7 +252,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         </div>
       </section>
 
-      <section class="section alt">
+      <section class="section alt line">
         <div class="container">
           <div class="reveal">
             <p class="kicker">Measured, not claimed</p>
@@ -214,7 +274,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         </div>
       </section>
 
-      <section class="section cta-band">
+      <section class="section cta-band line">
         <div class="container narrow center reveal">
           <h2>Find the fix in your own repository.</h2>
           <p class="section-lede">Free, and nothing to install.</p>

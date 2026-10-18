@@ -3,13 +3,14 @@ import { Emblem, Seer } from "../components/Emblem.tsx";
 import { Bookmarklet } from "../components/Bookmarklet.tsx";
 import { PageHero } from "../components/PageHero.tsx";
 import { RecentChange } from "../components/RecentChange.tsx";
-import { RuneProgress } from "../components/RuneProgress.tsx";
+import { LoadSteps, RuneProgress } from "../components/RuneProgress.tsx";
 import { Seg } from "../components/Seg.tsx";
 import { githubApi, githubUrl, issueNumber, parseRepo } from "../engine/github.ts";
 import { feedbackEnabled, newSession, type QuerySource, recordSearch, recordVote } from "../lib/feedback.ts";
 import { type Results, useSearchWorker } from "../hooks/useSearchWorker.ts";
 import { highlightCode, matchedTerms } from "../lib/highlight.ts";
 import { shareCard } from "../lib/shareCard.ts";
+import { useFlip } from "../lib/flip.ts";
 import { band, measurable } from "../engine/confidence.ts";
 import { href, replaceHash } from "../lib/router.ts";
 import { useLazy } from "../lib/lazy.ts";
@@ -144,7 +145,7 @@ function HitRow({ hit, rank, info, terms, open, onToggle, rating }: {
     }
   };
   return (
-    <li class={open ? "open" : ""} data-copy={`${hit.path}:${hit.line}`}>
+    <li class={open ? "open" : ""} data-copy={`${hit.path}:${hit.line}`} data-flip={hit.id}>
       <div class="hit-head" role="button" tabIndex={0} aria-expanded={open} onClick={onToggle}
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); } }}>
         <span class="rank">{rank}</span>
@@ -216,13 +217,16 @@ function FileRows({ hits, ranked, info }: { hits: WireHit[]; ranked?: WireFile[]
  * copies the path. Ten show at first; the ranker returns up to fifty.
  */
 function ResultList({ results, info, view, rating }: { results: Results; info: RepoInfo; view: "functions" | "files"; rating: Rating | null }) {
-  const [openIds, setOpen] = useState<Set<string>>(new Set());
-  const [shown, setShown] = useState(10);
+  const [opened, setOpened] = useState<{ of: Results | null; ids: Set<string> }>({ of: null, ids: new Set() });
+  const [more, setMore] = useState<{ of: Results | null; n: number }>({ of: null, n: 10 });
+  const openIds = opened.of === results ? opened.ids : new Set(results.hits.slice(0, 1).map((h) => h.id));
+  const shown = more.of === results ? more.n : 10;
   const list = useRef<HTMLOListElement>(null);
-  useEffect(() => {
-    setOpen(new Set(results.hits.slice(0, 1).map((h) => h.id)));
-    setShown(10);
-  }, [results]);
+  const previous = useRef<Results | null>(null);
+  const reranked = !!previous.current && previous.current !== results && previous.current.stage !== results.stage
+    && previous.current.terms.join(" ") === results.terms.join(" ");
+  useFlip(list, results, reranked);
+  useEffect(() => { previous.current = results; }, [results]);
   const onKey = (e: KeyboardEvent) => {
     const heads = [...(list.current?.querySelectorAll<HTMLElement>(".hit-head") ?? [])];
     const at = heads.indexOf(document.activeElement as HTMLElement);
@@ -240,12 +244,12 @@ function ResultList({ results, info, view, rating }: { results: Results; info: R
     return <div class="empty-results">No function matches these words. Try names from the code, an error message or a parameter.</div>;
   }
   if (view === "files") return <ol class="hits"><FileRows hits={results.hits} ranked={results.files} info={info} /></ol>;
-  const toggle = (id: string) => setOpen((s) => {
-    const n = new Set(s);
+  const toggle = (id: string) => {
+    const n = new Set(openIds);
     if (n.has(id)) n.delete(id);
     else n.add(id);
-    return n;
-  });
+    setOpened({ of: results, ids: n });
+  };
   const noWordMatched = results.hits.every((h) => h.bm25 <= 0);
   return (
     <>
@@ -258,7 +262,7 @@ function ResultList({ results, info, view, rating }: { results: Results; info: R
         ))}
       </ol>
       {results.hits.length > shown && (
-        <button class="btn more" type="button" onClick={() => setShown(shown + 10)}>Show more results</button>
+        <button class="btn more" type="button" onClick={() => setMore({ of: results, n: shown + 10 })}>Show more results</button>
       )}
     </>
   );
@@ -549,11 +553,12 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
       )}
       {w.loading && !info && (
         <div class="loading-panel">
-          <RuneProgress fraction={w.status?.fraction} label={w.status?.text} />
+          <RuneProgress fraction={w.status?.fraction} label={w.status?.text} phase={w.status?.phase} />
           <p class="loading-caption" aria-hidden="true">
             <b>Gathering the code</b>
             {w.status?.text}
           </p>
+          <LoadSteps fraction={w.status?.fraction} phase={w.status?.phase} />
         </div>
       )}
 

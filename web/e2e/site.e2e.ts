@@ -43,12 +43,13 @@ test("the theme toggles between light and dark only, and persists", async ({ pag
   const first = await theme();
   const toggle = page.locator("button[aria-label^='Switch to']");
   await toggle.click();
+  await expect.poll(theme).not.toBe(first);
   const second = await theme();
   expect(new Set([first, second])).toEqual(new Set(["light", "dark"]));
   await page.reload();
   expect(await theme()).toBe(second);
   await toggle.click();
-  expect(await theme()).toBe(first);
+  await expect.poll(theme).toBe(first);
 });
 
 test("search: load a repository, describe a bug, get the right function", async ({ page }) => {
