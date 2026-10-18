@@ -20,3 +20,18 @@ Accepted, 2026-10-18.
 
 - Links to the old GitHub repository keep working after it is renamed (GitHub redirects them), but workflows that use the Action should reference the new name.
 - Visitors' cached repositories in the browser are built again once, because the storage keys changed.
+
+## Amendment, 2026-10-18: a middle ground for the design
+
+The plain developer-tool look shipped first and read as bland next to the old site, so the design keeps its structure and brings back part of the character:
+
+- warm ivory (light) and night navy (dark) instead of neutral greys;
+- Fraunces for page and section headings, Inter for text, JetBrains Mono for code; Fraunces was chosen over Instrument Serif (too thin at heading sizes) and Space Grotesk (too little character) from side-by-side renders of the home page;
+- metallic gold only on primary buttons, the logo, the headline numbers and the thin rules between sections;
+- one ornament on the home page, a faint rune ring turning behind the headline, with no embers, rays or stars;
+- gold corner brackets only on the feature cards, the headline numbers and the first search result;
+- copy stays plain and technical.
+
+The ring draws 19 Elder Futhark runes. Othala, sowilo, algiz and tiwaz are left out on purpose: hate groups have claimed them.
+
+The source repository is private, so the website links to neither the repository nor the decision records.
