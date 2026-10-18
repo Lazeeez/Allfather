@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Bookmarklet } from "../components/Bookmarklet.tsx";
 import { Seer } from "../components/Emblem.tsx";
-import { Divider, HeroSky, ICONS, Icon, RuneRing } from "../components/Myth.tsx";
+import { Icon, type IconName } from "../components/Icons.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import showcase from "../assets/showcase.json";
@@ -44,7 +44,7 @@ function QuickStart() {
         <span class="quickstart-prefix" aria-hidden="true">github.com/</span>
         <input type="text" value={repo} onInput={(e) => setRepo(e.currentTarget.value)} placeholder="owner/repository" aria-label="GitHub repository"
           autoComplete="off" spellcheck={false} />
-        <button class="btn primary sheen" type="submit">Search it</button>
+        <button class="btn primary" type="submit">Search it</button>
       </div>
       <p class="quickstart-examples">
         or try {EXAMPLES.map((name, i) => (
@@ -105,20 +105,18 @@ function Preview() {
   );
 }
 
-const FEATURES: [keyof typeof ICONS, string, string][] = [
-  ["raven", "Any public repository, six languages", "Python, JavaScript, TypeScript, Go, Java and Rust. The whole repository arrives as one archive, streamed and unpacked in the browser, and Tree-sitter (WebAssembly) splits it into functions on up to four worker threads. Without the relay, files come straight from GitHub, 16 at a time."],
-  ["ansuz", "Reads bug reports like a developer", "Stack-trace frames (Python, JavaScript, Go, Java and Rust formats), backticked identifiers, module and file paths and error strings are extracted as separate signals, scored with BM25 over the issue, its title and its quoted code, then weighed by a LambdaMART ranker."],
-  ["eye", "Sees meaning, not just words", "In the background a 16.8 MB int8 static code-embedding model (Model2Vec potion-code-16M) embeds every function at thousands per second; cosine similarity to the issue feeds a second ranker."],
-  ["shield", "Private by design", `Parsing, indexing, embedding and ranking run in Web Workers. Repositories are cached in IndexedDB by git tree hash, ${import.meta.env.VITE_RERANK_SERVER ? "and your bug report leaves the tab only for the optional GPU reranker, which scores it against the top 50 functions" : "and your bug report never leaves the tab"}; only search counts and your 👍/👎 votes are recorded.`],
+const FEATURES: [IconName, string, string][] = [
+  ["repo", "Any public repository, six languages", "Python, JavaScript, TypeScript, Go, Java and Rust. The whole repository arrives as one archive, streamed and unpacked in the browser, and Tree-sitter (WebAssembly) splits it into functions on up to four worker threads. Without the relay, files come straight from GitHub, 16 at a time."],
+  ["report", "Reads bug reports like a developer", "Stack-trace frames (Python, JavaScript, Go, Java and Rust formats), backticked identifiers, module and file paths and error strings are extracted as separate signals, scored with BM25 over the issue, its title and its quoted code, then weighed by a LambdaMART ranker."],
+  ["vector", "Matches meaning, not just words", "In the background a 16.8 MB int8 static code-embedding model (Model2Vec potion-code-16M) embeds every function at thousands per second; cosine similarity to the issue feeds a second ranker."],
+  ["lock", "Private by design", `Parsing, indexing, embedding and ranking run in Web Workers. Repositories are cached in IndexedDB by git tree hash, ${import.meta.env.VITE_RERANK_SERVER ? "and your bug report leaves the tab only for the optional GPU reranker, which scores it against the top 50 functions" : "and your bug report never leaves the tab"}; only search counts and your 👍/👎 votes are recorded.`],
 ];
 
 const STEPS: [string, string, string][] = [
-  ["I", "Point it at a repository.", "owner/name or any GitHub URL, including a branch or a subdirectory. The tree resolves to a commit and the parsed index is cached by its hash."],
-  ["II", "Describe the bug.", "The text is tokenized code-aware: snake_case and camelCase names are split into words and also kept whole; stack traces and quoted names become their own features."],
-  ["III", "Open the right function.", "Functions are ranked by gradient-boosted trees over lexical, mention and embedding features, each with the matched terms highlighted and a link to the exact line."],
+  ["1", "Point it at a repository.", "owner/name or any GitHub URL, including a branch or a subdirectory. The tree resolves to a commit and the parsed index is cached by its hash."],
+  ["2", "Describe the bug.", "The text is tokenized code-aware: snake_case and camelCase names are split into words and also kept whole; stack traces and quoted names become their own features."],
+  ["3", "Open the right function.", "Functions are ranked by gradient-boosted trees over lexical, mention and embedding features, each with the matched terms highlighted and a link to the exact line."],
 ];
-
-const TITLE = ["Find", "the", "code", "behind", "any", "bug", "report."];
 
 export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | null }) {
   const root = useRef<HTMLDivElement>(null);
@@ -130,28 +128,17 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
   return (
     <div ref={root}>
       <section class="hero">
-        <HeroSky />
-        <RuneRing />
+        <div class="hero-grid" aria-hidden="true" />
         <div class="container hero-text">
-          <p class="badge intro" style={{ "--d": ".05s" }}>Open source · Runs in your browser · Six languages</p>
-          <h1 aria-label={TITLE.join(" ")}>
-            {TITLE.map((w, i) => <span key={i} class="word" aria-hidden="true" style={{ "--i": i }}>{w} </span>)}
-          </h1>
-          <p class="lede intro soft" style={{ "--d": ".3s" }}>
+          <p class="badge">Open source · Runs in your browser · Six languages</p>
+          <h1>Find the code behind any bug report.</h1>
+          <p class="lede">
             Paste an issue, a stack trace or a one-line description. Allfather parses the repository into functions and ranks every one with BM25,
             learned rankers and code embeddings, showing the evidence behind each result.
           </p>
-          <div class="intro" style={{ "--d": ".6s" }}><QuickStart /></div>
+          <QuickStart />
         </div>
         <div class="container wide"><Preview /></div>
-      </section>
-
-      <section class="epigraph reveal">
-        <Divider />
-        <blockquote>
-          <p>“Wits must he have who wanders wide.”</p>
-          <cite>Hávamál, the sayings of Allfather</cite>
-        </blockquote>
       </section>
 
       <section class="section">
@@ -163,7 +150,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
           </div>
           <div class="features">
             {FEATURES.map(([icon, title, text], i) => (
-              <div class="feature frame reveal" key={title} style={{ "--d": `${i * 0.1}s` }}>
+              <div class="feature frame reveal" key={title} style={{ "--d": `${i * 0.06}s` }}>
                 <Icon name={icon} />
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -181,7 +168,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
           </div>
           <ol class="steps">
             {STEPS.map(([n, title, text], i) => (
-              <li key={n} class="frame reveal" style={{ "--d": `${i * 0.12}s` }}>
+              <li key={n} class="frame reveal" style={{ "--d": `${i * 0.06}s` }}>
                 <span class="numeral" aria-hidden="true">{n}</span><b>{title}</b> {text}
               </li>
             ))}
@@ -200,7 +187,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         </div>
       </section>
 
-      <section class="section night">
+      <section class="section alt">
         <div class="container">
           <div class="reveal">
             <p class="kicker">Measured, not claimed</p>
@@ -224,9 +211,9 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
 
       <section class="section cta-band">
         <div class="container narrow center reveal">
-          <Icon name="tree" />
-          <h2>Send the ravens to your repository.</h2>
-          <a class="btn primary large sheen" href={href("search")}>Open Allfather</a>
+          <h2>Find the fix in your own repository.</h2>
+          <p class="section-lede">Free, open source, and nothing to install.</p>
+          <a class="btn primary large" href={href("search")}>Start searching</a>
         </div>
       </section>
     </div>

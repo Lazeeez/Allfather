@@ -77,7 +77,7 @@ const withoutName = (blurb: string, name: string) => {
 
 const rr = (rank: number | null) => (rank ? 1 / rank : 0).toFixed(3);
 
-/** Ten slots, best on the left; a gold diamond wherever the real fix is. */
+/** Ten slots, best on the left; a gold dot wherever the real fix is. */
 function Ladder({ list, gold }: { list: string[]; gold: Set<string> }) {
   const hits = list.slice(0, 10).map((x, i) => (gold.has(x) ? i : -1)).filter((i) => i >= 0);
   return (
@@ -183,7 +183,7 @@ function IssueView({ issue, fnStages, fileStages, pipeline, onNext }: {
           reciprocal rank {rr(first)} → {rr(last)} · first gold hit {first ? `#${first}` : "> 10"} → {last ? `#${last}` : "> 10"}
         </p>
         <p class="story-lede">
-          Each row is one stage's top-10 ranking for this issue, best on the left; diamonds mark gold units. The number is the rank of
+          Each row is one stage's top-10 ranking for this issue, best on the left; gold dots mark gold units. The number is the rank of
           the first gold unit: its reciprocal, averaged over issues, is the MRR on the benchmarks page. Open a row for the list.
         </p>
         <Climb key={`${issue.id}-f`} stages={byFunction ? fnStages : fileStages} lists={lists} gold={gold} file={!byFunction} />
@@ -197,7 +197,7 @@ function IssueView({ issue, fnStages, fileStages, pipeline, onNext }: {
       </section>
 
       <div class="story-next">
-        <button type="button" class="btn primary sheen" onClick={onNext}>Show me another bug</button>
+        <button type="button" class="btn primary" onClick={onNext}>Show me another bug</button>
       </div>
     </div>
   );

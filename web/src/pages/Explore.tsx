@@ -1,16 +1,16 @@
 import { useEffect, useState } from "preact/hooks";
 import { type Dataset, Explorer } from "../components/Explorer.tsx";
-import { Icon } from "../components/Myth.tsx";
+import { Icon, type IconName } from "../components/Icons.tsx";
 import { PageHero } from "../components/PageHero.tsx";
 import { Seg } from "../components/Seg.tsx";
 import type { Summary } from "../lib/data.ts";
 import { useLazy } from "../lib/lazy.ts";
 import { href } from "../lib/router.ts";
 
-const HOW: ["ansuz" | "eye" | "shield", string, string][] = [
-  ["ansuz", "A real bug report", "SWE-bench Lite: 300 GitHub issues from 12 Python projects, each paired with the commit it was filed against."],
-  ["eye", "Allfather searches the code", "Each of five pipeline stages ranks every function in the repository snapshot at that base commit."],
-  ["shield", "Checked against the real fix", "Gold labels are the functions and files whose lines the merged patch modifies, mapped onto the base commit's parse tree."],
+const HOW: [IconName, string, string][] = [
+  ["issue", "A real bug report", "SWE-bench Lite: 300 GitHub issues from 12 Python projects, each paired with the commit it was filed against."],
+  ["search", "Allfather searches the code", "Each of five pipeline stages ranks every function in the repository snapshot at that base commit."],
+  ["check", "Checked against the real fix", "Gold labels are the functions and files whose lines the merged patch modifies, mapped onto the base commit's parse tree."],
 ];
 
 export function Explore({ summary, linked, failed, mode: asked, set }: {

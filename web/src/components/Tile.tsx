@@ -2,7 +2,7 @@ import { useRef } from "preact/hooks";
 import { pct } from "../lib/format.ts";
 import { useCountUp } from "../lib/reveal.ts";
 
-/** A headline number in a gold frame; it counts up when it scrolls into view. */
+/** A headline number; it counts up when it scrolls into view. */
 export function Tile({ label, value, note }: { label: string; value: number | null; note: string }) {
   const el = useRef<HTMLSpanElement>(null);
   const shown = useCountUp(value, el);

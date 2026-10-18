@@ -1,3 +1,5 @@
+import { MARK_RUNE } from "../components/Emblem.tsx";
+
 export interface CardHit {
   qualname: string;
   path: string;
@@ -14,7 +16,7 @@ export interface CardInput {
 
 const W = 1200;
 const H = 630;
-const COLORS = { bg: "#0d1426", panel: "#152040", gold: "#d9a93a", ink: "#f3ead7", muted: "#a9b0c3", line: "#2a3658" };
+const COLORS = { bg: "#0b0b0d", panel: "#151518", gold: "#ecb83e", ink: "#f4f4f5", muted: "#a1a1aa", line: "#2c2c32", onGold: "#17130a" };
 
 const fit = (ctx: CanvasRenderingContext2D, text: string, width: number): string => {
   if (ctx.measureText(text).width <= width) return text;
@@ -40,22 +42,35 @@ export async function drawCard(input: CardInput): Promise<Blob> {
   canvas.height = H;
   const ctx = canvas.getContext("2d")!;
   const css = getComputedStyle(document.documentElement);
-  const display = css.getPropertyValue("--display").trim() || "serif";
   const sans = css.getPropertyValue("--sans").trim() || "sans-serif";
   const mono = css.getPropertyValue("--mono").trim() || "monospace";
 
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, W, H);
-  ctx.strokeStyle = COLORS.gold;
-  ctx.lineWidth = 3;
-  ctx.strokeRect(24, 24, W - 48, H - 48);
-
   ctx.fillStyle = COLORS.gold;
-  ctx.font = `600 34px ${display}`;
-  ctx.fillText("ALLFATHER", 64, 92);
+  ctx.fillRect(0, 0, W, 6);
+
+  ctx.save();
+  ctx.translate(64, 56);
+  ctx.scale(1.5, 1.5);
+  ctx.fillStyle = COLORS.gold;
+  ctx.beginPath();
+  ctx.roundRect(0, 0, 32, 32, 8);
+  ctx.fill();
+  ctx.strokeStyle = COLORS.onGold;
+  ctx.lineWidth = 2.6;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  ctx.stroke(new Path2D(MARK_RUNE));
+  ctx.restore();
+
+  ctx.fillStyle = COLORS.ink;
+  ctx.font = `700 32px ${sans}`;
+  ctx.fillText("Allfather", 130, 92);
+  const brand = ctx.measureText("Allfather").width;
   ctx.fillStyle = COLORS.muted;
   ctx.font = `500 22px ${sans}`;
-  ctx.fillText(fit(ctx, `Where to fix it in ${input.repo}`, W - 260), 170, 90);
+  ctx.fillText(fit(ctx, `Where to fix it in ${input.repo}`, W - 200 - brand), 150 + brand, 90);
 
   ctx.fillStyle = COLORS.ink;
   ctx.font = `600 34px ${sans}`;
@@ -64,9 +79,14 @@ export async function drawCard(input: CardInput): Promise<Blob> {
   input.hits.slice(0, 3).forEach((h, i) => {
     const y = 214 + i * 104;
     ctx.fillStyle = COLORS.panel;
-    ctx.fillRect(64, y, W - 128, 88);
+    ctx.beginPath();
+    ctx.roundRect(64, y, W - 128, 88, 12);
+    ctx.fill();
+    ctx.strokeStyle = i === 0 ? COLORS.gold : COLORS.line;
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
     ctx.fillStyle = COLORS.gold;
-    ctx.font = `600 40px ${display}`;
+    ctx.font = `600 34px ${mono}`;
     ctx.fillText(String(i + 1), 88, y + 58);
     ctx.fillStyle = COLORS.ink;
     ctx.font = `600 30px ${mono}`;

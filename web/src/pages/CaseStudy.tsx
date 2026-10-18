@@ -128,7 +128,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
       <section class="block reveal">
         <p class="kicker">Go deeper</p>
         <div class="case-links">
-          <a class="btn primary sheen" href={href("search")}>Try it on a repository</a>
+          <a class="btn primary" href={href("search")}>Try it on a repository</a>
           <a class="btn" href={REPO_URL} target="_blank" rel="noopener">Source on GitHub ↗</a>
           <a class="btn" href={`${REPO_URL}/tree/main/docs/decisions`} target="_blank" rel="noopener">All decision records ↗</a>
           <a class="btn" href={href("explore")}>Watch it on real bugs</a>

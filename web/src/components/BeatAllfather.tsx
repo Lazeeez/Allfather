@@ -118,7 +118,7 @@ export default function BeatAllfather() {
                 {round.gold.has(guess) ? "You found it." : "Not this time."}{" "}
                 {round.gold.has(round.allfatherPick) ? "Allfather ranked the fixed file first." : round.allfatherRank ? `Allfather had it at #${round.allfatherRank}.` : "Allfather missed it too."}
               </p>
-              <button type="button" class="btn primary sheen" onClick={next}>Next bug</button>
+              <button type="button" class="btn primary" onClick={next}>Next bug</button>
             </div>
           )}
         </div>

@@ -48,7 +48,7 @@ function build(files: [string, number][]): { root: Node; depth: number } {
 }
 
 /**
- * Yggdrasil: the repository as a radial tree, folders branching out from the trunk at the centre
+ * The repository as a radial tree, folders branching out from the trunk at the centre
  * and every file a leaf. The files of the top results glow gold, with their branches lit back to
  * the root. Canvas, drawn once per result set.
  */
