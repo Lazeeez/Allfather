@@ -6,7 +6,7 @@ import { defineConfig } from "vitest/config";
 import { contentSecurityPolicy } from "./csp.ts";
 
 /**
- * Preload the text face the first screen needs (Inter), so it is
+ * Preload the two faces the first screen needs (Inter for text, Fraunces for headings), so they are
  * fetched with the HTML instead of after the CSS: no flash of the fallback font on the headline.
  */
 const preloadFonts = (): Plugin => ({
@@ -16,7 +16,7 @@ const preloadFonts = (): Plugin => ({
     order: "post",
     handler: (_html, ctx) =>
       Object.keys(ctx.bundle ?? {})
-        .filter((f) => /\/inter-latin-wght-normal-[\w-]+\.woff2$/.test(f))
+        .filter((f) => /\/(inter|fraunces)-latin-wght-normal-[\w-]+\.woff2$/.test(f))
         .map((f) => ({ tag: "link", attrs: { rel: "preload", as: "font", type: "font/woff2", crossorigin: "", href: `./${f}` }, injectTo: "head" as const })),
   },
 });

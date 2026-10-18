@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import { Bookmarklet } from "../components/Bookmarklet.tsx";
 import { Seer } from "../components/Emblem.tsx";
 import { Icon, type IconName } from "../components/Icons.tsx";
+import { RuneRing } from "../components/RuneRing.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import showcase from "../assets/showcase.json";
@@ -118,6 +119,8 @@ const STEPS: [string, string, string][] = [
   ["3", "Open the right function.", "Functions are ranked by gradient-boosted trees over lexical, mention and embedding features, each with the matched terms highlighted and a link to the exact line."],
 ];
 
+const TITLE = ["Find", "the", "code", "behind", "any", "bug", "report."];
+
 export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | null }) {
   const root = useRef<HTMLDivElement>(null);
   useReveal(root);
@@ -128,15 +131,17 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
   return (
     <div ref={root}>
       <section class="hero">
-        <div class="hero-grid" aria-hidden="true" />
+        <RuneRing />
         <div class="container hero-text">
-          <p class="badge">Free · Runs in your browser · Six languages</p>
-          <h1>Find the code behind any bug report.</h1>
-          <p class="lede">
+          <p class="badge intro" style={{ "--d": ".05s" }}>Free · Runs in your browser · Six languages</p>
+          <h1 aria-label={TITLE.join(" ")}>
+            {TITLE.map((w, i) => <span key={i} class="word" aria-hidden="true" style={{ "--i": i }}>{w} </span>)}
+          </h1>
+          <p class="lede intro soft" style={{ "--d": ".3s" }}>
             Paste an issue, a stack trace or a one-line description. Allfather parses the repository into functions and ranks every one with BM25,
             learned rankers and code embeddings, showing the evidence behind each result.
           </p>
-          <QuickStart />
+          <div class="intro" style={{ "--d": ".5s" }}><QuickStart /></div>
         </div>
         <div class="container wide"><Preview /></div>
       </section>
@@ -150,7 +155,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
           </div>
           <div class="features">
             {FEATURES.map(([icon, title, text], i) => (
-              <div class="feature frame reveal" key={title} style={{ "--d": `${i * 0.06}s` }}>
+              <div class="feature frame bracket reveal" key={title} style={{ "--d": `${i * 0.06}s` }}>
                 <Icon name={icon} />
                 <h3>{title}</h3>
                 <p>{text}</p>

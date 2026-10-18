@@ -107,7 +107,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <ul class="case-list">
           {FAILED.map(([title, text]) => <li key={title}><h3>{title}</h3><p>{text}</p></li>)}
         </ul>
-        <p class="note">Every experiment, kept or not, is on <a href={href("how")}>How it works</a> and in the decision records.</p>
+        <p class="note">Every experiment, kept or not, is on <a href={href("how")}>How it works</a>.</p>
       </section>
 
       <section class="block reveal">

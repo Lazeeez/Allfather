@@ -212,7 +212,7 @@ function Gpu({ g }: { g: GpuReranker }) {
           </tbody>
         </table>
       </div>
-      <p class="note">Cross-validated on training projects. See ADR 0021 and ADR 0026 in the repository.</p>
+      <p class="note">Cross-validated on training projects.</p>
       {g.held_out && (
         <>
           <h3 class="subhead">Held out, scored once</h3>

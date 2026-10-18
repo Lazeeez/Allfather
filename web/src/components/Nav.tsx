@@ -14,7 +14,7 @@ function ThemeToggle() {
   const flip = () => {
     // Applied right away, not in an effect: effects wait for the next paint.
     document.documentElement.dataset.theme = next;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#0b0b0d" : "#fafafa");
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", next === "dark" ? "#0f1424" : "#faf7f0");
     setTheme(next);
     save("theme", next);
   };

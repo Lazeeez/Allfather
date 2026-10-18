@@ -16,7 +16,7 @@ export interface CardInput {
 
 const W = 1200;
 const H = 630;
-const COLORS = { bg: "#0b0b0d", panel: "#151518", gold: "#ecb83e", ink: "#f4f4f5", muted: "#a1a1aa", line: "#2c2c32", onGold: "#17130a" };
+const COLORS = { bg: "#0f1424", panel: "#171f36", gold: "#e2b24a", ink: "#f2ebdc", muted: "#a9b0c3", line: "#2a3658", onGold: "#1d1607" };
 
 const fit = (ctx: CanvasRenderingContext2D, text: string, width: number): string => {
   if (ctx.measureText(text).width <= width) return text;

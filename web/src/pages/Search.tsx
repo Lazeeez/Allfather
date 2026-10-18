@@ -551,7 +551,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
         <div class="loading-panel">
           <ProgressRing fraction={w.status?.fraction} label={w.status?.text} />
           <p class="loading-caption" aria-hidden="true">
-            <b>Loading the repository</b>
+            <b>Gathering the code</b>
             {w.status?.text}
           </p>
         </div>
@@ -661,7 +661,7 @@ const BAND_TEXT = {
 function Confidence({ p, gpu }: { p: number; gpu: boolean }) {
   const b = band(p);
   return (
-    <p class={`confidence ${b}`} title="Measured on 7,843 bugs from projects the estimate never saw: when it says high, the fix was in the top 10 about 9 times in 10; medium, about 2 in 3; low, about 2 in 5 (ADR 0029)">
+    <p class={`confidence ${b}`} title="Measured on 7,843 bugs from projects the estimate never saw: when it says high, the fix was in the top 10 about 9 times in 10; medium, about 2 in 3; low, about 2 in 5">
       <b>{BAND_TEXT[b]}</b> · {Math.round(p * 100)}% chance a function the fix changes is in the top 10{gpu ? " (estimated before the GPU reranker, which usually does a little better)" : ""}.
       {b === "low" && " Adding the stack trace, an error message or the name of a function the report is about usually helps."}
     </p>

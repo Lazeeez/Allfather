@@ -7,7 +7,7 @@ export function Tile({ label, value, note }: { label: string; value: number | nu
   const el = useRef<HTMLSpanElement>(null);
   const shown = useCountUp(value, el);
   return (
-    <div class="tile frame">
+    <div class="tile frame bracket">
       <span class="tile-label">{label}</span>
       <span class="tile-value" ref={el} aria-hidden="true">{shown != null ? pct(shown) : "–"}</span>
       {value != null && <span class="sr-only">{pct(value)}</span>}
