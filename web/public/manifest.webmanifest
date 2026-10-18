@@ -1,6 +1,6 @@
 {
-  "name": "Odin: find the code behind any bug report",
-  "short_name": "Odin",
+  "name": "Allfather: find the code behind any bug report",
+  "short_name": "Allfather",
   "description": "Paste a bug report, get the functions most likely to need the fix. Searches any public Python repository in your browser.",
   "start_url": "./#/search",
   "scope": "./",

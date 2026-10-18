@@ -64,7 +64,7 @@ const securityHeaders = (): Plugin => ({
 });
 
 export default defineConfig({
-  // Relative asset URLs: the same build works at lazeeez.github.io/Odin/ and on Vercel.
+  // Relative asset URLs: the same build works at lazeeez.github.io/Allfather/ and on Vercel.
   base: "./",
   plugins: [preact(), preloadFonts(), uniqueAssetNames(), securityHeaders()],
   worker: { format: "es" },

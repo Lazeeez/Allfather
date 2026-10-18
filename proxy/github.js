@@ -36,7 +36,7 @@ export async function github(request, env, url) {
     headers: {
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-      "User-Agent": "odin-allfather.dev",
+      "User-Agent": "allfather.dev",
       "X-GitHub-Api-Version": "2022-11-28",
     },
   });

@@ -1,6 +1,6 @@
 # Hosting on allfather.dev
 
-Odin's website and its archive relay run as one Cloudflare Worker: static files from `web/dist`, and the relay at `/relay/*` on the same origin. The configuration is `deploy/cloudflare/wrangler.jsonc`.
+Allfather's website and its archive relay run as one Cloudflare Worker: static files from `web/dist`, and the relay at `/relay/*` on the same origin. The configuration is `deploy/cloudflare/wrangler.jsonc`.
 
 ## Status, 2026-10-14
 
@@ -80,7 +80,7 @@ The domain's zone is in the `lajatm9@gmail.com` Cloudflare account, so wrangler 
 
 ## GitHub Pages
 
-The owner is removing the GitHub Pages site by hand. Its workflow (`.github/workflows/pages.yml`) and the prepared redirect page were deleted from the repository on 2026-10-14, so links to `lazeeez.github.io/Odin` stop working once Pages is turned off.
+The owner is removing the GitHub Pages site by hand. Its workflow (`.github/workflows/pages.yml`) and the prepared redirect page were deleted from the repository on 2026-10-14, so links to `lazeeez.github.io/Allfather` stop working once Pages is turned off.
 
 Left to clean up in the accounts, not in the repository:
 
