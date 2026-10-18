@@ -4,7 +4,7 @@ type Worker = { fetch(request: Request, env: Record<string, unknown>): Promise<R
 
 const worker = ((await import("../../proxy/cloudflare-worker.js" as string)) as { default: Worker }).default;
 
-const SITE = "https://odin.example";
+const SITE = "https://allfather.example";
 const ENV = { ALLOWED_ORIGINS: SITE, ROUTE_PREFIX: "/relay", RERANK_URL: "https://gpu.example/score", MODAL_KEY: "k", MODAL_SECRET: "s" };
 const post = (body: unknown, headers: Record<string, string> = { "Sec-Fetch-Site": "same-origin" }) =>
   new Request(`${SITE}/rerank`, { method: "POST", headers, body: typeof body === "string" ? body : JSON.stringify(body) });
@@ -62,9 +62,9 @@ describe("GPU reranker proxy", () => {
     const warmUp = (env: Record<string, unknown>) =>
       (worker as unknown as { fetch(r: Request, e: Record<string, unknown>, c: unknown): Promise<Response> })
         .fetch(new Request(`${SITE}/rerank/warm`, { method: "POST", headers: { "Sec-Fetch-Site": "same-origin" } }), env, ctx);
-    expect((await warmUp({ ...ENV, RERANK_URL: "https://me--odin-reranker-reranker-score.modal.run" })).status).toBe(202);
+    expect((await warmUp({ ...ENV, RERANK_URL: "https://me--allfather-reranker-reranker-score.modal.run" })).status).toBe(202);
     await Promise.all(waiting);
-    expect(calls.map((c) => c.url)).toEqual(["https://me--odin-reranker-reranker-score.modal.run"]);
+    expect(calls.map((c) => c.url)).toEqual(["https://me--allfather-reranker-reranker-score.modal.run"]);
     expect(JSON.parse(calls[0].body)).toEqual({ query: "warm", texts: ["a", "b"] });
     expect(calls[0].headers.get("Modal-Key")).toBe("k");
     expect((await warmUp({ ...ENV, RERANK_URL: undefined })).status).toBe(501);

@@ -13,42 +13,42 @@ setup-dense:
 	uv sync --extra dense
 
 gold:
-	uv run odin gold --dataset $(DATASET)
+	uv run allfather gold --dataset $(DATASET)
 
 eval:
-	uv run odin eval --retriever $(RETRIEVER) --level $(LEVEL) --dataset $(DATASET)
+	uv run allfather eval --retriever $(RETRIEVER) --level $(LEVEL) --dataset $(DATASET)
 
 # Every row of the README results table.
 ablations:
 	for r in bm25-naive bm25-code bm25-code-notests; do \
-		for l in file function; do uv run odin eval --retriever $$r --level $$l || exit 1; done; \
+		for l in file function; do uv run allfather eval --retriever $$r --level $$l || exit 1; done; \
 	done
-	uv run odin eval --retriever bm25-code-notests-graph --level function
+	uv run allfather eval --retriever bm25-code-notests-graph --level function
 
 # Dense and hybrid rows (needs `make setup-dense`; first run embeds ~185k units).
 dense:
 	for r in dense-notests hybrid-notests; do \
-		for l in file function; do uv run odin eval --retriever $$r --level $$l || exit 1; done; \
+		for l in file function; do uv run allfather eval --retriever $$r --level $$l || exit 1; done; \
 	done
 
 # Tune on SWE-bench Verified minus Lite; never on the Lite test set.
 tune:
-	uv run odin gold --dataset verified
-	uv run odin tune --exclude-tests
+	uv run allfather gold --dataset verified
+	uv run allfather tune --exclude-tests
 
 tune-fusion:
-	uv run odin tune --what fusion
+	uv run allfather tune --what fusion
 
 # Learned rankers, trained on SWE-bench test minus Lite (never on Lite).
 ltr:
-	uv run odin gold --dataset full
-	uv run odin ltr
+	uv run allfather gold --dataset full
+	uv run allfather ltr
 
 # The two ensemble members: v1 on hybrid's hard negatives, v2 on out-of-fold LTR negatives.
 reranker:
-	uv run odin ce-train --negatives hybrid --epochs 1 --data results/ce_train_hybrid_negatives.jsonl --out models/ce_adapter_v1
-	uv run odin ce-train --negatives ltr --epochs 2 --out models/ce_adapter
-	uv run odin ce-tune --adapter models/ce_adapter_v1 models/ce_adapter --out models/reranker.json
+	uv run allfather ce-train --negatives hybrid --epochs 1 --data results/ce_train_hybrid_negatives.jsonl --out models/ce_adapter_v1
+	uv run allfather ce-train --negatives ltr --epochs 2 --out models/ce_adapter
+	uv run allfather ce-tune --adapter models/ce_adapter_v1 models/ce_adapter --out models/reranker.json
 
 adapters:
 	uv run python scripts/adapters.py fetch
@@ -66,14 +66,14 @@ web-data:
 	uv run python scripts/export_showcase.py
 
 final:
-	for l in file function; do uv run odin eval --retriever ltr-ce-notests --level $$l || exit 1; done
+	for l in file function; do uv run allfather eval --retriever ltr-ce-notests --level $$l || exit 1; done
 
 bench:
 	uv run python benchmarks/bench_batching.py
 	uv run --with faiss-cpu python benchmarks/bench_search.py
 
 compare:
-	uv run odin compare $(A) $(B)
+	uv run allfather compare $(A) $(B)
 
 test:
 	uv run pytest -q

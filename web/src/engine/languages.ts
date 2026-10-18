@@ -50,7 +50,7 @@ export class LanguageCensus {
   noneSupported(supported: ReadonlySet<string>): string {
     const { unread, names } = this.split(supported);
     const top = unread.slice(0, 3).map(([lang, n]) => `${lang} (${n.toLocaleString()} file${n === 1 ? "" : "s"})`).join(", ");
-    return `No code Odin can read: ${top ? `this repository is ${top}, and ` : ""}Odin reads ${list(names)} for now.`;
+    return `No code Allfather can read: ${top ? `this repository is ${top}, and ` : ""}Allfather reads ${list(names)} for now.`;
   }
 
   note(supported?: ReadonlySet<string>): string | null {
@@ -59,16 +59,16 @@ export class LanguageCensus {
       const other = unread.reduce((n, [, c]) => n + c, 0);
       if (!other || read >= other) return null;
       const top = unread.slice(0, 3).map(([lang, n]) => `${lang} (${n.toLocaleString()} file${n === 1 ? "" : "s"})`).join(", ");
-      return `Most of this repository is ${top}. Odin reads ${list(names)} for now, so it searched just the ${read.toLocaleString()} file${read === 1 ? "" : "s"} in those; code in other languages isn't in these results.`;
+      return `Most of this repository is ${top}. Allfather reads ${list(names)} for now, so it searched just the ${read.toLocaleString()} file${read === 1 ? "" : "s"} in those; code in other languages isn't in these results.`;
     }
     const python = this.counts.get("Python") ?? 0;
     const other = this.others().reduce((n, [, c]) => n + c, 0);
     if (!other || python >= other) return null;
-    return `Most of this repository is ${this.describe()}. Odin reads Python only for now, so it searched just the ${python.toLocaleString()} Python file${python === 1 ? "" : "s"}; code in other languages isn't in these results.`;
+    return `Most of this repository is ${this.describe()}. Allfather reads Python only for now, so it searched just the ${python.toLocaleString()} Python file${python === 1 ? "" : "s"}; code in other languages isn't in these results.`;
   }
 
   noPython(): string {
     const others = this.describe();
-    return others ? `No Python files found: this repository is ${others}. Odin reads Python only for now.` : "No Python files found. Odin searches Python code only for now.";
+    return others ? `No Python files found: this repository is ${others}. Allfather reads Python only for now.` : "No Python files found. Allfather searches Python code only for now.";
   }
 }

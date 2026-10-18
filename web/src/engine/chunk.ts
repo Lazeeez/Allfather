@@ -1,4 +1,4 @@
-// Port of odin/parsing/python_symbols.py + odin/index/chunker.py. It must produce the
+// Port of allfather/parsing/python_symbols.py + allfather/index/chunker.py. It must produce the
 // same units as Python: tests/test_site_engine.py compares them on real code.
 import { Language, Parser } from "web-tree-sitter";
 import type { Node, Tree } from "web-tree-sitter";

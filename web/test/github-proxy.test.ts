@@ -4,7 +4,7 @@ type Worker = { fetch(request: Request, env: Record<string, unknown>): Promise<R
 
 const worker = ((await import("../../proxy/cloudflare-worker.js" as string)) as { default: Worker }).default;
 
-const SITE = "https://odin.example";
+const SITE = "https://allfather.example";
 const ENV = { ALLOWED_ORIGINS: SITE, ROUTE_PREFIX: "/relay", GITHUB_TOKEN: "test-token" };
 const get = (path: string, headers: Record<string, string> = { "Sec-Fetch-Site": "same-origin" }) =>
   new Request(`${SITE}/gh${path}`, { headers });

@@ -7,7 +7,7 @@ type Worker = { fetch(request: Request, env: Record<string, unknown>): Promise<R
 const worker = ((await import("../../proxy/cloudflare-worker.js" as string)) as { default: Worker }).default;
 const schema = readFileSync(new URL("../../deploy/cloudflare/schema.sql", import.meta.url), "utf-8");
 
-const SITE = "https://odin.example";
+const SITE = "https://allfather.example";
 
 function d1() {
   const db = new DatabaseSync(":memory:");

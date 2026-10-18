@@ -3,7 +3,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from odin.eval import runs
+from allfather.eval import runs
 
 ISSUES = ("pkg__one-1", "pkg__one-2")
 

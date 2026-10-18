@@ -10,12 +10,12 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.dataset import load_instances  # noqa: E402
-from odin.eval.ground_truth import read_gold  # noqa: E402
-from odin.eval.metrics import aggregate, bootstrap_ci, paired_bootstrap, score  # noqa: E402
-from odin.eval.provenance import provenance  # noqa: E402
-from odin.eval.runner import DEV_SELECTED_FUSION, Query  # noqa: E402
-from odin.rank.ltr import (  # noqa: E402
+from allfather.eval.dataset import load_instances  # noqa: E402
+from allfather.eval.ground_truth import read_gold  # noqa: E402
+from allfather.eval.metrics import aggregate, bootstrap_ci, paired_bootstrap, score  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
+from allfather.eval.runner import DEV_SELECTED_FUSION, Query  # noqa: E402
+from allfather.rank.ltr import (  # noqa: E402
     LGBM_PARAMS,
     MODEL_DIR,
     RankingData,
@@ -63,10 +63,10 @@ def project_parts(gold: list, n: int) -> list[list]:
 
 
 def build_features() -> int:
-    from odin.rank.features import FeatureExtractor
-    from odin.rank.past_issues import IssueMemory
-    from odin.search.dense import SentenceEncoder
-    from odin.search.retriever import HybridRetriever
+    from allfather.rank.features import FeatureExtractor
+    from allfather.rank.past_issues import IssueMemory
+    from allfather.search.dense import SentenceEncoder
+    from allfather.search.retriever import HybridRetriever
 
     gold = rebench_gold()
     instances = load_instances("rebench", "train")
@@ -184,7 +184,7 @@ def merge_training(swe: RankingData, new: RankingData) -> RankingData:
 
 
 def train_models() -> int:
-    from odin.rank.features import FEATURES, FILE_FEATURES
+    from allfather.rank.features import FEATURES, FILE_FEATURES
 
     names = {"function": FEATURES, "file": FILE_FEATURES}
     for level, (baseline, name) in LEVEL_SETTINGS.items():
@@ -200,12 +200,12 @@ def train_models() -> int:
 
 
 def validation_test() -> int:
-    from odin.rank.ce_train import rerank, validation_split
-    from odin.rank.cross_encoder import CrossEncoderEnsemble
-    from odin.rank.features import FeatureExtractor
-    from odin.rank.ltr import issue_memory
-    from odin.search.dense import SentenceEncoder
-    from odin.search.retriever import HybridRetriever
+    from allfather.rank.ce_train import rerank, validation_split
+    from allfather.rank.cross_encoder import CrossEncoderEnsemble
+    from allfather.rank.features import FeatureExtractor
+    from allfather.rank.ltr import issue_memory
+    from allfather.search.dense import SentenceEncoder
+    from allfather.search.retriever import HybridRetriever
 
     in_lite = {g.instance_id for g in read_gold(GOLD / "swebench_lite_test.jsonl")}
     gold = [g for g in read_gold(GOLD / "swebench_full_test.jsonl") if g.instance_id not in in_lite]
@@ -291,10 +291,10 @@ def unseen_projects() -> int:
 
 
 def retune_reranker() -> int:
-    from odin.rank.ce_tune import save_choice, tune_cross_encoder
-    from odin.rank.cross_encoder import CrossEncoderEnsemble
-    from odin.search.dense import SentenceEncoder
-    from odin.search.retriever import HybridRetriever
+    from allfather.rank.ce_tune import save_choice, tune_cross_encoder
+    from allfather.rank.cross_encoder import CrossEncoderEnsemble
+    from allfather.search.dense import SentenceEncoder
+    from allfather.search.retriever import HybridRetriever
 
     target = MODELS / "reranker.json"
     if target.exists():

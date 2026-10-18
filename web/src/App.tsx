@@ -12,12 +12,12 @@ import { HowItWorks } from "./pages/HowItWorks.tsx";
 import { Search } from "./pages/Search.tsx";
 
 const TITLES: Record<Page, string> = {
-  home: "Odin: find the code behind any bug report",
-  search: "Search a repository · Odin",
-  benchmarks: "Benchmarks · Odin",
-  explore: "Explore real bugs · Odin",
-  how: "How it works · Odin",
-  case: "Case study · Odin",
+  home: "Allfather: find the code behind any bug report",
+  search: "Search a repository · Allfather",
+  benchmarks: "Benchmarks · Allfather",
+  explore: "Explore real bugs · Allfather",
+  how: "How it works · Allfather",
+  case: "Case study · Allfather",
 };
 
 export function App() {
@@ -42,10 +42,10 @@ export function App() {
     };
     const open = () => setPalette(true);
     addEventListener("keydown", onKey);
-    addEventListener("odin:palette", open);
+    addEventListener("allfather:palette", open);
     return () => {
       removeEventListener("keydown", onKey);
-      removeEventListener("odin:palette", open);
+      removeEventListener("allfather:palette", open);
     };
   }, []);
 

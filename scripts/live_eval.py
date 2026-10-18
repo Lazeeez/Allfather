@@ -17,12 +17,12 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from odin.eval.dataset import Instance  # noqa: E402
-from odin.eval.ground_truth import gold_for_instance  # noqa: E402
-from odin.eval.metrics import aggregate, score  # noqa: E402
-from odin.index.snapshot import _is_test_path  # noqa: E402
-from odin.parsing import symbols as multi  # noqa: E402
-from odin.repos import RepoCache  # noqa: E402
+from allfather.eval.dataset import Instance  # noqa: E402
+from allfather.eval.ground_truth import gold_for_instance  # noqa: E402
+from allfather.eval.metrics import aggregate, score  # noqa: E402
+from allfather.index.snapshot import _is_test_path  # noqa: E402
+from allfather.parsing import symbols as multi  # noqa: E402
+from allfather.repos import RepoCache  # noqa: E402
 
 PROJECTS = ROOT / "data" / "live" / "projects.json"
 OUT = ROOT / "results" / "live"
@@ -47,7 +47,7 @@ class RateLimited(Exception):
 def github(path: str, accept: str = "application/vnd.github+json", attempts: int = 4):
     headers = {
         "Accept": accept,
-        "User-Agent": "odin-live-eval",
+        "User-Agent": "allfather-live-eval",
         "X-GitHub-Api-Version": "2022-11-28",
     }
     if os.environ.get("GITHUB_TOKEN"):
@@ -175,7 +175,7 @@ class Site:
         self.embed = bl.make_embedder()
 
     def predict(self, stage: str, X: np.ndarray) -> np.ndarray:
-        from odin.rank.browser import predict
+        from allfather.rank.browser import predict
 
         return (
             np.array([predict(self.ranker[stage], x) for x in X], np.float64)
@@ -186,7 +186,7 @@ class Site:
     def rank(
         self, inst: Instance, targets: set[str], files: set[str]
     ) -> tuple[list[str], list[str], int]:
-        from odin.rank.browser import extract
+        from allfather.rank.browser import extract
 
         bl = self.bl
         fn, M, names = self.snaps.get(inst.repo, inst.base_commit)
@@ -359,7 +359,7 @@ def summary(publish: str | None) -> int:
             sys.exit("LIVE_TOKEN is not set")
         request = urllib.request.Request(
             publish, data=json.dumps(report).encode(), method="POST",
-            headers={"Authorization": f"Bearer {token}", "content-type": "application/json", "User-Agent": "odin-live-eval"},
+            headers={"Authorization": f"Bearer {token}", "content-type": "application/json", "User-Agent": "allfather-live-eval"},
         )  # fmt: skip
         with urllib.request.urlopen(request, timeout=30) as response:
             print("published:", response.status)

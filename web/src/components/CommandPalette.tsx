@@ -42,7 +42,7 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
       ...PAGES.map(([p, title]) => ({ title, hint: "page", run: () => go(href(p)) })),
       ...repos.map((r) => ({ title: `Load ${r}`, hint: recent.includes(r) ? "recent" : "example", run: () => go(href("search", null, { repo: r })) })),
       { title: "Switch light / dark", hint: "theme", run: () => document.querySelector<HTMLButtonElement>("button[aria-label^='Switch to']")?.click() },
-      { title: "Play Beat Odin", hint: "game", run: () => go(href("explore", null, { mode: "game" })) },
+      { title: "Play Beat Allfather", hint: "game", run: () => go(href("explore", null, { mode: "game" })) },
     );
     const unique = list.filter((c, i) => list.findIndex((d) => d.title.toLowerCase() === c.title.toLowerCase()) === i);
     if (!typed) return unique;

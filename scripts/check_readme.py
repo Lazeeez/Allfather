@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.metrics import metric_values, paired_bootstrap, score  # noqa: E402
+from allfather.eval.metrics import metric_values, paired_bootstrap, score  # noqa: E402
 
 RESULTS = ROOT / "results"
 README = ROOT / "README.md"
@@ -164,7 +164,7 @@ def check_languages(rows: list[list[str]], report: Report) -> None:
         e = sets[TEST_SETS[row[1]]][LANGUAGE_NAMES[row[0]]]
         where = f"language {row[0]} {row[1]}"
         report.expect(f"{where} bugs", numbers(row[2])[0], e["issues"], 0)
-        report.expect(f"{where} odin", numbers(row[3])[0], 100 * e["learned"]["hit@10"], 1)
+        report.expect(f"{where} allfather", numbers(row[3])[0], 100 * e["learned"]["hit@10"], 1)
         report.expect(
             f"{where} baseline", numbers(row[4])[0], 100 * e["keyword_and_meaning"]["hit@10"], 1
         )
@@ -262,7 +262,7 @@ def check_dense_costs(text: str, report: Report) -> None:
 def check_comparison(rows: list[list[str]], report: Report) -> None:
     path = RESULTS / "comparison" / "locagent-lite_2026-10-13.json"
     acc = json.loads(path.read_text(encoding="utf-8"))["stages"]["ltr-ce-notests"]["acc"]
-    row = next(r for r in rows if r[0].startswith("Odin"))
+    row = next(r for r in rows if r[0].startswith("Allfather"))
     actual = (
         acc["file"]["acc@1"],
         acc["file"]["acc@5"],
@@ -270,7 +270,7 @@ def check_comparison(rows: list[list[str]], report: Report) -> None:
         acc["function"]["acc@10"],
     )
     for shown, value in zip(row[3:], actual, strict=True):
-        report.expect("comparison odin", float(shown), 100 * value, 2)
+        report.expect("comparison allfather", float(shown), 100 * value, 2)
 
 
 def check_cost(text: str, report: Report) -> None:

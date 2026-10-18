@@ -7,8 +7,13 @@ fi
 set -a
 . "$ROOT/cluster/site.env"
 set +a
-export HF_HOME="$ODIN_SCRATCH/huggingface"
-export UV_CACHE_DIR="$ODIN_SCRATCH/uv"
+: "${ALLFATHER_RESULTS:=${ODIN_RESULTS:-}}"
+: "${ALLFATHER_SCRATCH:=${ODIN_SCRATCH:-}}"
+: "${ALLFATHER_OFFLINE:=${ODIN_OFFLINE:-0}}"
+: "${ALLFATHER_LOCAL_DISK:=${ODIN_LOCAL_DISK:-1}}"
+export ALLFATHER_RESULTS ALLFATHER_SCRATCH ALLFATHER_OFFLINE ALLFATHER_LOCAL_DISK
+export HF_HOME="$ALLFATHER_SCRATCH/huggingface"
+export UV_CACHE_DIR="$ALLFATHER_SCRATCH/uv"
 export PATH="$HOME/.local/bin:$PATH"
 export GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=/bin/true SSH_ASKPASS=/bin/true
 export HF_TOKEN_PATH="${HF_TOKEN_PATH:-$HOME/.cache/huggingface/token}"
@@ -21,7 +26,7 @@ print(" ".join(v) if isinstance(v, list) else v)' "$1" "$2"
 
 job_env() {
   if [ -n "$(manifest_field "$1" environment.with)" ]; then
-    echo "$ODIN_SCRATCH/envs/$(manifest_field "$1" name)"
+    echo "$ALLFATHER_SCRATCH/envs/$(manifest_field "$1" name)"
   else
     echo "$ROOT/.venv"
   fi

@@ -7,7 +7,7 @@ A padded batch costs (items x longest item), and code units are heavily skewed i
 
 - arrival: fixed-size batches in file order, what a per-file indexing loop would do
 - sorted:  one global length sort, fixed batch size (sentence-transformers' default)
-- budget:  global length sort, batches packed up to a token budget (odin)
+- budget:  global length sort, batches packed up to a token budget (allfather)
 """
 
 from __future__ import annotations
@@ -19,11 +19,11 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from odin.eval.ground_truth import read_gold
-from odin.index.chunker import MODULE, chunk_file
-from odin.index.snapshot import _is_test_path, unit_text
-from odin.repos import RepoCache
-from odin.search.dense import SentenceEncoder, token_budget_batches
+from allfather.eval.ground_truth import read_gold
+from allfather.index.chunker import MODULE, chunk_file
+from allfather.index.snapshot import _is_test_path, unit_text
+from allfather.repos import RepoCache
+from allfather.search.dense import SentenceEncoder, token_budget_batches
 
 N = 4000
 BATCH = 32

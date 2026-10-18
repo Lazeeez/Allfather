@@ -1,4 +1,4 @@
-from odin.parsing.python_symbols import (
+from allfather.parsing.python_symbols import (
     CLASS,
     FUNCTION,
     METHOD,

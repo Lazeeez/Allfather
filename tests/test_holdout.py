@@ -2,30 +2,30 @@ import json
 
 import pytest
 
-from odin import cli
-from odin.eval import holdout
-from odin.eval.dataset import REBENCH_SAMPLE
-from odin.eval.ground_truth import read_gold
+from allfather import cli
+from allfather.eval import holdout
+from allfather.eval.dataset import REBENCH_SAMPLE
+from allfather.eval.ground_truth import read_gold
 
 FROZEN = {
     "configs": {
-        "odin-fast": {
+        "allfather-fast": {
             "retriever": "ltr-ce-notests",
             "frozen_at": "abc123",
             "newest_model_published": None,
         },
-        "odin-max": {"retriever": None, "frozen_at": None, "newest_model_published": None},
+        "allfather-max": {"retriever": None, "frozen_at": None, "newest_model_published": None},
     }
 }
 FAST_FUNCTION_LINE = (
-    "2027-01-05 | holdout | odin-fast (ltr-ce-notests) | function | "
-    "results/holdout/odin-fast_function.json | sealed holdout, ADR 0013\n"
+    "2027-01-05 | holdout | allfather-fast (ltr-ce-notests) | function | "
+    "results/holdout/allfather-fast_function.json | sealed holdout, ADR 0013\n"
 )
 
 
 def authorize(**changes):
     request = {
-        "config": "odin-fast",
+        "config": "allfather-fast",
         "unseal": True,
         "level": "function",
         "retriever": "ltr-ce-notests",
@@ -47,7 +47,7 @@ def test_a_frozen_configuration_is_allowed_once():
         {"unseal": False},
         {"config": None},
         {"config": "bm25-code"},
-        {"config": "odin-max", "retriever": "anything"},
+        {"config": "allfather-max", "retriever": "anything"},
         {"retriever": "ltr-notests"},
         {"tree_is_dirty": True},
         {"head_contains": False},
@@ -64,8 +64,8 @@ def test_the_other_level_is_still_available_after_one_evaluation():
 
 
 def test_lite_lines_do_not_spend_the_holdout():
-    line = "2026-10-13 | lite | odin-fast | function | results/x.json | nothing decided\n"
-    assert not holdout.already_evaluated(line, "odin-fast", "function")
+    line = "2026-10-13 | lite | allfather-fast | function | results/x.json | nothing decided\n"
+    assert not holdout.already_evaluated(line, "allfather-fast", "function")
 
 
 def test_eval_refuses_the_holdout_without_unsealing():
@@ -82,7 +82,7 @@ def test_eval_refuses_a_configuration_that_is_not_listed():
 def test_eval_refuses_part_of_the_holdout():
     argv = ["eval", "--retriever", "bm25-code", "--dataset", "holdout", "--unseal"]
     with pytest.raises(SystemExit, match="evaluated whole"):
-        cli.main([*argv, "--config", "odin-fast", "--repo", "tobymao/sqlglot"])
+        cli.main([*argv, "--config", "allfather-fast", "--repo", "tobymao/sqlglot"])
 
 
 @pytest.mark.parametrize("command", ["tune", "ltr", "ce-train", "ce-tune"])
@@ -121,7 +121,7 @@ def test_a_set_with_a_holdout_project_is_rejected():
 
 
 def postcutoff():
-    from odin.eval.dataset import POSTCUTOFF_MANIFEST
+    from allfather.eval.dataset import POSTCUTOFF_MANIFEST
 
     return json.loads(POSTCUTOFF_MANIFEST.read_text(encoding="utf-8"))
 

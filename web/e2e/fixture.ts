@@ -1,7 +1,7 @@
 import type { Page } from "@playwright/test";
 
 /** A small Python project served in place of GitHub, so search results are known exactly. */
-export const REPO = "odin-e2e/fixture";
+export const REPO = "allfather-e2e/fixture";
 
 const FILES: Record<string, string> = {
   "pkg/config.py": [
@@ -32,21 +32,21 @@ const FILES: Record<string, string> = {
 
 /** Route GitHub's API and file server to FILES, and keep the ML model off the network. */
 export async function serveFixture(page: Page): Promise<void> {
-  await page.route("https://api.github.com/repos/odin-e2e/fixture/git/trees/**", (route) =>
+  await page.route("https://api.github.com/repos/allfather-e2e/fixture/git/trees/**", (route) =>
     route.fulfill({
       json: {
         sha: "fixture-tree-1",
-        url: "https://api.github.com/repos/odin-e2e/fixture/git/trees/fixture-tree-1",
+        url: "https://api.github.com/repos/allfather-e2e/fixture/git/trees/fixture-tree-1",
         truncated: false,
         tree: Object.entries(FILES).map(([path, text]) => ({ type: "blob", mode: "100644", path, size: text.length })),
       },
     }),
   );
-  await page.route("https://raw.githubusercontent.com/odin-e2e/fixture/**", (route) => {
+  await page.route("https://raw.githubusercontent.com/allfather-e2e/fixture/**", (route) => {
     const path = decodeURIComponent(new URL(route.request().url()).pathname.split("/").slice(4).join("/"));
     return FILES[path] == null ? route.fulfill({ status: 404, body: "" }) : route.fulfill({ body: FILES[path] });
   });
-  await page.route("https://api.github.com/repos/odin-e2e/fixture/issues**", (route) => route.fulfill({ json: [] }));
+  await page.route("https://api.github.com/repos/allfather-e2e/fixture/issues**", (route) => route.fulfill({ json: [] }));
   // The semantic model (tens of MB) is not part of these tests.
   await page.route(/huggingface\.co|cdn\.jsdelivr\.net/, (route) => route.abort());
 }

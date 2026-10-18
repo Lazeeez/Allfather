@@ -106,7 +106,7 @@ export function useSearchWorker() {
           if (msg.stored) parts.push(`${msg.stored} from your browser's cache`);
           setSemantic(`Reranked the top ${SEMANTIC.depth} with a language model in ${duration(msg.ms)}${parts.length ? ` (${parts.join(", ")})` : " (already embedded this session)"}`);
         }
-        if (msg.stage === "server") setServer(`Re-read the top ${SERVER.depth} with Odin's fine-tuned reranker on a GPU server in ${duration(msg.ms)}`);
+        if (msg.stage === "server") setServer(`Re-read the top ${SERVER.depth} with Allfather's fine-tuned reranker on a GPU server in ${duration(msg.ms)}`);
         return;
       case "semantic-start":
         if (msg.id === seq.current) setSemantic("Reranking the top candidates with a language model…");

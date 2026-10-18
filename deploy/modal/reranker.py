@@ -34,7 +34,7 @@ image = (
     )
     .run_function(download)
     .env({"HF_HUB_OFFLINE": "1"})
-    .add_local_file(ROOT / "src/odin/rank/cross_encoder.py", "/root/cross_encoder.py")
+    .add_local_file(ROOT / "src/allfather/rank/cross_encoder.py", "/root/cross_encoder.py")
 )
 for member, (folder, _) in MEMBERS.items():
     image = image.add_local_dir(ROOT / "models" / folder, f"/adapters/{member}")

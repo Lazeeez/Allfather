@@ -13,12 +13,12 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.provenance import provenance  # noqa: E402
-from odin.index.chunker import MODULE, chunk_file  # noqa: E402
-from odin.index.snapshot import _is_test_path  # noqa: E402
-from odin.repos import RepoCache  # noqa: E402
-from odin.search.bm25 import BM25Index, Vocab, top_k  # noqa: E402
-from odin.search.tokenize import code_counts  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
+from allfather.index.chunker import MODULE, chunk_file  # noqa: E402
+from allfather.index.snapshot import _is_test_path  # noqa: E402
+from allfather.repos import RepoCache  # noqa: E402
+from allfather.search.bm25 import BM25Index, Vocab, top_k  # noqa: E402
+from allfather.search.tokenize import code_counts  # noqa: E402
 
 PINNED = {
     "django/django": "4a72da71001f154ea60906a2f74898d32b7322a7",
@@ -33,9 +33,9 @@ DEFAULT_OUT = ROOT / "results" / "parity_pinned_2026-10-13b.json"
 
 
 def node() -> str:
-    found = os.environ.get("ODIN_NODE") or shutil.which("node")
+    found = os.environ.get("ALLFATHER_NODE") or shutil.which("node")
     if not found or not (ROOT / "web" / "node_modules" / "web-tree-sitter").exists():
-        sys.exit("needs Node 24 on PATH (or ODIN_NODE) and `npm ci` in web/")
+        sys.exit("needs Node 24 on PATH (or ALLFATHER_NODE) and `npm ci` in web/")
     return found
 
 

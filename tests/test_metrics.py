@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from odin.eval.metrics import aggregate, bootstrap_ci, paired_bootstrap, percentile, score
+from allfather.eval.metrics import aggregate, bootstrap_ci, paired_bootstrap, percentile, score
 
 
 def test_score_basic():

@@ -1,4 +1,4 @@
-// Static embeddings in the browser: the port of odin/search/static.py. A text's vector is the
+// Static embeddings in the browser: the port of allfather/search/static.py. A text's vector is the
 // mean of its tokens' vectors, so a whole repository embeds in seconds with no neural network.
 // The tokenizer is BERT's (uncased WordPiece), reimplemented here so it is fast and exact:
 // tests/test_site_engine.py compares token ids and vectors with the Python side.

@@ -1,4 +1,4 @@
-// Port of odin/rank/mentions.py: what an issue explicitly names. Reporters paste tracebacks,
+// Port of allfather/rank/mentions.py: what an issue explicitly names. Reporters paste tracebacks,
 // quote method names in backticks and cite module paths; exact matches on these are the
 // strongest, cheapest localization evidence there is.
 

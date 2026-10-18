@@ -17,7 +17,7 @@ const test = base.extend<{ guard: void }>({
 
 test("home shows the product and the measured numbers", async ({ page }) => {
   await page.goto("./");
-  await expect(page).toHaveTitle(/^Odin/);
+  await expect(page).toHaveTitle(/^Allfather/);
   await expect(page.locator(".hero h1")).toContainText("Find the code");
   await expect(page.locator(".tile-value").first()).toHaveText(/%$/);
 });
@@ -65,7 +65,7 @@ test("search: load a repository, describe a bug, get the right function", async 
   await expect(page.locator(".confidence")).toContainText(/(High|Medium|Low) confidence · \d+% chance/);
   await page.locator("#demo-query").fill("load_config fails");
   await expect(page.locator(".confidence")).toContainText("Too short to estimate");
-  await expect(page).toHaveURL(/#\/search\?repo=odin-e2e%2Ffixture&q=/);
+  await expect(page).toHaveURL(/#\/search\?repo=allfather-e2e%2Ffixture&q=/);
 
   // A traceback points at the function where it ended.
   await page.locator("#demo-query").fill('Traceback (most recent call last):\n  File "/srv/pkg/http.py", line 3, in fetch\nConnectionError');
@@ -91,12 +91,12 @@ test("search state survives a visit to another page", async ({ page }) => {
 });
 
 test("bad input and unknown repositories are explained", async ({ page }) => {
-  await page.route("https://api.github.com/repos/odin-e2e/missing/**", (route) => route.fulfill({ status: 404, json: {} }));
+  await page.route("https://api.github.com/repos/allfather-e2e/missing/**", (route) => route.fulfill({ status: 404, json: {} }));
   await page.goto("./#/search");
   await page.locator("#repo-input").fill("not a repo");
   await page.locator(".repo-card button[type=submit]").click();
   await expect(page.locator(".progress-text.error")).toContainText("owner/name");
-  await page.locator("#repo-input").fill("odin-e2e/missing");
+  await page.locator("#repo-input").fill("allfather-e2e/missing");
   await page.locator(".repo-card button[type=submit]").click();
   await expect(page.locator(".progress-text.error")).toContainText("Couldn't find");
 });
@@ -117,14 +117,14 @@ test("explorer deep links and old-style links", async ({ page }) => {
   await expect(page).toHaveURL(/#\/explore\/django__django-11019$/);
   await expect(page.locator("#explorer .bug-id")).toHaveText("django__django-11019");
   await page.goto(`./?repo=${encodeURIComponent(REPO)}&q=config`);
-  await expect(page).toHaveURL(/#\/search\?repo=odin-e2e%2Ffixture&q=config$/);
+  await expect(page).toHaveURL(/#\/search\?repo=allfather-e2e%2Ffixture&q=config$/);
 });
 
-test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette, Beat Odin", async ({ page }) => {
-  await page.route("https://api.github.com/repos/odin-e2e/fixture/issues/7", (route) =>
-    route.fulfill({ json: { number: 7, title: "load_config crashes with KeyError", body: "when the settings file is missing", html_url: "https://github.com/odin-e2e/fixture/issues/7" } }));
-  await page.route("https://api.github.com/repos/odin-e2e/fixture/commits**", (route) =>
-    route.fulfill({ json: [{ sha: "abc", html_url: "https://github.com/odin-e2e/fixture/commit/abc", commit: { message: "Read settings lazily", author: { name: "Ada", date: new Date().toISOString() } } }] }));
+test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette, Beat Allfather", async ({ page }) => {
+  await page.route("https://api.github.com/repos/allfather-e2e/fixture/issues/7", (route) =>
+    route.fulfill({ json: { number: 7, title: "load_config crashes with KeyError", body: "when the settings file is missing", html_url: "https://github.com/allfather-e2e/fixture/issues/7" } }));
+  await page.route("https://api.github.com/repos/allfather-e2e/fixture/commits**", (route) =>
+    route.fulfill({ json: [{ sha: "abc", html_url: "https://github.com/allfather-e2e/fixture/commit/abc", commit: { message: "Read settings lazily", author: { name: "Ada", date: new Date().toISOString() } } }] }));
 
   // A GitHub issue link (what the bookmarklet opens) fills the query from the issue.
   await page.goto(`./#/search?repo=${encodeURIComponent(REPO)}&issue=7`);
@@ -147,10 +147,10 @@ test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette
   expect(bookmark).toMatch(/^javascript:[^#]+$/); // no raw "#": a bookmark would end there
   await page.context().route("https://github.com/**", (route) => route.fulfill({ body: "<p>issue</p>", contentType: "text/html" }));
   const github = await page.context().newPage();
-  await github.goto("https://github.com/odin-e2e/fixture/issues/7");
-  await github.evaluate((h) => { const a = document.createElement("a"); a.href = h; a.id = "bm"; a.textContent = "Odin this"; document.body.append(a); }, bookmark);
+  await github.goto("https://github.com/allfather-e2e/fixture/issues/7");
+  await github.evaluate((h) => { const a = document.createElement("a"); a.href = h; a.id = "bm"; a.textContent = "Allfather this"; document.body.append(a); }, bookmark);
   const [opened] = await Promise.all([page.context().waitForEvent("page"), github.click("#bm")]);
-  expect(opened.url()).toMatch(/#\/search\?repo=odin-e2e\/fixture&issue=7$/);
+  expect(opened.url()).toMatch(/#\/search\?repo=allfather-e2e\/fixture&issue=7$/);
   await github.close();
   await opened.close();
 
@@ -160,7 +160,7 @@ test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette
   await page.keyboard.press("Enter");
   await expect(page).toHaveURL(/#\/benchmarks$/);
 
-  // Beat Odin: six files, one guess, then the reveal and the score.
+  // Beat Allfather: six files, one guess, then the reveal and the score.
   await page.goto("./#/explore?mode=game");
   await expect(page.locator(".choice")).toHaveCount(6);
   await page.locator(".choice").first().click();
@@ -177,27 +177,27 @@ test("sections that render after their data arrives still reveal on scroll", asy
 });
 
 test("asking for another repository mid-load cancels the first and loads the new one", async ({ page }) => {
-  await page.route(/odin-e2e\/missing/, (route) => route.fulfill({ status: 404, contentType: "application/json", body: "{}" }));
+  await page.route(/allfather-e2e\/missing/, (route) => route.fulfill({ status: 404, contentType: "application/json", body: "{}" }));
   // Slow the first repository's files down so the second request lands while it is loading.
-  await page.route("https://raw.githubusercontent.com/odin-e2e/fixture/**", async (route) => {
+  await page.route("https://raw.githubusercontent.com/allfather-e2e/fixture/**", async (route) => {
     await new Promise((r) => setTimeout(r, 1500));
     await route.fallback();
   });
   await page.goto(`./#/search?repo=${encodeURIComponent(REPO)}`);
   await expect(page.locator(".progress-text")).toBeVisible();
-  await page.evaluate(() => { location.hash = "#/search?repo=odin-e2e/missing"; });
+  await page.evaluate(() => { location.hash = "#/search?repo=allfather-e2e/missing"; });
   await expect(page.locator(".progress-text.error")).toContainText("Couldn't find");
 });
 
 test("pressing Enter on another repository mid-load switches to it", async ({ page }) => {
-  await page.route(/odin-e2e\/missing/, (route) => route.fulfill({ status: 404, contentType: "application/json", body: "{}" }));
-  await page.route("https://raw.githubusercontent.com/odin-e2e/fixture/**", async (route) => {
+  await page.route(/allfather-e2e\/missing/, (route) => route.fulfill({ status: 404, contentType: "application/json", body: "{}" }));
+  await page.route("https://raw.githubusercontent.com/allfather-e2e/fixture/**", async (route) => {
     await new Promise((r) => setTimeout(r, 4000));
     await route.fallback();
   });
   await page.goto(`./#/search?repo=${encodeURIComponent(REPO)}`);
   await expect(page.locator(".progress-text")).toBeVisible();
-  await page.fill("#repo-input", "odin-e2e/missing");
+  await page.fill("#repo-input", "allfather-e2e/missing");
   await expect(page.getByRole("button", { name: "Load", exact: true })).toBeEnabled();
   await page.press("#repo-input", "Enter");
   await expect(page.locator(".progress-text.error")).toContainText("Couldn't find");
@@ -205,13 +205,13 @@ test("pressing Enter on another repository mid-load switches to it", async ({ pa
 });
 
 test("a repository asked for while another is failing slowly still loads", async ({ page }) => {
-  await page.route("https://api.github.com/repos/odin-e2e/limited/**", (route) =>
+  await page.route("https://api.github.com/repos/allfather-e2e/limited/**", (route) =>
     route.fulfill({ status: 403, headers: { "x-ratelimit-remaining": "0", "x-ratelimit-reset": String(Math.floor(Date.now() / 1000) + 600) }, json: {} }));
-  await page.route(/jsdelivr\.(com|net)\/.*odin-e2e\/limited/, async (route) => {
+  await page.route(/jsdelivr\.(com|net)\/.*allfather-e2e\/limited/, async (route) => {
     await new Promise((r) => setTimeout(r, 1200));
     await route.fulfill({ status: 404, json: {} });
   });
-  await page.goto("./#/search?repo=odin-e2e/limited");
+  await page.goto("./#/search?repo=allfather-e2e/limited");
   await expect(page.locator(".progress-text")).toBeVisible();
   await page.fill("#repo-input", REPO);
   await page.press("#repo-input", "Enter");
@@ -228,9 +228,9 @@ test("the landing page shows a real example bug, with the fix marked", async ({ 
 test("the GPU reranker reorders the top results without downloading the browser's language model", async ({ page }) => {
   const languageModel: string[] = [];
   page.on("request", (r) => { if (/onnx|ort-wasm|transformers@/.test(r.url())) languageModel.push(r.url()); });
-  await page.route("https://rerank.odin-e2e.test/rerank/warm", (route) => route.fulfill({ status: 202, json: { warming: true } }));
+  await page.route("https://rerank.allfather-e2e.test/rerank/warm", (route) => route.fulfill({ status: 202, json: { warming: true } }));
   let boosted = "";
-  await page.route("https://rerank.odin-e2e.test/rerank", async (route) => {
+  await page.route("https://rerank.allfather-e2e.test/rerank", async (route) => {
     const { texts } = route.request().postDataJSON() as { texts: string[] };
     boosted = texts[1].split("\n")[0];
     const scores = texts.map((_, i) => (i === 1 ? 10 : 0));
@@ -278,7 +278,7 @@ test("Share card draws the top results as an image", async ({ page }) => {
   await page.locator("#demo-query").fill("load_config crashes with KeyError when the settings file is missing");
   await expect(page.locator("#search-app ol.hits .qual").first()).toHaveText("load_config");
   const [download] = await Promise.all([page.waitForEvent("download"), page.getByRole("button", { name: "Share card" }).click()]);
-  expect(download.suggestedFilename()).toBe("odin-odin-e2e-fixture.png");
+  expect(download.suggestedFilename()).toBe("allfather-allfather-e2e-fixture.png");
   const path = await download.path();
   const { statSync, copyFileSync } = await import("node:fs");
   expect(statSync(path).size).toBeGreaterThan(10_000);

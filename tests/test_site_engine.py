@@ -13,10 +13,10 @@ from pathlib import Path
 
 import pytest
 
-from odin.index.chunker import MODULE, chunk_file
+from allfather.index.chunker import MODULE, chunk_file
 
 ROOT = Path(__file__).resolve().parents[1]
-NODE = os.environ.get("ODIN_NODE") or shutil.which("node")
+NODE = os.environ.get("ALLFATHER_NODE") or shutil.which("node")
 if not (ROOT / "web/node_modules/web-tree-sitter").exists():
     NODE = None  # run `npm ci` in web/ first
 
@@ -86,8 +86,8 @@ def test_js_bm25_matches_python():
 
     import numpy as np
 
-    from odin.search.bm25 import BM25Index, Vocab, top_k
-    from odin.search.tokenize import code_counts
+    from allfather.search.bm25 import BM25Index, Vocab, top_k
+    from allfather.search.tokenize import code_counts
 
     units = [
         {"path": str(p.relative_to(ROOT)).replace("\\", "/"), **u}
@@ -132,12 +132,12 @@ def test_js_bm25_matches_python():
 RANK_QUERIES = [
     # a traceback through real files, a backticked name and a dotted path
     "EmbeddingStore.add corrupts rows\n\nTraceback (most recent call last):\n"
-    '  File "/home/dev/odin/src/odin/search/dense.py", line 88, in add\n'
+    '  File "/home/dev/allfather/src/allfather/search/dense.py", line 88, in add\n'
     "    self._keys.extend(keys)\n"
-    '  File "/home/dev/odin/src/odin/index/snapshot.py", line 12, in unit_key\n'
-    "ValueError: bad key\n\nCalling `truncate` first does not help; see odin.search.dense.",
+    '  File "/home/dev/allfather/src/allfather/index/snapshot.py", line 12, in unit_key\n'
+    "ValueError: bad key\n\nCalling `truncate` first does not help; see allfather.search.dense.",
     "tokenizer splits camelCase HTTPServerError incorrectly in `expand`",
-    "path_matches in src/odin/rank/mentions.py rejects Windows paths",
+    "path_matches in src/allfather/rank/mentions.py rejects Windows paths",
 ]
 
 
@@ -148,8 +148,8 @@ def _python_index(units):
 
     import numpy as np
 
-    from odin.search.bm25 import BM25Index, Vocab
-    from odin.search.tokenize import code_counts
+    from allfather.search.bm25 import BM25Index, Vocab
+    from allfather.search.tokenize import code_counts
 
     vocab = Vocab()
     paths = [u["path"] for u in units]
@@ -229,10 +229,17 @@ def _rank_parity(units: list[dict], queries: list[str], multilang: bool) -> None
 
     import numpy as np
 
-    from odin.rank.browser import FEATURES, FILE_FEATURES, SEMANTIC, extract, file_features, predict
-    from odin.rank.confidence import confidence_features
-    from odin.rank.features import issue_fields
-    from odin.rank.mentions import Mentions
+    from allfather.rank.browser import (
+        FEATURES,
+        FILE_FEATURES,
+        SEMANTIC,
+        extract,
+        file_features,
+        predict,
+    )
+    from allfather.rank.confidence import confidence_features
+    from allfather.rank.features import issue_fields
+    from allfather.rank.mentions import Mentions
 
     trees = ROOT / "web/src/assets/ranker.json"
     model = json.loads(trees.read_text()) if trees.exists() else {}
@@ -316,7 +323,7 @@ def test_js_static_embeddings_match_python(tmp_path):
     """The browser's static encoder (tokenizer, int8 model file, mean, normalize) matches Python."""
     import numpy as np
 
-    from odin.search.static import StaticEncoder, export_browser_model
+    from allfather.search.static import StaticEncoder, export_browser_model
 
     enc = StaticEncoder(quantize=True)
     model = tmp_path / "static.bin"
@@ -370,7 +377,7 @@ def test_js_static_embeddings_match_python(tmp_path):
 def test_vectorized_tree_scores_match_the_reference():
     import numpy as np
 
-    from odin.rank.browser import predict, predict_many
+    from allfather.rank.browser import predict, predict_many
 
     model = json.loads((ROOT / "web/src/assets/ranker.json").read_text())
     rng = np.random.default_rng(0)

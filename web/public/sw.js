@@ -6,13 +6,13 @@
 //    (GitHub, jsDelivr, Hugging Face) working without their cooperation.
 // 2. Build assets are content-hashed, so they are cached forever; pages and data are
 //    network-first with a cache fallback, so a revisit is instant and the site works offline.
-const CACHE = "odin-v2";
+const CACHE = "allfather-v1";
 
 self.addEventListener("install", () => self.skipWaiting());
 
 self.addEventListener("activate", (event) => {
   event.waitUntil((async () => {
-    for (const key of await caches.keys()) if (key.startsWith("odin-") && key !== CACHE) await caches.delete(key);
+    for (const key of await caches.keys()) if ((key.startsWith("odin-") || key.startsWith("allfather-")) && key !== CACHE) await caches.delete(key);
     await self.clients.claim();
   })());
 });

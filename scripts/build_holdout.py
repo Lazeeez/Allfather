@@ -10,9 +10,9 @@ from huggingface_hub import HfApi, hf_hub_download
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.dataset import REBENCH_SAMPLE  # noqa: E402
-from odin.eval.ground_truth import read_gold  # noqa: E402
-from odin.eval.holdout import (  # noqa: E402
+from allfather.eval.dataset import REBENCH_SAMPLE  # noqa: E402
+from allfather.eval.ground_truth import read_gold  # noqa: E402
+from allfather.eval.holdout import (  # noqa: E402
     ALLOWED,
     CHECKSUMS,
     GOLD,
@@ -21,11 +21,11 @@ from odin.eval.holdout import (  # noqa: E402
     SOURCE,
     sha256,
 )
-from odin.eval.provenance import provenance  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
 
 CUTOFF = "2025-09-01"
 IDENTITY_COLUMNS = ["instance_id", "repo", "base_commit", "created_at"]
-CONFIGS = ("odin-fast", "odin-max", "odin-escalation")
+CONFIGS = ("allfather-fast", "allfather-max", "allfather-escalation")
 
 
 def projects_already_used() -> dict[str, list[str]]:
@@ -77,7 +77,7 @@ def build_manifest(revision: str | None) -> int:
             "cutoff": CUTOFF,
             "selection": (
                 f"every instance created on or after {CUTOFF} whose project appears in no other "
-                "Odin training, dev or test data"
+                "Allfather training, dev or test data"
             ),
             "counts": {
                 "source_instances": len(rows),

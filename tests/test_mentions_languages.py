@@ -1,4 +1,4 @@
-from odin.rank.mentions import Mentions, module_name, path_matches
+from allfather.rank.mentions import Mentions, module_name, path_matches
 
 NODE_TRACE = """The theme toggle crashes:
 TypeError: Cannot read properties of undefined (reading 'mode')
@@ -114,7 +114,7 @@ def test_the_browser_parses_the_same():
     import pytest
 
     root = Path(__file__).resolve().parent.parent
-    node = os.environ.get("ODIN_NODE") or shutil.which("node")
+    node = os.environ.get("ALLFATHER_NODE") or shutil.which("node")
     if not node or not (root / "web/node_modules/web-tree-sitter").exists():
         pytest.skip("needs Node 24 and `npm ci` in web/")
     texts = [NODE_TRACE, FIREFOX_TRACE, JAVA_TRACE, GO_TRACE, RUST_TRACE, NODE_TRACE + JAVA_TRACE + GO_TRACE,

@@ -64,7 +64,7 @@ export const encodePath = (p: string): string => p.split("/").map(encodeURICompo
 export const githubUrl = (repo: string, branch: string, unit: { path: string; line: number }): string =>
   `https://github.com/${repo}/blob/${encodePath(branch)}/${encodePath(unit.path)}#L${unit.line}`;
 
-/** Test files, as in odin/index/snapshot.py::_is_test_path (they crowd out source code). */
+/** Test files, as in allfather/index/snapshot.py::_is_test_path (they crowd out source code). */
 export function isTestPath(path: string): boolean {
   const parts = path.split("/");
   const name = parts[parts.length - 1];

@@ -3,7 +3,7 @@ import hashlib
 import numpy as np
 import pytest
 
-from odin.search.dense import (
+from allfather.search.dense import (
     DenseIndex,
     EmbeddingStore,
     FusionParams,
@@ -11,8 +11,8 @@ from odin.search.dense import (
     max_by_group,
     token_budget_batches,
 )
-from odin.search.retriever import HybridRetriever, Query
-from odin.search.tokenize import code
+from allfather.search.retriever import HybridRetriever, Query
+from allfather.search.tokenize import code
 
 
 class HashingEncoder:
@@ -127,7 +127,7 @@ def test_fusion_survives_files_without_units():
 
 
 def test_dense_reparses_cached_blobs_whose_units_are_not_embedded(local_repo, tmp_path):
-    from odin.search.retriever import BM25Retriever
+    from allfather.search.retriever import BM25Retriever
 
     cache, first, _ = local_repo
     q = Query("q", "acme/pkg", first, "Session login verify password")

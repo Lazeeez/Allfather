@@ -8,7 +8,7 @@ Phase 6 plans to let the cheap cascade answer when it is confident and pass the 
 
 - **The general idea is well established.** Cheap-model-first cascades with a calibrated confidence threshold are published for LLM question answering, classification, judging and moderation.
 - **The retrieval version exists too.** Skipping or choosing a reranker per query, from a prediction of how hard the query is, is published.
-- **Odin already holds a small instance of it.** `ce-tune` measures skipping the reranker when the ranker's first candidate leads its second by a margin (`SKIP_MARGINS` in `src/odin/rank/ce_tune.py`).
+- **Allfather already holds a small instance of it.** `ce-tune` measures skipping the reranker when the ranker's first candidate leads its second by a margin (`SKIP_MARGINS` in `src/allfather/rank/ce_tune.py`).
 - **No paper found applies it to issue localization** as a ranker that abstains and hands over to an agent, with a measured accuracy-versus-cost curve. That is the gap phase 6 could fill. Five searches are not proof that it is empty.
 - **So the contribution can only be an application and a measurement, not a method.** It should be written up that way.
 
@@ -26,8 +26,8 @@ Phase 6 plans to let the cheap cascade answer when it is confident and pass the 
 
 ## What phase 6 would have to show to be worth writing up
 
-1. **A risk-coverage curve for the ranker alone:** if Odin answers only the most confident x% of issues, how accurate is it on those? Without a usable confidence signal there is nothing to escalate on.
-2. **The frontier:** accuracy against cost per issue as the threshold moves, between odin-fast on every issue and the expensive localizer on every issue, and whether any point beats both a random mix of the two and each alone.
+1. **A risk-coverage curve for the ranker alone:** if Allfather answers only the most confident x% of issues, how accurate is it on those? Without a usable confidence signal there is nothing to escalate on.
+2. **The frontier:** accuracy against cost per issue as the threshold moves, between allfather-fast on every issue and the expensive localizer on every issue, and whether any point beats both a random mix of the two and each alone.
 3. **Calibration that transfers:** a threshold chosen on dev data that still gives the promised accuracy on the sealed holdout, on projects never seen.
 4. **Baselines from the papers above:** at least the cascade of Dekoninck et al. and a plain margin threshold, so the result is placed against the known methods.
 

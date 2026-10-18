@@ -14,7 +14,7 @@ import json
 import random
 from collections import defaultdict
 
-from odin.eval.dataset import DATASETS, REBENCH_SAMPLE, _rows
+from allfather.eval.dataset import DATASETS, REBENCH_SAMPLE, _rows
 
 SEED = 0
 N_REPOS, N_TEST_REPOS, MIN_BUGS, MAX_BUGS = 150, 30, 20, 30

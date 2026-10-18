@@ -1,5 +1,5 @@
-name: Odin bug localization
-description: Comments on a new issue with the functions and files most likely to need the fix, ranked by Odin.
+name: Allfather bug localization
+description: Comments on a new issue with the functions and files most likely to need the fix, ranked by Allfather.
 author: Lazeeez
 branding:
   icon: search
@@ -24,9 +24,9 @@ runs:
         path: |
           ${{ github.action_path }}/.cache
           ~/.cache/huggingface
-        key: odin-${{ github.repository }}-${{ github.sha }}
-        restore-keys: odin-${{ github.repository }}-
-    - name: Install Odin
+        key: allfather-${{ github.repository }}-${{ github.sha }}
+        restore-keys: allfather-${{ github.repository }}-
+    - name: Install Allfather
       shell: bash
       run: uv sync --locked --project "$GITHUB_ACTION_PATH"
     - name: Rank and comment
@@ -34,6 +34,6 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
-        ODIN_TOP: ${{ inputs.top }}
+        ALLFATHER_TOP: ${{ inputs.top }}
         ISSUE: ${{ github.event.issue.number }}
-      run: uv run --project "$GITHUB_ACTION_PATH" python "$GITHUB_ACTION_PATH/scripts/odin_action.py" --repo "$GITHUB_REPOSITORY" --issue "$ISSUE" --sha "$GITHUB_SHA"
+      run: uv run --project "$GITHUB_ACTION_PATH" python "$GITHUB_ACTION_PATH/scripts/allfather_action.py" --repo "$GITHUB_REPOSITORY" --issue "$ISSUE" --sha "$GITHUB_SHA"

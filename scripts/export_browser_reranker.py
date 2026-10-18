@@ -9,7 +9,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.rank.cross_encoder import CrossEncoder  # noqa: E402
+from allfather.rank.cross_encoder import CrossEncoder  # noqa: E402
 
 
 def scorer(ce: CrossEncoder):
@@ -35,7 +35,7 @@ def scorer(ce: CrossEncoder):
 
 
 def samples(ce: CrossEncoder, n: int = 6) -> list[list[int]]:
-    tasks = ROOT / "results" / "odin-max" / "work" / "eval_tasks.jsonl"
+    tasks = ROOT / "results" / "allfather-max" / "work" / "eval_tasks.jsonl"
     out = []
     with tasks.open(encoding="utf-8") as handle:
         task = json.loads(handle.readline())

@@ -14,9 +14,13 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import browser_ltr as bl  # noqa: E402
 
-from odin.eval.metrics import paired_bootstrap  # noqa: E402
-from odin.eval.provenance import provenance  # noqa: E402
-from odin.rank.confidence import confidence_features, fit_logistic, predict_confidence  # noqa: E402
+from allfather.eval.metrics import paired_bootstrap  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
+from allfather.rank.confidence import (  # noqa: E402
+    confidence_features,
+    fit_logistic,
+    predict_confidence,
+)
 
 OUT = ROOT / "results" / "confidence"
 MODEL = ROOT / "web" / "src" / "assets" / "confidence.json"
@@ -41,7 +45,7 @@ def row(it, scores: np.ndarray) -> dict:
 
 
 def features(ranker_path: Path) -> int:
-    from odin.rank.browser import predict_many
+    from allfather.rank.browser import predict_many
 
     OUT.mkdir(parents=True, exist_ok=True)
     sys.modules["__main__"].Item = bl.Item

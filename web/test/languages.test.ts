@@ -11,7 +11,7 @@ describe("language census", () => {
   it("warns when most of the code is not Python, naming the languages", () => {
     const c = census(["src/app.tsx", "src/theme.ts", "src/button.tsx", "src/util.js", "scripts/build.py"]);
     expect(c.note()).toBe(
-      "Most of this repository is TypeScript (3 files), JavaScript (1 file). Odin reads Python only for now, so it searched just the 1 Python file; code in other languages isn't in these results.",
+      "Most of this repository is TypeScript (3 files), JavaScript (1 file). Allfather reads Python only for now, so it searched just the 1 Python file; code in other languages isn't in these results.",
     );
   });
 
@@ -27,8 +27,8 @@ describe("language census", () => {
   });
 
   it("explains a repository with no Python at all", () => {
-    expect(census(["main.go", "util.go", "README.md"]).noPython()).toBe("No Python files found: this repository is Go (2 files). Odin reads Python only for now.");
-    expect(census(["README.md"]).noPython()).toBe("No Python files found. Odin searches Python code only for now.");
+    expect(census(["main.go", "util.go", "README.md"]).noPython()).toBe("No Python files found: this repository is Go (2 files). Allfather reads Python only for now.");
+    expect(census(["README.md"]).noPython()).toBe("No Python files found. Allfather searches Python code only for now.");
   });
 });
 

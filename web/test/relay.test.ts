@@ -4,7 +4,7 @@ type Relay = { fetch(request: Request, env: Record<string, string>): Promise<Res
 
 const relay = ((await import("../../proxy/cloudflare-worker.js" as string)) as { default: Relay }).default;
 
-const SITE = "https://odin.example";
+const SITE = "https://allfather.example";
 const ENV = { ALLOWED_ORIGINS: SITE };
 
 const upstream = () => {

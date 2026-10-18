@@ -138,7 +138,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
             {TITLE.map((w, i) => <span key={i} class="word" aria-hidden="true" style={{ "--i": i }}>{w} </span>)}
           </h1>
           <p class="lede intro soft" style={{ "--d": ".3s" }}>
-            Paste an issue, a stack trace or a one-line description. Odin parses the repository into functions and ranks every one with BM25,
+            Paste an issue, a stack trace or a one-line description. Allfather parses the repository into functions and ranks every one with BM25,
             learned rankers and code embeddings, showing the evidence behind each result.
           </p>
           <div class="intro" style={{ "--d": ".6s" }}><QuickStart /></div>
@@ -150,14 +150,14 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         <Divider />
         <blockquote>
           <p>“Wits must he have who wanders wide.”</p>
-          <cite>Hávamál, the sayings of Odin</cite>
+          <cite>Hávamál, the sayings of Allfather</cite>
         </blockquote>
       </section>
 
       <section class="section">
         <div class="container">
           <div class="reveal">
-            <p class="kicker">Why Odin</p>
+            <p class="kicker">Why Allfather</p>
             <h2>Bug triage without the grep.</h2>
             <p class="section-lede">A ranking cascade over every function in the repository: lexical retrieval, learned ranking and semantic similarity, computed on your device.</p>
           </div>
@@ -226,7 +226,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         <div class="container narrow center reveal">
           <Icon name="tree" />
           <h2>Send the ravens to your repository.</h2>
-          <a class="btn primary large sheen" href={href("search")}>Open Odin</a>
+          <a class="btn primary large sheen" href={href("search")}>Open Allfather</a>
         </div>
       </section>
     </div>

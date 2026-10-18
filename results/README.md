@@ -4,10 +4,10 @@ Every number in the top-level README comes from a file in this folder or from `w
 
 ## What a result file holds
 
-`<retriever>_<level>_lite_test.json`, written by `odin eval`:
+`<retriever>_<level>_lite_test.json`, written by `allfather eval`:
 
 - `summary`: the metrics (recall@k, hit@k, all@k, MRR), 95% bootstrap intervals, the number of issues scored (`n`) and skipped (`skipped_no_target`), latency and index statistics, and a per-repository breakdown.
-- `per_instance`: for each issue, the gold locations, the ranked list and the rank of the first gold item. `odin compare A.json B.json` runs the paired bootstrap from these, so any significance claim can be recomputed from a clone.
+- `per_instance`: for each issue, the gold locations, the ranked list and the rank of the first gold item. `allfather compare A.json B.json` runs the paired bootstrap from these, so any significance claim can be recomputed from a clone.
 - `provenance`: git commit, library versions, hashes of the model files and the command line.
 
 Function-level files score 291 of the 300 Lite issues: the 9 whose fix touches only module-level code have no function or class target and are skipped. File-level files score all 300.
@@ -32,7 +32,7 @@ Function-level files score 291 of the 300 Lite issues: the 9 whose fix touches o
 | `reproductions/swerank-embed-small_lite_2026-10-14.json` | SweRankEmbed-Small reproduced with its authors' corpora and evaluator: sources, settings, the check against their unmodified script, and the rankings |
 | `reproductions/swerank-embed-large_lite_2026-10-14.json`, `reproductions/swerank-llm-small_lite_2026-10-14.json`, `reproductions/swerank-llm-large_lite_2026-10-14.json` | SweRank's 7B retriever and its 7B and 32B rerankers reproduced on PACE with the authors' pipeline: sources, revisions, environment changes, hardware, and the top 100 for each of the 274 issues |
 | `runs/swerank-embed-small-lite-pace/result.json` | the same manifest run on a PACE L40S: identical metrics to the laptop run, the first check that the cluster pipeline gives the same answers |
-| `runs/NAME/result.json` | a manifest run, verified and scored by `odin import-run` ([ADR 0015](../docs/decisions/0015-manifest-runs.md)). `swerank-embed-small-lite` is SweRankEmbed-Small inside Odin's index |
+| `runs/NAME/result.json` | a manifest run, verified and scored by `allfather import-run` ([ADR 0015](../docs/decisions/0015-manifest-runs.md)). `swerank-embed-small-lite` is SweRankEmbed-Small inside Allfather's index |
 | `perf/unit_slots_2026-10-13.json` | unit slots and distinct unit texts over the evaluated snapshots (`benchmarks/count_unit_slots.py`) |
 | `ties/*_lite_test.json` | all 17 rows run again after ties at a cut-off were made deterministic ([ADR 0016](../docs/decisions/0016-deterministic-ties.md)): 33 of 5,019 rankings changed, no metric changed. The README check reads these first |
 | `parity_pinned_2026-10-13b.json` | the pinned parity check after that fix: 46 of 46 top-10 lists identical. `parity_pinned.json` is the run before it |

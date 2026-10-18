@@ -1,4 +1,4 @@
-from odin.eval.protocols import (
+from allfather.eval.protocols import (
     cosil_gold,
     cosil_names,
     locagent_acc_at_k,

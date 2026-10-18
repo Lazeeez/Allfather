@@ -2,20 +2,20 @@
 
 Target claim, once the work is done:
 
-> Odin localizes bugs with near-agent accuracy at a small fraction of an agent's cost and latency, holds up on projects it has never seen, and measurably improves downstream issue resolution.
+> Allfather localizes bugs with near-agent accuracy at a small fraction of an agent's cost and latency, holds up on projects it has never seen, and measurably improves downstream issue resolution.
 
-**Reframed target, 2026-10-13. A hypothesis, not a result.** SweRank already published the claim that ranking matches agents at a fraction of their cost, with better numbers than Odin's ([docs/comparison.md](docs/comparison.md)). What the measurements so far suggest Odin could claim instead, for odin-fast only:
+**Reframed target, 2026-10-13. A hypothesis, not a result.** SweRank already published the claim that ranking matches agents at a fraction of their cost, with better numbers than Allfather's ([docs/comparison.md](docs/comparison.md)). What the measurements so far suggest Allfather could claim instead, for allfather-fast only:
 
-> odin-fast (BM25, the 0.5B `jina-code-embeddings-0.5b` embedding model, a LambdaMART ranker and two LoRA adapters on the 0.6B `Qwen3-Reranker-0.6B`) localizes bugs at function level as accurately as the agents of the LocAgent paper running Claude 3.5 Sonnet, on a 6 GB laptop GPU, for about a quarter of a cent per issue, and keeps that accuracy on issues created after every one of its models was published.
+> allfather-fast (BM25, the 0.5B `jina-code-embeddings-0.5b` embedding model, a LambdaMART ranker and two LoRA adapters on the 0.6B `Qwen3-Reranker-0.6B`) localizes bugs at function level as accurately as the agents of the LocAgent paper running Claude 3.5 Sonnet, on a 6 GB laptop GPU, for about a quarter of a cent per issue, and keeps that accuracy on issues created after every one of its models was published.
 
 - It is not smaller than every published ranking system: SweRankEmbed-Small is 137M parameters. It is smaller than SweRank's 7B retriever and its 7B and 32B rerankers, and those are the comparisons to name.
-- It says nothing about odin-max, which will use large models.
+- It says nothing about allfather-max, which will use large models.
 - The last clause is untested: nothing has been evaluated on the sealed holdout.
-- The README keeps stating only what is measured. The wording is revisited after the SweRank reproduction explains the gap between its paper and its score in Odin's index, and the owner sees the proposed sentence before it goes into the README.
+- The README keeps stating only what is measured. The wording is revisited after the SweRank reproduction explains the gap between its paper and its score in Allfather's index, and the owner sees the proposed sentence before it goes into the README.
 
-**odin-max target, 2026-10-15. A target, not a result.** The highest accuracy that can be measured on the sealed holdout, reported with its cost per issue. On Lite, for comparison with published work, the aim is SweRank's level (88.7% function Acc@10 under LocAgent's protocol, reproduced on PACE) at a fraction of its compute. Not a promise of 90 on every metric: top-1 and all-locations metrics are bounded by ambiguous issues and multi-location fixes for every published system.
+**allfather-max target, 2026-10-15. A target, not a result.** The highest accuracy that can be measured on the sealed holdout, reported with its cost per issue. On Lite, for comparison with published work, the aim is SweRank's level (88.7% function Acc@10 under LocAgent's protocol, reproduced on PACE) at a fraction of its compute. Not a promise of 90 on every metric: top-1 and all-locations metrics are bounded by ambiguous issues and multi-location fixes for every published system.
 
-Odin will ship two named operating points on one accuracy-versus-cost frontier: **odin-fast**, the current cascade, and **odin-max**, the best accuracy at any compute, with the phase 6 escalation curve between them.
+Allfather will ship two named operating points on one accuracy-versus-cost frontier: **allfather-fast**, the current cascade, and **allfather-max**, the best accuracy at any compute, with the phase 6 escalation curve between them.
 
 ## Status
 
@@ -24,24 +24,24 @@ Phases are worked in this order, with a report to the owner after each.
 | Order | Phase | Deliverable | Needs | Status |
 |---|---|---|---|---|
 | 1 | 0. Audit | [docs/audit-2026-10.md](docs/audit-2026-10.md), this file, result files in the repo, the rate-limit fix | laptop | done; the follow-up decisions are tracked below |
-| 1b | Sealed holdout | `data/holdout/`, `data/gold/odin_holdout.jsonl`, the guard in `odin eval`, [ADR 0013](docs/decisions/0013-sealed-holdout.md) | laptop | done; nothing evaluated on it |
+| 1b | Sealed holdout | `data/holdout/`, `data/gold/odin_holdout.jsonl`, the guard in `allfather eval`, [ADR 0013](docs/decisions/0013-sealed-holdout.md) | laptop | done; nothing evaluated on it |
 | 2 | 1. Comparison with published systems | `eval/protocols.py`, `docs/comparison.md`, README section; baseline reproductions as PACE bundles; ends with the escalation novelty search | laptop, PACE for reproductions | done: LocAgent and CoSIL protocols, [docs/comparison.md](docs/comparison.md), the [novelty search](docs/novelty-escalation.md); SweRank's four models reproduced (137M on the laptop, 7B and 32B on PACE). Other systems remain reported numbers |
 | 3 | 2. Cost and latency of the full cascade | per-stage timings, dollars per issue, accuracy-vs-cost chart | laptop now, PACE as a second hardware column | laptop done: [docs/cost.md](docs/cost.md); the cluster column waits for PACE |
 | 4 | 3. Error analysis | `docs/error-analysis.md`, labelled misses | laptop, owner labels the residue | measured on the validation split: [docs/error-analysis.md](docs/error-analysis.md); the 46 misses await the owner's labels |
 | 4 | 4. Contamination study | `docs/contamination.md` | laptop | not started |
 | any time | 9. Hosting and presentation | one Cloudflare Worker serving the site and the relay on allfather.dev, a redirect from GitHub Pages, [docs/deploy.md](docs/deploy.md), README restructure | the domain's zone in the deploying Cloudflare account | live on https://allfather.dev since 2026-10-14; since 2026-10-16 also a GPU reranker on Modal ([ADR 0021](docs/decisions/0021-website-server-reranker.md), [0026](docs/decisions/0026-skip-browser-language-model.md)), six languages ([ADR 0025](docs/decisions/0025-more-languages.md)) and a README brought up to date; GitHub Pages still serves the old address until the owner approves the redirect |
-| 5 | 11. Accuracy track | odin-max: levers ranked from the error analysis, one ablation row each | PACE allocation | started: lever 1, a 4B LoRA reranker, adopted for odin-max ([ADR 0020](docs/decisions/0020-odin-max-larger-reranker.md)); the 8B base is next; paused while the website is the priority |
-| 6 | 6. Confidence-based escalation | selective-prediction curves, escalation with a self-hosted model, the frontier between odin-fast and odin-max | PACE | not started |
-| 7 | 7. Downstream issue resolution | resolve rate: baseline vs odin-fast vs odin-max vs oracle localization | PACE, WSL for the harness if Apptainer fails | not started |
+| 5 | 11. Accuracy track | allfather-max: levers ranked from the error analysis, one ablation row each | PACE allocation | started: lever 1, a 4B LoRA reranker, adopted for allfather-max ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next; paused while the website is the priority |
+| 6 | 6. Confidence-based escalation | selective-prediction curves, escalation with a self-hosted model, the frontier between allfather-fast and allfather-max | PACE | not started |
+| 7 | 7. Downstream issue resolution | resolve rate: baseline vs allfather-fast vs allfather-max vs oracle localization | PACE, WSL for the harness if Apptainer fails | not started |
 | 8 | 5. Harder and broader benchmarks | leak-free Verified, a non-SWE-bench Python benchmark, Java, both operating points | PACE | partly: the website's pipeline on SWE-bench Multilingual and SWE-PolyBench in Java, JavaScript, TypeScript, Go and Rust ([ADR 0025](docs/decisions/0025-more-languages.md)); leak-free Verified and the GPU pipeline beyond Python not started |
 | 9 | 8. A running system | incremental index, GitHub Action, online evaluation | laptop | partly: online evaluation runs nightly on fixed bugs in six languages ([ADR 0023](docs/decisions/0023-live-accuracy.md)); incremental index and GitHub Action not started |
 | 10 | 10. External validation | technical report, Hugging Face release, posts | everything above | not started |
 
 ## Ground rules
 
-1. Never tune on a test set. The headline claims rest on the sealed holdout, which only the final odin-fast, odin-max and escalation configurations touch, once each per level ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). Lite stays for comparison with published work and is run once per final configuration; any new knob is tuned on data disjoint from what it is evaluated on, and a new dev split is committed with its definition.
+1. Never tune on a test set. The headline claims rest on the sealed holdout, which only the final allfather-fast, allfather-max and escalation configurations touch, once each per level ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). Lite stays for comparison with published work and is run once per final configuration; any new knob is tuned on data disjoint from what it is evaluated on, and a new dev split is committed with its definition.
 2. Every test-set evaluation is appended to [results/test-evals.log](results/test-evals.log), and write-ups report how many there were.
-3. Every claim gets a paired bootstrap (`odin compare`): Δ, 95% CI, p-value, wins and losses. A result that is not significant is reported as such.
+3. Every claim gets a paired bootstrap (`allfather compare`): Δ, 95% CI, p-value, wins and losses. A result that is not significant is reported as such.
 4. Every result file carries provenance: git commit, library versions, model hashes, command line.
 5. For anything with a choice, the selection rule is written in the ADR before the results are looked at.
 6. Results are never overwritten. A superseded number keeps its file and is marked where it is cited.
@@ -61,7 +61,7 @@ Heavy jobs run on Georgia Tech PACE. The owner submits them and brings results b
 - Every job has a `--local` mode that runs the same code path on a few issues on the laptop, with a small stand-in model where needed, and is tested before hand-off.
 - Jobs are resumable and idempotent per issue: a rerun skips finished issues, and a killed job loses at most the issue in progress.
 - A run writes one self-describing directory: provenance (commit, manifest hash, library versions, model hashes, GPU type, node, timings) and a checksum file, copied off scratch at the end.
-- `odin import-run <dir>` verifies checksums and provenance against the repository. Only imported runs are used.
+- `allfather import-run <dir>` verifies checksums and provenance against the repository. Only imported runs are used.
 - SWE-bench environment images are tried through Apptainer first. If that fails, patches are generated on PACE and the evaluation harness runs on the laptop under WSL.
 
 ## Phase 11: accuracy track
@@ -80,7 +80,7 @@ Start from the phase 3 error analysis, rank the levers by how many misses each c
 | 8. Ensembling | learned or dev-tuned fusion of the strongest stages |
 | 9. Multi-location output | predict how many locations to return, optimized for all@k |
 
-Each lever is an ablation on top of the previous best, with a paired bootstrap and its added GPU-seconds and latency on the cost chart. A lever that is not significant on dev stops there and is recorded as a negative result. odin-max is also reported on the sealed holdout, which is the post-cutoff issue set of the contamination study, and under each published system's own protocol.
+Each lever is an ablation on top of the previous best, with a paired bootstrap and its added GPU-seconds and latency on the cost chart. A lever that is not significant on dev stops there and is recorded as a negative result. allfather-max is also reported on the sealed holdout, which is the post-cutoff issue set of the contamination study, and under each published system's own protocol.
 
 ## Decisions on record
 
@@ -101,14 +101,14 @@ Each lever is an ablation on top of the previous best, with a paired bootstrap a
 | 2026-10-13 | Ties at a top-k cut-off are broken by index in Python as in the browser; all 17 Lite rows were re-run and no metric changed ([ADR 0016](docs/decisions/0016-deterministic-ties.md)). |
 | 2026-10-13 | The error analysis uses the 250-issue validation split, not Lite. |
 | 2026-10-13 | The headline claim is reframed as a hypothesis in this file; the README changes only after the holdout result and the owner's review of the sentence. |
-| 2026-10-14 | odin-fast is frozen and evaluated on the holdout only after the SweRank reproduction and the cheap phase 11 levers are decided on validation; the contamination study gets its own 73-issue post-cutoff set; a final holdout run may report its stages as pre-declared by-products ([ADR 0017](docs/decisions/0017-holdout-freeze-and-contamination-set.md)). |
-| 2026-10-14 | Path-aware embeddings are not adopted for odin-fast: +3.2 points of recall@10 for the hybrid retriever on dev (p = 0.001), but +1.4 for the full cascade on validation (p = 0.164) ([ADR 0018](docs/decisions/0018-file-path-in-embedded-text.md)). |
-| 2026-10-14 | odin-fast's rankers are trained on 120 more projects: +0.7 points of function recall@10 on held-out projects (p = 0.002), and the full cascade is not worse on validation ([ADR 0019](docs/decisions/0019-more-ranker-training-data.md)). |
-| 2026-10-14 | odin-max (phase 11) starts on PACE after the SweRank reproductions finish. Its first lever is a larger reranker (4B, then 8B) trained on more data, reranking the top 50. |
-| 2026-10-14 | CC-BY-NC components are acceptable for odin-max, so SweRank's models may be used as parts; odin-max is then non-commercial, as odin-fast already is through its embedding model. |
+| 2026-10-14 | allfather-fast is frozen and evaluated on the holdout only after the SweRank reproduction and the cheap phase 11 levers are decided on validation; the contamination study gets its own 73-issue post-cutoff set; a final holdout run may report its stages as pre-declared by-products ([ADR 0017](docs/decisions/0017-holdout-freeze-and-contamination-set.md)). |
+| 2026-10-14 | Path-aware embeddings are not adopted for allfather-fast: +3.2 points of recall@10 for the hybrid retriever on dev (p = 0.001), but +1.4 for the full cascade on validation (p = 0.164) ([ADR 0018](docs/decisions/0018-file-path-in-embedded-text.md)). |
+| 2026-10-14 | allfather-fast's rankers are trained on 120 more projects: +0.7 points of function recall@10 on held-out projects (p = 0.002), and the full cascade is not worse on validation ([ADR 0019](docs/decisions/0019-more-ranker-training-data.md)). |
+| 2026-10-14 | allfather-max (phase 11) starts on PACE after the SweRank reproductions finish. Its first lever is a larger reranker (4B, then 8B) trained on more data, reranking the top 50. |
+| 2026-10-14 | CC-BY-NC components are acceptable for allfather-max, so SweRank's models may be used as parts; allfather-max is then non-commercial, as allfather-fast already is through its embedding model. |
 | 2026-10-13 | Where a baseline reports results with an open model, it is reproduced on PACE with the same model in preference to quoting the paper. |
 
 ## Constraints
 
 - The laptop GPU is an RTX 4050 (6 GB). Cross-encoder training and a Lite run fit; anything larger goes to PACE.
-- Where agents beat Odin, the write-up says so plainly.
+- Where agents beat Allfather, the write-up says so plainly.

@@ -25,9 +25,9 @@ const SOURCES: Record<Dataset, string> = { lite: "data/issues", languages: "data
 
 const OUTCOMES: [Outcome, string][] = [
   ["", "All bugs"],
-  ["first", "Odin ranks the fix #1"],
+  ["first", "Allfather ranks the fix #1"],
   ["rescued", "Only the smarter stages find it"],
-  ["missed", "Odin misses it"],
+  ["missed", "Allfather misses it"],
 ];
 
 const fixUrl = (id: string, repo: string) => `https://github.com/${repo}/pull/${id.split("-").pop()}`;
@@ -59,9 +59,9 @@ const loadIssue = (dataset: Dataset, id: string) => {
 /** One sentence a newcomer can read: how the first and the last stage did on this bug. */
 function verdict(first: number | null, last: number | null, best: { name: string; rank: number } | null, unit: string, pipeline: string): string {
   if (last === 1 && first === 1) return `An easy one: even plain keyword search put the ${unit} first.`;
-  if (last === 1 && first == null) return `Plain keyword search didn't find the ${unit} at all. Odin's ${pipeline} put it first.`;
-  if (last === 1) return `Plain keyword search had the ${unit} at #${first}. Odin's ${pipeline} lifted it to #1.`;
-  if (last != null && first == null) return `Plain keyword search missed the ${unit}. Odin's ${pipeline} found it at #${last}.`;
+  if (last === 1 && first == null) return `Plain keyword search didn't find the ${unit} at all. Allfather's ${pipeline} put it first.`;
+  if (last === 1) return `Plain keyword search had the ${unit} at #${first}. Allfather's ${pipeline} lifted it to #1.`;
+  if (last != null && first == null) return `Plain keyword search missed the ${unit}. Allfather's ${pipeline} found it at #${last}.`;
   if (last != null && first != null && last < first) return `Keyword search had the ${unit} at #${first}; the ${pipeline} lifted it to #${last}.`;
   if (last != null) return `Keyword search already had the ${unit} at #${first}; the ${pipeline} has it at #${last}.`;
   if (best) return `A miss for the ${pipeline}, though “${best.name}” had the ${unit} at #${best.rank}.`;

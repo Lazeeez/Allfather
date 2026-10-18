@@ -2,7 +2,7 @@
 
     uv run python scripts/export_site.py
 
-Reads `results/*_lite_test.json` (written by `odin eval`) and writes `web/public/data/*.json`.
+Reads `results/*_lite_test.json` (written by `allfather eval`) and writes `web/public/data/*.json`.
 The site is static: it replays these results, and its live search downloads and indexes
 repositories in the visitor's browser, so it can be hosted anywhere without a server.
 """
@@ -12,8 +12,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from odin.eval.dataset import load_instances
-from odin.eval.metrics import metric_values, paired_bootstrap, score
+from allfather.eval.dataset import load_instances
+from allfather.eval.metrics import metric_values, paired_bootstrap, score
 
 RESULTS = Path("results")
 OUT = Path("web/public/data")

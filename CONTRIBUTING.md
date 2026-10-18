@@ -24,8 +24,8 @@ CI runs the same checks.
 ## Rules that are not negotiable
 
 1. **Nothing is tuned on a test set.** Settings are chosen on the dev split or by project-grouped cross-validation. SWE-bench Lite and the 30 unseen projects are for reporting only, and every evaluation on them is appended to [results/test-evals.log](results/test-evals.log).
-2. **The holdout is sealed.** `odin eval --dataset holdout` runs only for the configurations in `data/holdout/allowed.json`, once each. No holdout project may enter a training or dev set. See [ADR 0013](docs/decisions/0013-sealed-holdout.md).
-3. **A claim needs a paired bootstrap.** `odin compare a.json b.json` prints the difference, its 95% interval, the p-value, and wins and losses. A difference that is not significant is reported as not significant.
+2. **The holdout is sealed.** `allfather eval --dataset holdout` runs only for the configurations in `data/holdout/allowed.json`, once each. No holdout project may enter a training or dev set. See [ADR 0013](docs/decisions/0013-sealed-holdout.md).
+3. **A claim needs a paired bootstrap.** `allfather compare a.json b.json` prints the difference, its 95% interval, the p-value, and wins and losses. A difference that is not significant is reported as not significant.
 4. **Results are never overwritten.** A new run writes a new file; result files carry their provenance (commit, library versions, model hashes, command line).
 5. **Numbers come from files.** A number in the README or an ADR must be recomputable from a committed result file. A number from another system cites its paper's table, or says it was reproduced here.
 6. **Latency names its hardware.**

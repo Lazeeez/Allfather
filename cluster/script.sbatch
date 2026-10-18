@@ -1,9 +1,9 @@
 #!/bin/bash
 . "$SLURM_SUBMIT_DIR/cluster/common.sh"
 stamp() { echo "[$(date +%T)] $*"; }
-SHARED_CACHE="$ODIN_SCRATCH/cache"
-OUT="$ODIN_RESULTS/script-$SLURM_JOB_ID"
-WORK="${TMPDIR:-/tmp}/odin-$USER-$SLURM_JOB_ID"
+SHARED_CACHE="$ALLFATHER_SCRATCH/cache"
+OUT="$ALLFATHER_RESULTS/script-$SLURM_JOB_ID"
+WORK="${TMPDIR:-/tmp}/allfather-$USER-$SLURM_JOB_ID"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 stamp "copying the repository and the cache to node-local disk at $WORK"
 mkdir -p "$WORK/.cache" "$OUT"
@@ -20,6 +20,6 @@ finish() {
 trap finish EXIT
 cd "$WORK"
 export PATH="$ROOT/.venv/bin:$PATH"
-stamp "running: $ODIN_COMMAND"
-bash -c "$ODIN_COMMAND"
+stamp "running: $ALLFATHER_COMMAND"
+bash -c "$ALLFATHER_COMMAND"
 stamp "finished"

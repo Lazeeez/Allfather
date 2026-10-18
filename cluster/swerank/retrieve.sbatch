@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 SW="$HOME/scratch/swerank"
-ODIN="$HOME/scratch/Odin"
+REPO="$HOME/scratch/Odin"
 export HF_HOME="$HOME/scratch/odin-cache/huggingface" HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
 export PYTHONUTF8=1 PYTHONPATH="$SW/repo/src"
 PY="$SW/env/bin/python"
@@ -16,7 +16,7 @@ if [ "$MODE" = "authors" ]; then
     --model "$MODEL" --batch_size "${BATCH:-32}" --output_file "$OUT/output.json" \
     --results_file "$OUT/results.json" --eval_mode default --split test --add_prefix --level function
 else
-  "$PY" "$ODIN/scripts/swerank_cached_retrieval.py" --dataset_dir "$SW/$DATA" --model "$MODEL" \
+  "$PY" "$REPO/scripts/swerank_cached_retrieval.py" --dataset_dir "$SW/$DATA" --model "$MODEL" \
     --revision "$REVISION" --batch_size "${BATCH:-32}" --cache "$SW/cache/$(basename "$MODEL")" \
     --results_file "$OUT/results.json"
 fi

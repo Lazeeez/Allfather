@@ -2,7 +2,7 @@ import subprocess
 
 import pytest
 
-from odin.repos import RepoCache
+from allfather.repos import RepoCache
 
 
 def _git(repo, *args):

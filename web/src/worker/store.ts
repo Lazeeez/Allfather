@@ -1,6 +1,6 @@
 // A tiny IndexedDB key-value store. Every call degrades to "no cache" instead of failing:
 // private browsing, a full disk or a missing API must never break search.
-const DB_NAME = "odin-lite";
+const DB_NAME = "allfather-lite";
 const STORES = ["repos", "vectors", "meta"] as const;
 export type StoreName = (typeof STORES)[number];
 

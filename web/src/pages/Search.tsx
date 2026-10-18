@@ -123,7 +123,7 @@ function Vote({ hit, rank, info, rating }: { hit: WireHit; rank: number; info: R
     if (!ok) setState({ session: rating.session, vote, failed: true });
   };
   return (
-    <span class="vote" title="Is this where the fix goes? Odin records the repository, this function and its rank, never your bug report.">
+    <span class="vote" title="Is this where the fix goes? Allfather records the repository, this function and its rank, never your bug report.">
       <span class="vote-q">{current ? (current.failed ? "Not saved" : "Thanks") : "Right place?"}</span>
       <button type="button" class={`vote-btn${current?.vote === 1 ? " on" : ""}`} aria-pressed={current?.vote === 1} aria-label="Yes, the fix goes here" onClick={() => cast(1)}>👍</button>
       <button type="button" class={`vote-btn${current?.vote === -1 ? " on" : ""}`} aria-pressed={current?.vote === -1} aria-label="No, not here" onClick={() => cast(-1)}>👎</button>
@@ -462,7 +462,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
 
   const [carding, setCarding] = useState<"" | "busy" | "shared" | "downloaded" | "failed">("");
   const STAGE_TEXT: Record<string, string> = {
-    server: "Ranked in the browser, re-read by Odin's fine-tuned reranker on a GPU",
+    server: "Ranked in the browser, re-read by Allfather's fine-tuned reranker on a GPU",
     rerank: "Ranked in the browser, reranked by a small language model",
     semantic: "Ranked in the browser by keywords and meaning",
     instant: "Ranked in the browser by keywords and the learned ranker",
@@ -499,7 +499,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
     <div class="container app" id="search-app">
       <PageHero kicker="Search" title="Search a repository">
         <p>Downloads a public repository in Python, JavaScript, TypeScript, Go, Java or Rust into this tab, parses it with Tree-sitter (WebAssembly) and ranks every function against your bug report with learned rankers.<span class="phone-hide">{import.meta.env.VITE_RERANK_SERVER
-          ? " The search runs in this tab; with the GPU reranker on, your bug report and the top 50 functions are also sent to Odin's server to be re-read."
+          ? " The search runs in this tab; with the GPU reranker on, your bug report and the top 50 functions are also sent to Allfather's server to be re-read."
           : " The search runs entirely in this tab: your bug report is never sent anywhere."}</span></p>
       </PageHero>
 
@@ -604,7 +604,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
                 <span class="track" aria-hidden="true" />Language-model rerank
               </label>
               <label class="switch" hidden={!w.stages?.rerank || !w.serverReady || !semanticOn}
-                title="Send the bug report and the top 50 functions to Odin's GPU server, where its fine-tuned reranker re-reads them">
+                title="Send the bug report and the top 50 functions to Allfather's GPU server, where its fine-tuned reranker re-reads them">
                 <input type="checkbox" checked={serverOn} onChange={(e) => { const on = e.currentTarget.checked; setServerOn(on); save("gpuRerank", on); }} />
                 <span class="track" aria-hidden="true" />GPU reranker
               </label>
@@ -643,7 +643,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
             How accurate is this? <a href={href("benchmarks")}>See the benchmarks</a>.
             {feedbackEnabled && " Searches are counted by repository, and 👍/👎 records the function you rated and its rank. If it came from a public GitHub issue, that issue's link is kept with your vote."}
             {w.serverReady && semanticOn && serverOn
-              ? " With the GPU reranker on, your bug report and the top 50 functions are sent to Odin's server to be scored; only the scores are kept, for a day, under a hash of the request."
+              ? " With the GPU reranker on, your bug report and the top 50 functions are sent to Allfather's server to be scored; only the scores are kept, for a day, under a hash of the request."
               : " Your bug report never leaves this tab."}
           </p>
         </>

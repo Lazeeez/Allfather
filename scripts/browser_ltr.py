@@ -27,12 +27,12 @@ from pathlib import Path
 
 import numpy as np
 
-from odin.cli import _load_eval_set
-from odin.eval.metrics import aggregate, score
-from odin.eval.provenance import provenance
-from odin.index.chunker import MODULE, chunk_file
-from odin.index.snapshot import unit_key, unit_text
-from odin.rank.browser import (
+from allfather.cli import _load_eval_set
+from allfather.eval.metrics import aggregate, score
+from allfather.eval.provenance import provenance
+from allfather.index.chunker import MODULE, chunk_file
+from allfather.index.snapshot import unit_key, unit_text
+from allfather.rank.browser import (
     FEATURES,
     FILE_FEATURES,
     POOL,
@@ -42,11 +42,11 @@ from odin.rank.browser import (
     file_features,
     predict,
 )  # fmt: skip
-from odin.rank.features import _logrank, issue_fields
-from odin.rank.ltr import LGBM_PARAMS, RankingData
-from odin.rank.mentions import Mentions
-from odin.search.retriever import BM25Retriever, Query
-from odin.search.static import StaticEncoder, export_browser_model
+from allfather.rank.features import _logrank, issue_fields
+from allfather.rank.ltr import LGBM_PARAMS, RankingData
+from allfather.rank.mentions import Mentions
+from allfather.search.retriever import BM25Retriever, Query
+from allfather.search.static import StaticEncoder, export_browser_model
 
 STATIC_MODEL, STATIC_TOKENS = "minishlab/potion-code-16M", 512  # chosen by CV (ADR 0011)
 EMBEDDER = "sentence-transformers/all-MiniLM-L6-v2"
@@ -161,7 +161,7 @@ class Snapshots:
 
 
 def multilang_items(split: str) -> tuple[list, dict[str, str]]:
-    from odin.eval.ground_truth import read_gold
+    from allfather.eval.ground_truth import read_gold
 
     gold = read_gold(Path("data/gold") / f"{MULTILANG_SPLITS[split]}.jsonl")
     queries = {}
@@ -435,7 +435,7 @@ def learned_order(it: Item, s_b: np.ndarray, s_c: np.ndarray | None) -> list[str
 
 
 def per_language(items: list[Item], s_b: list[np.ndarray], s_c: list[np.ndarray] | None) -> dict:
-    from odin.eval.metrics import metric_values, paired_bootstrap
+    from allfather.eval.metrics import metric_values, paired_bootstrap
 
     by_lang: dict[str, list[int]] = {}
     for i, it in enumerate(items):

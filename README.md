@@ -1,18 +1,18 @@
-# Odin
+# Allfather
 
-[![CI](https://github.com/Lazeeez/Odin/actions/workflows/ci.yml/badge.svg)](https://github.com/Lazeeez/Odin/actions/workflows/ci.yml)
-[![Parity](https://github.com/Lazeeez/Odin/actions/workflows/parity.yml/badge.svg)](https://github.com/Lazeeez/Odin/actions/workflows/parity.yml)
-[![Live accuracy](https://github.com/Lazeeez/Odin/actions/workflows/live.yml/badge.svg)](https://github.com/Lazeeez/Odin/actions/workflows/live.yml)
+[![CI](https://github.com/Lazeeez/Allfather/actions/workflows/ci.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/ci.yml)
+[![Parity](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml)
+[![Live accuracy](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Website](https://img.shields.io/badge/try_it-allfather.dev-d9a93a.svg)](https://allfather.dev/)
 
-**Given a bug report, find the code that has to change.** Odin ranks every function in a repository against the report: code-aware keyword search and code embeddings for recall, then learned ranking and a fine-tuned language model for precision. Every design decision is scored on real bug fixes, where the answer key is the set of functions the maintainers' actual fix changed, and every claimed improvement comes with a paired significance test.
+**Given a bug report, find the code that has to change.** Allfather ranks every function in a repository against the report: code-aware keyword search and code embeddings for recall, then learned ranking and a fine-tuned language model for precision. Every design decision is scored on real bug fixes, where the answer key is the set of functions the maintainers' actual fix changed, and every claimed improvement comes with a paired significance test.
 
 It ships three ways:
 
 - **A website** for any public repository in Python, JavaScript, TypeScript, Go, Java or Rust: **[allfather.dev](https://allfather.dev/)**. Paste a repository and a bug report; parsing, indexing, embedding and ranking happen on your device, and an optional GPU server re-reads the top 50 with the research pipeline's fine-tuned reranker.
 - **A GitHub Action** that comments on new issues with the functions most likely to need the fix ([set-up](#github-action)).
-- **A research pipeline** (`src/odin`, Python): the full cascade on a GPU, evaluated on SWE-bench Lite against published systems.
+- **A research pipeline** (`src/allfather`, Python): the full cascade on a GPU, evaluated on SWE-bench Lite against published systems.
 
 Two-minute version: the **[case study](https://allfather.dev/#/case-study)**. Every decision, including the ones that didn't work, is in [docs/decisions](docs/decisions/).
 
@@ -38,9 +38,9 @@ Scored the way LocAgent and SweRank score themselves: 274 Lite issues, and an is
 | OpenHands | Claude 3.5 | reported | 76.28 | 90.15 | 68.25 | 70.07 |
 | LocAgent | Claude 3.5 | reported | 77.74 | 94.16 | 73.36 | 77.37 |
 | SweRank | 7B retriever, 32B reranker | reported | 83.21 | 95.99 | 81.39 | 88.69 |
-| Odin (`ltr-ce-notests`) | 0.5B retriever, 0.6B reranker | scored here | 68.98 | 90.51 | 70.80 | 76.28 |
+| Allfather (`ltr-ce-notests`) | 0.5B retriever, 0.6B reranker | scored here | 68.98 | 90.51 | 70.80 | 76.28 |
 
-Odin is level with the best agent of the LocAgent paper at function level and behind SweRank, with models an order of magnitude smaller; it is behind both at file level. The other rows are copied from the papers' tables and have not been re-run here. Sources, every other row, intervals, costs and what this means for the plan are in [docs/comparison.md](docs/comparison.md); the rules were fixed beforehand in [ADR 0014](docs/decisions/0014-comparison-protocols.md).
+Allfather is level with the best agent of the LocAgent paper at function level and behind SweRank, with models an order of magnitude smaller; it is behind both at file level. The other rows are copied from the papers' tables and have not been re-run here. Sources, every other row, intervals, costs and what this means for the plan are in [docs/comparison.md](docs/comparison.md); the rules were fixed beforehand in [ADR 0014](docs/decisions/0014-comparison-protocols.md).
 
 ### What it costs
 
@@ -74,7 +74,7 @@ A nightly job collects bugs that popular projects in all six languages fixed in 
 
 The same rankers on bugs in other languages, from two public test sets and projects they never trained on, scored once against ranking by keywords and meaning alone (function hit@10):
 
-| Language | Test set | Bugs | Odin | Keywords and meaning | Change |
+| Language | Test set | Bugs | Allfather | Keywords and meaning | Change |
 |---|---|---|---|---|---|
 | Go | SWE-bench Multilingual | 37 | 64.9% | 46.0% | +18.9 (p = 0.012) |
 | Java | SWE-bench Multilingual | 43 | 81.4% | 67.4% | +14.0 (p = 0.030) |
@@ -132,7 +132,7 @@ The cross-encoder's main job is the top of the list: function MRR +0.063 and rec
 - **A fine-tuned LLM reranker reads the issue and the code together** ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Zero-shot it added nothing, but after one LoRA epoch on in-domain hard negatives it lifts the top ranks. It runs only on the top 20, with a shared-prefix KV cache so the issue is encoded once per query rather than once per candidate.
 - **Hybrid is the big win, because the two retrievers fail differently.** Dense alone is only marginally better than BM25 (p = 0.045), but fusing them beats both. Recall@10 is +12.7 points at file level too, with 42 wins to 4 losses. The largest gains are where issues aren't written in identifiers: sympy recall@10 went from 0.37 to 0.59 and pytest from 0.30 to 0.56 ([ADR 0005](docs/decisions/0005-dense-hybrid-retrieval.md)).
 
-Reproduce any row: `make eval RETRIEVER=bm25-code-notests LEVEL=function`, then `uv run odin compare results/A.json results/B.json`.
+Reproduce any row: `make eval RETRIEVER=bm25-code-notests LEVEL=function`, then `uv run allfather compare results/A.json results/B.json`.
 
 ## Performance
 
@@ -258,12 +258,12 @@ flowchart LR
 
 - **Ground truth** comes from the gold patch, mapped onto a Tree-sitter parse of each file *as it existed at `base_commit`* (details below).
 - **Unseen projects for the website.** The browser's rankers are cross-validated with whole projects as folds, and scored on 30 SWE-rebench projects that appear in no training fold, so the reported numbers are what a visitor's new repository gets.
-- **Held-out tuning.** Anything with a knob is tuned off Lite: fusion and expansion on SWE-bench Verified minus Lite (407 issues, `odin tune`), learned rankers on SWE-bench test minus Lite (1,941 issues, `odin ltr`, 5-fold CV grouped by query), and the reranker's depth and weights on 250 issues held out from its training (`odin ce-tune`), with the selection rule written down before looking.
+- **Held-out tuning.** Anything with a knob is tuned off Lite: fusion and expansion on SWE-bench Verified minus Lite (407 issues, `allfather tune`), learned rankers on SWE-bench test minus Lite (1,941 issues, `allfather ltr`, 5-fold CV grouped by query), and the reranker's depth and weights on 250 issues held out from its training (`allfather ce-tune`), with the selection rule written down before looking.
 - **How often Lite has been looked at.** No number here was trained or tuned on Lite, but Lite is not untouched: it has been scored 90 times, and [results/test-evals.log](results/test-evals.log) lists each one with what was decided from it. Most are one run per reported row. The exceptions: the early browser pipeline was scored on Lite at several rerank depths and with two stage-2 models (its settings were chosen on dev data and cross-validation, but Lite was looked at each time), and the distilled reranker was rejected on a Lite result, a decision taken on the test set, in the conservative direction. Every later evaluation appends to the log.
-- **A sealed holdout for what comes next.** 324 issues created on or after 2025-09-01, after the cascade's models were published, from 189 projects that appear in no training, dev or test data here; 311 of them have a function-level target. Nothing has been evaluated on it. Only three final configurations ever will be, each once per level, and `odin eval` refuses anything else ([ADR 0013](docs/decisions/0013-sealed-holdout.md)).
+- **A sealed holdout for what comes next.** 324 issues created on or after 2025-09-01, after the cascade's models were published, from 189 projects that appear in no training, dev or test data here; 311 of them have a function-level target. Nothing has been evaluated on it. Only three final configurations ever will be, each once per level, and `allfather eval` refuses anything else ([ADR 0013](docs/decisions/0013-sealed-holdout.md)).
 - **No leakage through features.** Git history uses only strict ancestors of the base commit (`git rev-list`). Earlier-issue features only see issues opened at least 30 days before the query. Both boundaries have tests.
 - **Reproducibility.** Cached features and trained models carry a fingerprint of the source code that produced them, and a model refuses to load against different feature code. Every result file records the git commit, library versions, model hashes and command line.
-- **Significance.** `odin compare` runs a paired bootstrap over queries (10k resamples) and reports Δ, a 95% CI, a two-sided p-value and win/loss counts. A difference that isn't significant is reported as such.
+- **Significance.** `allfather compare` runs a paired bootstrap over queries (10k resamples) and reports Δ, a 95% CI, a two-sided p-value and win/loss counts. A difference that isn't significant is reported as such.
 - **Honest latency.** Index construction is timed separately from query latency, and both are reported with p50/p95/p99.
 - **Per-repo breakdown** is in every result file, so django (108 of 291 issues) cannot hide a regression elsewhere.
 
@@ -295,19 +295,19 @@ uv sync                                          # lexical engine only, no PyTor
 uv sync --extra dense                            # + CUDA PyTorch and the embedding model
 make gold                                        # ground truth (committed; rebuild to verify)
 make eval RETRIEVER=hybrid-notests LEVEL=function
-uv run odin gold --dataset full                  # training ground truth (2,294 issues)
-uv run odin ltr                                  # LambdaMART models (committed in models/)
+uv run allfather gold --dataset full                  # training ground truth (2,294 issues)
+uv run allfather ltr                                  # LambdaMART models (committed in models/)
 make adapters                                    # the two reranker adapters from Hugging Face, checksum-verified (private for now: needs a login)
 make reranker                                    # or train them: two adapters and the ensemble weights
 make eval RETRIEVER=ltr-ce-notests LEVEL=function
-uv run odin compare results/bm25-code_function_lite_test.json \
+uv run allfather compare results/bm25-code_function_lite_test.json \
                     results/bm25-code-notests_function_lite_test.json
-uv run odin search psf/requests "redirect drops the authorization header" --no-tests
+uv run allfather search psf/requests "redirect drops the authorization header" --no-tests
 make test
 
 # the website's rankers (SWE-bench + 150 SWE-rebench projects; ground truth committed)
 uv run python scripts/sample_rebench.py         # the fixed project sample (committed)
-uv run odin gold --dataset rebench --split train
+uv run allfather gold --dataset rebench --split train
 uv run python scripts/browser_ltr.py            # trains, cross-validates, exports web/src/assets/
 ```
 
@@ -321,10 +321,10 @@ Retrievers: `random`, `oracle`, `bm25-naive`, `bm25-code`, `bm25-code-notests`, 
 
 - **Search any public repository in Python, JavaScript, TypeScript, Go, Java or Rust.** It accepts `owner/name`, https or ssh URLs, and links to a branch, a folder (the search is then limited to it), a file, an issue or a pull request. Over the browser budget (6,000 files, 60 MB) it keeps the project's own code and drops docs, examples and vendored code first; committed virtualenvs are skipped. A Web Worker lists the repository through GitHub's API and downloads its source files (or one `.tar.gz` through an optional CORS relay, `proxy/`), parser threads split them into functions with Tree-sitter compiled to WebAssembly, and a code-aware BM25 index is built. Large repositories are searchable while they load. A learned ranker (LambdaMART, exported as JSON trees) orders candidates using what the issue names: traceback frames, quoted identifiers, module paths and title matches. In the background, a static code-embedding model (Model2Vec potion-code-16M, int8, 16.8 MB) embeds every function in seconds, a second ranker adds meaning to the evidence, and the fine-tuned reranker on a GPU server re-reads the top 50; when it is off or does not answer, a small language model in the browser (MiniLM, WebGPU or WebAssembly) reranks the top 20 instead. A file ranker orders whole files. Parsed repositories are cached in IndexedDB by git tree hash, embeddings by content hash; the main thread never blocks.
 - **Measured on projects it never saw.** `scripts/browser_ltr.py` trains the browser's rankers on 7,843 issues from 192 projects (SWE-bench minus Lite, 120 projects sampled from SWE-rebench, and 61 projects in five other languages from Multi-SWE-RL), choosing settings by project-grouped cross-validation, then scores this exact pipeline once on held-out data. On 747 bugs from 30 projects kept out of training entirely, a function the fix changed is in the top 10 for 76.6% (hit@10; keyword search alone 66.0%), and the file ranker finds the file in the top 10 for 94.2%. A parity test runs the TypeScript features, tokenizer and embeddings against the Python ones, value for value. See [ADR 0011](docs/decisions/0011-website-at-scale.md).
-- **Replayed results of the full pipeline.** Stage-by-stage metrics with confidence intervals, significance tests, per-project tables, and an explorer that tells each of the 300 Lite issues as a story: the report, the answer key, and where every stage ranked the fix. Explorer views are deep-linkable (`#/explore/django__django-11019`); *Beat Odin* (`#/explore?mode=game`) lets visitors guess the fixed file against Odin's pick.
-- **UX.** Real open issues from the loaded repository as one-click queries; "Why #1?" bars showing what each kind of evidence added to a result's score; when a result's file last changed; a map of the repository with the results lit; an "Odin this" bookmarklet that opens any GitHub issue in Odin; a command palette (Ctrl+K); Functions/Files views, syntax-highlighted code, shareable `#/search?repo=&q=` links, cancel, recent repositories, `/` to focus, and a light/dark toggle (light by default).
+- **Replayed results of the full pipeline.** Stage-by-stage metrics with confidence intervals, significance tests, per-project tables, and an explorer that tells each of the 300 Lite issues as a story: the report, the answer key, and where every stage ranked the fix. Explorer views are deep-linkable (`#/explore/django__django-11019`); *Beat Allfather* (`#/explore?mode=game`) lets visitors guess the fixed file against Allfather's pick.
+- **UX.** Real open issues from the loaded repository as one-click queries; "Why #1?" bars showing what each kind of evidence added to a result's score; when a result's file last changed; a map of the repository with the results lit; an "Allfather this" bookmarklet that opens any GitHub issue in Allfather; a command palette (Ctrl+K); Functions/Files views, syntax-highlighted code, shareable `#/search?repo=&q=` links, cancel, recent repositories, `/` to focus, and a light/dark toggle (light by default).
 
-The engine in `web/src/engine/` is a port of the chunker, tokenizer and BM25. `tests/test_site_engine.py` runs that TypeScript source directly under Node 24 and requires unit-for-unit agreement with the Python chunker, identical BM25 rankings and scores, identical ranker features and identical static embeddings, on Odin's own source files and a set of adversarial strings. `scripts/parity_run.py` (`make parity`, also a weekly CI job) repeats the chunker and BM25 comparison on pinned commits of django, sympy and requests: 1,845 files and 31,892 units chunk identically, scores agree to within 1e-5, and 46 of 46 queries return the same top 10 ([results/parity_pinned_2026-10-13b.json](results/parity_pinned_2026-10-13b.json)). Before ties at a cut-off were broken by index in Python as in the browser, 2 of the 46 differed by tied units ([ADR 0016](docs/decisions/0016-deterministic-ties.md)). `web/test/` holds Vitest unit tests, including a check that highlighted repository code can never inject markup.
+The engine in `web/src/engine/` is a port of the chunker, tokenizer and BM25. `tests/test_site_engine.py` runs that TypeScript source directly under Node 24 and requires unit-for-unit agreement with the Python chunker, identical BM25 rankings and scores, identical ranker features and identical static embeddings, on Allfather's own source files and a set of adversarial strings. `scripts/parity_run.py` (`make parity`, also a weekly CI job) repeats the chunker and BM25 comparison on pinned commits of django, sympy and requests: 1,845 files and 31,892 units chunk identically, scores agree to within 1e-5, and 46 of 46 queries return the same top 10 ([results/parity_pinned_2026-10-13b.json](results/parity_pinned_2026-10-13b.json)). Before ties at a cut-off were broken by index in Python as in the browser, 2 of the 46 differed by tied units ([ADR 0016](docs/decisions/0016-deterministic-ties.md)). `web/test/` holds Vitest unit tests, including a check that highlighted repository code can never inject markup.
 
 ```bash
 cd web && npm ci && npm run dev        # http://localhost:5173
@@ -338,10 +338,10 @@ The page is 41 KB of JavaScript and 13 KB of CSS (gzipped); the map, the game an
 
 ## GitHub Action
 
-Odin can comment on new issues in any public repository with the functions most likely to need the fix ([ADR 0028](docs/decisions/0028-github-action.md)). Add `.github/workflows/odin.yml`:
+Allfather can comment on new issues in any public repository with the functions most likely to need the fix ([ADR 0028](docs/decisions/0028-github-action.md)). Add `.github/workflows/allfather.yml`:
 
 ```yaml
-name: odin
+name: allfather
 on:
   issues:
     types: [opened]
@@ -352,7 +352,7 @@ jobs:
   localize:
     runs-on: ubuntu-latest
     steps:
-      - uses: Lazeeez/Odin@main
+      - uses: Lazeeez/Allfather@main
 ```
 
 It ranks the repository at the default branch's latest commit with the website's ranker (all six languages, no GPU), comments the top five functions and their files with links, and links to the same search on allfather.dev. A rerun edits its comment. `top` sets how many functions to list. This repository runs it on its own issues.
@@ -381,7 +381,7 @@ Per issue, with gold set *G* and ranked list *R*:
 ## Layout
 
 ```
-src/odin/
+src/allfather/
   repos.py                    blobless mirrors, batch blob reader, bulk missing-blob fetch
   parsing/python_symbols.py   Tree-sitter symbols (qualified names, spans, nesting), call sites
   index/chunker.py            file -> retrieval-unit chunks with their outgoing calls
@@ -440,7 +440,7 @@ docs/decisions/               why things are the way they are
 17. [When the holdout is spent, and a separate set for the contamination study](docs/decisions/0017-holdout-freeze-and-contamination-set.md)
 18. [Put the file path in the text that is embedded](docs/decisions/0018-file-path-in-embedded-text.md)
 19. [Train the rankers on 120 more projects](docs/decisions/0019-more-ranker-training-data.md)
-20. [odin-max, lever 1: a larger reranker trained on more data](docs/decisions/0020-odin-max-larger-reranker.md)
+20. [allfather-max, lever 1: a larger reranker trained on more data](docs/decisions/0020-allfather-max-larger-reranker.md)
 21. [The fine-tuned reranker on a GPU server for the website](docs/decisions/0021-website-server-reranker.md)
 22. [Counting searches and asking "right place?" on the website](docs/decisions/0022-website-feedback.md)
 23. [Live accuracy on bugs fixed this week](docs/decisions/0023-live-accuracy.md)
@@ -448,7 +448,7 @@ docs/decisions/               why things are the way they are
 25. [Searching code in languages other than Python](docs/decisions/0025-more-languages.md)
 26. [Skipping the browser's language model when the GPU reranker answers](docs/decisions/0026-skip-browser-language-model.md)
 27. [Rust test modules are test code](docs/decisions/0027-rust-test-modules.md)
-28. [Odin as a GitHub Action](docs/decisions/0028-github-action.md)
+28. [Allfather as a GitHub Action](docs/decisions/0028-github-action.md)
 
 ## Adding a retriever
 
@@ -475,7 +475,7 @@ Implement `retrieve(query, level, k) -> list[str]`, returning file paths for `le
 What would move the numbers further, in expected order of impact:
 
 1. **A frontier LLM as the final stage.** Published SWE-bench localization agents get their precision from large models reading candidate code. The cascade already reduces each issue to about 20 candidates, which keeps that affordable.
-2. **A bigger reranker base model.** A 4B LoRA reranker was adopted for odin-max: first place +6 points, top 10 unchanged ([ADR 0020](docs/decisions/0020-odin-max-larger-reranker.md)); the 8B base is next. More epochs, LTR-mined negatives and a two-adapter ensemble were tried earlier and kept ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Fine-tuning the embedding model was tried and did not help.
+2. **A bigger reranker base model.** A 4B LoRA reranker was adopted for allfather-max: first place +6 points, top 10 unchanged ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next. More epochs, LTR-mined negatives and a two-adapter ensemble were tried earlier and kept ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Fine-tuning the embedding model was tried and did not help.
 
 Tried recently and not adopted: distilling the two-adapter reranker into one (better on validation, MRR 0.634 vs 0.623, but file hit@1 fell 0.690 → 0.660 on Lite, p = 0.027; it was rejected on that Lite result, which is a decision taken on the test set, in the conservative direction), and a learned query projection for the static embeddings (semantic-only MRR 0.287 → 0.220 on held-out projects). The website's *How it works* page lists every result that did and didn't work.
 

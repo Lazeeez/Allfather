@@ -9,7 +9,7 @@ import { href } from "../lib/router.ts";
 
 const HOW: ["ansuz" | "eye" | "shield", string, string][] = [
   ["ansuz", "A real bug report", "SWE-bench Lite: 300 GitHub issues from 12 Python projects, each paired with the commit it was filed against."],
-  ["eye", "Odin searches the code", "Each of five pipeline stages ranks every function in the repository snapshot at that base commit."],
+  ["eye", "Allfather searches the code", "Each of five pipeline stages ranks every function in the repository snapshot at that base commit."],
   ["shield", "Checked against the real fix", "Gold labels are the functions and files whose lines the merged patch modifies, mapped onto the base commit's parse tree."],
 ];
 
@@ -33,11 +33,11 @@ export function Explore({ summary, linked, failed, mode: asked, set }: {
   const choose = (m: "explore" | "game") => {
     location.hash = href("explore", m === "game" ? null : linked, m === "game" ? { mode: "game" } : undefined);
   };
-  const game = useLazy(() => import("../components/BeatOdin.tsx"), mode === "game");
+  const game = useLazy(() => import("../components/BeatAllfather.tsx"), mode === "game");
   const Game = game?.default;
   return (
     <div class="container">
-      <PageHero kicker="Explore" title="Watch Odin hunt real bugs">
+      <PageHero kicker="Explore" title="Watch Allfather hunt real bugs">
         <p>
           Per-issue rankings from the evaluation runs, scored against the maintainers' patch: every stage's top 10 for 300 SWE-bench Lite
           issues (Python, the full GPU pipeline){hasLanguages ? ", and for 501 bugs in JavaScript, TypeScript, Go, Java and Rust (the website's own pipeline)" : ""}.
@@ -53,8 +53,8 @@ export function Explore({ summary, linked, failed, mode: asked, set }: {
         ))}
       </ol>
       <div class="mode-row">
-        <Seg label="Mode" value={mode} onChange={choose} options={[["explore", "Explore a bug"], ["game", "Beat Odin"]] as const} />
-        <span class="muted small">{mode === "game" ? "Guess the file the fix changed, then see what Odin picked." : "Step through one bug and every stage's answer."}</span>
+        <Seg label="Mode" value={mode} onChange={choose} options={[["explore", "Explore a bug"], ["game", "Beat Allfather"]] as const} />
+        <span class="muted small">{mode === "game" ? "Guess the file the fix changed, then see what Allfather picked." : "Step through one bug and every stage's answer."}</span>
       </div>
       {failed && <p class="error-text">Couldn't load the benchmark data. Try reloading the page.</p>}
       {mode === "explore" && hasLanguages && (

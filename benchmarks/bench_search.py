@@ -17,10 +17,10 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from odin.eval.dataset import load_instances
-from odin.eval.ground_truth import read_gold
-from odin.search.dense import DenseIndex, SentenceEncoder
-from odin.search.retriever import HybridRetriever, Query
+from allfather.eval.dataset import load_instances
+from allfather.eval.ground_truth import read_gold
+from allfather.search.dense import DenseIndex, SentenceEncoder
+from allfather.search.retriever import HybridRetriever, Query
 
 
 def ms(fn, repeat: int = 50) -> float:

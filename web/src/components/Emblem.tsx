@@ -30,7 +30,7 @@ function Strand({ d, ring, halo }: { d?: string; ring?: boolean; halo: string })
 }
 
 /**
- * Odin's eye: a gold-rimmed medallion with a rune dial and one open eye. The same drawing is the
+ * Allfather's eye: a gold-rimmed medallion with a rune dial and one open eye. The same drawing is the
  * logo (still) and the loading symbol (`live`: the dial turns, the knot spins, the eye blinks).
  */
 export function Emblem({ live = false, class: cls = "" }: { live?: boolean; class?: string }) {

@@ -22,7 +22,7 @@ export function LiveLine({ live }: { live: LiveSummary | null }) {
   if (!enough(w)) return null;
   return (
     <p class="quickstart-usage">
-      Live: on {w.bugs} bugs fixed in popular open-source projects in the last 30 days, the changed function was in Odin's top 10 for{" "}
+      Live: on {w.bugs} bugs fixed in popular open-source projects in the last 30 days, the changed function was in Allfather's top 10 for{" "}
       <a href={href("benchmarks")}>{pct(w.function["hit@10"])}</a>.
     </p>
   );
@@ -37,9 +37,9 @@ export function LiveSection({ live }: { live: LiveSummary }) {
       <p class="kicker">Live</p>
       <h2>On bugs fixed this month</h2>
       <p class="card-lede">
-        Every night, Odin collects bugs that popular open-source projects in Python, JavaScript, TypeScript, Go, Java and Rust fixed in
+        Every night, Allfather collects bugs that popular open-source projects in Python, JavaScript, TypeScript, Go, Java and Rust fixed in
         the past week, runs this website's pipeline at the commit before each fix, and checks whether a function the fix changed is in its
-        top 10. These bugs are newer than every model Odin uses, and nothing is tuned on them.
+        top 10. These bugs are newer than every model Allfather uses, and nothing is tuned on them.
       </p>
       {enough(w) ? (
         <div class="tiles">

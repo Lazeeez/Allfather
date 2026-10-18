@@ -1,9 +1,9 @@
 {
-  "name": "odin-web",
+  "name": "allfather-web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Odin: find the code behind any bug report, in the browser.",
+  "description": "Allfather: find the code behind any bug report, in the browser.",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",

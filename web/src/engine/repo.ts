@@ -233,7 +233,7 @@ export function selectFiles(listing: Pick<Listing, "files" | "scope">, includeTe
   }
   if (!files.length) {
     if (onlyPython(languages)) throw new LoadError(scope ? `No Python files under ${scope}/.` : census.noPython());
-    throw new LoadError(scope ? `No code Odin can read under ${scope}/.` : census.noneSupported(languages));
+    throw new LoadError(scope ? `No code Allfather can read under ${scope}/.` : census.noneSupported(languages));
   }
   const languageNote = census.note(languages);
   if (languageNote) notes.push(languageNote);
@@ -256,7 +256,7 @@ type Parsed = { units: Unit[]; counts: TermCounts[] };
 
 /**
  * Parse results of each selected file, kept in snapshot order (files by path, each file's units
- * in source order, as in Odin's Python index, so ties break the same way), with a partial
+ * in source order, as in Allfather's Python index, so ties break the same way), with a partial
  * snapshot offered every few seconds of a long load.
  */
 class Collector {

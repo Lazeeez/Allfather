@@ -52,7 +52,7 @@ export async function drawCard(input: CardInput): Promise<Blob> {
 
   ctx.fillStyle = COLORS.gold;
   ctx.font = `600 34px ${display}`;
-  ctx.fillText("ODIN", 64, 92);
+  ctx.fillText("ALLFATHER", 64, 92);
   ctx.fillStyle = COLORS.muted;
   ctx.font = `500 22px ${sans}`;
   ctx.fillText(fit(ctx, `Where to fix it in ${input.repo}`, W - 260), 170, 90);
@@ -89,11 +89,11 @@ export async function drawCard(input: CardInput): Promise<Blob> {
 
 export async function shareCard(input: CardInput, link: string): Promise<"shared" | "downloaded"> {
   const blob = await drawCard(input);
-  const file = new File([blob], `odin-${input.repo.replace("/", "-")}.png`, { type: "image/png" });
+  const file = new File([blob], `allfather-${input.repo.replace("/", "-")}.png`, { type: "image/png" });
   const nav = navigator as Navigator & { canShare?: (d: ShareData) => boolean };
   if (nav.share && nav.canShare?.({ files: [file] })) {
     try {
-      await nav.share({ files: [file], title: `Odin on ${input.repo}`, text: cardTitle(input.query), url: link });
+      await nav.share({ files: [file], title: `Allfather on ${input.repo}`, text: cardTitle(input.query), url: link });
       return "shared";
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return "shared";

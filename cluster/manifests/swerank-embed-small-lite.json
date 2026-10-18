@@ -1,7 +1,7 @@
 {
  "name": "swerank-embed-small-lite",
- "what": "SweRankEmbed-Small as the only retriever, over Odin's own index of functions and classes",
- "why": "baseline: a published retriever run inside Odin's harness; nothing decided",
+ "what": "SweRankEmbed-Small as the only retriever, over Allfather's own index of functions and classes",
+ "why": "baseline: a published retriever run inside Allfather's harness; nothing decided",
  "dataset": "lite",
  "split": "test",
  "level": "function",

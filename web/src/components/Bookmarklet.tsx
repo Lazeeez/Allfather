@@ -1,6 +1,6 @@
 /**
- * "Odin this": a bookmarklet for the bookmarks bar. On a GitHub repository, issue or pull request
- * page it opens Odin with that repository loaded and the issue as the query.
+ * "Allfather this": a bookmarklet for the bookmarks bar. On a GitHub repository, issue or pull request
+ * page it opens Allfather with that repository loaded and the issue as the query.
  */
 export function Bookmarklet() {
   // The site's own address, absolute: BASE_URL is relative ("./"), so resolve it against this page.
@@ -17,12 +17,12 @@ export function Bookmarklet() {
   return (
     <div class="bookmarklet frame">
       <a class="bookmarklet-btn" href={code} onClick={(e) => e.preventDefault()} title="Drag me to your bookmarks bar">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z" /></svg>Odin this
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z" /></svg>Allfather this
       </a>
       <div>
-        <b>Drag “Odin this” to your bookmarks bar.</b>
+        <b>Drag “Allfather this” to your bookmarks bar.</b>
         <p>
-          On any GitHub issue, click it: Odin opens with the repository loading and the issue's title and body as the query. It reads
+          On any GitHub issue, click it: Allfather opens with the repository loading and the issue's title and body as the query. It reads
           the page's URL only (<code>owner/repo/issues/N</code>); the issue text comes from GitHub's public API.
         </p>
       </div>

@@ -643,7 +643,7 @@ mark { background: var(--gold-bg); color: inherit; border-radius: 3px; padding: 
 .bookmarklet p { margin: 0; color: var(--ink-2); font-size: 14px; max-width: none; }
 @media (max-width: 640px) { .bookmarklet { flex-direction: column; align-items: flex-start; } }
 
-/* Beat Odin */
+/* Beat Allfather */
 .mode-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 18px; }
 .game-score { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; background: var(--card); padding: 14px 20px; margin-bottom: 16px; }
 .game-score b { font: 600 28px var(--display); background: var(--gilt-text); -webkit-background-clip: text; background-clip: text; color: transparent; margin-right: 4px; }
@@ -656,7 +656,7 @@ mark { background: var(--gold-bg); color: inherit; border-radius: 3px; padding: 
 .choice[disabled] { cursor: default; }
 .choice.right { border-color: var(--good); background: color-mix(in srgb, var(--good) 10%, var(--card)); animation: pop-in .4s ease; }
 .choice.wrong { border-color: var(--bad); background: color-mix(in srgb, var(--bad) 8%, var(--card)); }
-.choice.odin { box-shadow: 0 0 0 3px var(--glow); }
+.choice.allfather { box-shadow: 0 0 0 3px var(--glow); }
 .choice .tag { margin-top: 6px; font-size: 11px; font-weight: 700; color: var(--gold-strong); background: var(--accent-soft); padding: 1px 8px; border-radius: 999px; }
 @keyframes pop-in { from { transform: scale(.97); } }
 .reveal-box { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 18px; }

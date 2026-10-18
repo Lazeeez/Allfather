@@ -10,16 +10,16 @@ import numpy as np
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.dataset import load_instances  # noqa: E402
-from odin.eval.ground_truth import read_gold  # noqa: E402
-from odin.eval.provenance import provenance  # noqa: E402
-from odin.eval.runner import DEV_SELECTED_FUSION, Query  # noqa: E402
-from odin.rank.ce_train import rerank, validation_split  # noqa: E402
-from odin.rank.cross_encoder import CrossEncoderEnsemble  # noqa: E402
-from odin.rank.features import FeatureExtractor  # noqa: E402
-from odin.rank.ltr import LGBM_PARAMS, MODEL_DIR, RankingData, issue_memory  # noqa: E402
-from odin.search.dense import SentenceEncoder  # noqa: E402
-from odin.search.retriever import HybridRetriever  # noqa: E402
+from allfather.eval.dataset import load_instances  # noqa: E402
+from allfather.eval.ground_truth import read_gold  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
+from allfather.eval.runner import DEV_SELECTED_FUSION, Query  # noqa: E402
+from allfather.rank.ce_train import rerank, validation_split  # noqa: E402
+from allfather.rank.cross_encoder import CrossEncoderEnsemble  # noqa: E402
+from allfather.rank.features import FeatureExtractor  # noqa: E402
+from allfather.rank.ltr import LGBM_PARAMS, MODEL_DIR, RankingData, issue_memory  # noqa: E402
+from allfather.search.dense import SentenceEncoder  # noqa: E402
+from allfather.search.retriever import HybridRetriever  # noqa: E402
 
 GOLD = ROOT / "data" / "gold" / "swebench_full_test.jsonl"
 LITE = ROOT / "data" / "gold" / "swebench_lite_test.jsonl"
@@ -49,7 +49,7 @@ def out_of_fold_ranker(held_out: set[str]):
 
     data = RankingData.load(FEATURES)
     if data is None:
-        sys.exit("ranker features are missing or stale; run `odin ltr` first")
+        sys.exit("ranker features are missing or stale; run `allfather ltr` first")
     kept = data.split(np.array([i for i, q in enumerate(data.qids) if q not in held_out]))
     rounds = json.loads((MODEL_DIR / "ltr_function.json").read_text(encoding="utf-8"))["rounds"]
     model = lgb.LGBMRanker(n_estimators=rounds, random_state=0, **LGBM_PARAMS)

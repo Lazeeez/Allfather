@@ -9,11 +9,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.dataset import Instance  # noqa: E402
-from odin.eval.goldpatch import parse_patch  # noqa: E402
-from odin.eval.ground_truth import build_gold, write_gold  # noqa: E402
-from odin.parsing import symbols as multi  # noqa: E402
-from odin.repos import RepoCache  # noqa: E402
+from allfather.eval.dataset import Instance  # noqa: E402
+from allfather.eval.goldpatch import parse_patch  # noqa: E402
+from allfather.eval.ground_truth import build_gold, write_gold  # noqa: E402
+from allfather.parsing import symbols as multi  # noqa: E402
+from allfather.repos import RepoCache  # noqa: E402
 
 TRAIN = ("ByteDance-Seed/Multi-SWE-RL", "9777648932daa214ba18c70c81e85821b5836f32")
 MULTILINGUAL = ("SWE-bench/SWE-bench_Multilingual", "846e647b9f33c0b51b739d005d13d85493c9af09")

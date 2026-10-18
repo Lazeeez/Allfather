@@ -1,5 +1,5 @@
 [project]
-name = "odin"
+name = "allfather"
 version = "0.1.0"
 description = "Bug localization on any git commit: hybrid retrieval, learned ranking and a fine-tuned reranker, measured on SWE-bench"
 readme = "README.md"
@@ -37,7 +37,7 @@ dense = [
 ]
 
 [project.scripts]
-odin = "odin.cli:main"
+allfather = "allfather.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.8.17,<0.9.0"]

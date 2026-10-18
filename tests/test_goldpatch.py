@@ -1,6 +1,6 @@
-from odin.eval.goldpatch import Insertion, parse_patch
-from odin.eval.ground_truth import locate
-from odin.parsing.python_symbols import extract_symbols
+from allfather.eval.goldpatch import Insertion, parse_patch
+from allfather.eval.ground_truth import locate
+from allfather.parsing.python_symbols import extract_symbols
 
 BASE = b"""import os
 

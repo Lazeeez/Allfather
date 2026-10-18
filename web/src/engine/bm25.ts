@@ -1,4 +1,4 @@
-// Okapi BM25 with the same formula, k1 and b as odin/search/bm25.py.
+// Okapi BM25 with the same formula, k1 and b as allfather/search/bm25.py.
 import { pathText, tokenize } from "./tokenize.ts";
 import type { SearchResult, Unit } from "./types.ts";
 

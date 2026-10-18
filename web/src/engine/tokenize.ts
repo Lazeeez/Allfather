@@ -1,4 +1,4 @@
-// Port of odin/search/tokenize.py. tests/test_site_engine.py checks it against Python.
+// Port of allfather/search/tokenize.py. tests/test_site_engine.py checks it against Python.
 
 const STOP = new Set(
   `a an and are as at be but by for from has have if in into is it its of on or so that the

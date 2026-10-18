@@ -1,12 +1,12 @@
 import numpy as np
 import pytest
 
-from odin.rank.features import FEATURES, FILE_FEATURES, FeatureExtractor, issue_fields
-from odin.rank.history import RepoHistory
-from odin.rank.ltr import RankingData, ranking_metrics
-from odin.rank.mentions import Mentions, module_name, path_matches
-from odin.search.dense import FusionParams
-from odin.search.retriever import HybridRetriever, Query
+from allfather.rank.features import FEATURES, FILE_FEATURES, FeatureExtractor, issue_fields
+from allfather.rank.history import RepoHistory
+from allfather.rank.ltr import RankingData, ranking_metrics
+from allfather.rank.mentions import Mentions, module_name, path_matches
+from allfather.search.dense import FusionParams
+from allfather.search.retriever import HybridRetriever, Query
 
 from .conftest import _git
 from .test_dense import HashingEncoder
@@ -112,9 +112,9 @@ def test_git_helper_is_shared():
 
 
 def test_issue_memory_only_sees_issues_merged_before_the_query():
-    from odin.eval.dataset import Instance
-    from odin.eval.ground_truth import GoldEntry
-    from odin.rank.past_issues import IssueMemory
+    from allfather.eval.dataset import Instance
+    from allfather.eval.ground_truth import GoldEntry
+    from allfather.rank.past_issues import IssueMemory
 
     def inst(i, repo, created):
         return Instance(i, repo, "c", "", "session login password bug", created)
@@ -142,7 +142,7 @@ def test_issue_memory_only_sees_issues_merged_before_the_query():
 
 
 def test_history_walks_both_parents_of_a_merge(tmp_path):
-    from odin.repos import RepoCache
+    from allfather.repos import RepoCache
 
     work = tmp_path / "work"
     work.mkdir()

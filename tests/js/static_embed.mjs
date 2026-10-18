@@ -1,5 +1,5 @@
 // Static embeddings from the website's TypeScript encoder; argv[2] is a model file written by
-// odin.search.static.export_browser_model, texts come as JSON on stdin. Used by
+// allfather.search.static.export_browser_model, texts come as JSON on stdin. Used by
 // tests/test_site_engine.py.
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";

@@ -6,10 +6,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-from odin.eval.ground_truth import read_gold  # noqa: E402
-from odin.eval.provenance import provenance  # noqa: E402
-from odin.eval.runner import Query, gold_targets  # noqa: E402
-from odin.search.retriever import BM25Retriever  # noqa: E402
+from allfather.eval.ground_truth import read_gold  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
+from allfather.eval.runner import Query, gold_targets  # noqa: E402
+from allfather.search.retriever import BM25Retriever  # noqa: E402
 
 GOLD = ROOT / "data" / "gold"
 OUT = ROOT / "results" / "perf"

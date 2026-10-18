@@ -1,4 +1,4 @@
-from odin.parsing.symbols import extract_symbols, language_of
+from allfather.parsing.symbols import extract_symbols, language_of
 
 
 def units(source: str, path: str) -> list[tuple[str, str, int, int, bool]]:
@@ -149,14 +149,14 @@ mod inner { pub fn helper() {} }
 
 
 def test_python_is_unchanged():
-    from odin.parsing import python_symbols
+    from allfather.parsing import python_symbols
 
     src = b"class A:\n    def f(self):\n        def g():\n            pass\n"
     assert extract_symbols(src, "a.py") == python_symbols.extract_symbols(src, "a.py")
 
 
 def test_test_files_in_every_language():
-    from odin.parsing.symbols import is_test_path
+    from allfather.parsing.symbols import is_test_path
 
     tests = [
         "src/button.test.tsx",

@@ -12,7 +12,7 @@ Which stage loses each issue the current cascade fails on, measured on validatio
 
 ## The data
 
-The 250 training issues the reranker never saw (`validation_split` in `src/odin/rank/ce_train.py`), ranked by a LambdaMART model retrained without them, then by the shipped reranker settings (two adapters over the top 20, blend weight 2.0). They come from 11 of the 12 SWE-bench projects, the same projects the models trained on, so this measures the cascade on familiar projects.
+The 250 training issues the reranker never saw (`validation_split` in `src/allfather/rank/ce_train.py`), ranked by a LambdaMART model retrained without them, then by the shipped reranker settings (two adapters over the top 20, blend weight 2.0). They come from 11 of the 12 SWE-bench projects, the same projects the models trained on, so this measures the cascade on familiar projects.
 
 Output: [results/error-analysis/validation_2026-10-13.json](../results/error-analysis/validation_2026-10-13.json), from `scripts/error_analysis.py`. The stage definitions were fixed in the script before it ran.
 
@@ -85,15 +85,15 @@ Ordered by how many of the 46 misses each could reach. "Could reach" is an upper
 
 | Lever | Misses it could reach | Cost class |
 |---|---|---|
-| A better ranker: more training data for LambdaMART, more features | up to 26 | odin-fast: no cost per query |
+| A better ranker: more training data for LambdaMART, more features | up to 26 | allfather-fast: no cost per query |
 | A deeper reranker: 50 candidates instead of 20 | up to 17 of those 26 | 2.5 times the reranker's time, which is 96% of a query |
-| A stronger reranker | up to 12, and the top-1 gap | larger model: odin-max, unless a 0.6B model can be trained better |
+| A stronger reranker | up to 12, and the top-1 gap | larger model: allfather-max, unless a 0.6B model can be trained better |
 | Better retrieval: embeddings, input length, query expansion | up to 8 | varies; input length is nearly free |
-| Predicting how many locations to return | none of the 46: it targets the 63 issues found only in part | odin-fast |
+| Predicting how many locations to return | none of the 46: it targets the 63 issues found only in part | allfather-fast |
 
-- **The ranker comes first.** It is the largest group, it costs nothing at query time, and it fits odin-fast. It is also the stage trained on the least data: 1,941 issues from 12 projects.
+- **The ranker comes first.** It is the largest group, it costs nothing at query time, and it fits allfather-fast. It is also the stage trained on the least data: 1,941 issues from 12 projects.
 - **Depth 50 was tried before on validation and not chosen** (`ce-tune` picked 20). That choice was made by MRR, which depth does not help; by hit@10 the 17 issues between 21st and 50th are the argument for looking again, at a known cost.
-- **Retrieval is a small lever on these projects.** That may not hold on unfamiliar projects, where the pool was never measured; the SweRank comparison ([comparison.md](comparison.md)) also suggests Odin's input handling loses accuracy at this stage.
+- **Retrieval is a small lever on these projects.** That may not hold on unfamiliar projects, where the pool was never measured; the SweRank comparison ([comparison.md](comparison.md)) also suggests Allfather's input handling loses accuracy at this stage.
 - **Multi-location output is its own problem.** It does not show up in hit@10 but decides the all-or-nothing metric the published comparisons use.
 
 ## Limits

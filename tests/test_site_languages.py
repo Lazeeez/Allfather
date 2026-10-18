@@ -6,11 +6,11 @@ from pathlib import Path
 
 import pytest
 
-from odin.index.chunker import MODULE, chunk_file
-from odin.parsing.symbols import is_test_path, language_of
+from allfather.index.chunker import MODULE, chunk_file
+from allfather.parsing.symbols import is_test_path, language_of
 
 ROOT = Path(__file__).resolve().parent.parent
-NODE = os.environ.get("ODIN_NODE") or shutil.which("node")
+NODE = os.environ.get("ALLFATHER_NODE") or shutil.which("node")
 if NODE and not (ROOT / "web/node_modules/web-tree-sitter").exists():
     NODE = None
 

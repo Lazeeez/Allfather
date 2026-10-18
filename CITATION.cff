@@ -1,11 +1,11 @@
 cff-version: 1.2.0
-message: "If you use Odin, please cite it as below."
-title: "Odin: bug localization with a ranking cascade, measured on real bug fixes"
+message: "If you use Allfather, please cite it as below."
+title: "Allfather: bug localization with a ranking cascade, measured on real bug fixes"
 type: software
 authors:
   - given-names: Lajat
     family-names: Manekar
-repository-code: "https://github.com/Lazeeez/Odin"
+repository-code: "https://github.com/Lazeeez/Allfather"
 url: "https://allfather.dev/"
 license: MIT
 version: 0.1.0

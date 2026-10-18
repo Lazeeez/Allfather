@@ -1,4 +1,4 @@
-// Learning to rank in the browser: the features of odin/rank/browser.py, computed identically
+// Learning to rank in the browser: the features of allfather/rank/browser.py, computed identically
 // (tests/test_site_engine.py checks), scored by the LambdaMART trees scripts/browser_ltr.py
 // exports. Stages: "instant" (keyword and mention signals), "semantic" (plus static-embedding
 // similarity over every function), "rerank" (plus MiniLM similarity for the top candidates),
@@ -295,7 +295,7 @@ export interface FileCandidate {
 }
 
 /**
- * The file stage (FILE_FEATURES of odin/rank/browser.py): candidate files from the semantic
+ * The file stage (FILE_FEATURES of allfather/rank/browser.py): candidate files from the semantic
  * stage's pool, what the issue names and the strongest keyword and semantic files.
  */
 export function rankFiles(

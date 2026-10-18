@@ -3,12 +3,12 @@ from collections import Counter
 import numpy as np
 import pytest
 
-from odin.index.chunker import MODULE, chunk_file
-from odin.repos import RepoCache
-from odin.search.bm25 import BM25Index, Vocab, top_k
-from odin.search.graph import ExpandParams
-from odin.search.retriever import BM25Retriever, Query
-from odin.search.tokenize import code, code_counts, naive
+from allfather.index.chunker import MODULE, chunk_file
+from allfather.repos import RepoCache
+from allfather.search.bm25 import BM25Index, Vocab, top_k
+from allfather.search.graph import ExpandParams
+from allfather.search.retriever import BM25Retriever, Query
+from allfather.search.tokenize import code, code_counts, naive
 
 from .conftest import _git
 
@@ -188,8 +188,8 @@ def test_disk_cache_skips_parsing_in_a_new_process(local_repo):
 
 
 def test_fingerprint_separates_analyzers():
-    from odin.index.store import analyzer_fingerprint
-    from odin.search.tokenize import code_counts, naive_counts
+    from allfather.index.store import analyzer_fingerprint
+    from allfather.search.tokenize import code_counts, naive_counts
 
     assert analyzer_fingerprint(code_counts) == analyzer_fingerprint(code_counts)
     assert analyzer_fingerprint(code_counts) != analyzer_fingerprint(naive_counts)
@@ -198,7 +198,7 @@ def test_fingerprint_separates_analyzers():
 def test_top_k_keeps_the_lowest_indices_among_scores_tied_at_the_cutoff():
     import numpy as np
 
-    from odin.search.bm25 import top_k
+    from allfather.search.bm25 import top_k
 
     scores = np.array([1.0, 3.0, 2.0, 2.0, 2.0, 5.0, 2.0], np.float32)
     assert top_k(scores, 4).tolist() == [5, 1, 2, 3]
@@ -211,7 +211,7 @@ def test_top_k_keeps_the_lowest_indices_among_scores_tied_at_the_cutoff():
 
 
 def test_the_path_aware_text_swaps_the_qualified_name_for_the_path():
-    from odin.search.path_aware import path_header, with_path
+    from allfather.search.path_aware import path_header, with_path
 
     assert path_header("pkg/auth.py::Session.login") == "pkg/auth.py/Session/login"
     text = "Session.login\ndef login(self):\n    return 1"

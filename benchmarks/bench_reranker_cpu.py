@@ -22,7 +22,7 @@ import numpy as np
 def load(adapter: Path, device: str, int8: bool = False):
     import torch
 
-    from odin.rank.cross_encoder import CrossEncoder
+    from allfather.rank.cross_encoder import CrossEncoder
 
     ce = CrossEncoder(adapter=adapter, device=device)
     if device == "cpu":
@@ -37,8 +37,8 @@ def load(adapter: Path, device: str, int8: bool = False):
 def main() -> None:
     import torch
 
-    from odin.cli import _load_eval_set
-    from odin.rank.ce_train import validation_split
+    from allfather.cli import _load_eval_set
+    from allfather.rank.ce_train import validation_split
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--adapter", type=Path, default=Path("models/ce_adapter"))

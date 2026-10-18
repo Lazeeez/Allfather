@@ -43,7 +43,7 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
   const live = useLive();
   return (
     <div class="container" ref={root}>
-      <PageHero kicker="Benchmarks" title="How often Odin finds the fix">
+      <PageHero kicker="Benchmarks" title="How often Allfather finds the fix">
         <p>
           Measured on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the commit where the bug was
           reported, and a result counts only if the maintainers' actual fix changed it. None of these issues was used for training or
@@ -147,12 +147,12 @@ function Languages({ sets }: { sets: Record<string, Record<string, LanguageEval>
       <p class="kicker">In your browser</p>
       <h2>In five more languages</h2>
       <p class="card-lede">
-        Bugs from two public test sets, SWE-bench Multilingual and SWE-PolyBench, in projects the rankers never trained on, scored once. Odin's learned ranker against ranking by
+        Bugs from two public test sets, SWE-bench Multilingual and SWE-PolyBench, in projects the rankers never trained on, scored once. Allfather's learned ranker against ranking by
         keywords and meaning alone, the simpler signal the site would fall back to.
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="Accuracy by language">
         <table>
-          <thead><tr><th>Language</th><th class="phone-hide-col">Test set</th><th class="phone-hide-col">Bugs</th><th>Odin</th><th class="wrap">Keywords and meaning</th><th>Change</th><th class="phone-hide-col">p</th></tr></thead>
+          <thead><tr><th>Language</th><th class="phone-hide-col">Test set</th><th class="phone-hide-col">Bugs</th><th>Allfather</th><th class="wrap">Keywords and meaning</th><th>Change</th><th class="phone-hide-col">p</th></tr></thead>
           <tbody>
             {rows.map(({ set, lang, e }) => {
               const g = e["hit@10_gain"];

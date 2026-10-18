@@ -3,7 +3,7 @@
 MANIFEST="$(realpath "$1")"
 ENV="$(job_env "$MANIFEST")"
 cd "$ROOT"
-if [ "$ENV" != "$ROOT/.venv" ] && [ ! -x "$ENV/bin/odin" ]; then
+if [ "$ENV" != "$ROOT/.venv" ] && [ ! -x "$ENV/bin/allfather" ]; then
   echo "building the job's environment in $ENV"
   uv venv --clear --python 3.11 "$ENV"
   indexes=()
@@ -14,5 +14,5 @@ if [ "$ENV" != "$ROOT/.venv" ] && [ ! -x "$ENV/bin/odin" ]; then
   uv pip install --python "$ENV/bin/python" "${indexes[@]}" -r "$ENV/requirements.txt"
   uv pip install --python "$ENV/bin/python" --no-deps -e "$ROOT"
 fi
-"$ENV/bin/odin" run --manifest "$MANIFEST" --fetch-only
+"$ENV/bin/allfather" run --manifest "$MANIFEST" --fetch-only
 echo "fetch finished"

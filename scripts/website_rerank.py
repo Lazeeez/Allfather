@@ -13,8 +13,8 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import browser_ltr as bl  # noqa: E402
 
-from odin.eval.metrics import aggregate, metric_values, paired_bootstrap, score  # noqa: E402
-from odin.eval.provenance import provenance  # noqa: E402
+from allfather.eval.metrics import aggregate, metric_values, paired_bootstrap, score  # noqa: E402
+from allfather.eval.provenance import provenance  # noqa: E402
 
 OUT = ROOT / "results" / "website-rerank"
 WORK = OUT / "work"
@@ -264,7 +264,7 @@ HELD_OUT_SETS = ("lite", "unseen")
 
 
 def held_out_tasks(ranker_path: Path) -> int:
-    from odin.rank.browser import predict_many
+    from allfather.rank.browser import predict_many
 
     if HELD_OUT.exists():
         sys.exit(f"{HELD_OUT} exists")

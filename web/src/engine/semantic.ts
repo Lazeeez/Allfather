@@ -8,5 +8,5 @@ export const RESULTS = 50;
 
 export type Embed = (texts: string[]) => Promise<Float32Array[]>;
 
-/** The text a unit is embedded as, identical to Odin's unit_text(). */
+/** The text a unit is embedded as, identical to Allfather's unit_text(). */
 export const unitText = (u: { qualname: string; text: string }): string => `${u.qualname}\n${u.text}`;

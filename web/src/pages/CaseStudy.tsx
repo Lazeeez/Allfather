@@ -56,7 +56,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
     <div class="container case-study" ref={root}>
       <PageHero kicker="Case study" title="Finding the code behind a bug report">
         <p>
-          Given a bug report and a repository, Odin ranks the functions most likely to need the fix. It is a research pipeline measured on
+          Given a bug report and a repository, Allfather ranks the functions most likely to need the fix. It is a research pipeline measured on
           real bug fixes, a website that runs it in your browser on public code in six languages, and a GitHub Action that comments on new issues.
         </p>
       </PageHero>
@@ -66,7 +66,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <h2>Most of fixing a bug is finding it.</h2>
         <p class="section-lede">
           A report says what went wrong, not where. In a large repository the answer is one of tens of thousands of functions, and the report
-          may name it, quote a stack trace through it, or only describe a symptom. Odin is scored the way a developer would judge it: is a
+          may name it, quote a stack trace through it, or only describe a symptom. Allfather is scored the way a developer would judge it: is a
           function the maintainers' real fix changed among the first ten it suggests?
         </p>
       </section>
@@ -91,7 +91,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
           )}
         </div>
         <p class="note">
-          Share of bugs with a function the real fix changed in Odin's top 10. Full methodology, intervals and every stage on <a href={href("benchmarks")}>Benchmarks</a>.
+          Share of bugs with a function the real fix changed in Allfather's top 10. Full methodology, intervals and every stage on <a href={href("benchmarks")}>Benchmarks</a>.
         </p>
       </section>
 

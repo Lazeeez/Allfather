@@ -18,11 +18,11 @@ Y_RANGE = (60.0, 92.0)
 X_TICKS = (0.0001, 0.001, 0.01, 0.1, 1.0)
 Y_TICKS = (60, 70, 80, 90)
 SURFACE, INK, SECONDARY, MUTED, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#898781", "#e7e6e2"
-SERIES = {"published": "#2a78d6", "odin": "#eb6834"}
-LEGEND = {"published": "Published systems, as reported", "odin": "Odin, measured here"}
+SERIES = {"published": "#2a78d6", "allfather": "#eb6834"}
+LEGEND = {"published": "Published systems, as reported", "allfather": "Allfather, measured here"}
 
 
-def odin_costs() -> dict:
+def allfather_costs() -> dict:
     published = json.loads(PUBLISHED.read_text(encoding="utf-8"))
     dollars_per_second = published["gpu_price"]["dollars_per_hour"] / 3600
     cascade = json.loads(CASCADE.read_text(encoding="utf-8"))
@@ -70,7 +70,7 @@ def point(series: str, cost: float, accuracy: float, label: str, side: str, shif
     x, y = x_of(cost), y_of(accuracy)
     offset = 10 if side == "right" else -10
     anchor = "start" if side == "right" else "end"
-    ours = series == "odin"
+    ours = series == "allfather"
     caption = text(
         x + offset,
         y + 4 + shift,
@@ -89,7 +89,7 @@ def point(series: str, cost: float, accuracy: float, label: str, side: str, shif
 
 def render() -> str:
     published = json.loads(PUBLISHED.read_text(encoding="utf-8"))
-    odin = odin_costs()
+    ours = allfather_costs()
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {WIDTH} {HEIGHT}" '
         f'font-family="system-ui, -apple-system, Segoe UI, sans-serif" role="img" '
@@ -132,38 +132,38 @@ def render() -> str:
                 system.get("label_shift", 0),
             )
         )
-    x0, x1 = x_of(odin["dollars_per_issue"]), x_of(odin["dollars_first_issue"])
-    y = y_of(odin["function_acc_at_10"])
+    x0, x1 = x_of(ours["dollars_per_issue"]), x_of(ours["dollars_first_issue"])
+    y = y_of(ours["function_acc_at_10"])
     parts.append(
         f'<line x1="{x0:.1f}" x2="{x1:.1f}" y1="{y:.1f}" y2="{y:.1f}" '
-        f'stroke="{SERIES["odin"]}" stroke-width="2"/>'
+        f'stroke="{SERIES["allfather"]}" stroke-width="2"/>'
     )
     parts.append(
         point(
-            "odin",
-            odin["dollars_per_issue"],
-            odin["function_acc_at_10"],
-            "Odin, laptop",
+            "allfather",
+            ours["dollars_per_issue"],
+            ours["function_acc_at_10"],
+            "Allfather, laptop",
             "left",
             -14,
         )
     )
     parts.append(
         point(
-            "odin",
-            odin["l40s_dollars_per_issue"],
-            odin["function_acc_at_10"],
-            "Odin, L40S",
+            "allfather",
+            ours["l40s_dollars_per_issue"],
+            ours["function_acc_at_10"],
+            "Allfather, L40S",
             "right",
             -14,
         )
     )
     parts.append(
         point(
-            "odin",
-            odin["dollars_first_issue"],
-            odin["function_acc_at_10"],
-            "Odin, first issue on a repository",
+            "allfather",
+            ours["dollars_first_issue"],
+            ours["function_acc_at_10"],
+            "Allfather, first issue on a repository",
             "right",
             16,
         )
@@ -174,7 +174,7 @@ def render() -> str:
 
 def main() -> int:
     if "--numbers" in sys.argv:
-        print(json.dumps(odin_costs(), indent=1))
+        print(json.dumps(allfather_costs(), indent=1))
         return 0
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(render(), encoding="utf-8", newline="\n")

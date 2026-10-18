@@ -40,18 +40,18 @@ export function Nav({ page }: { page: Page }) {
   return (
     <header class={`nav${open ? " open" : ""}`}>
       <div class="nav-inner">
-        <a class="brand" href={href("home")} aria-label="Odin home"><Logo />Odin</a>
+        <a class="brand" href={href("home")} aria-label="Allfather home"><Logo />Allfather</a>
         <nav id="site-menu" aria-label="Main">
           {LINKS.map(([p, label]) => (
             <a key={p} href={href(p)} class={p === page ? "on" : ""} aria-current={p === page ? "page" : undefined}>{label}</a>
           ))}
         </nav>
         <div class="nav-actions">
-          <button class="icon-btn palette-btn" type="button" onClick={() => dispatchEvent(new Event("odin:palette"))} aria-label="Open the command palette (Ctrl+K)" title="Command palette (Ctrl+K)">
+          <button class="icon-btn palette-btn" type="button" onClick={() => dispatchEvent(new Event("allfather:palette"))} aria-label="Open the command palette (Ctrl+K)" title="Command palette (Ctrl+K)">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6" /><path d="m15 15 5 5" /></svg>
           </button>
           <ThemeToggle />
-          <a class="btn primary small nav-cta" href={href("search")}>Try Odin</a>
+          <a class="btn primary small nav-cta" href={href("search")}>Try Allfather</a>
           <button class="icon-btn menu-btn" type="button" aria-expanded={open} aria-controls="site-menu" aria-label="Menu" onClick={() => setOpen(!open)}>
             <svg viewBox="0 0 24 24" aria-hidden="true">{open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}</svg>
           </button>
@@ -65,7 +65,7 @@ export function Footer() {
   return (
     <footer class="footer">
       <div class="footer-inner">
-        <a class="brand" href={href("home")}><Logo />Odin</a>
+        <a class="brand" href={href("home")}><Logo />Allfather</a>
         <nav aria-label="Footer">
           {LINKS.map(([p, label]) => <a key={p} href={href(p)}>{label}</a>)}
         </nav>
