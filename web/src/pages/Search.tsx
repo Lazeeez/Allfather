@@ -3,7 +3,7 @@ import { Emblem, Seer } from "../components/Emblem.tsx";
 import { Bookmarklet } from "../components/Bookmarklet.tsx";
 import { PageHero } from "../components/PageHero.tsx";
 import { RecentChange } from "../components/RecentChange.tsx";
-import { ProgressRing } from "../components/ProgressRing.tsx";
+import { RuneProgress } from "../components/RuneProgress.tsx";
 import { Seg } from "../components/Seg.tsx";
 import { githubApi, githubUrl, issueNumber, parseRepo } from "../engine/github.ts";
 import { feedbackEnabled, newSession, type QuerySource, recordSearch, recordVote } from "../lib/feedback.ts";
@@ -531,7 +531,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
         {w.status && (
           <div class="progress">
             <div class="progress-row">
-              {w.loading && info && <ProgressRing size="sm" fraction={w.status.fraction} label={w.status.text} />}
+              {w.loading && info && <RuneProgress size="sm" fraction={w.status.fraction} label={w.status.text} />}
               <div class={`progress-text${w.status.error ? " error" : ""}`} role="status" aria-live="polite">{w.status.text}</div>
               {w.loading && <button class="link-btn push" type="button" onClick={w.cancel}>Cancel</button>}
             </div>
@@ -549,7 +549,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
       )}
       {w.loading && !info && (
         <div class="loading-panel">
-          <ProgressRing fraction={w.status?.fraction} label={w.status?.text} />
+          <RuneProgress fraction={w.status?.fraction} label={w.status?.text} />
           <p class="loading-caption" aria-hidden="true">
             <b>Gathering the code</b>
             {w.status?.text}

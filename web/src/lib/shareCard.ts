@@ -1,5 +1,3 @@
-import { MARK_RUNE } from "../components/Emblem.tsx";
-
 export interface CardHit {
   qualname: string;
   path: string;
@@ -16,7 +14,7 @@ export interface CardInput {
 
 const W = 1200;
 const H = 630;
-const COLORS = { bg: "#0f1424", panel: "#171f36", gold: "#e2b24a", ink: "#f2ebdc", muted: "#a9b0c3", line: "#2a3658", onGold: "#1d1607" };
+const COLORS = { bg: "#0f1424", panel: "#171f36", gold: "#e2b24a", ink: "#f2ebdc", muted: "#a9b0c3", line: "#2a3658" };
 
 const fit = (ctx: CanvasRenderingContext2D, text: string, width: number): string => {
   if (ctx.measureText(text).width <= width) return text;
@@ -50,27 +48,14 @@ export async function drawCard(input: CardInput): Promise<Blob> {
   ctx.fillStyle = COLORS.gold;
   ctx.fillRect(0, 0, W, 6);
 
-  ctx.save();
-  ctx.translate(64, 56);
-  ctx.scale(1.5, 1.5);
-  ctx.fillStyle = COLORS.gold;
-  ctx.beginPath();
-  ctx.roundRect(0, 0, 32, 32, 8);
-  ctx.fill();
-  ctx.strokeStyle = COLORS.onGold;
-  ctx.lineWidth = 2.6;
-  ctx.lineCap = "round";
-  ctx.lineJoin = "round";
-  ctx.stroke(new Path2D(MARK_RUNE));
-  ctx.restore();
 
   ctx.fillStyle = COLORS.ink;
   ctx.font = `700 32px ${sans}`;
-  ctx.fillText("Allfather", 130, 92);
+  ctx.fillText("Allfather", 64, 92);
   const brand = ctx.measureText("Allfather").width;
   ctx.fillStyle = COLORS.muted;
   ctx.font = `500 22px ${sans}`;
-  ctx.fillText(fit(ctx, `Where to fix it in ${input.repo}`, W - 200 - brand), 150 + brand, 90);
+  ctx.fillText(fit(ctx, `Where to fix it in ${input.repo}`, W - 152 - brand), 88 + brand, 90);
 
   ctx.fillStyle = COLORS.ink;
   ctx.font = `600 34px ${sans}`;

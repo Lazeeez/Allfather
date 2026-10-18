@@ -35,3 +35,5 @@ The plain developer-tool look shipped first and read as bland next to the old si
 The ring draws 19 Elder Futhark runes. Othala, sowilo, algiz and tiwaz are left out on purpose: hate groups have claimed them.
 
 The source repository is private, so the website links to neither the repository nor the decision records.
+
+The rune-square mark was dropped again at the owner's request: the animated eye is the logo and the loading symbol, and the circle of runes that light up as a repository loads is the large loading widget, both as they were before the rename.

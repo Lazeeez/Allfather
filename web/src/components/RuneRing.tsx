@@ -1,4 +1,4 @@
-const RUNES = [
+export const RUNES = [
   "M2 0V16M2 5 8 1M2 9 8 5",
   "M1 16V0L7 5V16",
   "M2 0V16M2 4 7 8 2 12",

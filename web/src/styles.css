@@ -191,7 +191,8 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
 .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 60px; display: flex; align-items: center; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font: 700 17.5px var(--sans); letter-spacing: -.02em; color: var(--ink); }
 .brand:hover { color: var(--ink); }
-.brand .emblem { width: 28px; height: 28px; flex: none; }
+.brand .emblem { width: 34px; height: 34px; flex: none; filter: drop-shadow(0 1px 2px rgba(20, 14, 2, .25)); }
+.brand:hover .em-eye { animation: blink .5s ease-in-out 1; }
 #site-menu { display: flex; gap: 2px; margin-left: 8px; }
 #site-menu a { color: var(--ink-2); font-size: 14px; font-weight: 500; padding: 6px 11px; border-radius: 7px; }
 #site-menu a:hover { color: var(--ink); background: var(--bg-2); }
@@ -208,14 +209,25 @@ input:focus, textarea:focus, select:focus { outline: none; border-color: var(--g
 .footer nav a:hover { color: var(--ink); }
 .footer-note { max-width: 1120px; margin: 28px auto 0; padding: 0 24px; }
 
-.emblem { display: block; }
-.seer { position: relative; display: inline-flex; align-items: center; gap: 10px; color: var(--ink-2); font-size: 14px; }
-.spinner { width: 18px; height: 18px; flex: none; border-radius: 50%; border: 2px solid var(--line-2); border-top-color: var(--gold-line); animation: turn .8s linear infinite; }
+.emblem { display: block; overflow: visible; }
+.em-eye, .em-iris, .em-dial, .em-knot { transform-box: view-box; transform-origin: 32px 32px; }
+.emblem.live .em-dial { animation: turn 9s linear infinite; }
+.emblem.live .em-knot { animation: turn 3.6s linear infinite, dilate 2.4s ease-in-out infinite; }
+.emblem.live .em-eye { animation: blink 4.8s ease-in-out infinite; }
+@keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.06); } }
+@keyframes dilate { 0%, 100% { scale: .9; } 50% { scale: 1.06; } }
+.seer { position: relative; display: inline-flex; align-items: center; gap: 12px; color: var(--ink-2); font-size: 14px; }
+.seer .emblem { position: relative; width: 28px; height: 28px; flex: none; }
+.seer-sm .emblem { width: 18px; height: 18px; }
 .seer-sm { gap: 8px; font-size: 13px; }
-.seer-sm .spinner { width: 13px; height: 13px; border-width: 1.75px; }
-.seer-lg { flex-direction: column; gap: 16px; font-size: 15px; text-align: center; }
-.seer-lg .spinner { width: 40px; height: 40px; border-width: 3px; }
+.seer-lg { flex-direction: column; gap: 18px; font-size: 15px; text-align: center; }
+.seer-lg .emblem { width: 92px; height: 92px; }
+.seer-halo { position: absolute; left: 0; top: 50%; width: 28px; height: 28px; transform: translateY(-50%); border-radius: 50%; background: radial-gradient(closest-side, var(--hero-glow), transparent); animation: halo 2.4s ease-in-out infinite; }
+.seer-sm .seer-halo { width: 18px; height: 18px; }
+.seer-lg .seer-halo { left: 50%; top: 46px; width: 180px; height: 180px; transform: translate(-50%, -50%); }
+@keyframes halo { 0%, 100% { opacity: .5; scale: .85; } 50% { opacity: 1; scale: 1.15; } }
 .seer-text { position: relative; }
+.btn .seer .emblem { width: 18px; height: 18px; }
 .loading-panel { display: grid; place-items: center; padding: 56px 16px 40px; }
 
 .frame { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
@@ -438,7 +450,7 @@ table.heat th, table.heat td { padding: 9px 10px; }
 .progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s ease; }
 
 .empty-state { text-align: center; padding: 56px 24px; color: var(--ink-2); }
-.empty-state .emblem { width: 56px; height: 56px; margin: 0 auto; border-radius: 14px; box-shadow: 0 0 0 6px var(--glow); }
+.empty-state .emblem { width: 76px; height: 76px; margin: 0 auto; filter: drop-shadow(0 6px 18px rgba(20, 14, 2, .25)); }
 .empty-state h2 { font-size: 20px; margin: 12px 0 6px; }
 .empty-state p { max-width: 52ch; margin: 0 auto; font-size: 15px; }
 
@@ -578,19 +590,24 @@ mark { background: var(--gold-bg); color: inherit; border-radius: 3px; padding: 
 .palette-foot { margin: 0; padding: 8px 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
 kbd { font: 11px var(--mono); padding: 1px 5px; border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 3px; background: var(--bg); margin-right: 2px; }
 
-.progress-ring { position: relative; display: grid; place-items: center; flex: none; }
-.pr-lg { width: 112px; height: 112px; }
-.pr-sm { width: 20px; height: 20px; }
-.progress-ring > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.pr-track { fill: none; stroke: var(--line); stroke-width: 5; }
-.pr-arc { fill: none; stroke: var(--gold-line); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .4s cubic-bezier(.2, .7, .2, 1); }
-.pr-sm .pr-track, .pr-sm .pr-arc { stroke-width: 11; }
-.progress-ring.busy .pr-arc { stroke-dashoffset: .75; animation: turn 1s linear infinite; transform-origin: center; transform-box: view-box; }
-.pr-center { position: relative; display: grid; place-items: center; }
-.pr-center .emblem { width: 36px; height: 36px; }
-.pr-value { font: 650 20px var(--sans); letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.rune-progress { position: relative; display: grid; place-items: center; flex: none; }
+.rp-lg { width: min(240px, 70vw); aspect-ratio: 1; }
+.rp-sm { width: 40px; height: 40px; }
+.rune-progress > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.rp-track { fill: none; stroke: var(--line-2); stroke-width: 3; }
+.rp-arc { fill: none; stroke: var(--gold-bright); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1;
+  transition: stroke-dashoffset .5s cubic-bezier(.2, .7, .2, 1); filter: drop-shadow(0 0 4px var(--glow)); }
+.rp-sm .rp-track, .rp-sm .rp-arc { stroke-width: 9; }
+.rune-progress.busy .rp-arc { stroke-dashoffset: .72; animation: turn 1.4s linear infinite; transform-origin: center; transform-box: view-box; }
+.rune-progress > svg g path { fill: none; stroke: var(--line-2); opacity: .45; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; transition: stroke .4s ease, filter .4s ease; }
+.rune-progress.busy > svg g path { animation: rune-chase 2.4s linear infinite; animation-delay: calc(var(--i) * 100ms); }
+@keyframes rune-chase { 0%, 45%, 100% { opacity: .45; stroke: var(--line-2); } 12% { opacity: 1; stroke: var(--gold-bright); } }
+.rune-progress > svg g.on path { opacity: 1; stroke-width: 1.7; stroke: var(--gold-bright); filter: drop-shadow(0 0 3px rgba(240, 190, 90, .8)); }
+.rp-eye { width: 46%; height: 46%; display: grid; place-items: center; }
+.rp-eye .emblem { width: 100%; height: 100%; filter: drop-shadow(0 8px 22px rgba(20, 14, 2, .3)); }
+.rp-sm .rp-eye { width: 62%; height: 62%; }
 .loading-caption { margin: 18px 0 0; text-align: center; color: var(--muted); font-size: 14px; }
-.loading-caption b { display: block; font: 600 16px var(--sans); color: var(--ink); margin-bottom: 2px; }
+.loading-caption b { display: block; font: 600 17px var(--display); color: var(--ink); margin-bottom: 2px; }
 
 .recent-change { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; padding: 8px 16px 8px 46px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--muted); }
 .recent-change a { color: var(--ink-2); overflow-wrap: anywhere; }
@@ -790,9 +807,8 @@ details > summary { cursor: pointer; color: var(--accent); font-size: 13.5px; fo
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
   .skeleton span { animation: none; }
-  .intro, .hero h1 .word, .rune-ring .draw, .rune-ring .rune, .ring-outer, .ring-inner, .ladder i.hit, .hits > li, .bug-browser, .preview-results li, .preview-state span, .wtrack i, .progress-ring.busy .pr-arc,
+  .intro, .hero h1 .word, .rune-ring .draw, .rune-ring .rune, .ring-outer, .ring-inner, .ladder i.hit, .hits > li, .bug-browser, .preview-results li, .preview-state span, .wtrack i, .emblem.live *, .seer-halo, .rune-progress.busy .rp-arc, .rune-progress.busy > svg g path,
   .repo-map, .palette, .palette-backdrop, .choice.right { animation: none !important; }
-  .spinner { animation-duration: 2.4s; }
   .preview-results li { opacity: 1; }
   .preview-state .scan { display: none; }
   .preview-state .done { opacity: 1; }
