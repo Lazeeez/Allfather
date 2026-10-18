@@ -15,7 +15,7 @@ URL = "http://localhost:4173/"
 def main() -> None:
     with sync_playwright() as p:
         browser = p.chromium.launch()
-        # Reduced motion renders the finished frame: the ring drawn, the title and results in place.
+        # Reduced motion renders the finished frame: the results in place.
         page = browser.new_page(
             viewport={"width": 1200, "height": 630}, color_scheme="light", reduced_motion="reduce"
         )
