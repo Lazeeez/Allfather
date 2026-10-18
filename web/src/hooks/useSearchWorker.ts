@@ -125,14 +125,20 @@ export function useSearchWorker() {
         setMap(msg.files);
         return;
       case "semantic-error":
-        if (msg.id === seq.current) setSemantic(`Language-model rerank unavailable (${msg.message}); showing the ranking without it.`);
+        if (msg.id === seq.current) {
+          console.warn("Language-model rerank unavailable:", msg.message);
+          setSemantic("The language-model rerank couldn't load, so this is the ranking without it.");
+        }
         return;
       case "server-start":
         if (msg.id === seq.current) setServer("Re-reading the top candidates with the fine-tuned reranker on a GPU server (the first search can take half a minute while it starts)…");
         return;
       case "server-error":
         if (msg.permanent) setServerReady(false);
-        if (msg.id === seq.current) setServer(msg.permanent ? "" : `GPU reranker unavailable (${msg.message}); showing the browser's ranking.`);
+        if (msg.id === seq.current) {
+          if (!msg.permanent) console.warn("GPU reranker unavailable:", msg.message);
+          setServer(msg.permanent ? "" : "The GPU reranker didn't answer, so this is the browser's ranking.");
+        }
     }
   }, []);
 

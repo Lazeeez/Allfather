@@ -627,8 +627,8 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
           </div>
 
           <div class="result-meta">
-            <p class="tokens" role="status" aria-live="polite">{semanticStatus.includes("…") && <Seer size="sm" />} {semanticStatus}</p>
-            {w.server && <p class="tokens" role="status" aria-live="polite">{w.server.endsWith("…") && <Seer size="sm" />} {w.server}</p>}
+            <p class="status-line" role="status" aria-live="polite">{semanticStatus.includes("…") && <Seer size="sm" />} {semanticStatus}</p>
+            {w.server && <p class="status-line" role="status" aria-live="polite">{w.server.endsWith("…") && <Seer size="sm" />} {w.server}</p>}
             {w.results?.confidence != null && (measurable(query)
               ? <Confidence p={w.results.confidence} gpu={w.results.stage === "server"} />
               : <p class="confidence low"><b>Too short to estimate</b> · reports this brief are outside what the confidence estimate was measured on. Adding the error message, a stack trace or what you expected to happen usually helps.</p>)}

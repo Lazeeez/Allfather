@@ -169,12 +169,12 @@ test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette
   await expect(page.locator(".game-score")).toContainText("after 1 round");
 });
 
-test("sections that render after their data arrives still reveal on scroll", async ({ page }) => {
+test("sections that render after their data arrives are visible at once", async ({ page }) => {
   await page.goto("./#/benchmarks");
   const table = page.locator("table.heat");
   await table.scrollIntoViewIfNeeded();
-  await expect(page.locator("section.reveal", { has: table })).toHaveClass(/\bin\b/);
-  await expect(page.locator(".tiles.reveal")).toHaveClass(/\bin\b/);
+  await expect(page.locator("section", { has: table })).toBeVisible();
+  await expect(page.locator(".tiles .tile-value").first()).toHaveText(/%$/);
 });
 
 test("asking for another repository mid-load cancels the first and loads the new one", async ({ page }) => {
@@ -240,7 +240,7 @@ test("the GPU reranker reorders the top results without downloading the browser'
   await page.goto(`./#/search?repo=${encodeURIComponent(REPO)}`);
   await expect(page.locator(".repo-pill")).toContainText(REPO);
   await page.locator("#demo-query").fill("load_config crashes with KeyError when the settings file is missing");
-  await expect(page.locator("p.tokens", { hasText: "Re-read the top 50" })).toBeVisible();
+  await expect(page.locator("p.status-line", { hasText: "Re-read the top 50" })).toBeVisible();
   await expect(page.locator("#search-app ol.hits .qual").first()).toHaveText(boosted);
   await expect(page.locator("#search-app ol.hits > li").first().locator(".moved")).toHaveText("↑ from #2");
   expect(languageModel).toEqual([]);

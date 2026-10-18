@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { type Page, href } from "../lib/router.ts";
-import { reducedMotion } from "../lib/reveal.ts";
+import { reducedMotion } from "../lib/motion.ts";
 import { save } from "../lib/storage.ts";
 import { Emblem } from "./Emblem.tsx";
 

@@ -52,7 +52,6 @@ export function App() {
 
   useEffect(() => scrollHints(), []);
   useEffect(() => spotlight(), []);
-  const [paged, setPaged] = useState(false);
 
   useEffect(() => {
     getJSON<Summary>("data/summary.json").then(setSummary, () => setFailed(true));
@@ -62,10 +61,7 @@ export function App() {
   useEffect(() => {
     document.title = TITLES[route.page];
     if (route.page === "search") setSearchOpened(true);
-    if (!first.current) {
-      window.scrollTo({ top: 0 });
-      setPaged(true);
-    }
+    if (!first.current) window.scrollTo({ top: 0 });
     first.current = false;
   }, [route.page]);
 
@@ -74,7 +70,7 @@ export function App() {
     <>
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>Skip to content</a>
       <Nav page={page} />
-      <main id="main" tabIndex={-1} class={`page-${page}${paged ? " paged" : ""}`}>
+      <main id="main" tabIndex={-1} class={`page-${page}`}>
         {page === "home" && <Home summary={summary} lite={lite} />}
         {searchOpened && (
           <div hidden={page !== "search"}>

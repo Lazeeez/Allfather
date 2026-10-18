@@ -154,7 +154,7 @@ function IssueView({ issue, fnStages, fileStages, pipeline, onNext }: {
 
   return (
     <div class="issue-view">
-      <section class="story-card frame reveal in">
+      <section class="story-card frame">
         <p class="step-label"><span>1</span> The bug report</p>
         <h2 class="bug-title">{title}</h2>
         <p class="bug-meta">
@@ -163,7 +163,7 @@ function IssueView({ issue, fnStages, fileStages, pipeline, onNext }: {
         {body && <Report text={body} />}
       </section>
 
-      <section class="story-card frame reveal in">
+      <section class="story-card frame">
         <p class="step-label"><span>2</span> The answer key</p>
         <p class="story-lede">
           The gold {byFunction ? "functions" : "files"}: every {byFunction ? "function or method" : "file"} whose lines the maintainers' patch modifies, located in
@@ -177,7 +177,7 @@ function IssueView({ issue, fnStages, fileStages, pipeline, onNext }: {
         </ul>
       </section>
 
-      <section class="story-card frame reveal in">
+      <section class="story-card frame">
         <p class="step-label"><span>3</span> How each stage did</p>
         <p class={`verdict${last === 1 ? " win" : last == null ? " miss" : ""}`}>{verdict(first, last, best, unit, pipeline)}</p>
         <p class="verdict-tech">

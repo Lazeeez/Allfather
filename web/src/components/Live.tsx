@@ -33,7 +33,7 @@ export function LiveSection({ live }: { live: LiveSummary }) {
   const trained = live.all_time_trained_projects;
   const unseen = live.all_time_new_projects;
   return (
-    <section class="card frame block reveal">
+    <section class="card frame block">
       <p class="kicker">Live</p>
       <h2>On bugs fixed this month</h2>
       <p class="card-lede">

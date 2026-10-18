@@ -14,7 +14,7 @@ export function Highlights() {
   return (
     <div class="cards">
       {CARDS.map(([big, t, p], i) => (
-        <div class="ecard frame reveal" key={t} style={{ "--d": `${(i % 3) * 0.08}s` }}>
+        <div class="ecard frame" key={t} style={{ "--d": `${(i % 3) * 0.08}s` }}>
           <div class="big">{big}</div>
           <div class="t">{t}</div>
           <p dangerouslySetInnerHTML={{ __html: inlineCode(p) }} />
@@ -57,7 +57,7 @@ function TriedList({ items, ok }: { items: Tried[]; ok: boolean }) {
   return (
     <ul class="tried">
       {items.map(([title, body, result], i) => (
-        <li key={title} class="frame reveal" style={{ "--d": `${(i % 2) * 0.08}s` }}>
+        <li key={title} class="frame" style={{ "--d": `${(i % 2) * 0.08}s` }}>
           <span class={`tried-mark${ok ? " ok" : ""}`} aria-label={ok ? "worked" : "didn't work"}>{ok ? "✓" : "✗"}</span>
           <div>
             <h3>{title}</h3>

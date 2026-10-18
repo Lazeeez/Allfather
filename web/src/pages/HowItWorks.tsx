@@ -4,7 +4,6 @@ import { Icon, type IconName } from "../components/Icons.tsx";
 import { PageHero } from "../components/PageHero.tsx";
 import { Pipeline } from "../components/Pipeline.tsx";
 import type { Summary } from "../lib/data.ts";
-import { useReveal } from "../lib/reveal.ts";
 import { href } from "../lib/router.ts";
 
 const GPU_RERANK = !!import.meta.env.VITE_RERANK_SERVER;
@@ -31,7 +30,6 @@ const JOURNEY: [IconName, string, string, string][] = [
 
 export function HowItWorks({ summary }: { summary: Summary | null }) {
   const root = useRef<HTMLDivElement>(null);
-  useReveal(root);
   return (
     <div class="container" ref={root}>
       <PageHero kicker="How it works" title="From bug report to the right function">
@@ -41,15 +39,15 @@ export function HowItWorks({ summary }: { summary: Summary | null }) {
         </p>
       </PageHero>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">In your browser</p>
         <h2>What happens when you press Search</h2>
         <p class="section-lede">When you <a href={href("search")}>search a repository</a>, everything below runs in Web Workers in your tab.{GPU_RERANK
           ? " Two steps use servers of ours: the relay that passes the repository download through, and the optional GPU reranker, which receives your bug report and the top 50 functions to score them."
           : " The only server of ours is the relay that passes the repository download through, and your bug report is never sent anywhere."}</p>
         <ol class="journey">
-          {JOURNEY.map(([icon, title, plain, detail], i) => (
-            <li key={title} class="reveal" style={{ "--d": `${i * 0.08}s` }}>
+          {JOURNEY.map(([icon, title, plain, detail]) => (
+            <li key={title}>
               <span class="journey-node"><Icon name={icon} /></span>
               <div>
                 <h3>{title} <span class="journey-sub">{plain}</span></h3>
@@ -60,27 +58,27 @@ export function HowItWorks({ summary }: { summary: Summary | null }) {
         </ol>
       </section>
 
-      <section class="card frame block reveal">
+      <section class="card frame block">
         <p class="kicker">The full pipeline</p>
         <h2>Five stages, each one smarter</h2>
         <p class="card-lede">Evaluated on the 291 SWE-bench Lite issues with a function-level gold label. Select a stage for its candidate pool, model, metrics and latency.</p>
         {summary ? <Pipeline summary={summary} /> : <p class="muted">Loading…</p>}
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Engineering</p>
         <h2>What makes it fast</h2>
         <Highlights />
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Things we tried</p>
         <h2>What worked</h2>
         <p class="section-lede">Every change was measured on held-out bugs with a paired bootstrap before it shipped. These made the cut.</p>
         <Worked summary={summary} />
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Things we tried</p>
         <h2>What didn't work</h2>
         <p class="section-lede">Negative results, kept because they explain the design as much as the wins do.</p>

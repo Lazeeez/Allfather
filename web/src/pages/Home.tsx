@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { Bookmarklet } from "../components/Bookmarklet.tsx";
-import { Seer } from "../components/Emblem.tsx";
 import { Icon, type IconName } from "../components/Icons.tsx";
 import { RING_SIZE, RuneRing, runeAngle } from "../components/RuneRing.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import showcase from "../assets/showcase.json";
-import { reducedMotion, useReveal } from "../lib/reveal.ts";
+import { reducedMotion } from "../lib/motion.ts";
 import { load, save } from "../lib/storage.ts";
 import { href } from "../lib/router.ts";
 import { issueNumber } from "../engine/github.ts";
@@ -77,55 +76,21 @@ function Preview() {
     save("showcase", next);
     return EXAMPLES_RUN[next];
   });
-  const box = useRef<HTMLDivElement>(null);
-  const [typedTo, setTypedTo] = useState(0);
-  const [typed, setTyped] = useState(false);
-  useEffect(() => {
-    const full = ex.title.length;
-    if (reducedMotion() || !("IntersectionObserver" in window) || !box.current) {
-      setTypedTo(full);
-      setTyped(true);
-      return;
-    }
-    let timer = 0;
-    const io = new IntersectionObserver(([e]) => {
-      if (!e?.isIntersecting) return;
-      io.disconnect();
-      const step = Math.max(12, Math.min(32, 900 / full));
-      let i = 0;
-      const tick = () => {
-        i += 1;
-        setTypedTo(i);
-        timer = window.setTimeout(i < full ? tick : () => setTyped(true), i < full ? step : 250);
-      };
-      timer = window.setTimeout(tick, 350);
-    }, { threshold: 0.35 });
-    io.observe(box.current);
-    return () => {
-      io.disconnect();
-      clearTimeout(timer);
-    };
-  }, [ex]);
   return (
-    <div ref={box} class={`preview reveal${typed ? " typed" : ""}`} aria-label={`Example: searching ${ex.repo} for a real bug report`} role="img">
+    <div class="preview" aria-label={`Example: searching ${ex.repo} for a real bug report`} role="img">
       <div class="preview-bar">
         <i /><i /><i /><span>{ex.repo} · SWE-bench Lite</span>
-        <span class="preview-state">
-          <span class="scan"><Seer size="sm" /> searching</span>
-          <span class="done">the real fix, ranked first</span>
-        </span>
+        <span class="preview-state">the real fix, ranked first</span>
       </div>
       <div class="preview-body">
         <div class="preview-issue">
           <span class="preview-label">Bug report</span>
-          <p class="typed-title">
-            <span>{ex.title.slice(0, typedTo)}</span>{!typed && <span class="caret" />}<span class="untyped">{ex.title.slice(typedTo)}</span>
-          </p>
+          <p>{ex.title}</p>
           <code>{ex.code}</code>
         </div>
         <ol class="preview-results">
           {ex.top.map(([name, path, fixed], i) => (
-            <li key={`${path}::${name}`} style={{ "--i": i }} class={fixed ? "fixed" : ""}>
+            <li key={`${path}::${name}`} class={fixed ? "fixed" : ""}>
               <span class="rank">{i + 1}</span>
               <span class="qual">{name}</span>
               <span class="path">{path}</span>
@@ -151,11 +116,8 @@ const STEPS: [string, string, string][] = [
   ["3", "Open the right function.", "Functions are ranked by gradient-boosted trees over lexical, mention and embedding features, each with the matched terms highlighted and a link to the exact line."],
 ];
 
-const TITLE = ["Find", "the", "code", "behind", "any", "bug", "report."];
-
 export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | null }) {
   const root = useRef<HTMLDivElement>(null);
-  useReveal(root);
   const [spin, setSpin] = useState(0);
   const [typing, setTyping] = useState(false);
   const [near, setNear] = useState<Set<number> | undefined>(undefined);
@@ -193,29 +155,27 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
       <section class="hero">
         <RuneRing spin={spin} near={near} busy={typing} />
         <div class="container hero-text">
-          <p class="badge intro" style={{ "--d": ".05s" }}>Free · Runs in your browser · Six languages</p>
-          <h1 aria-label={TITLE.join(" ")}>
-            {TITLE.map((w, i) => <span key={i} class="word" aria-hidden="true" style={{ "--i": i }}>{w} </span>)}
-          </h1>
-          <p class="lede intro soft" style={{ "--d": ".3s" }}>
+          <p class="badge">Free · Runs in your browser · Six languages</p>
+          <h1>Find the code behind any bug report.</h1>
+          <p class="lede">
             Paste an issue, a stack trace or a one-line description. Allfather parses the repository into functions and ranks every one with BM25,
             learned rankers and code embeddings, showing the evidence behind each result.
           </p>
-          <div class="intro" style={{ "--d": ".5s" }}><QuickStart onType={onType} onAim={onAim} /></div>
+          <QuickStart onType={onType} onAim={onAim} />
         </div>
         <div class="container wide"><Preview /></div>
       </section>
 
       <section class="section">
         <div class="container">
-          <div class="reveal">
+          <div>
             <p class="kicker">Why Allfather</p>
             <h2>Bug triage without the grep.</h2>
             <p class="section-lede">A ranking cascade over every function in the repository: lexical retrieval, learned ranking and semantic similarity, computed on your device.</p>
           </div>
           <div class="features">
             {FEATURES.map(([icon, title, text], i) => (
-              <div class="feature frame bracket reveal" key={title} style={{ "--d": `${i * 0.06}s` }}>
+              <div class="feature frame bracket" key={title} style={{ "--d": `${i * 0.06}s` }}>
                 <Icon name={icon} />
                 <h3>{title}</h3>
                 <p>{text}</p>
@@ -225,15 +185,15 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         </div>
       </section>
 
-      <section class="section alt line">
+      <section class="section alt">
         <div class="container">
-          <div class="reveal">
+          <div>
             <p class="kicker">How it works</p>
             <h2>Three steps, a few seconds.</h2>
           </div>
           <ol class="steps">
             {STEPS.map(([n, title, text], i) => (
-              <li key={n} class="frame reveal" style={{ "--d": `${i * 0.06}s` }}>
+              <li key={n} class="frame" style={{ "--d": `${i * 0.06}s` }}>
                 <span class="numeral" aria-hidden="true">{n}</span><b>{title}</b> {text}
               </li>
             ))}
@@ -244,17 +204,17 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
 
       <section class="section">
         <div class="container">
-          <div class="reveal">
+          <div>
             <p class="kicker">From GitHub</p>
             <h2>One click from any issue.</h2>
           </div>
-          <div class="reveal"><Bookmarklet /></div>
+          <div><Bookmarklet /></div>
         </div>
       </section>
 
-      <section class="section alt line">
+      <section class="section alt">
         <div class="container">
-          <div class="reveal">
+          <div>
             <p class="kicker">Measured, not claimed</p>
             <h2>Tested on real bugs it never trained on.</h2>
             <p class="section-lede">
@@ -263,7 +223,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
               and on 501 bugs in JavaScript, TypeScript, Go, Java and Rust from two more public test sets.
             </p>
           </div>
-          <div class="tiles four reveal">
+          <div class="tiles four">
             <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} note={fn ? `full pipeline, ${fn.n} issues` : "full pipeline"} />
             <Tile label="File to fix in the top 5" value={fl ? fl["hit@5"] : null} note={fl ? `full pipeline, ${fl.n} issues` : "full pipeline"} />
             <Tile label="Function to fix in the top 10" value={browser} note={lite ? `in your browser, ${lite.held_out.unseen.keyword.n} bugs from 30 projects it never trained on` : "in your browser"} />
@@ -274,8 +234,8 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         </div>
       </section>
 
-      <section class="section cta-band line">
-        <div class="container narrow center reveal">
+      <section class="section cta-band">
+        <div class="container narrow center">
           <h2>Find the fix in your own repository.</h2>
           <p class="section-lede">Free, and nothing to install.</p>
           <a class="btn primary large" href={href("search")}>Start searching</a>

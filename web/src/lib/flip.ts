@@ -1,6 +1,6 @@
 import { type RefObject } from "preact";
 import { useLayoutEffect, useRef } from "preact/hooks";
-import { reducedMotion } from "./reveal.ts";
+import { reducedMotion } from "./motion.ts";
 
 export function useFlip(list: RefObject<HTMLElement>, version: unknown, animate: boolean) {
   const tops = useRef(new Map<string, number>());

@@ -45,8 +45,8 @@ export function Explore({ summary, linked, failed, mode: asked, set }: {
         </p>
       </PageHero>
       <ol class="how-strip">
-        {HOW.map(([icon, title, text], i) => (
-          <li key={title} class="intro" style={{ "--d": `${0.3 + i * 0.1}s` }}>
+        {HOW.map(([icon, title, text]) => (
+          <li key={title}>
             <Icon name={icon} />
             <span><b>{title}</b>{text}</span>
           </li>

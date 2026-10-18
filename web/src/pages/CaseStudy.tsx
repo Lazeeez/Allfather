@@ -4,7 +4,6 @@ import { PageHero } from "../components/PageHero.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import { LIVE_MIN_BUGS } from "../lib/feedback.ts";
-import { useReveal } from "../lib/reveal.ts";
 import { href } from "../lib/router.ts";
 
 
@@ -38,7 +37,6 @@ const SAFEGUARDS = [
 
 export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Lite | null }) {
   const root = useRef<HTMLDivElement>(null);
-  useReveal(root);
   const live = useLive();
   const fn = summary ? stagesAt(summary, "function").at(-1)! : null;
   const unseen = lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
@@ -54,7 +52,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         </p>
       </PageHero>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">The problem</p>
         <h2>Most of fixing a bug is finding it.</h2>
         <p class="section-lede">
@@ -64,7 +62,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         </p>
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Results</p>
         <h2>On bugs it never trained on.</h2>
         <div class="tiles four">
@@ -88,7 +86,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         </p>
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Decisions</p>
         <h2>What mattered most.</h2>
         <ol class="case-list">
@@ -101,7 +99,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         </ol>
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Negative results</p>
         <h2>What didn't work.</h2>
         <ul class="case-list">
@@ -110,7 +108,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="note">Every experiment, kept or not, is on <a href={href("how")}>How it works</a>.</p>
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Rigor</p>
         <h2>Why the numbers can be trusted.</h2>
         <ul class="case-list plain">
@@ -118,7 +116,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         </ul>
       </section>
 
-      <section class="block reveal">
+      <section class="block">
         <p class="kicker">Go deeper</p>
         <div class="case-links">
           <a class="btn primary" href={href("search")}>Try it on a repository</a>
