@@ -178,7 +178,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
               </li>
             ))}
           </ol>
-          <a class="text-link" href={href("how")}>See what happens under the hood →</a>
+          <a class="text-link" href={href("how")}>See what happens under the hood <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </section>
 
@@ -210,7 +210,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
             <Tile label="Function to fix in the top 10" value={multi ? bestBrowserStage(multi)["hit@10"] : null}
               note={multi ? `in your browser, ${multi.keyword.n} bugs in Go, Java, JavaScript, Rust and TypeScript` : "in your browser, five more languages"} />
           </div>
-          <a class="text-link" href={href("benchmarks")}>See the full benchmarks →</a>
+          <a class="text-link" href={href("benchmarks")}>See the full benchmarks <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </section>
 
