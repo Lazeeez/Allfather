@@ -10,7 +10,7 @@
   --gold-line: #c4942c;
   --gold-faint: rgba(196, 148, 44, .42);
   --gold-bright: #d9a63a;
-  --gold-strong: #946300;
+  --gold-strong: #8a5b00;
   --gold-fill: linear-gradient(180deg, #f5d37a 0%, #e9b847 55%, #dea93a 100%);
   --gold-fill-hover: linear-gradient(180deg, #f8db88 0%, #edc054 55%, #e3b044 100%);
   --gold-edge: #cf9a30;
@@ -18,7 +18,7 @@
   --gilt-text: linear-gradient(180deg, #2a2722, #1c1b22);
   --gilt-fade: linear-gradient(90deg, transparent, #c4942c 15%, #f0cc6c 40%, #e0b04a 60%, #c4942c 85%, transparent);
   --on-gold: #2a1d03;
-  --accent: #946300;
+  --accent: #8a5b00;
   --accent-hover: #6f4a00;
   --accent-soft: #f6eedb;
   --on-accent: #fbf8f2;
