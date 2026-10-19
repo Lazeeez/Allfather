@@ -16,7 +16,7 @@ export function Bookmarklet() {
   return (
     <div class="bookmarklet frame">
       <a class="bookmarklet-btn" href={code} onClick={(e) => e.preventDefault()} title="Drag me to your bookmarks bar">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4Z" /></svg>Allfather this
+        <span class="bookmarklet-mark" aria-hidden="true">👁</span> Allfather this
       </a>
       <div>
         <b>Drag “Allfather this” to your bookmarks bar.</b>
