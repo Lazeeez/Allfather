@@ -50,6 +50,7 @@ export function useSearchWorker() {
   const [results, setResults] = useState<Results | null>(null);
   const [semantic, setSemantic] = useState("");
   const [server, setServer] = useState("");
+  const [serverSince, setServerSince] = useState<number | null>(null);
   const [serverReady, setServerReady] = useState(!!import.meta.env.VITE_RERANK_SERVER);
   const [backend, setBackend] = useState<Backend | null>(null);
   /** The background semantic index of the loaded repository. */
@@ -131,7 +132,10 @@ export function useSearchWorker() {
         }
         return;
       case "server-start":
-        if (msg.id === seq.current) setServer("Re-reading the top candidates with the fine-tuned reranker on a GPU server (the first search can take half a minute while it starts)…");
+        if (msg.id === seq.current) {
+          setServerSince(Date.now());
+          setServer("Re-reading the top 50 with the GPU reranker…");
+        }
         return;
       case "server-error":
         if (msg.permanent) setServerReady(false);
@@ -189,6 +193,7 @@ export function useSearchWorker() {
     const id = ++seq.current;
     setSemantic("");
     setServer("");
+    setServerSince(null);
     if (!query.trim()) {
       setResults(null);
       return;
@@ -196,5 +201,5 @@ export function useSearchWorker() {
     send({ type: "search", id, query, semantic: useSemantic, server: useServer, k: RESULTS });
   }, [send]);
 
-  return { loading, status, info, results, semantic, server, serverReady, backend, semanticIndex, stages, map, load, cancel, search, requestMap, warm, preferGpu };
+  return { loading, status, info, results, semantic, server, serverSince, serverReady, backend, semanticIndex, stages, map, load, cancel, search, requestMap, warm, preferGpu };
 }

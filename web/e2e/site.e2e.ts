@@ -121,6 +121,15 @@ test("explorer deep links and old-style links", async ({ page }) => {
   await expect(page).toHaveURL(/#\/search\?repo=allfather-e2e%2Ffixture&q=config$/);
 });
 
+test("an issue link pasted into the bug report box imports that issue", async ({ page }) => {
+  await page.route("https://api.github.com/repos/allfather-e2e/fixture/issues/7", (route) =>
+    route.fulfill({ json: { number: 7, title: "load_config crashes with KeyError", body: "when the settings file is missing", html_url: "https://github.com/allfather-e2e/fixture/issues/7" } }));
+  await page.goto(`./#/search?repo=${encodeURIComponent(REPO)}`);
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
+  await page.locator("#demo-query").fill("https://github.com/allfather-e2e/fixture/issues/7");
+  await expect(page.locator("#demo-query")).toHaveValue(/^load_config crashes with KeyError\s+when the settings file is missing/);
+});
+
 test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette, Beat Allfather", async ({ page }) => {
   await page.route("https://api.github.com/repos/allfather-e2e/fixture/issues/7", (route) =>
     route.fulfill({ json: { number: 7, title: "load_config crashes with KeyError", body: "when the settings file is missing", html_url: "https://github.com/allfather-e2e/fixture/issues/7" } }));

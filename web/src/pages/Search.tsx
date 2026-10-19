@@ -11,6 +11,7 @@ import { type Results, useSearchWorker } from "../hooks/useSearchWorker.ts";
 import { highlightCode, matchedTerms } from "../lib/highlight.ts";
 import { shareCard } from "../lib/shareCard.ts";
 import { useFlip } from "../lib/flip.ts";
+import { reducedMotion } from "../lib/motion.ts";
 import { band, measurable } from "../engine/confidence.ts";
 import { href, replaceHash } from "../lib/router.ts";
 import { useLazy } from "../lib/lazy.ts";
@@ -268,6 +269,18 @@ function ResultList({ results, info, view, rating }: { results: Results; info: R
   );
 }
 
+function ServerWait({ since }: { since: number }) {
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  const seconds = Math.max(0, Math.round((now - since) / 1000));
+  return seconds < 4
+    ? <>Re-reading the top 50 with the GPU reranker…</>
+    : <>Waking the GPU reranker, {seconds} s. The ranking below is already usable; it updates when the server answers.</>;
+}
+
 const Skeleton = () => (
   <ol class="hits" aria-hidden="true">
     {[0, 1, 2].map((i) => <li key={i} class="skeleton"><span /><span /></li>)}
@@ -312,6 +325,12 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
   useEffect(() => {
     if (showMap && info && !w.map && !info.partial) w.requestMap();
   }, [showMap, info, w.map]);
+  const loaderShown = w.loading && !info;
+  useEffect(() => {
+    if (!loaderShown || !active) return;
+    const panel = document.querySelector<HTMLElement>("#search-app .loading-panel");
+    if (panel && panel.getBoundingClientRect().top > innerHeight - 400) panel.scrollIntoView({ block: "nearest", behavior: reducedMotion() ? "auto" : "smooth" });
+  }, [loaderShown, active]);
   const toResult = (path: string) =>
     document.querySelector(`.hits li[data-copy^="${CSS.escape(path)}:"]`)?.scrollIntoView({ behavior: "smooth", block: "center" });
 
@@ -439,6 +458,18 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
     if (issue) importIssue(repoInput, issue);
   };
 
+  const onQueryInput = (text: string) => {
+    setQuery(text);
+    const link = text.trim().match(/^https?:\/\/(?:www\.)?github\.com\/([\w.-]+\/[\w.-]+)\/(?:issues|pull)\/(\d+)\S*$/i);
+    if (!link) return;
+    const [, repo, number] = link;
+    if (!info || repo.toLowerCase() !== info.repo.toLowerCase()) {
+      setRepoInput(repo);
+      start(repo);
+    }
+    importIssue(repo, number);
+  };
+
   const pick = (name: string) => {
     setRepoInput(name);
     setQuery("");
@@ -535,7 +566,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
         {w.status && (
           <div class="progress">
             <div class="progress-row">
-              {w.loading && info && <RuneProgress size="sm" fraction={w.status.fraction} label={w.status.text} />}
+              {w.loading && <RuneProgress size="sm" fraction={w.status.fraction} label={w.status.text} />}
               <div class={`progress-text${w.status.error ? " error" : ""}`} role="status" aria-live="polite">{w.status.text}</div>
               {w.loading && <button class="link-btn push" type="button" onClick={w.cancel}>Cancel</button>}
             </div>
@@ -582,7 +613,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
 
           <div class="card frame query-card">
             <label class="field-label" for="demo-query">Bug report</label>
-            <textarea ref={queryBox} id="demo-query" value={query} onInput={(e) => setQuery(e.currentTarget.value)}
+            <textarea ref={queryBox} id="demo-query" value={query} onInput={(e) => onQueryInput(e.currentTarget.value)}
               onFocus={() => serverOn && semanticOn && w.serverReady && w.warm()}
               rows={Math.min(10, Math.max(3, query.split("\n").length))}
               placeholder="Paste an issue or a stack trace, or describe what goes wrong… (press / to focus)" aria-label="Bug report" />
@@ -628,7 +659,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
 
           <div class="result-meta">
             <p class="status-line" role="status" aria-live="polite">{semanticStatus.includes("…") && <Seer size="sm" />} {semanticStatus}</p>
-            {w.server && <p class="status-line" role="status" aria-live="polite">{w.server.endsWith("…") && <Seer size="sm" />} {w.server}</p>}
+            {w.server && <p class="status-line" role="status" aria-live="polite">{w.server.endsWith("…") && <Seer size="sm" />} {w.server.endsWith("…") && w.serverSince ? <ServerWait since={w.serverSince} /> : w.server}</p>}
             {w.results?.confidence != null && (measurable(query)
               ? <Confidence p={w.results.confidence} gpu={w.results.stage === "server"} />
               : <p class="confidence low"><b>Too short to estimate</b> · reports this brief are outside what the confidence estimate was measured on. Adding the error message, a stack trace or what you expected to happen usually helps.</p>)}
