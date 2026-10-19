@@ -61,7 +61,7 @@ export function App() {
   useEffect(() => {
     document.title = TITLES[route.page];
     if (route.page === "search") setSearchOpened(true);
-    if (!first.current) window.scrollTo({ top: 0 });
+    if (!first.current) window.scrollTo({ top: 0, behavior: "instant" });
     first.current = false;
   }, [route.page]);
 
