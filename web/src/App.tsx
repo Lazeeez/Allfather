@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
+import { ErrorBoundary } from "./components/ErrorBoundary.tsx";
 import { Footer, Nav } from "./components/Nav.tsx";
 import { type Lite, type Summary, getJSON } from "./lib/data.ts";
 import { useLazy } from "./lib/lazy.ts";
@@ -89,18 +90,20 @@ export function App() {
       <a class="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById("main")?.focus(); }}>Skip to content</a>
       <Nav page={page} />
       <main id="main" tabIndex={-1} class={`page-${page}`}>
-        {page === "home" && <Home summary={summary} lite={lite} />}
-        {searchOpened && (
-          <div hidden={page !== "search"}>
-            <Search active={page === "search"} request={route.query} />
-          </div>
-        )}
-        {page === "benchmarks" && <Benchmarks summary={summary} lite={lite} failed={failed} />}
-        {page === "explore" && <Explore summary={summary} linked={route.param} failed={failed} mode={route.query.get("mode")} set={route.query.get("set")} />}
-        {page === "how" && <HowItWorks summary={summary} />}
-        {page === "case" && <CaseStudy summary={summary} lite={lite} />}
-        {page === "privacy" && <Privacy />}
-        {page === "notfound" && <NotFound />}
+        <ErrorBoundary page={page}>
+          {page === "home" && <Home summary={summary} lite={lite} />}
+          {searchOpened && (
+            <div hidden={page !== "search"}>
+              <Search active={page === "search"} request={route.query} />
+            </div>
+          )}
+          {page === "benchmarks" && <Benchmarks summary={summary} lite={lite} failed={failed} />}
+          {page === "explore" && <Explore summary={summary} linked={route.param} failed={failed} mode={route.query.get("mode")} set={route.query.get("set")} />}
+          {page === "how" && <HowItWorks summary={summary} />}
+          {page === "case" && <CaseStudy summary={summary} lite={lite} />}
+          {page === "privacy" && <Privacy />}
+          {page === "notfound" && <NotFound />}
+        </ErrorBoundary>
       </main>
       <Footer />
       {palette && Palette && <Palette onClose={() => setPalette(false)} />}
