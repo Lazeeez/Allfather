@@ -5,7 +5,7 @@ import { PageHero } from "../components/PageHero.tsx";
 import { Seg } from "../components/Seg.tsx";
 import type { Summary } from "../lib/data.ts";
 import { useLazy } from "../lib/lazy.ts";
-import { href } from "../lib/router.ts";
+import { href, navigate } from "../lib/router.ts";
 
 const HOW: [IconName, string, string][] = [
   ["issue", "A real bug report", "SWE-bench Lite: 300 GitHub issues from 12 Python projects, each paired with the commit it was filed against."],
@@ -25,13 +25,13 @@ export function Explore({ summary, linked, failed, mode: asked, set }: {
   }, []);
   const dataset: Dataset = set === "languages" && hasLanguages ? "languages" : "lite";
   const chooseSet = (d: Dataset) => {
-    location.hash = href("explore", null, d === "languages" ? { set: "languages" } : undefined);
+    navigate(href("explore", null, d === "languages" ? { set: "languages" } : undefined));
   };
   const [mode, setMode] = useState<"explore" | "game">(asked === "game" ? "game" : "explore");
-  // The mode lives in the address (#/explore?mode=game), so links, the palette and the nav agree.
+  // The mode lives in the address (/explore?mode=game), so links, the palette and the nav agree.
   useEffect(() => setMode(asked === "game" ? "game" : "explore"), [asked]);
   const choose = (m: "explore" | "game") => {
-    location.hash = href("explore", m === "game" ? null : linked, m === "game" ? { mode: "game" } : undefined);
+    navigate(href("explore", m === "game" ? null : linked, m === "game" ? { mode: "game" } : undefined));
   };
   const game = useLazy(() => import("../components/BeatAllfather.tsx"), mode === "game");
   const Game = game?.default;

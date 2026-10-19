@@ -33,6 +33,8 @@ createServer((request, response) => {
   let file = normalize(join(root, path));
   if (!file.startsWith(root)) return response.writeHead(403).end();
   if (existsSync(file) && statSync(file).isDirectory()) file = join(file, "index.html");
+  if (!existsSync(file) && existsSync(`${file}.html`)) file = `${file}.html`;
+  if (!existsSync(file) && !extname(path)) file = join(root, "index.html");
   if (!existsSync(file)) return response.writeHead(404).end("not found");
   for (const rule of rules) if (applies(rule.pattern, path)) for (const [name, value] of rule.headers) response.setHeader(name, value);
   response.writeHead(200, { "Content-Type": TYPES[extname(file)] ?? "application/octet-stream" });

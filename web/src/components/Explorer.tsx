@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "preact/hooks";
 import { type Issue, type IssueSummary, type Stage, type Summary, getJSON, stagesAt } from "../lib/data.ts";
-import { href, replaceHash } from "../lib/router.ts";
+import { href, replaceUrl } from "../lib/router.ts";
 import { inlineCode } from "../lib/format.ts";
 import { plainName } from "../lib/stages.ts";
 import { Report } from "./Report.tsx";
@@ -251,7 +251,7 @@ export function Explorer({ summary, linked, dataset = "lite" }: { summary: Summa
   const select = (id: string) => {
     setSelected(id);
     setBrowsing(false);
-    replaceHash(href("explore", id, browserData ? { set: "languages" } : undefined));
+    replaceUrl(href("explore", id, browserData ? { set: "languages" } : undefined));
     document.getElementById("explorer")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
   const random = () => {
@@ -260,7 +260,7 @@ export function Explorer({ summary, linked, dataset = "lite" }: { summary: Summa
     if (pool.length) select(pool[Math.floor(Math.random() * pool.length)].id);
   };
 
-  // A linked issue (#/explore/<id>), else one that shows the pipeline at work.
+  // A linked issue (/explore/<id>), else one that shows the pipeline at work.
   useEffect(() => {
     if (!index) return;
     if (linked && index.some((i) => i.id === linked)) setSelected(linked);

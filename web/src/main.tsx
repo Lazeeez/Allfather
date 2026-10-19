@@ -22,6 +22,6 @@ if (import.meta.env.PROD && "serviceWorker" in navigator) {
     if (firstInstall && !self.crossOriginIsolated && !interacted) location.reload();
   });
   addEventListener("load", () => {
-    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {});
+    navigator.serviceWorker.register("/sw.js").catch(() => {});
   });
 }

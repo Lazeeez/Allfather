@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import { type Page, href } from "../lib/router.ts";
+import { type LinkPage, type Page, href } from "../lib/router.ts";
 import { reducedMotion } from "../lib/motion.ts";
 import { save } from "../lib/storage.ts";
 import { Emblem } from "./Emblem.tsx";
@@ -72,7 +72,7 @@ function ReadProgress() {
   return <div class="read-progress" aria-hidden="true"><i ref={bar} /></div>;
 }
 
-const LINKS: [Page, string][] = [["search", "Search"], ["how", "How it works"], ["benchmarks", "Benchmarks"], ["explore", "Explore"], ["case", "Case study"]];
+const LINKS: [LinkPage, string][] = [["search", "Search"], ["how", "How it works"], ["benchmarks", "Benchmarks"], ["explore", "Explore"], ["case", "Case study"]];
 
 export function Nav({ page }: { page: Page }) {
   const [open, setOpen] = useState(false);
@@ -109,6 +109,7 @@ export function Footer() {
         <a class="brand" href={href("home")}><Logo />Allfather</a>
         <nav aria-label="Footer">
           {LINKS.map(([p, label]) => <a key={p} href={href(p)}>{label}</a>)}
+          <a href={href("privacy")}>Privacy</a>
         </nav>
       </div>
       <p class="footer-note muted small">

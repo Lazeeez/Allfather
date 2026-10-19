@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /relay/
 Disallow: /api/
+Disallow: /gh/
+Disallow: /rerank
 
 Sitemap: https://allfather.dev/sitemap.xml

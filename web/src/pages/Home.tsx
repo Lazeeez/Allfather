@@ -7,7 +7,7 @@ import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data
 import showcase from "../assets/showcase.json";
 import { reducedMotion } from "../lib/motion.ts";
 import { load, save } from "../lib/storage.ts";
-import { href } from "../lib/router.ts";
+import { href, navigate } from "../lib/router.ts";
 import { issueNumber } from "../engine/github.ts";
 import { fetchUsage, type Usage } from "../lib/feedback.ts";
 import { LiveLine, useLive } from "../components/Live.tsx";
@@ -36,7 +36,7 @@ function QuickStart({ onType, onAim }: { onType: () => void; onAim: (target: HTM
   const [repo, setRepo] = useState("");
   const live = useLive();
   const go = (name: string) => {
-    location.hash = href("search", null, { repo: name.trim(), issue: issueNumber(name) ?? undefined });
+    navigate(href("search", null, { repo: name.trim(), issue: issueNumber(name) ?? undefined }));
   };
   return (
     <form class="quickstart" onSubmit={(e) => { e.preventDefault(); if (repo.trim()) go(repo); }}>

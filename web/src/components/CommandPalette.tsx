@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "preact/hooks";
-import { href, type Page } from "../lib/router.ts";
+import { type LinkPage, href, navigate } from "../lib/router.ts";
 import { load } from "../lib/storage.ts";
 
 interface Command { title: string; hint: string; run: () => void }
 
-const go = (hash: string) => { location.hash = hash; };
+const go = (url: string) => navigate(url);
 const EXAMPLES = ["pallets/flask", "axios/axios", "sindresorhus/ky", "gin-gonic/gin", "google/gson", "BurntSushi/ripgrep", "django/django"];
-const PAGES: [Page, string][] = [["home", "Home"], ["search", "Search a repository"], ["how", "How it works"], ["benchmarks", "Benchmarks"], ["explore", "Explore real bugs"], ["case", "Case study"]];
+const PAGES: [LinkPage, string][] = [["home", "Home"], ["search", "Search a repository"], ["how", "How it works"], ["benchmarks", "Benchmarks"], ["explore", "Explore real bugs"], ["case", "Case study"]];
 
 /** Loose subsequence match, scored so earlier and contiguous hits rank first. */
 function score(text: string, q: string): number {

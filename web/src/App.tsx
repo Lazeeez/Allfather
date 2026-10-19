@@ -4,22 +4,38 @@ import { type Lite, type Summary, getJSON } from "./lib/data.ts";
 import { useLazy } from "./lib/lazy.ts";
 import { scrollHints } from "./lib/scrollHints.ts";
 import { spotlight } from "./lib/spotlight.ts";
-import { type Page, useRoute } from "./lib/router.ts";
+import { PAGE_META, SITE } from "./lib/pages.ts";
+import { interceptLinks, useRoute } from "./lib/router.ts";
 import { Benchmarks } from "./pages/Benchmarks.tsx";
 import { CaseStudy } from "./pages/CaseStudy.tsx";
 import { Explore } from "./pages/Explore.tsx";
 import { Home } from "./pages/Home.tsx";
 import { HowItWorks } from "./pages/HowItWorks.tsx";
+import { NotFound } from "./pages/NotFound.tsx";
+import { Privacy } from "./pages/Privacy.tsx";
 import { Search } from "./pages/Search.tsx";
 
-const TITLES: Record<Page, string> = {
-  home: "Allfather: find the code behind any bug report",
-  search: "Search a repository · Allfather",
-  benchmarks: "Benchmarks · Allfather",
-  explore: "Explore real bugs · Allfather",
-  how: "How it works · Allfather",
-  case: "Case study · Allfather",
-};
+function setHead(name: string, attr: "name" | "property", content: string) {
+  let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${name}"]`);
+  if (!el) {
+    el = Object.assign(document.createElement("meta"), { content });
+    el.setAttribute(attr, name);
+    document.head.append(el);
+  }
+  el.content = content;
+}
+
+function describePage(page: keyof typeof PAGE_META, path: string) {
+  const meta = PAGE_META[page];
+  const url = `${SITE}${path === "/" ? "/" : path.replace(/\/+$/, "")}`;
+  document.title = meta.title;
+  setHead("description", "name", meta.description);
+  setHead("og:title", "property", meta.title);
+  setHead("og:description", "property", meta.description);
+  setHead("og:url", "property", url);
+  setHead("robots", "name", page === "notfound" ? "noindex" : "index, follow");
+  document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]')?.setAttribute("href", url);
+}
 
 export function App() {
   const route = useRoute();
@@ -51,6 +67,7 @@ export function App() {
   }, []);
 
   useEffect(() => scrollHints(), []);
+  useEffect(() => interceptLinks(), []);
   useEffect(() => spotlight(), []);
 
   useEffect(() => {
@@ -58,8 +75,9 @@ export function App() {
     getJSON<Lite>("data/lite.json").then(setLite, () => {});
   }, []);
 
+  useEffect(() => describePage(route.page, location.pathname), [route.page, route.param]);
+
   useEffect(() => {
-    document.title = TITLES[route.page];
     if (route.page === "search") setSearchOpened(true);
     if (!first.current) window.scrollTo({ top: 0, behavior: "instant" });
     first.current = false;
@@ -81,6 +99,8 @@ export function App() {
         {page === "explore" && <Explore summary={summary} linked={route.param} failed={failed} mode={route.query.get("mode")} set={route.query.get("set")} />}
         {page === "how" && <HowItWorks summary={summary} />}
         {page === "case" && <CaseStudy summary={summary} lite={lite} />}
+        {page === "privacy" && <Privacy />}
+        {page === "notfound" && <NotFound />}
       </main>
       <Footer />
       {palette && Palette && <Palette onClose={() => setPalette(false)} />}

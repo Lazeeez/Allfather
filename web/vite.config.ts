@@ -4,6 +4,7 @@ import preact from "@preact/preset-vite";
 import type { Plugin } from "vite";
 import { defineConfig } from "vitest/config";
 import { contentSecurityPolicy } from "./csp.ts";
+import { type LinkPage, PAGE_META, PAGE_PATHS, SITE } from "./src/lib/pages.ts";
 
 /**
  * Preload the two faces the first screen needs (Inter for text, Fraunces for headings), so they are
@@ -57,16 +58,47 @@ const securityHeaders = (): Plugin => ({
       "  X-Content-Type-Options: nosniff",
       "  Referrer-Policy: strict-origin-when-cross-origin",
       "  Permissions-Policy: camera=(), microphone=(), geolocation=()",
+      "  Strict-Transport-Security: max-age=31536000; includeSubDomains",
     ];
     const hashed = ["/assets/*", "  Cache-Control: public, max-age=31536000, immutable"];
     writeFileSync("dist/_headers", [...everywhere, "", ...hashed, ""].join("\n"));
   },
 });
 
+const attr = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+
+const pageFiles = (): Plugin => ({
+  name: "page-files",
+  apply: "build",
+  closeBundle() {
+    const index = readFileSync("dist/index.html", "utf8");
+    const pages = Object.keys(PAGE_PATHS) as LinkPage[];
+    for (const page of pages) {
+      if (page === "home") continue;
+      const { title, description } = PAGE_META[page];
+      const url = `${SITE}/${PAGE_PATHS[page]}`;
+      const html = index
+        .replace(/<title>[^<]*<\/title>/, `<title>${attr(title)}</title>`)
+        .replace(/(<meta name="description" content=")[^"]*/, `$1${attr(description)}`)
+        .replace(/(<meta property="og:title" content=")[^"]*/, `$1${attr(title)}`)
+        .replace(/(<meta property="og:description" content=")[^"]*/, `$1${attr(description)}`)
+        .replace(/(<meta property="og:url" content=")[^"]*/, `$1${url}`)
+        .replace(/(<link rel="canonical" href=")[^"]*/, `$1${url}`);
+      writeFileSync(`dist/${PAGE_PATHS[page]}.html`, html);
+    }
+    const today = new Date().toISOString().slice(0, 10);
+    const urls = pages.map((page) => `  <url><loc>${SITE}/${PAGE_PATHS[page]}</loc><lastmod>${today}</lastmod></url>`);
+    writeFileSync("dist/sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join("\n")}
+</urlset>
+`);
+  },
+});
+
 export default defineConfig({
-  // Relative asset URLs: the same build works at lazeeez.github.io/Allfather/ and on Vercel.
-  base: "./",
-  plugins: [preact(), preloadFonts(), uniqueAssetNames(), securityHeaders()],
+  base: "/",
+  plugins: [preact(), preloadFonts(), uniqueAssetNames(), securityHeaders(), pageFiles()],
   worker: { format: "es" },
   build: {
     target: "es2022",

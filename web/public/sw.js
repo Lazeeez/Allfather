@@ -1,6 +1,6 @@
 // Service worker: cross-origin isolation and caching for a static host.
 //
-// 1. GitHub Pages cannot set response headers, but ONNX Runtime needs SharedArrayBuffer for
+// 1. A static host may not set response headers, but ONNX Runtime needs SharedArrayBuffer for
 //    multi-threaded WebAssembly, which requires cross-origin isolation. This worker adds
 //    COOP/COEP to the site's own responses. COEP "credentialless" keeps cross-origin requests
 //    (GitHub, jsDelivr, Hugging Face) working without their cooperation.
@@ -46,7 +46,7 @@ self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
   if (request.method !== "GET" || url.origin !== self.location.origin) return; // leave cross-origin alone
-  if (url.pathname.startsWith("/relay/") || url.pathname.startsWith("/api/") || url.pathname.startsWith("/gh/")) return;
+  if (url.pathname.startsWith("/relay/") || url.pathname.startsWith("/api/") || url.pathname.startsWith("/gh/") || url.pathname.startsWith("/rerank")) return;
   event.respondWith((async () => {
     const cache = await caches.open(CACHE);
     if (url.pathname.includes("/assets/")) {
@@ -63,7 +63,8 @@ self.addEventListener("fetch", (event) => {
       if (fresh.ok) event.waitUntil(cache.put(request, fresh.clone()).catch(() => {}));
       return isolated(fresh);
     } catch {
-      const hit = await cache.match(request, { ignoreSearch: request.mode === "navigate" });
+      const hit = await cache.match(request, { ignoreSearch: request.mode === "navigate" })
+        ?? (request.mode === "navigate" ? await cache.match("/") : undefined);
       return hit ? isolated(hit) : Response.error();
     }
   })());

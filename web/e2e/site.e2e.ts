@@ -66,7 +66,7 @@ test("search: load a repository, describe a bug, get the right function", async 
   await expect(page.locator(".confidence")).toContainText(/(High|Medium|Low) confidence · \d+% chance/);
   await page.locator("#demo-query").fill("load_config fails");
   await expect(page.locator(".confidence")).toContainText("Too short to estimate");
-  await expect(page).toHaveURL(/#\/search\?repo=allfather-e2e%2Ffixture&q=/);
+  await expect(page).toHaveURL(/\/search\?repo=allfather-e2e%2Ffixture&q=/);
 
   // A traceback points at the function where it ended.
   await page.locator("#demo-query").fill('Traceback (most recent call last):\n  File "/srv/pkg/http.py", line 3, in fetch\nConnectionError');
@@ -113,12 +113,12 @@ test("explorer deep links and old-style links", async ({ page }) => {
   await page.locator(".bug-filters select").selectOption("django/django");
   await page.locator(".bug-card").first().click();
   await expect(page.locator("#explorer .bug-id")).toContainText("django__django-");
-  await expect(page).toHaveURL(/#\/explore\/django__django-/);
+  await expect(page).toHaveURL(/\/explore\/django__django-/);
   await page.goto("./#issue=django__django-11019");
-  await expect(page).toHaveURL(/#\/explore\/django__django-11019$/);
+  await expect(page).toHaveURL(/\/explore\/django__django-11019$/);
   await expect(page.locator("#explorer .bug-id")).toHaveText("django__django-11019");
   await page.goto(`./?repo=${encodeURIComponent(REPO)}&q=config`);
-  await expect(page).toHaveURL(/#\/search\?repo=allfather-e2e%2Ffixture&q=config$/);
+  await expect(page).toHaveURL(/\/search\?repo=allfather-e2e%2Ffixture&q=config$/);
 });
 
 test("an issue link pasted into the bug report box imports that issue", async ({ page }) => {
@@ -160,7 +160,7 @@ test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette
   await github.goto("https://github.com/allfather-e2e/fixture/issues/7");
   await github.evaluate((h) => { const a = document.createElement("a"); a.href = h; a.id = "bm"; a.textContent = "Allfather this"; document.body.append(a); }, bookmark);
   const [opened] = await Promise.all([page.context().waitForEvent("page"), github.click("#bm")]);
-  expect(opened.url()).toMatch(/#\/search\?repo=allfather-e2e\/fixture&issue=7$/);
+  expect(opened.url()).toMatch(/\/search\?repo=allfather-e2e\/fixture&issue=7$/);
   await github.close();
   await opened.close();
 
@@ -168,7 +168,7 @@ test("the tools: why-bars, recent change, map, bookmarklet, issue links, palette
   await page.keyboard.press("Control+k");
   await page.locator(".palette input").fill("bench");
   await page.keyboard.press("Enter");
-  await expect(page).toHaveURL(/#\/benchmarks$/);
+  await expect(page).toHaveURL(/\/benchmarks$/);
 
   // Beat Allfather: six files, one guess, then the reveal and the score.
   await page.goto("./#/explore?mode=game");
@@ -272,7 +272,7 @@ test("Explore shows bugs in other languages, ranked by the website's own stages"
   await page.route(`**/data/issues-multi/${issue.id}.json`, (route) => route.fulfill({ json: issue }));
   await page.goto("./#/explore");
   await page.getByRole("button", { name: "Five more languages" }).click();
-  await expect(page).toHaveURL(/#\/explore\?set=languages$/);
+  await expect(page).toHaveURL(/\/explore\?set=languages$/);
   await expect(page.locator("#explorer .bug-title")).toHaveText("ShouldBindJSON accepts unknown fields");
   await expect(page.locator("#explorer .bug-meta")).toContainText("Go");
   await expect(page.locator(".climb-name b").first()).toHaveText("Plain keyword search");
@@ -293,4 +293,31 @@ test("Share card draws the top results as an image", async ({ page }) => {
   const { statSync, copyFileSync } = await import("node:fs");
   expect(statSync(path).size).toBeGreaterThan(10_000);
   if (process.env.CARD_OUT) copyFileSync(path, process.env.CARD_OUT);
+});
+
+test("every page has its own address, title and canonical link, and old hash links still land", async ({ page }) => {
+  for (const [path, title] of [["/benchmarks", /^Benchmarks/], ["/how-it-works", /^How it works/], ["/case-study", /^Case study/], ["/privacy", /^Privacy/]] as const) {
+    await page.goto(path);
+    await expect(page).toHaveTitle(title);
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `https://allfather.dev${path}`);
+  }
+  await page.goto("./#/explore?mode=game");
+  await expect(page).toHaveURL(/\/explore\?mode=game$/);
+  await expect(page.locator(".choice").first()).toBeVisible();
+});
+
+test("moving between pages never reloads the page", async ({ page }) => {
+  await page.goto("/");
+  await page.evaluate(() => { (window as unknown as { marker: number }).marker = 1; });
+  await page.locator("#site-menu a", { hasText: "Benchmarks" }).click();
+  await expect(page).toHaveURL(/\/benchmarks$/);
+  await page.goBack();
+  await expect(page).toHaveURL(/\/$/);
+  expect(await page.evaluate(() => (window as unknown as { marker?: number }).marker)).toBe(1);
+});
+
+test("an unknown address shows a not-found page that asks not to be indexed", async ({ page }) => {
+  await page.goto("/no-such-page");
+  await expect(page.locator("h1")).toHaveText("This page doesn't exist");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex");
 });

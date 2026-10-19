@@ -74,7 +74,7 @@ The domain's zone is in the `lajatm9@gmail.com` Cloudflare account, so wrangler 
 
 - `https://allfather.dev/` loads, and the browser console shows no "Refused to" lines.
 - Loading `django/django` makes one request to `/relay/django/django/HEAD` and none to `api.github.com` for the file list.
-- `https://allfather.dev/#/explore` opens directly.
+- `https://allfather.dev/explore` and `https://allfather.dev/explore/django__django-11019` open directly, and an old link such as `https://allfather.dev/#/benchmarks` lands on `/benchmarks` ([ADR 0031](decisions/0031-path-routes.md)).
 - A search that reaches the "rerank" stage completes. It downloads a model from Hugging Face and a library from jsDelivr; the policy allows both, but the full path has not been exercised under it.
 - `curl -s -o /dev/null -w "%{http_code}" https://allfather.dev/relay/psf/requests/HEAD` prints `403`: the relay answers only the site's own pages.
 

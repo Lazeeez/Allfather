@@ -1,64 +1,93 @@
-// Hash routes (#/search?repo=...): GitHub Pages serves one static file, so the path after "#"
-// is the page. Tiny on purpose: five pages do not need a routing library.
 import { useEffect, useMemo, useState } from "preact/hooks";
+import { type LinkPage, PAGE_PATHS, type Page } from "./pages.ts";
 
-export type Page = "home" | "search" | "benchmarks" | "explore" | "how" | "case";
+export type { LinkPage, Page } from "./pages.ts";
 
 export interface Route {
   page: Page;
-  /** The segment after the page, e.g. the issue id in #/explore/<id>. */
   param: string | null;
   query: URLSearchParams;
 }
 
-const PATHS: Record<Page, string> = { home: "", search: "search", benchmarks: "benchmarks", explore: "explore", how: "how-it-works", case: "case-study" };
-const PAGES = Object.fromEntries(Object.entries(PATHS).map(([page, path]) => [path, page])) as Record<string, Page>;
+const PAGES = Object.fromEntries(Object.entries(PAGE_PATHS).map(([page, path]) => [path, page])) as Record<string, Page>;
+const NAVIGATE = "allfather:navigate";
 
-export function parseHash(hash: string): Route {
-  const [path, qs = ""] = hash.replace(/^#\/?/, "").split("?");
-  const [first = "", ...rest] = path.split("/");
-  return { page: PAGES[first] ?? "home", param: rest.length ? decodeURIComponent(rest.join("/")) : null, query: new URLSearchParams(qs) };
+export function parsePath(pathname: string, search = ""): Route {
+  const [first = "", ...rest] = pathname.replace(/^\/+|\/+$/g, "").split("/");
+  const page: Page = PAGES[first] ?? "notfound";
+  return { page, param: rest.length && page !== "notfound" ? decodeURIComponent(rest.join("/")) : null, query: new URLSearchParams(search) };
 }
 
-/** The href for a page: `href("explore", id)`, `href("search", null, { repo })`. */
-export function href(page: Page, param?: string | null, query?: Record<string, string | undefined>): string {
-  let h = `#/${PATHS[page]}`;
-  if (param) h += `/${encodeURIComponent(param)}`;
+export function href(page: LinkPage, param?: string | null, query?: Record<string, string | undefined>): string {
+  let h = `/${PAGE_PATHS[page]}`;
+  if (param) h += `${h.endsWith("/") ? "" : "/"}${encodeURIComponent(param)}`;
   const qs = new URLSearchParams(Object.entries(query ?? {}).filter((e): e is [string, string] => !!e[1])).toString();
   return qs ? `${h}?${qs}` : h;
 }
 
-/** Update the address bar without a navigation (state a page already shows, e.g. the query). */
-export function replaceHash(hash: string): void {
-  if (location.hash !== hash) history.replaceState(null, "", `${location.pathname}${hash}`);
+const here = () => `${location.pathname}${location.search}`;
+
+export function navigate(url: string): void {
+  if (url === here()) return;
+  history.pushState(null, "", url);
+  dispatchEvent(new Event(NAVIGATE));
+}
+
+export function replaceUrl(url: string): void {
+  if (url !== here()) history.replaceState(null, "", url);
 }
 
 export function useRoute(): Route {
-  const [hash, setHash] = useState(location.hash);
+  const [url, setUrl] = useState(here);
   useEffect(() => {
     const onChange = () => {
-      upgradeLegacyUrl(); // an old-style link can also arrive as a hash change in an open tab
-      setHash(location.hash);
+      upgradeLegacyUrl();
+      setUrl(here());
     };
+    addEventListener("popstate", onChange);
     addEventListener("hashchange", onChange);
-    return () => removeEventListener("hashchange", onChange);
+    addEventListener(NAVIGATE, onChange);
+    return () => {
+      removeEventListener("popstate", onChange);
+      removeEventListener("hashchange", onChange);
+      removeEventListener(NAVIGATE, onChange);
+    };
   }, []);
-  return useMemo(() => parseHash(hash), [hash]);
+  return useMemo(() => {
+    const at = url.indexOf("?");
+    return parsePath(at < 0 ? url : url.slice(0, at), at < 0 ? "" : url.slice(at));
+  }, [url]);
 }
 
-/**
- * Links shared before the site had pages: ?repo=&q= searches, #issue=<id> explorer views and
- * the old section anchors. Rewritten once, before the first render.
- */
-export function upgradeLegacyUrl(): void {
-  const search = new URLSearchParams(location.search);
-  const old = location.hash;
-  let next: string | null = null;
-  if (search.get("repo")) next = href("search", null, { repo: search.get("repo")!, q: search.get("q") ?? undefined });
-  else if (old.startsWith("#issue=")) next = href("explore", decodeURIComponent(old.slice(7)));
-  else {
-    const anchors: Record<string, Page> = { "#try": "search", "#explorer": "explore", "#results": "benchmarks", "#pipeline": "how", "#engineering": "how", "#top": "home" };
-    if (anchors[old]) next = href(anchors[old]);
+export function interceptLinks(): () => void {
+  const onClick = (e: MouseEvent) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = (e.target as Element | null)?.closest?.("a");
+    if (!a || a.target || a.hasAttribute("download") || a.getAttribute("rel")?.includes("external")) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || /^\/(relay|api|gh|rerank|data|assets|icons)\//.test(url.pathname) || /\.\w+$/.test(url.pathname)) return;
+    if (url.pathname === location.pathname && url.search === location.search && url.hash) return;
+    e.preventDefault();
+    navigate(`${url.pathname}${url.search}`);
+  };
+  document.addEventListener("click", onClick);
+  return () => document.removeEventListener("click", onClick);
+}
+
+export function legacyTarget(pathname: string, search: string, hash: string): string | null {
+  if (hash.startsWith("#/")) {
+    const rest = hash.slice(1);
+    return rest === "/" ? "/" : rest;
   }
-  if (next) history.replaceState(null, "", `${location.pathname}${next}`);
+  if (pathname !== "/") return null;
+  const query = new URLSearchParams(search);
+  if (query.get("repo")) return href("search", null, { repo: query.get("repo")!, q: query.get("q") ?? undefined });
+  if (hash.startsWith("#issue=")) return href("explore", decodeURIComponent(hash.slice(7)));
+  const anchors: Record<string, LinkPage> = { "#try": "search", "#explorer": "explore", "#results": "benchmarks", "#pipeline": "how", "#engineering": "how", "#top": "home" };
+  return anchors[hash] ? href(anchors[hash]) : null;
+}
+
+export function upgradeLegacyUrl(): void {
+  const next = legacyTarget(location.pathname, location.search, location.hash);
+  if (next) history.replaceState(null, "", next);
 }
