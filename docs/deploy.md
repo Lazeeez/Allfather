@@ -56,7 +56,7 @@ npx wrangler secret put MODAL_KEY
 npx wrangler secret put MODAL_SECRET
 ```
 
-The endpoint only answers requests carrying that token, runs on one L4 GPU at most (`max_containers=1`), and shuts down three minutes after the last request, so an idle month costs nothing and a busy one stays within Modal's free monthly credits. A spending limit in the Modal dashboard (Settings → Usage and billing) makes that a guarantee.
+The endpoint only answers requests carrying that token, runs on at most two GPUs at once (`max_containers=2`, raised from one on 2026-10-20 so that searches from several visitors at once do not queue behind each other), and each shuts down three minutes after its last request, so an idle month costs nothing and a busy one costs at most twice what one GPU would. A spending limit in the Modal dashboard (Settings → Usage and billing) makes that a guarantee.
 
 To try the Worker and the database locally, put `ALLOWED_ORIGINS="http://localhost:8787,http://allfather.dev"` in `deploy/cloudflare/.dev.vars` (ignored by git; in local mode wrangler rewrites the Origin header to the route's host), apply the schema with `--local` instead of `--remote`, and run `npx wrangler dev --local --port 8787`.
 
