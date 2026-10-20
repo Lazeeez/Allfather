@@ -107,6 +107,15 @@ def cmd_eval(args: argparse.Namespace) -> None:
     report = run_eval(retriever, gold, queries, ks=args.k, level=args.level, progress=_progress)
     from allfather.eval.provenance import provenance
 
+    models = sorted(Path("models").rglob("*.txt")) if args.retriever.startswith("ltr") else []
+    if "-ce" in args.retriever:
+        models += sorted(Path("models").rglob("reranker*.json"))
+        models += sorted(Path("models").glob("ce_adapter*/adapter_model.safetensors"))
+    report["provenance"] = provenance(models) | {
+        "argv": sys.argv[1:],
+        "gold_file": str(args.gold or _gold_path(args.dataset, args.split)),
+        "fusion": str(getattr(retriever, "fusion", "")),
+    }
     if seal:
         from allfather.eval import holdout
 
@@ -120,15 +129,6 @@ def cmd_eval(args: argparse.Namespace) -> None:
             seal["issues_created_on_or_after"],
         )
 
-    models = sorted(Path("models").glob("*.txt")) if args.retriever.startswith("ltr") else []
-    if "-ce" in args.retriever:
-        models += sorted(Path("models").glob("reranker*.json"))
-        models += sorted(Path("models").glob("ce_adapter*/adapter_model.safetensors"))
-    report["provenance"] = provenance(models) | {
-        "argv": sys.argv[1:],
-        "gold_file": str(args.gold or _gold_path(args.dataset, args.split)),
-        "fusion": str(getattr(retriever, "fusion", "")),
-    }
     out = (
         args.out
         or Path("results") / f"{args.retriever}_{args.level}_{args.dataset}_{args.split}.json"
