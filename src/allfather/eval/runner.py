@@ -113,6 +113,20 @@ def _ltr_ce() -> Retriever:
 RETRIEVERS["ltr-ce-notests"] = _ltr_ce
 
 
+def _ltr_ce_more_data() -> Retriever:
+    from allfather.rank.ltr import MODEL_DIR, RerankedLTRRetriever
+    from allfather.search.dense import SentenceEncoder
+
+    more_data = MODEL_DIR / "more-data"
+    return RerankedLTRRetriever(
+        SentenceEncoder(revision="4db235132dafbe56a8b9c5f59b59795ecf58a4a7"), DEV_SELECTED_FUSION,
+        recipe=more_data / "reranker.json", model_dir=more_data, name="ltr-ce-more-data-notests",
+    )  # fmt: skip
+
+
+RETRIEVERS["ltr-ce-more-data-notests"] = _ltr_ce_more_data
+
+
 def _ltr_ce_distilled() -> Retriever:
     """The same pipeline with the single distilled cross-encoder (ce-train --distill-from)."""
     from allfather.rank.ltr import MODEL_DIR, RerankedLTRRetriever
