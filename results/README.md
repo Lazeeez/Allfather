@@ -36,6 +36,10 @@ Function-level files score 291 of the 300 Lite issues: the 9 whose fix touches o
 | `perf/unit_slots_2026-10-13.json` | unit slots and distinct unit texts over the evaluated snapshots (`benchmarks/count_unit_slots.py`) |
 | `ties/*_lite_test.json` | all 17 rows run again after ties at a cut-off were made deterministic ([ADR 0016](../docs/decisions/0016-deterministic-ties.md)): 33 of 5,019 rankings changed, no metric changed. The README check reads these first |
 | `parity_pinned_2026-10-13b.json` | the pinned parity check after that fix: 46 of 46 top-10 lists identical. `parity_pinned.json` is the run before it |
+| `holdout/allfather-fast_function.json`, `holdout/allfather-fast_file.json` | the frozen allfather-fast's one run on the sealed holdout ([ADR 0032](../docs/decisions/0032-freeze-allfather-fast.md)); their provenance shows `git_dirty: true` from the guard's own log line and lists only the top-level rankers, as the ADR explains |
+| `frozen/allfather-fast_*_lite.json` | the frozen configuration's one run on Lite |
+| `frozen/report.json` | every metric ADR 0032 declared, with 95% intervals, for those four runs (`scripts/frozen_report.py`) |
+| `fingerprint/mention_parity.json` | the check that the mention parser is unchanged for Python issues since the rankers were trained ([ADR 0032](../docs/decisions/0032-freeze-allfather-fast.md)) |
 | `parity_pinned.json` | the website's TypeScript chunker and BM25 against the Python engine on pinned commits of django, sympy and requests (`scripts/parity_run.py`) |
 
 Each `*` stands for `_file_lite_test.json` and `_function_lite_test.json`.
