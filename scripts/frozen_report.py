@@ -12,6 +12,8 @@ RUNS = {
 KS = [1, 5, 10]
 METRICS = ["mrr", *[f"{m}@{k}" for k in KS for m in ("hit", "recall", "all")]]
 OUT = Path("results/frozen/report.json")
+SITE = Path("web/public/data/holdout.json")
+SITE_METRICS = ["hit@1", "hit@5", "hit@10", "all@10", "mrr"]
 
 
 def main() -> int:
@@ -30,6 +32,14 @@ def main() -> int:
             "metrics": {m: {"value": round(float(metric_values(scores, m).mean()), 6), "ci95": bootstrap_ci(scores, m)} for m in METRICS},
         }
     OUT.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
+    site = {
+        "adr": "0032",
+        "runs": {
+            name: {"issues": run["issues"], **{m: run["metrics"][m]["value"] for m in SITE_METRICS}, "hit@10_ci95": run["metrics"]["hit@10"]["ci95"]}
+            for name, run in report["runs"].items()
+        },
+    }
+    SITE.write_text(json.dumps(site, indent=1) + "\n", encoding="utf-8")
     for name, run in report["runs"].items():
         m = run["metrics"]
         print(f"{name:17} n={run['issues']:3}  hit@1 {m['hit@1']['value']:.3f}  hit@5 {m['hit@5']['value']:.3f} {m['hit@5']['ci95']}  hit@10 {m['hit@10']['value']:.3f} {m['hit@10']['ci95']}  MRR {m['mrr']['value']:.3f}")

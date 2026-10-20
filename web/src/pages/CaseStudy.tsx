@@ -4,6 +4,7 @@ import { PageHero } from "../components/PageHero.tsx";
 import { Tile } from "../components/Tile.tsx";
 import { bestBrowserStage, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import { LIVE_MIN_BUGS } from "../lib/feedback.ts";
+import { useHoldout } from "../lib/holdout.ts";
 import { href } from "../lib/router.ts";
 
 
@@ -38,6 +39,7 @@ const SAFEGUARDS = [
 export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Lite | null }) {
   const root = useRef<HTMLDivElement>(null);
   const live = useLive();
+  const holdout = useHoldout();
   const fn = summary ? stagesAt(summary, "function").at(-1)! : null;
   const unseen = lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
   const multi = lite?.held_out.multilingual;
@@ -66,6 +68,8 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="kicker">Results</p>
         <h2>On bugs it never trained on.</h2>
         <div class="tiles four">
+          <Tile label="Sealed holdout, never seen" value={holdout ? holdout.runs.holdout_function["hit@10"] : null}
+            note={holdout ? `${holdout.runs.holdout_function.issues} bugs filed after its models were published, 184 projects it never saw` : ""} />
           <Tile label="Full pipeline, SWE-bench Lite" value={fn ? fn["hit@10"] : null} note={fn ? `function in the top 10, ${fn.n} issues` : ""} />
           {gpu?.held_out?.unseen ? (
             <Tile label="The website, 30 unseen projects" value={gpu.held_out.unseen.with_reranker["hit@10"]}
@@ -73,12 +77,10 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
           ) : (
             <Tile label="In the browser, 30 unseen projects" value={unseen} note={lite ? `${lite.held_out.unseen.keyword.n} bugs, Python` : ""} />
           )}
-          <Tile label="In the browser, five more languages" value={multi ? bestBrowserStage(multi)["hit@10"] : null} note={multi ? `${multi.keyword.n} bugs, SWE-bench Multilingual` : ""} />
           {liveWindow && liveWindow.bugs >= LIVE_MIN_BUGS && liveWindow.function ? (
             <Tile label="Live, bugs fixed this month" value={liveWindow.function["hit@10"]} note={`${liveWindow.bugs} bugs from ${liveWindow.projects} projects`} />
           ) : (
-            <Tile label="With the GPU reranker, unseen projects" value={gpu?.held_out?.unseen ? gpu.held_out.unseen.with_reranker["hit@10"] : gpu ? gpu.with_reranker["hit@10"] : null}
-              note={gpu?.held_out?.unseen ? `vs ${Math.round(gpu.held_out.unseen.website["hit@10"] * 1000) / 10}% without, ${gpu.held_out.unseen.issues} bugs, held out` : ""} />
+            <Tile label="In the browser, five more languages" value={multi ? bestBrowserStage(multi)["hit@10"] : null} note={multi ? `${multi.keyword.n} bugs, SWE-bench Multilingual` : ""} />
           )}
         </div>
         <p class="note">

@@ -6,7 +6,54 @@ import { Tile } from "../components/Tile.tsx";
 import { RepoTable, SignificanceTable, StageChart } from "../components/Results.tsx";
 import { type BrowserEval, type GpuReranker, type LanguageEval, type Lite, type Summary, stagesAt } from "../lib/data.ts";
 import { pct } from "../lib/format.ts";
+import { type Holdout, useHoldout } from "../lib/holdout.ts";
 import { href } from "../lib/router.ts";
+
+const FROZEN_ROWS: [keyof Holdout["runs"], string, string][] = [
+  ["holdout_function", "Sealed holdout", "function"],
+  ["holdout_file", "Sealed holdout", "file"],
+  ["lite_function", "SWE-bench Lite", "function"],
+  ["lite_file", "SWE-bench Lite", "file"],
+];
+
+function HoldoutCard({ data }: { data: Holdout }) {
+  const fn = data.runs.holdout_function;
+  return (
+    <section class="card frame block">
+      <p class="kicker">Never seen before</p>
+      <h2>On bugs filed after its models, in projects it never saw</h2>
+      <p class="card-lede">
+        A sealed set of {fn.issues} bugs created after every model in the full pipeline was published, from 184 projects that appear nowhere in
+        training, tuning or testing. The pipeline was frozen, every model hashed and every metric declared in advance, and then scored on it once.
+      </p>
+      <div class="table-wrap" tabIndex={0} role="region" aria-label="The frozen pipeline on the sealed holdout and on SWE-bench Lite">
+        <table class="label-first">
+          <thead><tr><th>Bugs</th><th class="phone-hide-col">Level</th><th class="phone-hide-col">Count</th><th>Top 10</th><th>Top 5</th><th class="phone-hide-col">Ranked first</th><th class="phone-hide-col wrap">All in top 10</th></tr></thead>
+          <tbody>
+            {FROZEN_ROWS.map(([key, set, level]) => {
+              const r = data.runs[key];
+              return (
+                <tr key={key}>
+                  <td class="label-cell">{set}<span class="phone-only">{level} · {r.issues} bugs</span></td>
+                  <td class="phone-hide-col">{level}</td>
+                  <td class="num phone-hide-col">{r.issues}</td>
+                  <td class="num">{pct(r["hit@10"])}</td>
+                  <td class="num">{pct(r["hit@5"])}</td>
+                  <td class="num phone-hide-col">{pct(r["hit@1"])}</td>
+                  <td class="num phone-hide-col">{pct(r["all@10"])}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        It finds one of the changed functions as often as on Lite; finding all of them is harder, because these fixes change three functions on
+        average against about one on Lite. The two sets differ in projects, fix size and date, so this describes them rather than comparing them.
+      </p>
+    </section>
+  );
+}
 
 function BrowserComparison({ e, full, depth }: { e: BrowserEval; full?: number; depth: number }) {
   const rows = [
@@ -39,6 +86,7 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
   const fn = summary ? stagesAt(summary, "function").at(-1)! : null;
   const fl = summary ? stagesAt(summary, "file").at(-1)! : null;
   const live = useLive();
+  const holdout = useHoldout();
   return (
     <div class="container" ref={root}>
       <PageHero kicker="Benchmarks" title="How often Allfather finds the fix">
@@ -60,6 +108,8 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
       <dl class="guide">
         {GUIDE.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d}</dd></div>)}
       </dl>
+
+      {holdout && <HoldoutCard data={holdout} />}
 
       {summary && (
         <>
