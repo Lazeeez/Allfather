@@ -2,9 +2,9 @@
  "rules": "docs/decisions/0013-sealed-holdout.md",
  "configs": {
   "allfather-fast": {
-   "retriever": null,
-   "frozen_at": null,
-   "newest_model_published": null
+   "retriever": "ltr-ce-more-data-notests",
+   "frozen_at": "e4213a369c158e05cdda25fc6073b7ae2377adae",
+   "newest_model_published": "2025-08-19"
   },
   "allfather-max": {
    "retriever": null,
