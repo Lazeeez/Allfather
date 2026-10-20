@@ -88,6 +88,24 @@ def check_headline(rows: list[list[str]], report: Report) -> None:
         report.expect(f"headline {level} mrr", numbers(row[5])[0], summary["mrr"], 3)
 
 
+FROZEN_ROWS = {"Holdout, function": "holdout_function", "Holdout, file": "holdout_file", "Lite, function": "lite_function", "Lite, file": "lite_file"}
+
+
+def check_frozen(rows: list[list[str]], report: Report) -> None:
+    runs = json.loads((RESULTS / "frozen" / "report.json").read_text(encoding="utf-8"))["runs"]
+    for row in rows[1:]:
+        run = runs[FROZEN_ROWS[row[0]]]
+        metrics = run["metrics"]
+        report.expect(f"frozen {row[0]} bugs", numbers(row[1])[0], run["issues"], 0)
+        for cell, key in zip(row[2:5], ("hit@1", "hit@5", "hit@10"), strict=True):
+            report.expect(f"frozen {row[0]} {key}", numbers(cell)[0], 100 * metrics[key]["value"], 1)
+        _, low, high = numbers(row[4])
+        report.expect(f"frozen {row[0]} hit@10 ci low", low, 100 * metrics["hit@10"]["ci95"][0], 1)
+        report.expect(f"frozen {row[0]} hit@10 ci high", high, 100 * metrics["hit@10"]["ci95"][1], 1)
+        report.expect(f"frozen {row[0]} all@10", numbers(row[5])[0], 100 * metrics["all@10"]["value"], 1)
+        report.expect(f"frozen {row[0]} mrr", numbers(row[6])[0], metrics["mrr"]["value"], 3)
+
+
 def check_retrievers(rows: list[list[str]], report: Report) -> None:
     for row in rows[1:]:
         retriever, level = row[0], row[1]
@@ -428,6 +446,7 @@ def main() -> int:
     found = tables(text)
     report = Report()
     check_headline(found["Headline results"], report)
+    check_frozen(found["On bugs filed after its models, in projects it never saw"], report)
     check_browser(found["In the browser, on projects it never saw"], report)
     check_languages(found["In the browser, in other languages"], report)
     check_retrievers(found["Every retriever"], report)

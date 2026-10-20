@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from allfather.eval.metrics import aggregate, bootstrap_ci, score
+from allfather.eval.metrics import aggregate, bootstrap_ci, metric_values, score
 
 RUNS = {
     "holdout_function": Path("results/holdout/allfather-fast_function.json"),
@@ -27,7 +27,7 @@ def main() -> int:
         report["runs"][name] = {
             "file": path.as_posix(),
             "issues": len(scores),
-            "metrics": {m: {"value": round(point[m], 4), "ci95": bootstrap_ci(scores, m)} for m in METRICS},
+            "metrics": {m: {"value": round(float(metric_values(scores, m).mean()), 6), "ci95": bootstrap_ci(scores, m)} for m in METRICS},
         }
     OUT.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8")
     for name, run in report["runs"].items():

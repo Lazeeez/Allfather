@@ -29,6 +29,19 @@ SWE-bench Lite test, 300 issues across 12 repositories, each searched at its own
 
 For reference, plain BM25 started this project at 32.6% function hit@10 (recall@10 0.308, against 0.772 now).
 
+### On bugs filed after its models, in projects it never saw
+
+The question Lite cannot answer: does it hold up on bugs its models could not have seen, in unfamiliar projects? A sealed holdout was built for that before anything was evaluated on it: issues created on or after 2025-09-01, after every model in the cascade was published, from 184 projects that appear nowhere in training, tuning or testing ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). allfather-fast was frozen, with every model hashed and every metric declared in advance, and then scored on it once ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)). The frozen configuration uses the rankers trained on more data ([ADR 0019](docs/decisions/0019-more-ranker-training-data.md)), so its Lite row is scored again here.
+
+| Frozen allfather-fast | Bugs | hit@1 | hit@5 | hit@10 | all@10 | MRR |
+|---|---|---|---|---|---|---|
+| **Holdout, function** | 311 | 51.4% | 71.1% | **79.7%** [74.9, 83.9] | 47.3% | 0.602 |
+| **Holdout, file** | 321 | 67.0% | **90.3%** | 94.7% [92.2, 96.9] | 81.0% | 0.771 |
+| Lite, function | 291 | 43.3% | 72.2% | 78.4% [73.5, 82.8] | 73.5% | 0.543 |
+| Lite, file | 300 | 68.3% | 88.7% | 93.0% [90.0, 95.7] | 93.0% | 0.777 |
+
+It finds one of the changed functions as often on the holdout as on Lite. Finding all of them is harder there: its fixes change 3.0 functions on average against 1.2 on Lite, so all@10 falls from 73.5% to 47.3%. The two sets differ in projects, fix size and date, so this is a description, not a controlled comparison. Every declared metric with its interval is in [results/frozen/report.json](results/frozen/report.json).
+
 ### Next to published systems
 
 Scored the way LocAgent and SweRank score themselves: 274 Lite issues, and an issue counts only when every location its fix changed is in the top k (Acc@k, in %).
@@ -259,8 +272,8 @@ flowchart LR
 - **Ground truth** comes from the gold patch, mapped onto a Tree-sitter parse of each file *as it existed at `base_commit`* (details below).
 - **Unseen projects for the website.** The browser's rankers are cross-validated with whole projects as folds, and scored on 30 SWE-rebench projects that appear in no training fold, so the reported numbers are what a visitor's new repository gets.
 - **Held-out tuning.** Anything with a knob is tuned off Lite: fusion and expansion on SWE-bench Verified minus Lite (407 issues, `allfather tune`), learned rankers on SWE-bench test minus Lite (1,941 issues, `allfather ltr`, 5-fold CV grouped by query), and the reranker's depth and weights on 250 issues held out from its training (`allfather ce-tune`), with the selection rule written down before looking.
-- **How often Lite has been looked at.** No number here was trained or tuned on Lite, but Lite is not untouched: it has been scored 90 times, and [results/test-evals.log](results/test-evals.log) lists each one with what was decided from it. Most are one run per reported row. The exceptions: the early browser pipeline was scored on Lite at several rerank depths and with two stage-2 models (its settings were chosen on dev data and cross-validation, but Lite was looked at each time), and the distilled reranker was rejected on a Lite result, a decision taken on the test set, in the conservative direction. Every later evaluation appends to the log.
-- **A sealed holdout for what comes next.** 324 issues created on or after 2025-09-01, after the cascade's models were published, from 189 projects that appear in no training, dev or test data here; 311 of them have a function-level target. Nothing has been evaluated on it. Only three final configurations ever will be, each once per level, and `allfather eval` refuses anything else ([ADR 0013](docs/decisions/0013-sealed-holdout.md)).
+- **How often Lite has been looked at.** No number here was trained or tuned on Lite, but Lite is not untouched: it has been scored 92 times, and [results/test-evals.log](results/test-evals.log) lists each one with what was decided from it. Most are one run per reported row. The exceptions: the early browser pipeline was scored on Lite at several rerank depths and with two stage-2 models (its settings were chosen on dev data and cross-validation, but Lite was looked at each time), and the distilled reranker was rejected on a Lite result, a decision taken on the test set, in the conservative direction. Every later evaluation appends to the log.
+- **A sealed holdout for what comes next.** 324 issues created on or after 2025-09-01, after the cascade's models were published, from 189 projects that appear in no training, dev or test data here; 311 of them have a function-level target. Only three final configurations may ever be evaluated on it, each once per level, and `allfather eval` refuses anything else ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). allfather-fast has used its run ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)).
 - **No leakage through features.** Git history uses only strict ancestors of the base commit (`git rev-list`). Earlier-issue features only see issues opened at least 30 days before the query. Both boundaries have tests.
 - **Reproducibility.** Cached features and trained models carry a fingerprint of the source code that produced them, and a model refuses to load against different feature code. Every result file records the git commit, library versions, model hashes and command line.
 - **Significance.** `allfather compare` runs a paired bootstrap over queries (10k resamples) and reports Δ, a 95% CI, a two-sided p-value and win/loss counts. A difference that isn't significant is reported as such.
@@ -449,6 +462,10 @@ docs/decisions/               why things are the way they are
 26. [Skipping the browser's language model when the GPU reranker answers](docs/decisions/0026-skip-browser-language-model.md)
 27. [Rust test modules are test code](docs/decisions/0027-rust-test-modules.md)
 28. [Allfather as a GitHub Action](docs/decisions/0028-github-action.md)
+29. [Telling the visitor how likely the answer is right](docs/decisions/0029-confidence.md)
+30. [Odin is renamed Allfather](docs/decisions/0030-rename-to-allfather.md)
+31. [Pages get real addresses, so search engines can index them](docs/decisions/0031-path-routes.md)
+32. [allfather-fast is frozen and spends its one holdout run](docs/decisions/0032-freeze-allfather-fast.md)
 
 ## Adding a retriever
 
