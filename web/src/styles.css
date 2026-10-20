@@ -445,6 +445,8 @@ table.heat th, table.heat td { padding: 9px 10px; }
 .progress-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s ease; }
 
 .empty-state { text-align: center; padding: 56px 24px; color: var(--ink-2); }
+.architecture { margin: 20px 0 0; }
+.architecture img { display: block; width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); }
 .not-found { padding: 72px 0 40px; }
 .not-found .emblem { width: 72px; height: 72px; margin: 0 auto 18px; }
 .not-found .case-links { justify-content: center; margin-top: 24px; }

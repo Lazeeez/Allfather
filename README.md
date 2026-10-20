@@ -206,6 +206,12 @@ Each snapshot answers one query, so HNSW would need about 10,000 queries on the 
 
 ## Architecture
 
+The system as deployed: ranking runs in the visitor's browser, one Cloudflare Worker serves the site and relays GitHub and the GPU, and a research pipeline on a laptop and the PACE cluster trains every model the site ships.
+
+![The system as deployed: the browser, a Cloudflare Worker, a GPU reranker on Modal, GitHub, and the offline research pipeline](web/public/system.svg)
+
+The search pipeline inside it:
+
 ```mermaid
 flowchart LR
     I[issue text] --> T[code-aware tokenizer]

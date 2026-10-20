@@ -89,6 +89,19 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
       </section>
 
       <section class="block">
+        <p class="kicker">Architecture</p>
+        <h2>What runs where.</h2>
+        <p class="section-lede">
+          Ranking happens in the visitor's browser, so a search costs no server time. One Cloudflare Worker serves the site and relays GitHub and the
+          GPU; the GPU reranker on Modal scales to zero. The research pipeline trains every model the site ships.
+        </p>
+        <figure class="architecture">
+          <img src="/system.svg" width="1200" height="800" loading="lazy" decoding="async"
+            alt="The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships." />
+        </figure>
+      </section>
+
+      <section class="block">
         <p class="kicker">Decisions</p>
         <h2>What mattered most.</h2>
         <ol class="case-list">

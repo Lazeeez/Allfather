@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Allfather, the system as deployed</title>
+  <desc id="d">The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 10 5 0 10Z" fill="#8a5b00"/>
+    </marker>
+    <style>
+      .zone { fill: #ffffff; stroke: #d9cba8; stroke-width: 1.5; }
+      .card { fill: #fdf9f0; stroke: #e6dcc4; stroke-width: 1; }
+      .gold { fill: #fbf1d8; stroke: #d4a032; stroke-width: 1.2; }
+      .zt { font-size: 19px; font-weight: 700; fill: #1c1b22; }
+      .zs { font-size: 13px; fill: #6b6250; }
+      .ct { font-size: 15px; font-weight: 650; fill: #1c1b22; }
+      .cs { font-size: 12.5px; fill: #4a4539; }
+      .mono { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: 12.5px; fill: #4a4539; }
+      .lab { font-size: 12px; fill: #8a5b00; font-weight: 600; }
+      .flow { stroke: #8a5b00; stroke-width: 1.6; fill: none; }
+      .dash { stroke: #8a5b00; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+  <rect width="1200" height="800" rx="18" fill="#faf7f0"/>
+
+  <rect class="zone" x="28" y="28" width="400" height="520" rx="14"/>
+  <text class="zt" x="50" y="62">The visitor's browser</text>
+  <text class="zs" x="50" y="82">allfather.dev · all ranking happens here</text>
+
+  <rect class="card" x="50" y="100" width="356" height="62" rx="9"/>
+  <text class="ct" x="66" y="126">Page</text>
+  <text class="cs" x="66" y="146">Preact + TypeScript, path routes, ~50 kB gzipped</text>
+
+  <rect class="gold" x="50" y="176" width="356" height="132" rx="9"/>
+  <text class="ct" x="66" y="202">Search worker</text>
+  <text class="cs" x="66" y="224">code-aware BM25 over every function</text>
+  <text class="cs" x="66" y="243">static code embeddings (Model2Vec, 16 MB, int8)</text>
+  <text class="cs" x="66" y="262">LambdaMART rankers shipped as JSON trees</text>
+  <text class="cs" x="66" y="281">confidence estimate · blend of GPU scores</text>
+  <text class="cs" x="66" y="300">MiniLM fallback if the GPU does not answer</text>
+
+  <rect class="card" x="50" y="322" width="356" height="80" rx="9"/>
+  <text class="ct" x="66" y="348">Parse workers ×4</text>
+  <text class="cs" x="66" y="370">Tree-sitter WebAssembly, six languages</text>
+  <text class="cs" x="66" y="389">archive streamed and unpacked in the tab</text>
+
+  <rect class="card" x="50" y="416" width="356" height="62" rx="9"/>
+  <text class="ct" x="66" y="442">IndexedDB</text>
+  <text class="cs" x="66" y="462">parsed repositories by git tree hash</text>
+
+  <text class="zs" x="50" y="510">Cross-origin isolated (COOP/COEP) for</text>
+  <text class="zs" x="50" y="528">multi-threaded WebAssembly</text>
+
+  <rect class="zone" x="476" y="28" width="320" height="520" rx="14"/>
+  <text class="zt" x="498" y="62">Cloudflare Worker</text>
+  <text class="zs" x="498" y="82">one deploy, same origin as the site</text>
+
+  <rect class="card" x="498" y="100" width="276" height="62" rx="9"/>
+  <text class="ct" x="514" y="126">Static site</text>
+  <text class="cs" x="514" y="146">per-page HTML, CSP, hashed assets</text>
+
+  <rect class="card" x="498" y="176" width="276" height="62" rx="9"/>
+  <text class="mono" x="514" y="202">/relay</text>
+  <text class="cs" x="514" y="222">GitHub archive, one download</text>
+
+  <rect class="card" x="498" y="252" width="276" height="62" rx="9"/>
+  <text class="mono" x="514" y="278">/gh</text>
+  <text class="cs" x="514" y="298">GitHub API with a server token</text>
+
+  <rect class="gold" x="498" y="328" width="276" height="80" rx="9"/>
+  <text class="mono" x="514" y="354">/rerank</text>
+  <text class="cs" x="514" y="374">per-IP rate limit, origin check</text>
+  <text class="cs" x="514" y="393">scores cached a day by request hash</text>
+
+  <rect class="card" x="498" y="422" width="276" height="80" rx="9"/>
+  <text class="mono" x="514" y="448">/api → D1 (SQLite)</text>
+  <text class="cs" x="514" y="468">search counts, 👍/👎 votes,</text>
+  <text class="cs" x="514" y="487">nightly live accuracy</text>
+
+  <rect class="zone" x="844" y="28" width="328" height="226" rx="14"/>
+  <text class="zt" x="866" y="62">Modal GPU</text>
+  <rect class="gold" x="866" y="80" width="284" height="150" rx="9"/>
+  <text class="ct" x="882" y="106">Fine-tuned reranker</text>
+  <text class="cs" x="882" y="128">Qwen3-Reranker-0.6B + two LoRA</text>
+  <text class="cs" x="882" y="147">adapters, scores the top 50</text>
+  <text class="cs" x="882" y="172">up to 2 L4 containers,</text>
+  <text class="cs" x="882" y="191">scale to zero after 3 minutes</text>
+  <text class="cs" x="882" y="214">warm ≈ 1 s · cold start ≈ 9 s</text>
+
+  <rect class="zone" x="844" y="278" width="328" height="270" rx="14"/>
+  <text class="zt" x="866" y="312">GitHub</text>
+  <rect class="card" x="866" y="330" width="284" height="62" rx="9"/>
+  <text class="ct" x="882" y="356">Repositories and issues</text>
+  <text class="cs" x="882" y="376">archives, file history, issue text</text>
+  <rect class="card" x="866" y="406" width="284" height="62" rx="9"/>
+  <text class="ct" x="882" y="432">Nightly live-accuracy job</text>
+  <text class="cs" x="882" y="452">bugs fixed this week, six languages</text>
+  <rect class="card" x="866" y="482" width="284" height="60" rx="9"/>
+  <text class="ct" x="882" y="507">Allfather Action</text>
+  <text class="cs" x="882" y="527">comments the top 5 on new issues</text>
+
+  <path class="flow" d="M406 238 H498" marker-end="url(#arrow)"/>
+  <text class="lab" x="414" y="230">top 50</text>
+  <path class="flow" d="M498 206 H430" marker-end="url(#arrow)"/>
+  <text class="lab" x="434" y="198">archive</text>
+  <path class="flow" d="M774 207 H820 V350 H866" marker-end="url(#arrow)"/>
+  <path class="flow" d="M774 283 H820"/>
+  <path class="flow" d="M774 368 H836 V150 H866" marker-end="url(#arrow)"/>
+  <text class="lab" x="848" y="271">report + top 50 ↑</text>
+  <path class="dash" d="M866 437 H820 V462 H778" marker-end="url(#arrow)"/>
+  <text class="lab" x="781" y="480">nightly</text>
+
+  <rect class="zone" x="28" y="582" width="1144" height="190" rx="14"/>
+  <text class="zt" x="50" y="616">Offline research pipeline</text>
+  <text class="zs" x="50" y="636">Python, on a 6 GB laptop GPU and the PACE cluster (Slurm)</text>
+  <rect class="card" x="50" y="652" width="262" height="98" rx="9"/>
+  <text class="ct" x="66" y="678">Evaluation harness</text>
+  <text class="cs" x="66" y="698">every issue at its base commit,</text>
+  <text class="cs" x="66" y="717">paired bootstrap, provenance,</text>
+  <text class="cs" x="66" y="736">a sealed holdout</text>
+  <rect class="card" x="330" y="652" width="262" height="98" rx="9"/>
+  <text class="ct" x="346" y="678">Training</text>
+  <text class="cs" x="346" y="698">LambdaMART on 131 projects,</text>
+  <text class="cs" x="346" y="717">LoRA reranker adapters,</text>
+  <text class="cs" x="346" y="736">project-grouped cross-validation</text>
+  <rect class="card" x="610" y="652" width="262" height="98" rx="9"/>
+  <text class="ct" x="626" y="678">Parity tests</text>
+  <text class="cs" x="626" y="698">Python and TypeScript engines</text>
+  <text class="cs" x="626" y="717">give identical units, scores</text>
+  <text class="cs" x="626" y="736">and ranker inputs</text>
+  <rect class="gold" x="890" y="652" width="260" height="98" rx="9"/>
+  <text class="ct" x="906" y="678">Ships to production</text>
+  <text class="cs" x="906" y="698">rankers as JSON trees and</text>
+  <text class="cs" x="906" y="717">benchmark data to the site;</text>
+  <text class="cs" x="906" y="736">adapters to Modal</text>
+</svg>
