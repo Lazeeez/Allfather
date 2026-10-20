@@ -12,6 +12,7 @@ from allfather.search.retriever import BM25Retriever
 EMBEDDING = ("jinaai/jina-code-embeddings-0.5b", "4db235132dafbe56a8b9c5f59b59795ecf58a4a7")
 RERANKER_BASE = ("Qwen/Qwen3-Reranker-0.6B", "e61197ed45024b0ed8a2d74b80b4d909f1255473")
 HOLDOUT = Path("data/holdout/manifest.json")
+HOLDOUT_GOLD = Path("data/gold/odin_holdout.jsonl")
 
 
 def models() -> None:
@@ -29,10 +30,14 @@ def commits() -> dict[str, set[str]]:
     manifest = json.loads(HOLDOUT.read_text(encoding="utf-8"))
     for name in manifest["files"]:
         hf_hub_download(manifest["source"], name, repo_type="dataset", revision=manifest["revision"])
+    gold = [json.loads(line) for line in HOLDOUT_GOLD.read_text(encoding="utf-8").splitlines() if line]
+    scored = {g["instance_id"] for g in gold if g["files"] or g["functions"] or g["classes"]}
     wanted: dict[str, set[str]] = defaultdict(set)
     for instance in manifest["instances"]:
-        wanted[instance["repo"]].add(instance["base_commit"])
-    print(f"holdout files ready: {len(manifest['instances'])} issues", flush=True)
+        if instance["instance_id"] in scored:
+            wanted[instance["repo"]].add(instance["base_commit"])
+    skipped = len(manifest["instances"]) - len(scored)
+    print(f"holdout files ready: {len(scored)} issues to score, {skipped} without a target skipped", flush=True)
     lite = load_instances("lite", "test")
     for instance in lite:
         wanted[instance.repo].add(instance.base_commit)
