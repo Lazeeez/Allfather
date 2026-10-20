@@ -79,7 +79,7 @@
     "past_file_sim",
     "past_file_count"
   ],
-  "feature_fingerprint": "9322bbc847aa32c3",
+  "feature_fingerprint": "648c67dd5d9b35d3",
   "importance_gain": {
     "fused_logrank": 219902.3,
     "fused": 16332.3,
@@ -133,5 +133,10 @@
     "module_mentioned": 51.3,
     "class_in_code": 46.4,
     "frame_file": 45.0
+  },
+  "feature_fingerprint_history": {
+    "trained_with": "9322bbc847aa32c3",
+    "restamped_to": "648c67dd5d9b35d3",
+    "why": "ADR 0032: the feature code changed only for other languages; results/fingerprint/mention_parity.json"
   }
 }

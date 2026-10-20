@@ -23,6 +23,8 @@ results/*
 !results/website-rerank/
 !results/browser_ltr_multilang/
 !results/confidence/
+!results/fingerprint/
+!results/frozen/
 results/browser_ltr_multilang/static-model.bin
 results/browser_ltr_multilang/explore/
 results/odin-max/work/

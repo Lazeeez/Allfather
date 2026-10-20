@@ -46,3 +46,11 @@ For each of the four runs, every metric the evaluation writes is reported as it 
 - allfather-fast cannot change after this ADR without a new name and a new holdout entry, which ADR 0013 would first have to allow.
 - The published rows of the original configuration (`ltr-ce-notests`, including the README's 79.4%) still reproduce: its rankers and recipe are untouched.
 - allfather-max and allfather-escalation keep their holdout entries unused.
+
+## Amendment, 2026-10-20, before any evaluation: the rankers' feature fingerprint
+
+The first attempt to run the holdout stopped before scoring anything: the rankers refused to load because the feature code's fingerprint no longer matched the one recorded when they were trained. Nothing was scored or logged, and the holdout allowance is unchanged. The guard had loaded the issue text into memory when the error occurred; it was not printed or written anywhere.
+
+The fingerprint is a hash of the feature modules' source text. It changed twice after training: on 2026-10-15, when the mention parser learned JavaScript, Java, Go and Rust stack traces behind an option that is off for Python issues, and on 2026-10-18, with the rename. Three of the four feature modules are otherwise byte-identical to the trained versions. For the fourth, the mention parser, [scripts/verify_mention_parity.py](../../scripts/verify_mention_parity.py) runs the trained version and the current one on every Python bug report in SWE-bench Lite, the full SWE-bench test set, Verified and SWE-rebench (7,168 reports), and on the 13,865 file paths in the ground truth outside the holdout. Every parsed field and every path comparison is identical ([results/fingerprint/mention_parity.json](../../results/fingerprint/mention_parity.json)).
+
+So every feature the rankers see on a Python issue is unchanged. The four rankers' recorded fingerprints are updated to the current one, with the old value and the reason kept beside them. The ranker files themselves, and the hashes frozen above, do not change. The published rows of `ltr-ce-notests` become reproducible at the current commit again.

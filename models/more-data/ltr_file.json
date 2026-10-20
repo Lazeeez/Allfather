@@ -58,7 +58,7 @@
     "past_file_count",
     "best_past_unit_sim"
   ],
-  "feature_fingerprint": "9322bbc847aa32c3",
+  "feature_fingerprint": "648c67dd5d9b35d3",
   "importance_gain": {
     "best_unit_fused_logrank": 332081.4,
     "file_fused_logrank": 91364.4,
@@ -91,5 +91,10 @@
     "any_frame_both": 127.2,
     "module_mentioned": 73.3,
     "is_init_file": 69.4
+  },
+  "feature_fingerprint_history": {
+    "trained_with": "9322bbc847aa32c3",
+    "restamped_to": "648c67dd5d9b35d3",
+    "why": "ADR 0032: the feature code changed only for other languages; results/fingerprint/mention_parity.json"
   }
 }
