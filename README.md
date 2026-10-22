@@ -1,6 +1,5 @@
 # Allfather
 
-[![Live](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml)
 [![Parity](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml)
 [![Live accuracy](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
