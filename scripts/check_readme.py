@@ -88,7 +88,12 @@ def check_headline(rows: list[list[str]], report: Report) -> None:
         report.expect(f"headline {level} mrr", numbers(row[5])[0], summary["mrr"], 3)
 
 
-FROZEN_ROWS = {"Holdout, function": "holdout_function", "Holdout, file": "holdout_file", "Lite, function": "lite_function", "Lite, file": "lite_file"}
+FROZEN_ROWS = {
+    "Holdout, function": "holdout_function",
+    "Holdout, file": "holdout_file",
+    "Lite, function": "lite_function",
+    "Lite, file": "lite_file",
+}
 
 
 def check_frozen(rows: list[list[str]], report: Report) -> None:
@@ -98,11 +103,17 @@ def check_frozen(rows: list[list[str]], report: Report) -> None:
         metrics = run["metrics"]
         report.expect(f"frozen {row[0]} bugs", numbers(row[1])[0], run["issues"], 0)
         for cell, key in zip(row[2:5], ("hit@1", "hit@5", "hit@10"), strict=True):
-            report.expect(f"frozen {row[0]} {key}", numbers(cell)[0], 100 * metrics[key]["value"], 1)
+            report.expect(
+                f"frozen {row[0]} {key}", numbers(cell)[0], 100 * metrics[key]["value"], 1
+            )
         _, low, high = numbers(row[4])
         report.expect(f"frozen {row[0]} hit@10 ci low", low, 100 * metrics["hit@10"]["ci95"][0], 1)
-        report.expect(f"frozen {row[0]} hit@10 ci high", high, 100 * metrics["hit@10"]["ci95"][1], 1)
-        report.expect(f"frozen {row[0]} all@10", numbers(row[5])[0], 100 * metrics["all@10"]["value"], 1)
+        report.expect(
+            f"frozen {row[0]} hit@10 ci high", high, 100 * metrics["hit@10"]["ci95"][1], 1
+        )
+        report.expect(
+            f"frozen {row[0]} all@10", numbers(row[5])[0], 100 * metrics["all@10"]["value"], 1
+        )
         report.expect(f"frozen {row[0]} mrr", numbers(row[6])[0], metrics["mrr"]["value"], 3)
 
 
