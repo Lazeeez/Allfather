@@ -20,24 +20,35 @@ def models() -> None:
     snapshot_download(RERANKER_BASE[0], revision=RERANKER_BASE[1], max_workers=2)
     loaded = Path(snapshot_download(RERANKER_BASE[0], max_workers=2)).name
     if loaded != RERANKER_BASE[1]:
-        sys.exit(f"{RERANKER_BASE[0]} resolves to {loaded} here, not the frozen {RERANKER_BASE[1]} (ADR 0032)")
+        sys.exit(
+            f"{RERANKER_BASE[0]} resolves to {loaded} here, not the frozen {RERANKER_BASE[1]} (ADR 0032)"
+        )
     if subprocess.run([sys.executable, "scripts/adapters.py", "fetch"]).returncode:
-        sys.exit("the reranker adapters could not be fetched (a Hugging Face token with access is needed)")
+        sys.exit(
+            "the reranker adapters could not be fetched (a Hugging Face token with access is needed)"
+        )
     print("models ready", flush=True)
 
 
 def commits() -> dict[str, set[str]]:
     manifest = json.loads(HOLDOUT.read_text(encoding="utf-8"))
     for name in manifest["files"]:
-        hf_hub_download(manifest["source"], name, repo_type="dataset", revision=manifest["revision"])
-    gold = [json.loads(line) for line in HOLDOUT_GOLD.read_text(encoding="utf-8").splitlines() if line]
+        hf_hub_download(
+            manifest["source"], name, repo_type="dataset", revision=manifest["revision"]
+        )
+    gold = [
+        json.loads(line) for line in HOLDOUT_GOLD.read_text(encoding="utf-8").splitlines() if line
+    ]
     scored = {g["instance_id"] for g in gold if g["files"] or g["functions"] or g["classes"]}
     wanted: dict[str, set[str]] = defaultdict(set)
     for instance in manifest["instances"]:
         if instance["instance_id"] in scored:
             wanted[instance["repo"]].add(instance["base_commit"])
     skipped = len(manifest["instances"]) - len(scored)
-    print(f"holdout files ready: {len(scored)} issues to score, {skipped} without a target skipped", flush=True)
+    print(
+        f"holdout files ready: {len(scored)} issues to score, {skipped} without a target skipped",
+        flush=True,
+    )
     lite = load_instances("lite", "test")
     for instance in lite:
         wanted[instance.repo].add(instance.base_commit)
@@ -57,7 +68,10 @@ def main() -> int:
     import sentence_transformers
     import torch
 
-    print(f"torch {torch.__version__}, sentence-transformers {sentence_transformers.__version__}", flush=True)
+    print(
+        f"torch {torch.__version__}, sentence-transformers {sentence_transformers.__version__}",
+        flush=True,
+    )
     models()
     mirrors(commits())
     print("fetch finished", flush=True)

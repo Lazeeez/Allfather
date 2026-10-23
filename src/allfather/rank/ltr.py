@@ -275,7 +275,9 @@ class LTRRetriever(HybridRetriever):
         **kwargs,
     ) -> None:
         super().__init__(encoder, mode="hybrid", fusion=fusion, name=name, **kwargs)
-        self.models = {level: _load(model_dir / path.name) for level, (_, _, path) in LEVELS.items()}
+        self.models = {
+            level: _load(model_dir / path.name) for level, (_, _, path) in LEVELS.items()
+        }
         self.extractor = FeatureExtractor(self, fusion, memory=issue_memory(self))
 
     def retrieve(self, query: Query, level: str, k: int) -> list[str]:
