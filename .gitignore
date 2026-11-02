@@ -9,6 +9,7 @@ results/*
 !results/parity_pinned*.json
 !results/holdout/
 !results/perf/
+!results/research/
 !results/comparison/
 !results/provenance/
 !results/runs/
