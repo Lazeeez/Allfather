@@ -11,7 +11,7 @@ DEFAULT_CACHE = Path(".cache/repos")
 DEFAULT_GOLD_DIR = Path("data/gold")
 DATASET_NAMES = ["lite", "verified", "full", "rebench"]
 HOLDOUT = "holdout"
-EVALUATION_ONLY = [HOLDOUT, "postcutoff"]
+EVALUATION_ONLY = [HOLDOUT, "postcutoff", "fresh"]
 
 
 def _gold_path(dataset: str, split: str) -> Path:
