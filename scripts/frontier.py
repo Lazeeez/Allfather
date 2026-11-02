@@ -41,6 +41,7 @@ from allfather.repos import RepoCache  # noqa: E402
 OUT = ROOT / "results" / "research" / "frontier"
 WORK = ROOT / ".cache" / "frontier"
 GOLD = ROOT / "data" / "gold" / "swebench_verified_test.jsonl"
+FRESH = ROOT / "data" / "fresh"
 LITE = ROOT / "data" / "gold" / "swebench_lite_test.jsonl"
 TIMEOUT_S = 1200
 ANSWER = {
@@ -88,6 +89,50 @@ def gold_rows() -> dict[str, dict]:
     return {
         json.loads(line)["instance_id"]: json.loads(line) for line in GOLD.open(encoding="utf-8")
     }
+
+
+def load_set(name: str) -> tuple[list[str], dict[str, dict]]:
+    if name.startswith("fresh"):
+        manifest = json.loads((FRESH / "manifest.json").read_text(encoding="utf-8"))
+        rows = [json.loads(line) for line in (FRESH / "gold.jsonl").open(encoding="utf-8")]
+        items = {
+            r["id"]: {
+                "repo": r["repo"],
+                "base_commit": r["base_commit"],
+                "text": r["text"],
+                "gold": r["gold_functions"],
+            }
+            for r in rows
+        }
+        ids = (
+            manifest["agent_subsample"]
+            if name == "fresh-agents"
+            else [i["id"] for i in manifest["instances"]]
+        )
+        return ids, items
+    issues = json.loads((OUT / f"{name}_issues.json").read_text(encoding="utf-8"))["issues"]
+    text = {i.instance_id: i.problem_statement for i in load_instances("verified", "test")}
+    gold = gold_rows()
+    items = {
+        q: {
+            "repo": gold[q]["repo"],
+            "base_commit": gold[q]["base_commit"],
+            "text": text[q],
+            "gold": gold[q]["functions"],
+        }
+        for q in issues
+    }
+    return issues, items
+
+
+def log_test_run(name: str, system: str, model: str, path: Path) -> None:
+    if not name.startswith("fresh"):
+        return
+    with (ROOT / "results" / "test-evals.log").open("a", encoding="utf-8", newline="\n") as log:
+        log.write(
+            f"{datetime.now(UTC).date().isoformat()} | {name} | {system} ({model}) | function | {path.relative_to(ROOT).as_posix()} | "
+            "ADR 0033 run on the sealed fresh-2026 set; nothing decided from it\n"
+        )
 
 
 def cmd_pick(args: argparse.Namespace) -> int:
@@ -310,9 +355,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         sys.exit(
             "GEMINI_API_KEY is not limited to the free tier (a paid model answered); pass --allow-billing to run anyway"
         )
-    issues = json.loads((OUT / f"{args.set}_issues.json").read_text(encoding="utf-8"))["issues"]
-    text = {i.instance_id: i for i in load_instances("verified", "test")}
-    gold = gold_rows()
+    issues, items = load_set(args.set)
     runner, model, agent = SYSTEMS[args.system]
     model = args.model or model
     target = OUT / f"{args.set}_{args.system}.jsonl"
@@ -322,15 +365,17 @@ def cmd_run(args: argparse.Namespace) -> int:
         else set()
     )
     cache = RepoCache(ROOT / ".cache" / "repos")
+    if not done:
+        log_test_run(args.set, args.system, model, target)
     with target.open("a", encoding="utf-8", newline="\n") as handle:
         for q in issues[: args.limit or None]:
             if q in done:
                 continue
-            inst = text[q]
-            cwd = WORK / q
-            export(cache, gold[q]["repo"], gold[q]["base_commit"], cwd)
+            item = items[q]
+            cwd = WORK / re.sub(r"[^\w.-]", "_", q)
+            export(cache, item["repo"], item["base_commit"], cwd)
             prompt = (PROMPT if agent else SINGLE).format(
-                report=inst.problem_statement, repo=gold[q]["repo"], files=source_files(cwd)
+                report=item["text"], repo=item["repo"], files=source_files(cwd)
             )
             start = time.perf_counter()
             try:
@@ -384,13 +429,14 @@ def matched(ranked: list[str], gold: list[str]) -> list[str]:
 
 
 def cmd_score(args: argparse.Namespace) -> int:
-    gold = gold_rows()
+    _, items = load_set(args.set)
     for path in sorted(OUT.glob(f"{args.set}_*.jsonl")):
         rows = [json.loads(line) for line in path.open(encoding="utf-8")]
+        rows = [r for r in rows if items[r["id"]]["gold"]]
         scores = [
             score(
-                matched(unit_ids(r.get("answer")), gold[r["id"]]["functions"]),
-                gold[r["id"]]["functions"],
+                matched(unit_ids(r.get("answer")), items[r["id"]]["gold"]),
+                items[r["id"]]["gold"],
                 [1, 5, 10],
             )
             for r in rows

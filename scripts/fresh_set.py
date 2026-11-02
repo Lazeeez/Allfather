@@ -289,6 +289,17 @@ def cmd_seal(args: argparse.Namespace) -> int:
     with gold_path.open("w", encoding="utf-8", newline="\n") as handle:
         for r in sorted(sample, key=lambda r: r["id"]):
             handle.write(json.dumps(r) + "\n")
+    with (DATA / "gold_eval_python.jsonl").open("w", encoding="utf-8", newline="\n") as handle:
+        for r in sorted(sample, key=lambda r: r["id"]):
+            if r["language"] == "python":
+                entry = {
+                    "instance_id": r["id"],
+                    "repo": r["repo"],
+                    "base_commit": r["base_commit"],
+                    "files": r["gold_files"],
+                    "functions": r["gold_functions"],
+                }
+                handle.write(json.dumps(entry) + "\n")
     digest = hashlib.sha256(gold_path.read_bytes()).hexdigest()
     manifest = {
         "name": "fresh-2026",

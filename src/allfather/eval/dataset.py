@@ -56,6 +56,17 @@ def _postcutoff_instances() -> list[Instance]:
     return [found[i] for i in wanted]
 
 
+FRESH_GOLD = Path("data/fresh/gold.jsonl")
+
+
+def _fresh_instances() -> list[Instance]:
+    rows = [json.loads(line) for line in FRESH_GOLD.open(encoding="utf-8") if line.strip()]
+    return [
+        Instance(r["id"], r["repo"], r["base_commit"], "", r["text"], r["issue_created"])
+        for r in rows
+    ]
+
+
 def load_instances(name: str = "lite", split: str = "test") -> list[Instance]:
     if name == "holdout":
         from allfather.eval.holdout import sealed_instances
@@ -63,6 +74,8 @@ def load_instances(name: str = "lite", split: str = "test") -> list[Instance]:
         return sealed_instances()
     if name == "postcutoff":
         return _postcutoff_instances()
+    if name == "fresh":
+        return _fresh_instances()
     if name == "rebench":
         rows = _rows(DATASETS[name], "test", parts=2)  # all ~21k; "filtered" is a subset
         if split in ("train", "test"):
