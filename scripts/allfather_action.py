@@ -99,7 +99,7 @@ def comment(
         "Files: " + ", ".join(f"[`{f}`]({blob}/{urllib.parse.quote(f)})" for f in files),
         "",
     ]
-    query = urllib.parse.urlencode({"repo": repo, "q": issue_text[:500]})
+    query = urllib.parse.urlencode({"repo": repo}) + "#" + urllib.parse.urlencode({"q": issue_text[:500]})
     lines.append(
         f"<sub>Ranked by the same models as [allfather.dev]({SITE}) (keywords, what the issue names, and meaning; no GPU), "
         f"[open this search there]({SITE}/search?{query}) to see why each ranks where it does. "

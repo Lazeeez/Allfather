@@ -13,7 +13,7 @@ import { shareCard } from "../lib/shareCard.ts";
 import { useFlip } from "../lib/flip.ts";
 import { reducedMotion } from "../lib/motion.ts";
 import { band, measurable } from "../engine/confidence.ts";
-import { href, replaceUrl } from "../lib/router.ts";
+import { href, searchHref, replaceUrl } from "../lib/router.ts";
 import { useLazy } from "../lib/lazy.ts";
 import { load, save } from "../lib/storage.ts";
 import { duration } from "../lib/format.ts";
@@ -421,7 +421,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
   }, [query, semanticOn, serverOn, info, w.semanticIndex?.state]); // re-ranks when the semantic index is ready
 
   // The address bar always holds a shareable link to what is on screen.
-  const link = info ? href("search", null, { repo: info.repo, q: query.trim().slice(0, 500) || undefined }) : href("search");
+  const link = info ? searchHref({ repo: info.repo }, query.trim().slice(0, 500) || undefined) : href("search");
   useEffect(() => {
     if (active && info) replaceUrl(link);
   }, [active, link]);

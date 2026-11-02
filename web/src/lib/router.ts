@@ -25,7 +25,16 @@ export function href(page: LinkPage, param?: string | null, query?: Record<strin
   return qs ? `${h}?${qs}` : h;
 }
 
-const here = () => `${location.pathname}${location.search}`;
+/**
+ * A search link. The bug report goes in the fragment (#q=), which browsers never send to a server,
+ * put in a Referer header or hand to the analytics script; only the repository is in the query.
+ */
+export function searchHref(query: Record<string, string | undefined>, q?: string): string {
+  const h = href("search", null, query);
+  return q ? `${h}#${new URLSearchParams({ q })}` : h;
+}
+
+const here = () => `${location.pathname}${location.search}${location.hash}`;
 
 export function navigate(url: string): void {
   if (url === here()) return;
@@ -54,8 +63,13 @@ export function useRoute(): Route {
     };
   }, []);
   return useMemo(() => {
-    const at = url.indexOf("?");
-    return parsePath(at < 0 ? url : url.slice(0, at), at < 0 ? "" : url.slice(at));
+    const cut = url.indexOf("#");
+    const main = cut < 0 ? url : url.slice(0, cut);
+    const at = main.indexOf("?");
+    const route = parsePath(at < 0 ? main : main.slice(0, at), at < 0 ? "" : main.slice(at));
+    const q = cut < 0 ? null : new URLSearchParams(url.slice(cut + 1)).get("q");
+    if (q != null) route.query.set("q", q);
+    return route;
   }, [url]);
 }
 
@@ -76,12 +90,17 @@ export function interceptLinks(): () => void {
 
 export function legacyTarget(pathname: string, search: string, hash: string): string | null {
   if (hash.startsWith("#/")) {
-    const rest = hash.slice(1);
-    return rest === "/" ? "/" : rest;
+    const inner = new URL(hash.slice(1), "https://allfather.dev");
+    return legacyTarget(inner.pathname, inner.search, "") ?? `${inner.pathname}${inner.search}`;
+  }
+  const query = new URLSearchParams(search);
+  if (pathname.replace(/\/+$/, "") === "/search" && query.has("q")) {
+    const q = query.get("q")!;
+    query.delete("q");
+    return searchHref(Object.fromEntries(query), q);
   }
   if (pathname !== "/") return null;
-  const query = new URLSearchParams(search);
-  if (query.get("repo")) return href("search", null, { repo: query.get("repo")!, q: query.get("q") ?? undefined });
+  if (query.get("repo")) return searchHref({ repo: query.get("repo")! }, query.get("q") ?? undefined);
   if (hash.startsWith("#issue=")) return href("explore", decodeURIComponent(hash.slice(7)));
   const anchors: Record<string, LinkPage> = { "#try": "search", "#explorer": "explore", "#results": "benchmarks", "#pipeline": "how", "#engineering": "how", "#top": "home" };
   return anchors[hash] ? href(anchors[hash]) : null;
