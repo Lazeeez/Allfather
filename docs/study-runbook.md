@@ -17,7 +17,7 @@ Commit `data/fresh/` (manifest, answer keys, hashes) before step 2. Nothing may 
 
 | Tier | System | Command |
 |---|---|---|
-| T0 | Website pipeline, six languages | `uv run python scripts/fresh_website.py --set fresh` |
+| T0 | Website pipeline, six languages | `uv run python scripts/fresh_website.py --set fresh`, and again with `--set fresh-agents` so the agent comparison has the same 200 bugs |
 | T0 | allfather-fast, Python bugs | `uv run allfather eval --dataset fresh --gold data/fresh/gold_eval_python.jsonl --retriever ltr-ce-more-data-notests --level function --out results/research/frontier/fresh_eval.json`, then `uv run python scripts/eval_import.py --set fresh --system allfather-fast --results results/research/frontier/fresh_eval.json` |
 | T1 | SweRank retrievers (PACE) | `cluster/RUNBOOK.md`, section "fresh-2026 with SweRank's retrievers" |
 | T3 | Claude Opus 5.5, one call | `uv run python scripts/frontier.py run --set fresh --system claude-single` |
