@@ -61,7 +61,7 @@ function HoldoutCard({ data, research }: { data: Holdout; research: number | nul
         <p class="note">
           The Lite rows here are allfather-fast. The tiles and charts above show the research configuration it grew from, which scores{" "}
           {pct(research)} on Lite against allfather-fast's {pct(lite["hit@10"])}. Of the 291 issues, 13 come out differently, 8 in the research
-          configuration's favour and 5 in allfather-fast's: not significant (exact paired test, p = 0.58). allfather-fast's rankers were trained on more data, and it is the system the holdout
+          configuration's favour and 5 in allfather-fast's: not significant (exact paired test, p = 0.58). Its rankers were trained on more data, and it is the system the holdout
           measures.
         </p>
       )}
