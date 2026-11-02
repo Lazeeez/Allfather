@@ -106,14 +106,15 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
       <PageHero kicker="Benchmarks" title="How often Allfather finds the fix">
         <p>
           Measured on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the commit where the bug was
-          reported, and a result counts only if the maintainers' actual fix changed it. None of these issues was used for training or
-          tuning.
+          reported, and a result counts only if the maintainers' actual fix changed it. None of these issues was used for training, but the
+          rankers trained on other issues from the same 12 projects, and Lite guided development, so the clean test is the sealed holdout
+          below.
         </p>
       </PageHero>
       {failed && <p class="error-text">Couldn't load the benchmark data. Try reloading the page.</p>}
       {!failed && (
         <div class="tiles">
-          <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} ci={fn?.ci95["hit@10"]} note={fn ? `${fn.n} issues, 10k–45k functions per project` : "SWE-bench Lite"} />
+          <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} ci={fn?.ci95["hit@10"]} note={fn ? `${fn.n} issues, 400 to 31,000 functions per snapshot` : "SWE-bench Lite"} />
           <Tile label="Function to fix ranked first" value={fn ? fn["hit@1"] : null} ci={fn?.ci95["hit@1"]} note={fn ? `${fn.n} issues: 300 minus ${300 - fn.n} with no function to find` : "SWE-bench Lite"} />
           <Tile label="File to fix in the top 5" value={fl ? fl["hit@5"] : null} ci={fl?.ci95["hit@5"]} note={fl ? `file level, all ${fl.n} issues` : "SWE-bench Lite"} />
         </div>
@@ -129,8 +130,12 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
         <>
           <section class="card frame block">
             <p class="kicker">Stage by stage</p>
-            <h2>Each stage finds more</h2>
-            <p class="card-lede">hit@k, recall@10 and MRR per stage over 291 issues, at function or file level. Whiskers are 95% bootstrap intervals; hover for sample size and median latency.</p>
+            <h2>What each stage adds</h2>
+            <p class="card-lede">
+              hit@k, recall@10 and MRR per stage, over 291 issues at function level and 300 at file level. At function level every stage
+              finds more; at file level the last two mostly move the right file up, not into the top 10. Whiskers are 95% bootstrap intervals;
+              hover for sample size and median latency per query, measured on a laptop GPU (RTX 4050).
+            </p>
             <StageChart summary={summary} />
           </section>
 
@@ -144,7 +149,7 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
           <section class="card frame block">
             <p class="kicker">By project</p>
             <h2>Where it's easy, and where it's hard</h2>
-            <p class="card-lede">Share of fix locations in the top 10, per project. Projects whose bug reports rarely name the code, like SymPy and pytest, gain the most from the smarter stages.</p>
+            <p class="card-lede">Share of fix locations in the top 10, per project. pytest, whose bug reports rarely name the code, gains more than most from the smarter stages.</p>
             <RepoTable summary={summary} />
           </section>
         </>
@@ -188,10 +193,10 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
         <h2>How the numbers are kept honest</h2>
         <ul class="plain-list">
           <li>Every issue is searched at its own base commit. Indexing today's code would leak the fix.</li>
-          <li>Nothing is tuned on these 300 issues: fusion weights on a separate dev set, learned rankers on 1,941 other SWE-bench issues, reranker weights on a held-out split.</li>
+          <li>Nothing is trained on these 300 issues: fusion weights on a separate dev set, the learned rankers on 1,941 other SWE-bench issues (5,115 for allfather-fast), reranker weights on a held-out split. The ranker's cross-validation was split by issue, not by project, and the code embedding model (jina-code-embeddings) lists SWE-bench among its own training data, so Lite and development numbers may be optimistic; the sealed holdout is free of both.</li>
           <li>Git-history features only see commits before the bug; "similar past bugs" only see issues opened at least 30 days earlier. Both boundaries have tests.</li>
           <li>Every comparison on this page comes with a paired test on the same issues and a 95% bootstrap interval, with p adjusted for the number of tests in each table. Results that aren't significant are reported as such.</li>
-          <li>Lite is not untouched. Every evaluation on it is logged with what was decided from it in the project's evaluation log, and one decision, rejecting a distilled reranker, was taken on a Lite result, in the conservative direction.</li>
+          <li>Lite is not untouched. It has been evaluated 92 times, each logged with what was decided from it, and one decision, rejecting a distilled reranker, was taken on a Lite result, in the conservative direction.</li>
         </ul>
       </section>
     </div>
@@ -209,8 +214,9 @@ function Languages({ sets }: { sets: Record<string, Record<string, LanguageEval>
       <p class="kicker">In your browser</p>
       <h2>In five more languages</h2>
       <p class="card-lede">
-        Bugs from two public test sets, SWE-bench Multilingual and SWE-PolyBench, in projects the rankers never trained on, scored once. Allfather's learned ranker against ranking by
-        keywords and meaning alone, the simpler signal the site would fall back to.
+        Bugs from two public test sets, SWE-bench Multilingual and SWE-PolyBench, in projects the rankers never trained on. Allfather's learned
+        ranker against ranking by keywords and meaning alone, the simpler signal the site would fall back to; the GPU reranker is not used for
+        these languages. The sets were rescored after fixing labels and stale caches (logged; nothing was decided from them).
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="Accuracy by language">
         <table>
@@ -258,7 +264,8 @@ function Gpu({ g }: { g: GpuReranker }) {
       <p class="kicker">On a GPU server</p>
       <h2>The fine-tuned reranker</h2>
       <p class="card-lede">
-        The search page can send your bug report and its top 50 functions to a GPU, where the full pipeline's reranker re-reads them.
+        For a Python repository, the search page can send your bug report and its top 50 functions to a GPU, where the full pipeline's
+        reranker re-reads them.
         Measured before it was built, by cross-validation on {g.issues.toLocaleString()} bugs from {g.projects} projects the reranker never
         trained on: function hit@10 {gain.delta >= 0 ? "+" : ""}{(gain.delta * 100).toFixed(1)} points (95% interval {(gain.ci95[0] * 100).toFixed(1)} to{" "}
         {(gain.ci95[1] * 100).toFixed(1)}, p {gain.p_value < 0.001 ? "< 0.001" : `= ${gain.p_value.toFixed(3)}`}).

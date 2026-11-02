@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Allfather, the system as deployed</title>
-  <desc id="d">The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships.</desc>
+  <desc id="d">The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and, for Python repositories, sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 0 10 5 0 10Z" fill="#8a5b00"/>
@@ -23,11 +23,11 @@
 
   <rect class="zone" x="28" y="28" width="400" height="520" rx="14"/>
   <text class="zt" x="50" y="62">The visitor's browser</text>
-  <text class="zs" x="50" y="82">allfather.dev · all ranking happens here</text>
+  <text class="zs" x="50" y="82">allfather.dev · most ranking happens here</text>
 
   <rect class="card" x="50" y="100" width="356" height="62" rx="9"/>
   <text class="ct" x="66" y="126">Page</text>
-  <text class="cs" x="66" y="146">Preact + TypeScript, path routes, ~50 kB gzipped</text>
+  <text class="cs" x="66" y="146">Preact + TypeScript, path routes, ~55 kB gzipped</text>
 
   <rect class="gold" x="50" y="176" width="356" height="132" rx="9"/>
   <text class="ct" x="66" y="202">Search worker</text>
@@ -80,10 +80,10 @@
   <rect class="gold" x="866" y="80" width="284" height="150" rx="9"/>
   <text class="ct" x="882" y="106">Fine-tuned reranker</text>
   <text class="cs" x="882" y="128">Qwen3-Reranker-0.6B + two LoRA</text>
-  <text class="cs" x="882" y="147">adapters, scores the top 50</text>
-  <text class="cs" x="882" y="172">up to 2 L4 containers,</text>
+  <text class="cs" x="882" y="147">adapters, scores the top 50 (Python)</text>
+  <text class="cs" x="882" y="172">up to 2 GPUs (L4, else A10G/L40S),</text>
   <text class="cs" x="882" y="191">scale to zero after 3 minutes</text>
-  <text class="cs" x="882" y="214">warm ≈ 1 s · cold start ≈ 9 s</text>
+  <text class="cs" x="882" y="214">warm ≈ 2 s · after idle ≈ 14 s</text>
 
   <rect class="zone" x="844" y="278" width="328" height="270" rx="14"/>
   <text class="zt" x="866" y="312">GitHub</text>
@@ -118,7 +118,7 @@
   <text class="cs" x="66" y="736">a sealed holdout</text>
   <rect class="card" x="330" y="652" width="262" height="98" rx="9"/>
   <text class="ct" x="346" y="678">Training</text>
-  <text class="cs" x="346" y="698">LambdaMART on 131 projects,</text>
+  <text class="cs" x="346" y="698">LambdaMART on up to 192 projects,</text>
   <text class="cs" x="346" y="717">LoRA reranker adapters,</text>
   <text class="cs" x="346" y="736">project-grouped cross-validation</text>
   <rect class="card" x="610" y="652" width="262" height="98" rx="9"/>

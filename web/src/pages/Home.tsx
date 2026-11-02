@@ -80,7 +80,7 @@ function Preview() {
     <div class="preview" aria-label={`Example: searching ${ex.repo} for a real bug report`} role="img">
       <div class="preview-bar">
         <i /><i /><i /><span>{ex.repo} · SWE-bench Lite</span>
-        <span class="preview-state">the real fix, ranked first</span>
+        <span class="preview-state">an example it ranked first</span>
       </div>
       <div class="preview-body">
         <div class="preview-issue">
@@ -106,8 +106,8 @@ function Preview() {
 const FEATURES: [IconName, string, string][] = [
   ["repo", "Any public repository, six languages", "Python, JavaScript, TypeScript, Go, Java and Rust. The whole repository arrives as one archive, streamed and unpacked in the browser, and Tree-sitter (WebAssembly) splits it into functions on up to four worker threads. Without the relay, files come straight from GitHub, 16 at a time."],
   ["report", "Reads bug reports like a developer", "Stack-trace frames (Python, JavaScript, Go, Java and Rust formats), backticked identifiers, module and file paths and error strings are extracted as separate signals, scored with BM25 over the issue, its title and its quoted code, then weighed by a LambdaMART ranker."],
-  ["vector", "Matches meaning, not just words", "In the background a 16.8 MB int8 static code-embedding model (Model2Vec potion-code-16M) embeds every function at thousands per second; cosine similarity to the issue feeds a second ranker."],
-  ["lock", "Private by design", `Parsing, indexing, embedding and ranking run in Web Workers. Repositories are cached in IndexedDB by git tree hash, ${import.meta.env.VITE_RERANK_SERVER ? "and your bug report leaves the tab only for the optional GPU reranker, which scores it against the top 50 functions" : "and your bug report never leaves the tab"}; only search counts and your 👍/👎 votes are recorded.`],
+  ["vector", "Matches meaning, not just words", "In the background a 16.8 MB int8 static code-embedding model (Model2Vec potion-code-16M) embeds every function without a neural network; cosine similarity to the issue feeds a second ranker."],
+  ["lock", "Private by design", `Parsing, indexing, embedding and ranking run in Web Workers. Repositories are cached in IndexedDB by git tree hash, ${import.meta.env.VITE_RERANK_SERVER ? "and your bug report leaves the tab only for the GPU reranker, on by default for Python repositories and easy to switch off, which scores it against the top 50 functions" : "and your bug report never leaves the tab"}; only search counts and your 👍/👎 votes are recorded.`],
 ];
 
 const STEPS: [string, string, string][] = [
@@ -148,7 +148,8 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
   };
   const fn = summary ? stagesAt(summary, "function").at(-1)! : null;
   const fl = summary ? stagesAt(summary, "file").at(-1)! : null;
-  const browser = lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
+  const gpuUnseen = import.meta.env.VITE_RERANK_SERVER ? lite?.gpu_reranker?.held_out?.unseen : undefined;
+  const browser = gpuUnseen ? gpuUnseen.with_reranker["hit@10"] : lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
   const multi = lite?.held_out.multilingual;
   return (
     <div ref={root}>
@@ -220,13 +221,13 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
             <p class="section-lede">
               SWE-bench Lite: 300 real GitHub issues from 12 Python projects including Django, scikit-learn, SymPy and pytest, each searched
               at the commit where the bug was reported. The browser ranker is also tested on 30 projects kept out of its training entirely,
-              and on 501 bugs in JavaScript, TypeScript, Go, Java and Rust from two more public test sets.
+              and on 498 bugs in JavaScript, TypeScript, Go, Java and Rust from two more public test sets.
             </p>
           </div>
           <div class="tiles four">
             <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} note={fn ? `full pipeline, ${fn.n} issues` : "full pipeline"} />
             <Tile label="File to fix in the top 5" value={fl ? fl["hit@5"] : null} note={fl ? `full pipeline, ${fl.n} issues` : "full pipeline"} />
-            <Tile label="Function to fix in the top 10" value={browser} note={lite ? `in your browser, ${lite.held_out.unseen.keyword.n} bugs from 30 projects it never trained on` : "in your browser"} />
+            <Tile label="Function to fix in the top 10" value={browser} note={lite ? `${gpuUnseen ? "what the site runs, with the GPU reranker" : "in your browser"}, ${lite.held_out.unseen.keyword.n} bugs from 30 projects it never trained on` : "in your browser"} />
             <Tile label="Function to fix in the top 10" value={multi ? bestBrowserStage(multi)["hit@10"] : null}
               note={multi ? `in your browser, ${multi.keyword.n} bugs in Go, Java, JavaScript, Rust and TypeScript` : "in your browser, five more languages"} />
           </div>

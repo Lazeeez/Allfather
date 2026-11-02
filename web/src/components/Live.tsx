@@ -37,9 +37,10 @@ export function LiveSection({ live }: { live: LiveSummary }) {
       <p class="kicker">Live</p>
       <h2>On bugs fixed this month</h2>
       <p class="card-lede">
-        Every night, Allfather collects bugs that popular open-source projects in Python, JavaScript, TypeScript, Go, Java and Rust fixed in
-        the past week, runs this website's pipeline at the commit before each fix, and checks whether a function the fix changed is in its
-        top 10. These bugs are newer than every model Allfather uses, and nothing is tuned on them.
+        A nightly job collects bugs that popular open-source projects in Python, JavaScript, TypeScript, Go, Java and Rust fixed in the past
+        week, runs this website's pipeline at the commit before each fix (in the browser's configuration, without the GPU reranker), and checks
+        whether a function the fix changed is in its top 10. Nothing is trained or tuned on these bugs. Bugs whose fix changes no function are
+        skipped, at most 80 are scored a night, and nights the job did not run leave gaps in the trend.
       </p>
       {enough(w) ? (
         <div class="tiles">

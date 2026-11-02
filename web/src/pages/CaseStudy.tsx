@@ -8,18 +8,22 @@ import { useHoldout } from "../lib/holdout.ts";
 import { href } from "../lib/router.ts";
 
 
-const DECISIONS: [string, string][] = [
-  ["Measure first, build second",
-    "The evaluation harness came before the search engine: every issue is searched at the commit it was filed against, and the answer key is the functions the real fix changed. Every claimed improvement has a paired bootstrap test."],
-  ["A cascade: cheap over everything, expensive over little",
-    "Code-aware keyword search over every function, then learned ranking over a few hundred, then a fine-tuned language model over the top 20 to 50. Each stage is kept only if it measurably beats the one before."],
-  ["The same engine, twice",
-    "The website runs a TypeScript port of the Python engine in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so the browser inherits the measured accuracy."],
-  ["A GPU only where it pays",
-    "The full pipeline's reranker runs on a GPU server for the website only after a test, fixed in advance, showed +2.6 points; a second test showed the browser's own language model could then be skipped, saving 50 MB and about 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects."],
-  ["Six languages, each earning its ranker",
-    "JavaScript, TypeScript, Go, Java and Rust were added with a rule written before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation. All six passed, by 12 to 24."],
-];
+function decisions(lite: Lite | null): [string, string][] {
+  const gains = Object.values(lite?.cv_per_language ?? {}).map((e) => e["hit@10_gain"].delta * 100);
+  const range = gains.length ? ` All ${gains.length} passed, by ${Math.min(...gains).toFixed(1)} to ${Math.max(...gains).toFixed(1)} points.` : "";
+  return [
+    ["Measure first, build second",
+      "The evaluation harness came before the search engine: every issue is searched at the commit it was filed against, and the answer key is the functions the real fix changed. Every accuracy claim comes with a paired test on the same issues."],
+    ["A cascade: cheap over everything, expensive over little",
+      "Code-aware keyword search over every function, then learned ranking over a few hundred, then a fine-tuned language model over the top 20 to 50. Each stage of the full pipeline beats the one before at function level."],
+    ["The same engine, twice",
+      "The website runs a TypeScript port of the Python engine in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so the browser's accuracy can be measured in Python. The pinned parity run covers Python repositories; the other languages are covered by unit tests."],
+    ["A GPU only where it pays",
+      "The full pipeline's reranker runs on a GPU server for the website only after a test, fixed in advance, showed +2.6 points; a second test showed the browser's own language model could then be skipped, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. It was trained and measured on Python, so the site uses it for Python repositories only."],
+    ["Six languages, each earning its ranker",
+      `JavaScript, TypeScript, Go, Java and Rust were added with a rule written before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
+  ];
+}
 
 const FAILED: [string, string][] = [
   ["Following the call graph", "Expanding results to callers and callees added candidates but not hits; it is off by default."],
@@ -29,10 +33,10 @@ const FAILED: [string, string][] = [
 ];
 
 const SAFEGUARDS = [
-  "Nothing is trained or tuned on a test set; every test-set evaluation is logged with what was decided from it.",
-  "A sealed holdout of recent issues from 189 projects is reserved for one final run.",
-  "Every number in the README is checked against its result file, and every result file records the code and data that produced it.",
-  "A decision record for every choice, negative results included, each written before its test.",
+  "Nothing is trained on a test set, and every test-set evaluation is logged with what was decided from it. SWE-bench Lite has been evaluated 92 times and one decision, rejecting a distilled reranker, was taken on it, so it is a development benchmark here, not a clean test.",
+  "The clean test is a sealed holdout of recent bugs from 189 projects outside every training, tuning and benchmark set, scored once per level on 2026-10-20 after the pipeline was frozen, every model hashed and every metric declared.",
+  "Every number in the README is checked against its result file in CI, and result files from the evaluation harness record the commit, data and models behind them.",
+  "A decision record for every major choice, negative results included; the later ones were written before their tests.",
   "Unit, browser (Chromium, Firefox, WebKit) and Python/TypeScript parity tests run in CI.",
 ];
 
@@ -50,7 +54,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
       <PageHero kicker="Case study" title="Finding the code behind a bug report">
         <p>
           Given a bug report and a repository, Allfather ranks the functions most likely to need the fix. It is a research pipeline measured on
-          real bug fixes, a website that runs it in your browser on public code in six languages, and a GitHub Action that comments on new issues.
+          real bug fixes, a website that runs a lighter version of it in your browser on public code in six languages, and a GitHub Action that comments on new issues.
         </p>
       </PageHero>
 
@@ -69,8 +73,10 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <h2>On bugs it never trained on.</h2>
         <div class="tiles four">
           <Tile label="Sealed holdout, never seen" value={holdout ? holdout.runs.holdout_function["hit@10"] : null}
-            note={holdout ? `${holdout.runs.holdout_function.issues} bugs filed after its models were published, 184 projects it never saw` : ""} />
-          <Tile label="Full pipeline, SWE-bench Lite" value={fn ? fn["hit@10"] : null} note={fn ? `function in the top 10, ${fn.n} issues` : ""} />
+            ci={holdout?.runs.holdout_function["hit@10_ci95"]}
+            note={holdout ? `allfather-fast, ${holdout.runs.holdout_function.issues} bugs from 184 projects it never saw` : ""} />
+          <Tile label="SWE-bench Lite" value={holdout ? holdout.runs.lite_function["hit@10"] : fn ? fn["hit@10"] : null}
+            note={holdout ? `allfather-fast, ${holdout.runs.lite_function.issues} issues from 12 projects in its training data` : fn ? `full pipeline, ${fn.n} issues` : ""} />
           {gpu?.held_out?.unseen ? (
             <Tile label="The website, 30 unseen projects" value={gpu.held_out.unseen.with_reranker["hit@10"]}
               note={`${gpu.held_out.unseen.issues} bugs, Python, with the GPU reranker; ${Math.round(gpu.held_out.unseen.website["hit@10"] * 1000) / 10}% without`} />
@@ -84,7 +90,9 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
           )}
         </div>
         <p class="note">
-          Share of bugs with a function the real fix changed in Allfather's top 10. Full methodology, intervals and every stage on <a href={href("benchmarks")}>Benchmarks</a>.
+          Share of bugs with a function the real fix changed in Allfather's top 10. The first two tiles are the frozen full pipeline, allfather-fast;
+          the others are the website, and the live monitor runs it without the GPU reranker. The sets differ in projects and difficulty, so the
+          tiles describe each setting rather than compare them. Full methodology, intervals and every stage on <a href={href("benchmarks")}>Benchmarks</a>.
         </p>
       </section>
 
@@ -92,12 +100,12 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="kicker">Architecture</p>
         <h2>What runs where.</h2>
         <p class="section-lede">
-          Ranking happens in the visitor's browser, so a search costs no server time. One Cloudflare Worker serves the site and relays GitHub and the
-          GPU; the GPU reranker on Modal scales to zero. The research pipeline trains every model the site ships.
+          Most ranking happens in the visitor's browser; for Python repositories a GPU server re-reads the top 50. One Cloudflare Worker serves the
+          site and relays GitHub and the GPU; the GPU reranker on Modal scales to zero when idle. The research pipeline trains every model the site ships.
         </p>
         <figure class="architecture">
           <img src="/system.svg" width="1200" height="800" loading="lazy" decoding="async"
-            alt="The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships." />
+            alt="The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and, for Python repositories, sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships." />
         </figure>
       </section>
 
@@ -105,7 +113,7 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="kicker">Decisions</p>
         <h2>What mattered most.</h2>
         <ol class="case-list">
-          {DECISIONS.map(([title, text]) => (
+          {decisions(lite).map(([title, text]) => (
             <li key={title}>
               <h3>{title}</h3>
               <p>{text}</p>

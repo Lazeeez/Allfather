@@ -1,0 +1,48 @@
+{
+ "measured": "2026-11-02T08:43:38+00:00",
+ "relay": "https://allfather.dev/relay",
+ "client": "Windows-10-10.0.26300-SP0",
+ "note": "wall time of the whole download from this laptop's connection; the first run may miss Cloudflare's cache",
+ "repos": [
+  {
+   "repo": "huggingface/transformers",
+   "commit": "5f6629d89508568afaadf5d60cace11ec0edebbc",
+   "seconds": [
+    4.0,
+    1.99,
+    1.99
+   ],
+   "megabytes": 21.6
+  },
+  {
+   "repo": "home-assistant/core",
+   "commit": "712ed516eb5bfe77c9f3f4bed5b33c1a23c001c5",
+   "seconds": [
+    3.16,
+    3.01,
+    3.04
+   ],
+   "megabytes": 33.9
+  },
+  {
+   "repo": "python/cpython",
+   "commit": "67683da0ec8368c302569ff87af30fa1da2f873b",
+   "seconds": [
+    4.99,
+    3.25,
+    3.19
+   ],
+   "megabytes": 36.4
+  },
+  {
+   "repo": "django/django",
+   "commit": "a05e16a7230fe33d3f43f4a3aaed103cebb42efc",
+   "seconds": [
+    1.68,
+    1.05,
+    1.02
+   ],
+   "megabytes": 10.6
+  }
+ ]
+}

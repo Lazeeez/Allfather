@@ -533,8 +533,8 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
   return (
     <div class="container app" id="search-app">
       <PageHero kicker="Search" title="Search a repository">
-        <p>Downloads a public repository in Python, JavaScript, TypeScript, Go, Java or Rust into this tab, parses it with Tree-sitter (WebAssembly) and ranks every function against your bug report with learned rankers.<span class="phone-hide">{import.meta.env.VITE_RERANK_SERVER
-          ? " The search runs in this tab; with the GPU reranker on, your bug report and the top 50 functions are also sent to Allfather's server to be re-read."
+        <p>Downloads a public repository in Python, JavaScript, TypeScript, Go, Java or Rust into this tab, parses it with Tree-sitter (WebAssembly) and ranks its functions against your bug report with learned rankers.<span class="phone-hide">{import.meta.env.VITE_RERANK_SERVER
+          ? " The search runs in this tab; for a Python repository with the GPU reranker on, your bug report and the top 50 functions are also sent to Allfather's server to be re-read."
           : " The search runs entirely in this tab: your bug report is never sent anywhere."}</span></p>
       </PageHero>
 
@@ -662,7 +662,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
             {w.server && <p class="status-line" role="status" aria-live="polite">{w.server.endsWith("…") && <Seer size="sm" />} {w.server.endsWith("…") && w.serverSince ? <ServerWait since={w.serverSince} /> : w.server}</p>}
             {w.results?.confidence != null && (measurable(query)
               ? <Confidence p={w.results.confidence} gpu={w.results.stage === "server"} />
-              : <p class="confidence low"><b>Too short to estimate</b> · reports this brief are outside what the confidence estimate was measured on. Adding the error message, a stack trace or what you expected to happen usually helps.</p>)}
+              : <p class="confidence low"><b>Too short to estimate</b> · reports this brief are outside what the confidence estimate was measured on. Adding the error message, a stack trace or what you expected to happen gives it more to go on.</p>)}
             {w.results && (
               <p class="tokens">
                 {(w.results.stage === "instant" || w.results.stage === "semantic") && `${w.results.stage === "semantic" ? "Semantic" : "Instant"} ranking of ${info.units.toLocaleString()} functions in ${w.results.ms.toFixed(0)} ms · `}
@@ -679,7 +679,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
             How accurate is this? <a href={href("benchmarks")}>See the benchmarks</a>.
             {feedbackEnabled && " Searches are counted by repository, and 👍/👎 records the function you rated and its rank. If it came from a public GitHub issue, that issue's link is kept with your vote."}
             {w.serverReady && semanticOn && serverOn
-              ? " With the GPU reranker on, your bug report and the top 50 functions are sent to Allfather's server to be scored; only the scores are kept, for a day, under a hash of the request."
+              ? " With the GPU reranker on, a Python repository's search sends your bug report and the top 50 functions to Allfather's server to be scored, each time you pause typing; only the scores are kept, for a day, under a hash of the request. Otherwise the report stays in this tab."
               : " Your bug report never leaves this tab."}
           </p>
         </>
@@ -697,9 +697,9 @@ const BAND_TEXT = {
 function Confidence({ p, gpu }: { p: number; gpu: boolean }) {
   const b = band(p);
   return (
-    <p class={`confidence ${b}`} title="Measured on 7,843 bugs from projects the estimate never saw: when it says high, the fix was in the top 10 about 9 times in 10; medium, about 2 in 3; low, about 2 in 5">
+    <p class={`confidence ${b}`} title="Cross-validated on 7,843 bugs from projects the estimate never saw: when it says high, the fix was in the top 10 about 9 times in 10; medium, about 2 in 3; low, about 2 in 5. On SWE-bench Lite it ran about 10 points high and on SWE-bench Multilingual about 6, so read it as a rough guide.">
       <b>{BAND_TEXT[b]}</b> · {Math.round(p * 100)}% chance a function the fix changes is in the top 10{gpu ? " (estimated before the GPU reranker, which usually does a little better)" : ""}.
-      {b === "low" && " Adding the stack trace, an error message or the name of a function the report is about usually helps."}
+      {b === "low" && " Allfather reads stack traces, error messages and function names as separate clues, so adding any you have gives it more to go on."}
     </p>
   );
 }

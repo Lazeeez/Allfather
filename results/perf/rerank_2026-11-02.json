@@ -1,0 +1,14 @@
+{
+ "measured": "2026-11-02T08:48:00+00:00",
+ "endpoint": "https://allfather.dev/rerank",
+ "client": "Windows-10-10.0.26300-SP0",
+ "functions": 50,
+ "note": "wall time per request from this laptop; the first call follows an idle period, so it may include a container start",
+ "seconds": [
+  13.72,
+  2.39,
+  2.09,
+  1.94,
+  1.88
+ ]
+}

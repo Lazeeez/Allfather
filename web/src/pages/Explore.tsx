@@ -9,7 +9,7 @@ import { href, navigate } from "../lib/router.ts";
 
 const HOW: [IconName, string, string][] = [
   ["issue", "A real bug report", "SWE-bench Lite: 300 GitHub issues from 12 Python projects, each paired with the commit it was filed against."],
-  ["search", "Allfather searches the code", "Each of five pipeline stages ranks every function in the repository snapshot at that base commit."],
+  ["search", "Allfather searches the code", "Five pipeline stages rank the repository snapshot at that base commit: the first three score every function, the last two re-rank the best candidates."],
   ["check", "Checked against the real fix", "Gold labels are the functions and files whose lines the merged patch modifies, mapped onto the base commit's parse tree."],
 ];
 
@@ -40,7 +40,7 @@ export function Explore({ summary, linked, failed, mode: asked, set }: {
       <PageHero kicker="Explore" title="Watch Allfather hunt real bugs">
         <p>
           Per-issue rankings from the evaluation runs, scored against the maintainers' patch: every stage's top 10 for 300 SWE-bench Lite
-          issues (Python, the full GPU pipeline){hasLanguages ? ", and for 501 bugs in JavaScript, TypeScript, Go, Java and Rust (the website's own pipeline)" : ""}.
+          issues (Python, the full research pipeline){hasLanguages ? ", and for 498 bugs in JavaScript, TypeScript, Go, Java and Rust (the website's own pipeline)" : ""}.
           The same data behind the benchmark numbers, one issue at a time.
         </p>
       </PageHero>
