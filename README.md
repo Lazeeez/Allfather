@@ -17,7 +17,7 @@ Two-minute version: the **[case study](https://allfather.dev/case-study)**. Ever
 
 ## Headline results
 
-SWE-bench Lite test, 300 issues across 12 repositories, each searched at its own `base_commit`, out of roughly 10k to 45k candidate functions per snapshot. Nothing was trained or tuned on these issues. File-level rows score all 300; function-level rows score 291, the 300 minus the 9 whose fix touches only module-level code and so has no function or class to find.
+SWE-bench Lite test, 300 issues across 12 repositories, each searched at its own `base_commit`, out of 399 to 30,836 candidate functions per snapshot (about 10,900 on average). Nothing was trained or tuned on these issues, but the rankers trained on other issues from the same 12 projects and Lite guided development, so the sealed holdout below is the clean test. File-level rows score all 300; function-level rows score 291, the 300 minus the 9 whose fix touches only module-level code and so has no function or class to find.
 
 | Final system (`ltr-ce-notests`) | hit@1 | hit@5 | hit@10 | recall@10 | MRR |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@ For reference, plain BM25 started this project at 32.6% function hit@10 (recall@
 
 ### On bugs filed after its models, in projects it never saw
 
-The question Lite cannot answer: does it hold up on bugs its models could not have seen, in unfamiliar projects? A sealed holdout was built for that before anything was evaluated on it: issues created on or after 2025-09-01, after every model in the cascade was published, from 184 projects that appear nowhere in training, tuning or testing ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). allfather-fast was frozen, with every model hashed and every metric declared in advance, and then scored on it once ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)). The frozen configuration uses the rankers trained on more data ([ADR 0019](docs/decisions/0019-more-ranker-training-data.md)), so its Lite row is scored again here.
+The question Lite cannot answer: does it hold up on bugs its models could not have seen, in unfamiliar projects? A sealed holdout was built for that before anything was evaluated on it: issues created on or after 2025-09-01, after every pretrained model in the cascade was published (Allfather's own rankers and adapters were trained later, on other projects), from 184 projects that appear nowhere in training, tuning or testing ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). allfather-fast was frozen, with every model hashed and every metric declared in advance, and then scored on it once ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)). The frozen configuration uses the rankers trained on more data ([ADR 0019](docs/decisions/0019-more-ranker-training-data.md)), so its Lite row is scored again here.
 
 | Frozen allfather-fast | Bugs | hit@1 | hit@5 | hit@10 | all@10 | MRR |
 |---|---|---|---|---|---|---|
@@ -84,7 +84,7 @@ A nightly job collects bugs that popular projects in all six languages fixed in 
 
 ### In the browser, in other languages
 
-The same rankers on bugs in other languages, from two public test sets and projects they never trained on, scored once against ranking by keywords and meaning alone (function hit@10):
+The same rankers on bugs in other languages, from two public test sets and projects they never trained on, against ranking by keywords and meaning alone (function hit@10). The sets were rescored after label and cache fixes, each run logged and nothing decided from them. p is an exact paired test per row; the last column adjusts it for the eight rows with Holm's method, after which only the PolyBench gains are significant:
 
 | Language | Test set | Bugs | Allfather | Keywords and meaning | Change | Holm-adjusted p |
 |---|---|---|---|---|---|---|
@@ -122,7 +122,7 @@ File rows: 300 issues. Function rows: 291 issues (300 minus the 9 that are modul
 
 Every tunable choice was made on data disjoint from Lite: a dev set (SWE-bench Verified minus Lite) for fusion and expansion, and SWE-bench test minus Lite (1,941 issues) for the learned rankers.
 
-### What each step bought (paired bootstrap, function level, 291 issues: 300 minus 9 module-level-only)
+### What each step bought (paired tests, function level, 291 issues: 300 minus 9 module-level-only)
 
 | Change | ΔRecall@10 | 95% CI | p | Wins / losses |
 |---|---|---|---|---|
@@ -280,8 +280,9 @@ flowchart LR
 - **How often Lite has been looked at.** No number here was trained or tuned on Lite, but Lite is not untouched: it has been scored 92 times, and [results/test-evals.log](results/test-evals.log) lists each one with what was decided from it. Most are one run per reported row. The exceptions: the early browser pipeline was scored on Lite at several rerank depths and with two stage-2 models (its settings were chosen on dev data and cross-validation, but Lite was looked at each time), and the distilled reranker was rejected on a Lite result, a decision taken on the test set, in the conservative direction. Every later evaluation appends to the log.
 - **A sealed holdout for what comes next.** 324 issues created on or after 2025-09-01, after the cascade's models were published, from 189 projects that appear in no training, dev or test data here; 311 of them have a function-level target. Only three final configurations may ever be evaluated on it, each once per level, and `allfather eval` refuses anything else ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). allfather-fast has used its run ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)).
 - **No leakage through features.** Git history uses only strict ancestors of the base commit (`git rev-list`). Earlier-issue features only see issues opened at least 30 days before the query. Both boundaries have tests.
-- **Reproducibility.** Cached features and trained models carry a fingerprint of the source code that produced them, and a model refuses to load against different feature code. Every result file records the git commit, library versions, model hashes and command line.
-- **Significance.** `allfather compare` runs a paired bootstrap over queries (10k resamples) and reports Δ, a 95% CI, a two-sided p-value and win/loss counts. A difference that isn't significant is reported as such.
+- **Reproducibility.** Cached features and trained models carry a fingerprint of the source code that produced them, and a model refuses to load against different feature code. Result files written by `allfather eval` record the git commit, library versions, model hashes and command line; some early files and the derived summaries do not.
+- **Significance.** `allfather compare` reports Δ, a 95% paired-bootstrap interval (10k resamples), a two-sided p-value from a paired randomization test (exact McNemar when the outcome is yes or no; Urbano et al., SIGIR 2019) and win/loss counts. Tables of several tests also give Holm-adjusted p-values. A difference that isn't significant is reported as such.
+- **Known optimism.** The learned rankers' cross-validation folds are grouped by issue, not by project, and the dense model (jina-code-embeddings-0.5b) lists SWE-bench among its training data. Both can flatter Lite and development numbers; neither touches the sealed holdout, whose projects and dates are outside both.
 - **Honest latency.** Index construction is timed separately from query latency, and both are reported with p50/p95/p99.
 - **Per-repo breakdown** is in every result file, so django (108 of 291 issues) cannot hide a regression elsewhere.
 
@@ -415,7 +416,7 @@ src/allfather/
   eval/dataset.py             SWE-bench and SWE-rebench loaders
   eval/goldpatch.py           unified diff -> removed lines + indented insertion points
   eval/ground_truth.py        diff + symbols -> gold files/functions per issue
-  eval/metrics.py             recall/hit/all@k, MRR, bootstrap CIs, paired bootstrap test
+  eval/metrics.py             recall/hit/all@k, MRR, bootstrap CIs, paired randomization test, Holm
   eval/runner.py              eval loop, baselines, retriever registry
   eval/tune.py                dev-set grid search (expansion, fusion) reusing one pass of scores
   eval/provenance.py          git commit, versions and model hashes recorded with every result
@@ -499,7 +500,7 @@ What would move the numbers further, in expected order of impact:
 1. **A frontier LLM as the final stage.** Published SWE-bench localization agents get their precision from large models reading candidate code. The cascade already reduces each issue to about 20 candidates, which keeps that affordable.
 2. **A bigger reranker base model.** A 4B LoRA reranker was adopted for allfather-max: first place +6 points, top 10 unchanged ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next. More epochs, LTR-mined negatives and a two-adapter ensemble were tried earlier and kept ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Fine-tuning the embedding model was tried and did not help.
 
-Tried recently and not adopted: distilling the two-adapter reranker into one (better on validation, MRR 0.634 vs 0.623, but file hit@1 fell 0.690 → 0.660 on Lite, p = 0.027; it was rejected on that Lite result, which is a decision taken on the test set, in the conservative direction), and a learned query projection for the static embeddings (semantic-only MRR 0.287 → 0.220 on held-out projects). The website's *How it works* page lists every result that did and didn't work.
+Tried recently and not adopted: distilling the two-adapter reranker into one (better on validation, MRR 0.634 vs 0.623, but file hit@1 fell 0.690 → 0.660 on Lite, p = 0.049; it was rejected on that Lite result, which is a decision taken on the test set, in the conservative direction), and a learned query projection for the static embeddings (semantic-only MRR 0.287 → 0.220 on held-out projects). The website's *How it works* page lists every result that did and didn't work.
 
 ## License
 

@@ -36,3 +36,14 @@ Phase 6 plans to let the cheap cascade answer when it is confident and pass the 
 - Read SweRank+ in full: does its agent run conditionally?
 - Read the cascade-routing paper's SWE-bench experiment: what was the quality estimator, and why did the plain cascade do badly there?
 - Search again for work citing SweRank and LocAgent that mentions abstention, deferral or selective prediction.
+
+## Update, 2026-11-02: a fuller search
+
+A literature review on 2026-11-02 answered the three questions above and found older prior art this page missed.
+
+- **Bug localization already has abstention.** Kim et al., "Where should we fix this bug? A two-phase recommendation model" (TSE 2013), predicts whether a report can be localized and recommends files only when it can: about half of the reports, with 70% of those correct. Query-quality prediction for bug localization (Le et al., ISSRE 2014; Mills et al., TOSEM 2017) estimates whether a report will retrieve well. Kim et al. was read in full; the other two only as search summaries, to be read before citing.
+- **SweRank+'s agent is not gated.** Its text has no confidence condition; the agent runs on every issue until its stopping rule.
+- **The cascade-routing paper's SWE-bench experiment** (Dekoninck et al., ICML 2025) used the ground-truth tests, applied after the fact, as its quality signal; the plain cascade failed there because that signal is binary.
+- **Still not found:** a localizer that hands issues to a stronger one based on calibrated confidence and reports the accuracy-against-cost curve. The searches are listed in the review; they are not proof that none exists.
+
+So the conclusion above stands, and is stronger: confidence-based escalation for localization is an application and a measurement, building on Kim et al. as well as the cascade literature.

@@ -4,11 +4,12 @@ Where Allfather stands on SWE-bench Lite when it is scored the way other papers 
 
 ## Summary
 
-- **At function level, the current cascade (allfather-fast) is level with the best agent in the LocAgent paper and behind SweRank.** Function Acc@10 is 76.3% for Allfather, 77.4% for LocAgent with Claude 3.5, and 82.1% to 88.7% for SweRank.
-- **Under CoSIL's protocol, allfather-fast is ahead of CoSIL, Agentless and OrcaLoca** (each with a 32B model) on nine of ten numbers, and 2.3 points behind CoSIL on function Top-1.
+- **Which Allfather.** Every Allfather row here is the `ltr-ce-notests` cascade, scored on 2026-10-14. The frozen allfather-fast (`ltr-ce-more-data-notests`, [ADR 0032](decisions/0032-freeze-allfather-fast.md)) uses rankers trained on more data and was not scored under these protocols; on Lite's own hit@10 it is 1.0 point lower (78.4% against 79.4%, 13 issues differ, exact paired p = 0.58), so the gaps below may shift by about a point for it.
+- **At function level, the `ltr-ce-notests` cascade is level with the best agent in the LocAgent paper and behind SweRank.** Function Acc@10 is 76.3% for Allfather, 77.4% for LocAgent with Claude 3.5, and 82.1% to 88.7% for SweRank.
+- **Under CoSIL's protocol, Allfather is ahead of CoSIL, Agentless and OrcaLoca** (each with a 32B model) on nine of ten numbers, and 2.6 points behind CoSIL on function Top-1, using the numbers in CoSIL's published version (ASE 2025).
 - **Under LocAgent's protocol, at file level Allfather is behind both LocAgent and SweRank.** File Acc@1 is 69.0% against 77.7% and 83.2%.
 - **Allfather's reranker is far smaller.** It has 0.6 billion parameters and runs on a 6 GB laptop GPU. SweRank's rerankers have 7 and 32 billion, and its best retriever 7 billion.
-- **Allfather costs about two hundredths of a cent per issue on an L40S** (0.44 s per issue) at a public GPU rental price, and a quarter of a cent with its laptop timings, against one to two cents for SweRank's rerankers and 46 to 79 cents for the agents ([cost.md](cost.md)).
+- **Allfather costs about two hundredths of a cent per issue on an L40S** (0.44 s per issue) at a public GPU rental price, and a quarter of a cent with its laptop timings, against one to two cents for SweRank's rerankers and 46 to 79 cents for the agents ([cost.md](cost.md)). The bases differ: the papers price tokens, Allfather prices GPU time with the repository already indexed; the first issue in a new repository costs Allfather about $0.017 on the laptop, including indexing.
 - **Every other system's row is copied from its paper**, except SweRankEmbed-Small, which was reproduced here (74.8% function Acc@10 against the paper's 74.45%) and also run inside Allfather's index, where it scores about 9 points lower. The cause is that Allfather embeds functions without their file path; removing the path from the authors' own corpus costs the model the same 10 points.
 
 ## The protocol
@@ -45,7 +46,7 @@ LocAgent's, which SweRank reuses. Read from LocAgent's `evaluation/eval_metric.p
 | Allfather: code-aware BM25 | none | scored here | 46.72 | 67.52 | 74.45 | 58.39 | 64.96 | 41.24 | 51.46 |
 | Allfather: + embeddings (hybrid) | 0.5B | scored here | 58.03 | 79.93 | 86.13 | 71.17 | 76.64 | 56.57 | 64.96 |
 | Allfather: + LambdaMART | 0.5B | scored here | 63.14 | 86.13 | 89.42 | 77.74 | 81.39 | 64.23 | 72.63 |
-| **Allfather: + reranker (allfather-fast)** | 0.5B + 0.6B | scored here | **68.98** | **87.96** | **90.51** | **81.02** | **82.85** | **70.80** | **76.28** |
+| **Allfather: + reranker (`ltr-ce-notests`)** | 0.5B + 0.6B | scored here | **68.98** | **87.96** | **90.51** | **81.02** | **82.85** | **70.80** | **76.28** |
 
 Sources:
 
@@ -58,7 +59,7 @@ Sources:
 
 Reading the Allfather rows:
 
-- **95% intervals are wide at this size.** For allfather-fast, function Acc@10 is 76.3% [71.2, 81.0] and file Acc@5 is 90.5% [86.9, 93.8]. The 1.1-point gap to LocAgent with Claude 3.5 is inside the interval; the 12.4-point gap to the best SweRank row is not. The other systems' per-issue outcomes are not available here, so no paired test was run.
+- **95% intervals are wide at this size.** For `ltr-ce-notests`, function Acc@10 is 76.3% [71.2, 81.0] and file Acc@5 is 90.5% [86.9, 93.8]. The 1.1-point gap to LocAgent with Claude 3.5 is inside the interval; the 12.4-point gap to the best SweRank row is not. The other systems' per-issue outcomes are not available here, so no paired test was run.
 - **Allfather's module numbers are a lower bound.** The stored files hold ten units per issue, which can be fewer than ten distinct modules.
 - **Allfather's code-aware BM25 is well above the BM25 row of the papers** (function Acc@10 51.5% against 36.9%). The two differ in tokenizer, in what is indexed, and in excluding tests, so this is not a like-for-like pair.
 - **Each stage adds at every level.** Function Acc@10 goes 51.5 → 65.0 → 72.6 → 76.3.
@@ -69,16 +70,16 @@ CoSIL's evaluator, which its paper also applies to Agentless and OrcaLoca. It di
 
 | System | Model | Source | File Top-1 | File Top-3 | File Top-5 | File MAP | File MRR | Func Top-1 | Func Top-3 | Func Top-5 | Func MAP | Func MRR |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Agentless | Qwen2.5-Coder-32B | reported, C2 | 0.583 | 0.730 | 0.733 | 0.669 | 0.659 | 0.247 | 0.397 | 0.427 | 0.308 | 0.325 |
+| Agentless | Qwen2.5-Coder-32B | reported, C2 | 0.583 | 0.730 | 0.773 | 0.669 | 0.659 | 0.247 | 0.397 | 0.427 | 0.308 | 0.325 |
 | OrcaLoca | Qwen2.5-Coder-32B | reported, C2 | 0.590 | 0.640 | 0.640 | 0.615 | 0.615 | 0.217 | 0.417 | 0.447 | 0.302 | 0.317 |
-| CoSIL | Qwen2.5-Coder-32B | reported, C2 | 0.607 | 0.773 | 0.827 | 0.698 | 0.694 | 0.430 | 0.543 | 0.577 | 0.461 | 0.489 |
+| CoSIL | Qwen2.5-Coder-32B | reported, C2 | 0.613 | 0.780 | 0.837 | 0.705 | 0.701 | 0.433 | 0.547 | 0.580 | 0.465 | 0.493 |
 | Allfather: code-aware BM25 | none | scored here | 0.457 | 0.660 | 0.723 | 0.562 | 0.562 | 0.190 | 0.317 | 0.390 | 0.257 | 0.260 |
 | Allfather: + embeddings (hybrid) | 0.5B | scored here | 0.583 | 0.790 | 0.850 | 0.689 | 0.689 | 0.273 | 0.430 | 0.527 | 0.372 | 0.368 |
 | Allfather: + LambdaMART | 0.5B | scored here | 0.627 | 0.850 | 0.883 | 0.735 | 0.735 | 0.337 | 0.530 | 0.600 | 0.430 | 0.437 |
-| **Allfather: + reranker (allfather-fast)** | 0.5B + 0.6B | scored here | **0.690** | **0.870** | **0.893** | **0.778** | **0.778** | **0.407** | **0.583** | **0.673** | **0.500** | **0.500** |
+| **Allfather: + reranker (`ltr-ce-notests`)** | 0.5B + 0.6B | scored here | **0.690** | **0.870** | **0.893** | **0.778** | **0.778** | **0.407** | **0.583** | **0.673** | **0.500** | **0.500** |
 
-- **C2** is Table 2 of CoSIL, [arXiv:2503.22424v1](https://arxiv.org/abs/2503.22424v1); the paper also gives 7B and 14B rows, omitted here. Allfather's rows are in [results/comparison/cosil-lite_2026-10-14.json](../results/comparison/cosil-lite_2026-10-14.json).
-- **allfather-fast is ahead of all three at file level** (Top-1 0.690 against CoSIL's 0.607) **and at function Top-3, Top-5, MAP and MRR.** At function Top-1 it is 2.3 points behind CoSIL (0.407 [0.350, 0.463] against 0.430), which is inside the interval.
+- **C2** is Table 2 of CoSIL's published version, [arXiv:2503.22424v3](https://arxiv.org/abs/2503.22424v3) (ASE 2025); the paper also gives 7B and 14B rows, omitted here. This page first quoted [v1](https://arxiv.org/abs/2503.22424v1), where CoSIL's row was 0.607, 0.773, 0.827, 0.698, 0.694, 0.430, 0.543, 0.577, 0.461, 0.489 and Agentless's file Top-5 0.733. v3 also adds a LocAgent row under this protocol, not copied here. Allfather's rows are in [results/comparison/cosil-lite_2026-10-14.json](../results/comparison/cosil-lite_2026-10-14.json).
+- **Allfather is ahead of all three at file level** (Top-1 0.690 against CoSIL's 0.613) **and at function Top-3, Top-5, MAP and MRR**, though the MRR lead is small (0.500 against 0.493). At function Top-1 it is 2.6 points behind CoSIL (0.407 [0.350, 0.463] against 0.433), which is inside the interval.
 - **Allfather was held to five function names per issue.** The compared systems list several names per file for up to five files, so they can have more than five chances; the direction of that difference favours them.
 - **Nine issues have no function-level target** in Allfather's ground truth and count as failures in Allfather's function columns, as the protocol requires.
 - **The three compared systems use a 32B model with several calls per issue.** The paper reports no cost per issue.
@@ -124,7 +125,7 @@ SweRankEmbed-Small was run as the only retriever over Allfather's own units, wit
 | SweRank reranker | GPT-4.1 | $0.16 | reported, S5 |
 | SweRankLLM-Large | 32B | $0.015 | reported, S5 |
 | SweRankLLM-Small | 7B | $0.011 | reported, S5 |
-| Allfather (allfather-fast) | 0.5B + 0.6B | $0.0002 on an L40S; $0.0025 with the laptop's timings | measured here: [cost.md](cost.md) |
+| Allfather (`ltr-ce-notests`) | 0.5B + 0.6B | $0.0002 on an L40S; $0.0025 with the laptop's timings | measured here: [cost.md](cost.md) |
 
 L5 and S5 are Table 5 of each paper.
 
@@ -132,7 +133,7 @@ L5 and S5 are Table 5 of each paper.
 
 - **"Ranking can match agents at a fraction of the cost" is already published.** SweRank makes that claim and backs it with larger models and training data mined from 3,387 projects (67,341 issue and codebase pairs before filtering). Allfather cannot present it as new.
 - **What Allfather can still claim, if the measurements bear it out:** the same class of accuracy as the 2025 agents from models an order of magnitude smaller, on a laptop GPU; and whatever the sealed holdout shows about how each approach holds up on issues newer than its models.
-- **The gap to close is known.** About 12 points of function Acc@10 and 14 points of file Acc@1 separate allfather-fast from the best published ranking system. That is the target for allfather-max (phase 11): its first two levers, a larger reranker and more training data, are the two things SweRank has and Allfather lacks.
+- **The gap to close is known.** About 12 points of function Acc@10 and 14 points of file Acc@1 separate `ltr-ce-notests` from the best published ranking system. That is the target for allfather-max (phase 11): its first two levers, a larger reranker and more training data, are the two things SweRank has and Allfather lacks.
 - **File level is the weaker side.** Allfather is level with LocAgent's best row at function level but 3.7 points behind it at file Acc@5 and 8.8 at file Acc@1.
 
 ## Not done yet

@@ -69,3 +69,18 @@ Cross-validation, 7,843 issues, every probability from a model that never saw th
 ## Amendment, 2026-10-16: very short reports
 
 Found on the live site after the outcome: "it does not work" against `pallets/flask` was rated high, 90%. The estimate was calibrated on real issue reports, 99.5% of them at least 51 characters long; even the short ones name something specific, and none of the ten features measures how much a report says. Below that range the number is an extrapolation. So the site and the GitHub Action show no estimate for a report under 50 characters, and say it is too short to estimate, with the same suggestions as for a low estimate. The model and its measured results are unchanged. A feature for how informative a report is would be a new decision with its own test.
+
+## Amendment, 2026-11-02: how optimistic it is
+
+An audit of the site's claims recomputed the held-out sets' calibration from the saved features (`results/confidence/*.json`) and the model in `cv.json`. "A few points high" understates two of them. Mean predicted probability against the observed top-10 rate, with a 95% bootstrap interval over issues:
+
+| Set | Predicted | Observed | Gap |
+|---|---|---|---|
+| SWE-bench Lite | 77.0% | 67.0% | +10.0 points [5.2, 15.3] |
+| SWE-bench Multilingual | 72.9% | 66.5% | +6.5 [−0.1, 13.2] |
+| The 30 unseen projects | 79.6% | 76.6% | +3.1 [0.2, 5.9] |
+| SWE-PolyBench | 70.4% | 68.8% | +1.5 [−3.2, 6.3] |
+
+The calibration rule (error ≤ 0.05) was checked on the pooled cross-validation only. By language, cross-validated, it fails for Java (0.110), Rust (0.077) and JavaScript (0.054); Python (0.014), Go (0.016) and TypeScript (0.045) pass. The site's tooltip now says the estimate ran about 10 points high on Lite and 6 on Multilingual. Nothing about the model changes; per-language recalibration would be a new decision with its own test.
+
+Prior work, missed when this ADR was written: Kim et al. (TSE 2013) built a two-phase bug localizer that answers only when a first model predicts it will succeed, and query-quality predictors for bug localization (Le et al., ISSRE 2014; Mills et al., TOSEM 2017) estimate whether a report will retrieve well. A per-search confidence is therefore an application of an established idea, not a new one.

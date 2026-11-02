@@ -56,3 +56,7 @@ Lite stays as the common ground with published systems (phase 1). The headline c
 - Projects in the holdout are permanently out of every training and dev set.
 - Building the ground truth reads patches, not rankings, and reveals nothing about how any configuration performs.
 - A reviewer can verify the seal: the manifest and gold hashes are committed before the first holdout line appears in the log.
+
+## Amendment, 2026-11-02: what the date rule does not cover
+
+The date rule keeps the holdout newer than every pretrained model, so none of them could have seen it. It says nothing about the other sets. The jina-code-embeddings paper ([arXiv:2508.21290](https://arxiv.org/abs/2508.21290), Table 3) lists "SWE-Bench (Adapted)" among its training data, so the dense embeddings may have seen SWE-bench issues or their fixes, and the dense and hybrid numbers on Lite and the development sets may be optimistic by an unknown amount. The holdout, the 30 unseen SWE-rebench projects (for the browser, which does not use jina) and the live bugs are not affected. The README and the Benchmarks page now say so.
