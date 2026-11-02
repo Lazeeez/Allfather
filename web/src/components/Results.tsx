@@ -48,7 +48,7 @@ export function SignificanceTable({ summary }: { summary: Summary }) {
       <div class="controls"><Seg small label="Level" value={level} onChange={setLevel} options={[["function", "Functions"], ["file", "Files"]] as const} /></div>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="Significance of each step">
         <table>
-          <thead><tr><th>Step</th><th>Metric</th><th>Change</th><th>95% interval</th><th>p</th><th>Wins / losses</th></tr></thead>
+          <thead><tr><th>Step</th><th>Metric</th><th>Change</th><th>95% interval</th><th class="phone-hide-col">p</th><th>Adjusted p</th><th>Wins / losses</th></tr></thead>
           <tbody>
             {rows.slice(1).flatMap((to, i) => {
               const from = rows[i];
@@ -56,14 +56,15 @@ export function SignificanceTable({ summary }: { summary: Summary }) {
               if (!res) return [];
               return (["recall@10", "mrr"] as const).map((m, j) => {
                 const r = res[m];
-                const sig = r.p < 0.05 && r.delta > 0;
+                const sig = r.p_holm < 0.05 && r.delta > 0;
                 return (
                   <tr key={`${to.id}-${m}`}>
                     {j === 0 && <td rowSpan={2}><span class="muted">{plainName(from.id, from.label)} →</span><br /><b>{plainName(to.id, to.label)}</b></td>}
                     <td>{m === "mrr" ? "MRR" : "Recall@10"}</td>
                     <td class={`num${sig ? " sig" : ""}`}>{r.delta >= 0 ? "+" : ""}{r.delta.toFixed(3)}</td>
                     <td class="num">[{r.ci95[0].toFixed(3)}, {r.ci95[1].toFixed(3)}]</td>
-                    <td class="num">{r.p < 0.001 ? "<0.001" : r.p.toFixed(3)}{sig ? <span class="sig-mark" title="significant at p < 0.05"> ✓</span> : null}</td>
+                    <td class="num phone-hide-col">{r.p < 0.001 ? "<0.001" : r.p.toFixed(3)}</td>
+                    <td class="num">{r.p_holm < 0.001 ? "<0.001" : r.p_holm.toFixed(3)}{sig ? <span class="sig-mark" title="significant after adjustment, p < 0.05"> ✓</span> : null}</td>
                     <td class="num">{r.wins} / {r.losses}</td>
                   </tr>
                 );
@@ -72,7 +73,11 @@ export function SignificanceTable({ summary }: { summary: Summary }) {
           </tbody>
         </table>
       </div>
-      <p class="note">Paired bootstrap over the same issues (10,000 resamples). ✓ marks an improvement significant at p &lt; 0.05.</p>
+      <p class="note">
+        Intervals: paired bootstrap over the same issues, 10,000 resamples. p: paired randomization test. Adjusted p: Holm's correction across
+        all {Object.values(summary.significance).reduce((n, v) => n + Object.keys(v).length, 0)} tests behind this table, function and file
+        level. ✓ marks an improvement still significant after adjustment (p &lt; 0.05).
+      </p>
     </>
   );
 }

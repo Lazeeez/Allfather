@@ -198,6 +198,16 @@ def check_languages(rows: list[list[str]], report: Report) -> None:
             f"{where} baseline", numbers(row[4])[0], 100 * e["keyword_and_meaning"]["hit@10"], 1
         )
         report.expect(f"{where} change", numbers(row[5])[0], 100 * e["hit@10_gain"]["delta"], 1)
+        check_p(f"{where} p", row[5].split("(p")[1], e["hit@10_gain"]["p"], report)
+        check_p(f"{where} Holm p", row[6], e["hit@10_gain"]["p_holm"], report)
+
+
+def check_p(where: str, shown: str, actual: float, report: Report) -> None:
+    if "<" in shown:
+        if not actual < numbers(shown)[0]:
+            report.mismatches.append(f"{where}: README {shown.strip()} vs result {actual}")
+    else:
+        report.expect(where, numbers(shown)[0], actual, 3)
 
 
 def check_per_repo(rows: list[list[str]], report: Report) -> None:

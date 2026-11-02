@@ -1,7 +1,16 @@
 import numpy as np
 import pytest
 
-from allfather.eval.metrics import aggregate, bootstrap_ci, paired_bootstrap, percentile, score
+from allfather.eval.metrics import (
+    aggregate,
+    bootstrap_ci,
+    holm,
+    mcnemar_exact,
+    paired_bootstrap,
+    percentile,
+    score,
+    sign_flip_p,
+)
 
 
 def test_score_basic():
@@ -59,6 +68,31 @@ def test_paired_bootstrap_identical_runs_are_not_significant():
     d = paired_bootstrap(a, a.copy())
     assert d.delta == 0
     assert d.p_value == 1.0
+
+
+def test_mcnemar_exact_matches_the_binomial_test():
+    assert mcnemar_exact(4, 0) == pytest.approx(0.125)
+    assert mcnemar_exact(9, 2) == pytest.approx(0.0654296875)
+    assert mcnemar_exact(5, 5) == 1.0
+    assert mcnemar_exact(0, 0) == 1.0
+
+
+def test_paired_bootstrap_uses_the_exact_test_on_binary_outcomes():
+    a = np.array([0.0] * 4 + [1.0] * 10)
+    b = np.array([1.0] * 4 + [1.0] * 10)
+    assert paired_bootstrap(a, b).p_value == pytest.approx(0.125)
+
+
+def test_sign_flip_p_on_continuous_differences():
+    rng = np.random.default_rng(1)
+    assert sign_flip_p(rng.normal(1.0, 0.5, 40)) < 0.001
+    assert sign_flip_p(rng.normal(0.0, 0.5, 40)) > 0.01
+    assert sign_flip_p(np.zeros(10)) == 1.0
+
+
+def test_holm_adjusts_in_order_and_stays_monotone():
+    adjusted = holm({"a": 0.01, "b": 0.04, "c": 0.03})
+    assert adjusted == {"a": 0.03, "c": 0.06, "b": 0.06}
 
 
 def test_percentile():

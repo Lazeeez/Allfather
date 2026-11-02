@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 
 from allfather.eval.dataset import load_instances
-from allfather.eval.metrics import metric_values, paired_bootstrap, score
+from allfather.eval.metrics import bootstrap_ci, holm, metric_values, paired_bootstrap, score
 
 RESULTS = Path("results")
 OUT = Path("web/public/data")
@@ -45,7 +45,10 @@ def summaries() -> dict:
             s = run["summary"]
             keys = ["recall@1", "recall@5", "recall@10", "hit@1", "hit@5", "hit@10", "mrr"]
             entry = {"level": level, "id": name, "label": label, "blurb": blurb}
-            entry |= {k: s[k] for k in keys} | {"ci95": s.get("ci95", {}), "n": s["n"]}
+            entry |= {k: s[k] for k in keys} | {
+                "ci95": s.get("ci95", {}) | hit_ci(run),
+                "n": s["n"],
+            }
             entry["latency_ms_p50"] = s.get("latency_ms_p50")
             entry["by_repo"] = {
                 r: {"n": v["n"], "recall@10": v["recall@10"], "mrr": v["mrr"]}
@@ -55,7 +58,16 @@ def summaries() -> dict:
             if prev is not None:
                 out["significance"][f"{level}:{prev}->{name}"] = compare(runs[prev], run)
             prev = name
+    family = {f"{k}|{m}": r["p"] for k, v in out["significance"].items() for m, r in v.items()}
+    for key, p in holm(family).items():
+        step, metric = key.split("|")
+        out["significance"][step][metric]["p_holm"] = p
     return out
+
+
+def hit_ci(run: dict) -> dict:
+    scores = [score(r["ranked"], r["gold"], [1, 5, 10]) for r in run["per_instance"]]
+    return {m: bootstrap_ci(scores, m) for m in ("hit@1", "hit@5", "hit@10")}
 
 
 def compare(a: dict, b: dict) -> dict:

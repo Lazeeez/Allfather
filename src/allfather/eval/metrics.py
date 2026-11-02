@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
+from math import comb
 
 import numpy as np
 
@@ -80,22 +81,55 @@ class PairedDiff:
 def paired_bootstrap(a: np.ndarray, b: np.ndarray, n: int = 10000, seed: int = 0) -> PairedDiff:
     """Is b better than a on the same queries? Resamples queries, keeping pairs together.
 
-    The p-value is two-sided: how often the resampled mean difference lands on the other
-    side of zero from the observed one.
+    The interval is a percentile bootstrap of the mean difference. The p-value is two-sided
+    and comes from a paired randomization test (Urbano et al., SIGIR 2019): exact McNemar
+    when every difference is -1, 0 or 1, random sign flips otherwise.
     """
     diff = np.asarray(b, float) - np.asarray(a, float)
     rng = np.random.default_rng(seed)
     means = diff[rng.integers(0, len(diff), (n, len(diff)))].mean(axis=1)
     observed = diff.mean()
-    flipped = np.mean(means <= 0) if observed > 0 else np.mean(means >= 0)
     lo, hi = np.percentile(means, [2.5, 97.5])
     return PairedDiff(
         round(float(observed), 4),
         (round(float(lo), 4), round(float(hi), 4)),
-        round(float(min(1.0, 2 * flipped)), 4),
+        round(sign_flip_p(diff, n, seed), 4),
         int((diff > 0).sum()),
         int((diff < 0).sum()),
     )
+
+
+def sign_flip_p(diff: np.ndarray, n: int = 10000, seed: int = 0) -> float:
+    nonzero = diff[diff != 0]
+    if not len(nonzero):
+        return 1.0
+    if np.all(np.abs(nonzero) == 1):
+        wins, total = int((nonzero > 0).sum()), len(nonzero)
+        return mcnemar_exact(wins, total - wins)
+    rng = np.random.default_rng(seed)
+    observed = abs(nonzero.sum())
+    signs = rng.choice([-1.0, 1.0], size=(n, len(nonzero)))
+    extreme = int((np.abs(signs @ nonzero) >= observed - 1e-12).sum())
+    return (extreme + 1) / (n + 1)
+
+
+def mcnemar_exact(wins: int, losses: int) -> float:
+    total = wins + losses
+    if total == 0:
+        return 1.0
+    tail = min(wins, losses)
+    cdf = sum(comb(total, i) for i in range(tail + 1)) / 2**total
+    return float(min(1.0, 2 * cdf))
+
+
+def holm(p_values: dict[str, float]) -> dict[str, float]:
+    """Holm-Bonferroni adjusted p-values, for a family of tests reported together."""
+    ordered = sorted(p_values.items(), key=lambda kv: kv[1])
+    out, running = {}, 0.0
+    for i, (key, p) in enumerate(ordered):
+        running = max(running, min(1.0, (len(ordered) - i) * p))
+        out[key] = round(running, 4)
+    return out
 
 
 def percentile(values: Sequence[float], p: float) -> float:

@@ -16,15 +16,19 @@ const FROZEN_ROWS: [keyof Holdout["runs"], string, string][] = [
   ["lite_file", "SWE-bench Lite", "file"],
 ];
 
-function HoldoutCard({ data }: { data: Holdout }) {
+function HoldoutCard({ data, research }: { data: Holdout; research: number | null }) {
   const fn = data.runs.holdout_function;
+  const file = data.runs.holdout_file;
+  const lite = data.runs.lite_function;
+  const [lo, hi] = fn["hit@10_ci95"];
   return (
     <section class="card frame block">
       <p class="kicker">Never seen before</p>
       <h2>On bugs filed after its models, in projects it never saw</h2>
       <p class="card-lede">
-        A sealed set of {fn.issues} bugs created after every model in the full pipeline was published, from 184 projects that appear nowhere in
-        training, tuning or testing. The pipeline was frozen, every model hashed and every metric declared in advance, and then scored on it once.
+        A sealed set of recent bugs from 189 projects that appear nowhere in training, tuning or testing: {fn.issues} with a function to find
+        and {file.issues} at file level, all filed after the pretrained models in the pipeline were published. The pipeline, allfather-fast, was
+        frozen, every model hashed and every metric declared in advance, and then scored on it once per level.
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="The frozen pipeline on the sealed holdout and on SWE-bench Lite">
         <table class="label-first">
@@ -48,9 +52,19 @@ function HoldoutCard({ data }: { data: Holdout }) {
         </table>
       </div>
       <p class="note">
-        It finds one of the changed functions as often as on Lite; finding all of them is harder, because these fixes change three functions on
-        average against about one on Lite. The two sets differ in projects, fix size and date, so this describes them rather than comparing them.
+        Function in the top 10 on the holdout: {pct(fn["hit@10"])}, 95% interval {pct(lo)} to {pct(hi)}. It finds one of the changed functions
+        about as often as on Lite, but finding all of them is harder: these fixes change three functions on average against about one on Lite, and
+        a fix with more changed functions is also easier to hit once. The two sets differ in projects, fix size and date, so this describes them
+        rather than comparing them.
       </p>
+      {research != null && (
+        <p class="note">
+          The Lite rows here are allfather-fast. The tiles and charts above show the research configuration it grew from, which scores{" "}
+          {pct(research)} on Lite against allfather-fast's {pct(lite["hit@10"])}. Of the 291 issues, 13 come out differently, 8 in the research
+          configuration's favour and 5 in allfather-fast's: not significant (exact paired test, p = 0.58). allfather-fast's rankers were trained on more data, and it is the system the holdout
+          measures.
+        </p>
+      )}
     </section>
   );
 }
@@ -78,7 +92,7 @@ function FileComparison({ e }: { e: BrowserEval }) {
 const GUIDE: [string, string][] = [
   ["Top 10", "hit@10: the share of issues with at least one gold function among the first 10 results; recall@10 counts every gold function."],
   ["Ranked first", "hit@1: the top-ranked unit is gold. MRR averages 1/rank of the first gold unit, so it rewards near misses too."],
-  ["Significant", "Paired bootstrap over the same issues, 10,000 resamples: ✓ when p < 0.05 and the 95% interval of the change excludes zero."],
+  ["Significant", "A paired test on the same issues (a randomization test, exact for yes-or-no outcomes), with p adjusted by Holm's method for the number of tests in the table: ✓ when the adjusted p < 0.05."],
 ];
 
 export function Benchmarks({ summary, lite, failed }: { summary: Summary | null; lite: Lite | null; failed: boolean }) {
@@ -99,9 +113,9 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
       {failed && <p class="error-text">Couldn't load the benchmark data. Try reloading the page.</p>}
       {!failed && (
         <div class="tiles">
-          <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} note={fn ? `${fn.n} issues, 10k–45k functions per project` : "SWE-bench Lite"} />
-          <Tile label="Function to fix ranked first" value={fn ? fn["hit@1"] : null} note={fn ? `${fn.n} issues: 300 minus ${300 - fn.n} with no function to find` : "SWE-bench Lite"} />
-          <Tile label="File to fix in the top 5" value={fl ? fl["hit@5"] : null} note={fl ? `file level, all ${fl.n} issues` : "SWE-bench Lite"} />
+          <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} ci={fn?.ci95["hit@10"]} note={fn ? `${fn.n} issues, 10k–45k functions per project` : "SWE-bench Lite"} />
+          <Tile label="Function to fix ranked first" value={fn ? fn["hit@1"] : null} ci={fn?.ci95["hit@1"]} note={fn ? `${fn.n} issues: 300 minus ${300 - fn.n} with no function to find` : "SWE-bench Lite"} />
+          <Tile label="File to fix in the top 5" value={fl ? fl["hit@5"] : null} ci={fl?.ci95["hit@5"]} note={fl ? `file level, all ${fl.n} issues` : "SWE-bench Lite"} />
         </div>
       )}
 
@@ -109,7 +123,7 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
         {GUIDE.map(([t, d]) => <div key={t}><dt>{t}</dt><dd>{d}</dd></div>)}
       </dl>
 
-      {holdout && <HoldoutCard data={holdout} />}
+      {holdout && <HoldoutCard data={holdout} research={fn ? fn["hit@10"] : null} />}
 
       {summary && (
         <>
@@ -176,7 +190,7 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
           <li>Every issue is searched at its own base commit. Indexing today's code would leak the fix.</li>
           <li>Nothing is tuned on these 300 issues: fusion weights on a separate dev set, learned rankers on 1,941 other SWE-bench issues, reranker weights on a held-out split.</li>
           <li>Git-history features only see commits before the bug; "similar past bugs" only see issues opened at least 30 days earlier. Both boundaries have tests.</li>
-          <li>Every improvement comes with a paired bootstrap test, and ones that aren't significant are reported as such.</li>
+          <li>Every comparison on this page comes with a paired test on the same issues and a 95% bootstrap interval, with p adjusted for the number of tests in each table. Results that aren't significant are reported as such.</li>
           <li>Lite is not untouched. Every evaluation on it is logged with what was decided from it in the project's evaluation log, and one decision, rejecting a distilled reranker, was taken on a Lite result, in the conservative direction.</li>
         </ul>
       </section>
@@ -200,10 +214,11 @@ function Languages({ sets }: { sets: Record<string, Record<string, LanguageEval>
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="Accuracy by language">
         <table>
-          <thead><tr><th>Language</th><th class="phone-hide-col">Test set</th><th class="phone-hide-col">Bugs</th><th>Allfather</th><th class="wrap">Keywords and meaning</th><th>Change</th><th class="phone-hide-col">p</th></tr></thead>
+          <thead><tr><th>Language</th><th class="phone-hide-col">Test set</th><th class="phone-hide-col">Bugs</th><th>Allfather</th><th class="wrap">Keywords and meaning</th><th>Change</th><th class="phone-hide-col">p</th><th class="phone-hide-col wrap">Adjusted p</th></tr></thead>
           <tbody>
             {rows.map(({ set, lang, e }) => {
               const g = e["hit@10_gain"];
+              const adjusted = g.p_holm ?? g.p;
               return (
                 <tr key={`${set}:${lang}`}>
                   <td class="label-cell">
@@ -214,15 +229,19 @@ function Languages({ sets }: { sets: Record<string, Record<string, LanguageEval>
                   <td class="num phone-hide-col">{e.issues}</td>
                   <td class="num">{pct(e.learned["hit@10"])}</td>
                   <td class="num">{pct(e.keyword_and_meaning["hit@10"])}</td>
-                  <td class={`num${g.p < 0.05 && g.delta > 0 ? " sig" : ""}`}>{g.delta >= 0 ? "+" : ""}{(g.delta * 100).toFixed(1)}</td>
+                  <td class={`num${adjusted < 0.05 && g.delta > 0 ? " sig" : ""}`}>{g.delta >= 0 ? "+" : ""}{(g.delta * 100).toFixed(1)}</td>
                   <td class="num phone-hide-col">{g.p < 0.001 ? "<0.001" : g.p.toFixed(3)}</td>
+                  <td class="num phone-hide-col">{adjusted < 0.001 ? "<0.001" : adjusted.toFixed(3)}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      <p class="note">Share of bugs with a function the real fix changed in the top 10. Bold changes are significant (p &lt; 0.05, paired bootstrap); small sets can show a gain that is not yet significant.</p>
+      <p class="note">
+        Share of bugs with a function the real fix changed in the top 10. p: exact paired test on each row. Adjusted p: Holm's correction across
+        the {rows.length} rows. Bold changes are significant after adjustment (p &lt; 0.05); a small set can show a real gain that is not.
+      </p>
     </section>
   );
 }

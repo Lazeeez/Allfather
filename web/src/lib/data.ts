@@ -22,6 +22,7 @@ export interface PairedTest {
   delta: number;
   ci95: [number, number];
   p: number;
+  p_holm: number;
   wins: number;
   losses: number;
 }
@@ -93,7 +94,7 @@ export interface LanguageEval {
   projects: number;
   learned: Metrics;
   keyword_and_meaning: Metrics;
-  "hit@10_gain": { delta: number; ci95: [number, number]; p: number };
+  "hit@10_gain": { delta: number; ci95: [number, number]; p: number; p_holm?: number; wins?: number; losses?: number };
 }
 
 /** The best function-level result the site runs by default: rerank if shipped, else semantic. */

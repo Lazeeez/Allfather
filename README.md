@@ -76,7 +76,7 @@ Against the Python-only ranker these replace (77.2% function hit@10 after either
 
 ### The website's GPU reranker
 
-The site can send the bug report and its top 50 functions to a GPU server (Modal), where the research pipeline's fine-tuned reranker (two LoRA adapters on Qwen3-Reranker-0.6B) scores them, and blend the scores into the browser's order. Measured before it was built, out of fold on 3,174 bugs from 119 projects the reranker never trained on ([ADR 0021](docs/decisions/0021-website-server-reranker.md)): function hit@10 79.3% → 81.9% (+2.6 points, 95% interval [1.8, 3.4], p < 0.001) and hit@1 44.3% → 50.0%. With it, the browser's own language model adds nothing measurable (hit@10 81.9% with it, 81.7% without, p = 0.30), so the site skips that 50 MB download whenever the GPU answers ([ADR 0026](docs/decisions/0026-skip-browser-language-model.md)). Scored once on held-out data with the site's final configuration: function hit@10 67.0% → 73.5% on Lite (+6.5 points, 95% interval [3.4, 10.0], p < 0.001) and 76.6% → 79.3% on the 30 unseen projects (+2.7, [1.1, 4.3], p = 0.002).
+The site can send the bug report and its top 50 functions to a GPU server (Modal), where the research pipeline's fine-tuned reranker (two LoRA adapters on Qwen3-Reranker-0.6B) scores them, and blend the scores into the browser's order. Measured before it was built, out of fold on 3,174 bugs from 119 projects the reranker never trained on ([ADR 0021](docs/decisions/0021-website-server-reranker.md)): function hit@10 79.3% → 81.9% (+2.6 points, 95% interval [1.8, 3.4], p < 0.001) and hit@1 44.3% → 50.0%. With it, the browser's own language model adds nothing measurable (hit@10 81.9% with it, 81.7% without, p = 0.32), so the site skips that 50 MB download whenever the GPU answers ([ADR 0026](docs/decisions/0026-skip-browser-language-model.md)). Scored once on held-out data with the site's final configuration: function hit@10 67.0% → 73.5% on Lite (+6.5 points, 95% interval [3.4, 10.0], p < 0.001) and 76.6% → 79.3% on the 30 unseen projects (+2.7, [1.1, 4.3], p = 0.002).
 
 ### Live, on bugs fixed this week
 
@@ -86,16 +86,16 @@ A nightly job collects bugs that popular projects in all six languages fixed in 
 
 The same rankers on bugs in other languages, from two public test sets and projects they never trained on, scored once against ranking by keywords and meaning alone (function hit@10):
 
-| Language | Test set | Bugs | Allfather | Keywords and meaning | Change |
-|---|---|---|---|---|---|
-| Go | SWE-bench Multilingual | 37 | 64.9% | 46.0% | +18.9 (p = 0.012) |
-| Java | SWE-bench Multilingual | 43 | 81.4% | 67.4% | +14.0 (p = 0.030) |
-| JavaScript | SWE-bench Multilingual | 26 | 57.7% | 50.0% | +7.7 (p = 0.443) |
-| Rust | SWE-bench Multilingual | 41 | 65.8% | 53.7% | +12.2 (p = 0.113) |
-| TypeScript | SWE-bench Multilingual | 14 | 50.0% | 21.4% | +28.6 (p = 0.016) |
-| Java | SWE-PolyBench | 125 | 71.2% | 55.2% | +16.0 (p < 0.001) |
-| JavaScript | SWE-PolyBench | 115 | 79.1% | 55.6% | +23.5 (p < 0.001) |
-| TypeScript | SWE-PolyBench | 100 | 60.0% | 44.0% | +16.0 (p < 0.001) |
+| Language | Test set | Bugs | Allfather | Keywords and meaning | Change | Holm-adjusted p |
+|---|---|---|---|---|---|---|
+| Go | SWE-bench Multilingual | 37 | 64.9% | 46.0% | +18.9 (p = 0.039) | 0.196 |
+| Java | SWE-bench Multilingual | 43 | 81.4% | 67.4% | +14.0 (p = 0.070) | 0.281 |
+| JavaScript | SWE-bench Multilingual | 26 | 57.7% | 50.0% | +7.7 (p = 0.625) | 0.625 |
+| Rust | SWE-bench Multilingual | 41 | 65.8% | 53.7% | +12.2 (p = 0.180) | 0.375 |
+| TypeScript | SWE-bench Multilingual | 14 | 50.0% | 21.4% | +28.6 (p = 0.125) | 0.375 |
+| Java | SWE-PolyBench | 125 | 71.2% | 55.2% | +16.0 (p < 0.001) | <0.001 |
+| JavaScript | SWE-PolyBench | 115 | 79.1% | 55.6% | +23.5 (p < 0.001) | <0.001 |
+| TypeScript | SWE-PolyBench | 100 | 60.0% | 44.0% | +16.0 (p < 0.001) | 0.002 |
 
 ### Every retriever
 
@@ -128,9 +128,9 @@ Every tunable choice was made on data disjoint from Lite: a dev set (SWE-bench V
 |---|---|---|---|---|
 | naive → code-aware tokenizer | **+0.121** | [+0.076, +0.166] | <0.001 | 50 / 11 |
 | + exclude test files | **+0.091** | [+0.058, +0.126] | <0.001 | 32 / 2 |
-| + call-graph expansion (dev-tuned) | +0.003 | [+0.000, +0.010] | 0.72 | 1 / 0 |
-| BM25 → dense embeddings alone | +0.066 | [+0.002, +0.129] | 0.045 | 63 / 43 |
-| dense → hybrid (dev-tuned fusion) | **+0.057** | [+0.019, +0.096] | 0.002 | 30 / 11 |
+| + call-graph expansion (dev-tuned) | +0.003 | [+0.000, +0.010] | 1.00 | 1 / 0 |
+| BM25 → dense embeddings alone | +0.066 | [+0.002, +0.129] | 0.042 | 63 / 43 |
+| dense → hybrid (dev-tuned fusion) | **+0.057** | [+0.019, +0.096] | 0.003 | 30 / 11 |
 | **BM25 → hybrid, overall** | **+0.123** | [+0.070, +0.174] | <0.001 | 57 / 17 |
 | hybrid → learning to rank (LambdaMART) | **+0.087** | [+0.049, +0.128] | <0.001 | 36 / 9 |
 | LTR → + fine-tuned cross-encoder (ensemble of 2) | **+0.043** | [+0.013, +0.074] | 0.005 | 24 / 7 |
@@ -142,7 +142,7 @@ The cross-encoder's main job is the top of the list: function MRR +0.063 and rec
 - **Call-graph expansion does not pay for itself.** It was tuned on a held-out dev set and confirmed on test. [ADR 0004](docs/decisions/0004-call-graph-expansion.md) shows why: only 15% of misses are one call away from a top hit, so the ceiling is low. It ships as opt-in.
 - **Learning to rank turns many weak signals into one ordering** ([ADR 0006](docs/decisions/0006-learning-to-rank.md)). The candidate pool already held a gold unit for 96.7% of issues, measured on the dev set, so the remaining errors were about order. LambdaMART learns it from 52 features: retrieval scores, the issue title and code spans scored separately, traceback frames and names mentioned in the issue, file structure, git history from strict ancestors of the base commit (BugLocator-style churn and similar past commits), and fixes of similar earlier issues.
 - **A fine-tuned LLM reranker reads the issue and the code together** ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Zero-shot it added nothing, but after one LoRA epoch on in-domain hard negatives it lifts the top ranks. It runs only on the top 20, with a shared-prefix KV cache so the issue is encoded once per query rather than once per candidate.
-- **Hybrid is the big win, because the two retrievers fail differently.** Dense alone is only marginally better than BM25 (p = 0.045), but fusing them beats both. Recall@10 is +12.7 points at file level too, with 42 wins to 4 losses. The largest gains are where issues aren't written in identifiers: sympy recall@10 went from 0.37 to 0.59 and pytest from 0.30 to 0.56 ([ADR 0005](docs/decisions/0005-dense-hybrid-retrieval.md)).
+- **Hybrid is the big win, because the two retrievers fail differently.** Dense alone is only marginally better than BM25 (p = 0.042), but fusing them beats both. Recall@10 is +12.7 points at file level too, with 42 wins to 4 losses. The largest gains are where issues aren't written in identifiers: sympy recall@10 went from 0.37 to 0.59 and pytest from 0.30 to 0.56 ([ADR 0005](docs/decisions/0005-dense-hybrid-retrieval.md)).
 
 Reproduce any row: `make eval RETRIEVER=bm25-code-notests LEVEL=function`, then `uv run allfather compare results/A.json results/B.json`.
 
