@@ -30,23 +30,51 @@ const FILES: Record<string, string> = {
   "tests/test_config.py": "def test_load():\n    assert True\n",
 };
 
-/** Route GitHub's API and file server to FILES, and keep the ML model off the network. */
-export async function serveFixture(page: Page): Promise<void> {
-  await page.route("https://api.github.com/repos/allfather-e2e/fixture/git/trees/**", (route) =>
+export const GO_REPO = "allfather-e2e/gofixture";
+
+const GO_FILES: Record<string, string> = {
+  "config/load.go": [
+    "package config",
+    "",
+    "func LoadConfig(path string) (map[string]string, error) {",
+    "\treturn Parse(path)",
+    "}",
+    "",
+    "func Parse(text string) (map[string]string, error) {",
+    "\treturn map[string]string{}, nil",
+    "}",
+  ].join("\n"),
+  "client/fetch.go": [
+    "package client",
+    "",
+    "func Fetch(url string) ([]byte, error) {",
+    "\treturn nil, nil",
+    "}",
+  ].join("\n"),
+};
+
+async function serveRepo(page: Page, repo: string, files: Record<string, string>): Promise<void> {
+  await page.route(`https://api.github.com/repos/${repo}/git/trees/**`, (route) =>
     route.fulfill({
       json: {
-        sha: "fixture-tree-1",
-        url: "https://api.github.com/repos/allfather-e2e/fixture/git/trees/fixture-tree-1",
+        sha: `${repo.split("/")[1]}-tree-1`,
+        url: `https://api.github.com/repos/${repo}/git/trees/${repo.split("/")[1]}-tree-1`,
         truncated: false,
-        tree: Object.entries(FILES).map(([path, text]) => ({ type: "blob", mode: "100644", path, size: text.length })),
+        tree: Object.entries(files).map(([path, text]) => ({ type: "blob", mode: "100644", path, size: text.length })),
       },
     }),
   );
-  await page.route("https://raw.githubusercontent.com/allfather-e2e/fixture/**", (route) => {
+  await page.route(`https://raw.githubusercontent.com/${repo}/**`, (route) => {
     const path = decodeURIComponent(new URL(route.request().url()).pathname.split("/").slice(4).join("/"));
-    return FILES[path] == null ? route.fulfill({ status: 404, body: "" }) : route.fulfill({ body: FILES[path] });
+    return files[path] == null ? route.fulfill({ status: 404, body: "" }) : route.fulfill({ body: files[path] });
   });
-  await page.route("https://api.github.com/repos/allfather-e2e/fixture/issues**", (route) => route.fulfill({ json: [] }));
+  await page.route(`https://api.github.com/repos/${repo}/issues**`, (route) => route.fulfill({ json: [] }));
+}
+
+/** Route GitHub's API and file server to FILES, and keep the ML model off the network. */
+export async function serveFixture(page: Page): Promise<void> {
+  await serveRepo(page, REPO, FILES);
+  await serveRepo(page, GO_REPO, GO_FILES);
   // The semantic model (tens of MB) is not part of these tests.
   await page.route(/huggingface\.co|cdn\.jsdelivr\.net/, (route) => route.abort());
 }

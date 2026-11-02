@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { blend, forServer, ServerUnavailable, serverScores } from "../src/engine/server.ts";
+import { blend, forServer, mostlyPython, ServerUnavailable, serverScores } from "../src/engine/server.ts";
 import cases from "./server-blend.json";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -55,5 +55,13 @@ describe("which searches go to the GPU reranker", () => {
 
   it("decides on the 50 functions the server would re-read", () => {
     expect(forServer([...Array(50).fill("a.py"), ...Array(200).fill("b.rs")])).toBe(true);
+  });
+});
+
+describe("repositories the GPU is woken for", () => {
+  it("counts every indexed function, not only the top of a list", () => {
+    expect(mostlyPython(["a.py", "b.py", "c.go"])).toBe(true);
+    expect(mostlyPython(["a.go", "b.go", "c.py"])).toBe(false);
+    expect(mostlyPython([])).toBe(false);
   });
 });

@@ -25,10 +25,6 @@ export function href(page: LinkPage, param?: string | null, query?: Record<strin
   return qs ? `${h}?${qs}` : h;
 }
 
-/**
- * A search link. The bug report goes in the fragment (#q=), which browsers never send to a server,
- * put in a Referer header or hand to the analytics script; only the repository is in the query.
- */
 export function searchHref(query: Record<string, string | undefined>, q?: string): string {
   const h = href("search", null, query);
   return q ? `${h}#${new URLSearchParams({ q })}` : h;

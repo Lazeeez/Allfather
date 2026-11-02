@@ -2,10 +2,12 @@ export const SERVER = { depth: 50, weight: 1, maxChars: 8000, timeoutMs: 90_000,
 
 import { languageOf } from "./languages-rules.ts";
 
-/** The GPU reranker was trained on Python only (ADR 0025), so it re-reads a list only when most of its top functions are Python. */
 export function forServer(paths: string[]): boolean {
-  const top = paths.slice(0, SERVER.depth);
-  return top.length > 0 && top.filter((p) => languageOf(p) === "python").length * 2 > top.length;
+  return mostlyPython(paths.slice(0, SERVER.depth));
+}
+
+export function mostlyPython(paths: readonly string[]): boolean {
+  return paths.length > 0 && paths.filter((p) => languageOf(p) === "python").length * 2 > paths.length;
 }
 
 export class ServerUnavailable extends Error {

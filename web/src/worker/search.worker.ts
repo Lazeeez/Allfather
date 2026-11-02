@@ -8,7 +8,7 @@ import { type Listing, type LoadedRepo, LoadError, type Parsing, type RepoCache,
 import { type Candidate, explain, type FileCandidate, type RankerModel, rankFiles, rankUnits, rerankStage, type Similarity, type Stage, signals } from "../engine/rank.ts";
 import { issueFields } from "../engine/mentions.ts";
 import { type Embed, SEMANTIC, unitText } from "../engine/semantic.ts";
-import { blend, forServer, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
+import { blend, forServer, mostlyPython, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
 import { confidence, confidenceFeatures, type ConfidenceModel } from "../engine/confidence.ts";
 import { embedText, parseStaticModel, type StaticModel } from "../engine/static.ts";
 import type { Unit } from "../engine/types.ts";
@@ -257,6 +257,7 @@ const wireFile = (f: FileCandidate): WireFile => ({ path: f.path, score: f.score
 
 async function load(input: string, includeTests: boolean, gpu: boolean): Promise<void> {
   state.controller = new AbortController();
+  indexed = false;
   ranker().catch(() => {}); // fetched while the repository downloads
   staticModel().catch(() => {});
   try {
@@ -272,6 +273,8 @@ async function load(input: string, includeTests: boolean, gpu: boolean): Promise
       partial: (units, counts, filesDone, filesTotal, where) => {
         if (state.controller?.signal.aborted) return;
         state.index = new BM25(units, { counts });
+        indexed = true;
+        if (warmPending) warmServer();
         post({
           type: "partial",
           info: {
@@ -283,21 +286,26 @@ async function load(input: string, includeTests: boolean, gpu: boolean): Promise
     });
     state.repo = repo;
     state.index = repo.index;
+    indexed = true;
     state.sem = null;
     const { index: _index, units, ...info } = repo;
     post({ type: "loaded", info: { ...info, units: units.length } });
+    if (warmPending) warmServer();
+    const python = mostlyPython(units.map((u) => u.path));
     void buildSemantic(repo.index);
     void ranker().then((m) => {
       post({ type: "stages", rerank: !!m.rerank, file: !!m.file });
       // Warm the rerank model while the visitor reads the first results, if it is used at all:
       // not on a Data Saver connection, and not when the GPU reranker will answer instead.
       const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-      if (m.rerank && !saveData && !(gpu && rerankServer && SERVER.skipLanguageModel)) embedder().catch(() => {});
+      if (m.rerank && !saveData && !(gpu && rerankServer && SERVER.skipLanguageModel && python)) embedder().catch(() => {});
     }, () => {});
     void trimVectors(); // keep stored embeddings within budget
   } catch (err) {
     // Back to the previous repository (if any), not a half-loaded one.
     state.index = state.repo?.index ?? null;
+    indexed = true;
+    warmPending = false;
     post({ type: "error", message: err instanceof Error ? err.message : String(err), cancelled: err instanceof LoadError && err.cancelled });
   }
 }
@@ -438,9 +446,14 @@ async function serverStage(id: number, job: ServerJob, stage: Stage, order: Cand
 }
 
 let lastWarm = 0;
+let warmPending = false;
+
+let indexed = false;
 
 function warmServer(): void {
   if (!rerankServer || Date.now() - lastWarm < 60_000) return;
+  warmPending = !indexed || !state.index;
+  if (warmPending || !mostlyPython(state.index!.units.map((u) => u.path))) return;
   lastWarm = Date.now();
   void fetch(`${rerankServer}/warm`, { method: "POST" }).then((r) => {
     if (r.status === 501 || r.status === 404) rerankServer = null;
