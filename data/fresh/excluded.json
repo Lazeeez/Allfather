@@ -1,0 +1,1431 @@
+{
+ "12rambau/sepal_ui": [
+  282833732
+ ],
+ "AbsaOSS/generate-release-notes": [
+  734636309
+ ],
+ "All-Hands-AI/OpenHands": [
+  771302083
+ ],
+ "AllenNeuralDynamics/aind-data-schema": [
+  557024274
+ ],
+ "ArduPilot/MethodicConfigurator": [
+  778163871
+ ],
+ "Automattic/mongoose": [
+  597879
+ ],
+ "Automattic/wp-calypso": [
+  45936895
+ ],
+ "Avaiga/taipy": [
+  460914281
+ ],
+ "Azure-Samples/azure-search-openai-demo": [
+  599293758
+ ],
+ "Azure/WALinuxAgent": [
+  4576639
+ ],
+ "Azure/azure-cli": [
+  51040886
+ ],
+ "BAMWelDX/weldx": [
+  238160452
+ ],
+ "Beever-AI/beever-atlas": [
+  1217456816
+ ],
+ "BerriAI/litellm": [
+  671269505
+ ],
+ "BrianPugh/cyclopts": [
+  713675962
+ ],
+ "BurntSushi/ripgrep": [
+  53631945
+ ],
+ "CAREamics/careamics": [
+  607105530
+ ],
+ "CORE-GATECH-GROUP/serpent-tools": [
+  102786755
+ ],
+ "CQCL/guppylang": [
+  631900192
+ ],
+ "CS-SI/eodag": [
+  203819248
+ ],
+ "Cambridge-ICCS/TCTrack": [
+  966656396
+ ],
+ "CelestoAI/SmolVM": [
+  1158200188
+ ],
+ "DCC-Lab/RayTracing": [
+  166473288
+ ],
+ "Delgan/loguru": [
+  100401612
+ ],
+ "Deltares/HYDROLIB-core": [
+  359237320
+ ],
+ "DestinE-Climate-DT/AQUA": [
+  533312788
+ ],
+ "DiamondLightSource/mx-bluesky": [
+  571766743
+ ],
+ "Duke-GCB/DukeDSClient": [
+  52009226
+ ],
+ "ESMValGroup/ESMValCore": [
+  190192145
+ ],
+ "GenericMappingTools/pygmt": [
+  85352251
+ ],
+ "Graylog2/graylog2-server": [
+  671825
+ ],
+ "HKUDS/OpenHarness": [
+  1198616956
+ ],
+ "IAMconsortium/nomenclature": [
+  375724610
+ ],
+ "IAMconsortium/pyam": [
+  113359260
+ ],
+ "ImperialCollegeLondon/proCAT": [
+  914303182
+ ],
+ "ImperialCollegeLondon/pyrealm": [
+  317618141
+ ],
+ "ImperialCollegeLondon/virtual_ecosystem": [
+  471392759
+ ],
+ "Jc2k/aiohomekit": [
+  203452977
+ ],
+ "KaTeX/KaTeX": [
+  11195700
+ ],
+ "Kludex/starlette": [
+  138597372
+ ],
+ "Kong/insomnia": [
+  56899284
+ ],
+ "Marker-Inc-Korea/AutoRAG": [
+  741450201
+ ],
+ "MatterMiners/tardis": [
+  132791417
+ ],
+ "MemPalace/mempalace": [
+  1201656210
+ ],
+ "MetaMask/metamask-extension": [
+  42009758
+ ],
+ "NCAR/geocat-comp": [
+  197045358
+ ],
+ "NREL/hescore-hpxml": [],
+ "OpenMined/PySyft": [
+  97641933
+ ],
+ "OpenRefine/OpenRefine": [
+  6220644
+ ],
+ "PMEAL/OpenPNM": [
+  11670333
+ ],
+ "PennyLaneAI/pennylane": [
+  129936360
+ ],
+ "PlasmaControl/DESC": [
+  278118413
+ ],
+ "PlasmaPy/PlasmaPy": [
+  46810954
+ ],
+ "PrefectHQ/prefect": [
+  139199684
+ ],
+ "PyCQA/isort": [
+  12550138
+ ],
+ "PyCQA/pyflakes": [
+  18508013
+ ],
+ "PyPSA/PyPSA": [
+  49414256
+ ],
+ "PyPSA/linopy": [
+  350276805
+ ],
+ "Python-Markdown/markdown": [
+  692146
+ ],
+ "RDFLib/rdflib": [
+  3342046
+ ],
+ "ResearchObject/ro-crate-py": [
+  216605684
+ ],
+ "SciTools/iris": [
+  5312648
+ ],
+ "Spenhouet/confluence-markdown-exporter": [
+  946862652
+ ],
+ "StingraySoftware/stingray": [
+  43449839
+ ],
+ "TanStack/query": [
+  207645083
+ ],
+ "Textualize/rich": [
+  220809393
+ ],
+ "Textualize/textual": [
+  355959597
+ ],
+ "USNavalResearchLaboratory/eispac": [
+  337690214
+ ],
+ "UXARRAY/uxarray": [
+  421447986
+ ],
+ "Ultraplot/UltraPlot": [
+  909651179
+ ],
+ "Unidata/MetPy": [
+  1409621
+ ],
+ "VRSEN/agency-swarm": [
+  719367294
+ ],
+ "XKNX/xknx": [
+  51259458
+ ],
+ "a2aproject/a2a-python": [
+  980428225
+ ],
+ "aallan/vera": [
+  1164314533
+ ],
+ "adrn/gala": [
+  17577779
+ ],
+ "aeye-lab/pymovements": [
+  439307335
+ ],
+ "ag2ai/faststream": [
+  572911222
+ ],
+ "agentscope-ai/QwenPaw": [
+  1165324947
+ ],
+ "agronholm/anyio": [
+  145337588
+ ],
+ "aiidateam/aiida-quantumespresso": [
+  94891064
+ ],
+ "aio-libs/aiohttp": [
+  13258039
+ ],
+ "alacritty/alacritty": [
+  51980455
+ ],
+ "alibaba/OpenSandbox": [
+  1118085970
+ ],
+ "alibaba/fastjson2": [
+  482425877
+ ],
+ "altair-viz/altair": [
+  42757577
+ ],
+ "angular/angular": [
+  24195339
+ ],
+ "anuraghazra/github-readme-stats": [
+  278335273
+ ],
+ "apache/druid": [
+  6358188
+ ],
+ "apache/dubbo": [
+  4710920
+ ],
+ "apache/iceberg-python": [
+  677260606
+ ],
+ "apache/lucene": [
+  341631350
+ ],
+ "apache/rocketmq": [
+  75164823
+ ],
+ "apache/shenyu": [
+  140543886
+ ],
+ "apolloconfig/apollo": [
+  53127403
+ ],
+ "arviz-devs/arviz": [
+  39890704
+ ],
+ "asottile/pyupgrade": [
+  83462592
+ ],
+ "astral-sh/ruff": [
+  523043277
+ ],
+ "astronomer/astronomer-cosmos": [
+  577757880
+ ],
+ "astronomy-commons/hats": [
+  586913388
+ ],
+ "astronomy-commons/lsdb": [
+  586976689
+ ],
+ "astropenguin/pandas-dataclasses": [
+  404203529
+ ],
+ "astropy/astropy": [
+  2081289
+ ],
+ "astropy/astroquery": [
+  4787269
+ ],
+ "aws-cloudformation/cfn-python-lint": [
+  129005655
+ ],
+ "aws-powertools/powertools-lambda-python": [
+  221919379
+ ],
+ "aws/bedrock-agentcore-sdk-python": [
+  1015684263
+ ],
+ "axios/axios": [
+  23088740
+ ],
+ "babel/babel": [
+  24560307
+ ],
+ "bas-amop/PolarRoute-server": [
+  826360892
+ ],
+ "basicmachines-co/basic-memory": [
+  897595329
+ ],
+ "beego/beego": [
+  3577919
+ ],
+ "beeware/briefcase": [
+  39841700
+ ],
+ "bids-standard/pybids": [
+  62954915
+ ],
+ "bluesky/ophyd-async": [
+  682088136
+ ],
+ "borgbackup/borg": [
+  35517126
+ ],
+ "bridgecrewio/checkov": [
+  224386599
+ ],
+ "burnash/gspread": [
+  2897853
+ ],
+ "burntsushi/ripgrep": [
+  53631945
+ ],
+ "caddyserver/caddy": [
+  29207621
+ ],
+ "cal-itp/benefits": [
+  285501392
+ ],
+ "calliope-project/calliope": [
+  12930335
+ ],
+ "canonical/charmcraft": [
+  257347688
+ ],
+ "canopen-python/canopen": [
+  68737600
+ ],
+ "caolan/async": [
+  698041
+ ],
+ "cekit/cekit": [
+  102005331
+ ],
+ "celery/celery": [
+  184460
+ ],
+ "chaoss/augur": [
+  1310035685
+ ],
+ "checkstyle/checkstyle": [
+  12499251
+ ],
+ "clap-rs/clap": [
+  31315121
+ ],
+ "cli/cli": [
+  212613049
+ ],
+ "cloud-custodian/cloud-custodian": [
+  52837350
+ ],
+ "codalab/codalab-worksheets": [
+  27352490
+ ],
+ "coder/code-server": [
+  172953845
+ ],
+ "colinhacks/zod": [
+  245704608
+ ],
+ "collective/icalendar": [
+  2222138
+ ],
+ "con/nwb2bids": [
+  765478037
+ ],
+ "conan-io/conan": [
+  47190624
+ ],
+ "concourse/concourse": [
+  18950460
+ ],
+ "containers/ramalama": [
+  833306239
+ ],
+ "copier-org/copier": [
+  2690104
+ ],
+ "coverahealth/dataspec": [
+  216630323
+ ],
+ "cpp-linter/cpp-linter-hooks": [
+  502861149
+ ],
+ "cubed-dev/cubed": [
+  488883130
+ ],
+ "cwacek/python-jsonschema-objects": [
+  18216839
+ ],
+ "dag-hammarskjold-library/dlx": [
+  177674045
+ ],
+ "dagster-io/dagster": [
+  131619646
+ ],
+ "darkreader/darkreader": [
+  26682105
+ ],
+ "dask/dask": [
+  28782747
+ ],
+ "dask/distributed": [
+  42408083
+ ],
+ "databricks/dbt-databricks": [
+  419004753
+ ],
+ "datalad/datalad": [
+  14052034
+ ],
+ "deepset-ai/haystack": [
+  221654678
+ ],
+ "django-guardian/django-guardian": [
+  704114
+ ],
+ "django/django": [
+  4164482
+ ],
+ "dlr-eoc/ukis-pysat": [
+  259635994
+ ],
+ "docker/docker-py": [
+  10247874
+ ],
+ "docling-project/docling": [
+  826168160
+ ],
+ "dpkp/kafka-python": [
+  5934517
+ ],
+ "dr-prodigy/python-holidays": [
+  749022631,
+  23284211,
+  23284211
+ ],
+ "dstackai/gpuhunt": [
+  681972964
+ ],
+ "dwavesystems/dimod": [
+  100658303
+ ],
+ "dwavesystems/dwave-cloud-client": [
+  105712917
+ ],
+ "einsteinpy/einsteinpy": [
+  168302584
+ ],
+ "elastic/elasticsearch-dsl-py": [
+  17446726
+ ],
+ "elastic/logstash": [
+  1090311
+ ],
+ "elementsinteractive/twyn": [
+  636645369
+ ],
+ "encode/httpx": [
+  179492861
+ ],
+ "encode/starlette": [
+  138597372
+ ],
+ "encode/uvicorn": [
+  92946971
+ ],
+ "equinor/ert": [
+  89232721
+ ],
+ "eslint/eslint": [
+  11061773
+ ],
+ "etcd-io/etcd": [
+  11225014
+ ],
+ "ethereum/web3.py": [
+  56251096
+ ],
+ "expressjs/express": [
+  237159
+ ],
+ "facebook/docusaurus": [
+  94911145
+ ],
+ "facebook/lexical": [
+  318341089
+ ],
+ "facebook/react": [
+  10270250
+ ],
+ "facelessuser/pymdown-extensions": [
+  26947860
+ ],
+ "facelessuser/soupsieve": [
+  160789418
+ ],
+ "falconry/falcon": [
+  7040500
+ ],
+ "fastapi/fastapi": [
+  160919119
+ ],
+ "fastapi/typer": [
+  229937405
+ ],
+ "fatedier/frp": [
+  48378947
+ ],
+ "fish-shell/fish-shell": [
+  4279682
+ ],
+ "fitbenchmarking/fitbenchmarking": [
+  126030049
+ ],
+ "fniessink/next-action": [
+  131583406
+ ],
+ "frictionlessdata/frictionless-py": [
+  28409905
+ ],
+ "fsspec/filesystem_spec": [
+  130727736
+ ],
+ "fsspec/universal_pathlib": [
+  311779497
+ ],
+ "gammapy/gammapy": [
+  10073640
+ ],
+ "geopandas/geopandas": [
+  11002815
+ ],
+ "geopython/pygeoapi": [
+  121585259
+ ],
+ "getmoto/moto": [
+  8277372
+ ],
+ "getsentry/responses": [
+  14437755
+ ],
+ "getsentry/sentry-python": [
+  137814779
+ ],
+ "gin-gonic/gin": [
+  20904437
+ ],
+ "gitpython-developers/GitPython": [
+  1126087
+ ],
+ "go-gitea/gitea": [
+  72495579
+ ],
+ "go-gorm/gorm": [
+  13855476
+ ],
+ "gohugoio/hugo": [
+  11180687
+ ],
+ "google/adk-python": [
+  958830659
+ ],
+ "google/cloud-forensics-utils": [
+  238205900
+ ],
+ "google/flax": [
+  233016299
+ ],
+ "google/gson": [
+  32538871
+ ],
+ "google/guava": [
+  20300177
+ ],
+ "google/mobly": [
+  73104945
+ ],
+ "google/secops-wrapper": [
+  929870652
+ ],
+ "google/zx": [
+  364474335
+ ],
+ "googleapis/python-bigquery": [
+  226992475
+ ],
+ "googleapis/python-storage": [
+  226992639
+ ],
+ "graphistry/pygraphistry": [
+  36759907
+ ],
+ "harumiWeb/exstruct": [
+  1109734469
+ ],
+ "hashicorp/terraform": [
+  17728164
+ ],
+ "hdmf-dev/hdmf": [
+  167271700
+ ],
+ "helix-editor/helix": [
+  268424739
+ ],
+ "hiero-ledger/hiero-sdk-python": [
+  870072708
+ ],
+ "holoviz/holoviews": [
+  19542768
+ ],
+ "holoviz/param": [
+  4191817
+ ],
+ "huggingface/datasets": [
+  250213286
+ ],
+ "huggingface/huggingface_hub": [
+  323591830
+ ],
+ "huggingface/transformers": [
+  155220641
+ ],
+ "huggingface/trl": [
+  250510075
+ ],
+ "hylang/hy": [
+  7184072
+ ],
+ "hynek/structlog": [
+  12085960
+ ],
+ "hynek/svcs": [
+  665456447
+ ],
+ "iamkun/dayjs": [
+  128907699
+ ],
+ "ibis-project/ibis": [
+  34139230
+ ],
+ "idaholab/MontePy": [
+  741211308
+ ],
+ "iluvcapra/pycmx": [
+  159726785
+ ],
+ "immutable-js/immutable-js": [
+  21413198
+ ],
+ "ipython/ipython": [
+  658518
+ ],
+ "istio/istio": [
+  74175805
+ ],
+ "itsDNNS/docsight": [
+  1153423690
+ ],
+ "jackdewinter/pymarkdown": [
+  236387810
+ ],
+ "javaparser/javaparser": [
+  2675355
+ ],
+ "jesseduffield/lazygit": [
+  134017286
+ ],
+ "jhy/jsoup": [
+  442430
+ ],
+ "jlowin/fastmcp": [
+  896296825
+ ],
+ "jmcgeheeiv/pyfakefs": [
+  32300547
+ ],
+ "joblib/joblib": [
+  654608
+ ],
+ "joke2k/django-environ": [
+  9171234
+ ],
+ "joke2k/faker": [
+  6662075
+ ],
+ "joshuadavidthomas/django-bird": [
+  860692843
+ ],
+ "jpadilla/pyjwt": [
+  1408162
+ ],
+ "jsonpickle/jsonpickle": [
+  412420
+ ],
+ "junegunn/fzf": [
+  13807606
+ ],
+ "junit-team/junit5": [
+  29102367
+ ],
+ "keras-team/keras": [
+  33015583
+ ],
+ "koxudaxi/datamodel-code-generator": [
+  189179081
+ ],
+ "kubeflow/pipelines": [
+  133100880
+ ],
+ "labstack/echo": [
+  31504491
+ ],
+ "lark-parser/lark": [
+  80946973
+ ],
+ "lincc-frameworks/nested-pandas": [
+  780600289
+ ],
+ "line/line-bot-sdk-python": [
+  70553423
+ ],
+ "linkml/linkml": [
+  348419208
+ ],
+ "litestar-org/advanced-alchemy": [
+  687666119
+ ],
+ "macbre/sql-metadata": [
+  93537184
+ ],
+ "marimo-team/marimo": [
+  678526156
+ ],
+ "markedjs/marked": [
+  2096579
+ ],
+ "marshmallow-code/apispec": [
+  25413181
+ ],
+ "marshmallow-code/marshmallow": [
+  14284859
+ ],
+ "materialsproject/fireworks": [
+  7507548
+ ],
+ "matplotlib/matplotlib": [
+  1385122
+ ],
+ "matrix-org/synapse": [
+  22844864
+ ],
+ "meltano/meltano": [
+  378997214
+ ],
+ "micronaut-projects/micronaut-core": [
+  124230204
+ ],
+ "microsoft/Agents-for-python": [
+  898179892
+ ],
+ "microsoft/Qcodes": [
+  37137879
+ ],
+ "microsoft/TypeScript": [
+  20929025
+ ],
+ "microsoft/fabric-cicd": [
+  898171798
+ ],
+ "microsoft/vscode": [
+  41881900
+ ],
+ "mikedh/trimesh": [
+  11745275
+ ],
+ "milvus-io/pymilvus": [
+  191751505
+ ],
+ "mit-ll-responsible-ai/hydra-zen": [
+  354130346
+ ],
+ "miurahr/aqtinstall": [
+  173458064
+ ],
+ "mkdocs/mkdocs": [
+  15830664
+ ],
+ "mlflow/mlflow": [
+  136202695
+ ],
+ "mlte-team/mlte": [
+  466256706
+ ],
+ "mmornati/home-assistant-csnet-home": [
+  910557136
+ ],
+ "mochajs/mocha": [
+  1451352
+ ],
+ "mockito/mockito": [
+  6207167
+ ],
+ "modelcontextprotocol/python-sdk": [
+  862584018
+ ],
+ "mozilla/bleach": [
+  525316
+ ],
+ "mrdoob/three.js": [
+  576201
+ ],
+ "mui/material-ui": [
+  23083156
+ ],
+ "mwaskom/seaborn": [
+  4704710
+ ],
+ "mwouts/jupytext": [
+  137444487
+ ],
+ "narwhals-dev/narwhals": [
+  760058710
+ ],
+ "nasa/openmct": [
+  36753839
+ ],
+ "nats-io/nats-server": [
+  6443435
+ ],
+ "nektos/act": [
+  163883279
+ ],
+ "neogeny/TatSu": [
+  89985463
+ ],
+ "nesquena/hermes-webui": [
+  1196617276
+ ],
+ "networkx/networkx": [
+  890377
+ ],
+ "newton-physics/newton": [
+  970467647
+ ],
+ "niconoe/pyinaturalist": [
+  152389967
+ ],
+ "nilearn/nilearn": [
+  1235740
+ ],
+ "nolar/kopf": [
+  288234242
+ ],
+ "numba/numba": [
+  3659275
+ ],
+ "nushell/nushell": [
+  186024298
+ ],
+ "nuxt/nuxt": [
+  71995937
+ ],
+ "oOo0oOo/leanclient": [
+  911199421
+ ],
+ "oasis-open/cti-python-stix2": [
+  81590907
+ ],
+ "octodns/octodns": [
+  84977146
+ ],
+ "oemof/tespy": [
+  113834202
+ ],
+ "olofk/fusesoc": [
+  16964283
+ ],
+ "omni-us/jsonargparse": [
+  184562685
+ ],
+ "omry/omegaconf": [
+  147219819
+ ],
+ "open-telemetry/opentelemetry-python": [
+  185478926
+ ],
+ "openai/openai-agents-python": [
+  946380199
+ ],
+ "opsmill/infrahub": [
+  528799794
+ ],
+ "optuna/optuna": [
+  122299416
+ ],
+ "pab1it0/prometheus-mcp-server": [
+  951416232
+ ],
+ "packit/packit": [
+  156365951
+ ],
+ "palantir/blueprint": [
+  71939872
+ ],
+ "pallets-eco/wtforms": [
+  12745150
+ ],
+ "pallets/click": [
+  19103692
+ ],
+ "pallets/flask": [
+  596892
+ ],
+ "pallets/jinja": [
+  994551
+ ],
+ "pandas-dev/pandas": [
+  858127
+ ],
+ "pasqal-io/Pulser": [
+  294159001
+ ],
+ "payloadcms/payload": [
+  327089870
+ ],
+ "pdm-project/pdm": [
+  230369286
+ ],
+ "peterbe/hashin": [
+  50450913
+ ],
+ "pgmpy/pgmpy": [
+  12968651
+ ],
+ "pika/pika": [
+  342869
+ ],
+ "pipecat-ai/pipecat": [
+  736272311
+ ],
+ "piskvorky/smart_open": [
+  28713483
+ ],
+ "planetlabs/planet-client-python": [
+  37222273
+ ],
+ "plone/cookieplone-templates": [
+  797267816
+ ],
+ "pre-commit/pre-commit": [
+  17689377
+ ],
+ "pre-commit/pre-commit-hooks": [
+  17714713
+ ],
+ "preactjs/preact": [
+  42283287
+ ],
+ "prettier/prettier": [
+  75104123
+ ],
+ "probabl-ai/skore": [
+  816360433
+ ],
+ "projectlombok/lombok": [
+  221862
+ ],
+ "prometheus/client_python": [
+  30618733
+ ],
+ "prometheus/prometheus": [
+  6838921
+ ],
+ "provectus/kafka-ui": [
+  224230574
+ ],
+ "psd-tools/psd-tools": [
+  6210553
+ ],
+ "psf/black": [
+  125266328
+ ],
+ "psf/requests": [
+  1362490
+ ],
+ "py-pdf/pdfly": [
+  479840531
+ ],
+ "pybamm-team/PyBaMM": [
+  155538761
+ ],
+ "pyccel/pyccel": [
+  100463736
+ ],
+ "pydantic/pydantic": [
+  90194616
+ ],
+ "pydap/pydap": [
+  10464231
+ ],
+ "pydata/sparse": [
+  88426738
+ ],
+ "pydata/xarray": [
+  13221727
+ ],
+ "pydicom/pydicom": [
+  14006067
+ ],
+ "pydicom/pynetdicom": [
+  69436608
+ ],
+ "pydy/pydy": [
+  12165060
+ ],
+ "pyfar/pyrato": [
+  294441447
+ ],
+ "pyinfra-dev/pyinfra": [
+  25437858
+ ],
+ "pyjanitor-devs/pyjanitor": [
+  123836190
+ ],
+ "pylint-dev/pylint": [
+  47671127
+ ],
+ "pymc-devs/pytensor": [
+  561311177
+ ],
+ "pypa/build": [
+  262827329
+ ],
+ "pypa/pip": [
+  1446467
+ ],
+ "pypa/setuptools": [
+  54980593
+ ],
+ "pypa/twine": [
+  12085555
+ ],
+ "pypa/virtualenv": [
+  1446474
+ ],
+ "pytest-dev/pyfakefs": [
+  32300547
+ ],
+ "pytest-dev/pytest": [
+  37489525
+ ],
+ "python-attrs/attrs": [
+  29918975
+ ],
+ "python-cmd2/cmd2": [
+  51442999
+ ],
+ "python-pillow/Pillow": [
+  5171600
+ ],
+ "python-poetry/poetry": [
+  123303402
+ ],
+ "python-scim/scim2-models": [
+  805020652
+ ],
+ "python-trio/trio": [
+  79083614
+ ],
+ "python-wheel-build/fromager": [
+  808690091
+ ],
+ "python/mypy": [
+  7053637
+ ],
+ "pytorch/ignite": [
+  111835796
+ ],
+ "pyvista/pyvista": [
+  92974124
+ ],
+ "qiboteam/qibo": [
+  241307936
+ ],
+ "radiocosmology/alpenhorn": [
+  84382689
+ ],
+ "raullenchai/Rapid-MLX": [
+  1166182351
+ ],
+ "react-hook-form/react-hook-form": [
+  174038031
+ ],
+ "reactivex/rxjava": [
+  7508411
+ ],
+ "reata/sqllineage": [
+  187850745
+ ],
+ "reduxjs/redux": [
+  36535156
+ ],
+ "reframe-hpc/reframe": [
+  89384186
+ ],
+ "regionmask/regionmask": [
+  63765507
+ ],
+ "regro/regolith": [
+  41056896
+ ],
+ "remix-run/react-router": [
+  19872456
+ ],
+ "repobee/repobee": [
+  137509687
+ ],
+ "rjsf-team/react-jsonschema-form": [
+  48117679
+ ],
+ "run-llama/llama_index": [
+  560704231
+ ],
+ "rusqlite/rusqlite": [
+  26177824
+ ],
+ "rust-lang/mdBook": [
+  38655056
+ ],
+ "rwth-i6/returnn": [
+  61130280
+ ],
+ "sanic-org/sanic": [
+  59720190
+ ],
+ "schemathesis/schemathesis": [
+  203157084
+ ],
+ "scientific-python/docstub": [
+  793560737
+ ],
+ "scikit-learn/scikit-learn": [
+  843222
+ ],
+ "scikit-rf/scikit-rf": [
+  3218028
+ ],
+ "scipp/plopp": [
+  528859752
+ ],
+ "scipy/scipy": [
+  1460385
+ ],
+ "sciunto-org/python-bibtexparser": [
+  7460583
+ ],
+ "scrapy/scrapy": [
+  529502
+ ],
+ "sdv-dev/SDV": [
+  133060053
+ ],
+ "serde-rs/serde": [
+  14367737
+ ],
+ "serverless/serverless": [
+  34302698
+ ],
+ "sharkdp/bat": [
+  130464961
+ ],
+ "sharkdp/fd": [
+  90793418
+ ],
+ "sigma67/ytmusicapi": [
+  241472873
+ ],
+ "sigstore/sigstore-python": [
+  447691086
+ ],
+ "sindresorhus/ky": [
+  147375544
+ ],
+ "sissbruecker/linkding": [
+  194212327
+ ],
+ "skrub-data/skrub": [
+  124964482
+ ],
+ "sktime/sktime": [
+  156401841
+ ],
+ "skypilot-org/skypilot": [
+  395140743
+ ],
+ "spacetelescope/jwst": [
+  60551519
+ ],
+ "spack/spack": [
+  15730865
+ ],
+ "spf13/cobra": [
+  12574344
+ ],
+ "sphinx-doc/sphinx": [
+  28710753
+ ],
+ "spotbugs/spotbugs": [
+  72889410
+ ],
+ "sqlalchemy/sqlalchemy": [
+  159271175
+ ],
+ "sqlfluff/sqlfluff": [
+  155790228
+ ],
+ "stanfordnlp/dspy": [
+  587050620
+ ],
+ "statsmodels/statsmodels": [
+  1885237
+ ],
+ "stellarmesh/stellarmesh": [
+  690796699
+ ],
+ "stfc/fparser": [
+  78751939,
+  40242948,
+  40242948
+ ],
+ "strands-agents/sdk-python": [
+  983715534
+ ],
+ "stravalib/stravalib": [
+  8828908
+ ],
+ "streamlink/streamlink": [
+  68402336
+ ],
+ "streamlit/streamlit": [
+  204086862
+ ],
+ "sunpy/sunpy": [
+  2165383
+ ],
+ "sveltejs/svelte": [
+  74293321
+ ],
+ "swagger-api/swagger-ui": [
+  2055965
+ ],
+ "sympy/sympy": [
+  640534
+ ],
+ "syncthing/syncthing": [
+  14712850
+ ],
+ "tailwindlabs/tailwindcss": [
+  106017343
+ ],
+ "terrapower/armi": [
+  218863590
+ ],
+ "tinosulzer/PyBaMM": [
+  178003670,
+  155538761,
+  155538761
+ ],
+ "tj/commander.js": [
+  2206953
+ ],
+ "tobymao/sqlglot": [
+  347277349
+ ],
+ "tokio-rs/axum": [
+  372172254
+ ],
+ "tokio-rs/bytes": [
+  30062547
+ ],
+ "tokio-rs/tokio": [
+  67836789
+ ],
+ "tokio-rs/tracing": [
+  165289175
+ ],
+ "tornadoweb/tornado": [
+  301742
+ ],
+ "tox-dev/sphinx-autodoc-typehints": [
+  42892576
+ ],
+ "tox-dev/tox": [
+  68465360
+ ],
+ "travisghansen/hass-opnsense": [
+  427706888
+ ],
+ "trinodb/trino": [
+  166515022
+ ],
+ "trpc/trpc": [
+  280557054
+ ],
+ "tskit-dev/tskit": [
+  120805786
+ ],
+ "twisted/towncrier": [
+  48647797
+ ],
+ "twisted/twisted": [
+  1985358
+ ],
+ "ucfopen/canvasapi": [
+  73851042
+ ],
+ "unit8co/darts": [
+  148657183
+ ],
+ "uutils/coreutils": [
+  11847500
+ ],
+ "vitejs/vite": [
+  257485422
+ ],
+ "vndee/llm-sandbox": [
+  820723371
+ ],
+ "vprusso/toqito": [
+  235493396
+ ],
+ "vuejs/core": [
+  137078487
+ ],
+ "vyperlang/vyper": [
+  73461676
+ ],
+ "wemake-services/wemake-python-styleguide": [
+  124593057
+ ],
+ "xCDAT/xcdat": [
+  354103918
+ ],
+ "xonsh/xonsh": [
+  29620400
+ ],
+ "youssofal/MTPLX": [
+  1226911245
+ ],
+ "yt-dlp/yt-dlp": [
+  307260205
+ ],
+ "yt-project/unyt": [
+  127202410
+ ],
+ "yukinarit/pyserde": [
+  160464105
+ ],
+ "zalando-stups/senza": [
+  33120392
+ ],
+ "zarr-developers/VirtualiZarr": [
+  769309278
+ ],
+ "zarr-developers/zarr-python": [
+  48049137
+ ],
+ "zauberzeug/nicegui": [
+  365250183
+ ],
+ "zeromicro/go-zero": [
+  285864199
+ ],
+ "zopefoundation/zope.interface": [
+  7491085
+ ],
+ "zopefoundation/zope.schema": [
+  7491428
+ ],
+ "zulip/zulip-terminal": [
+  122704772
+ ],
+ "zwicker-group/py-pde": [
+  242093001
+ ]
+}

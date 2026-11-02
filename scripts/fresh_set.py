@@ -101,11 +101,9 @@ def cmd_exclusions(_: argparse.Namespace) -> int:
 
 
 def cmd_projects(args: argparse.Namespace) -> int:
-    excluded = {
-        i
-        for ids in json.loads((DATA / "excluded.json").read_text(encoding="utf-8")).values()
-        for i in ids
-    }
+    known = json.loads((DATA / "excluded.json").read_text(encoding="utf-8"))
+    excluded = {i for ids in known.values() for i in ids}
+    excluded_names = {name.lower() for name in known}
     chosen = []
     for lang, label in LANGUAGES.items():
         q = urllib.parse.quote(
@@ -119,7 +117,11 @@ def cmd_projects(args: argparse.Namespace) -> int:
             for r in items:
                 if picked >= args.per_language:
                     break
-                if r["id"] in excluded or not r.get("has_issues"):
+                if (
+                    r["id"] in excluded
+                    or r["full_name"].lower() in excluded_names
+                    or not r.get("has_issues")
+                ):
                     continue
                 chosen.append(
                     {
