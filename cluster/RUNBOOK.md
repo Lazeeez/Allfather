@@ -92,3 +92,15 @@ sbatch --gres=gpu:1 --time=2:00:00 --export=ALL,TAG=embed-small,DATA=fresh,MODEL
 ```
 
 Bring `out/fresh-<tag>/results.json` back and run `uv run python scripts/swerank_import.py --set fresh --system swerank-<tag> --model <model@revision> --results <file>`. The LLM rerankers still read SWE-bench Lite's layout through the authors' scripts and are not wired to fresh-2026 yet.
+
+## Models on node-local disk
+
+Compute nodes have no internet and about 1 TB of local disk in `$TMPDIR`, wiped when the job ends; scratch (300 GB quota) is slower network storage. So every model has one permanent copy on scratch and is copied to local disk at the start of each job by `cluster/stage_models.sh`, which checks free space first and points `HF_HOME` at the copy (offline). Download each model once, on the login node:
+
+```bash
+export HF_HOME=$HOME/scratch/odin-cache/huggingface
+huggingface-cli download Salesforce/SweRankEmbed-Large --revision b2cbc7dd3a2aed8c268fa65673464cd5ad96f9ff
+huggingface-cli download Salesforce/SweRankEmbed-Small --revision 745d2a06103a66d3cfa600aa52fc0d3523010daa
+```
+
+A job script stages what it needs with `. "$HOME/scratch/Odin/cluster/stage_models.sh"` and `stage_models <repo id> [...]`. Results are written straight to scratch, so nothing is lost when local disk is wiped.

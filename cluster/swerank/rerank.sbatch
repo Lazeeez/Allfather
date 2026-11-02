@@ -1,7 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 SW="$HOME/scratch/swerank"
-export HF_HOME="$HOME/scratch/odin-cache/huggingface" HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
+export HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
+. "$HOME/scratch/Odin/cluster/stage_models.sh"
 export PYTHONUTF8=1 PYTHONPATH="$SW/repo/src" NCCL_P2P_DISABLE=1 VLLM_WORKER_MULTIPROC_METHOD=spawn
 PY="$SW/env/bin/python"
 OUT="$SW/out/rerank-$RTAG"
@@ -10,6 +11,7 @@ DATA_TYPE="SweRankEmbed-Large_$RTAG"
 mkdir -p "$OUT"
 stamp() { echo "[$(date +%T)] $*"; }
 nvidia-smi -L
+stage_models "$RERANKER"
 MODEL_PATH="$("$PY" -c "from huggingface_hub import snapshot_download; print(snapshot_download('$RERANKER', revision='$REVISION'))")"
 stamp "reranking $RETRIEVED with $RERANKER at $REVISION"
 cd "$SW/repo"

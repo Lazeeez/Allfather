@@ -2,7 +2,8 @@
 set -euo pipefail
 SW="$HOME/scratch/swerank"
 REPO="$HOME/scratch/Odin"
-export HF_HOME="$HOME/scratch/odin-cache/huggingface" HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
+export HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
+. "$HOME/scratch/Odin/cluster/stage_models.sh"
 export PYTHONUTF8=1 PYTHONPATH="$SW/repo/src"
 PY="$SW/env/bin/python"
 OUT="$SW/out/$TAG"
@@ -10,6 +11,7 @@ mkdir -p "$OUT"
 stamp() { echo "[$(date +%T)] $*"; }
 nvidia-smi -L
 cd "$SW/repo"
+stage_models "$MODEL"
 stamp "retrieving with $MODEL ($MODE) over $DATA"
 if [ "$MODE" = "authors" ]; then
   "$PY" src/eval_beir_sbert_canonical.py --dataset_dir "$SW/$DATA" --dataset swe-bench-lite \
