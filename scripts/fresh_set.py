@@ -191,9 +191,15 @@ def cmd_mine(args: argparse.Namespace) -> int:
                 f"repo:{repo} is:pr is:merged merged:{args.created_after}..{args.until}"
             )
             try:
-                items = github(f"/search/issues?q={q}&per_page=100&sort=created&order=asc").get(
-                    "items", []
-                )
+                items = []
+                for page in range(1, 11):
+                    batch = github(
+                        f"/search/issues?q={q}&per_page=100&sort=created&order=asc&page={page}"
+                    ).get("items", [])
+                    items += batch
+                    if len(batch) < 100:
+                        break
+                    time.sleep(2.5)
             except RateLimited:
                 print("rate limited; run again to resume", flush=True)
                 return 1
