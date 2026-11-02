@@ -81,6 +81,7 @@ def main() -> int:
     ap.add_argument("--cache", type=Path, required=True)
     ap.add_argument("--results_file", type=Path, required=True)
     ap.add_argument("--only", type=Path, help="a file listing the instance folders to run")
+    ap.add_argument("--prefix", default="swe-bench-lite-function_")
     args = ap.parse_args()
     if args.results_file.exists():
         sys.exit(f"{args.results_file} exists; results are never overwritten")
@@ -91,9 +92,7 @@ def main() -> int:
     model.max_seq_length = args.sequence_length
     cache = Cache(args.cache, model.get_sentence_embedding_dimension())
 
-    folders = sorted(
-        f for f in os.listdir(args.dataset_dir) if f.startswith("swe-bench-lite-function_")
-    )
+    folders = sorted(f for f in os.listdir(args.dataset_dir) if f.startswith(args.prefix))
     if args.only:
         wanted = set(args.only.read_text(encoding="utf-8").split())
         folders = [f for f in folders if f in wanted]
@@ -137,6 +136,11 @@ def main() -> int:
             elapsed = time.perf_counter() - started
             print(n, len(folders), len(cache.rows), f"{elapsed:.0f}s", flush=True)
 
+    if args.prefix != "swe-bench-lite-function_":
+        args.results_file.parent.mkdir(parents=True, exist_ok=True)
+        args.results_file.write_text(json.dumps(top_docs), encoding="utf-8")
+        print(f"wrote {args.results_file}")
+        return 0
     dataset = load_dataset("princeton-nlp/SWE-bench_Lite")["test"]
     dataset = dataset.add_column("docs", [top_docs.get(i, []) for i in dataset["instance_id"]])
     args.results_file.parent.mkdir(parents=True, exist_ok=True)

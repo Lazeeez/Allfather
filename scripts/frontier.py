@@ -447,7 +447,7 @@ def cmd_score(args: argparse.Namespace) -> int:
             f"{path.stem:28} n={summary['n']}  hit@1 {summary['hit@1']:.2f}  hit@5 {summary['hit@5']:.2f}  hit@10 {summary['hit@10']:.2f}  "
             f"all@10 {summary['all@10']:.2f}  MRR {summary['mrr']:.2f}  no answer {sum(1 for r in rows if not unit_ids(r.get('answer')))}  "
             f"web {sum(1 for r in rows if r.get('web_tool_used'))}  mean cost {sum(costs) / len(costs) if costs else float('nan'):.3f} USD  "
-            f"mean time {sum(r['seconds'] for r in rows) / len(rows):.0f} s"
+            f"mean time {sum(r.get('seconds') or 0 for r in rows) / len(rows):.0f} s"
         )
     return 0
 

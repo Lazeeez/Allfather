@@ -81,3 +81,14 @@ A manifest's `environment.with` lists packages that replace the locked ones for 
 
 - Apptainer definitions for the SWE-bench evaluation images (phase 7).
 - vLLM serving for the larger rerankers and agents (phases 11 and 6).
+
+## fresh-2026 with SweRank's retrievers (ADR 0033, tier T1)
+
+On the laptop, after the set is sealed: `uv run python scripts/swerank_export.py --set fresh --out ../swerank-fresh`, then copy `../swerank-fresh` to `$HOME/scratch/swerank/fresh` on PACE. Models must already be in the Hugging Face cache (compute nodes are offline); fetch them on the login node first.
+
+```bash
+sbatch --gres=gpu:1 --time=4:00:00 --export=ALL,TAG=embed-large,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Large,REVISION=<pinned revision> cluster/swerank/retrieve_fresh.sbatch
+sbatch --gres=gpu:1 --time=2:00:00 --export=ALL,TAG=embed-small,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Small,REVISION=745d2a06103a66d3cfa600aa52fc0d3523010daa cluster/swerank/retrieve_fresh.sbatch
+```
+
+Bring `out/fresh-<tag>/results.json` back and run `uv run python scripts/swerank_import.py --set fresh --system swerank-<tag> --model <model@revision> --results <file>`. The LLM rerankers still read SWE-bench Lite's layout through the authors' scripts and are not wired to fresh-2026 yet.
