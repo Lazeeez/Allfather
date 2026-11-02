@@ -98,3 +98,9 @@ Result: [heldout_heldout.json](../../results/website-rerank/heldout_heldout.json
 | The 30 unseen projects | 747 | 76.6% | 79.3% | +2.7 points, [1.1, 4.3], p = 0.002; 30 better, 10 worse | +7.4, [4.6, 10.2], p < 0.001 |
 
 The cross-validated gain (+2.6 points) holds on projects nothing was trained on, and is larger on Lite.
+
+## Amendment, 2026-11-02: Python only
+
+Every number above is on Python bugs, and the adapters were trained on Python only. Until today the site still sent the top 50 of any language to the server, so in Go, Java, JavaScript, TypeScript and Rust it ran a step nobody had measured. An audit of the site's claims found this. The browser now asks the server only when most of the 50 functions it would send are Python (`forServer` in `web/src/engine/server.ts`, with tests); otherwise it keeps the browser's ranking and says why. Measuring the reranker on other languages would need a held-out run of its own, and none is planned.
+
+The p-values in this ADR came from the paired bootstrap's sign flips. The site and README now use a paired randomization test, exact on yes/no outcomes: the held-out hit@10 gains are p = 0.0001 (Lite) and p = 0.002 (unseen), and the cross-validated one is still p < 0.001.

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { blend, ServerUnavailable, serverScores } from "../src/engine/server.ts";
+import { blend, forServer, ServerUnavailable, serverScores } from "../src/engine/server.ts";
 import cases from "./server-blend.json";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -39,5 +39,21 @@ describe("GPU reranker call", () => {
     await expect(serverScores("/rerank", "q", ["a", "b"])).rejects.toMatchObject({ permanent: false });
     vi.stubGlobal("fetch", vi.fn(async () => { throw new TypeError("network"); }));
     await expect(serverScores("/rerank", "q", ["a", "b"])).rejects.toBeInstanceOf(ServerUnavailable);
+  });
+});
+
+describe("which searches go to the GPU reranker", () => {
+  it("sends a list whose top functions are mostly Python", () => {
+    expect(forServer(["a.py", "b.py", "c.ts"])).toBe(true);
+  });
+
+  it("keeps other languages in the browser, since the reranker was trained on Python only", () => {
+    expect(forServer(["src/a.ts", "src/b.go", "lib/c.py"])).toBe(false);
+    expect(forServer(["a.py", "b.java"])).toBe(false);
+    expect(forServer([])).toBe(false);
+  });
+
+  it("decides on the 50 functions the server would re-read", () => {
+    expect(forServer([...Array(50).fill("a.py"), ...Array(200).fill("b.rs")])).toBe(true);
   });
 });

@@ -70,6 +70,7 @@ export type FromWorker =
   | { type: "model-ready"; backend: Backend }
   | { type: "semantic-error"; id: number; message: string }
   | { type: "server-start"; id: number }
+  | { type: "server-skip"; id: number }
   | { type: "server-error"; id: number; message: string; permanent: boolean }
   /** Every indexed file with its number of functions and classes, for the repository map. */
   | { type: "map"; files: [path: string, units: number][] };

@@ -137,6 +137,12 @@ export function useSearchWorker() {
           setServer("Re-reading the top 50 with the GPU reranker…");
         }
         return;
+      case "server-skip":
+        if (msg.id === seq.current) {
+          setServerSince(null);
+          setServer("The GPU reranker was trained on Python code only, so for this repository the ranking stays in your browser.");
+        }
+        return;
       case "server-error":
         if (msg.permanent) setServerReady(false);
         if (msg.id === seq.current) {

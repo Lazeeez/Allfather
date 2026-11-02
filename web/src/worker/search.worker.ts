@@ -8,7 +8,7 @@ import { type Listing, type LoadedRepo, LoadError, type Parsing, type RepoCache,
 import { type Candidate, explain, type FileCandidate, type RankerModel, rankFiles, rankUnits, rerankStage, type Similarity, type Stage, signals } from "../engine/rank.ts";
 import { issueFields } from "../engine/mentions.ts";
 import { type Embed, SEMANTIC, unitText } from "../engine/semantic.ts";
-import { blend, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
+import { blend, forServer, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
 import { confidence, confidenceFeatures, type ConfidenceModel } from "../engine/confidence.ts";
 import { embedText, parseStaticModel, type StaticModel } from "../engine/static.ts";
 import type { Unit } from "../engine/types.ts";
@@ -347,7 +347,9 @@ async function search(id: number, query: string, semantic: boolean, server: bool
   });
   // The rerank stage was trained on the semantic stage's candidates.
   if (!semantic || !model.rerank || !semanticStage || ranked.candidates.length < 2) return;
-  const gpu = server && rerankServer ? askServer(id, query, ranked.candidates) : null;
+  const python = forServer(ranked.candidates.map((c) => c.unit.path));
+  if (server && rerankServer && !python) post({ type: "server-skip", id });
+  const gpu = server && rerankServer && python ? askServer(id, query, ranked.candidates) : null;
   if (gpu && SERVER.skipLanguageModel && ((await serverStage(id, gpu, stage, ranked.candidates, files, ranked.terms, k, sure)) || id !== state.latest)) return;
   let final = ranked.candidates;
   let finalStage: Stage = stage;
