@@ -104,9 +104,17 @@ function Trend({ history }: { history: NonNullable<LiveSummary["history"]> }) {
   useEffect(() => {
     const el = figure.current;
     if (!el || typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(([entry]) => setW(Math.max(280, Math.round(entry.contentRect.width))));
+    let frame = 0;
+    const observer = new ResizeObserver(([entry]) => {
+      const next = Math.max(280, Math.round(entry.contentRect.width));
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => setW((prev) => (prev === next ? prev : next)));
+    });
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
   }, []);
   const points = history.filter((h) => h.last_30_days.function);
   if (points.length < 2) return null;
