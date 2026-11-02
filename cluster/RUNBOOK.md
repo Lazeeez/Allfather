@@ -87,7 +87,7 @@ A manifest's `environment.with` lists packages that replace the locked ones for 
 On the laptop, after the set is sealed: `uv run python scripts/swerank_export.py --set fresh --out ../swerank-fresh`, then copy `../swerank-fresh` to `$HOME/scratch/swerank/fresh` on PACE. Models must already be in the Hugging Face cache (compute nodes are offline); fetch them on the login node first.
 
 ```bash
-sbatch --gres=gpu:1 --time=4:00:00 --export=ALL,TAG=embed-large,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Large,REVISION=<pinned revision> cluster/swerank/retrieve_fresh.sbatch
+sbatch --gres=gpu:1 --time=4:00:00 --export=ALL,TAG=embed-large,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Large,REVISION=b2cbc7dd3a2aed8c268fa65673464cd5ad96f9ff cluster/swerank/retrieve_fresh.sbatch
 sbatch --gres=gpu:1 --time=2:00:00 --export=ALL,TAG=embed-small,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Small,REVISION=745d2a06103a66d3cfa600aa52fc0d3523010daa cluster/swerank/retrieve_fresh.sbatch
 ```
 
