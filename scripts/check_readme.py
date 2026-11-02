@@ -471,13 +471,13 @@ def main() -> int:
     check_browser(found["In the browser, on projects it never saw"], report)
     check_languages(found["In the browser, in other languages"], report)
     check_retrievers(found["Every retriever"], report)
-    check_steps(
-        found[
-            "What each step bought (paired bootstrap, function level, "
-            "291 issues: 300 minus 9 module-level-only)"
-        ],
-        report,
+    steps_heading = next(
+        (heading for heading in found if heading.startswith("What each step bought (")),
+        None,
     )
+    if steps_heading is None:
+        raise KeyError("What each step bought (...)")
+    check_steps(found[steps_heading], report)
     check_per_repo(found["Evaluation methodology"], report)
     check_performance(found["Performance"], text, report)
     check_dense_costs(text, report)
