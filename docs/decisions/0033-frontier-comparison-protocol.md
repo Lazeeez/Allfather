@@ -111,3 +111,10 @@ The owner has Claude Pro (with Claude Opus 5.5) and a Gemini plan (with Gemini 3
 
 - **E1** ([results/research/e1_grouped_cv.json](../../results/research/e1_grouped_cv.json)): with whole projects as folds, function hit@10 is 80.4% (five folds) and 80.5% (one project per fold) against 81.0% with issue folds; no difference is significant after Holm's correction, and file level does not move. Issue-grouped cross-validation is not materially optimistic here.
 - **E3** ([results/research/e3_hint_strata.json](../../results/research/e3_hint_strata.json)): on SWE-bench Lite, when the report names a function the fix changes (98 of 291), every learned system finds one in its top 10 93 to 98% of the time; when it names nothing the fix touches (161), allfather-fast finds 71% and SweRankLLM-Large 84%. The frontier's lead is concentrated where the report gives no clue.
+
+## Amendment, 2026-11-02: what Gemini can run
+
+- **The owner's Google AI Plus plan cannot be used.** Gemini CLI stopped serving personal accounts on 2026-06-18 and sends them to Antigravity CLI. Whether Antigravity CLI may be driven by scripts on a consumer plan is unresolved on Google's own forum, and it documents no way to switch off web tools, so it is not used. AI Plus includes no Gemini API credits.
+- **The free tier of the Gemini API is used instead,** through Gemini CLI with the owner's API key. `scripts/frontier.py` refuses to run Gemini unless the key is confirmed free-tier (Gemini 3.1 Pro must be refused under a free-tier quota), so no Gemini run can be billed.
+- **Gemini 3.1 Pro is not on the free tier,** so the Gemini system is Gemini 3.8 Flash, the strongest model the free tier serves on 2026-11-02, and is reported as such, not as Google's frontier model.
+- **The free tier allows 20 requests a day for Gemini 3.8 Flash.** An agent run on one development issue used the whole day, so T4 cannot run on Gemini for free. Gemini runs as T3 only (one request per bug, no tools) on the 200-bug agent subsample, about ten days at the limit. Claude Code remains the T4 agent.

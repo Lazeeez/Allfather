@@ -24,6 +24,8 @@ import subprocess
 import sys
 import tarfile
 import time
+import urllib.error
+import urllib.request
 from datetime import UTC, datetime
 from io import BytesIO
 from pathlib import Path
@@ -207,7 +209,15 @@ def gemini(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
             "search_file_content",
             "grep",
         ]
-    settings.write_text(json.dumps({"tools": {"exclude": exclude}}), encoding="utf-8")
+    settings.write_text(
+        json.dumps(
+            {
+                "tools": {"exclude": exclude},
+                "security": {"auth": {"selectedType": "gemini-api-key"}},
+            }
+        ),
+        encoding="utf-8",
+    )
     command = [
         *GEMINI,
         "-p",
@@ -221,9 +231,15 @@ def gemini(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
         "--skip-trust",
     ]
     done = launch(
-        command, prompt, cwd, ("GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_GENAI_USE_VERTEXAI")
+        command,
+        prompt,
+        cwd,
+        ("GOOGLE_API_KEY", "GOOGLE_GENAI_USE_VERTEXAI", "GOOGLE_CLOUD_PROJECT"),
     )
-    data = json.loads(done.stdout[done.stdout.find("{") :])
+    data = last_json(done.stdout) or last_json(done.stderr) or {}
+    error = data.get("error") or {}
+    if "quota" in str(error.get("message", "")).lower() or "free_tier_requests" in done.stderr:
+        raise QuotaExhausted(str(error.get("message") or "free-tier quota exhausted"))
     stats = data.get("stats", {})
     tools = sorted((stats.get("tools", {}) or {}).get("byName", {}) or {})
     return {
@@ -250,12 +266,50 @@ def parse_answer(text: str) -> dict | None:
 SYSTEMS = {
     "claude-agent": (claude, "opus", True),
     "claude-single": (claude, "opus", False),
-    "gemini-agent": (gemini, "gemini-3.1-pro-preview", True),
-    "gemini-single": (gemini, "gemini-3.1-pro-preview", False),
+    "gemini-agent": (gemini, "gemini-3.8-flash", True),
+    "gemini-single": (gemini, "gemini-3.8-flash", False),
 }
 
 
+class QuotaExhausted(RuntimeError):
+    pass
+
+
+def last_json(text: str) -> dict | None:
+    for start in [
+        i for i, c in enumerate(text or "") if c == "{" and (i == 0 or text[i - 1] == "\n")
+    ][::-1]:
+        try:
+            return json.loads(text[start:])
+        except json.JSONDecodeError:
+            continue
+    return None
+
+
+def free_tier_only() -> bool:
+    request = urllib.request.Request(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-pro-preview:generateContent",
+        data=json.dumps(
+            {"contents": [{"parts": [{"text": "ok"}]}], "generationConfig": {"maxOutputTokens": 1}}
+        ).encode(),
+        headers={
+            "x-goog-api-key": os.environ.get("GEMINI_API_KEY", ""),
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        urllib.request.urlopen(request, timeout=60).read()
+    except urllib.error.HTTPError as exc:
+        return exc.code == 429 and "FreeTier" in exc.read().decode("utf-8", "replace")
+    return False
+
+
 def cmd_run(args: argparse.Namespace) -> int:
+    if args.system.startswith("gemini") and not args.allow_billing and not free_tier_only():
+        sys.exit(
+            "GEMINI_API_KEY is not limited to the free tier (a paid model answered); pass --allow-billing to run anyway"
+        )
     issues = json.loads((OUT / f"{args.set}_issues.json").read_text(encoding="utf-8"))["issues"]
     text = {i.instance_id: i for i in load_instances("verified", "test")}
     gold = gold_rows()
@@ -281,6 +335,9 @@ def cmd_run(args: argparse.Namespace) -> int:
             start = time.perf_counter()
             try:
                 record = runner(prompt, cwd, model, agent)
+            except QuotaExhausted as exc:
+                print(f"  stopped: {exc}", flush=True)
+                break
             except subprocess.TimeoutExpired:
                 record = {"answer": None, "error": f"timed out after {TIMEOUT_S} s"}
             except (json.JSONDecodeError, subprocess.CalledProcessError) as exc:
@@ -362,6 +419,7 @@ def main() -> int:
     rn.add_argument("--model")
     rn.add_argument("--limit", type=int, default=0)
     rn.add_argument("--keep", action="store_true")
+    rn.add_argument("--allow-billing", action="store_true")
     sc = sub.add_parser("score")
     sc.add_argument("--set", required=True)
     args = ap.parse_args()
