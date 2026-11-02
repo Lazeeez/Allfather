@@ -94,3 +94,20 @@ Every RQ has a publishable negative outcome: the frontier is far ahead even on c
 ## What this replaces
 
 Nothing is retracted. Lite and the spent holdout remain as reported, with their caveats; fresh-2026 becomes the test set for every claim in this study.
+
+## Amendment, 2026-11-02: subscriptions instead of paid APIs
+
+The owner has Claude Pro (with Claude Opus 5.5) and a Gemini plan (with Gemini 3.1 Pro), so tiers T3 and T4 run through the vendors' own command-line tools instead of paid APIs: Claude Code 2.1.316 and Gemini CLI 0.66.0, signed in with those accounts. Scripting the vendors' web chat is not used. `scripts/frontier.py` runs them:
+
+- **T4, agents:** Claude Code with only its Read, Grep and Glob tools; Gemini CLI in its read-only plan mode with web search, web fetch, shell and editing tools excluded. Each run records the tools it used, and a run that used a web tool is flagged and not scored.
+- **T3, one call:** the same tools with every tool removed, given the bug report and the repository's list of source files.
+- **Checkout:** the repository is exported at the base commit with `git archive`, so there is no history at all; the run's working directory is that export.
+- **Billing:** API-key variables (`ANTHROPIC_API_KEY`, `GEMINI_API_KEY` and the like) are removed from each tool's environment, so a run can only use the subscription sign-in and never a pay-per-use key.
+- **Cost:** subscriptions are not billed per run, so RQ2 uses the list-price cost each tool reports (Claude Code's `total_cost_usd`) or the token counts it reports priced at the vendor's list price on the run date, and says so.
+- **Pace:** subscription limits spread the runs over days; every record carries its date and the model that answered.
+- **T2** (commercial embedding and rerank APIs) is not covered by either plan and is dropped unless the owner funds it.
+
+## Development results
+
+- **E1** ([results/research/e1_grouped_cv.json](../../results/research/e1_grouped_cv.json)): with whole projects as folds, function hit@10 is 80.4% (five folds) and 80.5% (one project per fold) against 81.0% with issue folds; no difference is significant after Holm's correction, and file level does not move. Issue-grouped cross-validation is not materially optimistic here.
+- **E3** ([results/research/e3_hint_strata.json](../../results/research/e3_hint_strata.json)): on SWE-bench Lite, when the report names a function the fix changes (98 of 291), every learned system finds one in its top 10 93 to 98% of the time; when it names nothing the fix touches (161), allfather-fast finds 71% and SweRankLLM-Large 84%. The frontier's lead is concentrated where the report gives no clue.

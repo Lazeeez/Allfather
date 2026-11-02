@@ -1,0 +1,17 @@
+{
+ "set": "pilot",
+ "source": "SWE-bench Verified minus Lite (development)",
+ "seed": 0,
+ "issues": [
+  "django__django-10973",
+  "django__django-15280",
+  "django__django-15973",
+  "django__django-17029",
+  "matplotlib__matplotlib-24026",
+  "matplotlib__matplotlib-25960",
+  "pallets__flask-5014",
+  "pylint-dev__pylint-4551",
+  "pylint-dev__pylint-6528",
+  "pytest-dev__pytest-7205"
+ ]
+}
