@@ -1,5 +1,7 @@
 # Plan
 
+**Research reopened, 2026-11-02.** The track stopped by [ADR 0032](docs/decisions/0032-freeze-allfather-fast.md) is reopened as a Georgia Tech special problems project. The study and its rules are fixed in [ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md): allfather-fast against the industry frontier (open retrievers, commercial retrieval APIs, a frontier LLM and frontier coding agents) on fresh-2026, a new sealed set of bugs filed after every compared model's training cutoff, with cost and a calibrated escalation gate. Paid tiers wait for the owner's approval (rule 11).
+
 Target claim, once the work is done:
 
 > Allfather localizes bugs with near-agent accuracy at a small fraction of an agent's cost and latency, holds up on projects it has never seen, and measurably improves downstream issue resolution.

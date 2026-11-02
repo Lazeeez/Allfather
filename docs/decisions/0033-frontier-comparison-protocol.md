@@ -1,0 +1,96 @@
+# 0033: Research protocol: a cheap localizer against the industry frontier
+
+## Status
+
+Proposed, 2026-11-02. Written before any experiment it describes. Spending money and PACE time needs the owner's approval (ground rule 11); the systems, test set, metrics, analysis and success criteria below are fixed now and may change only by an amendment dated before the test set is first scored.
+
+## Context
+
+[ADR 0032](0032-freeze-allfather-fast.md) froze allfather-fast and stopped the research track on 2026-10-20. On 2026-11-02 the owner reopened it as a research project for a Georgia Tech special problems course, aimed at testing Allfather against the industry frontier. A literature review and claim audit the same day found:
+
+- Allfather matches 2025 LLM agents at function level on SWE-bench Lite (76.3% against LocAgent's 77.4%, all-locations Acc@10) at about $0.0002 per issue, and trails SweRank by about 12 points.
+- Nobody has measured a sub-second, sub-cent learned ranker against the coding agents and frontier models that industry now uses for localization (Claude Code, Codex, Cursor-style agentic search), on the same fresh bugs, with cost.
+- Whether localization helps agents is contested (Shi et al. 2026 against SHERLOC and Loc2Repair); the follow-up question those papers raise is when an expensive localizer is worth calling.
+- SWE-bench Lite is unusable as a clean test here (92 logged evaluations, projects in training, a dense model trained on SWE-bench), and the sealed holdout is spent.
+
+## Questions
+
+- **RQ1, accuracy.** On fresh bugs no compared model could have seen, how far is each tier of the frontier above or below allfather-fast at function and file level?
+- **RQ2, cost.** What does the accuracy-against-cost frontier look like, with cost per issue measured on one basis for every system?
+- **RQ3, escalation.** Can a calibrated gate that sends only the bugs Allfather is unsure of to a frontier agent reach close to the agent's accuracy at a fraction of its cost?
+- **RQ4, where the gap is.** How does the gap vary with whether the report names its location, the number of functions the fix changes, and the language?
+
+## Systems
+
+Exact model identifiers and versions are pinned in the run manifest on the day of the run, with the date, because closed models change.
+
+| Tier | System | Runs on |
+|---|---|---|
+| T0 | allfather-fast, frozen ([ADR 0032](0032-freeze-allfather-fast.md)); the website pipeline, with the GPU reranker for Python | laptop, PACE |
+| T1 | BM25 (code-aware); SweRankEmbed-Small and -Large; SweRankLLM rerankers over the same top 100 | PACE |
+| T2 | Commercial retrieval APIs: two embedding models for code and one rerank API over Allfather's top 100 | paid API |
+| T3 | One frontier LLM, one call per issue, given the issue and a repository map (paths and signatures), returning ten functions; a second variant also gets Allfather's top 50 | paid API |
+| T4 | Frontier coding agents asked only to list the ten functions most likely to need the fix: Claude Code (headless) and one other vendor's agent, with web access off | paid API |
+
+T2 to T4 are sized in the budget below; any can be dropped without changing the others.
+
+## Test set: fresh-2026
+
+- **Projects.** About 100 public projects (17 per language, the most-starred active ones with issues enabled that pass the exclusion) in Python, JavaScript, TypeScript, Go, Java and Rust, disjoint from every project in any training, development, test, holdout or live set, compared by GitHub repository ID so forks and renames are caught.
+- **Bugs.** Issues created after the latest published training cutoff of every compared model, closed by one merged pull request, with the issue opened before the pull request. The answer key is the functions and files the merge diff changes, tests excluded, by the live-accuracy rule ([ADR 0023](0023-live-accuracy.md)). Issues whose fix changes no function are kept for file level only.
+- **Size.** 600 bugs for T0 to T3. T4 runs on a random 200 of them, stratified by language. With about 20% of pairs discordant, 200 detects a 9-point difference and 600 about a 5-point one (paired, α = 0.05, power 0.8).
+- **Text.** The issue's title and the first 1,500 characters of its body, without comments. GitHub serves only the current text, so an issue whose body was edited after its fix's pull request was opened (GraphQL `lastEditedAt`) is excluded.
+- **Sealing.** The manifest (issue IDs, base commits, answer-key hashes) is committed and hashed before any system is run on it; `results/test-evals.log` records every run. Nobody reads the answer keys before the freeze.
+
+## Tooling
+
+`scripts/fresh_set.py` builds the set in four steps (exclusions, projects, mine, seal) and runs no localizer. It needs a GitHub token: mining 600 bugs takes thousands of API calls.
+
+## Contamination controls
+
+- Every repository is checked out at the base commit with no later history: no future refs, tags or reflog.
+- Agents run with no network access except the model API, and with web search and fetch tools off.
+- Each model's stated training cutoff is recorded. A model without one is reported with that caveat.
+- The prompts, the repository-map format and the gate are developed on development data only (SWE-bench Verified minus Lite and the 608-issue unseen-project fold of [ADR 0020](0020-odin-max-larger-reranker.md)), and frozen before the test set is scored.
+
+## Measurement
+
+- **Outputs.** Every system returns a ranked list of at most ten functions. Agent and LLM answers (names, paths, line ranges) are mapped to Allfather's function IDs with Tree-sitter at the base commit; an answer that maps to nothing counts as a miss, and the unmapped rate is reported per system.
+- **Accuracy.** Function hit@1, hit@5, hit@10, all@10, recall@10 and MRR; file hit@1 and hit@5.
+- **Cost.** Dollars per issue at list prices on the run date: tokens for API systems, GPU-seconds at a public rental price for GPU systems, including indexing a new repository, which is the realistic first-issue cost.
+- **Latency.** Wall time per issue, with the hardware named.
+- **Variance.** Agents and LLMs are run three times on a random 50 of the 200, to report run-to-run variance.
+
+## Analysis
+
+- **Tests.** Paired comparisons against allfather-fast: exact McNemar for hit@k and all@10, a paired randomization test for MRR and recall@10, Holm's correction across each table's family. Intervals: bootstrap resampling by project, the unit that is not exchangeable.
+- **RQ2.** The Pareto frontier of accuracy against cost.
+- **RQ3.** The gate is the confidence model of [ADR 0029](0029-confidence.md), recalibrated on development data. Its threshold is chosen on development data to meet a stated accuracy; the test reports the realised accuracy, the share escalated and the cost, plus a random-escalation baseline at the same share. Hypothesis, fixed now: escalating at most 40% of bugs gets within 3 points of the agent's function hit@10 at under 30% of its cost. The result is reported whether or not it holds.
+- **RQ4.** Results split by hint stratum (the issue names a fixed function, names a fixed file, has a stack trace through the fix, or none), parser-defined and checked by hand on 50 bugs; by number of changed functions; and by language.
+
+## Before the test set: three development experiments
+
+None touches a test set. Each is reported whatever it shows.
+
+1. **E1, how optimistic issue-grouped cross-validation is.** Re-run ADR 0006's ranker cross-validation on the 1,941 SWE-bench training issues with folds grouped by project, and compare with the issue-grouped numbers.
+2. **E2, how much the dense model's SWE-bench training matters.** On the 608-issue unseen-project fold, compare hybrid retrieval using jina-code-embeddings with the same pipeline using an embedding model not trained on SWE-bench.
+3. **E3, hint strata on existing results.** Descriptive only: SWE-bench Lite results of every stored system, split by hint stratum.
+
+## Budget, for approval
+
+Estimates, to be confirmed against list prices before anything is spent:
+
+- **T2.** Embedding about 100 repositories once, then only changed functions: on the order of a few hundred million tokens across both models. Reranking: 600 calls.
+- **T3.** About 30,000 to 60,000 input tokens per issue, so 18 to 36 million for 600 issues, per variant.
+- **T4.** Published frontier-agent localization costs are $0.5 to $1.7 per issue ([docs/cost.md](../cost.md)); 200 issues for two agents plus the variance runs is roughly 500 agent runs.
+- **PACE.** SweRank's 7B and 32B rerankers on 600 issues: a few GPU-hours.
+
+The owner chooses which tiers to fund. The cheapest version that still answers RQ1 to RQ3 is T0, T1, T3 with one model, and T4 with one agent.
+
+## Success, and what counts as a result
+
+Every RQ has a publishable negative outcome: the frontier is far ahead even on cost-adjusted terms, or the gate cannot be calibrated across projects. The study succeeds if it reports RQ1 to RQ4 on fresh-2026 under this protocol, with every run logged.
+
+## What this replaces
+
+Nothing is retracted. Lite and the spent holdout remain as reported, with their caveats; fresh-2026 becomes the test set for every claim in this study.
