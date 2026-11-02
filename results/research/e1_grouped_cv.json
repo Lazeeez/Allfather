@@ -1,0 +1,278 @@
+{
+ "adr": "docs/decisions/0033-frontier-comparison-protocol.md",
+ "experiment": "E1",
+ "levels": {
+  "function": {
+   "queries": 1941,
+   "projects": 12,
+   "schemes": {
+    "issue_5fold": {
+     "rounds": 584,
+     "folds": 5,
+     "hit@1": 0.4663,
+     "hit@5": 0.7378,
+     "hit@10": 0.8099,
+     "recall@1": 0.2936,
+     "recall@5": 0.5606,
+     "recall@10": 0.6633,
+     "mrr": 0.5875,
+     "hit@10_ci95_by_project": [
+      0.77,
+      0.8357
+     ]
+    },
+    "project_5fold": {
+     "rounds": 341,
+     "folds": 5,
+     "hit@1": 0.4616,
+     "hit@5": 0.73,
+     "hit@10": 0.8037,
+     "recall@1": 0.2878,
+     "recall@5": 0.551,
+     "recall@10": 0.6538,
+     "mrr": 0.5816,
+     "hit@10_ci95_by_project": [
+      0.7562,
+      0.83
+     ]
+    },
+    "leave_one_project_out": {
+     "rounds": 592,
+     "folds": 12,
+     "hit@1": 0.4596,
+     "hit@5": 0.7306,
+     "hit@10": 0.8053,
+     "recall@1": 0.29,
+     "recall@5": 0.5526,
+     "recall@10": 0.6603,
+     "mrr": 0.5812,
+     "hit@10_ci95_by_project": [
+      0.7645,
+      0.8309
+     ]
+    }
+   },
+   "hybrid_baseline": {
+    "hit@1": 0.3926,
+    "hit@5": 0.6538,
+    "hit@10": 0.7398,
+    "recall@1": 0.2416,
+    "recall@5": 0.4766,
+    "recall@10": 0.5711,
+    "mrr": 0.512
+   },
+   "issue_minus_project": {
+    "project_5fold:hit@10": {
+     "delta": 0.0062,
+     "ci95": [
+      -0.0021,
+      0.0139
+     ],
+     "p": 0.1686,
+     "wins": 38,
+     "losses": 26,
+     "p_holm": 1.0
+    },
+    "project_5fold:recall@10": {
+     "delta": 0.0096,
+     "ci95": [
+      0.0006,
+      0.0191
+     ],
+     "p": 0.0404,
+     "wins": 121,
+     "losses": 87,
+     "p_holm": 0.4848
+    },
+    "project_5fold:mrr": {
+     "delta": 0.0059,
+     "ci95": [
+      -0.0008,
+      0.0127
+     ],
+     "p": 0.0917,
+     "wins": 401,
+     "losses": 338,
+     "p_holm": 0.917
+    },
+    "leave_one_project_out:hit@10": {
+     "delta": 0.0046,
+     "ci95": [
+      -0.0036,
+      0.0124
+     ],
+     "p": 0.3057,
+     "wins": 35,
+     "losses": 26,
+     "p_holm": 1.0
+    },
+    "leave_one_project_out:recall@10": {
+     "delta": 0.003,
+     "ci95": [
+      -0.0048,
+      0.0109
+     ],
+     "p": 0.4467,
+     "wins": 112,
+     "losses": 95,
+     "p_holm": 1.0
+    },
+    "leave_one_project_out:mrr": {
+     "delta": 0.0063,
+     "ci95": [
+      -0.0006,
+      0.0131
+     ],
+     "p": 0.0698,
+     "wins": 386,
+     "losses": 333,
+     "p_holm": 0.7678
+    }
+   }
+  },
+  "file": {
+   "queries": 1992,
+   "projects": 12,
+   "schemes": {
+    "issue_5fold": {
+     "rounds": 343,
+     "folds": 5,
+     "hit@1": 0.7028,
+     "hit@5": 0.9227,
+     "hit@10": 0.9543,
+     "recall@1": 0.5805,
+     "recall@5": 0.8332,
+     "recall@10": 0.8884,
+     "mrr": 0.7986,
+     "hit@10_ci95_by_project": [
+      0.929,
+      0.9686
+     ]
+    },
+    "project_5fold": {
+     "rounds": 201,
+     "folds": 5,
+     "hit@1": 0.7113,
+     "hit@5": 0.9167,
+     "hit@10": 0.9578,
+     "recall@1": 0.5875,
+     "recall@5": 0.8283,
+     "recall@10": 0.8906,
+     "mrr": 0.8005,
+     "hit@10_ci95_by_project": [
+      0.9352,
+      0.9709
+     ]
+    },
+    "leave_one_project_out": {
+     "rounds": 295,
+     "folds": 12,
+     "hit@1": 0.7068,
+     "hit@5": 0.9157,
+     "hit@10": 0.9573,
+     "recall@1": 0.5843,
+     "recall@5": 0.8262,
+     "recall@10": 0.8904,
+     "mrr": 0.7982,
+     "hit@10_ci95_by_project": [
+      0.9353,
+      0.9705
+     ]
+    }
+   },
+   "hybrid_baseline": {
+    "hit@1": 0.6335,
+    "hit@5": 0.882,
+    "hit@10": 0.9378,
+    "recall@1": 0.5195,
+    "recall@5": 0.7899,
+    "recall@10": 0.8667,
+    "mrr": 0.7413
+   },
+   "issue_minus_project": {
+    "project_5fold:hit@10": {
+     "delta": -0.0035,
+     "ci95": [
+      -0.007,
+      0.0
+     ],
+     "p": 0.0923,
+     "wins": 3,
+     "losses": 10,
+     "p_holm": 0.917
+    },
+    "project_5fold:recall@10": {
+     "delta": -0.0021,
+     "ci95": [
+      -0.0058,
+      0.0014
+     ],
+     "p": 0.2578,
+     "wins": 31,
+     "losses": 38,
+     "p_holm": 1.0
+    },
+    "project_5fold:mrr": {
+     "delta": -0.0019,
+     "ci95": [
+      -0.0068,
+      0.0029
+     ],
+     "p": 0.4464,
+     "wins": 171,
+     "losses": 144,
+     "p_holm": 1.0
+    },
+    "leave_one_project_out:hit@10": {
+     "delta": -0.003,
+     "ci95": [
+      -0.0065,
+      0.0005
+     ],
+     "p": 0.1796,
+     "wins": 4,
+     "losses": 10,
+     "p_holm": 1.0
+    },
+    "leave_one_project_out:recall@10": {
+     "delta": -0.0019,
+     "ci95": [
+      -0.0057,
+      0.0019
+     ],
+     "p": 0.3257,
+     "wins": 29,
+     "losses": 32,
+     "p_holm": 1.0
+    },
+    "leave_one_project_out:mrr": {
+     "delta": 0.0003,
+     "ci95": [
+      -0.005,
+      0.0056
+     ],
+     "p": 0.9008,
+     "wins": 177,
+     "losses": 151,
+     "p_holm": 1.0
+    }
+   }
+  }
+ },
+ "provenance": {
+  "timestamp": "2026-11-02T13:46:46+00:00",
+  "git_commit": "25bf1fc91ded22f110d054fc629ff2f18b9d08ca",
+  "git_dirty": true,
+  "python": "3.11.16",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "packages": {
+   "numpy": "2.4.6",
+   "scipy": "1.17.1",
+   "tree-sitter": "0.26.0",
+   "lightgbm": "4.7.0",
+   "torch": "2.14.0+cu130",
+   "sentence-transformers": "6.1.0"
+  },
+  "models": {}
+ }
+}

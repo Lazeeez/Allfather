@@ -170,6 +170,18 @@ LGBM_PARAMS = dict(
 )
 
 
+def project_folds(qids: Sequence[str], folds: int) -> list[tuple[np.ndarray, np.ndarray]]:
+    """Folds that keep every project's queries together, balanced by query count."""
+    projects: dict[str, list[int]] = {}
+    for i, q in enumerate(qids):
+        projects.setdefault(q.rsplit("-", 1)[0], []).append(i)
+    buckets: list[list[int]] = [[] for _ in range(min(folds, len(projects)))]
+    for members in sorted(projects.values(), key=len, reverse=True):
+        min(buckets, key=len).extend(members)
+    n = len(qids)
+    return [(np.setdiff1d(np.arange(n), b), np.array(sorted(b))) for b in buckets]
+
+
 def _folds(n: int, folds: int, seed: int) -> list[tuple[np.ndarray, np.ndarray]]:
     parts = np.array_split(np.random.default_rng(seed).permutation(n), folds)
     return [
@@ -180,7 +192,7 @@ def _folds(n: int, folds: int, seed: int) -> list[tuple[np.ndarray, np.ndarray]]
 
 def cross_validate(
     data: RankingData, baseline: str, names: list[str], folds: int = 5, seed: int = 0,
-    max_rounds: int = 1500,
+    max_rounds: int = 1500, splits: list[tuple[np.ndarray, np.ndarray]] | None = None,
 ) -> tuple[int, dict[str, float], dict[str, float]]:  # fmt: skip
     """K-fold CV grouped by query: the round count to use, CV scores, baseline scores.
 
@@ -190,7 +202,7 @@ def cross_validate(
     """
     import lightgbm as lgb
 
-    splits = _folds(len(data.group), folds, seed)
+    splits = splits or _folds(len(data.group), folds, seed)
     curves = []
     for train, test in splits:
         tr, te = data.split(train), data.split(test)
