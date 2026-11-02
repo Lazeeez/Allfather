@@ -173,6 +173,7 @@ class Site:
         self.is_test = multi.is_test_path if bl.MULTILANG else _is_test_path
         self.snaps = bl.Snapshots()
         self.embed = bl.make_embedder()
+        self.last_semantic = None
 
     def predict(self, stage: str, X: np.ndarray) -> np.ndarray:
         from allfather.rank.browser import predict
@@ -201,6 +202,7 @@ class Site:
         if not it.ids:
             return [], [], len(fn.ids)
         s_b = self.predict("semantic", it.xb)
+        self.last_semantic = (s_b, it.xb, len(inst.problem_statement))
         bl.pass2([it], [s_b], self.snaps, self.embed, "live")
         if "rerank" in self.ranker and len(it.sel):
             ranked = bl.reranked(it, s_b, self.predict("rerank", it.xc))

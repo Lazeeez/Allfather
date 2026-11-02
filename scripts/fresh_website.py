@@ -25,6 +25,9 @@ from frontier import OUT, load_set, log_test_run  # noqa: E402
 from live_eval import Site  # noqa: E402
 
 from allfather.eval.dataset import Instance  # noqa: E402
+from allfather.rank.confidence import confidence_features, predict_confidence  # noqa: E402
+
+CONFIDENCE = ROOT / "web" / "src" / "assets" / "confidence.json"
 
 
 def main() -> int:
@@ -39,6 +42,7 @@ def main() -> int:
         else set()
     )
     site = Site()
+    model = json.loads(CONFIDENCE.read_text(encoding="utf-8"))
     if not done:
         log_test_run(args.set, "website", f"ranker {site.sha[:12]}", target)
     with target.open("a", encoding="utf-8", newline="\n") as handle:
@@ -48,7 +52,14 @@ def main() -> int:
             item = items[q]
             inst = Instance(q, item["repo"], item["base_commit"], "", item["text"])
             start = time.perf_counter()
+            site.last_semantic = None
             ranked, _, units = site.rank(inst, set(item["gold"]), set())
+            sure = None
+            if site.last_semantic is not None:
+                s_b, X, chars = site.last_semantic
+                sure = round(
+                    float(predict_confidence(model, confidence_features(s_b, X, chars))[0]), 4
+                )
             top = [{"file": u.split("::", 1)[0], "name": u.split("::", 1)[1]} for u in ranked[:10]]
             record = {
                 "id": q,
@@ -58,6 +69,7 @@ def main() -> int:
                 "seconds": round(time.perf_counter() - start, 1),
                 "answer": {"functions": top},
                 "units": units,
+                "confidence": sure,
                 "cost_usd": 0.0,
                 "tools": [],
                 "web_tool_used": False,
