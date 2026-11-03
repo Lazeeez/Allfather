@@ -51,15 +51,23 @@ def website_orders(train: list, snaps) -> list[list[str]]:
     return orders
 
 
+def use_multilang() -> None:
+    global TASKS
+    bl.MULTILANG = True
+    bl.CACHE = Path(".cache/browser_ltr_multilang")
+    bl.TRAIN["multilang"] = ("multilang", "train", [])
+    TASKS = WORK / "tasks_multilang.jsonl"
+
+
 def build_tasks() -> int:
     if TASKS.exists():
         sys.exit(f"{TASKS} exists")
     sys.modules["__main__"].Item = bl.Item
     snaps = bl.Snapshots()
     parts = {name: bl.build(name, spec, snaps) for name, spec in bl.TRAIN.items()}
-    train = parts["swe-bench"] + parts["rebench"]
+    train = [it for part in parts.values() for it in part]
     orders = website_orders(train, snaps)
-    rebench = {it.qid for it in parts["rebench"]}
+    rebench = {it.qid for it in parts["multilang" if bl.MULTILANG else "rebench"]}
     WORK.mkdir(parents=True, exist_ok=True)
     written = 0
     with TASKS.open("w", encoding="utf-8", newline="\n") as handle:
@@ -80,6 +88,7 @@ def build_tasks() -> int:
                         "ranker_scores": (-np.log1p(np.arange(1, len(ids) + 1))).tolist(),
                         "texts": texts,
                         "gold": sorted(it.targets),
+                        "language": bl.LANG_OF.get(it.qid, "python"),
                     }
                 )
                 + "\n"
@@ -159,6 +168,17 @@ def evaluate(name: str) -> int:
             )
             for m in ("hit@10", "hit@1", "hit@5", "mrr", "recall@10", "all@10")
         },
+    }
+    by_language: dict[str, list[int]] = {}
+    for i, t in enumerate([t for k in (0, 1) for t in halves[1 - k]]):
+        by_language.setdefault(t.get("language", "python"), []).append(i)
+    report["by_language"] = {
+        lang: {
+            "issues": len(idx),
+            "website_hit@10": round(float(np.mean([pooled_base[i].hit[10] for i in idx])), 4),
+            "with_reranker_hit@10": round(float(np.mean([pooled_cand[i].hit[10] for i in idx])), 4),
+        }
+        for lang, idx in sorted(by_language.items())
     }
     gain = report["pooled"]["paired"]["hit@10"]
     report["decision"] = {
@@ -375,7 +395,10 @@ def main() -> int:
     )
     ap.add_argument("--ranker", type=Path, default=ROOT / "web" / "src" / "assets" / "ranker.json")
     ap.add_argument("--name", default="current")
+    ap.add_argument("--multilang", action="store_true")
     args = ap.parse_args()
+    if args.multilang:
+        use_multilang()
     steps = {
         "tasks": build_tasks,
         "evaluate": lambda: evaluate(args.name),
