@@ -1,0 +1,623 @@
+{
+ "selected": "2026-11-02",
+ "rule": {
+  "cmd": null,
+  "per_language": 17,
+  "min_stars": 2000,
+  "pushed_after": "2026-10-01"
+ },
+ "projects": [
+  {
+   "repo": "public-apis/public-apis",
+   "id": 54346799,
+   "language": "python",
+   "stars": 495344
+  },
+  {
+   "repo": "EbookFoundation/free-programming-books",
+   "id": 13491895,
+   "language": "python",
+   "stars": 400727
+  },
+  {
+   "repo": "practical-tutorials/project-based-learning",
+   "id": 88011908,
+   "language": "python",
+   "stars": 288770
+  },
+  {
+   "repo": "NousResearch/hermes-agent",
+   "id": 1024554267,
+   "language": "python",
+   "stars": 259689
+  },
+  {
+   "repo": "TheAlgorithms/Python",
+   "id": 63476337,
+   "language": "python",
+   "stars": 225774
+  },
+  {
+   "repo": "microsoft/markitdown",
+   "id": 888092115,
+   "language": "python",
+   "stars": 193511
+  },
+  {
+   "repo": "Significant-Gravitas/AutoGPT",
+   "id": 614765452,
+   "language": "python",
+   "stars": 187870
+  },
+  {
+   "repo": "anthropics/skills",
+   "id": 1061953414,
+   "language": "python",
+   "stars": 186615
+  },
+  {
+   "repo": "521xueweihan/HelloGitHub",
+   "id": 58028038,
+   "language": "python",
+   "stars": 186344
+  },
+  {
+   "repo": "langgenius/dify",
+   "id": 626805178,
+   "language": "python",
+   "stars": 160231
+  },
+  {
+   "repo": "open-webui/open-webui",
+   "id": 701547123,
+   "language": "python",
+   "stars": 157537
+  },
+  {
+   "repo": "langflow-ai/langflow",
+   "id": 599320067,
+   "language": "python",
+   "stars": 156257
+  },
+  {
+   "repo": "langchain-ai/langchain",
+   "id": 552661142,
+   "language": "python",
+   "stars": 148880
+  },
+  {
+   "repo": "github/spec-kit",
+   "id": 1042367133,
+   "language": "python",
+   "stars": 145240
+  },
+  {
+   "repo": "Comfy-Org/ComfyUI",
+   "id": 589831718,
+   "language": "python",
+   "stars": 144598
+  },
+  {
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "id": 1106996539,
+   "language": "python",
+   "stars": 144109
+  },
+  {
+   "repo": "Shubhamsaboo/awesome-llm-apps",
+   "id": 793375104,
+   "language": "python",
+   "stars": 143738
+  },
+  {
+   "repo": "affaan-m/ECC",
+   "id": 1136590548,
+   "language": "javascript",
+   "stars": 295236
+  },
+  {
+   "repo": "CyC2018/CS-Notes",
+   "id": 121395510,
+   "language": "javascript",
+   "stars": 186427
+  },
+  {
+   "repo": "DietrichGebert/ponytail",
+   "id": 1266797999,
+   "language": "javascript",
+   "stars": 182590
+  },
+  {
+   "repo": "Snailclimb/JavaGuide",
+   "id": 132464395,
+   "language": "javascript",
+   "stars": 159389
+  },
+  {
+   "repo": "vercel/next.js",
+   "id": 70107786,
+   "language": "javascript",
+   "stars": 143467
+  },
+  {
+   "repo": "Chalarangelo/30-seconds-of-code",
+   "id": 112507086,
+   "language": "javascript",
+   "stars": 129390
+  },
+  {
+   "repo": "nodejs/node",
+   "id": 27193779,
+   "language": "javascript",
+   "stars": 123193
+  },
+  {
+   "repo": "addyosmani/agent-skills",
+   "id": 1158722119,
+   "language": "javascript",
+   "stars": 112696
+  },
+  {
+   "repo": "Leonxlnx/taste-skill",
+   "id": 1162099055,
+   "language": "javascript",
+   "stars": 108366
+  },
+  {
+   "repo": "microsoft/Web-Dev-For-Beginners",
+   "id": 311525798,
+   "language": "javascript",
+   "stars": 97059
+  },
+  {
+   "repo": "louislam/uptime-kuma",
+   "id": 382496361,
+   "language": "javascript",
+   "stars": 93177
+  },
+  {
+   "repo": "tt-a1i/archify",
+   "id": 1211139949,
+   "language": "javascript",
+   "stars": 92617
+  },
+  {
+   "repo": "career-ops-hq/career-ops",
+   "id": 1201476594,
+   "language": "javascript",
+   "stars": 79458
+  },
+  {
+   "repo": "byoungd/up",
+   "id": 92807616,
+   "language": "javascript",
+   "stars": 69912
+  },
+  {
+   "repo": "gorhill/uBlock",
+   "id": 33263118,
+   "language": "javascript",
+   "stars": 69027
+  },
+  {
+   "repo": "Mintplex-Labs/anything-llm",
+   "id": 649170660,
+   "language": "javascript",
+   "stars": 67849
+  },
+  {
+   "repo": "chartjs/Chart.js",
+   "id": 8843683,
+   "language": "javascript",
+   "stars": 67773
+  },
+  {
+   "repo": "freeCodeCamp/freeCodeCamp",
+   "id": 28457823,
+   "language": "typescript",
+   "stars": 458420
+  },
+  {
+   "repo": "morluto/rea",
+   "id": 1209966933,
+   "language": "typescript",
+   "stars": 421259
+  },
+  {
+   "repo": "openclaw/openclaw",
+   "id": 1103012935,
+   "language": "typescript",
+   "stars": 393708
+  },
+  {
+   "repo": "nilbuild/developer-roadmap",
+   "id": 85077558,
+   "language": "typescript",
+   "stars": 371054
+  },
+  {
+   "repo": "anomalyco/opencode",
+   "id": 975734319,
+   "language": "typescript",
+   "stars": 224006
+  },
+  {
+   "repo": "n8n-io/n8n",
+   "id": 193215554,
+   "language": "typescript",
+   "stars": 209351
+  },
+  {
+   "repo": "firecrawl/firecrawl",
+   "id": 787076358,
+   "language": "typescript",
+   "stars": 197852
+  },
+  {
+   "repo": "anthropics/claude-code",
+   "id": 937253475,
+   "language": "typescript",
+   "stars": 154258
+  },
+  {
+   "repo": "iptv-org/iptv",
+   "id": 157616880,
+   "language": "typescript",
+   "stars": 143060
+  },
+  {
+   "repo": "garrytan/gstack",
+   "id": 1179264259,
+   "language": "typescript",
+   "stars": 138639
+  },
+  {
+   "repo": "excalidraw/excalidraw",
+   "id": 231283452,
+   "language": "typescript",
+   "stars": 135026
+  },
+  {
+   "repo": "shadcn-ui/ui",
+   "id": 585146387,
+   "language": "typescript",
+   "stars": 127174
+  },
+  {
+   "repo": "earendil-works/pi",
+   "id": 1035029907,
+   "language": "typescript",
+   "stars": 119536
+  },
+  {
+   "repo": "immich-app/immich",
+   "id": 455229168,
+   "language": "typescript",
+   "stars": 117970
+  },
+  {
+   "repo": "supabase/supabase",
+   "id": 214587193,
+   "language": "typescript",
+   "stars": 114432
+  },
+  {
+   "repo": "stablyai/orca",
+   "id": 1183888342,
+   "language": "typescript",
+   "stars": 113231
+  },
+  {
+   "repo": "thedotmack/claude-mem",
+   "id": 1048065319,
+   "language": "typescript",
+   "stars": 110304
+  },
+  {
+   "repo": "avelino/awesome-go",
+   "id": 21540759,
+   "language": "go",
+   "stars": 191662
+  },
+  {
+   "repo": "ollama/ollama",
+   "id": 658928958,
+   "language": "go",
+   "stars": 185659
+  },
+  {
+   "repo": "golang/go",
+   "id": 23096959,
+   "language": "go",
+   "stars": 139736
+  },
+  {
+   "repo": "kubernetes/kubernetes",
+   "id": 20580498,
+   "language": "go",
+   "stars": 128833
+  },
+  {
+   "repo": "JuliusBrussee/caveman",
+   "id": 1201173969,
+   "language": "go",
+   "stars": 116857
+  },
+  {
+   "repo": "infiniflow/ragflow",
+   "id": 730534580,
+   "language": "go",
+   "stars": 93362
+  },
+  {
+   "repo": "netdata/netdata",
+   "id": 10744183,
+   "language": "go",
+   "stars": 81253
+  },
+  {
+   "repo": "moby/moby",
+   "id": 7691631,
+   "language": "go",
+   "stars": 72235
+  },
+  {
+   "repo": "traefik/traefik",
+   "id": 42408804,
+   "language": "go",
+   "stars": 65440
+  },
+  {
+   "repo": "usememos/memos",
+   "id": 436297812,
+   "language": "go",
+   "stars": 64233
+  },
+  {
+   "repo": "rclone/rclone",
+   "id": 17803236,
+   "language": "go",
+   "stars": 60722
+  },
+  {
+   "repo": "router-for-me/CLIProxyAPI",
+   "id": 1012087571,
+   "language": "go",
+   "stars": 57272
+  },
+  {
+   "repo": "wagoodman/dive",
+   "id": 133251103,
+   "language": "go",
+   "stars": 54692
+  },
+  {
+   "repo": "multica-ai/multica",
+   "id": 1133707766,
+   "language": "go",
+   "stars": 54629
+  },
+  {
+   "repo": "ethereum/go-ethereum",
+   "id": 15452919,
+   "language": "go",
+   "stars": 51456
+  },
+  {
+   "repo": "QuantumNous/new-api",
+   "id": 717197250,
+   "language": "go",
+   "stars": 51207
+  },
+  {
+   "repo": "AlistGo/alist",
+   "id": 323965659,
+   "language": "go",
+   "stars": 50396
+  },
+  {
+   "repo": "NationalSecurityAgency/ghidra",
+   "id": 173228436,
+   "language": "java",
+   "stars": 97026
+  },
+  {
+   "repo": "iluwatar/java-design-patterns",
+   "id": 22790488,
+   "language": "java",
+   "stars": 94840
+  },
+  {
+   "repo": "spring-projects/spring-boot",
+   "id": 6296790,
+   "language": "java",
+   "stars": 81730
+  },
+  {
+   "repo": "doocs/advanced-java",
+   "id": 151834062,
+   "language": "java",
+   "stars": 79174
+  },
+  {
+   "repo": "elastic/elasticsearch",
+   "id": 507775,
+   "language": "java",
+   "stars": 78459
+  },
+  {
+   "repo": "TheAlgorithms/Java",
+   "id": 63477660,
+   "language": "java",
+   "stars": 66709
+  },
+  {
+   "repo": "spring-projects/spring-framework",
+   "id": 1148753,
+   "language": "java",
+   "stars": 60311
+  },
+  {
+   "repo": "dbeaver/dbeaver",
+   "id": 44662669,
+   "language": "java",
+   "stars": 52268
+  },
+  {
+   "repo": "skylot/jadx",
+   "id": 8859474,
+   "language": "java",
+   "stars": 51478
+  },
+  {
+   "repo": "jeecgboot/JeecgBoot",
+   "id": 159152904,
+   "language": "java",
+   "stars": 48362
+  },
+  {
+   "repo": "lysine-dev/retrofit",
+   "id": 892275,
+   "language": "java",
+   "stars": 43940
+  },
+  {
+   "repo": "ashishps1/awesome-system-design-resources",
+   "id": 709589487,
+   "language": "java",
+   "stars": 43029
+  },
+  {
+   "repo": "TeamNewPipe/NewPipe",
+   "id": 41889031,
+   "language": "java",
+   "stars": 40405
+  },
+  {
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "id": 332357698,
+   "language": "java",
+   "stars": 40174
+  },
+  {
+   "repo": "halo-dev/halo",
+   "id": 126178683,
+   "language": "java",
+   "stars": 40104
+  },
+  {
+   "repo": "keycloak/keycloak",
+   "id": 11125589,
+   "language": "java",
+   "stars": 37653
+  },
+  {
+   "repo": "alibaba/arthas",
+   "id": 146633589,
+   "language": "java",
+   "stars": 37603
+  },
+  {
+   "repo": "ultraworkers/claw-code",
+   "id": 1197021090,
+   "language": "rust",
+   "stars": 194982
+  },
+  {
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "id": 721767116,
+   "language": "rust",
+   "stars": 155736
+  },
+  {
+   "repo": "farion1231/cc-switch",
+   "id": 1031912724,
+   "language": "rust",
+   "stars": 151172
+  },
+  {
+   "repo": "openai/codex",
+   "id": 965415649,
+   "language": "rust",
+   "stars": 132853
+  },
+  {
+   "repo": "rustdesk/rustdesk",
+   "id": 299354207,
+   "language": "rust",
+   "stars": 127895
+  },
+  {
+   "repo": "rust-lang/rust",
+   "id": 724712,
+   "language": "rust",
+   "stars": 120973
+  },
+  {
+   "repo": "tauri-apps/tauri",
+   "id": 196701619,
+   "language": "rust",
+   "stars": 112433
+  },
+  {
+   "repo": "denoland/deno",
+   "id": 133442384,
+   "language": "rust",
+   "stars": 108792
+  },
+  {
+   "repo": "ruvnet/RuView",
+   "id": 997737944,
+   "language": "rust",
+   "stars": 102070
+  },
+  {
+   "repo": "pbakaus/impeccable",
+   "id": 1097346685,
+   "language": "rust",
+   "stars": 100061
+  },
+  {
+   "repo": "oven-sh/bun",
+   "id": 357728969,
+   "language": "rust",
+   "stars": 96517
+  },
+  {
+   "repo": "zed-industries/zed",
+   "id": 340547520,
+   "language": "rust",
+   "stars": 92545
+  },
+  {
+   "repo": "astral-sh/uv",
+   "id": 699532645,
+   "language": "rust",
+   "stars": 91458
+  },
+  {
+   "repo": "rtk-ai/rtk",
+   "id": 1139971460,
+   "language": "rust",
+   "stars": 85300
+  },
+  {
+   "repo": "storytold/photocraft",
+   "id": 1398080271,
+   "language": "rust",
+   "stars": 76074
+  },
+  {
+   "repo": "dani-garcia/vaultwarden",
+   "id": 121898717,
+   "language": "rust",
+   "stars": 70105
+  },
+  {
+   "repo": "openinterpreter/openinterpreter",
+   "id": 666299222,
+   "language": "rust",
+   "stars": 68777
+  }
+ ]
+}

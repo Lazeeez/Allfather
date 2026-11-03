@@ -124,3 +124,10 @@ The owner has Claude Pro (with Claude Opus 5.5) and a Gemini plan (with Gemini 3
 ## Amendment, 2026-11-02: the cutoff date
 
 fresh-2026 takes issues created on or after **2026-08-01**. The latest stated training cutoff among the compared models is Claude Opus 5.5's, June 2026; August leaves a margin for data that reaches training after a stated cutoff. Every other compared model is older.
+
+## Amendment, 2026-11-03: how the 600 are drawn
+
+Written after mining and before sealing; no system has run on any mined bug. Mining found 4,357 usable bugs (4,072 with a function to find) from 79 projects, but a few projects dominate: the largest in each language has 118 to 384 bugs, and one Java project holds 341 of 492. Several fast-growing, unfamiliar projects have hundreds of bugs in three months, which suggests issues or fixes written by bots or AI coding agents. Two rules replace "a random sample stratified by language":
+
+- **Sampling:** only bugs with a function to find; 100 per language (600 in all), drawn at random with seed 0, at most 12 from any one project. The agent subsample is 200, stratified by language from the 600.
+- **Vetting:** each drawn bug's issue and pull request are fetched again. A bug is excluded, and the next random one taken, if either was opened by a bot or a known AI coding-agent account, or if either says it was AI-written (for example "Generated with Claude Code" or "Co-Authored-By: Claude"). Every decision is kept in `data/fresh/vetted.jsonl`. AI-assisted work that carries no marker cannot be detected and remains a threat to validity: a fix written by an AI model may favour the models being tested.

@@ -8,7 +8,7 @@ The order of operations for [ADR 0033](decisions/0033-frontier-comparison-protoc
 uv run python scripts/fresh_set.py exclusions
 uv run python scripts/fresh_set.py projects --per-language 17
 uv run python scripts/fresh_set.py mine --created-after 2026-08-01   # resumable; rerun until it finishes
-uv run python scripts/fresh_set.py seal --size 600 --agents 200
+uv run python scripts/fresh_set.py seal --per-language 100 --cap 12 --agents 200   # vets each drawn bug; resumable
 ```
 
 Commit `data/fresh/` (manifest, answer keys, hashes) before step 2. Nothing may be tuned after this point.
