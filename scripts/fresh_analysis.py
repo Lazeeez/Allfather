@@ -15,6 +15,7 @@ names. Writes results/research/analysis_<set>.json.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 import sys
@@ -26,7 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from frontier import OUT, load_set, matched, unit_ids  # noqa: E402
+from frontier import FRESH, OUT, load_set, matched, unit_ids  # noqa: E402
 
 from allfather.eval.metrics import holm, paired_bootstrap, score  # noqa: E402
 
@@ -110,6 +111,97 @@ def escalation(ref: dict, other: dict, ids: list[str], threshold: float | None) 
     return out
 
 
+def languages(set_name: str) -> dict[str, str]:
+    if not set_name.startswith("fresh"):
+        return {}
+    return {
+        r["id"]: r["language"]
+        for r in map(json.loads, (FRESH / "gold.jsonl").open(encoding="utf-8"))
+    }
+
+
+def long_path_bugs(set_name: str) -> set[str]:
+    path = FRESH / "long_path_bugs.json"
+    if not set_name.startswith("fresh") or not path.exists():
+        return set()
+    return set(json.loads(path.read_text(encoding="utf-8"))["bugs"])
+
+
+def cohen_kappa(a: list, b: list) -> float:
+    n = len(a)
+    observed = sum(x == y for x, y in zip(a, b, strict=True)) / n
+    expected = sum((a.count(v) / n) * (b.count(v) / n) for v in set(a) | set(b))
+    return 1.0 if expected == 1 else (observed - expected) / (1 - expected)
+
+
+def strata_agreement() -> dict:
+    sheet = list(csv.DictReader((FRESH / "strata_check.csv").open(encoding="utf-8")))
+    column = next(c for c in sheet[0] if c.startswith("your_answer"))
+    mine = {r["id"]: r[column].strip().lower() for r in sheet if r[column].strip()}
+    if len(mine) < len(sheet):
+        return {"filled_in": len(mine), "rows": len(sheet)}
+    if bad := sorted({v for v in mine.values() if v not in STRATA}):
+        sys.exit(f"strata_check.csv has answers outside {STRATA}: {bad}")
+    parser = {
+        r["id"]: r["parser_says"]
+        for r in csv.DictReader((FRESH / "strata_parser.csv").open(encoding="utf-8"))
+    }
+    ids = sorted(mine)
+    a, b = [mine[q] for q in ids], [parser[q] for q in ids]
+    kappa = cohen_kappa(a, b)
+    return {
+        "rows": len(ids),
+        "agreement": round(sum(x == y for x, y in zip(a, b, strict=True)) / len(ids), 4),
+        "kappa": round(kappa, 4),
+        "confusion": {
+            f"{x}->{y}": sum(1 for p, q in zip(a, b, strict=True) if (p, q) == (x, y))
+            for x in STRATA
+            for y in STRATA
+            if any((p, q) == (x, y) for p, q in zip(a, b, strict=True))
+        },
+        "rq4_indicative_only": kappa < 0.6,
+    }
+
+
+def repeatability(items: dict[str, dict]) -> dict | None:
+    again = OUT / "fresh-repeat50_codex-single-astra-repeat.jsonl"
+    if not again.exists():
+        return None
+    first = {
+        r["id"]: r
+        for r in map(
+            json.loads, (OUT / "fresh-agents_codex-single-astra.jsonl").open(encoding="utf-8")
+        )
+    }
+    second = {r["id"]: r for r in map(json.loads, again.open(encoding="utf-8"))}
+    ids = sorted(set(first) & set(second))
+    a, b = per_issue([first[q] for q in ids], items), per_issue([second[q] for q in ids], items)
+    ids = sorted(set(a) & set(b))
+    hit_a, hit_b = [a[q]["hit@10"] for q in ids], [b[q]["hit@10"] for q in ids]
+    tops = [(unit_ids(first[q].get("answer")), unit_ids(second[q].get("answer"))) for q in ids]
+    return {
+        "issues": len(ids),
+        "hit@10_first": round(float(np.mean(hit_a)), 4),
+        "hit@10_again": round(float(np.mean(hit_b)), 4),
+        "hit@10_outcome_changed": sum(x != y for x, y in zip(hit_a, hit_b, strict=True)),
+        "hit@10_kappa": round(cohen_kappa(hit_a, hit_b), 4),
+        "same_first_answer": round(
+            float(np.mean([bool(x) and x[:1] == y[:1] for x, y in tops])), 4
+        ),
+        "top10_jaccard_mean": round(
+            float(
+                np.mean(
+                    [
+                        len(set(x) & set(y)) / len(set(x) | set(y)) if x or y else 1.0
+                        for x, y in tops
+                    ]
+                )
+            ),
+            4,
+        ),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--set", required=True)
@@ -165,6 +257,40 @@ def main() -> int:
             report["escalation"][system] = escalation(ref, res, common, args.threshold)
     for key, p in holm(family).items():
         report["paired"][key]["p_holm"] = p
+    langs = languages(args.set)
+    if langs:
+        report["by_language"] = {}
+        for system, res in runs.items():
+            report["by_language"][system] = {}
+            for lang in sorted(set(langs.values())):
+                qs = sorted(q for q in res if langs.get(q) == lang)
+                if qs:
+                    v = np.array([res[q]["hit@10"] for q in qs])
+                    report["by_language"][system][lang] = {
+                        "issues": len(qs),
+                        "hit@10": round(float(v.mean()), 4),
+                        "hit@10_ci95": project_ci(v, np.array([items[q]["repo"] for q in qs])),
+                    }
+    excluded = long_path_bugs(args.set)
+    if excluded:
+        report["sensitivity_without_long_path_bugs"] = {
+            "bugs_left_out": len(excluded & set(ref)),
+            "paired_hit@10": {},
+        }
+        for system, res in runs.items():
+            if system == args.reference:
+                continue
+            common = sorted((set(res) & set(ref)) - excluded)
+            d = paired_bootstrap(
+                np.array([ref[q]["hit@10"] for q in common]),
+                np.array([res[q]["hit@10"] for q in common]),
+            )
+            report["sensitivity_without_long_path_bugs"]["paired_hit@10"][system] = {
+                "issues": len(common), "delta": d.delta, "ci95": list(d.ci95), "p": d.p_value,
+            }  # fmt: skip
+    if args.set.startswith("fresh"):
+        report["strata_hand_check"] = strata_agreement()
+        report["repeatability"] = repeatability(items)
     strata = {q: stratum(items[q]["text"], items[q]["gold"]) for q in items if items[q]["gold"]}
     for system, res in runs.items():
         report["strata"][system] = {

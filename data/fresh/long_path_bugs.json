@@ -1,0 +1,1211 @@
+{
+ "rule": "a bug is listed if its longest path, under any Windows run's checkout folder, reaches Windows' 240-character limit, so that run left files out; computed from each bug's file tree only (ADR 0033, long-path amendment)",
+ "bugs": {
+  "NationalSecurityAgency/ghidra#9508": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NationalSecurityAgency/ghidra#9595": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NationalSecurityAgency/ghidra#9676": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NationalSecurityAgency/ghidra#9690": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NationalSecurityAgency/ghidra#9773": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NationalSecurityAgency/ghidra#9892": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NationalSecurityAgency/ghidra#9993": {
+   "longest_path": 158,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#77337": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#80004": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#80465": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#80491": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#80912": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#81691": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#81946": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#82149": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#82171": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#82313": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#83044": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "NousResearch/hermes-agent#83636": {
+   "longest_path": 159,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Shubhamsaboo/awesome-llm-apps#1246": {
+   "longest_path": 151,
+   "folders_affected": [
+    "codex-single-astra"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14008": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14154": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14488": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14536": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14749": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14750": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#14875": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#15150": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "Significant-Gravitas/AutoGPT#15178": {
+   "longest_path": 213,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1211": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1217": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1227": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1254": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1258": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1262": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1264": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1270": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1315": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1317": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1319": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "YunaiV/ruoyi-vue-pro#1323": {
+   "longest_path": 260,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "alibaba/arthas#3274": {
+   "longest_path": 180,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#155838": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156075": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156148": {
+   "longest_path": 273,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156162": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156414": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156537": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156545": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156585": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156635": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156674": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156690": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "elastic/elasticsearch#156945": {
+   "longest_path": 287,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#51484": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#51591": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#52456": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#52621": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#52698": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#52734": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#52741": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#53052": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#53196": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#53337": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#53465": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "keycloak/keycloak#53520": {
+   "longest_path": 203,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#14448": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#14604": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#14694": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#14925": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15029": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15030": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15064": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15074": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15262": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15372": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15466": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "langflow-ai/langflow#15752": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "moby/moby#53723": {
+   "longest_path": 201,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "moby/moby#53933": {
+   "longest_path": 201,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "moby/moby#53934": {
+   "longest_path": 201,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "moby/moby#54006": {
+   "longest_path": 201,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "n8n-io/n8n#35802": {
+   "longest_path": 210,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "n8n-io/n8n#35939": {
+   "longest_path": 210,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "n8n-io/n8n#36082": {
+   "longest_path": 210,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "netdata/netdata#23423": {
+   "longest_path": 170,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "netdata/netdata#23588": {
+   "longest_path": 170,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "netdata/netdata#24186": {
+   "longest_path": 170,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "netdata/netdata#24367": {
+   "longest_path": 170,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "netdata/netdata#24448": {
+   "longest_path": 170,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65076": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65083": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65184": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65346": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65693": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65727": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65829": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#65986": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#66025": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#66075": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#66407": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "nodejs/node#66617": {
+   "longest_path": 175,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10045": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10072": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10108": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10109": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10135": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10166": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#10202": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#9752": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#9823": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#9912": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#9918": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "rclone/rclone#9959": {
+   "longest_path": 314,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-boot#51461": {
+   "longest_path": 246,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-boot#51774": {
+   "longest_path": 246,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-boot#51842": {
+   "longest_path": 246,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-boot#52201": {
+   "longest_path": 246,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-boot#52246": {
+   "longest_path": 246,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-framework#37202": {
+   "longest_path": 194,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-framework#37203": {
+   "longest_path": 194,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "spring-projects/spring-framework#37386": {
+   "longest_path": 194,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "supabase/supabase#49940": {
+   "longest_path": 162,
+   "folders_affected": [
+    "codex-single-astra"
+   ]
+  },
+  "supabase/supabase#50426": {
+   "longest_path": 162,
+   "folders_affected": [
+    "codex-single-astra"
+   ]
+  },
+  "vercel/next.js#96681": {
+   "longest_path": 209,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#97353": {
+   "longest_path": 209,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#97502": {
+   "longest_path": 209,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#97723": {
+   "longest_path": 209,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#97953": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#98252": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#98607": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#98661": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#98674": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#98767": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  },
+  "vercel/next.js#98997": {
+   "longest_path": 211,
+   "folders_affected": [
+    "claude-agent",
+    "codex-single-astra",
+    "codex-single",
+    "claude-single"
+   ]
+  }
+ }
+}
