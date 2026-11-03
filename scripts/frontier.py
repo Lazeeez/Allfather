@@ -169,9 +169,12 @@ def export(cache: RepoCache, repo: str, commit: str, target: Path) -> None:
     tar = subprocess.run(
         ["git", "--git-dir", str(mirror), "archive", commit], capture_output=True, check=True
     ).stdout
-    target.mkdir(parents=True)
+    partial = target.with_name(f"{target.name}.partial-{os.getpid()}")
+    shutil.rmtree(partial, ignore_errors=True)
+    partial.mkdir(parents=True)
     with tarfile.open(fileobj=BytesIO(tar)) as archive:
-        archive.extractall(target, filter="data")
+        archive.extractall(partial, filter="data")
+    partial.rename(target)
 
 
 def source_files(root: Path) -> str:
@@ -399,7 +402,7 @@ def cmd_run(args: argparse.Namespace) -> int:
             if q in done:
                 continue
             item = items[q]
-            cwd = WORK / re.sub(r"[^\w.-]", "_", q)
+            cwd = WORK / name / re.sub(r"[^\w.-]", "_", q)
             export(cache, item["repo"], item["base_commit"], cwd)
             prompt = (PROMPT if agent else SINGLE).format(
                 report=item["text"], repo=item["repo"], files=source_files(cwd)
