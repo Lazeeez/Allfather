@@ -44,6 +44,7 @@ GOLD = ROOT / "data" / "gold" / "swebench_verified_test.jsonl"
 FRESH = ROOT / "data" / "fresh"
 LITE = ROOT / "data" / "gold" / "swebench_lite_test.jsonl"
 TIMEOUT_S = 1200
+MAX_PATH = 250 if sys.platform == "win32" else 4096
 ANSWER = {
     "type": "object",
     "properties": {
@@ -126,9 +127,12 @@ def load_set(name: str) -> tuple[list[str], dict[str, dict]]:
 
 
 def log_test_run(name: str, system: str, model: str, path: Path) -> None:
-    if not name.startswith("fresh"):
+    log_path = ROOT / "results" / "test-evals.log"
+    if not name.startswith(
+        "fresh"
+    ) or f"| {path.relative_to(ROOT).as_posix()} |" in log_path.read_text(encoding="utf-8"):
         return
-    with (ROOT / "results" / "test-evals.log").open("a", encoding="utf-8", newline="\n") as log:
+    with log_path.open("a", encoding="utf-8", newline="\n") as log:
         log.write(
             f"{datetime.now(UTC).date().isoformat()} | {name} | {system} ({model}) | function | {path.relative_to(ROOT).as_posix()} | "
             "ADR 0033 run on the sealed fresh-2026 set; nothing decided from it\n"
@@ -173,7 +177,8 @@ def export(cache: RepoCache, repo: str, commit: str, target: Path) -> None:
     shutil.rmtree(partial, ignore_errors=True)
     partial.mkdir(parents=True)
     with tarfile.open(fileobj=BytesIO(tar)) as archive:
-        archive.extractall(partial, filter="data")
+        members = [m for m in archive.getmembers() if len(str(partial / m.name)) < MAX_PATH]
+        archive.extractall(partial, members=members, filter="data")
     partial.rename(target)
 
 
