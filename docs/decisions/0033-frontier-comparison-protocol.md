@@ -136,4 +136,6 @@ Written after mining and before sealing; no system has run on any mined bug. Min
 
 The first seal (gold sha256 `683df0541fa70c42306d0fec64cbbcad41973d1823c5adc682b871210afca76a`) counted the 12-per-project cap separately within each language, so a project with bugs in two languages contributed up to 23. That broke the rule above. No system had run on it. `scripts/fresh_set.py` now counts the cap across languages, and the set is sealed again with the same seed; the vetting decisions already made are reused. The first seal's files are not kept.
 
-Vetting so far: of 680 drawn bugs, 100 were excluded, 59 of them because the fix's pull request said it was AI-written and the rest because a bot or agent account opened the issue or the pull request.
+Vetting: 745 drawn bugs were checked and 111 excluded, 70 of them because the fix's pull request said it was AI-written and the rest because a bot or agent account opened the issue or the pull request.
+
+**Sealed, 2026-11-03:** 580 bugs (100 each in Go, JavaScript, Python, Rust and TypeScript; 80 in Java) from 74 projects, none contributing more than 12; issues opened 2026-08-01 to 2026-11-02; agent subsample of 198 (34 per language, 28 in Java). `data/fresh/gold.jsonl` sha256 `f8b6194fd8d378249b317efaab351bcbed04a9bcde1a11e2fc645c3f77fa1f0b`, recorded in `data/fresh/manifest.json`. From here, nothing about the systems, prompts or analysis may change except by a dated amendment, and every run is logged.
