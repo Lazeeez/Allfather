@@ -151,3 +151,7 @@ Added before any system has run on fresh-2026 except the website pipeline. Two o
 - **Harness:** `scripts/open_agent.py` gives them the same three read-only abilities Claude Code gets (list files by glob, search contents, read a line range), confined to the bug's checkout, with at most 40 turns and temperature 0, through an OpenAI-compatible vLLM server on the same node. The prompts are the ones in `scripts/frontier.py`.
 - **Cost:** GPU time on the node, priced at a public A100 rental rate on the run date.
 - **Revisions** are pinned in the job's command line and recorded in each result's `requested_model` and in the log.
+
+## Amendment, 2026-11-03: the hand check of the hint strata
+
+`data/fresh/strata_check.csv` holds 50 bugs drawn from fresh-2026 with seed 33, each with its report, the functions the fix changed, and the stratum `scripts/fresh_analysis.py` assigns. A person fills in their own stratum without looking at any system's results; agreement is reported as Cohen's kappa. If kappa is below 0.6, RQ4 is reported as indicative only.
