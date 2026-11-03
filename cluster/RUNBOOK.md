@@ -144,4 +144,4 @@ sbatch --array=0-4 --gres=gpu:A100:1 --time=12:00:00 --export=ALL,CANDIDATE=B cl
 sbatch --array=0-4 --gres=gpu:H100:1 --time=24:00:00 --export=ALL,CANDIDATE=C cluster/ce_multilang/fold.sbatch
 ```
 
-Each fold appends its held-out scores to `results/website-rerank/work/scores_cand-<X>.jsonl`; when all five are in, bring the file back and evaluate on the laptop. The chosen candidate is then trained on every project with `--export=ALL,CANDIDATE=<X>,FOLD=all`.
+Each fold writes its held-out scores to `results/website-rerank/work/scores_cand-<X>.fold<k>.jsonl`; when all five are in, run `scripts/ce_multilang.py merge --candidate <X>`, bring the merged file back and evaluate on the laptop. The chosen candidate is then trained on every project with `--export=ALL,CANDIDATE=<X>,FOLD=all`.

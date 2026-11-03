@@ -3,6 +3,7 @@
     uv run python scripts/ce_multilang.py records
     uv run python scripts/ce_multilang.py train --candidate B --fold 0     # on PACE, one job per fold
     uv run python scripts/ce_multilang.py score --candidate B --fold 0
+    uv run python scripts/ce_multilang.py merge --candidate B
     uv run python scripts/website_rerank.py evaluate --multilang --name cand-B
     uv run python scripts/website_rerank.py evaluate --name cand-B         # the Python tasks
 
@@ -159,7 +160,7 @@ def cmd_score(args: argparse.Namespace) -> int:
     from allfather.rank.cross_encoder import CrossEncoder
 
     folds = fold_of()
-    target = WORK / f"scores_cand-{args.candidate}.jsonl"
+    target = WORK / f"scores_cand-{args.candidate}.fold{args.fold}.jsonl"
     done = (
         {json.loads(line)["qid"] for line in target.open(encoding="utf-8")}
         if target.exists()
@@ -184,16 +185,32 @@ def cmd_score(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_merge(args: argparse.Namespace) -> int:
+    parts = [WORK / f"scores_cand-{args.candidate}.fold{k}.jsonl" for k in range(FOLDS)]
+    missing = [p.name for p in parts if not p.exists()]
+    if missing:
+        sys.exit(f"missing folds: {missing}")
+    target = WORK / f"scores_cand-{args.candidate}.jsonl"
+    with target.open("w", encoding="utf-8", newline="
+") as handle:
+        for p in parts:
+            handle.write(p.read_text(encoding="utf-8"))
+    print(f"wrote {target}")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("records")
+    mg = sub.add_parser("merge")
+    mg.add_argument("--candidate", required=True, choices=sorted(CANDIDATES))
     for name in ("train", "score"):
         sp = sub.add_parser(name)
         sp.add_argument("--candidate", required=True, choices=sorted(CANDIDATES))
         sp.add_argument("--fold", required=True)
     args = ap.parse_args()
-    return {"records": cmd_records, "train": cmd_train, "score": cmd_score}[args.cmd](args)
+    return {"records": cmd_records, "train": cmd_train, "score": cmd_score, "merge": cmd_merge}[args.cmd](args)
 
 
 if __name__ == "__main__":
