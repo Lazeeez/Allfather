@@ -401,7 +401,14 @@ def codex(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
     ]
     if done.returncode:
         failures.append(done.stderr.strip()[-300:])
-    if any(re.search(r"usage limit|rate limit|quota|try again (at|in)", f, re.I) for f in failures):
+    if any(
+        re.search(
+            r"usage limit|rate limit|quota|try again (at|in)|token_revoked|HTTP 401|log ?in again",
+            f,
+            re.I,
+        )
+        for f in failures
+    ):
         raise QuotaExhausted(failures[-1][:300])
     if any(
         re.search(r"context.{0,20}(window|length|limit)|too.(long|large)|maximum length", f, re.I)
