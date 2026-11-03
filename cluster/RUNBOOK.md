@@ -91,6 +91,8 @@ sbatch --gres=gpu:1 --time=4:00:00 --export=ALL,TAG=embed-large,DATA=fresh,MODEL
 sbatch --gres=gpu:1 --time=2:00:00 --export=ALL,TAG=embed-small,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Small,REVISION=745d2a06103a66d3cfa600aa52fc0d3523010daa cluster/swerank/retrieve_fresh.sbatch
 ```
 
+Instead of copying the export (about 16 GB), PACE can build it: `sbatch --partition=coc-cpu --cpus-per-task=8 --mem=32G --time=4:00:00 cluster/swerank/export_fresh.sbatch` fetches every repository fresh-2026 needs and writes `$HOME/scratch/swerank/fresh`; submit the retrievers with `--dependency=afterok:<that job>` so they start when it finishes.
+
 Bring `out/fresh-<tag>/results.json` back and run `uv run python scripts/swerank_import.py --set fresh --system swerank-<tag> --model <model@revision> --results <file>`. The LLM rerankers still read SWE-bench Lite's layout through the authors' scripts and are not wired to fresh-2026 yet.
 
 ## Models on node-local disk
