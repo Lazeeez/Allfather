@@ -308,6 +308,10 @@ def gemini(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
     error = data.get("error") or {}
     if "quota" in str(error.get("message", "")).lower() or "free_tier_requests" in done.stderr:
         raise QuotaExhausted(str(error.get("message") or "free-tier quota exhausted"))
+    if not data:
+        raise json.JSONDecodeError(
+            f"no JSON from gemini: {done.stderr.strip()[-200:]}", done.stdout or "", 0
+        )
     stats = data.get("stats", {})
     tools = sorted((stats.get("tools", {}) or {}).get("byName", {}) or {})
     return {
