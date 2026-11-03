@@ -180,3 +180,13 @@ Written before any Codex run on fresh-2026. OpenAI's models join the comparison 
 - **Prompts Codex cannot take:** Codex refuses any input longer than 1,048,576 characters before the model sees it. 19 of the 580 one-call prompts (5 of the 198) are longer, because their repositories list that many source files. Those bugs are recorded as no answer, a miss, with the reason kept in the record; I do not shorten the file list for one system, because every one-call system must see the same prompt. Claude and Gemini take all 580.
 
 Nothing else changes, and nothing has been read or scored.
+
+## Amendment, 2026-11-03: OpenAI's frontier model, on ChatGPT Plus
+
+Written before any run of the model it names. I bought one month of ChatGPT Plus (about 3,000 yen) so OpenAI is represented by its strongest model, not only its small one. Codex lists, for that account: `gpt-6-astra` ("Frontier intelligence for the most demanding work"), `gpt-6.1-sol` ("Latest workhorse model for coding and everyday work"), `gpt-6.1-terra`, `gpt-6-sol`, `gpt-6-luna` and older models.
+
+- **The frontier model is `gpt-6-astra`**, the one OpenAI describes as its most capable, matching Claude Opus 5.5 as Anthropic's. It runs as `codex-single-astra` on all 580 bugs and as `codex-agent-astra` on the 198-bug agent subsample (under WSL, as recorded above), with every setting of the `gpt-6-luna` systems unchanged.
+- **Reasoning effort is `medium` for every OpenAI system**, pinned on the command line: `gpt-6-luna`'s default and one step above `gpt-6-astra`'s default (`low`). I do not tune it; higher settings exist and are a limitation I report.
+- **gpt-6-luna stays as a second, smaller OpenAI system** (`codex-single`, `codex-agent`), for the cost and accuracy comparison of RQ3.
+- **Accounts:** the first 88 `codex-single` answers on fresh-agents came from my free ChatGPT account, until its sign-in was revoked; the rest of that run, and every other Codex run, uses the Plus account. The account changes usage limits, not the model, prompt or settings, so I keep those 88 answers, unread.
+- **If usage runs out:** each run proceeds in the set's fixed order and stops at the plan's limit; if a run cannot finish before the month ends, I report it on the bugs it completed, a prefix of that fixed order, and say so. I do not switch models partway.
