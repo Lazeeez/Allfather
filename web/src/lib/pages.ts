@@ -37,7 +37,7 @@ export const PAGE_META: Record<Page, PageMeta> = {
   },
   how: {
     title: "How it works · Allfather",
-    description: "How Allfather localizes bugs: code-aware BM25, LambdaMART rankers, static code embeddings and a fine-tuned GPU reranker, running in Web Workers in your browser, and what was tried and dropped.",
+    description: "How Allfather localizes bugs: code-aware BM25, LambdaMART rankers, static code embeddings and a fine-tuned GPU reranker, running in Web Workers in your browser, and what I tried and dropped.",
   },
   case: {
     title: "Case study · Allfather",
@@ -45,7 +45,7 @@ export const PAGE_META: Record<Page, PageMeta> = {
   },
   privacy: {
     title: "Privacy · Allfather",
-    description: "What Allfather stores and what it never sees: search counts and votes without your bug report, no accounts, no cookies, and the optional GPU reranker.",
+    description: "What I store and what I never see: search counts and votes without your bug report, no accounts, no cookies, and the optional GPU reranker.",
   },
   notfound: {
     title: "Page not found · Allfather",

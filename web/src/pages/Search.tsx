@@ -677,9 +677,9 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
           {w.results ? <ResultList results={w.results} info={info} view={view} rating={rating} /> : query.trim() ? <Skeleton /> : null}
           <p class="fineprint">
             How accurate is this? <a href={href("benchmarks")}>See the benchmarks</a>.
-            {feedbackEnabled && " Searches are counted by repository, and 👍/👎 records the function you rated and its rank. If it came from a public GitHub issue, that issue's link is kept with your vote."}
+            {feedbackEnabled && " I count searches by repository, and 👍/👎 records the function you rated and its rank. If it came from a public GitHub issue, I keep that issue's link with your vote."}
             {w.serverReady && semanticOn && serverOn
-              ? " With the GPU reranker on, a Python repository's search sends your bug report and the top 50 functions to Allfather's server to be scored, each time you pause typing; only the scores are kept, for a day, under a hash of the request. Otherwise the report stays in this tab."
+              ? " With the GPU reranker on, a Python repository's search sends your bug report and the top 50 functions to my server to be scored, each time you pause typing; I keep only the scores, for a day, under a hash of the request. Otherwise the report stays in this tab."
               : " Your bug report never leaves this tab."}
           </p>
         </>

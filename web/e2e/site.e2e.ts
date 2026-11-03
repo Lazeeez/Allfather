@@ -119,9 +119,11 @@ test("explorer deep links and old-style links", async ({ page }) => {
   await expect(page.locator("#explorer .bug-id")).toHaveText("django__django-11019");
   await page.goto(`./?repo=${encodeURIComponent(REPO)}&q=config`);
   await expect(page).toHaveURL(/\/search\?repo=allfather-e2e%2Ffixture#q=config$/);
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
   await expect(page.locator("#demo-query")).toHaveValue("config");
   await page.goto(`./search?repo=${encodeURIComponent(REPO)}&q=old+link`);
   await expect(page).toHaveURL(/\/search\?repo=allfather-e2e%2Ffixture#q=old\+link$/);
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
   await expect(page.locator("#demo-query")).toHaveValue("old link");
 });
 

@@ -39,7 +39,7 @@ export function LiveSection({ live }: { live: LiveSummary }) {
       <p class="card-lede">
         A nightly job collects bugs that popular open-source projects in Python, JavaScript, TypeScript, Go, Java and Rust fixed in the past
         week, runs this website's pipeline at the commit before each fix (in the browser's configuration, without the GPU reranker), and checks
-        whether a function the fix changed is in its top 10. Nothing is trained or tuned on these bugs. Bugs whose fix changes no function are
+        whether a function the fix changed is in its top 10. I train and tune nothing on these bugs. Bugs whose fix changes no function are
         skipped, at most 80 are scored a night, and nights the job did not run leave gaps in the trend.
       </p>
       {enough(w) ? (

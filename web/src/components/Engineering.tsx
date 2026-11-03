@@ -7,7 +7,7 @@ const CARDS: [string, string, string][] = [
   ["86%", "of files never re-parsed", "Parsing is memoized by git blob id; a persistent cache keyed by the parser's own source makes re-runs 2.8× faster."],
   ["4.9×", "embedding throughput", "Length-sorted, token-budgeted batches: padding waste falls from 79% to 2%."],
   ["0", "git calls per query for history", "The commit DAG lives in memory, replacing a `git rev-list` subprocess per query with an identical walk."],
-  ["0", "Python/browser mismatches", "The browser's chunker, BM25 and ranker features are tested against the Python engine, value for value."],
+  ["0", "Python/browser mismatches", "I test the browser's chunker, BM25 and ranker features against the Python engine, value for value."],
 ];
 
 export function Highlights() {

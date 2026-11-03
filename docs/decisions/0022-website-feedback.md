@@ -30,5 +30,5 @@ The Worker that serves the site gets three endpoints, backed by a Cloudflare D1 
 
 - Votes are not a benchmark. Visitors choose what to search and what to rate, and someone who finds the right function may not vote. The share marked right is reported as feedback, never next to benchmark accuracy and never as accuracy.
 - A vote with an issue link is a labelled example (public issue, function, verdict). If enough accumulate, using them for training is its own decision, with its own ADR and a check that none overlaps an evaluation set.
-- The site now writes to a server, so "no server of ours is involved" was removed from the search page. The search itself still runs entirely in the browser.
+- The site now writes to a server, so I removed "no server of ours is involved" from the search page. The search itself still runs entirely in the browser.
 - A build without `VITE_API` sends nothing and shows no buttons, so local development and the end-to-end tests are unchanged.

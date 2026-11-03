@@ -61,7 +61,7 @@ function HoldoutCard({ data, research }: { data: Holdout; research: number | nul
         <p class="note">
           The Lite rows here are allfather-fast. The tiles and charts above show the research configuration it grew from, which scores{" "}
           {pct(research)} on Lite against allfather-fast's {pct(lite["hit@10"])}. Of the 291 issues, 13 come out differently, 8 in the research
-          configuration's favour and 5 in allfather-fast's: not significant (exact paired test, p = 0.58). Its rankers were trained on more data, and it is the system the holdout
+          configuration's favour and 5 in allfather-fast's: not significant (exact paired test, p = 0.58). I trained its rankers on more data, and it is the system the holdout
           measures.
         </p>
       )}
@@ -105,9 +105,9 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
     <div class="container" ref={root}>
       <PageHero kicker="Benchmarks" title="How often Allfather finds the fix">
         <p>
-          Measured on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the commit where the bug was
-          reported, and a result counts only if the maintainers' actual fix changed it. None of these issues was used for training, but the
-          rankers trained on other issues from the same 12 projects, and Lite guided development, so the clean test is the sealed holdout
+          I measure on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the commit where the bug was
+          reported, and a result counts only if the maintainers' actual fix changed it. I used none of these issues for training, but my
+          rankers trained on other issues from the same 12 projects, and Lite guided my development, so the clean test is the sealed holdout
           below.
         </p>
       </PageHero>
@@ -142,7 +142,7 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
           <section class="card frame block">
             <p class="kicker">No lucky gains</p>
             <h2>Is each step a real improvement?</h2>
-            <p class="card-lede">Every step is tested against the one before it on the same bugs, so a gain from luck shows up as not significant.</p>
+            <p class="card-lede">I test every step against the one before it on the same bugs, so a gain from luck shows up as not significant.</p>
             <SignificanceTable summary={summary} />
           </section>
 
@@ -160,8 +160,8 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
           <p class="kicker">In your browser</p>
           <h2>On projects it has never seen</h2>
           <p class="card-lede">
-            The <a href={href("search")}>search page</a> runs a lighter pipeline on your device. Its rankers were trained on 192 other
-            projects in six languages; these {lite.held_out.unseen.keyword.n} bugs come from 30 projects that were kept out of training entirely, the
+            The <a href={href("search")}>search page</a> runs a lighter pipeline on your device. I trained its rankers on 192 other
+            projects in six languages; these {lite.held_out.unseen.keyword.n} bugs come from 30 projects I kept out of training entirely, the
             situation the search page is in every time you paste a new repository.
           </p>
           <BrowserComparison e={lite.held_out.unseen} depth={lite.depth} />
@@ -190,10 +190,10 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
 
       <section class="card frame block">
         <p class="kicker">Method</p>
-        <h2>How the numbers are kept honest</h2>
+        <h2>How I keep the numbers honest</h2>
         <ul class="plain-list">
           <li>Every issue is searched at its own base commit. Indexing today's code would leak the fix.</li>
-          <li>Nothing is trained on these 300 issues: fusion weights on a separate dev set, the learned rankers on 1,941 other SWE-bench issues (5,115 for allfather-fast), reranker weights on a held-out split. When I re-ran the ranker's cross-validation with whole projects as folds, function hit@10 moved by under a point. The code embedding model (jina-code-embeddings) lists SWE-bench among its own training data, so Lite and development numbers may be optimistic by an amount not yet measured; the sealed holdout is outside it.</li>
+          <li>I train nothing on these 300 issues: fusion weights on a separate dev set, the learned rankers on 1,941 other SWE-bench issues (5,115 for allfather-fast), reranker weights on a held-out split. When I re-ran the ranker's cross-validation with whole projects as folds, function hit@10 moved by under a point. The code embedding model (jina-code-embeddings) lists SWE-bench among its own training data, so Lite and development numbers may be optimistic by an amount not yet measured; the sealed holdout is outside it.</li>
           <li>Git-history features only see commits before the bug; "similar past bugs" only see issues opened at least 30 days earlier. Both boundaries have tests.</li>
           <li>Every comparison on this page comes with a paired test on the same issues and a 95% bootstrap interval, with p adjusted for the number of tests in each table. Results that aren't significant are reported as such.</li>
           <li>Lite is not untouched. I have evaluated on it 92 times, logging each run with what I decided from it, and I took one decision on a Lite result, rejecting a distilled reranker, in the conservative direction.</li>
@@ -266,7 +266,7 @@ function Gpu({ g }: { g: GpuReranker }) {
       <p class="card-lede">
         For a Python repository, the search page can send your bug report and its top 50 functions to a GPU, where the full pipeline's
         reranker re-reads them.
-        Measured before it was built, by cross-validation on {g.issues.toLocaleString()} bugs from {g.projects} projects the reranker never
+        I measured it before building it, by cross-validation on {g.issues.toLocaleString()} bugs from {g.projects} projects the reranker never
         trained on: function hit@10 {gain.delta >= 0 ? "+" : ""}{(gain.delta * 100).toFixed(1)} points (95% interval {(gain.ci95[0] * 100).toFixed(1)} to{" "}
         {(gain.ci95[1] * 100).toFixed(1)}, p {gain.p_value < 0.001 ? "< 0.001" : `= ${gain.p_value.toFixed(3)}`}).
       </p>
