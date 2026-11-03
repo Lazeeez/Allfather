@@ -56,3 +56,13 @@ The same hard negatives for all three: the website pipeline's out-of-fold top 50
 **Compute:** about 30 to 40 GPU-hours on PACE's A100s for 5 folds of three candidates, plus one final training of the chosen candidate on all projects. No money is spent.
 
 Everything trained here is trained on training bugs only. fresh-2026 measures the frozen choice afterwards and decides nothing.
+
+## Amendment, 2026-11-03: one multilingual reranker for all six languages is the target
+
+Written before any step 1 result has been read. I want the GPU reranker to serve every language the site supports, so step 2 is no longer a fallback for the languages step 1 leaves out: it runs whatever step 1 shows, and its goal is one adapter for all six languages, Python included.
+
+- **Step 1 still runs and is reported** as the baseline: how much a reranker trained on Python alone transfers to each other language, against which step 2 shows what training on that language adds.
+- **Step 2 trains candidates A, B and C on all six languages** as already specified, and the chosen candidate is the one with the largest gain under the per-language rule among those within the speed limit.
+- **Python:** the multilingual adapter replaces the current pair for Python too if, on Python's bugs, it is not worse by more than 0.5 points of function hit@10, so one model serves every language; otherwise Python keeps its pair.
+- **A language that still fails the rule after step 2 stays browser-only**, and I report that as a finding. The rule itself (at least 2.0 points of function hit@10, Holm-adjusted p below 0.05) does not change.
+- **Adding languages beyond these six** (for example C++, C# and PHP) is a later version with its own ADR, after the fresh-2026 study is frozen, so the system the study measures does not change under it.
