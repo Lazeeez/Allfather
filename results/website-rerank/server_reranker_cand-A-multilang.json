@@ -1,0 +1,269 @@
+{
+ "issues": 2728,
+ "projects": 61,
+ "halves": [
+  {
+   "chosen_on_projects": 30,
+   "applied_to_issues": 1438,
+   "setting": [
+    50,
+    2.0
+   ],
+   "grid_hit@10_on_choosing_half": {
+    "20/0.25": 0.6016,
+    "20/0.5": 0.6116,
+    "20/1.0": 0.6116,
+    "20/2.0": 0.614,
+    "20/4.0": 0.6085,
+    "20/inf": 0.6078,
+    "50/0.25": 0.6062,
+    "50/0.5": 0.6264,
+    "50/1.0": 0.6271,
+    "50/2.0": 0.6287,
+    "50/4.0": 0.6147,
+    "50/inf": 0.5899
+   },
+   "website": {
+    "n": 1438,
+    "mrr": 0.4477,
+    "recall@1": 0.1475,
+    "hit@1": 0.338,
+    "all@1": 0.0869,
+    "recall@5": 0.351,
+    "hit@5": 0.5946,
+    "all@5": 0.2281,
+    "recall@10": 0.466,
+    "hit@10": 0.7003,
+    "all@10": 0.3206
+   },
+   "with_reranker": {
+    "n": 1438,
+    "mrr": 0.5277,
+    "recall@1": 0.1902,
+    "hit@1": 0.411,
+    "all@1": 0.1168,
+    "recall@5": 0.444,
+    "hit@5": 0.6878,
+    "all@5": 0.2997,
+    "recall@10": 0.5415,
+    "hit@10": 0.767,
+    "all@10": 0.395
+   }
+  },
+  {
+   "chosen_on_projects": 31,
+   "applied_to_issues": 1290,
+   "setting": [
+    50,
+    2.0
+   ],
+   "grid_hit@10_on_choosing_half": {
+    "20/0.25": 0.7156,
+    "20/0.5": 0.7281,
+    "20/1.0": 0.7434,
+    "20/2.0": 0.7434,
+    "20/4.0": 0.742,
+    "20/inf": 0.7371,
+    "50/0.25": 0.7211,
+    "50/0.5": 0.7462,
+    "50/1.0": 0.7629,
+    "50/2.0": 0.767,
+    "50/4.0": 0.7608,
+    "50/inf": 0.7378
+   },
+   "website": {
+    "n": 1290,
+    "mrr": 0.3701,
+    "recall@1": 0.136,
+    "hit@1": 0.2767,
+    "all@1": 0.0899,
+    "recall@5": 0.3021,
+    "hit@5": 0.5016,
+    "all@5": 0.2132,
+    "recall@10": 0.379,
+    "hit@10": 0.5853,
+    "all@10": 0.2721
+   },
+   "with_reranker": {
+    "n": 1290,
+    "mrr": 0.4221,
+    "recall@1": 0.1608,
+    "hit@1": 0.3271,
+    "all@1": 0.107,
+    "recall@5": 0.3428,
+    "hit@5": 0.5519,
+    "all@5": 0.2434,
+    "recall@10": 0.4153,
+    "hit@10": 0.6287,
+    "all@10": 0.2992
+   }
+  }
+ ],
+ "pooled": {
+  "website": {
+   "n": 2728,
+   "mrr": 0.411,
+   "recall@1": 0.142,
+   "hit@1": 0.309,
+   "all@1": 0.0883,
+   "recall@5": 0.3278,
+   "hit@5": 0.5506,
+   "all@5": 0.221,
+   "recall@10": 0.4248,
+   "hit@10": 0.6459,
+   "all@10": 0.2977
+  },
+  "with_reranker": {
+   "n": 2728,
+   "mrr": 0.4778,
+   "recall@1": 0.1763,
+   "hit@1": 0.3713,
+   "all@1": 0.1122,
+   "recall@5": 0.3962,
+   "hit@5": 0.6235,
+   "all@5": 0.2731,
+   "recall@10": 0.4818,
+   "hit@10": 0.7016,
+   "all@10": 0.3497
+  },
+  "paired": {
+   "hit@10": {
+    "delta": 0.0557,
+    "ci95": [
+     0.0436,
+     0.0678
+    ],
+    "p_value": 0.0,
+    "wins": 226,
+    "losses": 74
+   },
+   "hit@1": {
+    "delta": 0.0623,
+    "ci95": [
+     0.0455,
+     0.0788
+    ],
+    "p_value": 0.0,
+    "wins": 376,
+    "losses": 206
+   },
+   "hit@5": {
+    "delta": 0.0729,
+    "ci95": [
+     0.0583,
+     0.0876
+    ],
+    "p_value": 0.0,
+    "wins": 316,
+    "losses": 117
+   },
+   "mrr": {
+    "delta": 0.0668,
+    "ci95": [
+     0.0541,
+     0.0792
+    ],
+    "p_value": 0.0001,
+    "wins": 782,
+    "losses": 444
+   },
+   "recall@10": {
+    "delta": 0.057,
+    "ci95": [
+     0.047,
+     0.0667
+    ],
+    "p_value": 0.0001,
+    "wins": 558,
+    "losses": 224
+   },
+   "all@10": {
+    "delta": 0.0521,
+    "ci95": [
+     0.0407,
+     0.063
+    ],
+    "p_value": 0.0,
+    "wins": 200,
+    "losses": 58
+   }
+  }
+ },
+ "by_language": {
+  "go": {
+   "issues": 816,
+   "website_hit@10": 0.6887,
+   "with_reranker_hit@10": 0.7328,
+   "gain": 0.0441,
+   "wins": 62,
+   "losses": 26,
+   "p_exact": 0.000157,
+   "p_holm": 0.0006,
+   "passes_adr_0034": true
+  },
+  "java": {
+   "issues": 768,
+   "website_hit@10": 0.6289,
+   "with_reranker_hit@10": 0.7005,
+   "gain": 0.0716,
+   "wins": 71,
+   "losses": 16,
+   "p_exact": 0.0,
+   "p_holm": 0.0,
+   "passes_adr_0034": true
+  },
+  "javascript": {
+   "issues": 438,
+   "website_hit@10": 0.6826,
+   "with_reranker_hit@10": 0.7283,
+   "gain": 0.0457,
+   "wins": 37,
+   "losses": 17,
+   "p_exact": 0.009073,
+   "p_holm": 0.0091,
+   "passes_adr_0034": true
+  },
+  "rust": {
+   "issues": 120,
+   "website_hit@10": 0.7333,
+   "with_reranker_hit@10": 0.8333,
+   "gain": 0.1,
+   "wins": 13,
+   "losses": 1,
+   "p_exact": 0.001831,
+   "p_holm": 0.0037,
+   "passes_adr_0034": true
+  },
+  "typescript": {
+   "issues": 586,
+   "website_hit@10": 0.5631,
+   "with_reranker_hit@10": 0.6126,
+   "gain": 0.0495,
+   "wins": 43,
+   "losses": 14,
+   "p_exact": 0.000154,
+   "p_holm": 0.0006,
+   "passes_adr_0034": true
+  }
+ },
+ "decision": {
+  "rule": "build the server if pooled function hit@10 improves by >= 0.020 with p < 0.05",
+  "met": true
+ },
+ "provenance": {
+  "timestamp": "2026-11-03T23:35:24+00:00",
+  "git_commit": "c520ae17dfa3689499d5cbe1ad9fc627b85153df",
+  "git_dirty": true,
+  "python": "3.11.16",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "packages": {
+   "numpy": "2.4.6",
+   "scipy": "1.17.1",
+   "tree-sitter": "0.26.0",
+   "lightgbm": "4.7.0",
+   "torch": "2.14.0+cu130",
+   "sentence-transformers": "6.1.0"
+  },
+  "models": {}
+ }
+}
