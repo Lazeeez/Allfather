@@ -29,7 +29,7 @@ Two steps, the second only if the first does not settle every language.
 
 ### What does not change
 
-- [ADR 0033](0033-frontier-comparison-protocol.md)'s website system is the pipeline as sealed on 2026-11-03 (ranker sha256 starting `df8659ea`), which its runs score without the GPU. Changing the live site's GPU languages does not change those runs.
+- [ADR 0033](0033-frontier-comparison-protocol.md)'s website system takes this ADR's outcome: its rankers stay as sealed on 2026-11-03 (sha256 starting `df8659ea`), and the GPU reranker configuration chosen here is frozen there before that system runs on fresh-2026. Nothing chosen here may use fresh-2026.
 - `forServer` in `web/src/engine/server.ts` gains a language list taken from this ADR's outcome; nothing else in the site changes.
 
 ## Consequences
