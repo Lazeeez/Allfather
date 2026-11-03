@@ -198,3 +198,10 @@ Before anyone filled it in, I noticed the sheet showed the parser's stratum besi
 ## Amendment, 2026-11-03: the order the OpenAI runs use the plan's usage
 
 Written before any Codex result has been read. ChatGPT Plus usage is limited per week, so the runs go in this order, and whatever does not fit in the month is reported on the prefix it completed, as already recorded: (1) `codex-agent-astra` and `codex-single-astra` on fresh-agents, side by side; (2) `codex-single` (gpt-6-luna) on fresh-agents, then `codex-agent` (gpt-6-luna) on fresh-agents; (3) `codex-single-astra` on all 580; (4) `codex-single` on all 580. The first weekly allowance ran out at 99 and 85 of the 198 for the two Astra runs; I bought a reset of the weekly limit, which changes nothing about the models or settings.
+
+## Amendment, 2026-11-03: one answer per bug, and a repeatability check
+
+Written before any one-call result has been read.
+
+- **One answer per system per bug.** The 198 agent-subsample bugs are part of the 580, so a one-call system that has answered them on fresh-agents does not answer them again on the full set: `frontier.py` copies those answers into the full-set file, marked `reused_from`, and asks the model only the other 382. It refuses to start the full set until the subsample run is complete, so every reused answer is the first and only one. A model's answers are not deterministic, and a second answer would be another sample, not a better one; taking the first, fixed in advance, keeps each system's answer to a bug the same in every table.
+- **Repeatability.** Because the answers are not deterministic, I measure how much that matters: after the runs above, if the plan's usage allows, `codex-single-astra` answers a second time on `fresh-repeat50`, 50 of the 198 drawn with seed 50, as the separate system `codex-single-astra-repeat`. I report how often function hit@10 changes between the two answers and the agreement between them. It is reported beside the main results and replaces nothing.

@@ -113,11 +113,11 @@ def load_set(name: str) -> tuple[list[str], dict[str, dict]]:
             }
             for r in rows
         }
-        ids = (
-            manifest["agent_subsample"]
-            if name == "fresh-agents"
-            else [i["id"] for i in manifest["instances"]]
-        )
+        agents = manifest["agent_subsample"]
+        if name == "fresh-repeat50":
+            pick = set(random.Random(50).sample(agents, 50))
+            return [q for q in agents if q in pick], items
+        ids = agents if name == "fresh-agents" else [i["id"] for i in manifest["instances"]]
         return ids, items
     issues = json.loads((OUT / f"{name}_issues.json").read_text(encoding="utf-8"))["issues"]
     text = {i.instance_id: i.problem_statement for i in load_instances("verified", "test")}
@@ -495,6 +495,25 @@ def cmd_prepare(args: argparse.Namespace) -> int:
     return 0
 
 
+def reuse_subsample(set_name: str, name: str, target: Path, done: set[str]) -> set[str]:
+    prior = OUT / f"fresh-agents_{name}.jsonl"
+    if set_name != "fresh" or not prior.exists():
+        return set()
+    subsample, _ = load_set("fresh-agents")
+    records = {r["id"]: r for r in map(json.loads, prior.open(encoding="utf-8"))}
+    missing = [q for q in subsample if q not in records]
+    if missing:
+        sys.exit(f"{prior.name} lacks {len(missing)} of its bugs; finish it before the full set")
+    added = {q for q in subsample if q not in done}
+    with target.open("a", encoding="utf-8", newline="\n") as handle:
+        for q in subsample:
+            if q in added:
+                handle.write(json.dumps({**records[q], "reused_from": prior.name}) + "\n")
+    if added:
+        print(f"  reused {len(added)} answers from {prior.name}", flush=True)
+    return added
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     if args.system.startswith("gemini") and not args.allow_billing and not free_tier_only():
         sys.exit(
@@ -511,7 +530,9 @@ def cmd_run(args: argparse.Namespace) -> int:
         else set()
     )
     cache = RepoCache(ROOT / ".cache" / "repos")
-    if not done:
+    started = bool(done)
+    done |= reuse_subsample(args.set, name, target, done)
+    if not started:
         log_test_run(args.set, name, model, target)
     with target.open("a", encoding="utf-8", newline="\n") as handle:
         for q in issues[: args.limit or None]:
