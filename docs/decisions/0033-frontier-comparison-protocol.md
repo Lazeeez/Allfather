@@ -155,3 +155,11 @@ Added before any system has run on fresh-2026 except the website pipeline. Two o
 ## Amendment, 2026-11-03: the hand check of the hint strata
 
 `data/fresh/strata_check.csv` holds 50 bugs drawn from fresh-2026 with seed 33, each with its report, the functions the fix changed, and the stratum `scripts/fresh_analysis.py` assigns. A person fills in their own stratum without looking at any system's results; agreement is reported as Cohen's kappa. If kappa is below 0.6, RQ4 is reported as indicative only.
+
+## Amendment, 2026-11-03: the website system gets the GPU reranker in every language
+
+I stopped the website pipeline's run on fresh-2026 after 324 of 580 bugs, without scoring or reading any of it. Running the study's main Allfather system with the GPU reranker switched off for five of its six languages would measure a limitation I intend to fix, not the system I ship. So:
+
+- **The website system is redefined** as the website pipeline with the GPU reranker in every language where [ADR 0034](0034-gpu-reranker-other-languages.md) adopts it, decided only on training bugs by cross-validation. Its configuration (rankers, adapters, depth, weight, languages) is frozen in an amendment here before it runs on fresh-2026.
+- **The stopped run is kept, unread,** as `results/research/frontier/fresh_website.jsonl`: the browser pipeline without a GPU. I finish it later and report it as a separate, cheaper system, "website, browser only".
+- **Nothing else changes.** Every other system, the test set, the metrics, the threshold and the analysis are as already recorded.
