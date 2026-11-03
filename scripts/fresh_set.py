@@ -318,10 +318,10 @@ def cmd_seal(args: argparse.Namespace) -> int:
     for r in sorted(usable, key=lambda r: r["id"]):
         by_lang.setdefault(r["language"], []).append(r)
     sample, take = [], {}
+    per_project: dict[str, int] = {}
     with vets_path.open("a", encoding="utf-8", newline="\n") as handle:
         for lang, rs in sorted(by_lang.items()):
             rng.shuffle(rs)
-            per_project: dict[str, int] = {}
             picked = []
             for r in rs:
                 if len(picked) >= args.per_language:
@@ -341,7 +341,10 @@ def cmd_seal(args: argparse.Namespace) -> int:
                 per_project[r["repo"]] = per_project.get(r["repo"], 0) + 1
             take[lang] = len(picked)
             sample += picked
-            print(f"  {lang}: {len(picked)} bugs from {len(per_project)} projects", flush=True)
+            print(
+                f"  {lang}: {len(picked)} bugs from {len({p['repo'] for p in picked})} projects",
+                flush=True,
+            )
     agent_rng = random.Random(args.seed + 1)
     agents = []
     for lang in sorted(by_lang):

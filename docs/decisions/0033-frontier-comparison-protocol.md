@@ -131,3 +131,9 @@ Written after mining and before sealing; no system has run on any mined bug. Min
 
 - **Sampling:** only bugs with a function to find; up to 100 per language, drawn at random with seed 0, at most 12 from any one project. Under that cap Java has at most 83 eligible bugs (13 projects, mostly small), so it contributes what passes vetting and the set is about 580 bugs; the cap is kept because one project would otherwise be most of Java. The agent subsample is 200, stratified by language from the 600.
 - **Vetting:** each drawn bug's issue and pull request are fetched again. A bug is excluded, and the next random one taken, if either was opened by a bot or a known AI coding-agent account, or if either says it was AI-written (for example "Generated with Claude Code" or "Co-Authored-By: Claude"). Every decision is kept in `data/fresh/vetted.jsonl`. AI-assisted work that carries no marker cannot be detected and remains a threat to validity: a fix written by an AI model may favour the models being tested.
+
+## Amendment, 2026-11-03: the seal is redone once
+
+The first seal (gold sha256 `683df0541fa70c42306d0fec64cbbcad41973d1823c5adc682b871210afca76a`) counted the 12-per-project cap separately within each language, so a project with bugs in two languages contributed up to 23. That broke the rule above. No system had run on it. `scripts/fresh_set.py` now counts the cap across languages, and the set is sealed again with the same seed; the vetting decisions already made are reused. The first seal's files are not kept.
+
+Vetting so far: of 680 drawn bugs, 100 were excluded, 59 of them because the fix's pull request said it was AI-written and the rest because a bot or agent account opened the issue or the pull request.
