@@ -39,7 +39,7 @@ from allfather.parsing.symbols import is_test_path  # noqa: E402
 from allfather.repos import RepoCache  # noqa: E402
 
 OUT = ROOT / "results" / "research" / "frontier"
-WORK = ROOT / ".cache" / "frontier"
+WORK = Path(os.environ.get("FRONTIER_WORK") or ROOT / ".cache" / "frontier")
 GOLD = ROOT / "data" / "gold" / "swebench_verified_test.jsonl"
 FRESH = ROOT / "data" / "fresh"
 LITE = ROOT / "data" / "gold" / "swebench_lite_test.jsonl"
@@ -315,11 +315,19 @@ def parse_answer(text: str) -> dict | None:
         return None
 
 
+def open_model(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
+    import open_agent
+
+    return open_agent.run(prompt, cwd, model, agent, parse_answer)
+
+
 SYSTEMS = {
     "claude-agent": (claude, "opus", True),
     "claude-single": (claude, "opus", False),
     "gemini-agent": (gemini, "gemini-3.8-flash", True),
     "gemini-single": (gemini, "gemini-3.8-flash", False),
+    "open-agent": (open_model, "", True),
+    "open-single": (open_model, "", False),
 }
 
 
@@ -357,6 +365,17 @@ def free_tier_only() -> bool:
     return False
 
 
+def cmd_prepare(args: argparse.Namespace) -> int:
+    ids, items = load_set(args.set)
+    cache = RepoCache(ROOT / ".cache" / "repos")
+    for n, q in enumerate(ids, 1):
+        item = items[q]
+        entries = cache.list_tree(item["repo"], item["base_commit"])
+        cache.prefetch_blobs(item["repo"], [f"{item['base_commit']}:{e.path}" for e in entries])
+        print(f"  {n}/{len(ids)} {q}: {len(entries)} files", flush=True)
+    return 0
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     if args.system.startswith("gemini") and not args.allow_billing and not free_tier_only():
         sys.exit(
@@ -365,7 +384,8 @@ def cmd_run(args: argparse.Namespace) -> int:
     issues, items = load_set(args.set)
     runner, model, agent = SYSTEMS[args.system]
     model = args.model or model
-    target = OUT / f"{args.set}_{args.system}.jsonl"
+    name = f"{args.system}-{args.tag}" if args.tag else args.system
+    target = OUT / f"{args.set}_{name}.jsonl"
     done = (
         {json.loads(line)["id"] for line in target.open(encoding="utf-8")}
         if target.exists()
@@ -373,7 +393,7 @@ def cmd_run(args: argparse.Namespace) -> int:
     )
     cache = RepoCache(ROOT / ".cache" / "repos")
     if not done:
-        log_test_run(args.set, args.system, model, target)
+        log_test_run(args.set, name, model, target)
     with target.open("a", encoding="utf-8", newline="\n") as handle:
         for q in issues[: args.limit or None]:
             if q in done:
@@ -395,7 +415,7 @@ def cmd_run(args: argparse.Namespace) -> int:
             except (json.JSONDecodeError, subprocess.CalledProcessError) as exc:
                 record = {"answer": None, "error": f"{type(exc).__name__}: {str(exc)[:200]}"}
             record = {
-                "id": q, "system": args.system, "requested_model": model, "date": datetime.now(UTC).isoformat(timespec="seconds"),
+                "id": q, "system": name, "requested_model": model, "date": datetime.now(UTC).isoformat(timespec="seconds"),
                 "seconds": round(time.perf_counter() - start, 1), **record,
                 "web_tool_used": any(WEB_TOOLS.search(t) for t in record.get("tools") or []),
             }  # fmt: skip
@@ -478,13 +498,20 @@ def main() -> int:
     rn.add_argument("--set", required=True)
     rn.add_argument("--system", required=True, choices=sorted(SYSTEMS))
     rn.add_argument("--model")
+    rn.add_argument(
+        "--tag", help="added to the system name in the output file, e.g. the open model"
+    )
     rn.add_argument("--limit", type=int, default=0)
     rn.add_argument("--keep", action="store_true")
     rn.add_argument("--allow-billing", action="store_true")
+    pp = sub.add_parser("prepare")
+    pp.add_argument("--set", required=True)
     sc = sub.add_parser("score")
     sc.add_argument("--set", required=True)
     args = ap.parse_args()
-    return {"pick": cmd_pick, "run": cmd_run, "score": cmd_score}[args.cmd](args)
+    return {"pick": cmd_pick, "prepare": cmd_prepare, "run": cmd_run, "score": cmd_score}[args.cmd](
+        args
+    )
 
 
 if __name__ == "__main__":

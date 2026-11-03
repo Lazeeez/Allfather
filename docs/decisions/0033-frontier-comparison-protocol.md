@@ -143,3 +143,11 @@ Vetting: 745 drawn bugs were checked and 111 excluded, 70 of them because the fi
 ## Amendment, 2026-11-03: the escalation threshold
 
 Fixed before any fresh-2026 result is read. RQ3's gate escalates a bug when the website pipeline's confidence (the model in `web/src/assets/confidence.json`, ADR 0029) is below **0.7899**: the 40th percentile of its predictions on the 747 development bugs of the 30 unseen projects (`results/confidence/unseen.json`), so that about 40% of bugs are escalated, the share named in the hypothesis. On those development bugs the website pipeline's function hit@10 is 59.9% below the threshold and 87.7% above it. The analysis is run with `--threshold 0.7899`; the full curve is reported as well.
+
+## Amendment, 2026-11-03: an open-weight model tier
+
+Added before any system has run on fresh-2026 except the website pipeline. Two open-weight models run on PACE as agents and in one call, on the 198-bug agent subsample: **Qwen3-Coder-Next** (80B parameters, about 3B active per token, built for agentic coding) and **gpt-oss-120b** (Apache 2.0). They are the strongest open models whose weights fit the 300 GB scratch quota that offline compute nodes must load from; DeepSeek V4 Pro (about 1.6T parameters) and GLM-5.2 (about 753B) do not fit there. They answer the "free against free" question with models anyone can rerun, unlike rate-limited free API tiers.
+
+- **Harness:** `scripts/open_agent.py` gives them the same three read-only abilities Claude Code gets (list files by glob, search contents, read a line range), confined to the bug's checkout, with at most 40 turns and temperature 0, through an OpenAI-compatible vLLM server on the same node. The prompts are the ones in `scripts/frontier.py`.
+- **Cost:** GPU time on the node, priced at a public A100 rental rate on the run date.
+- **Revisions** are pinned in the job's command line and recorded in each result's `requested_model` and in the log.

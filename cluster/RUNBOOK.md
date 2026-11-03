@@ -104,3 +104,24 @@ huggingface-cli download Salesforce/SweRankEmbed-Small --revision 745d2a06103a66
 ```
 
 A job script stages what it needs with `. "$HOME/scratch/Odin/cluster/stage_models.sh"` and `stage_models <repo id> [...]`. Results are written straight to scratch, so nothing is lost when local disk is wiped.
+
+## fresh-2026 with open-weight models (ADR 0033, open-model tier)
+
+Once, on the login node (it has internet; compute nodes do not):
+
+```bash
+uv venv --python 3.12 $HOME/scratch/vllm-env && uv pip install --python $HOME/scratch/vllm-env/bin/python vllm
+export HF_HOME=$HOME/scratch/odin-cache/huggingface
+huggingface-cli download Qwen/Qwen3-Coder-Next       # note the commit it prints and use it as REVISION
+huggingface-cli download openai/gpt-oss-120b
+cd $HOME/scratch/Odin && git pull && uv run python scripts/frontier.py prepare --set fresh-agents
+```
+
+`prepare` downloads each repository and every file at each bug's base commit, so the job can check them out offline; the checkouts themselves are made on the node's local disk during the job, not on scratch. Check the model ids and the tool-call parser names against `vllm serve --help` for the installed vLLM before submitting.
+
+```bash
+sbatch --gres=gpu:A100:1 --time=24:00:00 --export=ALL,SET=fresh-agents,TAG=qwen3-coder-next,MODEL=Qwen/Qwen3-Coder-Next,REVISION=<commit>,PARSER=qwen3_coder cluster/open_models/run.sbatch
+sbatch --gres=gpu:A100:1 --time=24:00:00 --export=ALL,SET=fresh-agents,TAG=gpt-oss-120b,MODEL=openai/gpt-oss-120b,REVISION=<commit>,PARSER=openai cluster/open_models/run.sbatch
+```
+
+Each job serves the model with vLLM on its own GPU, then runs the read-only agent and the one-call variant on the 198-bug agent subsample. The runs are resumable; if a job hits its time limit, submit it again. Bring `results/research/frontier/fresh-agents_open-*.jsonl` and the new lines of `results/test-evals.log` back to the laptop.
