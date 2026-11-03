@@ -221,7 +221,14 @@ def claude(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
         "--strict-mcp-config", "--setting-sources", "project", "--no-session-persistence",
     ]  # fmt: skip
     done = launch(command, prompt, cwd, ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"))
-    data = json.loads(done.stdout)
+    data = last_json(done.stdout) or {}
+    message = str(data.get("result") or done.stderr or "")
+    if (data.get("is_error") or not data) and re.search(
+        r"usage limit|rate limit|quota|limit reached|resets", message, re.I
+    ):
+        raise QuotaExhausted(message[:200])
+    if not data:
+        raise json.JSONDecodeError("no JSON from claude", done.stdout or "", 0)
     answer = data.get("structured_output") or parse_answer(data.get("result", ""))
     return {
         "answer": answer,
@@ -392,6 +399,14 @@ def cmd_run(args: argparse.Namespace) -> int:
                 "seconds": round(time.perf_counter() - start, 1), **record,
                 "web_tool_used": any(WEB_TOOLS.search(t) for t in record.get("tools") or []),
             }  # fmt: skip
+            if record.get("error") and not str(record["error"]).startswith("timed out"):
+                with target.with_suffix(".errors.jsonl").open(
+                    "a", encoding="utf-8", newline="\n"
+                ) as errors:
+                    errors.write(json.dumps(record) + "\n")
+                print(f"  {q}: error, kept for a retry: {str(record['error'])[:120]}", flush=True)
+                shutil.rmtree(cwd, ignore_errors=True)
+                continue
             handle.write(json.dumps(record) + "\n")
             handle.flush()
             print(
