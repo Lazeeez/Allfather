@@ -84,7 +84,7 @@ A manifest's `environment.with` lists packages that replace the locked ones for 
 
 ## fresh-2026 with SweRank's retrievers (ADR 0033, tier T1)
 
-On the laptop, after the set is sealed: `uv run python scripts/swerank_export.py --set fresh --out ../swerank-fresh`, then copy `../swerank-fresh` to `$HOME/scratch/swerank/fresh` on PACE. Models must already be in the Hugging Face cache (compute nodes are offline); fetch them on the login node first.
+On the laptop, after the set is sealed: `uv run python scripts/swerank_export.py --set fresh --out ../swerank-fresh`, then copy `../swerank-fresh` to `$HOME/scratch/swerank/fresh` on PACE. Models are downloaded onto the node at the start of the job (see below).
 
 ```bash
 sbatch --gres=gpu:1 --time=4:00:00 --export=ALL,TAG=embed-large,DATA=fresh,MODEL=Salesforce/SweRankEmbed-Large,REVISION=b2cbc7dd3a2aed8c268fa65673464cd5ad96f9ff cluster/swerank/retrieve_fresh.sbatch
@@ -95,7 +95,7 @@ Bring `out/fresh-<tag>/results.json` back and run `uv run python scripts/swerank
 
 ## Models on node-local disk
 
-Compute nodes have no internet and about 1 TB of local disk in `$TMPDIR`, wiped when the job ends; scratch (300 GB quota) is slower network storage. So every model has one permanent copy on scratch and is copied to local disk at the start of each job by `cluster/stage_models.sh`, which checks free space first and points `HF_HOME` at the copy (offline). Download each model once, on the login node:
+I tested it on 2026-11-04: compute nodes on the `coc-gpu` partition (account `coc`, QOS `coc-ice`) reach Hugging Face, PyPI and GitHub, and have about 1.7 TB free in `$TMPDIR` (`/tmp`), against a 300 GB scratch quota. So `cluster/stage_models.sh` puts each job's models in its own folder on that local disk: it copies a model from the permanent store on scratch if one is there, and otherwise downloads it on the node, at the job's `REVISION` when one is set. It then points `HF_HOME` at the folder, switches Hugging Face to offline mode, and deletes the folder when the job ends, because `/tmp` is not guaranteed to be wiped between jobs. Large models therefore never need to be on scratch. A permanent copy on scratch is still worth keeping for a small model used by many jobs, downloaded once on the login node:
 
 ```bash
 export HF_HOME=$HOME/scratch/odin-cache/huggingface
@@ -107,7 +107,7 @@ A job script stages what it needs with `. "$HOME/scratch/Odin/cluster/stage_mode
 
 ## fresh-2026 with open-weight models (ADR 0033, open-model tier)
 
-Once, on the login node (it has internet; compute nodes do not):
+Once, on the login node:
 
 ```bash
 uv venv --python 3.12 $HOME/scratch/vllm-env && uv pip install --python $HOME/scratch/vllm-env/bin/python vllm
@@ -128,7 +128,7 @@ Each job serves the model with vLLM on its own GPU, then runs the read-only agen
 
 ## The six-language reranker candidates (ADR 0034, step 2)
 
-On the laptop first: `uv run python scripts/website_rerank.py tasks --multilang` and `uv run python scripts/ce_multilang.py records`, then commit and pull on PACE (`results/website-rerank/work/` is copied with the repository). On the login node, download the bases once:
+On the laptop first: `uv run python scripts/website_rerank.py tasks --multilang` and `uv run python scripts/ce_multilang.py records`, then copy `results/website-rerank/work/tasks.jsonl`, `tasks_multilang.jsonl` and `ce_records.jsonl` to the same folder on PACE by hand: `results/website-rerank/work/` is in `.gitignore`, so a pull does not bring them. On the login node, download the bases once:
 
 ```bash
 export HF_HOME=$HOME/scratch/odin-cache/huggingface

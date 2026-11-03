@@ -17,7 +17,7 @@ stamp "starting vLLM for $MODEL on ${GPUS:-1} GPU(s), port $PORT"
   --enable-auto-tool-choice --tool-call-parser "$PARSER" --served-model-name "$MODEL" \
   --host 127.0.0.1 --port "$PORT" > "$LOG" 2>&1 &
 SERVER=$!
-trap 'kill "$SERVER" 2>/dev/null || true' EXIT
+trap 'kill "$SERVER" 2>/dev/null || true; rm -rf "$HF_HOME"' EXIT
 for _ in $(seq 1 180); do
   curl -sf "http://127.0.0.1:$PORT/health" > /dev/null && break
   kill -0 "$SERVER" 2>/dev/null || { stamp "vLLM exited"; tail -40 "$LOG"; exit 1; }
