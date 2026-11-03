@@ -125,3 +125,23 @@ sbatch --gres=gpu:A100:1 --time=24:00:00 --export=ALL,SET=fresh-agents,TAG=gpt-o
 ```
 
 Each job serves the model with vLLM on its own GPU, then runs the read-only agent and the one-call variant on the 198-bug agent subsample. The runs are resumable; if a job hits its time limit, submit it again. Bring `results/research/frontier/fresh-agents_open-*.jsonl` and the new lines of `results/test-evals.log` back to the laptop.
+
+## The six-language reranker candidates (ADR 0034, step 2)
+
+On the laptop first: `uv run python scripts/website_rerank.py tasks --multilang` and `uv run python scripts/ce_multilang.py records`, then commit and pull on PACE (`results/website-rerank/work/` is copied with the repository). On the login node, download the bases once:
+
+```bash
+export HF_HOME=$HOME/scratch/odin-cache/huggingface
+huggingface-cli download Qwen/Qwen3-Reranker-0.6B
+huggingface-cli download Qwen/Qwen3-Reranker-4B
+```
+
+Then one array job per candidate, five folds each (A and B fit an A100 40 GB; C wants an A100 80 GB or an H100):
+
+```bash
+sbatch --array=0-4 --gres=gpu:A100:1 --time=8:00:00 --export=ALL,CANDIDATE=A cluster/ce_multilang/fold.sbatch
+sbatch --array=0-4 --gres=gpu:A100:1 --time=12:00:00 --export=ALL,CANDIDATE=B cluster/ce_multilang/fold.sbatch
+sbatch --array=0-4 --gres=gpu:H100:1 --time=24:00:00 --export=ALL,CANDIDATE=C cluster/ce_multilang/fold.sbatch
+```
+
+Each fold appends its held-out scores to `results/website-rerank/work/scores_cand-<X>.jsonl`; when all five are in, bring the file back and evaluate on the laptop. The chosen candidate is then trained on every project with `--export=ALL,CANDIDATE=<X>,FOLD=all`.
