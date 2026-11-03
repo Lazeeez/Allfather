@@ -1,0 +1,1 @@
+{"id": "openclaw/openclaw#117292", "system": "codex-single-astra", "requested_model": "gpt-6-astra", "date": "2026-11-03T18:52:13+00:00", "seconds": 6.5, "answer": null, "model": "gpt-6-astra", "cost_usd": null, "usage": null, "turns": null, "tools": [], "error": "{'message': 'Selected model is at capacity. Please try a different model.'}", "web_tool_used": false}
