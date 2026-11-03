@@ -13,7 +13,14 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 import browser_ltr as bl  # noqa: E402
 
-from allfather.eval.metrics import aggregate, metric_values, paired_bootstrap, score  # noqa: E402
+from allfather.eval.metrics import (  # noqa: E402
+    aggregate,
+    holm,
+    mcnemar_exact,
+    metric_values,
+    paired_bootstrap,
+    score,
+)
 from allfather.eval.provenance import provenance  # noqa: E402
 
 OUT = ROOT / "results" / "website-rerank"
@@ -172,14 +179,25 @@ def evaluate(name: str) -> int:
     by_language: dict[str, list[int]] = {}
     for i, t in enumerate([t for k in (0, 1) for t in halves[1 - k]]):
         by_language.setdefault(t.get("language", "python"), []).append(i)
-    report["by_language"] = {
-        lang: {
+    report["by_language"] = {}
+    for lang, idx in sorted(by_language.items()):
+        b = [pooled_base[i].hit[10] for i in idx]
+        c = [pooled_cand[i].hit[10] for i in idx]
+        wins = sum(1 for x, y in zip(b, c, strict=True) if y > x)
+        losses = sum(1 for x, y in zip(b, c, strict=True) if x > y)
+        report["by_language"][lang] = {
             "issues": len(idx),
-            "website_hit@10": round(float(np.mean([pooled_base[i].hit[10] for i in idx])), 4),
-            "with_reranker_hit@10": round(float(np.mean([pooled_cand[i].hit[10] for i in idx])), 4),
+            "website_hit@10": round(float(np.mean(b)), 4),
+            "with_reranker_hit@10": round(float(np.mean(c)), 4),
+            "gain": round(float(np.mean(c) - np.mean(b)), 4),
+            "wins": wins,
+            "losses": losses,
+            "p_exact": round(mcnemar_exact(wins, losses), 6),
         }
-        for lang, idx in sorted(by_language.items())
-    }
+    adjusted = holm({k: v["p_exact"] for k, v in report["by_language"].items()})
+    for lang, row in report["by_language"].items():
+        row["p_holm"] = adjusted[lang]
+        row["passes_adr_0034"] = bool(row["gain"] >= 0.02 and row["p_holm"] < 0.05)
     gain = report["pooled"]["paired"]["hit@10"]
     report["decision"] = {
         "rule": "build the server if pooled function hit@10 improves by >= 0.020 with p < 0.05",

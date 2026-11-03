@@ -66,3 +66,18 @@ Written before any step 1 result has been read. I want the GPU reranker to serve
 - **Python:** the multilingual adapter replaces the current pair for Python too if, on Python's bugs, it is not worse by more than 0.5 points of function hit@10, so one model serves every language; otherwise Python keeps its pair.
 - **A language that still fails the rule after step 2 stays browser-only**, and I report that as a finding. The rule itself (at least 2.0 points of function hit@10, Holm-adjusted p below 0.05) does not change.
 - **Adding languages beyond these six** (for example C++, C# and PHP) is a later version with its own ADR, after the fresh-2026 study is frozen, so the system the study measures does not change under it.
+
+## Outcome of step 1, 2026-11-04
+
+The two shipped adapters, trained on Python only, scored all 2,728 five-language training bugs; the depth and weight were chosen on one half of the projects and applied to the other (both halves chose depth 50, weight 1.0). Function hit@10, website pipeline against the same pipeline with the GPU reranker, with the exact paired test on each language and Holm's correction across the five (`results/website-rerank/server_reranker_zero-shot-multilang.json`):
+
+| Language | Bugs | Website | With reranker | Gain | Wins / losses | Holm p |
+|---|---|---|---|---|---|---|
+| Go | 816 | 68.9% | 72.6% | +3.7 | 45 / 15 | 0.0005 |
+| Java | 768 | 62.9% | 68.0% | +5.1 | 51 / 12 | < 0.0001 |
+| JavaScript | 438 | 68.3% | 72.8% | +4.6 | 27 / 7 | 0.0025 |
+| Rust | 120 | 73.3% | 80.8% | +7.5 | 10 / 1 | 0.015 |
+| TypeScript | 586 | 56.3% | 59.2% | +2.9 | 27 / 10 | 0.015 |
+| Pooled | 2,728 | 70.0% / 58.5% by half | 74.6% / 62.4% | +4.2 (95% CI +3.2 to +5.2) | | < 0.0001 |
+
+**Every language passes the rule.** A reranker trained on Python bugs alone transfers to all five other languages. As the amendment above says, step 2 still runs: its candidates now compete with this pair, and the configuration the site and ADR 0033's website system use is the passing one with the largest gain once step 2 is measured.
