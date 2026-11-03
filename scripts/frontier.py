@@ -350,7 +350,9 @@ def gemini_api(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
             message = exc.read().decode("utf-8", "replace")
             if exc.code == 429 and re.search(r"PerDay|per day", message):
                 raise QuotaExhausted(message[:300]) from exc
-            if exc.code in (429, 500, 503) and attempt < 2:
+            if exc.code == 503:
+                raise QuotaExhausted(f"Gemini overloaded, try later: {message[:200]}") from exc
+            if exc.code in (429, 500) and attempt < 2:
                 time.sleep(65)
                 continue
             return {"answer": None, "error": f"HTTP {exc.code}: {message[:300]}"}
