@@ -139,3 +139,7 @@ The first seal (gold sha256 `683df0541fa70c42306d0fec64cbbcad41973d1823c5adc682b
 Vetting: 745 drawn bugs were checked and 111 excluded, 70 of them because the fix's pull request said it was AI-written and the rest because a bot or agent account opened the issue or the pull request.
 
 **Sealed, 2026-11-03:** 580 bugs (100 each in Go, JavaScript, Python, Rust and TypeScript; 80 in Java) from 74 projects, none contributing more than 12; issues opened 2026-08-01 to 2026-11-02; agent subsample of 198 (34 per language, 28 in Java). `data/fresh/gold.jsonl` sha256 `f8b6194fd8d378249b317efaab351bcbed04a9bcde1a11e2fc645c3f77fa1f0b`, recorded in `data/fresh/manifest.json`. From here, nothing about the systems, prompts or analysis may change except by a dated amendment, and every run is logged.
+
+## Amendment, 2026-11-03: the escalation threshold
+
+Fixed before any fresh-2026 result is read. RQ3's gate escalates a bug when the website pipeline's confidence (the model in `web/src/assets/confidence.json`, ADR 0029) is below **0.7899**: the 40th percentile of its predictions on the 747 development bugs of the 30 unseen projects (`results/confidence/unseen.json`), so that about 40% of bugs are escalated, the share named in the hypothesis. On those development bugs the website pipeline's function hit@10 is 59.9% below the threshold and 87.7% above it. The analysis is run with `--threshold 0.7899`; the full curve is reported as well.
