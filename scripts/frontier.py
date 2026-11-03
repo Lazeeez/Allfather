@@ -399,17 +399,19 @@ def codex(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
         for e in events
         if e["type"] in ("error", "turn.failed")
     ]
-    if done.returncode:
+    if done.returncode and done.stderr.strip():
         failures.append(done.stderr.strip()[-300:])
-    if any(
-        re.search(
+    limits = [
+        f
+        for f in failures
+        if re.search(
             r"usage limit|rate limit|quota|try again (at|in)|token_revoked|HTTP 401|log ?in again",
             f,
             re.I,
         )
-        for f in failures
-    ):
-        raise QuotaExhausted(failures[-1][:300])
+    ]
+    if limits:
+        raise QuotaExhausted(limits[0][:300])
     if any(
         re.search(r"context.{0,20}(window|length|limit)|too.(long|large)|maximum length", f, re.I)
         for f in failures
