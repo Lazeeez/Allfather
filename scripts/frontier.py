@@ -325,6 +325,48 @@ def gemini(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
     }
 
 
+def gemini_api(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
+    body = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {
+            "responseMimeType": "application/json",
+            "responseJsonSchema": ANSWER,
+        },
+    }
+    for attempt in range(3):
+        request = urllib.request.Request(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+            data=json.dumps(body).encode(),
+            headers={
+                "x-goog-api-key": os.environ.get("GEMINI_API_KEY", ""),
+                "Content-Type": "application/json",
+            },
+            method="POST",
+        )
+        try:
+            data = json.loads(urllib.request.urlopen(request, timeout=TIMEOUT_S).read())
+            break
+        except urllib.error.HTTPError as exc:
+            message = exc.read().decode("utf-8", "replace")
+            if exc.code == 429 and re.search(r"PerDay|per day", message):
+                raise QuotaExhausted(message[:300]) from exc
+            if exc.code in (429, 500, 503) and attempt < 2:
+                time.sleep(65)
+                continue
+            return {"answer": None, "error": f"HTTP {exc.code}: {message[:300]}"}
+    candidate = (data.get("candidates") or [{}])[0]
+    text = "".join(p.get("text", "") for p in (candidate.get("content") or {}).get("parts", []))
+    return {
+        "answer": parse_answer(text),
+        "model": data.get("modelVersion") or model,
+        "cost_usd": None,
+        "usage": data.get("usageMetadata"),
+        "turns": 1,
+        "tools": [],
+        "error": None if text else f"no text, finish reason {candidate.get('finishReason')}",
+    }
+
+
 def parse_answer(text: str) -> dict | None:
     match = re.search(r"\{.*\}", text or "", re.S)
     if not match:
@@ -333,6 +375,50 @@ def parse_answer(text: str) -> dict | None:
         return json.loads(match.group(0))
     except json.JSONDecodeError:
         return None
+
+
+def codex(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
+    if agent and sys.platform == "win32":
+        sys.exit("codex-agent needs a real read-only sandbox; run it under WSL or Linux")
+    WORK.mkdir(parents=True, exist_ok=True)
+    schema = WORK / "answer_schema.json"
+    schema.write_text(json.dumps(ANSWER), encoding="utf-8")
+    command = [
+        shutil.which("codex") or "codex", "exec", "--json", "--ephemeral", "--skip-git-repo-check",
+        "--ignore-user-config", "--ignore-rules", "-s", "read-only", "-m", model,
+        "-c", 'web_search="disabled"', "-c", 'model_reasoning_effort="medium"',
+        "--output-schema", str(schema),
+        *([] if agent else ["--disable", "shell_tool"]), "-",
+    ]  # fmt: skip
+    done = launch(command, prompt, cwd, ("OPENAI_API_KEY",))
+    events = [json.loads(line) for line in done.stdout.splitlines() if line.startswith("{")]
+    failures = [
+        str(e.get("message") or e.get("error"))
+        for e in events
+        if e["type"] in ("error", "turn.failed")
+    ]
+    if done.returncode:
+        failures.append(done.stderr.strip()[-300:])
+    if any(re.search(r"usage limit|rate limit|quota|try again (at|in)", f, re.I) for f in failures):
+        raise QuotaExhausted(failures[-1][:300])
+    if any(
+        re.search(r"context.{0,20}(window|length|limit)|too.(long|large)|maximum length", f, re.I)
+        for f in failures
+    ):
+        return {"answer": None, "model": model, "error": None, "too_long": failures[-1][:300]}
+    items = [e["item"] for e in events if e["type"] == "item.completed"]
+    messages = [i["text"] for i in items if i.get("type") == "agent_message"]
+    if not events:
+        raise json.JSONDecodeError(f"no JSON from codex: {done.stderr.strip()[-200:]}", "", 0)
+    return {
+        "answer": parse_answer(messages[-1]) if messages else None,
+        "model": model,
+        "cost_usd": None,
+        "usage": next((e["usage"] for e in events if e["type"] == "turn.completed"), None),
+        "turns": None,
+        "tools": sorted({i["type"] for i in items if i.get("type") != "agent_message"}),
+        "error": failures[-1][:300] if failures and not messages else None,
+    }
 
 
 def open_model(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
@@ -345,9 +431,11 @@ SYSTEMS = {
     "claude-agent": (claude, "opus", True),
     "claude-single": (claude, "opus", False),
     "gemini-agent": (gemini, "gemini-3.8-flash", True),
-    "gemini-single": (gemini, "gemini-3.8-flash", False),
+    "gemini-single": (gemini_api, "gemini-3.8-flash", False),
     "open-agent": (open_model, "", True),
     "open-single": (open_model, "", False),
+    "codex-agent": (codex, "gpt-6-luna", True),
+    "codex-single": (codex, "gpt-6-luna", False),
 }
 
 

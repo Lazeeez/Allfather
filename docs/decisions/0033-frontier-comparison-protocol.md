@@ -163,3 +163,20 @@ I stopped the website pipeline's run on fresh-2026 after 324 of 580 bugs, withou
 - **The website system is redefined** as the website pipeline with the GPU reranker in every language where [ADR 0034](0034-gpu-reranker-other-languages.md) adopts it, decided only on training bugs by cross-validation. Its configuration (rankers, adapters, depth, weight, languages) is frozen in an amendment here before it runs on fresh-2026.
 - **The stopped run is kept, unread,** as `results/research/frontier/fresh_website.jsonl`: the browser pipeline without a GPU. I finish it later and report it as a separate, cheaper system, "website, browser only". The same system's run on the agent subsample (`fresh-agents_website.jsonl`) had already started when I stopped the first one; I let it finish, unread, for the same comparison.
 - **Nothing else changes.** Every other system, the test set, the metrics, the threshold and the analysis are as already recorded.
+
+## Amendment, 2026-11-03: Gemini one-call goes straight to the API
+
+The Gemini CLI stopped working for this study: it now falls back to Google-account sign-in, which Google no longer offers for this client ("This client is no longer supported for Gemini Code Assist for individuals"). Its first two answers on fresh-agents came back empty because of it; I set those two records aside unread, and the bugs are run again.
+
+One-call needs no tools, so `gemini-single` now sends the same prompt (`SINGLE`) to the Gemini API's `generateContent` with the same model, `gemini-3.8-flash`, and the same answer schema the Claude one-call run uses, passed as `responseJsonSchema`. Nothing else is added: no system prompt, default sampling. The CLI's own system prompt and tool declarations are gone, which makes the prompt the same text Claude one-call receives. Each record now keeps the API's exact token counts. It still runs on the free tier only, and nothing has been read or scored.
+
+## Amendment, 2026-11-03: an OpenAI tier through Codex CLI
+
+Written before any Codex run on fresh-2026. OpenAI's models join the comparison the same way Claude's do: through OpenAI's own command-line agent, Codex CLI (0.166.0), signed in with my ChatGPT account, so it costs nothing beyond the plan. No API key and no paid usage.
+
+- **Model:** `gpt-6-luna`, the newest model Codex lists for my account (the others are the older `gpt-5.6-terra` and `gpt-5.6-luna`), at its default reasoning effort, `medium`, pinned on the command line. Web search is disabled, the sandbox is read-only, my own Codex configuration and rules files are ignored, and sessions are not saved.
+- **codex-single** (tier T3): the same prompt as the other one-call systems (`SINGLE`), with Codex's shell tool turned off so it cannot open files, and the same answer schema passed as `--output-schema`. It runs on all 580 bugs.
+- **codex-agent** (tier T4): the agent prompt (`PROMPT`), exploring the checkout through Codex's shell inside its read-only sandbox, on the 198-bug agent subsample. On Windows that sandbox blocks every command, and turning approvals off would run commands outside any sandbox, so codex-agent runs only under Linux (WSL), where the sandbox is enforced by the kernel. `frontier.py` refuses to start it on Windows.
+- **Prompts Codex cannot take:** Codex refuses any input longer than 1,048,576 characters before the model sees it. 19 of the 580 one-call prompts (5 of the 198) are longer, because their repositories list that many source files. Those bugs are recorded as no answer, a miss, with the reason kept in the record; I do not shorten the file list for one system, because every one-call system must see the same prompt. Claude and Gemini take all 580.
+
+Nothing else changes, and nothing has been read or scored.
