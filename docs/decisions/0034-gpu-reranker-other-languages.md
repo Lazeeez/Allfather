@@ -36,3 +36,23 @@ Two steps, the second only if the first does not settle every language.
 
 - If step 1 passes for some languages, they get the GPU reranker with no training and no PACE time.
 - Every result file is written to `results/website-rerank/`, and this ADR gets an outcome section with the numbers, whichever way they go.
+
+## Amendment, 2026-11-03: step 2 trains the best candidate, not just one
+
+Written before any training or any step 1 result. I want the strongest reranker the site can serve quickly, so step 2 compares three candidates instead of training one, each built from what the literature and my own records show works:
+
+| Candidate | Base | Recipe | Why |
+|---|---|---|---|
+| A | Qwen3-Reranker-0.6B | the shipped recipe (ADR 0007): LoRA rank 16, listwise loss over the real fix and 7 hard negatives, 1 epoch | the baseline: what the site runs today, retrained on six languages |
+| B | Qwen3-Reranker-0.6B | groups of 16, 2 epochs, sampling balanced across languages (each language drawn in proportion to the square root of its size, so Rust's 120 bugs are not drowned by Python's 5,115) | larger listwise groups helped monoT5-style rerankers steadily from 2 to 32 (Pradeep et al., ECIR 2022); balanced sampling is the usual remedy for skewed multilingual data |
+| C | Qwen3-Reranker-4B | candidate B's recipe | the 4B model put the right function first about 6 points more often than the 0.6B one in my own test (ADR 0020) |
+
+The same hard negatives for all three: the website pipeline's out-of-fold top 50 for each training bug, so each candidate learns from the mistakes it will actually see. Every candidate is trained and scored five times, each time with a fifth of the projects held out, and evaluated as in step 1.
+
+**Choosing:** for each language, among the candidates (and step 1's existing adapters) that pass the per-language rule, I take the one with the largest gain; if another passing candidate is within 0.5 points and cheaper to serve, I take that one instead. Python keeps its current pair unless a candidate beats it by the same rule on Python.
+
+**Speed limit:** the site must stay usable, so a candidate is eligible only if re-reading 50 functions takes at most 3 s at the median once the server is warm, measured with `scripts/time_rerank.py` on the GPU type Modal will serve it on. The 4B model fits an L4 (24 GB) in bf16; if it misses the limit there, it is reported and not shipped.
+
+**Compute:** about 30 to 40 GPU-hours on PACE's A100s for 5 folds of three candidates, plus one final training of the chosen candidate on all projects. No money is spent.
+
+Everything trained here is trained on training bugs only. fresh-2026 measures the frozen choice afterwards and decides nothing.
