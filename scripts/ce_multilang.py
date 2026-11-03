@@ -191,8 +191,7 @@ def cmd_merge(args: argparse.Namespace) -> int:
     if missing:
         sys.exit(f"missing folds: {missing}")
     target = WORK / f"scores_cand-{args.candidate}.jsonl"
-    with target.open("w", encoding="utf-8", newline="
-") as handle:
+    with target.open("w", encoding="utf-8", newline="\n") as handle:
         for p in parts:
             handle.write(p.read_text(encoding="utf-8"))
     print(f"wrote {target}")
@@ -210,7 +209,9 @@ def main() -> int:
         sp.add_argument("--candidate", required=True, choices=sorted(CANDIDATES))
         sp.add_argument("--fold", required=True)
     args = ap.parse_args()
-    return {"records": cmd_records, "train": cmd_train, "score": cmd_score, "merge": cmd_merge}[args.cmd](args)
+    return {"records": cmd_records, "train": cmd_train, "score": cmd_score, "merge": cmd_merge}[
+        args.cmd
+    ](args)
 
 
 if __name__ == "__main__":
