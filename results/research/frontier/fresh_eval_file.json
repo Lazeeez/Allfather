@@ -1,0 +1,2445 @@
+{
+  "summary": {
+    "n": 100,
+    "mrr": 0.83,
+    "recall@1": 0.5674,
+    "hit@1": 0.75,
+    "all@1": 0.48,
+    "recall@5": 0.8062,
+    "hit@5": 0.94,
+    "all@5": 0.7,
+    "recall@10": 0.8372,
+    "hit@10": 0.96,
+    "all@10": 0.72,
+    "retriever": "ltr-ce-more-data-notests",
+    "level": "file",
+    "skipped_no_target": 0,
+    "ci95": {
+      "mrr": [
+        0.7704,
+        0.8862
+      ],
+      "recall@10": [
+        0.7781,
+        0.8907
+      ]
+    },
+    "latency_ms_p50": 10293.86,
+    "latency_ms_p95": 17955.84,
+    "latency_ms_p99": 18708.72,
+    "wall_s": 1072.8,
+    "warmup_s": 5.6,
+    "index_ms_p50": 457.1,
+    "index_ms_p95": 1350.0,
+    "index": {
+      "files_indexed": 224694,
+      "blobs_parsed": 0,
+      "blobs_from_disk_cache": 20106,
+      "blob_reuse": 1.0
+    },
+    "units_embedded": 0,
+    "embedding_store_size": 846348,
+    "by_repo": {
+      "Comfy-Org/ComfyUI": {
+        "n": 4,
+        "mrr": 0.6562,
+        "recall@1": 0.5,
+        "hit@1": 0.5,
+        "all@1": 0.5,
+        "recall@5": 0.55,
+        "hit@5": 0.75,
+        "all@5": 0.5,
+        "recall@10": 0.6625,
+        "hit@10": 1.0,
+        "all@10": 0.5
+      },
+      "NousResearch/hermes-agent": {
+        "n": 10,
+        "mrr": 0.95,
+        "recall@1": 0.7,
+        "hit@1": 0.9,
+        "all@1": 0.6,
+        "recall@5": 0.9167,
+        "hit@5": 1.0,
+        "all@5": 0.8,
+        "recall@10": 0.9333,
+        "hit@10": 1.0,
+        "all@10": 0.8
+      },
+      "Shubhamsaboo/awesome-llm-apps": {
+        "n": 1,
+        "mrr": 1.0,
+        "recall@1": 0.2,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 0.4,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.4,
+        "hit@10": 1.0,
+        "all@10": 0.0
+      },
+      "Significant-Gravitas/AutoGPT": {
+        "n": 8,
+        "mrr": 1.0,
+        "recall@1": 0.8542,
+        "hit@1": 1.0,
+        "all@1": 0.75,
+        "recall@5": 0.9375,
+        "hit@5": 1.0,
+        "all@5": 0.875,
+        "recall@10": 0.9375,
+        "hit@10": 1.0,
+        "all@10": 0.875
+      },
+      "TheAlgorithms/Python": {
+        "n": 2,
+        "mrr": 0.625,
+        "recall@1": 0.5,
+        "hit@1": 0.5,
+        "all@1": 0.5,
+        "recall@5": 0.5122,
+        "hit@5": 1.0,
+        "all@5": 0.5,
+        "recall@10": 0.5244,
+        "hit@10": 1.0,
+        "all@10": 0.5
+      },
+      "github/spec-kit": {
+        "n": 12,
+        "mrr": 0.9028,
+        "recall@1": 0.5438,
+        "hit@1": 0.8333,
+        "all@1": 0.4167,
+        "recall@5": 0.7896,
+        "hit@5": 1.0,
+        "all@5": 0.5833,
+        "recall@10": 0.85,
+        "hit@10": 1.0,
+        "all@10": 0.5833
+      },
+      "immich-app/immich": {
+        "n": 2,
+        "mrr": 1.0,
+        "recall@1": 0.5,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "all@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "all@10": 1.0
+      },
+      "infiniflow/ragflow": {
+        "n": 9,
+        "mrr": 0.5648,
+        "recall@1": 0.3148,
+        "hit@1": 0.4444,
+        "all@1": 0.2222,
+        "recall@5": 0.6852,
+        "hit@5": 0.7778,
+        "all@5": 0.5556,
+        "recall@10": 0.7407,
+        "hit@10": 0.7778,
+        "all@10": 0.6667
+      },
+      "langchain-ai/langchain": {
+        "n": 11,
+        "mrr": 0.7841,
+        "recall@1": 0.7273,
+        "hit@1": 0.7273,
+        "all@1": 0.7273,
+        "recall@5": 0.8182,
+        "hit@5": 0.8182,
+        "all@5": 0.8182,
+        "recall@10": 0.8636,
+        "hit@10": 0.9091,
+        "all@10": 0.8182
+      },
+      "langflow-ai/langflow": {
+        "n": 12,
+        "mrr": 0.9028,
+        "recall@1": 0.6382,
+        "hit@1": 0.8333,
+        "all@1": 0.5833,
+        "recall@5": 0.8104,
+        "hit@5": 1.0,
+        "all@5": 0.6667,
+        "recall@10": 0.8382,
+        "hit@10": 1.0,
+        "all@10": 0.6667
+      },
+      "langgenius/dify": {
+        "n": 11,
+        "mrr": 0.6894,
+        "recall@1": 0.3667,
+        "hit@1": 0.5455,
+        "all@1": 0.2727,
+        "recall@5": 0.7485,
+        "hit@5": 0.9091,
+        "all@5": 0.6364,
+        "recall@10": 0.7485,
+        "hit@10": 0.9091,
+        "all@10": 0.6364
+      },
+      "microsoft/markitdown": {
+        "n": 4,
+        "mrr": 0.6667,
+        "recall@1": 0.5,
+        "hit@1": 0.5,
+        "all@1": 0.5,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "all@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "all@10": 1.0
+      },
+      "morluto/rea": {
+        "n": 1,
+        "mrr": 1.0,
+        "recall@1": 0.125,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 0.125,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.125,
+        "hit@10": 1.0,
+        "all@10": 0.0
+      },
+      "nextlevelbuilder/ui-ux-pro-max-skill": {
+        "n": 1,
+        "mrr": 1.0,
+        "recall@1": 0.25,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 0.5,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.5,
+        "hit@10": 1.0,
+        "all@10": 0.0
+      },
+      "open-webui/open-webui": {
+        "n": 11,
+        "mrr": 0.9091,
+        "recall@1": 0.5712,
+        "hit@1": 0.8182,
+        "all@1": 0.4545,
+        "recall@5": 0.9182,
+        "hit@5": 1.0,
+        "all@5": 0.8182,
+        "recall@10": 0.9545,
+        "hit@10": 1.0,
+        "all@10": 0.9091
+      },
+      "ruvnet/RuView": {
+        "n": 1,
+        "mrr": 1.0,
+        "recall@1": 1.0,
+        "hit@1": 1.0,
+        "all@1": 1.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "all@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "all@10": 1.0
+      }
+    }
+  },
+  "per_instance": [
+    {
+      "instance_id": "Comfy-Org/ComfyUI#15922",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy/model_base.py",
+        "comfy/model_detection.py",
+        "comfy/supported_models.py",
+        "comfy_extras/nodes_hidream_o1.py",
+        "nodes.py"
+      ],
+      "ranked": [
+        "comfy/ldm/moge/model.py",
+        "comfy/supported_models.py",
+        "comfy_extras/nodes_moge.py",
+        "comfy_api_nodes/nodes_gemini.py",
+        "comfy/ldm/hunyuan3dv2_1/hunyuandit.py",
+        "comfy_extras/nodes_wan.py",
+        "comfy/model_base.py",
+        "comfy/text_encoders/gpt_oss.py",
+        "comfy/sd.py",
+        "comfy_api_nodes/nodes_bytedance.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "Comfy-Org/ComfyUI#16130",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy/controlnet.py",
+        "comfy/model_management.py",
+        "comfy/ops.py",
+        "comfy_extras/nodes_model_patch.py"
+      ],
+      "ranked": [
+        "execution.py",
+        "nodes.py",
+        "comfy/ldm/minimax/model.py",
+        "main.py",
+        "comfy_api_nodes/nodes_minimax.py",
+        "comfy_api_nodes/nodes_comfy_cloud.py",
+        "comfy_extras/nodes_minimax_h3.py",
+        "comfy/model_management.py",
+        "comfy_extras/nodes_custom_sampler.py",
+        "comfy/model_patcher.py"
+      ],
+      "first_rank": 8
+    },
+    {
+      "instance_id": "Comfy-Org/ComfyUI#16485",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy/ldm/minimax/vae.py"
+      ],
+      "ranked": [
+        "comfy/ldm/minimax/vae.py",
+        "comfy/ldm/seedvr/vae.py",
+        "comfy/ops.py",
+        "comfy/sd.py",
+        "comfy/ldm/minimax/model.py",
+        "comfy_extras/nodes_minimax_h3.py",
+        "comfy/model_management.py",
+        "comfy/quant_ops.py",
+        "comfy/ldm/lightricks/vae/na_diffusion_decoder.py",
+        "comfy/ldm/minimax/audio_vae.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Comfy-Org/ComfyUI#16500",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy_extras/nodes_upscale_model.py"
+      ],
+      "ranked": [
+        "comfy_extras/nodes_upscale_model.py",
+        "comfy_extras/nodes_triposplat.py",
+        "comfy_extras/nodes_compositor.py",
+        "comfy_extras/nodes_compositing.py",
+        "comfy_api_nodes/util/conversions.py",
+        "nodes.py",
+        "comfy_api_nodes/nodes_bytedance.py",
+        "comfy_api_nodes/nodes_bria.py",
+        "comfy_extras/nodes_images.py",
+        "comfy_extras/nodes_post_processing.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80004",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "tools/read_extract.py"
+      ],
+      "ranked": [
+        "tools/read_extract.py",
+        "tools/file_tools.py",
+        "tools/web_tools.py",
+        "tui_gateway/methods_prompt.py",
+        "tools/budget_config.py",
+        "gateway/run.py",
+        "tools/delegate_tool.py",
+        "tools/file_operations.py",
+        "gateway/platforms/base.py",
+        "cli.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80465",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "tools/delegate_tool.py"
+      ],
+      "ranked": [
+        "tools/delegate_tool.py",
+        "agent/chat_completion_helpers.py",
+        "run_agent.py",
+        "hermes_cli/runtime_provider.py",
+        "agent/agent_runtime_helpers.py",
+        "agent/auxiliary_client.py",
+        "gateway/run.py",
+        "hermes_state.py",
+        "hermes_cli/main.py",
+        "tools/environments/local.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80491",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "hermes_cli/gateway.py"
+      ],
+      "ranked": [
+        "hermes_cli/gateway.py",
+        "hermes_cli/uninstall.py",
+        "gateway/slash_commands.py",
+        "hermes_cli/update_cmd.py",
+        "gateway/run.py",
+        "hermes_cli/main.py",
+        "tui_gateway/server.py",
+        "cli.py",
+        "hermes_cli/gateway_windows.py",
+        "gateway/status.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80912",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "cron/scheduler.py"
+      ],
+      "ranked": [
+        "cron/scheduler.py",
+        "cron/jobs.py",
+        "hermes_cli/cron.py",
+        "gateway/run.py",
+        "tools/cronjob_tools.py",
+        "hermes_cli/kanban_db.py",
+        "tools/terminal_tool.py",
+        "agent/conversation_compression.py",
+        "tui_gateway/server.py",
+        "tools/approval.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#81691",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/learn_prompt.py"
+      ],
+      "ranked": [
+        "agent/learn_prompt.py",
+        "hermes_cli/cli_commands_mixin.py",
+        "tools/skill_manager_tool.py",
+        "cli.py",
+        "run_agent.py",
+        "agent/prompt_builder.py",
+        "tui_gateway/server.py",
+        "gateway/run.py",
+        "agent/skill_commands.py",
+        "hermes_cli/commands.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#81946",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "cli.py",
+        "gateway/run.py",
+        "gateway/slash_commands.py",
+        "hermes_cli/cli_commands_mixin.py",
+        "hermes_cli/config.py",
+        "tui_gateway/server.py"
+      ],
+      "ranked": [
+        "hermes_cli/cli_commands_mixin.py",
+        "tui_gateway/server.py",
+        "gateway/slash_commands.py",
+        "hermes_cli/commands.py",
+        "cli.py",
+        "agent/system_prompt.py",
+        "agent/turn_context.py",
+        "agent/conversation_loop.py",
+        "hermes_state.py",
+        "hermes_cli/config.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#82149",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/credential_pool.py",
+        "run_agent.py"
+      ],
+      "ranked": [
+        "agent/agent_runtime_helpers.py",
+        "agent/credential_pool.py",
+        "run_agent.py",
+        "agent/chat_completion_helpers.py",
+        "hermes_cli/auth.py",
+        "agent/auxiliary_client.py",
+        "agent/anthropic_adapter.py",
+        "agent/conversation_loop.py",
+        "hermes_cli/model_switch.py",
+        "hermes_cli/runtime_provider.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#82313",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/relay_llm.py",
+        "agent/relay_runtime.py",
+        "agent/relay_tools.py"
+      ],
+      "ranked": [
+        "agent/relay_tools.py",
+        "plugins/observability/nemo_relay/__init__.py",
+        "agent/relay_runtime.py",
+        "agent/relay_llm.py",
+        "hermes_cli/observability/relay_shared_metrics.py",
+        "model_tools.py",
+        "agent/tool_executor.py",
+        "run_agent.py",
+        "agent/auxiliary_client.py",
+        "gateway/run.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#83044",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "plugins/platforms/telegram/telegram_network.py"
+      ],
+      "ranked": [
+        "plugins/platforms/telegram/telegram_network.py",
+        "gateway/platforms/_http_client_limits.py",
+        "plugins/platforms/telegram/adapter.py",
+        "gateway/platforms/qqbot/adapter.py",
+        "run_agent.py",
+        "tools/send_message_tool.py",
+        "gateway/platforms/base.py",
+        "agent/agent_runtime_helpers.py",
+        "gateway/stream_consumer.py",
+        "gateway/run.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#83636",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/auxiliary_client.py",
+        "hermes_cli/config_defaults.py"
+      ],
+      "ranked": [
+        "agent/auxiliary_client.py",
+        "hermes_cli/main.py",
+        "hermes_cli/plugins.py",
+        "agent/title_generator.py",
+        "providers/base.py",
+        "hermes_cli/model_switch.py",
+        "hermes_cli/model_setup_flows.py",
+        "plugins/model-providers/opencode-zen/__init__.py",
+        "hermes_cli/models.py",
+        "hermes_cli/setup.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Shubhamsaboo/awesome-llm-apps#1246",
+      "repo": "Shubhamsaboo/awesome-llm-apps",
+      "gold": [
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/integrations/slack/chat.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/main.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/processors/faiss_indexing_processor.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/services/async_podcast_agent_service.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/google_news_discovery.py"
+      ],
+      "ranked": [
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/google_news_discovery.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/main.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/processors/podcast_generator_processor.py",
+        "agent_skills/self-improving-agent-skills/backend/app.py",
+        "voice_ai_agents/insurance_claim_live_agent_team/live_demo/server.py",
+        "rag_tutorials/hybrid_search_rag/main.py",
+        "advanced_ai_agents/autonomous_game_playing_agent_apps/ai_tic_tac_toe_agent/app.py",
+        "rag_tutorials/local_hybrid_search_rag/local_main.py",
+        "advanced_ai_agents/multi_agent_apps/agent_teams/ai_legal_agent_team/legal_agent_team.py",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/session_state_manager.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14008",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/blocks/http.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/blocks/http.py",
+        "autogpt_platform/backend/backend/blocks/llm.py",
+        "autogpt_platform/backend/backend/util/request.py",
+        "autogpt_platform/backend/backend/blocks/stripe_link/mpp.py",
+        "autogpt_platform/backend/backend/blocks/mcp/client.py",
+        "autogpt_platform/backend/backend/copilot/sdk/codex_compat_gateway.py",
+        "autogpt_platform/backend/backend/cli/oauth_tool.py",
+        "autogpt_platform/backend/backend/copilot/tools/models.py",
+        "autogpt_platform/backend/backend/api/features/chat/routes.py",
+        "autogpt_platform/backend/backend/data/tally.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14488",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/util/type.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/util/type.py",
+        "autogpt_platform/backend/backend/copilot/sdk/file_ref.py",
+        "autogpt_platform/backend/backend/util/file_content_parser.py",
+        "autogpt_platform/backend/backend/util/json.py",
+        "autogpt_platform/backend/backend/data/model.py",
+        "autogpt_platform/backend/backend/blocks/text.py",
+        "classic/forge/forge/components/math_utils/math_utils.py",
+        "autogpt_platform/backend/backend/copilot/tools/ask_question.py",
+        "autogpt_platform/backend/backend/data/onboarding.py",
+        "autogpt_platform/backend/backend/data/understanding.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14536",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        ".github/scripts/detect_overlaps.py",
+        ".github/scripts/validate_junit.py"
+      ],
+      "ranked": [
+        ".github/scripts/validate_junit.py",
+        "autogpt_platform/backend/backend/copilot/transcript.py",
+        "autogpt_platform/backend/backend/copilot/dream/apply.py",
+        ".github/scripts/backend_test_shard.py",
+        "classic/direct_benchmark/analyze_failures.py",
+        "autogpt_platform/backend/backend/copilot/sdk/security_hooks.py",
+        "autogpt_platform/backend/backend/copilot/sdk/service.py",
+        "autogpt_platform/backend/backend/executor/scheduler.py",
+        "autogpt_platform/backend/backend/data/redis_helpers.py",
+        "autogpt_platform/backend/backend/data/execution.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14749",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py",
+        "autogpt_platform/backend/backend/blocks/google/sheets.py",
+        "autogpt_platform/backend/backend/util/file_content_parser.py",
+        "autogpt_platform/backend/backend/copilot/prompting.py",
+        "autogpt_platform/backend/backend/copilot/sdk/service.py",
+        "autogpt_platform/backend/backend/blocks/io.py",
+        "autogpt_platform/backend/backend/copilot/baseline/service.py",
+        "autogpt_platform/backend/backend/executor/simulator.py",
+        "autogpt_platform/backend/backend/blocks/llm.py",
+        "autogpt_platform/backend/backend/data/graph.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14750",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/util/file.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/util/file.py",
+        "autogpt_platform/backend/backend/copilot/sdk/e2b_file_tools.py",
+        "autogpt_platform/backend/backend/util/cloud_storage.py",
+        "autogpt_platform/backend/backend/copilot/tools/sandbox.py",
+        "autogpt_platform/backend/backend/copilot/context.py",
+        "autogpt_platform/backend/backend/copilot/tools/workspace_files.py",
+        "autogpt_platform/backend/backend/copilot/tools/workdir.py",
+        "autogpt_platform/backend/backend/copilot/tools/bash_exec.py",
+        "autogpt_platform/backend/backend/copilot/sdk/file_ref.py",
+        "autogpt_platform/backend/backend/copilot/sdk/service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14875",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py",
+        "classic/forge/forge/components/web/web_fetch.py",
+        "autogpt_platform/backend/backend/copilot/tools/models.py",
+        "classic/forge/forge/components/web/playwright_browser.py",
+        "autogpt_platform/backend/backend/copilot/sdk/tool_adapter.py",
+        "autogpt_platform/backend/backend/copilot/tools/agent_browser.py",
+        "autogpt_platform/backend/backend/copilot/sdk/service.py",
+        "autogpt_platform/backend/backend/copilot/tools/web_search.py",
+        "autogpt_platform/backend/backend/copilot/tools/workspace_files.py",
+        "autogpt_platform/backend/backend/copilot/tools/base.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#15150",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py",
+        "autogpt_platform/backend/backend/copilot/graphiti/reranker.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py",
+        "autogpt_platform/backend/backend/copilot/graphiti/reranker.py",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py",
+        "autogpt_platform/backend/backend/data/llm_registry/catalog.py",
+        "autogpt_platform/backend/backend/util/llm/providers.py",
+        "autogpt_platform/backend/backend/copilot/config.py",
+        "classic/forge/forge/llm/providers/openai.py",
+        "autogpt_platform/backend/backend/data/llm_registry/llm_models.py",
+        "autogpt_platform/backend/backend/copilot/baseline/service.py",
+        "autogpt_platform/backend/backend/copilot/service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#15178",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/blocks/rss.py"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/blocks/rss.py",
+        "autogpt_platform/backend/backend/blocks/exa/websets_polling.py",
+        "autogpt_platform/backend/backend/executor/batch_executor.py",
+        "autogpt_platform/backend/backend/copilot/sdk/service.py",
+        "autogpt_platform/backend/backend/blocks/rmfg/_http.py",
+        "autogpt_platform/backend/backend/executor/scheduler.py",
+        "autogpt_platform/backend/backend/blocks/orchestrator.py",
+        "autogpt_platform/backend/backend/copilot/tools/run_agent.py",
+        "autogpt_platform/backend/backend/executor/manager.py",
+        "autogpt_platform/backend/backend/copilot/executor/utils.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "TheAlgorithms/Python#15356",
+      "repo": "TheAlgorithms/Python",
+      "gold": [
+        "ciphers/autokey.py",
+        "ciphers/hill_cipher.py",
+        "ciphers/mono_alphabetic_ciphers.py",
+        "ciphers/rsa_cipher.py",
+        "ciphers/vigenere_cipher.py",
+        "computer_vision/flip_augmentation.py",
+        "computer_vision/mosaic_augmentation.py",
+        "conversions/decimal_to_any.py",
+        "data_structures/binary_tree/avl_tree.py",
+        "data_structures/binary_tree/treap.py",
+        "data_structures/linked_list/sorted_linked_list.py",
+        "data_structures/stacks/infix_to_prefix_conversion.py",
+        "data_structures/stacks/stack_using_two_queues.py",
+        "graphics/vector3_for_2d_rendering.py",
+        "linear_algebra/src/lib.py",
+        "linear_algebra/src/power_iteration.py",
+        "machine_learning/gradient_descent.py",
+        "machine_learning/q_learning.py",
+        "machine_learning/support_vector_machines.py",
+        "maths/jaccard_similarity.py",
+        "maths/matrix_exponentiation.py",
+        "maths/polynomials/single_indeterminate_operations.py",
+        "maths/special_numbers/kaprekar_constant.py",
+        "maths/special_numbers/proth_number.py",
+        "matrix/inverse_of_matrix.py",
+        "matrix/matrix_class.py",
+        "matrix/sherman_morrison.py",
+        "neural_network/convolution_neural_network.py",
+        "other/davis_putnam_logemann_loveland.py",
+        "other/gauss_easter.py",
+        "other/guess_the_number_search.py",
+        "other/scoring_algorithm.py",
+        "physics/boyles_law.py",
+        "physics/first_law_of_thermodynamics.py",
+        "project_euler/problem_054/sol1.py",
+        "project_euler/problem_089/sol1.py",
+        "scheduling/cpuschedulingalgorithms.py",
+        "scripts/hacktoberfest_prep_update.py",
+        "searches/fibonacci_search.py",
+        "sorts/external_sort.py",
+        "strings/min_cost_string_conversion.py"
+      ],
+      "ranked": [
+        "graphs/edmonds_blossom_algorithm.py",
+        "dynamic_programming/wildcard_matching.py",
+        "dynamic_programming/smith_waterman.py",
+        "data_structures/stacks/infix_to_prefix_conversion.py",
+        "data_structures/linked_list/partition_linked_list.py",
+        "machine_learning/linear_discriminant_analysis.py",
+        "backtracking/word_search.py",
+        "project_euler/problem_054/sol1.py",
+        "dynamic_programming/regex_match.py",
+        "maths/numerical_analysis/integration_by_simpson_approx.py"
+      ],
+      "first_rank": 4
+    },
+    {
+      "instance_id": "TheAlgorithms/Python#15492",
+      "repo": "TheAlgorithms/Python",
+      "gold": [
+        "financial/exponential_moving_average.py"
+      ],
+      "ranked": [
+        "financial/exponential_moving_average.py",
+        "searches/exponential_search.py",
+        "financial/fractional_differentiation.py",
+        "financial/streaming_moving_average.py",
+        "financial/simple_moving_average.py",
+        "strings/min_window_substring.py",
+        "maths/average_mode.py",
+        "audio_filters/equal_loudness_filter.py",
+        "neural_network/sliding_window_attention.py",
+        "other/sliding_window_maximum.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#3952",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/_agent_config.py",
+        "src/specify_cli/commands/bundle/__init__.py",
+        "src/specify_cli/commands/init.py",
+        "src/specify_cli/workflows/steps/init/__init__.py"
+      ],
+      "ranked": [
+        "src/specify_cli/commands/bundle/__init__.py",
+        "src/specify_cli/workflows/steps/init/__init__.py",
+        "src/specify_cli/integrations/copilot/__init__.py",
+        "src/specify_cli/integrations/_helpers.py",
+        "src/specify_cli/commands/init.py",
+        "src/specify_cli/integrations/_install_commands.py",
+        "src/specify_cli/integrations/_query_commands.py",
+        "src/specify_cli/integrations/_migrate_commands.py",
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/__init__.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4045",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/integrations/claude/__init__.py"
+      ],
+      "ranked": [
+        "src/specify_cli/integrations/claude/__init__.py",
+        "src/specify_cli/agents.py",
+        "src/specify_cli/integrations/alquimia/__init__.py",
+        "src/specify_cli/presets/__init__.py",
+        "src/specify_cli/extensions/__init__.py",
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/integrations/copilot/__init__.py",
+        "src/specify_cli/presets/_commands.py",
+        "src/specify_cli/commands/init.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4104",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/presets/_commands.py"
+      ],
+      "ranked": [
+        "src/specify_cli/presets/_commands.py",
+        "src/specify_cli/presets/__init__.py",
+        "scripts/python/common.py",
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/extensions/__init__.py",
+        "src/specify_cli/integrations/_migrate_commands.py",
+        "src/specify_cli/integrations/_helpers.py",
+        "src/specify_cli/agents.py",
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/commands/bundle/__init__.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4133",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/events.py"
+      ],
+      "ranked": [
+        "src/specify_cli/events.py",
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/agents.py",
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/extensions/__init__.py",
+        "src/specify_cli/extensions/_commands.py",
+        "src/specify_cli/commands/init.py",
+        "src/specify_cli/presets/__init__.py",
+        "src/specify_cli/integrations/copilot/__init__.py",
+        "src/specify_cli/commands/event.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4134",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/workflows/_commands.py"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/_commands.py",
+        "src/specify_cli/extensions/_commands.py",
+        "src/specify_cli/commands/bundle/__init__.py",
+        "src/specify_cli/presets/__init__.py",
+        "src/specify_cli/extensions/__init__.py",
+        "src/specify_cli/workflows/catalog.py",
+        "src/specify_cli/workflows/engine.py",
+        "src/specify_cli/_download_security.py",
+        "src/specify_cli/commands/init.py",
+        "src/specify_cli/_utils.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4250",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/presets/__init__.py",
+        "src/specify_cli/presets/_commands.py"
+      ],
+      "ranked": [
+        "src/specify_cli/presets/__init__.py",
+        "src/specify_cli/extensions/__init__.py",
+        "src/specify_cli/commands/init.py",
+        "src/specify_cli/extensions/_commands.py",
+        "src/specify_cli/bundler/models/manifest.py",
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/agents.py",
+        "src/specify_cli/bundler/services/primitives.py",
+        "scripts/python/common.py",
+        "src/specify_cli/events.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4284",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/bundler/services/primitives.py"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/_commands.py",
+        "src/specify_cli/bundler/services/primitives.py",
+        "src/specify_cli/commands/bundle/__init__.py",
+        "src/specify_cli/extensions/_commands.py",
+        "src/specify_cli/presets/_commands.py",
+        "src/specify_cli/workflows/catalog.py",
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/workflows/engine.py",
+        "src/specify_cli/commands/init.py",
+        "src/specify_cli/bundler/services/adapters.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "github/spec-kit#4492",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/integrations/bob/__init__.py"
+      ],
+      "ranked": [
+        "src/specify_cli/integrations/bob/__init__.py",
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/workflows/steps/prompt/__init__.py",
+        "src/specify_cli/workflows/steps/command/__init__.py",
+        "src/specify_cli/integrations/copilot/__init__.py",
+        "src/specify_cli/integrations/hermes/__init__.py",
+        "src/specify_cli/integrations/goose/__init__.py",
+        "src/specify_cli/integrations/cursor_agent/__init__.py",
+        "src/specify_cli/integrations/codex/__init__.py",
+        "src/specify_cli/commands/init.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4764",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/workflows/__init__.py",
+        "src/specify_cli/workflows/_commands.py",
+        "src/specify_cli/workflows/command_resume.py",
+        "src/specify_cli/workflows/command_status.py",
+        "src/specify_cli/workflows/engine.py",
+        "src/specify_cli/workflows/step/fan_in/__init__.py",
+        "src/specify_cli/workflows/step/fan_out/__init__.py",
+        "src/specify_cli/workflows/step/gate/__init__.py"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/engine.py",
+        "src/specify_cli/workflows/base.py",
+        "src/specify_cli/workflows/command_run.py",
+        "src/specify_cli/workflows/_commands.py",
+        "src/specify_cli/workflows/command_resume.py",
+        "src/specify_cli/workflows/command_info.py",
+        "src/specify_cli/__init__.py",
+        "src/specify_cli/workflows/step/gate/__init__.py",
+        "src/specify_cli/bundles/primitives.py",
+        "src/specify_cli/workflows/overlay/resolver.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4957",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/integrations/copilot/__init__.py",
+        "src/specify_cli/workflows/_execution.py",
+        "src/specify_cli/workflows/step/command/__init__.py",
+        "src/specify_cli/workflows/step/prompt/__init__.py"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/step/command/__init__.py",
+        "src/specify_cli/workflows/step/prompt/__init__.py",
+        "src/specify_cli/workflows/step/shell/__init__.py",
+        "src/specify_cli/workflows/engine.py",
+        "src/specify_cli/integrations/copilot/__init__.py",
+        "src/specify_cli/workflows/__init__.py",
+        "src/specify_cli/workflows/step/init/__init__.py",
+        "src/specify_cli/workflows/base.py",
+        "src/specify_cli/integrations/base.py",
+        "src/specify_cli/workflows/_commands.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4960",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/_version.py",
+        "src/specify_cli/authentication/github.py",
+        "src/specify_cli/authentication/http.py",
+        "src/specify_cli/bundles/adapters.py",
+        "src/specify_cli/bundles/component_catalog.py"
+      ],
+      "ranked": [
+        "src/specify_cli/authentication/config.py",
+        "extensions/git/scripts/python/create_new_feature_branch.py",
+        "src/specify_cli/authentication/http.py",
+        "src/specify_cli/authentication/github_http.py",
+        "src/specify_cli/authentication/github.py",
+        "src/specify_cli/_version.py",
+        "src/specify_cli/authentication/base.py",
+        "src/specify_cli/extensions/__init__.py",
+        "src/specify_cli/authentication/__init__.py",
+        "src/specify_cli/workflows/step/github/__init__.py"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "github/spec-kit#5106",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/bundles/sources.py"
+      ],
+      "ranked": [
+        "src/specify_cli/bundles/sources.py",
+        "src/specify_cli/bundles/command_install.py",
+        "src/specify_cli/bundles/packager.py",
+        "src/specify_cli/bundles/command_add.py",
+        "src/specify_cli/_download_security.py",
+        "src/specify_cli/bundles/installer.py",
+        "src/specify_cli/bundles/primitives.py",
+        "src/specify_cli/extensions/_commands.py",
+        "src/specify_cli/command_init.py",
+        "src/specify_cli/extensions/_command_update_artifacts.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "immich-app/immich#31075",
+      "repo": "immich-app/immich",
+      "gold": [
+        "machine-learning/immich_ml/models/clip/textual.py",
+        "machine-learning/immich_ml/models/clip/visual.py"
+      ],
+      "ranked": [
+        "machine-learning/immich_ml/models/clip/textual.py",
+        "machine-learning/immich_ml/models/clip/visual.py",
+        "machine-learning/immich_ml/main.py",
+        "machine-learning/immich_ml/models/ocr/recognition.py",
+        "machine-learning/immich_ml/config.py",
+        "machine-learning/locustfile.py",
+        "machine-learning/immich_ml/__main__.py",
+        "machine-learning/immich_ml/models/ocr/detection.py",
+        "machine-learning/immich_ml/models/__init__.py",
+        "machine-learning/immich_ml/models/constants.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "immich-app/immich#31143",
+      "repo": "immich-app/immich",
+      "gold": [
+        "machine-learning/immich_ml/sessions/rknn/__init__.py",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py"
+      ],
+      "ranked": [
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py",
+        "machine-learning/immich_ml/sessions/rknn/__init__.py",
+        "machine-learning/immich_ml/models/cache.py",
+        "machine-learning/immich_ml/main.py",
+        "machine-learning/immich_ml/models/base.py",
+        "machine-learning/immich_ml/config.py",
+        "machine-learning/immich_ml/sessions/ort.py",
+        "machine-learning/immich_ml/schemas.py",
+        "machine-learning/immich_ml/models/ocr/recognition.py",
+        "machine-learning/immich_ml/models/constants.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#17688",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/llm/key_utils.py",
+        "rag/llm/sequence2txt_model.py",
+        "rag/llm/tts_model.py"
+      ],
+      "ranked": [
+        "rag/llm/tts_model.py",
+        "rag/llm/sequence2txt_model.py",
+        "tools/scripts/mysql_migration.py",
+        "rag/llm/model_meta.py",
+        "api/db/services/tenant_llm_service.py",
+        "api/db/joint_services/tenant_model_service.py",
+        "rag/llm/embedding_model.py",
+        "rag/llm/cv_model.py",
+        "rag/llm/chat_model.py",
+        "rag/flow/parser/parser.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18018",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/flow/parser/pdf_chunk_metadata.py"
+      ],
+      "ranked": [
+        "run_tests.py",
+        "deepdoc/parser/pdf_parser.py",
+        "deepdoc/parser/docling_parser.py",
+        "rag/app/presentation.py",
+        "rag/flow/parser/parser.py",
+        "rag/app/manual.py",
+        "deepdoc/parser/docx_parser.py",
+        "rag/app/naive.py",
+        "deepdoc/parser/tcadp_parser.py",
+        "deepdoc/parser/paddleocr_parser.py"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18132",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/graphrag/entity_resolution.py"
+      ],
+      "ranked": [
+        "common/token_utils.py",
+        "rag/app/naive.py",
+        "rag/flow/chunker/token_chunker.py",
+        "deepdoc/parser/markdown_parser.py",
+        "run_tests.py",
+        "internal/ingestion/component/chunker/tool-py/capture_golden.py",
+        "common/data_source/github/connector.py",
+        "ragflow_deps/download_deps.py",
+        "agent/sandbox/providers/self_managed.py",
+        "agent/tools/code_exec.py"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18188",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "deepdoc/parser/mineru_parser.py"
+      ],
+      "ranked": [
+        "deepdoc/parser/mistral_parser.py",
+        "deepdoc/parser/figure_parser.py",
+        "deepdoc/parser/mineru_parser.py",
+        "rag/prompts/generator.py",
+        "rag/app/naive.py",
+        "rag/app/picture.py",
+        "rag/flow/parser/parser.py",
+        "rag/llm/cv_model.py",
+        "rag/app/book.py",
+        "rag/app/manual.py"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18321",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/llm/model_meta.py"
+      ],
+      "ranked": [
+        "rag/llm/model_meta.py",
+        "rag/llm/chat_model.py",
+        "rag/llm/rerank_model.py",
+        "rag/llm/cv_model.py",
+        "rag/llm/embedding_model.py",
+        "api/db/services/tenant_llm_service.py",
+        "sdk/python/ragflow_sdk/ragflow.py",
+        "common/constants.py",
+        "rag/llm/sequence2txt_model.py",
+        "mcp/server/server.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18649",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/app/manual.py"
+      ],
+      "ranked": [
+        "rag/flow/parser/parser.py",
+        "rag/app/laws.py",
+        "rag/app/book.py",
+        "rag/app/manual.py",
+        "rag/app/one.py",
+        "rag/app/naive.py",
+        "rag/app/qa.py",
+        "deepdoc/parser/docx_parser.py",
+        "agent/component/docs_generator.py",
+        "api/apps/restful_apis/document_api.py"
+      ],
+      "first_rank": 4
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18663",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "api/db/services/dialog_service.py"
+      ],
+      "ranked": [
+        "rag/llm/chat_model.py",
+        "api/db/services/dialog_service.py",
+        "api/db/services/conversation_service.py",
+        "api/apps/restful_apis/chat_api.py",
+        "rag/prompts/generator.py",
+        "tools/chatgpt-on-wechat/plugins/ragflow_chat.py",
+        "api/apps/restful_apis/openai_api.py",
+        "api/apps/restful_apis/provider_api.py",
+        "api/apps/restful_apis/agent_api.py",
+        "rag/llm/__init__.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18753",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "agent/canvas.py"
+      ],
+      "ranked": [
+        "agent/canvas.py",
+        "rag/svr/task_executor.py",
+        "rag/svr/task_executor_refactor/dataflow_service.py",
+        "rag/flow/pipeline.py",
+        "api/apps/restful_apis/agent_api.py",
+        "agent/dsl_migration.py",
+        "api/apps/services/dataset_api_service.py",
+        "sdk/python/ragflow_sdk/modules/agent.py",
+        "rag/svr/task_executor_refactor/dataset_wiki_generator.py",
+        "api/db/db_models.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18889",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "api/apps/restful_apis/chunk_api.py",
+        "api/utils/image_utils.py"
+      ],
+      "ranked": [
+        "api/apps/restful_apis/chunk_api.py",
+        "sdk/python/ragflow_sdk/modules/document.py",
+        "rag/svr/task_executor_refactor/chunk_service.py",
+        "api/apps/services/document_api_service.py",
+        "rag/app/naive.py",
+        "api/db/services/document_service.py",
+        "api/apps/restful_apis/document_api.py",
+        "rag/nlp/__init__.py",
+        "api/utils/image_utils.py",
+        "rag/nlp/search.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#39301",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py"
+      ],
+      "ranked": [
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/partners/deepseek/langchain_deepseek/chat_models.py",
+        "libs/partners/xai/langchain_xai/chat_models.py",
+        "libs/partners/perplexity/langchain_perplexity/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/azure.py",
+        "libs/langchain_v1/langchain/chat_models/base.py",
+        "libs/partners/ollama/langchain_ollama/chat_models.py",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py",
+        "libs/partners/groq/langchain_groq/chat_models.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#39590",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py"
+      ],
+      "ranked": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py",
+        "libs/core/langchain_core/callbacks/usage.py",
+        "libs/core/langchain_core/messages/ai.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/partners/perplexity/langchain_perplexity/chat_models.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/standard-tests/langchain_tests/integration_tests/chat_models.py",
+        "libs/partners/groq/langchain_groq/chat_models.py",
+        "libs/partners/ollama/langchain_ollama/chat_models.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#39978",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/groq/langchain_groq/chat_models.py"
+      ],
+      "ranked": [
+        "libs/partners/groq/langchain_groq/chat_models.py",
+        "libs/standard-tests/langchain_tests/unit_tests/chat_models.py",
+        "libs/partners/xai/langchain_xai/chat_models.py",
+        "libs/langchain_v1/langchain/chat_models/base.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/ollama/langchain_ollama/chat_models.py",
+        "libs/langchain/langchain_classic/chat_models/base.py",
+        "libs/standard-tests/langchain_tests/integration_tests/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/azure.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40026",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/xai/langchain_xai/chat_models.py"
+      ],
+      "ranked": [
+        "libs/partners/xai/langchain_xai/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/partners/mistralai/langchain_mistralai/chat_models.py",
+        "libs/partners/groq/langchain_groq/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/azure.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/ollama/langchain_ollama/chat_models.py",
+        "libs/langchain/langchain_classic/chains/structured_output/base.py",
+        "libs/standard-tests/langchain_tests/unit_tests/chat_models.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40211",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/core/langchain_core/callbacks/file.py",
+        "libs/core/langchain_core/outputs/chat_generation.py"
+      ],
+      "ranked": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/core/langchain_core/messages/base.py",
+        "libs/core/langchain_core/utils/function_calling.py",
+        "libs/core/langchain_core/tools/base.py",
+        "libs/langchain_v1/langchain/chat_models/base.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/xai/langchain_xai/chat_models.py",
+        "libs/core/langchain_core/outputs/chat_generation.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py"
+      ],
+      "first_rank": 8
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40213",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/core/langchain_core/messages/block_translators/anthropic.py"
+      ],
+      "ranked": [
+        "libs/core/langchain_core/messages/block_translators/anthropic.py",
+        "libs/core/langchain_core/messages/ai.py",
+        "libs/core/langchain_core/messages/block_translators/openai.py",
+        "libs/core/langchain_core/messages/base.py",
+        "libs/partners/anthropic/langchain_anthropic/_compat.py",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/core/langchain_core/messages/block_translators/bedrock.py",
+        "libs/core/langchain_core/messages/block_translators/bedrock_converse.py",
+        "libs/core/langchain_core/messages/block_translators/google_genai.py",
+        "libs/core/langchain_core/messages/block_translators/groq.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40815",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/core/langchain_core/messages/utils.py",
+        "libs/core/langchain_core/output_parsers/string.py",
+        "libs/core/langchain_core/prompts/few_shot.py",
+        "libs/core/langchain_core/rate_limiters.py",
+        "libs/core/langchain_core/runnables/fallbacks.py",
+        "libs/core/langchain_core/runnables/history.py",
+        "libs/core/langchain_core/runnables/retry.py"
+      ],
+      "ranked": [
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/langchain/langchain_classic/chat_models/base.py",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/langchain_v1/langchain/chat_models/base.py",
+        "libs/core/langchain_core/utils/function_calling.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/openai/langchain_openai/llms/base.py",
+        "libs/partners/openai/langchain_openai/chat_models/codex.py",
+        "libs/langchain/langchain_classic/chains/openai_functions/base.py",
+        "libs/langchain/langchain_classic/chains/structured_output/base.py"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40864",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py"
+      ],
+      "ranked": [
+        "libs/langchain_v1/langchain/agents/factory.py",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/langchain/langchain_classic/agents/tool_calling_agent/base.py",
+        "libs/partners/anthropic/langchain_anthropic/_compat.py",
+        "libs/standard-tests/langchain_tests/integration_tests/chat_models.py",
+        "libs/langchain/langchain_classic/agents/output_parsers/tools.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/langchain/langchain_classic/agents/xml/base.py",
+        "libs/langchain/langchain_classic/agents/openai_tools/base.py",
+        "libs/core/langchain_core/messages/tool.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langchain-ai/langchain#41062",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py"
+      ],
+      "ranked": [
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py",
+        "libs/langchain_v1/langchain/agents/factory.py",
+        "libs/langchain_v1/langchain/agents/middleware/types.py",
+        "libs/langchain_v1/langchain/mcp/elicitation.py",
+        "libs/langchain_v1/langchain/mcp/tools.py",
+        "libs/partners/openai/langchain_openai/middleware/auto_mode.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/langchain_v1/langchain/agents/middleware/tool_call_limit.py",
+        "libs/langchain_v1/langchain/agents/middleware/todo.py",
+        "libs/core/langchain_core/tools/base.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#41093",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py"
+      ],
+      "ranked": [
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py",
+        "libs/partners/fireworks/langchain_fireworks/llms.py",
+        "libs/partners/fireworks/langchain_fireworks/embeddings.py",
+        "libs/partners/xai/langchain_xai/chat_models.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/standard-tests/langchain_tests/integration_tests/chat_models.py",
+        "libs/partners/perplexity/langchain_perplexity/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/langchain_v1/langchain/agents/middleware/model_fallback.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#41553",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py"
+      ],
+      "ranked": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py",
+        "libs/partners/openai/langchain_openai/chat_models/base.py",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py",
+        "libs/partners/perplexity/langchain_perplexity/chat_models.py",
+        "libs/partners/groq/langchain_groq/chat_models.py",
+        "libs/partners/deepseek/langchain_deepseek/chat_models.py",
+        "libs/core/langchain_core/messages/ai.py",
+        "libs/standard-tests/langchain_tests/integration_tests/chat_models.py",
+        "libs/core/langchain_core/language_models/chat_models.py",
+        "libs/partners/xai/langchain_xai/chat_models.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14448",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/agentic/api/router.py",
+        "src/backend/base/langflow/agentic/utils/assistant_runner.py",
+        "src/backend/base/langflow/api/utils/__init__.py",
+        "src/backend/base/langflow/api/utils/core.py",
+        "src/backend/base/langflow/api/v1/endpoints.py"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/api/v1/endpoints.py",
+        "src/backend/base/langflow/agentic/utils/assistant_runner.py",
+        "src/backend/base/langflow/agentic/api/router.py",
+        "src/backend/base/langflow/api/v1/a2a.py",
+        "src/lfx/src/lfx/workflow/router.py",
+        "src/lfx/src/lfx/cli/serve_app.py",
+        "src/backend/base/langflow/api/v2/workflow_execution.py",
+        "src/backend/base/langflow/api/v2/workflow_public.py",
+        "src/backend/base/langflow/agentic/services/assistant_service.py",
+        "src/backend/base/langflow/api/v2/workflow.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14604",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/components/models_and_agents/mcp_component.py"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/api/utils/core.py",
+        "src/backend/base/langflow/api/v1/mcp_projects.py",
+        "src/lfx/src/lfx/components/models_and_agents/mcp_component.py",
+        "src/lfx/src/lfx/base/mcp/util.py",
+        "src/backend/base/langflow/api/v2/mcp.py",
+        "src/lfx/src/lfx/base/models/unified_models/credentials.py",
+        "src/backend/base/langflow/api/v1/mcp_utils.py",
+        "src/backend/base/langflow/api/v1/projects_mcp_helpers.py",
+        "src/lfx/src/lfx/services/settings/groups/variables.py",
+        "src/backend/base/langflow/api/utils/mcp/agentic_mcp.py"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14694",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "docs/sidebars.js",
+        "src/lfx/src/lfx/services/settings/groups/security.py",
+        "src/lfx/src/lfx/utils/sandbox.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/utils/sandbox.py",
+        "src/lfx/src/lfx/services/settings/groups/security.py",
+        "src/lfx/src/lfx/components/utilities/python_repl_core.py",
+        "src/lfx/src/lfx/utils/python_repl_security.py",
+        "src/lfx/src/lfx/components/tools/python_repl.py",
+        "src/backend/base/langflow/main.py",
+        "src/lfx/src/lfx/utils/flow_validation.py",
+        "src/lfx/src/lfx/utils/ssrf_protection.py",
+        "src/backend/base/langflow/agentic/helpers/validation.py",
+        "src/backend/base/langflow/agentic/services/user_components.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14925",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/services/tracing/langfuse.py"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/services/tracing/langfuse.py",
+        "src/backend/base/langflow/services/tracing/arize_phoenix.py",
+        "src/backend/base/langflow/services/tracing/service.py",
+        "src/lfx/src/lfx/graph/graph/base.py",
+        "src/backend/base/langflow/helpers/flow.py",
+        "src/backend/base/langflow/services/tracing/openlayer.py",
+        "src/backend/base/langflow/services/tracing/native.py",
+        "src/backend/base/langflow/api/v1/monitor.py",
+        "src/lfx/src/lfx/services/tracing/base.py",
+        "src/lfx/src/lfx/services/tracing/service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15029",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/api/build.py",
+        "src/backend/base/langflow/api/v1/chat.py",
+        "src/lfx/src/lfx/graph/checkpoint/builder.py",
+        "src/lfx/src/lfx/graph/checkpoint/resume.py",
+        "src/lfx/src/lfx/graph/checkpoint/schema.py",
+        "src/lfx/src/lfx/graph/graph/base.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/custom/custom_component/custom_component.py",
+        "src/lfx/src/lfx/graph/graph/base.py",
+        "src/lfx/src/lfx/components/llm_operations/llm_conditional_router.py",
+        "src/lfx/src/lfx/graph/checkpoint/resume.py",
+        "src/lfx/src/lfx/workflow/agui_translator.py",
+        "src/backend/base/langflow/api/build.py",
+        "src/backend/base/langflow/api/v1/chat.py",
+        "src/lfx/src/lfx/graph/vertex/base.py",
+        "src/lfx/src/lfx/components/flow_controls/conditional_router.py",
+        "src/lfx/src/lfx/components/flow_controls/loop.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15030",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/services/deployment_artifacts/builder.py",
+        "src/frontend/src/components/core/parameterRenderComponent/components/tableComponent/components/tableAutoCellRender/index.tsx",
+        "src/frontend/src/components/core/parameterRenderComponent/components/tableComponent/index.tsx",
+        "src/frontend/src/types/utils/functions.ts",
+        "src/frontend/src/utils/utils.ts",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py",
+        "src/lfx/src/lfx/components/models_and_agents/structured_output/schema_preprocessing.py",
+        "src/lfx/src/lfx/helpers/base_model.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py",
+        "src/lfx/src/lfx/schema/table.py",
+        "src/backend/base/langflow/schema/knowledge_base.py",
+        "src/backend/base/langflow/services/database/models/knowledge_base/model.py",
+        "src/backend/base/langflow/api/v1/knowledge_bases.py",
+        "src/backend/base/langflow/alembic/versions/kb1a2b3c4d5e_add_knowledge_base_schema.py",
+        "src/lfx/src/lfx/components/files_and_knowledge/ingestion.py",
+        "src/lfx/src/lfx/components/processing/dataframe_operations.py",
+        "src/bundles/datastax/src/lfx_datastax/components/datastax/astradb_vectorize.py",
+        "src/lfx/src/lfx/components/llm_operations/batch_run.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15064",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/base/data/cloud_storage_utils.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/base/data/cloud_storage_utils.py",
+        "src/lfx/src/lfx/components/files_and_knowledge/save_file.py",
+        "src/lfx/src/lfx/template/field/base.py",
+        "src/backend/base/langflow/api/v1/deployments.py",
+        "src/lfx/src/lfx/base/models/unified_models/credentials.py",
+        "src/bundles/google/src/lfx_google/components/google/google_drive.py",
+        "src/backend/base/langflow/api/v1/mcp_projects.py",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py",
+        "src/backend/base/langflow/services/database/models/deployment/model.py",
+        "src/backend/base/langflow/services/auth/service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15074",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py",
+        "src/lfx/src/lfx/base/data/base_file.py",
+        "src/lfx/src/lfx/components/langchain_utilities/json_agent.py",
+        "src/lfx/src/lfx/components/files_and_knowledge/save_file.py",
+        "src/lfx/src/lfx/components/langchain_utilities/csv_agent.py",
+        "src/backend/base/langflow/api/v2/files.py",
+        "src/lfx/src/lfx/base/data/utils.py",
+        "src/lfx/src/lfx/components/files_and_knowledge/filesystem.py",
+        "src/backend/base/langflow/api/v1/files.py",
+        "src/lfx/src/lfx/components/data_source/api_request.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15262",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/base/models/provider_ssrf.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/base/models/provider_ssrf.py",
+        "src/lfx/src/lfx/utils/ssrf_protection.py",
+        "src/lfx/src/lfx/services/settings/groups/security.py",
+        "src/lfx/src/lfx/utils/ssrf_httpx.py",
+        "src/lfx/src/lfx/base/knowledge_bases/backends/opensearch.py",
+        "src/lfx/src/lfx/components/models_and_agents/a2a_agent.py",
+        "src/lfx/src/lfx/base/knowledge_bases/backends/chroma.py",
+        "src/lfx/src/lfx/base/knowledge_bases/backends/destination_policy.py",
+        "src/lfx/src/lfx/components/data_source/url.py",
+        "src/lfx/src/lfx/components/data_source/api_request.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15372",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/utils/util.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/utils/util.py",
+        "src/lfx/src/lfx/load/load.py",
+        "src/backend/base/langflow/api/v1/schemas/__init__.py",
+        "src/backend/base/langflow/services/flow/flow_runner.py",
+        "src/lfx/src/lfx/services/settings/groups/runtime.py",
+        "src/lfx/src/lfx/services/settings/base.py",
+        "src/backend/base/langflow/main.py",
+        "src/backend/base/langflow/api/v1/files.py",
+        "src/backend/base/langflow/initial_setup/setup.py",
+        "src/backend/base/langflow/__main__.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15466",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/api/v1/monitor.py"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/api/v1/monitor.py",
+        "src/backend/base/langflow/memory.py",
+        "src/lfx/src/lfx/memory/stubs.py",
+        "src/lfx/src/lfx/components/models_and_agents/memory.py",
+        "src/lfx/src/lfx/components/models_and_agents/agent.py",
+        "src/backend/base/langflow/api/v1/endpoints.py",
+        "src/backend/base/langflow/services/memory_base/service.py",
+        "src/backend/base/langflow/api/v1/memories.py",
+        "src/backend/base/langflow/api/v1/chat.py",
+        "src/lfx/src/lfx/base/mcp/util.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15752",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/components/models_and_agents/agent.py"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/models_and_agents/agent.py",
+        "src/lfx/src/lfx/base/agents/default_system_prompt.py",
+        "src/lfx/src/lfx/components/langchain_utilities/tool_calling.py",
+        "src/lfx/src/lfx/base/agents/agent.py",
+        "src/lfx/src/lfx/components/langchain_utilities/openai_tools.py",
+        "src/lfx/src/lfx/components/langchain_utilities/ibm_granite_handler.py",
+        "src/lfx/src/lfx/components/langchain_utilities/xml_agent.py",
+        "src/lfx/src/lfx/base/agents/utils.py",
+        "src/lfx/src/lfx/components/utilities/current_date.py",
+        "src/lfx/src/lfx/components/models_and_agents/agent_helpers/messages_input_builder.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#39872",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/extensions/ext_login.py",
+        "api/libs/token.py"
+      ],
+      "ranked": [
+        "api/libs/token.py",
+        "api/extensions/ext_login.py",
+        "api/controllers/console/admin.py",
+        "scripts/stress-test/setup/create_api_key.py",
+        "scripts/stress-test/common/config_helper.py",
+        "api/configs/feature/__init__.py",
+        "scripts/stress-test/setup/login_admin.py",
+        "api/controllers/console/auth/oauth.py",
+        "scripts/stress-test/setup/configure_openai_plugin.py",
+        "scripts/stress-test/setup_all.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40055",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/console/workspace/account.py"
+      ],
+      "ranked": [
+        "api/controllers/console/workspace/account.py",
+        "api/fields/member_fields.py",
+        "api/controllers/openapi/workspaces.py",
+        "api/controllers/console/workspace/workspace.py",
+        "api/libs/helper.py",
+        "api/controllers/openapi/account.py",
+        "api/controllers/common/fields.py",
+        "api/controllers/console/workspace/members.py",
+        "api/controllers/console/app/workflow_comment.py",
+        "api/services/enterprise/enterprise_service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40443",
+      "repo": "langgenius/dify",
+      "gold": [
+        "dify-agent/src/dify_agent/adapters/llm/model.py",
+        "dify-agent/src/dify_agent/layers/shell/layer.py"
+      ],
+      "ranked": [
+        "api/models/agent_config_entities.py",
+        "api/core/workflow/nodes/agent_v2/dify_tools_builder.py",
+        "dify-agent/src/dify_agent/layers/shell/layer.py",
+        "dify-agent/src/dify_agent/runtime/runner.py",
+        "api/core/workflow/nodes/agent_v2/runtime_request_builder.py",
+        "api/core/app/apps/agent_app/runtime_request_builder.py",
+        "api/clients/agent_backend/request_builder.py",
+        "dify-agent/src/dify_agent/layers/dify_plugin/tools_layer.py",
+        "api/core/workflow/nodes/agent_v2/validators.py",
+        "api/models/model.py"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "langgenius/dify#40738",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/console/billing/billing.py",
+        "api/controllers/console/workspace/workspace.py",
+        "api/controllers/files/tool_files.py",
+        "api/controllers/inner_api/plugin/wraps.py",
+        "api/core/plugin/backwards_invocation/app.py",
+        "api/core/plugin/entities/parameters.py",
+        "api/core/plugin/impl/base.py",
+        "api/core/rag/retrieval/output_parser/structured_chat.py",
+        "api/services/tools/api_tools_manage_service.py"
+      ],
+      "ranked": [
+        "api/libs/external_api.py",
+        "api/controllers/console/workspace/workspace.py",
+        "api/controllers/files/tool_files.py",
+        "api/controllers/console/billing/billing.py",
+        "dify-agent/src/dify_agent/layers/shell/layer.py",
+        "api/controllers/console/knowledge_fs_proxy.py",
+        "dify-agent/src/dify_agent/client/_client.py",
+        "api/services/enterprise/base.py",
+        "api/libs/helper.py",
+        "api/core/helper/ssrf_proxy.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langgenius/dify#40742",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/configs/middleware/__init__.py",
+        "api/controllers/console/datasets/external.py",
+        "api/services/knowledge_service.py",
+        "packages/contracts/generated/api/console/orpc.gen.ts",
+        "packages/contracts/generated/api/console/router.gen.ts"
+      ],
+      "ranked": [
+        "api/controllers/console/datasets/external.py",
+        "api/services/knowledge_service.py",
+        "api/controllers/service_api/dataset/hit_testing.py",
+        "api/controllers/inner_api/knowledge/retrieval.py",
+        "api/core/rag/retrieval/dataset_retrieval.py",
+        "api/core/workflow/nodes/knowledge_retrieval/retrieval.py",
+        "api/controllers/console/datasets/hit_testing.py",
+        "api/services/external_knowledge_service.py",
+        "api/services/knowledge_retrieval_inner_service.py",
+        "api/controllers/console/datasets/datasets.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40746",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/core/workflow/nodes/human_input/callback.py"
+      ],
+      "ranked": [
+        "api/core/workflow/nodes/human_input/callback.py",
+        "api/tasks/human_input_timeout_tasks.py",
+        "api/core/repositories/human_input_repository.py",
+        "api/core/app/apps/common/workflow_response_converter.py",
+        "api/core/app/apps/workflow/generate_task_pipeline.py",
+        "api/core/app/entities/task_entities.py",
+        "api/core/app/apps/advanced_chat/generate_task_pipeline.py",
+        "api/core/workflow/nodes/human_input/entities.py",
+        "api/core/app/entities/queue_entities.py",
+        "api/services/workflow_service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40905",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/core/app/apps/execution_coordinator.py",
+        "api/core/app/apps/workflow/app_runner.py",
+        "api/tasks/app_generate/workflow_execute_task.py"
+      ],
+      "ranked": [
+        "api/core/workflow/nodes/agent_v2/ask_human_resume.py",
+        "api/services/workflow_service.py",
+        "api/core/workflow/nodes/human_input/callback.py",
+        "api/services/workflow_event_snapshot_service.py",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py",
+        "api/core/app/apps/workflow/generate_task_pipeline.py",
+        "api/controllers/service_api/app/human_input_form.py",
+        "api/core/workflow/nodes/agent_v2/agent_node.py",
+        "api/core/app/apps/advanced_chat/generate_task_pipeline.py",
+        "api/core/workflow/nodes/human_input/pause_reason.py"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "langgenius/dify#40945",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/console/workspace/tool_providers.py"
+      ],
+      "ranked": [
+        "api/controllers/console/workspace/tool_providers.py",
+        "api/services/tools/builtin_tools_manage_service.py",
+        "api/controllers/console/workspace/trigger_providers.py",
+        "api/core/tools/builtin_tool/provider.py",
+        "api/controllers/console/datasets/rag_pipeline/datasource_auth.py",
+        "api/services/trigger/trigger_provider_service.py",
+        "api/core/tools/tool_manager.py",
+        "api/models/tools.py",
+        "api/core/tools/custom_tool/tool.py",
+        "api/services/datasource_provider_service.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#41107",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/core/helper/marketplace.py",
+        "api/schedule/check_upgradable_plugin_task.py",
+        "api/tasks/process_tenant_plugin_autoupgrade_check_task.py"
+      ],
+      "ranked": [
+        "api/schedule/check_upgradable_plugin_task.py",
+        "api/core/helper/marketplace.py",
+        "api/tasks/process_tenant_plugin_autoupgrade_check_task.py",
+        "api/services/plugin/plugin_auto_upgrade_service.py",
+        "api/controllers/console/workspace/plugin.py",
+        "api/core/plugin/plugin_service.py",
+        "api/commands/plugin.py",
+        "api/core/plugin/impl/plugin.py",
+        "api/services/plugin/plugin_migration.py",
+        "api/services/rag_pipeline/rag_pipeline.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#41145",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/files/upload.py"
+      ],
+      "ranked": [
+        "api/dify_graph/file/helpers.py",
+        "api/controllers/files/upload.py",
+        "api/core/tools/signature.py",
+        "api/core/rag/extractor/word_extractor.py",
+        "api/controllers/inner_api/plugin/plugin.py",
+        "api/services/file_service.py",
+        "api/configs/feature/__init__.py",
+        "api/core/rag/index_processor/processor/paragraph_index_processor.py",
+        "api/core/rag/index_processor/index_processor_base.py",
+        "api/fields/file_fields.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langgenius/dify#41581",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py"
+      ],
+      "ranked": [
+        "api/services/workflow_event_snapshot_service.py",
+        "api/tasks/human_input_timeout_tasks.py",
+        "api/tasks/app_generate/workflow_execute_task.py",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py",
+        "api/core/workflow/nodes/agent_v2/ask_human_hitl.py",
+        "api/core/workflow/nodes/agent_v2/agent_node.py",
+        "api/core/app/apps/common/workflow_response_converter.py",
+        "api/repositories/api_workflow_run_repository.py",
+        "api/models/workflow.py",
+        "api/core/app/layers/pause_state_persist_layer.py"
+      ],
+      "first_rank": 4
+    },
+    {
+      "instance_id": "microsoft/markitdown#2342",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converters/_markdownify.py"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/_markitdown.py",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py",
+        "packages/markitdown-ocr/src/markitdown_ocr/_docx_converter_with_ocr.py",
+        "packages/markitdown/src/markitdown/converters/_html_converter.py",
+        "packages/markitdown/src/markitdown/converter_utils/docx/pre_process.py",
+        "packages/markitdown-ocr/src/markitdown_ocr/_pdf_converter_with_ocr.py",
+        "packages/markitdown/src/markitdown/converters/_pptx_converter.py",
+        "packages/markitdown/src/markitdown/converters/_rss_converter.py",
+        "packages/markitdown/src/markitdown/_base_converter.py"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "microsoft/markitdown#2356",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converter_utils/docx/pre_process.py"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/converters/_markdownify.py",
+        "packages/markitdown/src/markitdown/_markitdown.py",
+        "packages/markitdown/src/markitdown/converter_utils/docx/pre_process.py",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py",
+        "packages/markitdown-ocr/src/markitdown_ocr/_docx_converter_with_ocr.py",
+        "packages/markitdown/src/markitdown/converters/_html_converter.py",
+        "packages/markitdown/src/markitdown/_base_converter.py",
+        "packages/markitdown/src/markitdown/converters/_rss_converter.py",
+        "packages/markitdown/src/markitdown/converter_utils/docx/math/omml.py",
+        "packages/markitdown/src/markitdown/converters/_pptx_converter.py"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "microsoft/markitdown#2371",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py",
+        "packages/markitdown/src/markitdown/_markitdown.py",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py",
+        "packages/markitdown/src/markitdown/converters/_pptx_converter.py",
+        "packages/markitdown/src/markitdown/__main__.py",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py",
+        "packages/markitdown/src/markitdown/converters/_youtube_converter.py",
+        "packages/markitdown/src/markitdown/converters/_html_converter.py",
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py",
+        "packages/markitdown/src/markitdown/converters/_rss_converter.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "microsoft/markitdown#2430",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py",
+        "packages/markitdown/src/markitdown/_markitdown.py",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py",
+        "packages/markitdown/src/markitdown/converters/_pptx_converter.py",
+        "packages/markitdown/src/markitdown/converter_utils/docx/pre_process.py",
+        "packages/markitdown/src/markitdown/converters/_outlook_msg_converter.py",
+        "packages/markitdown-ocr/src/markitdown_ocr/_pptx_converter_with_ocr.py",
+        "packages/markitdown-ocr/src/markitdown_ocr/_xlsx_converter_with_ocr.py",
+        "packages/markitdown-ocr/src/markitdown_ocr/_pdf_converter_with_ocr.py",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "morluto/rea#503",
+      "repo": "morluto/rea",
+      "gold": [
+        "bridge/hopper_bridge.py",
+        "scripts/verify-real-hopper.mjs",
+        "src/domain/callPathSchemas.ts",
+        "src/generatedMcpToolCatalog.ts",
+        "src/native/NativeMacOSProvider.ts",
+        "src/native/NativeMachoInspection.ts",
+        "src/native/parsers/dyldInfo.ts",
+        "src/native/parsers/otool.ts"
+      ],
+      "ranked": [
+        "bridge/hopper_bridge.py",
+        "scripts/hopper-demo-x11.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "nextlevelbuilder/ui-ux-pro-max-skill#501",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "gold": [
+        ".claude/skills/brand/scripts/sync-brand-to-tokens.cjs",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py",
+        "cli/assets/skills/brand/scripts/sync-brand-to-tokens.cjs",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py"
+      ],
+      "ranked": [
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py",
+        ".claude/skills/ui-ux-pro-max/scripts/design_system.py",
+        ".claude/skills/ui-ux-pro-max/scripts/core.py",
+        "src/ui-ux-pro-max/scripts/design_system.py",
+        "src/ui-ux-pro-max/scripts/core.py",
+        "cli/assets/scripts/core.py",
+        "cli/assets/scripts/design_system.py",
+        "src/ui-ux-pro-max/scripts/search.py",
+        "cli/assets/scripts/search.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#28872",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/utils/middleware.py"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/routers/openai.py",
+        "backend/open_webui/utils/misc.py",
+        "backend/open_webui/routers/ollama.py",
+        "backend/open_webui/utils/chat.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/utils/anthropic.py",
+        "backend/open_webui/env.py",
+        "backend/open_webui/tasks.py",
+        "backend/open_webui/utils/payload.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#30196",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/tools/builtin.py"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/ask_user.py",
+        "backend/open_webui/tools/builtin.py",
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/utils/tools.py",
+        "backend/open_webui/routers/prompts.py",
+        "backend/open_webui/utils/tool_approval.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/models/prompts.py",
+        "backend/open_webui/utils/chat.py",
+        "backend/open_webui/utils/skills.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "open-webui/open-webui#31351",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/routers/retrieval.py"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/retrieval.py",
+        "backend/open_webui/retrieval/web/utils.py",
+        "backend/open_webui/routers/knowledge.py",
+        "backend/open_webui/tools/builtin.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/config.py",
+        "backend/open_webui/routers/images.py",
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/retrieval/utils.py",
+        "backend/open_webui/routers/files.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31416",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/main.py",
+        "backend/open_webui/retrieval/utils.py",
+        "backend/open_webui/routers/chats.py",
+        "backend/open_webui/utils/tool_approval.py"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/chats.py",
+        "backend/open_webui/models/chats.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/routers/users.py",
+        "backend/open_webui/routers/models.py",
+        "backend/open_webui/tools/builtin.py",
+        "backend/open_webui/routers/channels.py",
+        "backend/open_webui/utils/auth.py",
+        "backend/open_webui/routers/notes.py",
+        "backend/open_webui/utils/access_control/files.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31423",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/models/automations.py",
+        "backend/open_webui/models/models.py",
+        "backend/open_webui/models/prompts.py"
+      ],
+      "ranked": [
+        "backend/open_webui/models/automations.py",
+        "backend/open_webui/models/models.py",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py",
+        "backend/open_webui/models/prompts.py",
+        "backend/open_webui/utils/misc.py",
+        "backend/open_webui/models/chats.py",
+        "backend/open_webui/internal/db.py",
+        "backend/open_webui/tools/builtin.py",
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/models/users.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31438",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/utils/middleware.py"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/utils/anthropic.py",
+        "backend/open_webui/utils/misc.py",
+        "backend/open_webui/routers/openai.py",
+        "backend/open_webui/utils/chat.py",
+        "backend/open_webui/utils/payload.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/env.py",
+        "backend/open_webui/routers/ollama.py",
+        "backend/open_webui/routers/audio.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31461",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py"
+      ],
+      "ranked": [
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py",
+        "backend/open_webui/retrieval/external.py",
+        "backend/open_webui/routers/retrieval.py",
+        "backend/open_webui/config.py",
+        "backend/open_webui/retrieval/vector/dbs/milvus_multitenancy.py",
+        "backend/open_webui/retrieval/vector/dbs/milvus.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py",
+        "backend/open_webui/retrieval/utils.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31489",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/routers/ollama.py"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/openai.py",
+        "backend/open_webui/routers/ollama.py",
+        "backend/open_webui/utils/headers.py",
+        "backend/open_webui/utils/models.py",
+        "backend/open_webui/utils/tools.py",
+        "backend/open_webui/routers/configs.py",
+        "backend/open_webui/utils/payload.py",
+        "backend/open_webui/utils/chat.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/routers/terminals.py"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "open-webui/open-webui#31531",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py"
+      ],
+      "ranked": [
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py",
+        "backend/open_webui/retrieval/utils.py",
+        "backend/open_webui/tools/builtin.py",
+        "backend/open_webui/retrieval/vector/dbs/valkey.py",
+        "backend/open_webui/retrieval/vector/dbs/mariadb_vector.py",
+        "backend/open_webui/retrieval/vector/main.py",
+        "backend/open_webui/retrieval/vector/dbs/opengauss.py",
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/retrieval/vector/factory.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31862",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/routers/ollama.py"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/ollama.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/routers/retrieval.py",
+        "backend/open_webui/retrieval/utils.py",
+        "backend/open_webui/utils/chat.py",
+        "backend/open_webui/routers/models.py",
+        "backend/open_webui/routers/pipelines.py",
+        "backend/open_webui/config.py",
+        "backend/open_webui/routers/images.py",
+        "backend/open_webui/utils/payload.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#32429",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/main.py",
+        "backend/open_webui/routers/ollama.py",
+        "backend/open_webui/routers/openai.py",
+        "backend/open_webui/utils/audit.py",
+        "backend/open_webui/utils/logger.py"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/audit.py",
+        "backend/open_webui/utils/logger.py",
+        "backend/open_webui/env.py",
+        "backend/open_webui/main.py",
+        "backend/open_webui/utils/payload.py",
+        "backend/open_webui/utils/misc.py",
+        "backend/open_webui/routers/openai.py",
+        "backend/open_webui/utils/middleware.py",
+        "backend/open_webui/routers/ollama.py",
+        "backend/open_webui/models/prompts.py"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "ruvnet/RuView#2152",
+      "repo": "ruvnet/RuView",
+      "gold": [
+        "firmware/esp32-csi-node/provision.py"
+      ],
+      "ranked": [
+        "firmware/esp32-csi-node/provision.py",
+        "scripts/provision.py",
+        "scripts/qemu_swarm.py",
+        "scripts/calibrate-camera-room.py",
+        "scripts/mmwave_fusion_bridge.py",
+        "archive/v1/src/hardware/csi_extractor.py",
+        "firmware/esp32-csi-node/run_arms.py",
+        "scripts/hap-test-sensor.py",
+        "scripts/generate_nvs_matrix.py",
+        "scripts/c6-presence-watcher.py"
+      ],
+      "first_rank": 1
+    }
+  ],
+  "provenance": {
+    "timestamp": "2026-11-03T04:27:03+00:00",
+    "git_commit": "37be98e1bb06943785cf16388c6ad220cdeea1d8",
+    "git_dirty": false,
+    "python": "3.11.16",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "tree-sitter": "0.26.0",
+      "lightgbm": "4.7.0",
+      "torch": "2.14.0+cu130",
+      "sentence-transformers": "6.1.0"
+    },
+    "models": {
+      "models\\ltr_file.txt": "81963bfcb59d6e77",
+      "models\\ltr_function.txt": "edd32e017d4799eb",
+      "models\\more-data\\ltr_file.txt": "35bb3bf7fab1c252",
+      "models\\more-data\\ltr_function.txt": "752840e5cce4e62e",
+      "models\\paths\\ltr_file.txt": "acbd6d70f93fd5ea",
+      "models\\paths\\ltr_function.txt": "671b15c68451b643",
+      "models\\more-data\\reranker.json": "1fbef4ee181df2a8",
+      "models\\reranker.json": "fb9c4cb9cfa0ad2f",
+      "models\\reranker_distilled.json": "a3cc7e4582e01d25",
+      "models\\reranker_ens.json": "fb9c4cb9cfa0ad2f",
+      "models\\reranker_v2.json": "a7e74d58b36f0c11",
+      "models\\ce_adapter\\adapter_model.safetensors": "9ce9bafbf4c21b80",
+      "models\\ce_adapter_distilled\\adapter_model.safetensors": "5082a17b1880f1e3",
+      "models\\ce_adapter_v1\\adapter_model.safetensors": "91246a13d417d71e"
+    },
+    "argv": [
+      "eval",
+      "--dataset",
+      "fresh",
+      "--gold",
+      "data/fresh/gold_eval_python.jsonl",
+      "--retriever",
+      "ltr-ce-more-data-notests",
+      "--level",
+      "file",
+      "--out",
+      "results/research/frontier/fresh_eval_file.json"
+    ],
+    "gold_file": "data\\fresh\\gold_eval_python.jsonl",
+    "fusion": "zsum w_dense=0.8"
+  }
+}

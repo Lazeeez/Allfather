@@ -1,0 +1,2631 @@
+{
+  "summary": {
+    "n": 100,
+    "mrr": 0.7193,
+    "recall@1": 0.3853,
+    "hit@1": 0.64,
+    "all@1": 0.28,
+    "recall@5": 0.6187,
+    "hit@5": 0.83,
+    "all@5": 0.47,
+    "recall@10": 0.7034,
+    "hit@10": 0.88,
+    "all@10": 0.54,
+    "retriever": "ltr-ce-more-data-notests",
+    "level": "function",
+    "skipped_no_target": 0,
+    "ci95": {
+      "mrr": [
+        0.6438,
+        0.7927
+      ],
+      "recall@10": [
+        0.6327,
+        0.7749
+      ]
+    },
+    "latency_ms_p50": 3183.8,
+    "latency_ms_p95": 14490.29,
+    "latency_ms_p99": 15693.85,
+    "wall_s": 2519.4,
+    "warmup_s": 7.1,
+    "index_ms_p50": 4111.0,
+    "index_ms_p95": 95851.6,
+    "index": {
+      "files_indexed": 224694,
+      "blobs_parsed": 17723,
+      "blobs_from_disk_cache": 2383,
+      "blob_reuse": 0.9211
+    },
+    "units_embedded": 147052,
+    "embedding_store_size": 846348,
+    "padding_efficiency": 0.987,
+    "by_repo": {
+      "Comfy-Org/ComfyUI": {
+        "n": 4,
+        "mrr": 0.5,
+        "recall@1": 0.5,
+        "hit@1": 0.5,
+        "all@1": 0.5,
+        "recall@5": 0.5,
+        "hit@5": 0.5,
+        "all@5": 0.5,
+        "recall@10": 0.5,
+        "hit@10": 0.5,
+        "all@10": 0.5
+      },
+      "NousResearch/hermes-agent": {
+        "n": 10,
+        "mrr": 0.8,
+        "recall@1": 0.345,
+        "hit@1": 0.7,
+        "all@1": 0.2,
+        "recall@5": 0.6817,
+        "hit@5": 1.0,
+        "all@5": 0.4,
+        "recall@10": 0.7383,
+        "hit@10": 1.0,
+        "all@10": 0.4
+      },
+      "Shubhamsaboo/awesome-llm-apps": {
+        "n": 1,
+        "mrr": 1.0,
+        "recall@1": 0.1667,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 0.1667,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.1667,
+        "hit@10": 1.0,
+        "all@10": 0.0
+      },
+      "Significant-Gravitas/AutoGPT": {
+        "n": 8,
+        "mrr": 0.9375,
+        "recall@1": 0.5729,
+        "hit@1": 0.875,
+        "all@1": 0.375,
+        "recall@5": 0.875,
+        "hit@5": 1.0,
+        "all@5": 0.75,
+        "recall@10": 0.875,
+        "hit@10": 1.0,
+        "all@10": 0.75
+      },
+      "TheAlgorithms/Python": {
+        "n": 2,
+        "mrr": 0.5,
+        "recall@1": 0.5,
+        "hit@1": 0.5,
+        "all@1": 0.5,
+        "recall@5": 0.5,
+        "hit@5": 0.5,
+        "all@5": 0.5,
+        "recall@10": 0.5,
+        "hit@10": 0.5,
+        "all@10": 0.5
+      },
+      "github/spec-kit": {
+        "n": 12,
+        "mrr": 0.8472,
+        "recall@1": 0.4937,
+        "hit@1": 0.75,
+        "all@1": 0.4167,
+        "recall@5": 0.7209,
+        "hit@5": 1.0,
+        "all@5": 0.5,
+        "recall@10": 0.7918,
+        "hit@10": 1.0,
+        "all@10": 0.5833
+      },
+      "immich-app/immich": {
+        "n": 2,
+        "mrr": 1.0,
+        "recall@1": 0.2,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 0.7,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.8,
+        "hit@10": 1.0,
+        "all@10": 0.5
+      },
+      "infiniflow/ragflow": {
+        "n": 9,
+        "mrr": 0.4111,
+        "recall@1": 0.1852,
+        "hit@1": 0.3333,
+        "all@1": 0.1111,
+        "recall@5": 0.4444,
+        "hit@5": 0.5556,
+        "all@5": 0.3333,
+        "recall@10": 0.5556,
+        "hit@10": 0.6667,
+        "all@10": 0.4444
+      },
+      "langchain-ai/langchain": {
+        "n": 11,
+        "mrr": 0.7879,
+        "recall@1": 0.5537,
+        "hit@1": 0.7273,
+        "all@1": 0.4545,
+        "recall@5": 0.6095,
+        "hit@5": 0.8182,
+        "all@5": 0.4545,
+        "recall@10": 0.7562,
+        "hit@10": 0.9091,
+        "all@10": 0.5455
+      },
+      "langflow-ai/langflow": {
+        "n": 12,
+        "mrr": 0.8854,
+        "recall@1": 0.468,
+        "hit@1": 0.8333,
+        "all@1": 0.3333,
+        "recall@5": 0.6357,
+        "hit@5": 0.9167,
+        "all@5": 0.5,
+        "recall@10": 0.7854,
+        "hit@10": 1.0,
+        "all@10": 0.6667
+      },
+      "langgenius/dify": {
+        "n": 11,
+        "mrr": 0.5312,
+        "recall@1": 0.1303,
+        "hit@1": 0.3636,
+        "all@1": 0.0,
+        "recall@5": 0.5598,
+        "hit@5": 0.7273,
+        "all@5": 0.4545,
+        "recall@10": 0.5953,
+        "hit@10": 0.8182,
+        "all@10": 0.4545
+      },
+      "microsoft/markitdown": {
+        "n": 4,
+        "mrr": 0.5,
+        "recall@1": 0.5,
+        "hit@1": 0.5,
+        "all@1": 0.5,
+        "recall@5": 0.5,
+        "hit@5": 0.5,
+        "all@5": 0.5,
+        "recall@10": 0.5,
+        "hit@10": 0.5,
+        "all@10": 0.5
+      },
+      "morluto/rea": {
+        "n": 1,
+        "mrr": 0.3333,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "all@1": 0.0,
+        "recall@5": 0.0625,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.3125,
+        "hit@10": 1.0,
+        "all@10": 0.0
+      },
+      "nextlevelbuilder/ui-ux-pro-max-skill": {
+        "n": 1,
+        "mrr": 1.0,
+        "recall@1": 0.125,
+        "hit@1": 1.0,
+        "all@1": 0.0,
+        "recall@5": 0.5,
+        "hit@5": 1.0,
+        "all@5": 0.0,
+        "recall@10": 0.75,
+        "hit@10": 1.0,
+        "all@10": 0.0
+      },
+      "open-webui/open-webui": {
+        "n": 11,
+        "mrr": 0.7175,
+        "recall@1": 0.3701,
+        "hit@1": 0.6364,
+        "all@1": 0.2727,
+        "recall@5": 0.6169,
+        "hit@5": 0.8182,
+        "all@5": 0.5455,
+        "recall@10": 0.7576,
+        "hit@10": 0.9091,
+        "all@10": 0.6364
+      },
+      "ruvnet/RuView": {
+        "n": 1,
+        "mrr": 0.2,
+        "recall@1": 0.0,
+        "hit@1": 0.0,
+        "all@1": 0.0,
+        "recall@5": 1.0,
+        "hit@5": 1.0,
+        "all@5": 1.0,
+        "recall@10": 1.0,
+        "hit@10": 1.0,
+        "all@10": 1.0
+      }
+    }
+  },
+  "per_instance": [
+    {
+      "instance_id": "Comfy-Org/ComfyUI#15922",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy/model_detection.py::detect_unet_config",
+        "comfy/model_detection.py::unet_prefix_from_state_dict",
+        "comfy_extras/nodes_hidream_o1.py::HiDreamO1ReferenceImages",
+        "comfy_extras/nodes_hidream_o1.py::HiDreamO1ReferenceImages.define_schema",
+        "comfy_extras/nodes_hidream_o1.py::HiDreamO1ReferenceImages.execute",
+        "nodes.py::init_builtin_extra_nodes"
+      ],
+      "ranked": [
+        "comfy/ldm/moge/model.py::_remap_state_dict",
+        "comfy/ldm/moge/model.py::build_from_state_dict",
+        "comfy/ldm/moge/model.py::MoGeModelV2._detect_convstack",
+        "comfy/ldm/moge/model.py::MoGeModelV2.forward",
+        "comfy/ldm/moge/model.py::MoGeModelV1.from_state_dict",
+        "comfy/supported_models.py::Stable_Cascade_C",
+        "comfy/ldm/moge/model.py::MoGeModelV1",
+        "comfy/ldm/moge/model.py::MoGeModelV2",
+        "comfy/supported_models.py::Lens",
+        "comfy/ldm/moge/model.py::MoGeModelV2.from_state_dict"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "Comfy-Org/ComfyUI#16130",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy/controlnet.py::controlnet_config",
+        "comfy/controlnet.py::load_controlnet_qwen_fun",
+        "comfy/controlnet.py::load_controlnet_sd35",
+        "comfy/controlnet.py::load_controlnet_state_dict",
+        "comfy/ops.py::mixed_precision_ops",
+        "comfy/ops.py::pick_operations",
+        "comfy_extras/nodes_model_patch.py::ModelPatchLoader.load_model_patch"
+      ],
+      "ranked": [
+        "execution.py::execute",
+        "execution.py::validate_inputs",
+        "execution.py::_async_map_node_over_list",
+        "execution.py::get_output_data",
+        "execution.py::IsChangedCache.get",
+        "execution.py::get_input_data",
+        "execution.py::get_output_from_returns",
+        "comfy/ldm/minimax/model.py::MiniMaxH3Model._forward",
+        "nodes.py::init_extra_nodes",
+        "execution.py::PromptExecutor.execute_async"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "Comfy-Org/ComfyUI#16485",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy/ldm/minimax/vae.py::Attention.forward"
+      ],
+      "ranked": [
+        "comfy/ldm/minimax/vae.py::Attention.forward",
+        "comfy/ldm/minimax/vae.py::Attention.__init__",
+        "comfy/ldm/minimax/vae.py::MiniMaxH3VideoVAE.__init__",
+        "comfy/ldm/minimax/vae.py::MiniMaxH3VideoVAE",
+        "comfy/ldm/minimax/vae.py::RotaryEmbeddingND.forward",
+        "comfy/ldm/minimax/vae.py::MiniMaxH3VideoVAE.decode",
+        "comfy/ldm/minimax/vae.py::CausalConv3d.forward",
+        "comfy/ldm/minimax/vae.py::_kitchen_ndhwc",
+        "comfy/ldm/seedvr/vae.py::causal_norm_wrapper",
+        "comfy/ldm/minimax/vae.py::MiniMaxH3VideoVAE.tiled_decode"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Comfy-Org/ComfyUI#16500",
+      "repo": "Comfy-Org/ComfyUI",
+      "gold": [
+        "comfy_extras/nodes_upscale_model.py::ImageUpscaleWithModel.execute"
+      ],
+      "ranked": [
+        "comfy_extras/nodes_upscale_model.py::ImageUpscaleWithModel.execute",
+        "comfy_extras/nodes_upscale_model.py::ImageUpscaleWithModel",
+        "comfy_extras/nodes_upscale_model.py::ImageUpscaleWithModel.define_schema",
+        "comfy_extras/nodes_triposplat.py::_preprocess",
+        "comfy_extras/nodes_upscale_model.py::UpscaleModelLoader.execute",
+        "comfy_extras/nodes_compositor.py::_prepare_layer_bitmap",
+        "comfy_extras/nodes_upscale_model.py::UpscaleModelExtension.get_node_list",
+        "comfy_extras/nodes_compositing.py::PorterDuffImageComposite.execute",
+        "comfy_extras/nodes_compositing.py::porter_duff_composite",
+        "comfy_extras/nodes_upscale_model.py::UpscaleModelLoader"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80004",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "tools/read_extract.py::_extract_anydoc"
+      ],
+      "ranked": [
+        "tools/read_extract.py::_extract_anydoc",
+        "tools/read_extract.py::_anydoc",
+        "tools/file_tools.py::read_file_tool",
+        "tools/read_extract.py::extract_document_text",
+        "tools/read_extract.py::_extension",
+        "tools/file_tools.py::_truncate_to_char_budget",
+        "tools/read_extract.py::_extract_docx",
+        "tui_gateway/methods_prompt.py::_",
+        "tools/web_tools.py::_truncate_with_footer",
+        "tools/read_extract.py::ExtractionError"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80465",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "tools/delegate_tool.py::_build_child_agent",
+        "tools/delegate_tool.py::_resolve_delegation_credentials",
+        "tools/delegate_tool.py::delegate_task"
+      ],
+      "ranked": [
+        "tools/delegate_tool.py::_build_child_agent",
+        "tools/delegate_tool.py::delegate_task",
+        "agent/chat_completion_helpers.py::try_activate_fallback",
+        "tools/delegate_tool.py::_resolve_delegation_credentials",
+        "tools/delegate_tool.py::_run_single_child",
+        "tools/delegate_tool.py::_inherit_parent_base_url",
+        "hermes_cli/runtime_provider.py::resolve_runtime_provider",
+        "agent/agent_runtime_helpers.py::switch_model",
+        "tools/delegate_tool.py::_build_child_progress_callback",
+        "run_agent.py::AIAgent._dispatch_delegate_task"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80491",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "hermes_cli/gateway.py::_graceful_restart_via_sigusr1",
+        "hermes_cli/gateway.py::_wait_for_pid_exit",
+        "hermes_cli/gateway.py::refresh_launchd_plist_if_needed"
+      ],
+      "ranked": [
+        "hermes_cli/gateway.py::_retry_launchctl_bootstrap_until_registered",
+        "hermes_cli/gateway.py::launchd_restart",
+        "hermes_cli/gateway.py::refresh_launchd_plist_if_needed",
+        "hermes_cli/gateway.py::launchd_stop",
+        "hermes_cli/gateway.py::_launchctl_label_supervising_process",
+        "hermes_cli/gateway.py::launchd_start",
+        "hermes_cli/gateway.py::launchd_status",
+        "hermes_cli/gateway.py::_launchctl_bootstrap",
+        "hermes_cli/gateway.py::_launchd_domain",
+        "hermes_cli/gateway.py::run_gateway"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#80912",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "cron/scheduler.py::_ReadWriteLock.acquire_read",
+        "cron/scheduler.py::_ReadWriteLock.acquire_write"
+      ],
+      "ranked": [
+        "cron/scheduler.py::_ReadWriteLock",
+        "cron/jobs.py::_normalize_workdir",
+        "cron/scheduler.py::_ReadWriteLock.acquire_read",
+        "cron/scheduler.py::tick",
+        "cron/jobs.py::_jobs_lock",
+        "cron/scheduler.py::get_running_job_ids",
+        "cron/jobs.py::_save_jobs_unlocked",
+        "cron/scheduler.py::run_job",
+        "cron/jobs.py::mark_job_run",
+        "cron/jobs.py::_get_due_jobs_locked"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#81691",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/learn_prompt.py::build_learn_prompt"
+      ],
+      "ranked": [
+        "agent/learn_prompt.py::build_learn_prompt",
+        "hermes_cli/cli_commands_mixin.py::CLICommandsMixin._handle_learn_command",
+        "tools/skill_manager_tool.py::skill_manage",
+        "agent/prompt_builder.py::build_skills_system_prompt",
+        "cli.py::main",
+        "tools/skill_manager_tool.py::apply_skill_pending",
+        "tools/skill_manager_tool.py::_delete_skill",
+        "tools/skill_manager_tool.py::_apply_skill_write_gate",
+        "hermes_cli/skills_hub.py::do_install",
+        "agent/skill_commands.py::build_preloaded_skills_prompt"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#81946",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "cli.py::HermesCLI.__init__",
+        "gateway/run.py::GatewayRunner._load_ephemeral_system_prompt",
+        "gateway/slash_commands.py::GatewaySlashCommandsMixin._handle_personality_command",
+        "hermes_cli/cli_commands_mixin.py::CLICommandsMixin._handle_personality_command",
+        "tui_gateway/server.py::_",
+        "tui_gateway/server.py::_make_agent"
+      ],
+      "ranked": [
+        "hermes_cli/cli_commands_mixin.py::CLICommandsMixin._handle_personality_command",
+        "gateway/slash_commands.py::GatewaySlashCommandsMixin._handle_personality_command",
+        "tui_gateway/server.py::_apply_personality_to_session",
+        "tui_gateway/server.py::_session_info",
+        "hermes_cli/commands.py::SlashCommandCompleter._personality_completions",
+        "cli.py::HermesCLI._resolve_personality_prompt",
+        "tui_gateway/server.py::_make_agent",
+        "agent/system_prompt.py::build_system_prompt_parts",
+        "agent/turn_context.py::build_turn_context",
+        "cli.py::main"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#82149",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/credential_pool.py::CredentialPool.mark_exhausted_and_rotate",
+        "run_agent.py::AIAgent._try_refresh_env_client_credentials"
+      ],
+      "ranked": [
+        "agent/credential_pool.py::CredentialPool.mark_exhausted_and_rotate",
+        "agent/agent_runtime_helpers.py::recover_with_credential_pool",
+        "agent/agent_runtime_helpers.py::sync_credential_pool_entry_id",
+        "run_agent.py::AIAgent._try_refresh_env_client_credentials",
+        "agent/credential_pool.py::CredentialPool.try_refresh_matching",
+        "run_agent.py::AIAgent._swap_credential",
+        "agent/credential_pool.py::CredentialPool._refresh_entry",
+        "agent/credential_pool.py::CredentialPool._refresh_entry_impl",
+        "agent/agent_runtime_helpers.py::restore_primary_runtime",
+        "agent/credential_pool.py::CredentialPool._available_entries"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#82313",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/relay_llm.py::ManagedLlmStream.__init__",
+        "agent/relay_llm.py::execute",
+        "agent/relay_llm.py::execute_async",
+        "agent/relay_runtime.py::resolve_execution_context",
+        "agent/relay_tools.py::execute"
+      ],
+      "ranked": [
+        "agent/relay_tools.py::execute",
+        "agent/relay_runtime.py::RelayRuntime.retain_managed_execution",
+        "agent/relay_llm.py::execute",
+        "hermes_cli/observability/relay_shared_metrics.py::_Runtime.__init__",
+        "agent/relay_runtime.py::RelayRuntime.run_in_session_async",
+        "agent/relay_llm.py::execute_async",
+        "plugins/observability/nemo_relay/__init__.py::_Runtime.__init__",
+        "agent/relay_runtime.py::resolve_execution_context",
+        "agent/relay_runtime.py::NoopRelayRuntime.retain_managed_execution",
+        "agent/relay_runtime.py::RelayRuntime.__init__"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#83044",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport.__init__",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport.aclose",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport.handle_async_request"
+      ],
+      "ranked": [
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport.__init__",
+        "gateway/platforms/_http_client_limits.py::platform_httpx_limits",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport._reset_fallback",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport.handle_async_request",
+        "plugins/platforms/telegram/adapter.py::TelegramAdapter.connect",
+        "plugins/platforms/telegram/telegram_network.py::discover_fallback_ips",
+        "plugins/platforms/telegram/telegram_network.py::TelegramFallbackTransport._get_fallback",
+        "plugins/platforms/telegram/adapter.py::TelegramAdapter",
+        "plugins/platforms/telegram/adapter.py::TelegramAdapter._fallback_ips"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "NousResearch/hermes-agent#83636",
+      "repo": "NousResearch/hermes-agent",
+      "gold": [
+        "agent/auxiliary_client.py::_client_cache_key",
+        "agent/auxiliary_client.py::_resolve_auto_route"
+      ],
+      "ranked": [
+        "agent/auxiliary_client.py::_get_aux_model_for_provider",
+        "hermes_cli/main.py::_aux_select_for_task",
+        "agent/auxiliary_client.py::_resolve_auto_route",
+        "hermes_cli/plugins.py::PluginContext.register_auxiliary_task",
+        "agent/title_generator.py::generate_title",
+        "agent/auxiliary_client.py::get_text_auxiliary_client",
+        "agent/auxiliary_client.py::_resolve_task_provider_model",
+        "agent/auxiliary_client.py::_read_main_model_for_aux",
+        "providers/base.py::ProviderProfile.resolve_aux_model",
+        "agent/auxiliary_client.py::_relay_auxiliary_metadata"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "Shubhamsaboo/awesome-llm-apps#1246",
+      "repo": "Shubhamsaboo/awesome-llm-apps",
+      "gold": [
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/integrations/slack/chat.py::handle_confirm_sources",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/integrations/slack/chat.py::process_approval_action",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/processors/faiss_indexing_processor.py::save_faiss_index",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/processors/faiss_indexing_processor.py::save_id_mapping",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/services/async_podcast_agent_service.py::PodcastAgentService.check_result_status",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/google_news_discovery.py::google_news_discovery_run"
+      ],
+      "ranked": [
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/google_news_discovery.py::google_news_discovery_run",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/main.py::lifespan",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/google_news_discovery.py::get_top_news",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/tools/google_news_discovery.py::search_news",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/processors/podcast_generator_processor.py::process_all_active_configs_v2",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/processors/podcast_generator_processor.py::generate_podcast_from_prompt_v2",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/main.py::stream_audio",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/main.py::favicon",
+        "agent_skills/self-improving-agent-skills/backend/app.py::upload_files",
+        "advanced_ai_agents/multi_agent_apps/ai_news_and_podcast_agents/beifong/main.py::logo"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14008",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock.run"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock.run",
+        "autogpt_platform/backend/backend/blocks/http.py::SendAuthenticatedWebRequestBlock.run",
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock.Input",
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock",
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock.__init__",
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock.Output",
+        "autogpt_platform/backend/backend/blocks/http.py::SendWebRequestBlock._prepare_files",
+        "autogpt_platform/backend/backend/blocks/http.py::SendAuthenticatedWebRequestBlock.__init__",
+        "autogpt_platform/backend/backend/blocks/http.py::SendAuthenticatedWebRequestBlock",
+        "autogpt_platform/backend/backend/blocks/http.py::SendAuthenticatedWebRequestBlock.Input"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14488",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/util/type.py::__convert_set",
+        "autogpt_platform/backend/backend/util/type.py::__convert_tuple"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/util/type.py::__convert_list",
+        "autogpt_platform/backend/backend/util/type.py::__convert_set",
+        "autogpt_platform/backend/backend/util/type.py::_try_convert",
+        "autogpt_platform/backend/backend/util/type.py::__convert_tuple",
+        "autogpt_platform/backend/backend/util/type.py::__convert_dict",
+        "autogpt_platform/backend/backend/util/type.py::convert",
+        "autogpt_platform/backend/backend/util/type.py::convert",
+        "autogpt_platform/backend/backend/util/type.py::convert",
+        "autogpt_platform/backend/backend/util/type.py::ConversionError",
+        "autogpt_platform/backend/backend/util/type.py::_value_satisfies_type"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14536",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        ".github/scripts/detect_overlaps.py::find_file_overlap_candidates",
+        ".github/scripts/detect_overlaps.py::post_or_update_comment",
+        ".github/scripts/validate_junit.py::main",
+        ".github/scripts/validate_junit.py::parse_args"
+      ],
+      "ranked": [
+        ".github/scripts/validate_junit.py::main",
+        ".github/scripts/validate_junit.py::validate_path",
+        ".github/scripts/validate_junit.py::parse_args",
+        "autogpt_platform/backend/backend/copilot/transcript.py::strip_for_upload",
+        "autogpt_platform/backend/backend/copilot/transcript.py::strip_progress_entries",
+        "autogpt_platform/backend/backend/copilot/transcript.py::_find_last_assistant_entry",
+        ".github/scripts/backend_test_shard.py::shard_args",
+        "autogpt_platform/backend/backend/copilot/dream/apply.py::_filter_demotions_to_known_facts",
+        ".github/scripts/validate_junit.py::summarize_junit",
+        "autogpt_platform/backend/backend/copilot/transcript.py::_should_strip_thinking_block"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14749",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock.Input",
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock.run"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock.run",
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock",
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock.__init__",
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock.Input",
+        "autogpt_platform/backend/backend/blocks/spreadsheet.py::ReadSpreadsheetBlock.Output",
+        "autogpt_platform/backend/backend/blocks/google/sheets.py::_validate_spreadsheet_file",
+        "autogpt_platform/backend/backend/blocks/google/sheets.py::GoogleSheetsReadBlock.run",
+        "autogpt_platform/backend/backend/blocks/google/sheets.py::GoogleSheetsWriteBlock.run",
+        "autogpt_platform/backend/backend/blocks/google/sheets.py::GoogleSheetsGetColumnBlock.run",
+        "autogpt_platform/backend/backend/blocks/google/sheets.py::GoogleSheetsReadBlock._read_sheet"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14750",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/util/file.py::get_exec_file_path"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/util/file.py::get_exec_file_path",
+        "autogpt_platform/backend/backend/util/file.py::store_media_file",
+        "autogpt_platform/backend/backend/util/file.py::clean_exec_files",
+        "autogpt_platform/backend/backend/util/cloud_storage.py::CloudStorageHandler._validate_file_access",
+        "autogpt_platform/backend/backend/copilot/sdk/e2b_file_tools.py::_handle_write_file",
+        "autogpt_platform/backend/backend/copilot/sdk/e2b_file_tools.py::_handle_edit_file",
+        "autogpt_platform/backend/backend/copilot/context.py::resolve_sandbox_path",
+        "autogpt_platform/backend/backend/copilot/sdk/e2b_file_tools.py::_handle_grep",
+        "autogpt_platform/backend/backend/copilot/sdk/e2b_file_tools.py::_handle_glob",
+        "autogpt_platform/backend/backend/copilot/tools/workspace_files.py::ReadWorkspaceFileTool._execute"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#14875",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py::WebFetchTool._execute",
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py::_html_to_text"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py::WebFetchTool._execute",
+        "classic/forge/forge/components/web/web_fetch.py::WebFetchComponent.fetch_webpage",
+        "classic/forge/forge/components/web/web_fetch.py::WebFetchComponent.fetch_raw_html",
+        "classic/forge/forge/components/web/web_fetch.py::WebFetchConfiguration",
+        "autogpt_platform/backend/backend/copilot/tools/models.py::WebFetchResponse",
+        "classic/forge/forge/components/web/web_fetch.py::WebFetchComponent",
+        "classic/forge/forge/components/web/web_fetch.py::WebFetchComponent._fetch_url",
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py::WebFetchTool",
+        "classic/forge/forge/components/web/web_fetch.py::WebFetchComponent._extract_links",
+        "autogpt_platform/backend/backend/copilot/tools/web_fetch.py::WebFetchTool.description"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#15150",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py::_build_graphiti",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py::GraphitiConfig",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py::GraphitiConfig._apply_local_graphiti_models"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py::_build_graphiti",
+        "autogpt_platform/backend/backend/copilot/graphiti/reranker.py::CompatOpenAIRerankerClient.rank",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py::GraphitiConfig._apply_local_graphiti_models",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py::GraphitiConfig",
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py::_build_llm_config",
+        "autogpt_platform/backend/backend/copilot/graphiti/reranker.py::CompatOpenAIRerankerClient",
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py::make_flex_graphiti_client",
+        "autogpt_platform/backend/backend/copilot/graphiti/client.py::get_graphiti_client",
+        "autogpt_platform/backend/backend/data/llm_registry/catalog.py::_build_catalog",
+        "autogpt_platform/backend/backend/copilot/graphiti/config.py::GraphitiConfig.resolve_embedder_api_key"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "Significant-Gravitas/AutoGPT#15178",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "gold": [
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock.run"
+      ],
+      "ranked": [
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock.run",
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock.Input",
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock.__init__",
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock",
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock.parse_feed",
+        "autogpt_platform/backend/backend/blocks/rss.py::RSSEntry",
+        "autogpt_platform/backend/backend/blocks/exa/websets_polling.py::ExaWaitForSearchBlock.run",
+        "autogpt_platform/backend/backend/blocks/exa/websets_polling.py::ExaWaitForEnrichmentBlock.run",
+        "autogpt_platform/backend/backend/blocks/exa/websets_polling.py::ExaWaitForWebsetBlock.run",
+        "autogpt_platform/backend/backend/blocks/rss.py::ReadRSSFeedBlock.Output"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "TheAlgorithms/Python#15356",
+      "repo": "TheAlgorithms/Python",
+      "gold": [
+        "ciphers/hill_cipher.py::main",
+        "ciphers/mono_alphabetic_ciphers.py::main",
+        "ciphers/rsa_cipher.py::main",
+        "ciphers/vigenere_cipher.py::translate_message",
+        "computer_vision/flip_augmentation.py::update_image_and_anno",
+        "computer_vision/mosaic_augmentation.py::update_image_and_anno",
+        "conversions/decimal_to_any.py::decimal_to_any",
+        "data_structures/binary_tree/avl_tree.py::del_node",
+        "data_structures/binary_tree/treap.py::interact_treap",
+        "data_structures/stacks/infix_to_prefix_conversion.py::infix_2_prefix",
+        "graphics/vector3_for_2d_rendering.py::rotate",
+        "linear_algebra/src/lib.py::Matrix.__mul__",
+        "linear_algebra/src/lib.py::Matrix.determinant",
+        "linear_algebra/src/lib.py::Vector.__mul__",
+        "linear_algebra/src/power_iteration.py::test_power_iteration",
+        "machine_learning/gradient_descent.py::calculate_hypothesis_value",
+        "machine_learning/gradient_descent.py::output",
+        "machine_learning/q_learning.py::step_env",
+        "machine_learning/support_vector_machines.py::SVC.__init__",
+        "maths/jaccard_similarity.py::jaccard_similarity",
+        "maths/matrix_exponentiation.py::fibonacci_with_matrix_exponentiation",
+        "maths/matrix_exponentiation.py::simple_fibonacci",
+        "maths/polynomials/single_indeterminate_operations.py::Polynomial.__str__",
+        "maths/special_numbers/kaprekar_constant.py::main",
+        "maths/special_numbers/proth_number.py::proth",
+        "matrix/inverse_of_matrix.py::inverse_of_matrix",
+        "matrix/matrix_class.py::Matrix.__mul__",
+        "matrix/sherman_morrison.py::Matrix.__mul__",
+        "neural_network/convolution_neural_network.py::CNN.pooling",
+        "other/davis_putnam_logemann_loveland.py::dpll_algorithm",
+        "other/davis_putnam_logemann_loveland.py::find_unit_clauses",
+        "other/gauss_easter.py::gauss_easter",
+        "other/guess_the_number_search.py::guess_the_number",
+        "other/scoring_algorithm.py::calculate_each_score",
+        "physics/boyles_law.py::boyles_law",
+        "physics/first_law_of_thermodynamics.py::__categorize_system",
+        "project_euler/problem_054/sol1.py::PokerHand.hand_name",
+        "project_euler/problem_089/sol1.py::generate_roman_numerals",
+        "scheduling/cpuschedulingalgorithms.py::SchedulerEngine.simulate",
+        "scripts/hacktoberfest_prep_update.py::refresh_checkboxes",
+        "searches/fibonacci_search.py::fibonacci",
+        "sorts/external_sort.py::parse_memory"
+      ],
+      "ranked": [
+        "graphs/edmonds_blossom_algorithm.py::EdmondsBlossomAlgorithm.contract_blossom",
+        "graphs/edmonds_blossom_algorithm.py::EdmondsBlossomAlgorithm.update_matching",
+        "graphs/edmonds_blossom_algorithm.py::EdmondsBlossomAlgorithm.maximum_matching",
+        "data_structures/stacks/infix_to_prefix_conversion.py::infix_2_postfix",
+        "dynamic_programming/wildcard_matching.py::is_match",
+        "data_structures/linked_list/partition_linked_list.py::LinkedList.partition_liked_list",
+        "dynamic_programming/smith_waterman.py::score_function",
+        "backtracking/word_search.py::validate_board_and_word",
+        "graphs/edmonds_blossom_algorithm.py::BlossomAuxData.__init__",
+        "machine_learning/linear_discriminant_analysis.py::main"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "TheAlgorithms/Python#15492",
+      "repo": "TheAlgorithms/Python",
+      "gold": [
+        "financial/exponential_moving_average.py::exponential_moving_average"
+      ],
+      "ranked": [
+        "financial/exponential_moving_average.py::exponential_moving_average",
+        "searches/exponential_search.py::binary_search_by_recursion",
+        "financial/simple_moving_average.py::simple_moving_average",
+        "strings/min_window_substring.py::min_window",
+        "financial/streaming_moving_average.py::StreamingMovingAverage.__init__",
+        "financial/fractional_differentiation.py::calculate_weights",
+        "financial/streaming_moving_average.py::StreamingMovingAverage",
+        "financial/fractional_differentiation.py::fracdiff_fixedwindow",
+        "financial/streaming_moving_average.py::StreamingMovingAverage.update",
+        "audio_filters/equal_loudness_filter.py::yulewalk"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#3952",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/commands/bundle/__init__.py::_resolve_init_integration",
+        "src/specify_cli/commands/init.py::register",
+        "src/specify_cli/workflows/steps/init/__init__.py::InitStep",
+        "src/specify_cli/workflows/steps/init/__init__.py::InitStep.execute"
+      ],
+      "ranked": [
+        "src/specify_cli/commands/bundle/__init__.py::_resolve_init_integration",
+        "src/specify_cli/workflows/steps/init/__init__.py::InitStep.execute",
+        "src/specify_cli/workflows/steps/init/__init__.py::InitStep",
+        "src/specify_cli/integrations/_helpers.py::_update_init_options_for_integration",
+        "src/specify_cli/integrations/copilot/__init__.py::CopilotIntegration",
+        "src/specify_cli/commands/bundle/__init__.py::bundle_init",
+        "src/specify_cli/integrations/_helpers.py::_set_default_integration",
+        "src/specify_cli/integrations/copilot/__init__.py::CopilotIntegration._setup_default",
+        "src/specify_cli/integrations/copilot/__init__.py::CopilotIntegration._resolve_executable",
+        "src/specify_cli/commands/bundle/__init__.py::_run_init"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4045",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/integrations/claude/__init__.py::ClaudeIntegration.inject_argument_hint"
+      ],
+      "ranked": [
+        "src/specify_cli/integrations/claude/__init__.py::ClaudeIntegration.inject_argument_hint",
+        "src/specify_cli/agents.py::CommandRegistrar.apply_argument_hint",
+        "src/specify_cli/integrations/claude/__init__.py::ClaudeIntegration.post_process_skill_content",
+        "src/specify_cli/integrations/alquimia/__init__.py::AlquimiaAIIntegration.inject_argument_hint",
+        "src/specify_cli/integrations/claude/__init__.py::ClaudeIntegration",
+        "src/specify_cli/integrations/claude/__init__.py::ClaudeIntegration._inject_frontmatter_flag",
+        "src/specify_cli/integrations/claude/__init__.py::ClaudeIntegration._render_skill",
+        "src/specify_cli/integrations/alquimia/__init__.py::AlquimiaAIIntegration.post_process_skill_content",
+        "src/specify_cli/presets/__init__.py::PresetResolver.resolve_content",
+        "src/specify_cli/agents.py::CommandRegistrar.register_commands"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4104",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/presets/_commands.py::preset_list"
+      ],
+      "ranked": [
+        "src/specify_cli/presets/_commands.py::preset_list",
+        "src/specify_cli/presets/__init__.py::PresetRegistry.list_by_priority",
+        "src/specify_cli/presets/_commands.py::preset_catalog_list",
+        "src/specify_cli/presets/__init__.py::PresetManager.list_installed",
+        "src/specify_cli/presets/_commands.py::preset_info",
+        "src/specify_cli/presets/__init__.py::PresetManager.register_enabled_presets_for_agent",
+        "src/specify_cli/presets/_commands.py::preset_add",
+        "src/specify_cli/presets/_commands.py::preset_set_priority",
+        "src/specify_cli/presets/__init__.py::PresetManager._reconcile_skills",
+        "src/specify_cli/presets/__init__.py::PresetResolver"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4133",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/events.py::_resolve_event_command_argv"
+      ],
+      "ranked": [
+        "src/specify_cli/events.py::_resolve_event_command_argv",
+        "src/specify_cli/events.py::resolve_and_run_event_command",
+        "src/specify_cli/events.py::_dispatcher_command",
+        "src/specify_cli/events.py::install_integration_events",
+        "src/specify_cli/agents.py::CommandRegistrar._adjust_script_paths",
+        "src/specify_cli/events.py::_find_command_template",
+        "src/specify_cli/events.py::collect_extension_events",
+        "src/specify_cli/events.py::resolve_events",
+        "src/specify_cli/integrations/base.py::IntegrationBase.resolve_python_interpreter",
+        "src/specify_cli/events.py::_ensure_safe_destination"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4134",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/workflows/_commands.py::workflow_add"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/_commands.py::workflow_add",
+        "src/specify_cli/workflows/_commands.py::workflow_step_add",
+        "src/specify_cli/workflows/_commands.py::_install_workflow_package",
+        "src/specify_cli/workflows/_commands.py::_install_workflow_from_catalog",
+        "src/specify_cli/workflows/_commands.py::_workflow_install_transaction",
+        "src/specify_cli/workflows/_commands.py::_stage_workflow_file",
+        "src/specify_cli/extensions/_commands.py::install_extension_from_url",
+        "src/specify_cli/extensions/_commands.py::_validate_safe_cache_dir",
+        "src/specify_cli/workflows/_commands.py::_remove_workflow_locked",
+        "src/specify_cli/workflows/_commands.py::_safe_discard_staged_workflow_file"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4250",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/presets/__init__.py::PresetManager",
+        "src/specify_cli/presets/__init__.py::PresetManifest",
+        "src/specify_cli/presets/__init__.py::PresetManifest._validate",
+        "src/specify_cli/presets/_commands.py::preset_add"
+      ],
+      "ranked": [
+        "src/specify_cli/presets/__init__.py::PresetManifest._validate",
+        "src/specify_cli/presets/__init__.py::PresetManifest",
+        "src/specify_cli/extensions/__init__.py::ExtensionManifest._validate",
+        "src/specify_cli/extensions/__init__.py::ExtensionManager.check_compatibility",
+        "src/specify_cli/extensions/__init__.py::ExtensionManifest",
+        "src/specify_cli/presets/__init__.py::PresetManager.check_compatibility",
+        "src/specify_cli/commands/init.py::_install_extension_during_init",
+        "src/specify_cli/extensions/_commands.py::extension_add",
+        "src/specify_cli/extensions/__init__.py::ExtensionManifest._validate_provided_artifacts",
+        "src/specify_cli/commands/init.py::register"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4284",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/bundler/services/primitives.py::_WorkflowKindManager.install"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/_commands.py::workflow_add",
+        "src/specify_cli/workflows/_commands.py::_install_workflow_from_catalog",
+        "src/specify_cli/bundler/services/primitives.py::_WorkflowKindManager.install",
+        "src/specify_cli/commands/bundle/__init__.py::bundle_install",
+        "src/specify_cli/workflows/_commands.py::_install_workflow_package",
+        "src/specify_cli/workflows/_commands.py::workflow_step_add",
+        "src/specify_cli/bundler/services/primitives.py::_StepKindManager.install",
+        "src/specify_cli/bundler/services/primitives.py::_delegate_command",
+        "src/specify_cli/workflows/_commands.py::workflow_run",
+        "src/specify_cli/extensions/_commands.py::extension_add"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "github/spec-kit#4492",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/integrations/base.py::IntegrationBase",
+        "src/specify_cli/integrations/base.py::IntegrationBase.dispatch_command",
+        "src/specify_cli/integrations/bob/__init__.py::BobIntegration"
+      ],
+      "ranked": [
+        "src/specify_cli/integrations/bob/__init__.py::BobIntegration",
+        "src/specify_cli/integrations/base.py::IntegrationBase.build_exec_args",
+        "src/specify_cli/workflows/steps/command/__init__.py::CommandStep._try_dispatch",
+        "src/specify_cli/workflows/steps/prompt/__init__.py::PromptStep._try_dispatch",
+        "src/specify_cli/integrations/base.py::IntegrationBase.dispatch_command",
+        "src/specify_cli/integrations/bob/__init__.py::BobIntegration.effective_invoke_separator",
+        "src/specify_cli/integrations/bob/__init__.py::BobIntegration.setup",
+        "src/specify_cli/integrations/bob/__init__.py::_BobMarkdownHelper",
+        "src/specify_cli/integrations/base.py::IntegrationBase",
+        "src/specify_cli/integrations/bob/__init__.py::BobIntegration.options"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4764",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/workflows/__init__.py::_register_builtin_steps",
+        "src/specify_cli/workflows/_commands.py::_gate_outcome",
+        "src/specify_cli/workflows/_commands.py::_workflow_run_payload",
+        "src/specify_cli/workflows/command_resume.py::workflow_resume",
+        "src/specify_cli/workflows/command_status.py::workflow_status",
+        "src/specify_cli/workflows/engine.py::RunState",
+        "src/specify_cli/workflows/engine.py::RunState.__init__",
+        "src/specify_cli/workflows/engine.py::RunState.append_log",
+        "src/specify_cli/workflows/engine.py::RunState.load",
+        "src/specify_cli/workflows/engine.py::RunState.record_step_result",
+        "src/specify_cli/workflows/engine.py::RunState.save",
+        "src/specify_cli/workflows/engine.py::RunState.set_step_output",
+        "src/specify_cli/workflows/engine.py::WorkflowDefinition.__init__",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine._execute_steps",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine._record_result",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine._run_fan_out",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine.execute",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine.resume",
+        "src/specify_cli/workflows/engine.py::_get_valid_step_types",
+        "src/specify_cli/workflows/engine.py::validate_workflow",
+        "src/specify_cli/workflows/step/fan_in/__init__.py::FanInStep.execute",
+        "src/specify_cli/workflows/step/fan_out/__init__.py::FanOutStep",
+        "src/specify_cli/workflows/step/fan_out/__init__.py::FanOutStep.execute",
+        "src/specify_cli/workflows/step/gate/__init__.py::GateStep.execute"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/engine.py::_validate_steps",
+        "src/specify_cli/workflows/engine.py::RunState.save",
+        "src/specify_cli/workflows/base.py::StepContext",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine._execute_steps",
+        "src/specify_cli/workflows/engine.py::RunState.__init__",
+        "src/specify_cli/workflows/command_run.py::workflow_run",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine.execute",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine.resume",
+        "src/specify_cli/workflows/engine.py::RunState.load",
+        "src/specify_cli/workflows/engine.py::WorkflowEngine.load_workflow"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "github/spec-kit#4957",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/integrations/base.py::IntegrationBase.dispatch_command",
+        "src/specify_cli/integrations/copilot/__init__.py::CopilotIntegration.dispatch_command",
+        "src/specify_cli/workflows/_execution.py::Execution.fan_out",
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep",
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep._try_dispatch",
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep.execute",
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep.validate",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep._try_dispatch",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep.execute",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep.validate"
+      ],
+      "ranked": [
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep",
+        "src/specify_cli/workflows/step/shell/__init__.py::ShellStep.execute",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep.execute",
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep.validate",
+        "src/specify_cli/workflows/step/prompt/__init__.py::PromptStep._try_dispatch",
+        "src/specify_cli/workflows/step/command/__init__.py::CommandStep.execute",
+        "src/specify_cli/workflows/engine.py::_validate_steps",
+        "src/specify_cli/workflows/__init__.py::_register_builtin_steps",
+        "src/specify_cli/integrations/copilot/__init__.py::CopilotIntegration.dispatch_command"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "github/spec-kit#4960",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/_version.py::_emit_failure",
+        "src/specify_cli/_version.py::_fetch_latest_release_tag",
+        "src/specify_cli/authentication/github.py::GitHubAuth",
+        "src/specify_cli/authentication/github.py::GitHubAuth.auth_headers",
+        "src/specify_cli/authentication/http.py::build_request",
+        "src/specify_cli/authentication/http.py::open_url",
+        "src/specify_cli/bundles/adapters.py::_http_get_json",
+        "src/specify_cli/bundles/component_catalog.py::_is_unavailable"
+      ],
+      "ranked": [
+        "extensions/git/scripts/python/create_new_feature_branch.py::main",
+        "src/specify_cli/authentication/config.py::AuthConfigEntry",
+        "src/specify_cli/authentication/http.py::build_request",
+        "src/specify_cli/authentication/config.py::load_auth_config",
+        "src/specify_cli/authentication/http.py::open_url",
+        "src/specify_cli/authentication/github_http.py::resolve_github_release_asset_api_url",
+        "src/specify_cli/authentication/github_http.py::build_github_request",
+        "src/specify_cli/authentication/github.py::GitHubAuth",
+        "src/specify_cli/authentication/http.py::github_provider_hosts",
+        "src/specify_cli/authentication/http.py::_load_config"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "github/spec-kit#5106",
+      "repo": "github/spec-kit",
+      "gold": [
+        "src/specify_cli/bundles/sources.py::_local_manifest_source"
+      ],
+      "ranked": [
+        "src/specify_cli/bundles/sources.py::_local_manifest_source",
+        "src/specify_cli/bundles/command_install.py::bundle_install",
+        "src/specify_cli/bundles/sources.py::_download_manifest",
+        "src/specify_cli/bundles/packager.py::_collect_files",
+        "src/specify_cli/bundles/sources.py::_download_remote_manifest",
+        "src/specify_cli/bundles/packager.py::build_bundle",
+        "src/specify_cli/bundles/installer.py::install_bundle",
+        "src/specify_cli/bundles/command_add.py::bundle_add",
+        "src/specify_cli/bundles/sources.py::_validate_catalog_manifest",
+        "src/specify_cli/bundles/sources.py::_validate_manifest_structure"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "immich-app/immich#31075",
+      "repo": "immich-app/immich",
+      "gold": [
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.model_cfg",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.tokenizer_cfg",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.tokenizer_file",
+        "machine-learning/immich_ml/models/clip/visual.py::BaseCLIPVisualEncoder.model_cfg",
+        "machine-learning/immich_ml/models/clip/visual.py::BaseCLIPVisualEncoder.preprocess_cfg"
+      ],
+      "ranked": [
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.tokenizer_cfg",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.model_cfg",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.tokenizer_file",
+        "machine-learning/immich_ml/models/clip/textual.py::OpenClipTextualEncoder._load_tokenizer",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.tokenizer_cfg_path",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder._load",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder",
+        "machine-learning/immich_ml/models/clip/textual.py::OpenClipTextualEncoder.tokenize",
+        "machine-learning/immich_ml/models/clip/textual.py::BaseCLIPTextualEncoder.model_cfg_path",
+        "machine-learning/immich_ml/models/clip/textual.py::MClipTextualEncoder.tokenize"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "immich-app/immich#31143",
+      "repo": "immich-app/immich",
+      "gold": [
+        "machine-learning/immich_ml/sessions/rknn/__init__.py::RknnSession.run",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.__init__",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.get",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.put"
+      ],
+      "ranked": [
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.put",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.__init__",
+        "machine-learning/immich_ml/sessions/rknn/__init__.py::RknnSession.run",
+        "machine-learning/immich_ml/sessions/rknn/__init__.py::RknnSession.__init__",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.get",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::init_rknn",
+        "machine-learning/immich_ml/sessions/rknn/__init__.py::RknnSession",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::RknnPoolExecutor.release",
+        "machine-learning/immich_ml/sessions/rknn/rknnpool.py::get_soc"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#17688",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/llm/sequence2txt_model.py::TencentCloudSeq2txt.__init__",
+        "rag/llm/tts_model.py::FishAudioTTS.__init__",
+        "rag/llm/tts_model.py::SparkTTS.__init__"
+      ],
+      "ranked": [
+        "rag/llm/tts_model.py::FishAudioTTS.__init__",
+        "rag/llm/tts_model.py::SparkTTS.__init__",
+        "rag/llm/sequence2txt_model.py::TencentCloudSeq2txt.__init__",
+        "rag/llm/tts_model.py::SparkTTS.tts",
+        "rag/llm/tts_model.py::FishAudioTTS.tts",
+        "rag/llm/tts_model.py::FishAudioTTS",
+        "tools/scripts/mysql_migration.py::TenantModelInstanceStage._strip_is_tools_from_api_key",
+        "rag/llm/sequence2txt_model.py::TencentCloudSeq2txt",
+        "rag/llm/tts_model.py::SparkTTS",
+        "rag/llm/tts_model.py::GPUStackTTS.__init__"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18018",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/flow/parser/pdf_chunk_metadata.py::_extract_raw_positions",
+        "rag/flow/parser/pdf_chunk_metadata.py::_fetch_source_blob",
+        "rag/flow/parser/pdf_chunk_metadata.py::_load_pdf_page_images"
+      ],
+      "ranked": [
+        "run_tests.py::TestRunner.run_tests",
+        "deepdoc/parser/pdf_parser.py::PlainParser",
+        "run_tests.py::TestRunner.parse_arguments",
+        "run_tests.py::TestRunner.show_usage",
+        "run_tests.py::TestRunner.build_pytest_command",
+        "run_tests.py::TestRunner",
+        "deepdoc/parser/pdf_parser.py::RAGFlowPdfParser",
+        "rag/app/manual.py::chunk",
+        "rag/app/presentation.py::chunk",
+        "deepdoc/parser/docling_parser.py::DoclingParser"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18132",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/graphrag/entity_resolution.py::EntityResolution.is_similarity"
+      ],
+      "ranked": [
+        "rag/app/naive.py::chunk",
+        "rag/flow/chunker/token_chunker.py::TokenChunker._invoke",
+        "rag/flow/chunker/token_chunker.py::_merge_text_chunks_by_token_size",
+        "common/token_utils.py::num_tokens_from_string",
+        "internal/ingestion/component/chunker/tool-py/capture_golden.py::main",
+        "deepdoc/parser/markdown_parser.py::MarkdownElementExtractor.get_delimiters",
+        "common/token_utils.py::_ensure_tiktoken_cache",
+        "common/token_utils.py::total_token_count_from_response",
+        "agent/sandbox/providers/self_managed.py::SelfManagedProvider.get_config_schema",
+        "common/data_source/github/connector.py::GithubConnector._fetch_from_github"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18188",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "deepdoc/parser/mineru_parser.py::MinerUParser",
+        "deepdoc/parser/mineru_parser.py::MinerUParser._enhance_images_with_vlm",
+        "deepdoc/parser/mineru_parser.py::MinerUParser.parse_pdf"
+      ],
+      "ranked": [
+        "deepdoc/parser/mistral_parser.py::MistralParser._describe_image",
+        "deepdoc/parser/figure_parser.py::VisionFigureParser.__call__",
+        "deepdoc/parser/mineru_parser.py::MinerUParser._enhance_images_with_vlm",
+        "rag/prompts/generator.py::vision_llm_figure_describe_prompt",
+        "deepdoc/parser/mineru_parser.py::MinerUParser.parse_pdf",
+        "deepdoc/parser/mistral_parser.py::MistralParser.__init__",
+        "deepdoc/parser/mistral_parser.py::MistralParser.parse_pdf",
+        "deepdoc/parser/figure_parser.py::vision_figure_parser_docx_wrapper_naive",
+        "deepdoc/parser/figure_parser.py::VisionFigureParser.__init__",
+        "deepdoc/parser/figure_parser.py::_normalize_vision_language"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18321",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/llm/model_meta.py::Ollama",
+        "rag/llm/model_meta.py::Ollama.get_model_list"
+      ],
+      "ranked": [
+        "rag/llm/model_meta.py::LocalAI",
+        "rag/llm/model_meta.py::AIMLAPI",
+        "rag/llm/model_meta.py::LocalAI.get_model_list",
+        "rag/llm/rerank_model.py::LocalAIRerank",
+        "rag/llm/cv_model.py::LocalAICV",
+        "rag/llm/chat_model.py::LocalAIChat",
+        "rag/llm/cv_model.py::LocalAICV.__init__",
+        "sdk/python/ragflow_sdk/ragflow.py::RAGFlow.__init__",
+        "rag/llm/model_meta.py::LocalAI._get_model_detail_url",
+        "rag/llm/model_meta.py::LocalAI._get_model_tags_url"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18649",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "rag/app/manual.py::chunk"
+      ],
+      "ranked": [
+        "rag/flow/parser/parser.py::Parser._docx",
+        "rag/app/laws.py::chunk",
+        "rag/app/book.py::chunk",
+        "rag/app/one.py::chunk",
+        "rag/app/manual.py::chunk",
+        "rag/app/manual.py::Docx.__call__",
+        "rag/app/naive.py::chunk",
+        "rag/app/laws.py::Docx.__call__",
+        "rag/app/naive.py::Docx.__call__",
+        "rag/app/qa.py::Docx.__call__"
+      ],
+      "first_rank": 5
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18663",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "api/db/services/dialog_service.py::rag_agent"
+      ],
+      "ranked": [
+        "api/db/services/dialog_service.py::async_chat",
+        "rag/llm/chat_model.py::LiteLLMBase.async_chat",
+        "api/apps/restful_apis/chat_api.py::session_completion",
+        "tools/chatgpt-on-wechat/plugins/ragflow_chat.py::RAGFlowChat.get_ragflow_reply",
+        "api/db/services/conversation_service.py::async_completion",
+        "api/db/services/dialog_service.py::rag_agent",
+        "rag/llm/chat_model.py::LiteLLMBase._construct_completion_args",
+        "rag/prompts/generator.py::full_question",
+        "api/apps/restful_apis/chat_api.py::_create_session_for_completion",
+        "api/apps/restful_apis/openai_api.py::_stream_chat_completion_sse"
+      ],
+      "first_rank": 6
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18753",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "agent/canvas.py::Graph.load"
+      ],
+      "ranked": [
+        "agent/canvas.py::Graph.load",
+        "rag/svr/task_executor.py::run_dataflow",
+        "agent/canvas.py::Graph",
+        "agent/canvas.py::Graph.__init__",
+        "rag/svr/task_executor_refactor/dataflow_service.py::DataflowService.run_dataflow",
+        "rag/svr/task_executor_refactor/dataflow_service.py::DataflowService._load_dsl",
+        "agent/canvas.py::Canvas.load",
+        "rag/flow/pipeline.py::Pipeline.run",
+        "agent/canvas.py::Graph.__str__",
+        "agent/canvas.py::Canvas._run_impl"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "infiniflow/ragflow#18889",
+      "repo": "infiniflow/ragflow",
+      "gold": [
+        "api/apps/restful_apis/chunk_api.py::_store_chunk_image_or_error",
+        "api/apps/restful_apis/chunk_api.py::update_chunk",
+        "api/utils/image_utils.py::store_chunk_image"
+      ],
+      "ranked": [
+        "api/apps/restful_apis/chunk_api.py::update_chunk",
+        "api/apps/restful_apis/chunk_api.py::add_chunk",
+        "sdk/python/ragflow_sdk/modules/document.py::Document.add_chunk",
+        "rag/app/naive.py::chunk",
+        "rag/svr/task_executor_refactor/chunk_service.py::ChunkService._prepare_docs_and_upload",
+        "api/apps/services/document_api_service.py::update_chunk_method",
+        "api/apps/restful_apis/chunk_api.py::rm_chunk",
+        "api/apps/restful_apis/chunk_api.py::switch_chunks",
+        "api/apps/services/document_api_service.py::reset_document_for_reparse",
+        "api/apps/restful_apis/chunk_api.py::list_chunks"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#39301",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._create_chat_result",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::_create_stream_generation_info"
+      ],
+      "ranked": [
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._create_chat_result",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._default_params",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._stream",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._astream",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._identifying_params",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._build_client",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::_convert_dict_to_message",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._generate",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter._get_ls_params"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#39590",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_create_usage_metadata"
+      ],
+      "ranked": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_create_usage_metadata",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::_usage_to_metadata",
+        "libs/core/langchain_core/callbacks/usage.py::UsageMetadataCallbackHandler.on_llm_end",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::_create_usage_metadata_responses",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic",
+        "libs/core/langchain_core/messages/ai.py::UsageMetadata",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::_create_usage_metadata",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic._make_message_chunk_from_anthropic_event",
+        "libs/partners/perplexity/langchain_perplexity/chat_models.py::_create_usage_metadata",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::_create_usage_metadata"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#39978",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/groq/langchain_groq/chat_models.py::ChatGroq.with_structured_output"
+      ],
+      "ranked": [
+        "libs/partners/groq/langchain_groq/chat_models.py::ChatGroq.with_structured_output",
+        "libs/partners/groq/langchain_groq/chat_models.py::ChatGroq",
+        "libs/partners/ollama/langchain_ollama/chat_models.py::ChatOllama.with_structured_output",
+        "libs/partners/openai/langchain_openai/chat_models/azure.py::AzureChatOpenAI.with_structured_output",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter.with_structured_output",
+        "libs/partners/groq/langchain_groq/chat_models.py::ChatGroq._get_ls_params",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks.with_structured_output",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::ChatOpenAI.with_structured_output",
+        "libs/partners/huggingface/langchain_huggingface/chat_models/huggingface.py::ChatHuggingFace.with_structured_output",
+        "libs/partners/groq/langchain_groq/chat_models.py::ChatGroq._agenerate"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40026",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/xai/langchain_xai/chat_models.py::ChatXAI.with_structured_output"
+      ],
+      "ranked": [
+        "libs/partners/xai/langchain_xai/chat_models.py::ChatXAI.with_structured_output",
+        "libs/partners/xai/langchain_xai/chat_models.py::ChatXAI",
+        "libs/partners/xai/langchain_xai/chat_models.py::ChatXAI._create_chat_result",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::ChatOpenAI.with_structured_output",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::BaseChatOpenAI.with_structured_output",
+        "libs/partners/xai/langchain_xai/chat_models.py::ChatXAI._convert_chunk_to_generation_chunk",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic.with_structured_output",
+        "libs/partners/mistralai/langchain_mistralai/chat_models.py::ChatMistralAI.with_structured_output",
+        "libs/partners/xai/langchain_xai/chat_models.py::ChatXAI.validate_environment",
+        "libs/partners/ollama/langchain_ollama/chat_models.py::ChatOllama.with_structured_output"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40211",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/core/langchain_core/callbacks/file.py::FileCallbackHandler._write",
+        "libs/core/langchain_core/outputs/chat_generation.py::ChatGeneration.set_text"
+      ],
+      "ranked": [
+        "libs/core/langchain_core/outputs/chat_generation.py::ChatGeneration.set_text",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_format_messages",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic._get_request_payload",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic",
+        "libs/langchain/langchain_classic/chains/combine_documents/base.py::AnalyzeDocumentChain",
+        "libs/core/langchain_core/messages/block_translators/anthropic.py::_convert_to_v1_from_anthropic",
+        "libs/core/langchain_core/_api/deprecation.py::deprecated",
+        "libs/core/langchain_core/tools/convert.py::tool",
+        "libs/core/langchain_core/tools/base.py::BaseTool"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40213",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/core/langchain_core/messages/block_translators/anthropic.py::_convert_to_v1_from_anthropic"
+      ],
+      "ranked": [
+        "libs/core/langchain_core/messages/block_translators/anthropic.py::_convert_to_v1_from_anthropic",
+        "libs/core/langchain_core/messages/block_translators/anthropic.py::_convert_to_v1_from_anthropic_input",
+        "libs/core/langchain_core/messages/ai.py::AIMessage.content_blocks",
+        "libs/core/langchain_core/messages/base.py::BaseMessage.content_blocks",
+        "libs/core/langchain_core/messages/block_translators/anthropic.py::translate_content",
+        "libs/core/langchain_core/messages/block_translators/openai.py::_convert_to_v1_from_responses",
+        "libs/partners/anthropic/langchain_anthropic/_compat.py::_convert_from_v1_to_anthropic",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic._make_message_chunk_from_anthropic_event",
+        "libs/core/langchain_core/messages/block_translators/bedrock_converse.py::_convert_to_v1_from_converse",
+        "libs/core/langchain_core/messages/block_translators/anthropic.py::translate_content_chunk"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40815",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/core/langchain_core/messages/utils.py::trim_messages",
+        "libs/core/langchain_core/output_parsers/string.py::StrOutputParser",
+        "libs/core/langchain_core/prompts/few_shot.py::FewShotChatMessagePromptTemplate",
+        "libs/core/langchain_core/rate_limiters.py::InMemoryRateLimiter",
+        "libs/core/langchain_core/runnables/fallbacks.py::RunnableWithFallbacks",
+        "libs/core/langchain_core/runnables/fallbacks.py::RunnableWithFallbacks.__getattr__",
+        "libs/core/langchain_core/runnables/history.py::RunnableWithMessageHistory",
+        "libs/core/langchain_core/runnables/retry.py::RunnableRetry"
+      ],
+      "ranked": [
+        "libs/partners/openai/langchain_openai/chat_models/base.py::ChatOpenAI",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::BaseChatOpenAI",
+        "libs/langchain/langchain_classic/chat_models/base.py::_init_chat_model_helper",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::BaseChatOpenAI._default_params",
+        "libs/langchain_v1/langchain/chat_models/base.py::init_chat_model",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::ChatOpenRouter",
+        "libs/partners/openai/langchain_openai/llms/base.py::BaseOpenAI",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::ChatOpenAI.with_structured_output",
+        "libs/langchain/langchain_classic/chat_models/base.py::init_chat_model"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "langchain-ai/langchain#40864",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_format_messages"
+      ],
+      "ranked": [
+        "libs/langchain_v1/langchain/agents/factory.py::create_agent",
+        "libs/langchain/langchain_classic/agents/tool_calling_agent/base.py::create_tool_calling_agent",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic._get_request_payload",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_normalize_tool_call_id",
+        "libs/partners/anthropic/langchain_anthropic/_compat.py::_convert_from_v1_to_anthropic",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_format_messages",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic.bind_tools",
+        "libs/langchain/langchain_classic/agents/xml/base.py::create_xml_agent",
+        "libs/standard-tests/langchain_tests/integration_tests/chat_models.py::ChatModelIntegrationTests.test_anthropic_inputs",
+        "libs/langchain/langchain_classic/agents/openai_tools/base.py::create_openai_tools_agent"
+      ],
+      "first_rank": 6
+    },
+    {
+      "instance_id": "langchain-ai/langchain#41062",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.__init__",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._create_action_and_config",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._process_decision",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._reviewer_edit",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._should_interrupt",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.after_model",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.awrap_tool_call",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.wrap_tool_call",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::InterruptOnConfig",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::ReviewConfig"
+      ],
+      "ranked": [
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.after_model",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.__init__",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._process_decision",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._create_action_and_config",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::InterruptOnConfig",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._should_interrupt",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.wrap_tool_call",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware.awrap_tool_call",
+        "libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py::HumanInTheLoopMiddleware._apply_edit"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langchain-ai/langchain#41093",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._agenerate",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._astream",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._generate",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._stream",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::_convert_chunk_to_message_chunk",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::_convert_dict_to_message",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::_convert_message_to_dict",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::_usage_to_metadata"
+      ],
+      "ranked": [
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._stream",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._create_chat_result",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._astream",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks.with_structured_output",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks.validate_environment",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._default_params",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._generate",
+        "libs/partners/fireworks/langchain_fireworks/llms.py::Fireworks._call",
+        "libs/partners/fireworks/langchain_fireworks/chat_models.py::ChatFireworks._agenerate"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langchain-ai/langchain#41553",
+      "repo": "langchain-ai/langchain",
+      "gold": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_create_usage_metadata"
+      ],
+      "ranked": [
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::_create_usage_metadata",
+        "libs/partners/openai/langchain_openai/chat_models/base.py::_create_usage_metadata",
+        "libs/partners/openrouter/langchain_openrouter/chat_models.py::_create_usage_metadata",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic",
+        "libs/partners/groq/langchain_groq/chat_models.py::_create_usage_metadata",
+        "libs/partners/perplexity/langchain_perplexity/chat_models.py::_create_usage_metadata",
+        "libs/core/langchain_core/messages/ai.py::UsageMetadata",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic._get_request_payload",
+        "libs/partners/deepseek/langchain_deepseek/chat_models.py::_add_cache_read_tokens",
+        "libs/partners/anthropic/langchain_anthropic/chat_models.py::ChatAnthropic._format_output"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14448",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/agentic/api/router.py::assist",
+        "src/backend/base/langflow/agentic/api/router.py::assist_stream",
+        "src/backend/base/langflow/agentic/api/router.py::execute_named_flow",
+        "src/backend/base/langflow/agentic/utils/assistant_runner.py::run_assistant_and_persist",
+        "src/backend/base/langflow/api/v1/endpoints.py::experimental_run_flow",
+        "src/backend/base/langflow/api/v1/endpoints.py::simplified_run_flow_session",
+        "src/backend/base/langflow/api/v1/endpoints.py::webhook_events_stream"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/agentic/utils/assistant_runner.py::run_assistant_and_persist",
+        "src/backend/base/langflow/agentic/api/router.py::execute_named_flow",
+        "src/backend/base/langflow/agentic/api/router.py::assist",
+        "src/backend/base/langflow/agentic/api/router.py::assist_stream",
+        "src/backend/base/langflow/api/v1/endpoints.py::simplified_run_flow_session",
+        "src/backend/base/langflow/api/v1/endpoints.py::simple_run_flow",
+        "src/backend/base/langflow/api/v1/endpoints.py::_run_flow_internal",
+        "src/backend/base/langflow/agentic/api/router.py::_resolve_assistant_context",
+        "src/backend/base/langflow/api/v1/endpoints.py::simplified_run_flow",
+        "src/backend/base/langflow/api/v1/a2a.py::_run_flow"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14604",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/components/models_and_agents/mcp_component.py::MCPToolsComponent.update_tool_list"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/api/utils/core.py::extract_global_variables_from_headers",
+        "src/lfx/src/lfx/components/models_and_agents/mcp_component.py::MCPToolsComponent",
+        "src/backend/base/langflow/api/v1/mcp_projects.py::update_project_mcp_settings",
+        "src/lfx/src/lfx/base/models/unified_models/credentials.py::get_api_key_for_provider",
+        "src/backend/base/langflow/api/utils/mcp/agentic_mcp.py::initialize_agentic_global_variables",
+        "src/backend/base/langflow/api/v2/mcp.py::get_servers",
+        "src/lfx/src/lfx/services/variable/service.py::VariableService.get_variable",
+        "src/lfx/src/lfx/components/models_and_agents/mcp_component.py::MCPToolsComponent.update_tool_list",
+        "src/backend/base/langflow/api/v1/projects_mcp_helpers.py::register_mcp_servers_for_project",
+        "src/backend/base/langflow/api/v1/mcp_projects.py::init_mcp_servers"
+      ],
+      "first_rank": 8
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14694",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/services/settings/groups/security.py::SecuritySettings.validate_sandbox_backend",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxExecutionError",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxResult",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxResult.error_message",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxResult.success",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxUnavailableError",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor.__init__",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor._close_scheduler",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor._ensure_loop_locked",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor._ensure_scheduler",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor._reset_after_fork",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor._run_on_loop",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor._shutdown",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor.run",
+        "src/lfx/src/lfx/utils/sandbox.py::_SandboxSettings",
+        "src/lfx/src/lfx/utils/sandbox.py::_compose_sandbox_code",
+        "src/lfx/src/lfx/utils/sandbox.py::_reinit_executor_after_fork",
+        "src/lfx/src/lfx/utils/sandbox.py::_sandbox_settings",
+        "src/lfx/src/lfx/utils/sandbox.py::build_import_preamble",
+        "src/lfx/src/lfx/utils/sandbox.py::get_sandbox_backend",
+        "src/lfx/src/lfx/utils/sandbox.py::is_sandbox_enabled",
+        "src/lfx/src/lfx/utils/sandbox.py::run_code_in_sandbox",
+        "src/lfx/src/lfx/utils/sandbox.py::sanitize_code",
+        "src/lfx/src/lfx/utils/sandbox.py::shutdown_sandbox"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/utils/sandbox.py::run_code_in_sandbox",
+        "src/lfx/src/lfx/utils/sandbox.py::_ExecSandboxExecutor.run",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxUnavailableError",
+        "src/lfx/src/lfx/utils/sandbox.py::get_sandbox_backend",
+        "src/lfx/src/lfx/utils/sandbox.py::_assert_hardware_acceleration",
+        "src/lfx/src/lfx/utils/sandbox.py::_compose_sandbox_code",
+        "src/lfx/src/lfx/utils/sandbox.py::_hardware_acceleration_available",
+        "src/lfx/src/lfx/utils/sandbox.py::_emulation_forced_by_env",
+        "src/lfx/src/lfx/utils/sandbox.py::SandboxResult",
+        "src/lfx/src/lfx/utils/sandbox.py::build_import_preamble"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#14925",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer",
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer.__init__",
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer._setup_langfuse"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer.__init__",
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer._setup_langfuse",
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer.add_trace",
+        "src/backend/base/langflow/services/tracing/service.py::TracingService._initialize_langfuse_tracer",
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer",
+        "src/backend/base/langflow/services/tracing/service.py::TracingService.start_tracers",
+        "src/backend/base/langflow/services/tracing/arize_phoenix.py::ArizePhoenixTracer.__init__",
+        "src/backend/base/langflow/services/tracing/langfuse.py::LangFuseTracer.end",
+        "src/backend/base/langflow/services/tracing/service.py::TraceContext.__init__",
+        "src/backend/base/langflow/services/tracing/langfuse.py::_get_or_create_shared_client"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15029",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/api/build.py::_generate_flow_events",
+        "src/backend/base/langflow/api/v1/chat.py::build_vertex",
+        "src/lfx/src/lfx/graph/checkpoint/builder.py::build_checkpoint",
+        "src/lfx/src/lfx/graph/checkpoint/resume.py::restore_graph_from_checkpoint",
+        "src/lfx/src/lfx/graph/checkpoint/schema.py::GraphCheckpoint",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.__getstate__",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.__init__",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.__setstate__",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.astep",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.mark_all_vertices",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.mark_branch",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.reset_inactivated_vertices"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/llm_operations/llm_conditional_router.py::SmartRouterComponent._deactivate_branches",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.reset_inactivated_vertices",
+        "src/lfx/src/lfx/custom/custom_component/custom_component.py::CustomComponent.stop",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.sort_vertices",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.mark_branch",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.prepare",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph.astep",
+        "src/lfx/src/lfx/graph/graph/base.py::Graph._mark_branch",
+        "src/lfx/src/lfx/graph/checkpoint/resume.py::_restore_vertices",
+        "src/lfx/src/lfx/workflow/agui_translator.py::AGUITranslator._translate_end_vertex"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15030",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/services/deployment_artifacts/builder.py::_resolve_dependencies",
+        "src/frontend/src/components/core/parameterRenderComponent/components/tableComponent/components/tableAutoCellRender/index.tsx::TableAutoCellRender",
+        "src/frontend/src/components/core/parameterRenderComponent/components/tableComponent/index.tsx::isSingleToggleRowEditable",
+        "src/frontend/src/types/utils/functions.ts::ColumnField",
+        "src/frontend/src/utils/utils.ts::FormatColumns",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent._build_column_metadata",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent._convert_df_to_data_objects",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent._create_knowledge_base_record",
+        "src/lfx/src/lfx/components/models_and_agents/structured_output/schema_preprocessing.py::_coerce_multiple",
+        "src/lfx/src/lfx/helpers/base_model.py::coalesce_bool"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent._build_column_metadata",
+        "src/lfx/src/lfx/schema/table.py::Column",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent._validate_column_config",
+        "src/backend/base/langflow/schema/knowledge_base.py::ColumnConfigItem",
+        "src/backend/base/langflow/services/database/models/knowledge_base/model.py::KnowledgeBaseRecordBase",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent._convert_df_to_data_objects",
+        "src/backend/base/langflow/api/v1/knowledge_bases.py::ingest_files_to_knowledge_base",
+        "src/backend/base/langflow/alembic/versions/kb1a2b3c4d5e_add_knowledge_base_schema.py::upgrade",
+        "src/lfx/src/lfx/components/files_and_knowledge/knowledge.py::KnowledgeComponent.build_kb_info"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15064",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/base/data/cloud_storage_utils.py::parse_google_service_account_key"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/base/data/cloud_storage_utils.py::parse_google_service_account_key",
+        "src/lfx/src/lfx/base/data/cloud_storage_utils.py::create_google_drive_service",
+        "src/lfx/src/lfx/template/field/base.py::Output",
+        "src/backend/base/langflow/services/database/models/deployment/model.py::Deployment",
+        "src/backend/base/langflow/api/v1/deployments.py::list_deployments",
+        "src/lfx/src/lfx/components/files_and_knowledge/save_file.py::SaveToFileComponent",
+        "src/backend/base/langflow/api/v1/mcp_projects.py::install_mcp_config",
+        "src/bundles/google/src/lfx_google/components/google/google_drive.py::GoogleDriveComponent",
+        "src/bundles/lfx-bundles/src/lfx_bundles/vertexai/vertexai.py::ChatVertexAIComponent.build_model",
+        "src/lfx/src/lfx/components/files_and_knowledge/save_file.py::SaveToFileComponent._save_to_google_drive"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15074",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent._read_from_aws_s3",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent._read_from_google_drive"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent._read_from_aws_s3",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent._read_from_google_drive",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent._validate_and_resolve_paths",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent.process_files",
+        "src/lfx/src/lfx/components/files_and_knowledge/file.py::FileComponent._get_local_file_for_docling",
+        "src/lfx/src/lfx/base/data/base_file.py::BaseFileComponent._delete_after_processing",
+        "src/lfx/src/lfx/components/files_and_knowledge/save_file.py::SaveToFileComponent._save_to_google_drive",
+        "src/lfx/src/lfx/components/langchain_utilities/json_agent.py::JsonAgentComponent._get_local_path",
+        "src/lfx/src/lfx/components/files_and_knowledge/save_file.py::SaveToFileComponent._save_to_aws"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15262",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/base/models/provider_ssrf.py::_require_https_for_credentialed_endpoint"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/base/models/provider_ssrf.py::_require_https_for_credentialed_endpoint",
+        "src/lfx/src/lfx/base/models/provider_ssrf.py::ensure_credential_endpoint_allowed",
+        "src/lfx/src/lfx/utils/ssrf_protection.py::get_allowed_hosts",
+        "src/lfx/src/lfx/base/models/provider_ssrf.py::validate_provider_base_url",
+        "src/lfx/src/lfx/base/models/provider_ssrf.py::get_provider_credential_allowed_hosts",
+        "src/lfx/src/lfx/services/settings/groups/security.py::SecuritySettings",
+        "src/lfx/src/lfx/utils/ssrf_protection.py::is_host_allowed",
+        "src/lfx/src/lfx/utils/ssrf_protection.py::_connector_url_has_loopback_exemption",
+        "src/lfx/src/lfx/utils/ssrf_protection.py::validate_connector_url_for_ssrf",
+        "src/lfx/src/lfx/utils/ssrf_protection.py::validate_and_resolve_url"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15372",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/utils/util.py::update_settings"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/utils/util.py::update_settings",
+        "src/lfx/src/lfx/load/load.py::aload_flow_from_json",
+        "src/lfx/src/lfx/load/load.py::load_flow_from_json",
+        "src/backend/base/langflow/api/v1/schemas/__init__.py::ConfigResponse.from_settings",
+        "src/backend/base/langflow/services/flow/flow_runner.py::LangflowRunnerExperimental.run",
+        "src/lfx/src/lfx/services/settings/groups/runtime.py::RuntimeSettings",
+        "src/backend/base/langflow/api/v1/schemas/__init__.py::ConfigResponse",
+        "src/lfx/src/lfx/services/settings/base.py::Settings.update_settings",
+        "src/backend/base/langflow/main.py::get_lifespan",
+        "src/backend/base/langflow/api/v1/files.py::upload_file"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15466",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/backend/base/langflow/api/v1/monitor.py::get_message_sessions",
+        "src/backend/base/langflow/api/v1/monitor.py::get_shared_message_sessions"
+      ],
+      "ranked": [
+        "src/backend/base/langflow/api/v1/monitor.py::get_message_sessions",
+        "src/backend/base/langflow/api/v1/monitor.py::get_messages",
+        "src/backend/base/langflow/memory.py::aget_messages",
+        "src/backend/base/langflow/memory.py::get_messages",
+        "src/lfx/src/lfx/memory/stubs.py::aget_messages",
+        "src/backend/base/langflow/api/v1/monitor.py::delete_messages_sessions",
+        "src/backend/base/langflow/api/v1/monitor.py::get_shared_message_sessions",
+        "src/lfx/src/lfx/components/models_and_agents/memory.py::aget_agent_chat_history",
+        "src/backend/base/langflow/api/v1/monitor.py::get_shared_messages",
+        "src/backend/base/langflow/api/v1/monitor.py::_ensure_flow_action_or_404"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langflow-ai/langflow#15752",
+      "repo": "langflow-ai/langflow",
+      "gold": [
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent._inject_dynamic_prompt_values"
+      ],
+      "ranked": [
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent._inject_dynamic_prompt_values",
+        "src/lfx/src/lfx/base/agents/default_system_prompt.py::build_default_system_prompt",
+        "src/lfx/src/lfx/components/langchain_utilities/tool_calling.py::ToolCallingAgentComponent.create_agent_runnable",
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent.json_response",
+        "src/lfx/src/lfx/base/agents/default_system_prompt.py::substitute_env_placeholders",
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent",
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent.get_agent_requirements",
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent.message_response",
+        "src/lfx/src/lfx/components/models_and_agents/agent.py::AgentComponent._build_initial_agent_message",
+        "src/lfx/src/lfx/components/langchain_utilities/tool_calling.py::ToolCallingAgentComponent"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#39872",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/extensions/ext_login.py::_load_user_from_request",
+        "api/libs/token.py::check_csrf_token"
+      ],
+      "ranked": [
+        "api/libs/token.py::check_csrf_token",
+        "api/extensions/ext_login.py::_load_user_from_request",
+        "api/controllers/console/admin.py::admin_required",
+        "scripts/stress-test/setup/create_api_key.py::create_api_key",
+        "api/configs/feature/__init__.py::SecurityConfig",
+        "scripts/stress-test/setup/login_admin.py::login_admin",
+        "api/libs/token.py::extract_access_token",
+        "api/libs/token.py::generate_csrf_token",
+        "scripts/stress-test/common/config_helper.py::ConfigHelper.console_auth_headers",
+        "api/libs/token.py::set_csrf_token_to_cookie"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40055",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/console/workspace/account.py::AccountAvatarApi",
+        "api/controllers/console/workspace/account.py::AccountAvatarApi.get"
+      ],
+      "ranked": [
+        "api/controllers/console/workspace/account.py::AccountAvatarApi.get",
+        "api/controllers/console/workspace/account.py::AccountAvatarApi",
+        "api/controllers/console/workspace/account.py::AccountAvatarApi.post",
+        "api/controllers/console/workspace/account.py::AccountAvatarQuery",
+        "api/fields/member_fields.py::_AccountAvatarResponseMixin",
+        "api/controllers/console/workspace/account.py::AccountAvatarPayload",
+        "api/controllers/openapi/workspaces.py::WorkspaceSwitchApi.post",
+        "api/controllers/openapi/account.py::AccountApi.get",
+        "api/controllers/console/workspace/workspace.py::SwitchWorkspaceApi.post",
+        "api/fields/member_fields.py::_AccountAvatarResponseMixin.avatar_url"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40443",
+      "repo": "langgenius/dify",
+      "gold": [
+        "dify-agent/src/dify_agent/adapters/llm/model.py::_map_model_request_to_prompt_messages",
+        "dify-agent/src/dify_agent/layers/shell/layer.py::DifyShellLayer._tool_input",
+        "dify-agent/src/dify_agent/layers/shell/layer.py::DifyShellLayer._tool_interrupt",
+        "dify-agent/src/dify_agent/layers/shell/layer.py::DifyShellLayer._tool_run",
+        "dify-agent/src/dify_agent/layers/shell/layer.py::DifyShellLayer._tool_wait"
+      ],
+      "ranked": [
+        "api/models/agent_config_entities.py::AgentCliToolConfig",
+        "dify-agent/src/dify_agent/runtime/runner.py::AgentRunRunner._run_model",
+        "api/core/workflow/nodes/agent_v2/dify_tools_builder.py::WorkflowAgentDifyToolsBuilder._to_core_backend_tool_config",
+        "api/core/workflow/nodes/agent_v2/runtime_request_builder.py::_shell_cli_tool",
+        "api/core/workflow/nodes/agent_v2/dify_tools_builder.py::WorkflowAgentDifyToolsBuilder._to_plugin_backend_tool_config",
+        "api/core/workflow/nodes/agent_v2/dify_tools_builder.py::WorkflowAgentDifyToolsBuilder._fetch_tool_runtime",
+        "dify-agent/src/dify_agent/layers/shell/layer.py::DifyShellLayer._tool_run",
+        "api/core/workflow/nodes/agent_v2/dify_tools_builder.py::WorkflowAgentDifyToolsBuilder._description",
+        "api/core/app/apps/agent_app/runtime_request_builder.py::AgentAppRuntimeRequestBuilder.build",
+        "api/core/workflow/nodes/agent_v2/dify_tools_builder.py::WorkflowAgentDifyToolsBuilder._to_agent_tool_entity"
+      ],
+      "first_rank": 7
+    },
+    {
+      "instance_id": "langgenius/dify#40738",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/console/billing/billing.py::PartnerTenants.put",
+        "api/controllers/console/workspace/workspace.py::SwitchWorkspaceApi.post",
+        "api/controllers/files/tool_files.py::ToolFileApi.get",
+        "api/controllers/inner_api/plugin/wraps.py::get_user",
+        "api/controllers/inner_api/plugin/wraps.py::plugin_data",
+        "api/core/plugin/backwards_invocation/app.py::PluginAppBackwardsInvocation._get_app",
+        "api/core/plugin/entities/parameters.py::cast_parameter_value",
+        "api/core/plugin/impl/base.py::BasePluginClient._request_with_plugin_daemon_response",
+        "api/core/rag/retrieval/output_parser/structured_chat.py::StructuredChatOutputParser.parse",
+        "api/services/tools/api_tools_manage_service.py::ApiToolManageService.get_api_tool_provider_remote_schema",
+        "api/services/tools/api_tools_manage_service.py::ApiToolManageService.test_api_tool_preview"
+      ],
+      "ranked": [
+        "api/libs/external_api.py::register_external_error_handlers",
+        "api/controllers/console/billing/billing.py::PartnerTenants.put",
+        "api/controllers/openapi/_errors.py::OpenApiErrorFormatter._extract_details",
+        "api/controllers/console/knowledge_fs_proxy.py::_console_api_errors",
+        "api/controllers/console/knowledge_fs_proxy.py::_translate_proxy_error",
+        "api/libs/external_api.py::ExternalApi.__init__",
+        "api/controllers/openapi/_errors.py::OpenApiErrorFormatter.finalize",
+        "api/controllers/openapi/app_run.py::_translate_service_errors",
+        "api/core/plugin/impl/base.py::BasePluginClient._request_with_plugin_daemon_response",
+        "api/core/plugin/impl/base.py::BasePluginClient._handle_plugin_daemon_error"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langgenius/dify#40742",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/configs/middleware/__init__.py::InternalTestConfig",
+        "api/configs/middleware/__init__.py::MiddlewareConfig",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalApi",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalApi.post",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalPayload",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalRecordResponse",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalResponse",
+        "api/services/knowledge_service.py::BedrockRetrievalSetting",
+        "api/services/knowledge_service.py::ExternalDatasetTestService",
+        "api/services/knowledge_service.py::ExternalDatasetTestService.knowledge_retrieval"
+      ],
+      "ranked": [
+        "api/controllers/console/datasets/external.py::BedrockRetrievalApi.post",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalApi",
+        "api/services/knowledge_service.py::ExternalDatasetTestService.knowledge_retrieval",
+        "api/controllers/service_api/dataset/hit_testing.py::HitTestingApi.post",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalPayload",
+        "api/core/workflow/nodes/knowledge_retrieval/retrieval.py::KnowledgeRetrievalRequest",
+        "api/core/rag/retrieval/dataset_retrieval.py::DatasetRetrieval.knowledge_retrieval",
+        "api/controllers/console/datasets/external.py::ExternalKnowledgeHitTestingApi.post",
+        "api/controllers/inner_api/knowledge/retrieval.py::InnerKnowledgeRetrieveApi.post",
+        "api/controllers/console/datasets/external.py::BedrockRetrievalResponse"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#40746",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback"
+      ],
+      "ranked": [
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback.__call__",
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback",
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback.__init__",
+        "api/tasks/human_input_timeout_tasks.py::check_and_handle_human_input_timeouts",
+        "api/tasks/human_input_timeout_tasks.py::_handle_global_timeout",
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback._create_form",
+        "api/core/app/apps/common/workflow_response_converter.py::WorkflowResponseConverter.human_input_form_timeout_to_stream_response",
+        "api/core/repositories/human_input_repository.py::HumanInputFormSubmissionRepository.mark_timeout",
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback._is_past_global_deadline",
+        "api/core/app/apps/workflow/generate_task_pipeline.py::WorkflowAppGenerateTaskPipeline._handle_human_input_form_timeout_event"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langgenius/dify#40905",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/core/app/apps/workflow/app_runner.py::WorkflowAppRunner.run",
+        "api/tasks/app_generate/workflow_execute_task.py::_resume_app_execution"
+      ],
+      "ranked": [
+        "api/services/workflow_service.py::WorkflowService.submit_human_input_form_preview",
+        "api/services/workflow_event_snapshot_service.py::_build_pause_event",
+        "api/services/workflow_event_snapshot_service.py::_build_human_input_required_events",
+        "api/core/workflow/nodes/human_input/callback.py::DifyHITLCallback.__call__",
+        "api/core/workflow/nodes/agent_v2/ask_human_resume.py::map_form_to_outcome",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py::_build_human_input_required_reason",
+        "api/controllers/service_api/app/human_input_form.py::WorkflowHumanInputFormApi.post",
+        "api/core/app/apps/workflow/generate_task_pipeline.py::WorkflowAppGenerateTaskPipeline._build_paused_blocking_response_from_human_input",
+        "api/services/workflow_service.py::WorkflowService.get_human_input_form_preview",
+        "api/services/workflow_service.py::WorkflowService.test_human_input_delivery"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "langgenius/dify#40945",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/console/workspace/tool_providers.py::ToolOAuthCustomClient"
+      ],
+      "ranked": [
+        "api/controllers/console/workspace/tool_providers.py::ToolOAuthCustomClient.post",
+        "api/controllers/console/workspace/tool_providers.py::ToolOAuthCustomClient.get",
+        "api/controllers/console/workspace/tool_providers.py::ToolOAuthCustomClient.delete",
+        "api/controllers/console/workspace/tool_providers.py::ToolPluginOAuthApi.get",
+        "api/controllers/console/workspace/tool_providers.py::ToolOAuthCustomClient",
+        "api/services/tools/builtin_tools_manage_service.py::BuiltinToolManageService.get_custom_oauth_client_params",
+        "api/services/tools/builtin_tools_manage_service.py::BuiltinToolManageService.get_oauth_client",
+        "api/controllers/console/workspace/tool_providers.py::ToolOAuthCallback.get",
+        "api/services/tools/builtin_tools_manage_service.py::BuiltinToolManageService.save_custom_oauth_client_params",
+        "api/controllers/console/workspace/tool_providers.py::ToolBuiltinProviderGetOauthClientSchemaApi.get"
+      ],
+      "first_rank": 5
+    },
+    {
+      "instance_id": "langgenius/dify#41107",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/core/helper/marketplace.py::fetch_global_plugin_manifest",
+        "api/schedule/check_upgradable_plugin_task.py::check_upgradable_plugin_task",
+        "api/tasks/process_tenant_plugin_autoupgrade_check_task.py::marketplace_batch_fetch_plugin_manifests"
+      ],
+      "ranked": [
+        "api/schedule/check_upgradable_plugin_task.py::check_upgradable_plugin_task",
+        "api/core/helper/marketplace.py::fetch_global_plugin_manifest",
+        "api/tasks/process_tenant_plugin_autoupgrade_check_task.py::process_tenant_plugin_autoupgrade_check_task",
+        "api/services/plugin/plugin_auto_upgrade_service.py::PluginAutoUpgradeService",
+        "api/services/plugin/plugin_auto_upgrade_service.py::PluginAutoUpgradeService._change_strategy",
+        "api/controllers/console/workspace/plugin.py::PluginAutoUpgradeSettingsPayload",
+        "api/core/plugin/plugin_service.py::PluginService.upgrade_plugin_with_marketplace",
+        "api/services/plugin/plugin_auto_upgrade_service.py::PluginAutoUpgradeService.change_strategy",
+        "api/controllers/console/workspace/plugin.py::PluginChangeAutoUpgradeApi.post",
+        "api/services/plugin/plugin_auto_upgrade_service.py::PluginAutoUpgradeService._exclude_plugin"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "langgenius/dify#41145",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/controllers/files/upload.py::PluginUploadFileApi.post"
+      ],
+      "ranked": [
+        "api/dify_graph/file/helpers.py::get_signed_file_url_for_plugin",
+        "api/controllers/files/upload.py::PluginUploadFileApi.post",
+        "api/core/rag/extractor/word_extractor.py::WordExtractor._extract_images_from_docx",
+        "api/core/tools/signature.py::sign_upload_file_preview_url",
+        "api/controllers/inner_api/plugin/plugin.py::PluginUploadFileRequestApi.post",
+        "api/controllers/files/upload.py::PluginUploadFileApi",
+        "api/controllers/files/upload.py::PluginUploadQuery",
+        "api/dify_graph/file/helpers.py::get_signed_file_url",
+        "api/core/rag/index_processor/index_processor_base.py::BaseIndexProcessor._get_content_files",
+        "api/core/rag/index_processor/processor/paragraph_index_processor.py::ParagraphIndexProcessor._extract_images_from_text"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "langgenius/dify#41581",
+      "repo": "langgenius/dify",
+      "gold": [
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py::DifyAPISQLAlchemyWorkflowRunRepository",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py::DifyAPISQLAlchemyWorkflowRunRepository._delete_pause_model",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py::DifyAPISQLAlchemyWorkflowRunRepository.delete_workflow_pause"
+      ],
+      "ranked": [
+        "api/services/workflow_event_snapshot_service.py::_build_pause_event",
+        "api/core/workflow/nodes/agent_v2/ask_human_hitl.py::build_ask_human_pause_reason",
+        "api/tasks/human_input_timeout_tasks.py::_handle_global_timeout",
+        "api/services/workflow_event_snapshot_service.py::_build_snapshot_events",
+        "api/tasks/app_generate/workflow_execute_task.py::_resume_app_execution",
+        "api/services/workflow_event_snapshot_service.py::build_workflow_event_stream",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py::DifyAPISQLAlchemyWorkflowRunRepository._hydrate_pause_reasons",
+        "api/repositories/sqlalchemy_api_workflow_run_repository.py::DifyAPISQLAlchemyWorkflowRunRepository.create_workflow_pause",
+        "api/core/app/apps/common/workflow_response_converter.py::WorkflowResponseConverter.workflow_pause_to_stream_response",
+        "api/core/workflow/nodes/agent_v2/agent_node.py::DifyAgentNode._run_inner"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "microsoft/markitdown#2342",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.convert",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown._convert",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.__init__",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.register_converter",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.enable_builtins",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown._get_stream_info_guesses",
+        "packages/markitdown/src/markitdown/converters/_html_converter.py::HtmlConverter.convert",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.convert_uri",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py::_merge_partial_numbering_lines"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "microsoft/markitdown#2356",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converter_utils/docx/pre_process.py::pre_process_docx"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify.convert_strike",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify.convert_a",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify.convert_img",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify.convert_hn",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.__init__",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_quote_path_preserving_percent_encoded_octets",
+        "packages/markitdown/src/markitdown/converter_utils/docx/pre_process.py::_pre_process_styles",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.convert"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "microsoft/markitdown#2371",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py::IpynbConverter._convert"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py::IpynbConverter._convert",
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py::IpynbConverter",
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py::IpynbConverter.convert",
+        "packages/markitdown/src/markitdown/converters/_ipynb_converter.py::IpynbConverter.accepts",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown._convert",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_quote_path_preserving_percent_encoded_octets",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.convert",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.enable_builtins",
+        "packages/markitdown/src/markitdown/converters/_markdownify.py::_CustomMarkdownify.convert_a"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "microsoft/markitdown#2430",
+      "repo": "microsoft/markitdown",
+      "gold": [
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::CsvConverter.convert"
+      ],
+      "ranked": [
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::CsvConverter.convert",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown._convert",
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::CsvConverter",
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::_trim_outer_blank_rows",
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::CsvConverter.__init__",
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::CsvConverter.accepts",
+        "packages/markitdown/src/markitdown/_markitdown.py::MarkItDown.enable_builtins",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py::_extract_tables_from_words",
+        "packages/markitdown/src/markitdown/converters/_csv_converter.py::_escape_table_cell",
+        "packages/markitdown/src/markitdown/converters/_pdf_converter.py::_to_markdown_table"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "morluto/rea#503",
+      "repo": "morluto/rea",
+      "gold": [
+        "bridge/hopper_bridge.py::_address",
+        "bridge/hopper_bridge.py::_diagnostic_type",
+        "bridge/hopper_bridge.py::_dispatch",
+        "bridge/hopper_bridge.py::_document",
+        "bridge/hopper_bridge.py::_procedure",
+        "bridge/hopper_bridge.py::_procedure_references",
+        "bridge/hopper_bridge.py::_search_results",
+        "bridge/hopper_bridge.py::_segment",
+        "bridge/hopper_bridge.py::_serve_connection",
+        "src/native/NativeMacOSProvider.ts::NativeMacOSClient.#inspectSignature",
+        "src/native/NativeMachoInspection.ts::normalizeMacho",
+        "src/native/NativeMachoInspection.ts::uniqueSymbols",
+        "src/native/parsers/dyldInfo.ts::parseDyldSymbols",
+        "src/native/parsers/otool.ts::hexField",
+        "src/native/parsers/otool.ts::parseSections",
+        "src/native/parsers/otool.ts::sectionAlignment"
+      ],
+      "ranked": [
+        "bridge/hopper_bridge.py::_search_inventory",
+        "bridge/hopper_bridge.py::_hex",
+        "bridge/hopper_bridge.py::_search_results",
+        "bridge/hopper_bridge.py::_strings",
+        "bridge/hopper_bridge.py::_analyze_function",
+        "bridge/hopper_bridge.py::_dispatch",
+        "bridge/hopper_bridge.py::_address",
+        "bridge/hopper_bridge.py::_serve_connection",
+        "bridge/hopper_bridge.py::_procedure_references",
+        "bridge/hopper_bridge.py::_name_map"
+      ],
+      "first_rank": 3
+    },
+    {
+      "instance_id": "nextlevelbuilder/ui-ux-pro-max-skill#501",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "gold": [
+        ".claude/skills/brand/scripts/sync-brand-to-tokens.cjs::main",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.__init__",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.write_config",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::main",
+        "cli/assets/skills/brand/scripts/sync-brand-to-tokens.cjs::main",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.__init__",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.write_config",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::main"
+      ],
+      "ranked": [
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::main",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::main",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.write_config",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.write_config",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator._default_output_path",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator._default_output_path",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator",
+        ".claude/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.__init__",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator.__init__",
+        "cli/assets/skills/ui-styling/scripts/tailwind_config_gen.py::TailwindConfigGenerator"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#28872",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/utils/middleware.py::streaming_chat_response_handler"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/middleware.py::streaming_chat_response_handler",
+        "backend/open_webui/utils/middleware.py::handle_responses_streaming_event",
+        "backend/open_webui/utils/middleware.py::update_assistant_message_from_stream",
+        "backend/open_webui/utils/middleware.py::non_streaming_chat_response_handler",
+        "backend/open_webui/utils/middleware.py::background_tasks_handler",
+        "backend/open_webui/routers/openai.py::responses",
+        "backend/open_webui/utils/misc.py::convert_output_to_messages",
+        "backend/open_webui/routers/openai.py::convert_to_responses_payload",
+        "backend/open_webui/routers/openai.py::convert_responses_result",
+        "backend/open_webui/utils/middleware.py::process_chat_response"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#30196",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/tools/builtin.py::ask_user"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/ask_user.py::normalize_ask_user_request",
+        "backend/open_webui/tools/builtin.py::ask_user",
+        "backend/open_webui/utils/ask_user.py::stage_ask_user_tool_calls",
+        "backend/open_webui/utils/ask_user.py::get_ask_user_tool_calls",
+        "backend/open_webui/utils/middleware.py::process_chat_payload",
+        "backend/open_webui/utils/tool_approval.py::resolve_tool_call_output",
+        "backend/open_webui/tools/builtin.py::generate_image",
+        "backend/open_webui/utils/middleware.py::drain_approved_tool_calls",
+        "backend/open_webui/utils/tools.py::get_builtin_tools",
+        "backend/open_webui/tools/builtin.py::edit_image"
+      ],
+      "first_rank": 2
+    },
+    {
+      "instance_id": "open-webui/open-webui#31351",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/routers/retrieval.py::process_web"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/retrieval.py::process_web",
+        "backend/open_webui/routers/retrieval.py::process_url",
+        "backend/open_webui/routers/retrieval.py::process_web_search",
+        "backend/open_webui/retrieval/web/utils.py::get_web_loader",
+        "backend/open_webui/routers/retrieval.py::WebConfig",
+        "backend/open_webui/tools/builtin.py::query_knowledge_files",
+        "backend/open_webui/routers/retrieval.py::search_web",
+        "backend/open_webui/routers/retrieval.py::get_rag_config",
+        "backend/open_webui/routers/knowledge.py::_get_external_connection_provider_and_config",
+        "backend/open_webui/routers/retrieval.py::update_rag_config"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31416",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/main.py::chat_completion",
+        "backend/open_webui/main.py::list_tasks_by_chat_id_endpoint",
+        "backend/open_webui/main.py::stop_tasks_by_chat_id_endpoint",
+        "backend/open_webui/main.py::verify_chat_ownership",
+        "backend/open_webui/retrieval/utils.py::get_sources_from_items",
+        "backend/open_webui/routers/chats.py::clone_shared_chat_by_id",
+        "backend/open_webui/routers/chats.py::delete_chat_by_id",
+        "backend/open_webui/routers/chats.py::delete_chat_message_by_id",
+        "backend/open_webui/routers/chats.py::export_single_chat_stats",
+        "backend/open_webui/routers/chats.py::get_shared_chat_access_by_id",
+        "backend/open_webui/routers/chats.py::send_chat_message_event_by_id",
+        "backend/open_webui/routers/chats.py::update_chat_message_by_id",
+        "backend/open_webui/routers/chats.py::update_shared_chat_access_by_id",
+        "backend/open_webui/utils/tool_approval.py::resolve_tool_call_output"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/chats.py::get_shared_chat_by_id",
+        "backend/open_webui/models/chats.py::ChatTable.get_chat_by_id_for_user",
+        "backend/open_webui/routers/chats.py::get_user_chat_list_by_user_id",
+        "backend/open_webui/routers/chats.py::clone_shared_chat_by_id",
+        "backend/open_webui/routers/chats.py::get_chat_by_id",
+        "backend/open_webui/routers/chats.py::can_read_shared_chat",
+        "backend/open_webui/routers/chats.py::get_shared_chat_access_by_id",
+        "backend/open_webui/routers/chats.py::get_all_user_chats_in_db",
+        "backend/open_webui/routers/chats.py::update_chat_message_by_id",
+        "backend/open_webui/routers/chats.py::update_shared_chat_access_by_id"
+      ],
+      "first_rank": 4
+    },
+    {
+      "instance_id": "open-webui/open-webui#31423",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/models/automations.py::AutomationTable.search_automations",
+        "backend/open_webui/models/models.py::ModelsTable.search_models",
+        "backend/open_webui/models/prompts.py::PromptsTable.search_prompts"
+      ],
+      "ranked": [
+        "backend/open_webui/models/models.py::ModelsTable.search_models",
+        "backend/open_webui/models/automations.py::AutomationTable.search_automations",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py::PgvectorClient.search",
+        "backend/open_webui/models/prompts.py::PromptsTable.search_prompts",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py::PgvectorClient.hybrid_search",
+        "backend/open_webui/utils/misc.py::sanitize_text_for_db",
+        "backend/open_webui/utils/misc.py::json_text_variants",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py::PgvectorClient.insert",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py::PgvectorClient.upsert",
+        "backend/open_webui/models/chats.py::ChatTable.get_chats_by_user_id_and_search_text"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31438",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/utils/middleware.py::streaming_chat_response_handler"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/middleware.py::update_assistant_message_from_stream",
+        "backend/open_webui/utils/anthropic.py::convert_openai_to_anthropic_response",
+        "backend/open_webui/utils/anthropic.py::openai_stream_to_anthropic_stream",
+        "backend/open_webui/utils/misc.py::convert_output_to_messages",
+        "backend/open_webui/utils/middleware.py::append_to_text_field",
+        "backend/open_webui/utils/misc.py::stream_chunks_handler",
+        "backend/open_webui/utils/middleware.py::streaming_chat_response_handler",
+        "backend/open_webui/utils/anthropic.py::convert_anthropic_to_openai_payload",
+        "backend/open_webui/utils/middleware.py::process_chat_payload",
+        "backend/open_webui/utils/misc.py::openai_chat_chunk_message_template"
+      ],
+      "first_rank": 7
+    },
+    {
+      "instance_id": "open-webui/open-webui#31461",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient",
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient.get",
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient.query",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient.get",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient.query"
+      ],
+      "ranked": [
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient.query",
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient.query",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient.__init__",
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient.__init__",
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient",
+        "backend/open_webui/retrieval/external.py::_retrieve_qdrant",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient._create_multi_tenant_collection",
+        "backend/open_webui/retrieval/vector/dbs/qdrant_multitenancy.py::QdrantClient.get",
+        "backend/open_webui/retrieval/vector/dbs/qdrant.py::QdrantClient._create_collection"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31489",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/routers/ollama.py::copy_model",
+        "backend/open_webui/routers/ollama.py::create_model",
+        "backend/open_webui/routers/ollama.py::delete_model",
+        "backend/open_webui/routers/ollama.py::embed",
+        "backend/open_webui/routers/ollama.py::embeddings",
+        "backend/open_webui/routers/ollama.py::generate_completion",
+        "backend/open_webui/routers/ollama.py::get_ollama_tags",
+        "backend/open_webui/routers/ollama.py::get_ollama_versions",
+        "backend/open_webui/routers/ollama.py::get_openai_models",
+        "backend/open_webui/routers/ollama.py::pull_model",
+        "backend/open_webui/routers/ollama.py::push_model",
+        "backend/open_webui/routers/ollama.py::show_model_info",
+        "backend/open_webui/routers/ollama.py::unload_model"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/openai.py::verify_connection",
+        "backend/open_webui/utils/headers.py::get_headers_and_cookies",
+        "backend/open_webui/utils/tools.py::build_tool_server_headers",
+        "backend/open_webui/routers/ollama.py::send_request",
+        "backend/open_webui/routers/ollama.py::get_all_models",
+        "backend/open_webui/utils/models.py::get_all_models",
+        "backend/open_webui/utils/chat.py::generate_chat_completion",
+        "backend/open_webui/routers/ollama.py::generate_chat_completion",
+        "backend/open_webui/routers/ollama.py::update_config",
+        "backend/open_webui/utils/payload.py::apply_model_params_to_body_ollama"
+      ],
+      "first_rank": null
+    },
+    {
+      "instance_id": "open-webui/open-webui#31531",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py::WeaviateClient.search"
+      ],
+      "ranked": [
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py::WeaviateClient.search",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py::PgvectorClient.search",
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py::_metadata_filter",
+        "backend/open_webui/retrieval/vector/dbs/pgvector.py::PgvectorClient.hybrid_search",
+        "backend/open_webui/retrieval/utils.py::query_doc_with_hybrid_search",
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py::WeaviateClient.query",
+        "backend/open_webui/retrieval/vector/dbs/weaviate.py::WeaviateClient.__init__",
+        "backend/open_webui/tools/builtin.py::query_knowledge_bases",
+        "backend/open_webui/retrieval/vector/factory.py::Vector.get_vector",
+        "backend/open_webui/retrieval/utils.py::query_doc_with_native_hybrid_search"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#31862",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/routers/ollama.py::download_file_stream",
+        "backend/open_webui/routers/ollama.py::upload_model"
+      ],
+      "ranked": [
+        "backend/open_webui/routers/ollama.py::upload_model",
+        "backend/open_webui/routers/ollama.py::download_model",
+        "backend/open_webui/routers/ollama.py::create_model",
+        "backend/open_webui/routers/ollama.py::download_file_stream",
+        "backend/open_webui/routers/ollama.py::send_request",
+        "backend/open_webui/routers/ollama.py::update_config",
+        "backend/open_webui/routers/ollama.py::push_model",
+        "backend/open_webui/routers/ollama.py::unload_model",
+        "backend/open_webui/routers/ollama.py::pull_model",
+        "backend/open_webui/routers/ollama.py::copy_model"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "open-webui/open-webui#32429",
+      "repo": "open-webui/open-webui",
+      "gold": [
+        "backend/open_webui/main.py::chat_completion",
+        "backend/open_webui/main.py::generate_messages",
+        "backend/open_webui/routers/ollama.py::generate_anthropic_messages",
+        "backend/open_webui/routers/ollama.py::generate_chat_completion",
+        "backend/open_webui/routers/ollama.py::generate_completion",
+        "backend/open_webui/routers/ollama.py::generate_openai_chat_completion",
+        "backend/open_webui/routers/ollama.py::generate_openai_completion",
+        "backend/open_webui/routers/ollama.py::generate_responses",
+        "backend/open_webui/routers/openai.py::generate_chat_completion",
+        "backend/open_webui/routers/openai.py::proxy",
+        "backend/open_webui/routers/openai.py::responses",
+        "backend/open_webui/utils/audit.py::AuditLogEntry",
+        "backend/open_webui/utils/audit.py::AuditLoggingMiddleware._log_audit_entry",
+        "backend/open_webui/utils/logger.py::file_format"
+      ],
+      "ranked": [
+        "backend/open_webui/utils/audit.py::AuditLoggingMiddleware._log_audit_entry",
+        "backend/open_webui/utils/audit.py::AuditLoggingMiddleware.__init__",
+        "backend/open_webui/utils/logger.py::file_format",
+        "backend/open_webui/utils/audit.py::AuditLogEntry",
+        "backend/open_webui/utils/audit.py::AuditLoggingMiddleware.__call__",
+        "backend/open_webui/utils/audit.py::AuditContext.__init__",
+        "backend/open_webui/utils/audit.py::AuditLogger.write",
+        "backend/open_webui/env.py::JSONFormatter.format",
+        "backend/open_webui/utils/audit.py::AuditLoggingMiddleware",
+        "backend/open_webui/utils/audit.py::AuditContext"
+      ],
+      "first_rank": 1
+    },
+    {
+      "instance_id": "ruvnet/RuView#2152",
+      "repo": "ruvnet/RuView",
+      "gold": [
+        "firmware/esp32-csi-node/provision.py::main"
+      ],
+      "ranked": [
+        "firmware/esp32-csi-node/provision.py::_state_path_for",
+        "firmware/esp32-csi-node/provision.py::load_state",
+        "firmware/esp32-csi-node/provision.py::save_state",
+        "scripts/provision.py::main",
+        "firmware/esp32-csi-node/provision.py::main",
+        "scripts/qemu_swarm.py::provision_node",
+        "firmware/esp32-csi-node/provision.py::merge_state_into_args",
+        "firmware/esp32-csi-node/provision.py::build_nvs_csv",
+        "firmware/esp32-csi-node/provision.py::redact_secrets",
+        "scripts/provision.py::build_nvs_csv"
+      ],
+      "first_rank": 5
+    }
+  ],
+  "provenance": {
+    "timestamp": "2026-11-03T04:08:32+00:00",
+    "git_commit": "37be98e1bb06943785cf16388c6ad220cdeea1d8",
+    "git_dirty": false,
+    "python": "3.11.16",
+    "platform": "Windows-10-10.0.26300-SP0",
+    "packages": {
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "tree-sitter": "0.26.0",
+      "lightgbm": "4.7.0",
+      "torch": "2.14.0+cu130",
+      "sentence-transformers": "6.1.0"
+    },
+    "models": {
+      "models\\ltr_file.txt": "81963bfcb59d6e77",
+      "models\\ltr_function.txt": "edd32e017d4799eb",
+      "models\\more-data\\ltr_file.txt": "35bb3bf7fab1c252",
+      "models\\more-data\\ltr_function.txt": "752840e5cce4e62e",
+      "models\\paths\\ltr_file.txt": "acbd6d70f93fd5ea",
+      "models\\paths\\ltr_function.txt": "671b15c68451b643",
+      "models\\more-data\\reranker.json": "1fbef4ee181df2a8",
+      "models\\reranker.json": "fb9c4cb9cfa0ad2f",
+      "models\\reranker_distilled.json": "a3cc7e4582e01d25",
+      "models\\reranker_ens.json": "fb9c4cb9cfa0ad2f",
+      "models\\reranker_v2.json": "a7e74d58b36f0c11",
+      "models\\ce_adapter\\adapter_model.safetensors": "9ce9bafbf4c21b80",
+      "models\\ce_adapter_distilled\\adapter_model.safetensors": "5082a17b1880f1e3",
+      "models\\ce_adapter_v1\\adapter_model.safetensors": "91246a13d417d71e"
+    },
+    "argv": [
+      "eval",
+      "--dataset",
+      "fresh",
+      "--gold",
+      "data/fresh/gold_eval_python.jsonl",
+      "--retriever",
+      "ltr-ce-more-data-notests",
+      "--level",
+      "function",
+      "--out",
+      "results/research/frontier/fresh_eval_function.json"
+    ],
+    "gold_file": "data\\fresh\\gold_eval_python.jsonl",
+    "fusion": "zsum w_dense=0.8"
+  }
+}

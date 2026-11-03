@@ -120,3 +120,5 @@ undated | lite | hybrid-notests | function | results/hybrid-notests_function_lit
 2026-11-03 | fresh-agents | gemini-single (gemini-3.8-flash) | function | results/research/frontier/fresh-agents_gemini-single.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-03 | fresh-agents | gemini-single (gemini-3.8-flash) | function | results/research/frontier/fresh-agents_gemini-single.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-03 | fresh-agents | website (ranker df8659ea9d94) | function | results/research/frontier/fresh-agents_website.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
+2026-11-03 | fresh | allfather-fast (allfather-fast) | function | results/research/frontier/fresh_allfather-fast.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
+2026-11-03 | fresh | allfather-fast (ltr-ce-more-data-notests) | file | results/research/frontier/fresh_eval_file.json | ADR 0033 run on the sealed fresh-2026 set, its 100 Python bugs; nothing decided from it
