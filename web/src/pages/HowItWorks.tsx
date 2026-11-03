@@ -72,16 +72,16 @@ export function HowItWorks({ summary }: { summary: Summary | null }) {
       </section>
 
       <section class="block">
-        <p class="kicker">Things we tried</p>
+        <p class="kicker">Things I tried</p>
         <h2>What worked</h2>
-        <p class="section-lede">Each accuracy change was tested against what it replaced, on the same bugs, with a paired test; speed changes were timed. These made the cut.</p>
+        <p class="section-lede">I tested each accuracy change against what it replaced, on the same bugs, with a paired test, and timed each speed change. These made the cut.</p>
         <Worked summary={summary} />
       </section>
 
       <section class="block">
-        <p class="kicker">Things we tried</p>
+        <p class="kicker">Things I tried</p>
         <h2>What didn't work</h2>
-        <p class="section-lede">Negative results, kept because they explain the design as much as the wins do.</p>
+        <p class="section-lede">Negative results, which I keep because they explain the design as much as the wins do.</p>
         <Lessons />
       </section>
     </div>

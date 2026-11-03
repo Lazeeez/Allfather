@@ -39,7 +39,7 @@ The Results table above was measured on an embedding store corrupted by duplicat
 
 - **Negatives from the ranker itself.** A second adapter is trained on hard negatives mined from out-of-fold LTR rankings, the candidates the reranker actually sees at query time, for 2 epochs instead of 1.
 - **An ensemble of two adapters.** The hybrid-negative adapter (v1) and the LTR-negative adapter (v2) are combined as the mean of z-scored scores. The ensemble beat either adapter alone on validation MRR (`models/reranker.json`).
-- **A negative result: fine-tuning the embedder.** Contrastive LoRA on jina-code with in-batch and hard negatives did not improve hard-negative MRR on validation, so it was dropped.
+- **A negative result: fine-tuning the embedder.** Contrastive LoRA on jina-code with in-batch and hard negatives did not improve hard-negative MRR on validation, so I dropped it.
 
 Lite test, held out, final:
 

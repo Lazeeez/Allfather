@@ -23,4 +23,4 @@ The website's pages were hash routes (`allfather.dev/#/benchmarks`), chosen when
 - Every page can rank on its own, with a description written for it.
 - Deep links are clean and shareable: `allfather.dev/explore/django__django-11019`.
 - A missing data file now answers with the application's HTML rather than a 404; the site already checks the content type before using a data file.
-- Registering the domain in Google Search Console and submitting the sitemap is left to the owner, since it needs the owner's Google account.
+- I register the domain in Google Search Console and submit the sitemap myself, since it needs my Google account.

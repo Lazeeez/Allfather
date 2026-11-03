@@ -6,7 +6,7 @@ Accepted, 2026-10-14. Amends [ADR 0013](0013-sealed-holdout.md). Written before 
 
 ## Context
 
-ADR 0013 sealed a holdout for three final configurations and, in the same breath, called it the post-cutoff set of the contamination study. Those two uses conflict: the study compares every stage on old and new issues and may drive decisions, and the holdout allows neither intermediate stages nor decisions. The owner resolved it on 2026-10-14.
+ADR 0013 sealed a holdout for three final configurations and, in the same breath, called it the post-cutoff set of the contamination study. Those two uses conflict: the study compares every stage on old and new issues and may drive decisions, and the holdout allows neither intermediate stages nor decisions. I resolved it on 2026-10-14.
 
 ## Decision
 

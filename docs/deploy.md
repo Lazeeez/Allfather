@@ -11,8 +11,8 @@ Allfather's website and its archive relay run as one Cloudflare Worker: static f
 | D1 database `odin` (search counts and votes, [ADR 0022](decisions/0022-website-feedback.md)) | live since 2026-10-15; checked with a real vote from a browser on `allfather.dev`, then the test rows were deleted |
 | GitHub API proxy at `/gh/` ([ADR 0024](decisions/0024-github-api-proxy.md)) | deployed 2026-10-15; answers 501 until the `GITHUB_TOKEN` secret is stored, and the site then calls GitHub directly |
 | Live accuracy ([ADR 0023](decisions/0023-live-accuracy.md)) | `/api/live` and the D1 table `live` deployed 2026-10-15; the nightly workflow `.github/workflows/live.yml` publishes once the `LIVE_TOKEN` secret is set in both the Worker and the repository; the site shows nothing until then |
-| GitHub Pages site | being removed by the owner; see "GitHub Pages" |
-| The `lajat69@gmail.com` Cloudflare account | holds only leftovers of the first attempt (`odin`, `odin-archive-relay`); nothing on `allfather.dev` uses it, and the site's policy no longer allows `*.workers.dev`; the owner deletes it from that account's dashboard |
+| GitHub Pages site | I am removing it; see "GitHub Pages" |
+| The `lajat69@gmail.com` Cloudflare account | holds only leftovers of the first attempt (`odin`, `odin-archive-relay`); nothing on `allfather.dev` uses it, and the site's policy no longer allows `*.workers.dev`; I delete it from that account's dashboard |
 
 ## Deploying
 
@@ -80,7 +80,7 @@ The domain's zone is in the `lajatm9@gmail.com` Cloudflare account, so wrangler 
 
 ## GitHub Pages
 
-The owner is removing the GitHub Pages site by hand. Its workflow (`.github/workflows/pages.yml`) and the prepared redirect page were deleted from the repository on 2026-10-14, so links to `lazeeez.github.io/Allfather` stop working once Pages is turned off.
+I am removing the GitHub Pages site by hand. Its workflow (`.github/workflows/pages.yml`) and the prepared redirect page were deleted from the repository on 2026-10-14, so links to `lazeeez.github.io/Allfather` stop working once Pages is turned off.
 
 Left to clean up in the accounts, not in the repository:
 
@@ -101,7 +101,7 @@ Left to clean up in the accounts, not in the repository:
 ## Decisions
 
 - **One Worker, not Pages plus a Worker.** Cloudflare now steers new static sites to Workers with static assets, and one deployment keeps the site and the relay on one origin with one command.
-- **The bare domain, not a subdomain**, by the owner's choice.
+- **The bare domain, not a subdomain**, by my choice.
 - **No R2 bucket.** The largest file is the 16 MB embedding model, under the 25 MB per-file limit, and keeping it on the same origin avoids a cross-origin fetch under the isolation headers.
 - **Deploys are manual for now.** A GitHub Action could deploy on every push; it needs a Cloudflare API token stored as a repository secret.
 - **The policy allows inline styles**, because the components set style attributes.

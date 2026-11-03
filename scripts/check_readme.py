@@ -457,7 +457,7 @@ def check_prose(text: str, report: Report) -> None:
     log = (RESULTS / "test-evals.log").read_text(encoding="utf-8").splitlines()
     entries = [line.split(" | ") for line in log if line and not line.startswith("#")]
     on_lite = sum(1 for entry in entries if entry[1] == "lite")
-    shown = float(re.search(r"it has been scored (\d+) times", text).group(1))
+    shown = float(re.search(r"I have scored it (\d+) times", text).group(1))
     report.expect("prose Lite evaluations", shown, on_lite, 0)
 
 

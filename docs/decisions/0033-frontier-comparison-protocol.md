@@ -2,11 +2,11 @@
 
 ## Status
 
-Proposed, 2026-11-02. Written before any experiment it describes. Spending money and PACE time needs the owner's approval (ground rule 11); the systems, test set, metrics, analysis and success criteria below are fixed now and may change only by an amendment dated before the test set is first scored.
+Proposed, 2026-11-02. Written before any experiment it describes. I spend money and PACE time only after approving it myself (ground rule 11); the systems, test set, metrics, analysis and success criteria below are fixed now and may change only by an amendment dated before the test set is first scored.
 
 ## Context
 
-[ADR 0032](0032-freeze-allfather-fast.md) froze allfather-fast and stopped the research track on 2026-10-20. On 2026-11-02 the owner reopened it as a research project for a Georgia Tech special problems course, aimed at testing Allfather against the industry frontier. A literature review and claim audit the same day found:
+[ADR 0032](0032-freeze-allfather-fast.md) froze allfather-fast and stopped the research track on 2026-10-20. On 2026-11-02 I reopened it as my research project for a Georgia Tech special problems course, aimed at testing Allfather against the industry frontier. A literature review and claim audit the same day found:
 
 - Allfather matches 2025 LLM agents at function level on SWE-bench Lite (76.3% against LocAgent's 77.4%, all-locations Acc@10) at about $0.0002 per issue, and trails SweRank by about 12 points.
 - Nobody has measured a sub-second, sub-cent learned ranker against the coding agents and frontier models that industry now uses for localization (Claude Code, Codex, Cursor-style agentic search), on the same fresh bugs, with cost.
@@ -76,7 +76,7 @@ None touches a test set. Each is reported whatever it shows.
 2. **E2, how much the dense model's SWE-bench training matters.** On the 608-issue unseen-project fold, compare hybrid retrieval using jina-code-embeddings with the same pipeline using an embedding model not trained on SWE-bench.
 3. **E3, hint strata on existing results.** Descriptive only: SWE-bench Lite results of every stored system, split by hint stratum.
 
-## Budget, for approval
+## Budget, for my approval
 
 Estimates, to be confirmed against list prices before anything is spent:
 
@@ -85,7 +85,7 @@ Estimates, to be confirmed against list prices before anything is spent:
 - **T4.** Published frontier-agent localization costs are $0.5 to $1.7 per issue ([docs/cost.md](../cost.md)); 200 issues for two agents plus the variance runs is roughly 500 agent runs.
 - **PACE.** SweRank's 7B and 32B rerankers on 600 issues: a few GPU-hours.
 
-The owner chooses which tiers to fund. The cheapest version that still answers RQ1 to RQ3 is T0, T1, T3 with one model, and T4 with one agent.
+I choose which tiers to fund. The cheapest version that still answers RQ1 to RQ3 is T0, T1, T3 with one model, and T4 with one agent.
 
 ## Success, and what counts as a result
 
@@ -97,7 +97,7 @@ Nothing is retracted. Lite and the spent holdout remain as reported, with their 
 
 ## Amendment, 2026-11-02: subscriptions instead of paid APIs
 
-The owner has Claude Pro (with Claude Opus 5.5) and a Gemini plan (with Gemini 3.1 Pro), so tiers T3 and T4 run through the vendors' own command-line tools instead of paid APIs: Claude Code 2.1.316 and Gemini CLI 0.66.0, signed in with those accounts. Scripting the vendors' web chat is not used. `scripts/frontier.py` runs them:
+I have Claude Pro (with Claude Opus 5.5) and a Gemini plan, so tiers T3 and T4 run through the vendors' own command-line tools instead of paid APIs: Claude Code 2.1.316 and Gemini CLI 0.66.0, signed in with my accounts. Scripting the vendors' web chat is not used. `scripts/frontier.py` runs them:
 
 - **T4, agents:** Claude Code with only its Read, Grep and Glob tools; Gemini CLI in its read-only plan mode with web search, web fetch, shell and editing tools excluded. Each run records the tools it used, and a run that used a web tool is flagged and not scored.
 - **T3, one call:** the same tools with every tool removed, given the bug report and the repository's list of source files.
@@ -105,7 +105,7 @@ The owner has Claude Pro (with Claude Opus 5.5) and a Gemini plan (with Gemini 3
 - **Billing:** API-key variables (`ANTHROPIC_API_KEY`, `GEMINI_API_KEY` and the like) are removed from each tool's environment, so a run can only use the subscription sign-in and never a pay-per-use key.
 - **Cost:** subscriptions are not billed per run, so RQ2 uses the list-price cost each tool reports (Claude Code's `total_cost_usd`) or the token counts it reports priced at the vendor's list price on the run date, and says so.
 - **Pace:** subscription limits spread the runs over days; every record carries its date and the model that answered.
-- **T2** (commercial embedding and rerank APIs) is not covered by either plan and is dropped unless the owner funds it.
+- **T2** (commercial embedding and rerank APIs) is not covered by either plan and I drop it unless I decide to fund it.
 
 ## Development results
 
@@ -114,11 +114,11 @@ The owner has Claude Pro (with Claude Opus 5.5) and a Gemini plan (with Gemini 3
 
 ## Amendment, 2026-11-02: what Gemini can run
 
-- **The owner's Google AI Plus plan cannot be used.** Gemini CLI stopped serving personal accounts on 2026-06-18 and sends them to Antigravity CLI. Whether Antigravity CLI may be driven by scripts on a consumer plan is unresolved on Google's own forum, and it documents no way to switch off web tools, so it is not used. AI Plus includes no Gemini API credits.
-- **The free tier of the Gemini API is used instead,** through Gemini CLI with the owner's API key. `scripts/frontier.py` refuses to run Gemini unless the key is confirmed free-tier (Gemini 3.1 Pro must be refused under a free-tier quota), so no Gemini run can be billed.
+- **My Google AI Plus plan cannot be used.** Gemini CLI stopped serving personal accounts on 2026-06-18 and sends them to Antigravity CLI. Whether Antigravity CLI may be driven by scripts on a consumer plan is unresolved on Google's own forum, and it documents no way to switch off web tools, so it is not used. AI Plus includes no Gemini API credits.
+- **The free tier of the Gemini API is used instead,** through Gemini CLI with my API key. `scripts/frontier.py` refuses to run Gemini unless the key is confirmed free-tier (Gemini 3.1 Pro must be refused under a free-tier quota), so no Gemini run can be billed.
 - **Gemini 3.1 Pro is not on the free tier,** so the Gemini system is Gemini 3.8 Flash, the strongest model the free tier serves on 2026-11-02, and is reported as such, not as Google's frontier model.
 - **The free tier allows 20 requests a day for Gemini 3.8 Flash.** An agent run on one development issue used the whole day, so T4 cannot run on Gemini for free. Gemini runs as T3 only (one request per bug, no tools) on the 200-bug agent subsample, about ten days at the limit. Claude Code remains the T4 agent.
-- **Antigravity CLI is not used** (checked 2026-11-02). Its FAQ says wrapping `agy` "inside third-party coding agents or applications... is not supported under consumer plans", and a Google staff answer on 2026-10-28 says that holds even when a coding agent such as Claude Code only prepares the tasks a personal script passes to `agy -p`. This study is built and run with Claude Code, so it falls under that rule. On AI Plus, Antigravity's only Gemini model is Gemini 3.8 Flash, the same model the free API tier serves.
+- **Antigravity CLI is not used** (checked 2026-11-02). Its FAQ says wrapping `agy` "inside third-party coding agents or applications... is not supported under consumer plans", and a Google staff answer on 2026-10-28 says that holds even when a coding agent such as Claude Code only prepares the tasks a personal script passes to `agy -p`. I build and run this study with Claude Code, so it falls under that rule. On AI Plus, Antigravity's only Gemini model is Gemini 3.8 Flash, the same model the free API tier serves.
 - **Pilot, 10 SWE-bench Verified development issues** ([results/research/analysis_pilot.json](../../results/research/analysis_pilot.json)): Claude Opus 5.5 as an agent and in one call with only the list of file names both put a fixed function first for 8 and in the top 10 for 9; the website pipeline did so for 4 and 7. The one-call run never opened a file, so on public SWE-bench issues the model largely recalls the fix. This is the contamination fresh-2026 is built to remove, and the pilot numbers are not evidence about accuracy.
 
 ## Amendment, 2026-11-02: the cutoff date

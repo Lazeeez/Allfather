@@ -1,8 +1,8 @@
 # Running the ADR 0033 study
 
-The order of operations for [ADR 0033](decisions/0033-frontier-comparison-protocol.md). Every run on fresh-2026 appends to `results/test-evals.log`; results land in `results/research/frontier/fresh*_<system>.jsonl`.
+The order in which I run [ADR 0033](decisions/0033-frontier-comparison-protocol.md). Every run on fresh-2026 appends to `results/test-evals.log`; results land in `results/research/frontier/fresh*_<system>.jsonl`.
 
-## 1. Build and seal fresh-2026 (owner, with `GITHUB_TOKEN`)
+## 1. Build and seal fresh-2026 (with my `GITHUB_TOKEN`)
 
 ```powershell
 uv run python scripts/fresh_set.py exclusions
@@ -24,7 +24,7 @@ Commit `data/fresh/` (manifest, answer keys, hashes) before step 2. Nothing may 
 | T3 | Gemini 3.8 Flash, one call, free tier | `uv run python scripts/frontier.py run --set fresh-agents --system gemini-single` (20 a day; rerun daily) |
 | T4 | Claude Opus 5.5 agent | `uv run python scripts/frontier.py run --set fresh-agents --system claude-agent` |
 
-Runs are resumable. Claude runs use the owner's Pro plan and stop at its usage limits; rerun later.
+Runs are resumable. Claude runs use my Pro plan and stop at its usage limits; I rerun them later.
 
 ## 3. Analyse
 

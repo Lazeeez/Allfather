@@ -12,7 +12,7 @@ odin-max is the operating point with no cost limit (PLAN.md, phase 11). Its leve
 - the reranker itself is 0.6B parameters and trained on 1,691 issues from twelve projects;
 - SweRank, reproduced on PACE, reaches 88.7% function Acc@10 on Lite with a 7B retriever and a 32B reranker, against odin-fast's 76.3% ([docs/comparison.md](../comparison.md)).
 
-The owner accepted CC-BY-NC components for odin-max and set this lever as the first.
+I accepted CC-BY-NC components for odin-max and made this lever the first.
 
 ## The test
 
@@ -58,7 +58,7 @@ Training GPU-hours, the GPU, scoring time per issue at each depth, and the dolla
 
 Measured 2026-10-15. Results: [lever1_max-4b-lora.json](../../results/odin-max/lever1_max-4b-lora.json), [lever1_max-4b-full.json](../../results/odin-max/lever1_max-4b-full.json), [lever1_lora_vs_full.json](../../results/odin-max/lever1_lora_vs_full.json). All three rerankers were scored on PACE H100s from the same candidate lists; the current one is the two shipped 0.6B adapters.
 
-**Both candidates pass the rule, and the 4B LoRA adapter is adopted for odin-max.**
+**Both candidates pass the rule, and I adopt the 4B LoRA adapter for odin-max.**
 
 Held-out fold, 608 issues from projects no stage had seen, function level:
 

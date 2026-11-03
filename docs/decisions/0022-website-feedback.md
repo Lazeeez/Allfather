@@ -8,7 +8,7 @@ Accepted, 2026-10-15.
 
 Every accuracy number Odin reports comes from benchmarks: SWE-bench, SWE-rebench and the sealed holdout. None says whether the website helps the people who use it, on the repositories they bring. Nothing on the site was recorded beyond Cloudflare Web Analytics page views, which do not see a search.
 
-The owner's constraints: no running cost, and a site that stays fast and needs no account.
+My constraints: no running cost, and a site that stays fast and needs no account.
 
 ## Decision
 

@@ -13,30 +13,30 @@ function decisions(lite: Lite | null): [string, string][] {
   const range = gains.length ? ` All ${gains.length} passed, by ${Math.min(...gains).toFixed(1)} to ${Math.max(...gains).toFixed(1)} points.` : "";
   return [
     ["Measure first, build second",
-      "The evaluation harness came before the search engine: every issue is searched at the commit it was filed against, and the answer key is the functions the real fix changed. Every accuracy claim comes with a paired test on the same issues."],
+      "I built the evaluation harness before the search engine: every issue is searched at the commit it was filed against, and the answer key is the functions the real fix changed. Every accuracy claim I make comes with a paired test on the same issues."],
     ["A cascade: cheap over everything, expensive over little",
-      "Code-aware keyword search over every function, then learned ranking over a few hundred, then a fine-tuned language model over the top 20 to 50. Each stage of the full pipeline beats the one before at function level."],
+      "Code-aware keyword search over every function, then learned ranking over a few hundred, then a fine-tuned language model over the top 20 to 50. I kept each stage of the full pipeline because it beats the one before at function level."],
     ["The same engine, twice",
-      "The website runs a TypeScript port of the Python engine in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so the browser's accuracy can be measured in Python. The pinned parity run covers Python repositories; the other languages are covered by unit tests."],
+      "I ported the Python engine to TypeScript so the website can run it in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so I can measure the browser's accuracy in Python. The pinned parity run covers Python repositories; the other languages are covered by unit tests."],
     ["A GPU only where it pays",
-      "The full pipeline's reranker runs on a GPU server for the website only after a test, fixed in advance, showed +2.6 points; a second test showed the browser's own language model could then be skipped, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. It was trained and measured on Python, so the site uses it for Python repositories only."],
+      "I put the full pipeline's reranker on a GPU server for the website only after a test I fixed in advance showed +2.6 points; a second test showed I could then skip the browser's own language model, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. I trained and measured it on Python, so the site uses it for Python repositories only."],
     ["Six languages, each earning its ranker",
-      `JavaScript, TypeScript, Go, Java and Rust were added with a rule written before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
+      `I added JavaScript, TypeScript, Go, Java and Rust under a rule I wrote before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
   ];
 }
 
 const FAILED: [string, string][] = [
   ["Following the call graph", "Expanding results to callers and callees added candidates but not hits; it is off by default."],
-  ["One distilled reranker instead of two", "Better on validation, worse on the test set's first place: rejected, and the README says it was a test-set decision."],
+  ["One distilled reranker instead of two", "Better on validation, worse on the test set's first place: I rejected it, and the README says it was a test-set decision."],
   ["A learned query projection for the embeddings", "Semantic-only MRR fell from 0.287 to 0.220 on held-out projects."],
-  ["A small language model in the browser", "Added nothing on projects it never saw; the GPU reranker replaced it."],
+  ["A small language model in the browser", "It added nothing on projects it never saw, so I replaced it with the GPU reranker."],
 ];
 
 const SAFEGUARDS = [
-  "Nothing is trained on a test set, and every test-set evaluation is logged with what was decided from it. SWE-bench Lite has been evaluated 92 times and one decision, rejecting a distilled reranker, was taken on it, so it is a development benchmark here, not a clean test.",
-  "The clean test is a sealed holdout of recent bugs from 189 projects outside every training, tuning and benchmark set, scored once per level on 2026-10-20 after the pipeline was frozen, every model hashed and every metric declared.",
+  "I train nothing on a test set, and I log every test-set evaluation with what I decided from it. I have evaluated on SWE-bench Lite 92 times and took one decision on it, rejecting a distilled reranker, so it is a development benchmark here, not a clean test.",
+  "The clean test is a sealed holdout of recent bugs from 189 projects outside every training, tuning and benchmark set. I scored it once per level on 2026-10-20, after freezing the pipeline, hashing every model and declaring every metric.",
   "Every number in the README is checked against its result file in CI, and result files from the evaluation harness record the commit, data and models behind them.",
-  "A decision record for every major choice, negative results included; the later ones were written before their tests.",
+  "I keep a decision record for every major choice, negative results included, and wrote the later ones before their tests.",
   "Unit, browser (Chromium, Firefox, WebKit) and Python/TypeScript parity tests run in CI.",
 ];
 

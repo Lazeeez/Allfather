@@ -1,6 +1,6 @@
 # Plan
 
-**Research reopened, 2026-11-02.** The track stopped by [ADR 0032](docs/decisions/0032-freeze-allfather-fast.md) is reopened as a Georgia Tech special problems project. The study and its rules are fixed in [ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md): allfather-fast against the industry frontier (open retrievers, commercial retrieval APIs, a frontier LLM and frontier coding agents) on fresh-2026, a new sealed set of bugs filed after every compared model's training cutoff, with cost and a calibrated escalation gate. Paid tiers wait for the owner's approval (rule 11).
+**Research reopened, 2026-11-02.** I reopened the track I stopped in [ADR 0032](docs/decisions/0032-freeze-allfather-fast.md), as my Georgia Tech special problems project. I fixed the study and its rules in [ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md): allfather-fast against the industry frontier (open retrievers, commercial retrieval APIs, a frontier LLM and frontier coding agents) on fresh-2026, a new sealed set of bugs filed after every compared model's training cutoff, with cost and a calibrated escalation gate. Paid tiers wait until I approve them (rule 11).
 
 Target claim, once the work is done:
 
@@ -13,7 +13,7 @@ Target claim, once the work is done:
 - It is not smaller than every published ranking system: SweRankEmbed-Small is 137M parameters. It is smaller than SweRank's 7B retriever and its 7B and 32B rerankers, and those are the comparisons to name.
 - It says nothing about allfather-max, which will use large models.
 - The last clause is untested: nothing has been evaluated on the sealed holdout.
-- The README keeps stating only what is measured. The wording is revisited after the SweRank reproduction explains the gap between its paper and its score in Allfather's index, and the owner sees the proposed sentence before it goes into the README.
+- The README keeps stating only what is measured. The wording is revisited after the SweRank reproduction explains the gap between its paper and its score in Allfather's index, and I review the proposed sentence before it goes into the README.
 
 **allfather-max target, 2026-10-15. A target, not a result.** The highest accuracy that can be measured on the sealed holdout, reported with its cost per issue. On Lite, for comparison with published work, the aim is SweRank's level (88.7% function Acc@10 under LocAgent's protocol, reproduced on PACE) at a fraction of its compute. Not a promise of 90 on every metric: top-1 and all-locations metrics are bounded by ambiguous issues and multi-location fixes for every published system.
 
@@ -21,7 +21,7 @@ Allfather will ship two named operating points on one accuracy-versus-cost front
 
 ## Status
 
-Phases are worked in this order, with a report to the owner after each.
+I work the phases in this order and review a report after each.
 
 | Order | Phase | Deliverable | Needs | Status |
 |---|---|---|---|---|
@@ -29,9 +29,9 @@ Phases are worked in this order, with a report to the owner after each.
 | 1b | Sealed holdout | `data/holdout/`, `data/gold/odin_holdout.jsonl`, the guard in `allfather eval`, [ADR 0013](docs/decisions/0013-sealed-holdout.md) | laptop | allfather-fast frozen and evaluated once on 2026-10-20 ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)): function hit@10 79.7% on 311 bugs, file hit@5 90.3% on 321; allfather-max and the escalation point not pursued |
 | 2 | 1. Comparison with published systems | `eval/protocols.py`, `docs/comparison.md`, README section; baseline reproductions as PACE bundles; ends with the escalation novelty search | laptop, PACE for reproductions | done: LocAgent and CoSIL protocols, [docs/comparison.md](docs/comparison.md), the [novelty search](docs/novelty-escalation.md); SweRank's four models reproduced (137M on the laptop, 7B and 32B on PACE). Other systems remain reported numbers |
 | 3 | 2. Cost and latency of the full cascade | per-stage timings, dollars per issue, accuracy-vs-cost chart | laptop now, PACE as a second hardware column | laptop done: [docs/cost.md](docs/cost.md); the cluster column waits for PACE |
-| 4 | 3. Error analysis | `docs/error-analysis.md`, labelled misses | laptop, owner labels the residue | measured on the validation split: [docs/error-analysis.md](docs/error-analysis.md); the 46 misses await the owner's labels |
+| 4 | 3. Error analysis | `docs/error-analysis.md`, labelled misses | laptop, I label the residue | measured on the validation split: [docs/error-analysis.md](docs/error-analysis.md); the 46 misses await my labels |
 | 4 | 4. Contamination study | `docs/contamination.md` | laptop | not started |
-| any time | 9. Hosting and presentation | one Cloudflare Worker serving the site and the relay on allfather.dev, a redirect from GitHub Pages, [docs/deploy.md](docs/deploy.md), README restructure | the domain's zone in the deploying Cloudflare account | live on https://allfather.dev since 2026-10-14; since 2026-10-16 also a GPU reranker on Modal ([ADR 0021](docs/decisions/0021-website-server-reranker.md), [0026](docs/decisions/0026-skip-browser-language-model.md)), six languages ([ADR 0025](docs/decisions/0025-more-languages.md)) and a README brought up to date; GitHub Pages still serves the old address until the owner approves the redirect |
+| any time | 9. Hosting and presentation | one Cloudflare Worker serving the site and the relay on allfather.dev, a redirect from GitHub Pages, [docs/deploy.md](docs/deploy.md), README restructure | the domain's zone in the deploying Cloudflare account | live on https://allfather.dev since 2026-10-14; since 2026-10-16 also a GPU reranker on Modal ([ADR 0021](docs/decisions/0021-website-server-reranker.md), [0026](docs/decisions/0026-skip-browser-language-model.md)), six languages ([ADR 0025](docs/decisions/0025-more-languages.md)) and a README brought up to date; GitHub Pages still serves the old address until I approve the redirect |
 | 5 | 11. Accuracy track | allfather-max: levers ranked from the error analysis, one ablation row each | PACE allocation | started: lever 1, a 4B LoRA reranker, adopted for allfather-max ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next; paused while the website is the priority |
 | 6 | 6. Confidence-based escalation | selective-prediction curves, escalation with a self-hosted model, the frontier between allfather-fast and allfather-max | PACE | not started |
 | 7 | 7. Downstream issue resolution | resolve rate: baseline vs allfather-fast vs allfather-max vs oracle localization | PACE, WSL for the harness if Apptainer fails | not started |
@@ -50,17 +50,17 @@ Phases are worked in this order, with a report to the owner after each.
 7. One ADR per decision in `docs/decisions/`, from 0012 on. Negative results get ADRs too.
 8. One task per commit, with a descriptive message and passing tests.
 9. No comments in new code; decisions are explained in ADRs and through naming.
-10. No invented baseline numbers. A number attributed to another system comes from its paper or released outputs, with the table cited, or from our own reproduction, and every row says which.
-11. Money is spent only after an estimate and the owner's approval. Paid API use is optional: at most one small frontier-model reference run.
+10. No invented baseline numbers. A number attributed to another system comes from its paper or released outputs, with the table cited, or from my own reproduction, and every row says which.
+11. I spend money only after an estimate and my own approval. Paid API use is optional: at most one small frontier-model reference run.
 12. Latency always names the hardware it was measured on. Laptop and PACE numbers share a table only with a hardware column.
 
 ## Cluster jobs (PACE)
 
-Heavy jobs run on Georgia Tech PACE. The owner submits them and brings results back; nothing in the repository may assume a job ran.
+Heavy jobs run on Georgia Tech PACE. I submit them and bring the results back; nothing in the repository may assume a job ran.
 
 - `cluster/` holds parameterized Slurm scripts (partition, GPU type and count, time limit, array size), Apptainer definitions, `setup.sh` (uv, pinned to the lockfile), `fetch.sh` (models, datasets, images and git mirrors, run on the login node: compute jobs get no internet) and `RUNBOOK.md` with the exact commands, expected runtime and GPU hours, and where outputs land.
 - Each experiment has a committed manifest: which issues, which configuration, which model. A run is defined by its manifest and the commit.
-- Every job has a `--local` mode that runs the same code path on a few issues on the laptop, with a small stand-in model where needed, and is tested before hand-off.
+- Every job has a `--local` mode that runs the same code path on a few issues on the laptop, with a small stand-in model where needed, and I test it there before submitting it to PACE.
 - Jobs are resumable and idempotent per issue: a rerun skips finished issues, and a killed job loses at most the issue in progress.
 - A run writes one self-describing directory: provenance (commit, manifest hash, library versions, model hashes, GPU type, node, timings) and a checksum file, copied off scratch at the end.
 - `allfather import-run <dir>` verifies checksums and provenance against the repository. Only imported runs are used.
@@ -99,10 +99,10 @@ Each lever is an ablation on top of the previous best, with a paired bootstrap a
 | 2026-10-13 | Performance numbers that cannot be traced to a saved output are measured again on one machine, or dropped. |
 | 2026-10-13 | The 13 result files without provenance are run again into new files; the old ones are kept. |
 | 2026-10-13 | The two reranker adapters are published on Hugging Face, private at first, with checksums and a download step. |
-| 2026-10-13 | The repository is prepared to go public after the audit follow-ups; the owner makes the call. |
+| 2026-10-13 | I prepare the repository to go public after the audit follow-ups, and make the call myself. |
 | 2026-10-13 | Ties at a top-k cut-off are broken by index in Python as in the browser; all 17 Lite rows were re-run and no metric changed ([ADR 0016](docs/decisions/0016-deterministic-ties.md)). |
 | 2026-10-13 | The error analysis uses the 250-issue validation split, not Lite. |
-| 2026-10-13 | The headline claim is reframed as a hypothesis in this file; the README changes only after the holdout result and the owner's review of the sentence. |
+| 2026-10-13 | The headline claim is reframed as a hypothesis in this file; the README changes only after the holdout result and my review of the sentence. |
 | 2026-10-14 | allfather-fast is frozen and evaluated on the holdout only after the SweRank reproduction and the cheap phase 11 levers are decided on validation; the contamination study gets its own 73-issue post-cutoff set; a final holdout run may report its stages as pre-declared by-products ([ADR 0017](docs/decisions/0017-holdout-freeze-and-contamination-set.md)). |
 | 2026-10-14 | Path-aware embeddings are not adopted for allfather-fast: +3.2 points of recall@10 for the hybrid retriever on dev (p = 0.001), but +1.4 for the full cascade on validation (p = 0.164) ([ADR 0018](docs/decisions/0018-file-path-in-embedded-text.md)). |
 | 2026-10-14 | allfather-fast's rankers are trained on 120 more projects: +0.7 points of function recall@10 on held-out projects (p = 0.002), and the full cascade is not worse on validation ([ADR 0019](docs/decisions/0019-more-ranker-training-data.md)). |

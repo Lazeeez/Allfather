@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted, 2026-10-14: the larger training set is adopted for odin-fast. The test and its decision rule were written before any feature for the new projects was built; the outcome section was added after the test.
+Accepted, 2026-10-14: I adopt the larger training set for odin-fast. The test and its decision rule were written before any feature for the new projects was built; the outcome section was added after the test.
 
 ## Context
 

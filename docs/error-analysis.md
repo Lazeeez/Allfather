@@ -101,7 +101,7 @@ Ordered by how many of the 46 misses each could reach. "Could reach" is an upper
 - **Familiar projects only.** Every validation issue comes from a project the models trained on. The mix of failures on unseen projects may differ, and nothing here measures it.
 - **250 issues, 46 misses.** The split between the three kinds of miss is uncertain by several issues either way.
 - **Upper bounds.** A lever that "could reach" a miss fixes it only if it works.
-- **Not yet labelled by hand.** The 46 misses are listed below for the owner to read and label by cause.
+- **Not yet labelled by hand.** The 46 misses are listed below for me to read and label by cause.
 
 ## The 46 misses
 

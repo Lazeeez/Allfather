@@ -6,7 +6,7 @@ Accepted, 2026-10-20. Written before allfather-fast was evaluated on the sealed 
 
 ## Context
 
-The owner narrowed the project's goal on 2026-10-20: it is to be presented in job interviews, not published. The research track (allfather-max beyond its first lever, escalation, downstream resolution, further benchmarks) stops. One question still deserves a measured answer: does allfather-fast hold up on bugs filed after every one of its models was published, in projects it never saw? That is what the sealed holdout ([ADR 0013](0013-sealed-holdout.md)) was built for.
+I narrowed the project's goal on 2026-10-20: I will present it in job interviews, not publish it. The research track (allfather-max beyond its first lever, escalation, downstream resolution, further benchmarks) stops. One question still deserves a measured answer: does allfather-fast hold up on bugs filed after every one of its models was published, in projects it never saw? That is what the sealed holdout ([ADR 0013](0013-sealed-holdout.md)) was built for.
 
 [ADR 0017](0017-holdout-freeze-and-contamination-set.md) allows the freeze once three conditions are met. This ADR records how each is met.
 
@@ -15,8 +15,8 @@ The owner narrowed the project's goal on 2026-10-20: it is to be presented in jo
 ### The freeze conditions
 
 - **Deterministic ties** ([ADR 0016](0016-deterministic-ties.md)): done.
-- **The SweRank reproduction, and any indexing change it motivates**: the reproduction is done ([docs/comparison.md](../comparison.md)). It located a gap of about nine points in how Allfather indexes and feeds a retriever. Closing it is an open research question, and is not pursued.
-- **The cheap levers, each decided on validation**: more training data for the LambdaMART rankers is adopted ([ADR 0019](0019-more-ranker-training-data.md)), with the reranker's depth, weights and skip margin re-chosen by the `ce-tune` rule against those rankers. More training data for the reranker and the Action-ranker features are not pursued. Nothing else is open.
+- **The SweRank reproduction, and any indexing change it motivates**: the reproduction is done ([docs/comparison.md](../comparison.md)). It located a gap of about nine points in how Allfather indexes and feeds a retriever. Closing it is an open research question, and I am not pursuing it.
+- **The cheap levers, each decided on validation**: I adopt more training data for the LambdaMART rankers ([ADR 0019](0019-more-ranker-training-data.md)), with the reranker's depth, weights and skip margin re-chosen by the `ce-tune` rule against those rankers. I am not pursuing more training data for the reranker or the Action-ranker features. Nothing else is open.
 
 ### The frozen configuration
 

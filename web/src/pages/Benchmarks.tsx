@@ -193,10 +193,10 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
         <h2>How the numbers are kept honest</h2>
         <ul class="plain-list">
           <li>Every issue is searched at its own base commit. Indexing today's code would leak the fix.</li>
-          <li>Nothing is trained on these 300 issues: fusion weights on a separate dev set, the learned rankers on 1,941 other SWE-bench issues (5,115 for allfather-fast), reranker weights on a held-out split. Re-running the ranker's cross-validation with whole projects as folds moved function hit@10 by under a point. The code embedding model (jina-code-embeddings) lists SWE-bench among its own training data, so Lite and development numbers may be optimistic by an amount not yet measured; the sealed holdout is outside it.</li>
+          <li>Nothing is trained on these 300 issues: fusion weights on a separate dev set, the learned rankers on 1,941 other SWE-bench issues (5,115 for allfather-fast), reranker weights on a held-out split. When I re-ran the ranker's cross-validation with whole projects as folds, function hit@10 moved by under a point. The code embedding model (jina-code-embeddings) lists SWE-bench among its own training data, so Lite and development numbers may be optimistic by an amount not yet measured; the sealed holdout is outside it.</li>
           <li>Git-history features only see commits before the bug; "similar past bugs" only see issues opened at least 30 days earlier. Both boundaries have tests.</li>
           <li>Every comparison on this page comes with a paired test on the same issues and a 95% bootstrap interval, with p adjusted for the number of tests in each table. Results that aren't significant are reported as such.</li>
-          <li>Lite is not untouched. It has been evaluated 92 times, each logged with what was decided from it, and one decision, rejecting a distilled reranker, was taken on a Lite result, in the conservative direction.</li>
+          <li>Lite is not untouched. I have evaluated on it 92 times, logging each run with what I decided from it, and I took one decision on a Lite result, rejecting a distilled reranker, in the conservative direction.</li>
         </ul>
       </section>
     </div>
