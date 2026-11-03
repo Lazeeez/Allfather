@@ -393,7 +393,7 @@ def codex(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
         *([] if agent else ["--disable", "shell_tool"]), "-",
     ]  # fmt: skip
     done = launch(command, prompt, cwd, ("OPENAI_API_KEY",))
-    events = [json.loads(line) for line in done.stdout.splitlines() if line.startswith("{")]
+    events = [json.loads(line) for line in done.stdout.split("\n") if line.startswith("{")]
     failures = [
         str(e.get("message") or e.get("error"))
         for e in events
