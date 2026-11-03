@@ -213,3 +213,11 @@ Found before any result was read. `frontier.py` exports each bug's checkout and,
 - **The answers stand**, unread and unchanged: rerunning only some bugs would replace first answers with second ones.
 - **Sensitivity check:** every comparison in the analysis is also reported without the bugs where any system's checkout left files out, so a reader can see whether the difference matters.
 - **Every remaining run uses Linux (WSL)**, where nothing is left out: the rest of gpt-6-astra and gpt-6-luna one-call on the full set, the repeatability check, Gemini one-call, and the rest of Claude one-call. The answers already reused from fresh-agents stay as they are.
+
+## Amendment, 2026-11-04: Gemini one-call on the paid tier
+
+Written before any Gemini answer exists. The free tier's 20 requests a day would have taken ten days, and overloaded calls counted against it, so I prepaid the Gemini API instead. Everything else stays: `gemini-single` is `gemini-3.8-flash`, called directly with the same `SINGLE` prompt and answer schema, default settings, on the 198-bug agent subsample, under Linux so every file list is complete. The paid tier changes only usage limits and data use (Google does not train on paid-tier prompts), not the model.
+
+- **Where it sits:** Flash is Google's fast, low-cost model, not its most capable one (Gemini 4 Argon, left out for cost). I report it in the same group as gpt-6-luna, as a smaller model, and say so wherever Gemini appears.
+- **Spending cap:** the first 10 bugs run alone and I project the cost of the rest from Google's own token counts (input $0.75 and output, thinking included, $3.75 per million tokens); the run continues only if the projection for the 198 stays under $25. Nothing is read while doing this beyond the token counts.
+- **The three requests sent before** on the free tier, which Google refused as overloaded, produced no answers, so every Gemini answer comes from this run.
