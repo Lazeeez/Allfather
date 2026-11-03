@@ -23,6 +23,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -39,12 +40,19 @@ from allfather.parsing.symbols import is_test_path  # noqa: E402
 from allfather.repos import RepoCache  # noqa: E402
 
 OUT = ROOT / "results" / "research" / "frontier"
-WORK = Path(os.environ.get("FRONTIER_WORK") or ROOT / ".cache" / "frontier")
+WORK = Path(
+    os.environ.get("FRONTIER_WORK")
+    or (
+        Path(tempfile.gettempdir()) / "af"
+        if sys.platform == "win32"
+        else ROOT / ".cache" / "frontier"
+    )
+)
 GOLD = ROOT / "data" / "gold" / "swebench_verified_test.jsonl"
 FRESH = ROOT / "data" / "fresh"
 LITE = ROOT / "data" / "gold" / "swebench_lite_test.jsonl"
 TIMEOUT_S = 1200
-MAX_PATH = 250 if sys.platform == "win32" else 4096
+MAX_PATH = 240 if sys.platform == "win32" else 4096
 ANSWER = {
     "type": "object",
     "properties": {
