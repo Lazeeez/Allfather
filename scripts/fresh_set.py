@@ -28,6 +28,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+from collections import Counter
 from datetime import date
 from pathlib import Path
 
@@ -345,6 +346,9 @@ def cmd_seal(args: argparse.Namespace) -> int:
                 f"  {lang}: {len(picked)} bugs from {len({p['repo'] for p in picked})} projects",
                 flush=True,
             )
+    biggest = max(Counter(r["repo"] for r in sample).values(), default=0)
+    if biggest > args.cap:
+        sys.exit(f"refusing to seal: a project has {biggest} bugs, over the cap of {args.cap}")
     agent_rng = random.Random(args.seed + 1)
     agents = []
     for lang in sorted(by_lang):
