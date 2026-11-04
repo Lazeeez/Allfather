@@ -108,6 +108,19 @@ def score_teacher(records: list[dict], teacher, log: Callable[[str], None] = pri
             log(f"teacher {n}/{len(records)} ({time.perf_counter() - t0:.0f}s)")
 
 
+def training_plan(usable: list[dict], epochs: int, group: int) -> list[tuple[dict, int, list[int]]]:
+    """Every step's record, positive and negatives, drawn with the same calls in the same order
+    as training always made them, so the plan can be resumed part-way without changing it."""
+    plan = []
+    for _ in range(epochs):
+        random.shuffle(usable)
+        for rec in usable:
+            pi = random.randrange(len(rec["pos"]))
+            ni = random.sample(range(len(rec["neg"])), min(group - 1, len(rec["neg"])))
+            plan.append((rec, pi, ni))
+    return plan
+
+
 def train_cross_encoder(
     records: list[dict],
     out_dir: Path,
@@ -120,8 +133,13 @@ def train_cross_encoder(
     temperature: float = 1.0,
     base: str | None = None,
     full: bool = False,
+    checkpoint: Path | None = None,
+    every: int = 200,
 ) -> None:
     """LoRA fine-tuning with a listwise loss: gold vs its hardest negatives, same issue.
+
+    With `checkpoint`, the trainable weights, optimizer, schedule and random state are saved every
+    `every` steps, and a later call with the same arguments resumes from the last save.
 
     With `distill` > 0 and records carrying `teacher` scores (see `score_teacher`), the loss
     also pulls the model's distribution over the group towards the teacher's (soft labels):
@@ -164,37 +182,68 @@ def train_cross_encoder(
         return 0.5 * (1 + math.cos(math.pi * (step - warmup) / max(1, total - warmup)))
 
     sched = torch.optim.lr_scheduler.LambdaLR(opt, schedule)
+    plan = training_plan(usable, epochs, group)
     step, running, t0 = 0, 0.0, time.perf_counter()
-    for _ in range(epochs):
-        random.shuffle(usable)
-        for rec in usable:
-            pi = random.randrange(len(rec["pos"]))
-            ni = random.sample(range(len(rec["neg"])), min(group - 1, len(rec["neg"])))
-            docs = [rec["pos"][pi]] + [rec["neg"][i] for i in ni]
-            prefix = ce.prefix_ids(rec["query"])
-            with torch.autocast("cuda", dtype=torch.bfloat16):
-                s = ce.forward_last([prefix + ce.doc_ids(d) for d in docs]).float()
-            loss = torch.nn.functional.cross_entropy(
-                s[None], torch.zeros(1, dtype=torch.long, device=s.device)
+    state = checkpoint / "state.pt" if checkpoint else None
+    if state and state.exists():
+        saved = torch.load(state, map_location="cpu", weights_only=False)
+        named = dict(model.named_parameters())
+        for name, value in saved["trainable"].items():
+            named[name].data.copy_(value.to(named[name].device))
+        opt.load_state_dict(saved["opt"])
+        sched.load_state_dict(saved["sched"])
+        torch.set_rng_state(saved["torch_rng"])
+        if torch.cuda.is_available() and saved.get("cuda_rng") is not None:
+            torch.cuda.set_rng_state_all(saved["cuda_rng"])
+        step, running = saved["step"], saved["running"]
+        log(f"resumed at step {step}/{total} from {state}")
+    start = step
+    for rec, pi, ni in plan[start:]:
+        docs = [rec["pos"][pi]] + [rec["neg"][i] for i in ni]
+        prefix = ce.prefix_ids(rec["query"])
+        with torch.autocast("cuda", dtype=torch.bfloat16):
+            s = ce.forward_last([prefix + ce.doc_ids(d) for d in docs]).float()
+        loss = torch.nn.functional.cross_entropy(
+            s[None], torch.zeros(1, dtype=torch.long, device=s.device)
+        )
+        if distill > 0 and "teacher" in rec:
+            t = rec["teacher"]
+            tz = torch.tensor([t[pi]] + [t[len(rec["pos"]) + i] for i in ni], device=s.device)
+            soft = torch.nn.functional.softmax(tz / temperature, dim=0)
+            kl = torch.nn.functional.kl_div(
+                torch.nn.functional.log_softmax(s / temperature, dim=0), soft, reduction="sum"
             )
-            if distill > 0 and "teacher" in rec:
-                t = rec["teacher"]
-                tz = torch.tensor([t[pi]] + [t[len(rec["pos"]) + i] for i in ni], device=s.device)
-                soft = torch.nn.functional.softmax(tz / temperature, dim=0)
-                kl = torch.nn.functional.kl_div(
-                    torch.nn.functional.log_softmax(s / temperature, dim=0), soft, reduction="sum"
-                )
-                loss = (1 - distill) * loss + distill * temperature**2 * kl
-            loss.backward()
-            torch.nn.utils.clip_grad_norm_(params, 1.0)
-            opt.step()
-            sched.step()
-            opt.zero_grad(set_to_none=True)
-            running = 0.98 * running + 0.02 * loss.item() if step else loss.item()
-            step += 1
-            if step % 50 == 0 or step == total:
-                rate = step / (time.perf_counter() - t0)
-                log(f"step {step}/{total} loss {running:.3f} ({rate:.2f} steps/s)")
+            loss = (1 - distill) * loss + distill * temperature**2 * kl
+        loss.backward()
+        torch.nn.utils.clip_grad_norm_(params, 1.0)
+        opt.step()
+        sched.step()
+        opt.zero_grad(set_to_none=True)
+        running = 0.98 * running + 0.02 * loss.item() if step else loss.item()
+        step += 1
+        if step % 50 == 0 or step == total:
+            rate = (step - start) / (time.perf_counter() - t0)
+            log(f"step {step}/{total} loss {running:.3f} ({rate:.2f} steps/s)")
+        if state and step % every == 0 and step < total:
+            state.parent.mkdir(parents=True, exist_ok=True)
+            partial = state.with_suffix(".partial")
+            torch.save(
+                {
+                    "step": step,
+                    "running": running,
+                    "trainable": {
+                        n: p.detach().cpu() for n, p in model.named_parameters() if p.requires_grad
+                    },
+                    "opt": opt.state_dict(),
+                    "sched": sched.state_dict(),
+                    "torch_rng": torch.get_rng_state(),
+                    "cuda_rng": torch.cuda.get_rng_state_all()
+                    if torch.cuda.is_available()
+                    else None,
+                },
+                partial,
+            )
+            partial.replace(state)
     out_dir.mkdir(parents=True, exist_ok=True)
     # fp32 was for stable updates; inference merges into a bf16 model, so ship fp16 (half size).
     if full:

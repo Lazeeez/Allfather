@@ -21,6 +21,7 @@ import argparse
 import json
 import math
 import random
+import shutil
 import sys
 from collections import Counter
 from pathlib import Path
@@ -152,7 +153,14 @@ def cmd_train(args: argparse.Namespace) -> int:
         flush=True,
     )
     out = MODELS / args.candidate / f"fold{args.fold}"
-    train_cross_encoder(records, out, epochs=epochs, group=cand["group"], base=cand["base"], seed=0)
+    if (out / "training.json").exists():
+        print(f"{out} is already trained", flush=True)
+        return 0
+    train_cross_encoder(
+        records, out, epochs=epochs, group=cand["group"], base=cand["base"], seed=0,
+        checkpoint=out / "checkpoint",
+    )  # fmt: skip
+    shutil.rmtree(out / "checkpoint", ignore_errors=True)
     return 0
 
 
