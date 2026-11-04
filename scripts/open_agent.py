@@ -134,19 +134,34 @@ def read_file(root: Path, path: str, start: int | None, end: int | None) -> str:
     return "\n".join(f"{i}: {lines[i - 1]}" for i in range(first, last + 1))
 
 
+def line_number(value: object) -> int | None:
+    try:
+        return int(float(value)) if value is not None and str(value).strip() else None
+    except (TypeError, ValueError):
+        return None
+
+
 def call_tool(root: Path, name: str, raw: str) -> str:
     try:
         args = json.loads(raw or "{}")
     except json.JSONDecodeError:
         return "arguments were not valid JSON"
-    if name == "list_files":
-        return list_files(root, str(args.get("pattern", "")))
-    if name == "grep":
-        return grep(root, str(args.get("pattern", "")), args.get("glob"))
-    if name == "read_file":
-        return read_file(
-            root, str(args.get("path", "")), args.get("start_line"), args.get("end_line")
-        )
+    if not isinstance(args, dict):
+        return "arguments must be a JSON object"
+    try:
+        if name == "list_files":
+            return list_files(root, str(args.get("pattern", "")))
+        if name == "grep":
+            return grep(root, str(args.get("pattern", "")), args.get("glob"))
+        if name == "read_file":
+            return read_file(
+                root,
+                str(args.get("path", "")),
+                line_number(args.get("start_line")),
+                line_number(args.get("end_line")),
+            )
+    except Exception as exc:  # noqa: BLE001
+        return f"the tool failed: {type(exc).__name__}: {exc}"
     return f"unknown tool {name}"
 
 

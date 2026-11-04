@@ -96,3 +96,21 @@ def test_running_out_of_turns_is_no_answer_not_an_error(tmp_path, monkeypatch):
     assert (
         out["error"] is None and out["no_answer"] == f"no answer after {open_agent.MAX_TURNS} turns"
     )
+
+
+def test_tools_accept_numbers_in_any_form_and_never_crash(tmp_path):
+    write(tmp_path)
+    text = open_agent.call_tool(
+        tmp_path, "read_file", '{"path": "pkg/config.py", "start_line": 1.0, "end_line": "2"}'
+    )
+    assert text.startswith("1: def load_config")
+    assert "2:" in text
+    assert open_agent.call_tool(
+        tmp_path, "read_file", '{"path": "pkg/config.py", "start_line": "first"}'
+    ).startswith("1:")
+    assert open_agent.call_tool(tmp_path, "grep", '{"pattern": "load", "glob": 5}').startswith(
+        ("the tool failed", "pkg", "no matches")
+    )
+    assert (
+        open_agent.call_tool(tmp_path, "read_file", "[1, 2]") == "arguments must be a JSON object"
+    )
