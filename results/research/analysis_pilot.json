@@ -64,6 +64,37 @@
    "cost_usd": 0.12531,
    "seconds": 6.6
   },
+  "website-gpu": {
+   "issues": 10,
+   "projects": 5,
+   "hit@1": 0.5,
+   "hit@1_ci95": [
+    0.1429,
+    0.8339
+   ],
+   "hit@5": 0.7,
+   "hit@5_ci95": [
+    0.5385,
+    1.0
+   ],
+   "hit@10": 0.7,
+   "hit@10_ci95": [
+    0.5385,
+    1.0
+   ],
+   "all@10": 0.7,
+   "all@10_ci95": [
+    0.5385,
+    1.0
+   ],
+   "mrr": 0.5833,
+   "mrr_ci95": [
+    0.3571,
+    0.917
+   ],
+   "cost_usd": 0.0,
+   "seconds": 19.6
+  },
   "website": {
    "issues": 10,
    "projects": 5,
@@ -155,7 +186,7 @@
    "p": 0.0648,
    "wins": 5,
    "losses": 1,
-   "p_holm": 0.648
+   "p_holm": 0.972
   },
   "claude-single:hit@1": {
    "issues": 10,
@@ -215,7 +246,67 @@
    "p": 0.0648,
    "wins": 5,
    "losses": 1,
-   "p_holm": 0.648
+   "p_holm": 0.972
+  },
+  "website-gpu:hit@1": {
+   "issues": 10,
+   "delta": 0.1,
+   "ci95": [
+    -0.2,
+    0.4
+   ],
+   "p": 1.0,
+   "wins": 2,
+   "losses": 1,
+   "p_holm": 1.0
+  },
+  "website-gpu:hit@5": {
+   "issues": 10,
+   "delta": 0.1,
+   "ci95": [
+    0.0,
+    0.3
+   ],
+   "p": 1.0,
+   "wins": 1,
+   "losses": 0,
+   "p_holm": 1.0
+  },
+  "website-gpu:hit@10": {
+   "issues": 10,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "p": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "p_holm": 1.0
+  },
+  "website-gpu:all@10": {
+   "issues": 10,
+   "delta": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "p": 1.0,
+   "wins": 0,
+   "losses": 0,
+   "p_holm": 1.0
+  },
+  "website-gpu:mrr": {
+   "issues": 10,
+   "delta": 0.1024,
+   "ci95": [
+    -0.0977,
+    0.3048
+   ],
+   "p": 0.372,
+   "wins": 3,
+   "losses": 1,
+   "p_holm": 1.0
   }
  },
  "strata": {
@@ -245,6 +336,20 @@
    "none": {
     "issues": 5,
     "hit@10": 0.8
+   }
+  },
+  "website-gpu": {
+   "function": {
+    "issues": 4,
+    "hit@10": 1.0
+   },
+   "trace": {
+    "issues": 1,
+    "hit@10": 0.0
+   },
+   "none": {
+    "issues": 5,
+    "hit@10": 0.6
    }
   },
   "website": {
@@ -444,10 +549,101 @@
      "cost": 0.12531
     }
    ]
+  },
+  "website-gpu": {
+   "reference_hit@10": 0.7,
+   "other_hit@10": 0.7,
+   "other_cost": 0.0,
+   "curve": [
+    {
+     "threshold": 0.0,
+     "escalated": 0.0,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4175,
+     "escalated": 0.0,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6508,
+     "escalated": 0.1,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.752,
+     "escalated": 0.2,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7815,
+     "escalated": 0.3,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8106,
+     "escalated": 0.4,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8143,
+     "escalated": 0.5,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8699,
+     "escalated": 0.6,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8979,
+     "escalated": 0.7,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9054,
+     "escalated": 0.8,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9386,
+     "escalated": 0.9,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    },
+    {
+     "threshold": 1.01,
+     "escalated": 1.0,
+     "hit@10": 0.7,
+     "random_hit@10": 0.7,
+     "cost": 0.0
+    }
+   ]
   }
  },
  "pareto": [
-  "website",
+  "website-gpu",
   "claude-agent"
  ]
 }
