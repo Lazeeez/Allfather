@@ -8,7 +8,7 @@ import { type Listing, type LoadedRepo, LoadError, type Parsing, type RepoCache,
 import { type Candidate, explain, type FileCandidate, type RankerModel, rankFiles, rankUnits, rerankStage, type Similarity, type Stage, signals } from "../engine/rank.ts";
 import { issueFields } from "../engine/mentions.ts";
 import { type Embed, SEMANTIC, unitText } from "../engine/semantic.ts";
-import { blend, forServer, mostlyPython, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
+import { blend, forServer, servedLanguage, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
 import { confidence, confidenceFeatures, type ConfidenceModel } from "../engine/confidence.ts";
 import { embedText, parseStaticModel, type StaticModel } from "../engine/static.ts";
 import type { Unit } from "../engine/types.ts";
@@ -291,7 +291,7 @@ async function load(input: string, includeTests: boolean, gpu: boolean): Promise
     const { index: _index, units, ...info } = repo;
     post({ type: "loaded", info: { ...info, units: units.length } });
     if (warmPending) warmServer();
-    const python = mostlyPython(units.map((u) => u.path));
+    const python = servedLanguage(units.map((u) => u.path));
     void buildSemantic(repo.index);
     void ranker().then((m) => {
       post({ type: "stages", rerank: !!m.rerank, file: !!m.file });
@@ -453,7 +453,7 @@ let indexed = false;
 function warmServer(): void {
   if (!rerankServer || Date.now() - lastWarm < 60_000) return;
   warmPending = !indexed || !state.index;
-  if (warmPending || !mostlyPython(state.index!.units.map((u) => u.path))) return;
+  if (warmPending || !servedLanguage(state.index!.units.map((u) => u.path))) return;
   lastWarm = Date.now();
   void fetch(`${rerankServer}/warm`, { method: "POST" }).then((r) => {
     if (r.status === 501 || r.status === 404) rerankServer = null;

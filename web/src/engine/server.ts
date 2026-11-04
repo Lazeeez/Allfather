@@ -1,13 +1,22 @@
 export const SERVER = { depth: 50, weight: 1, maxChars: 8000, timeoutMs: 90_000, settleMs: 500, skipLanguageModel: true } as const;
 
-import { languageOf } from "./languages-rules.ts";
+import { type Lang, languageOf } from "./languages-rules.ts";
+
+export const SERVER_LANGUAGES: ReadonlySet<string> = new Set(["python"]);
+
+const family = (lang: Lang | null): string | null => (lang === "tsx" ? "typescript" : lang);
 
 export function forServer(paths: string[]): boolean {
-  return mostlyPython(paths.slice(0, SERVER.depth));
+  return servedLanguage(paths.slice(0, SERVER.depth));
 }
 
-export function mostlyPython(paths: readonly string[]): boolean {
-  return paths.length > 0 && paths.filter((p) => languageOf(p) === "python").length * 2 > paths.length;
+export function servedLanguage(paths: readonly string[]): boolean {
+  const counts = new Map<string, number>();
+  for (const p of paths) {
+    const lang = family(languageOf(p));
+    if (lang) counts.set(lang, (counts.get(lang) ?? 0) + 1);
+  }
+  return [...counts].some(([lang, n]) => SERVER_LANGUAGES.has(lang) && n * 2 > paths.length);
 }
 
 export class ServerUnavailable extends Error {

@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { blend, forServer, mostlyPython, ServerUnavailable, serverScores } from "../src/engine/server.ts";
+import { blend, forServer, SERVER_LANGUAGES, servedLanguage, ServerUnavailable, serverScores } from "../src/engine/server.ts";
 import cases from "./server-blend.json";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -60,8 +60,14 @@ describe("which searches go to the GPU reranker", () => {
 
 describe("repositories the GPU is woken for", () => {
   it("counts every indexed function, not only the top of a list", () => {
-    expect(mostlyPython(["a.py", "b.py", "c.go"])).toBe(true);
-    expect(mostlyPython(["a.go", "b.go", "c.py"])).toBe(false);
-    expect(mostlyPython([])).toBe(false);
+    expect(servedLanguage(["a.py", "b.py", "c.go"])).toBe(true);
+    expect(servedLanguage(["a.go", "b.go", "c.py"])).toBe(false);
+    expect(servedLanguage([])).toBe(false);
+  });
+
+  it("serves only the languages listed, counting .tsx as TypeScript", () => {
+    expect([...SERVER_LANGUAGES]).toEqual(["python"]);
+    expect(servedLanguage(["a.ts", "b.tsx", "c.py"])).toBe(false);
+    expect(servedLanguage(["a.py", "b.tsx", "c.tsx", "d.py", "e.py"])).toBe(true);
   });
 });
