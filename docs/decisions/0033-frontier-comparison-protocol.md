@@ -227,3 +227,10 @@ Written before any Gemini answer exists. The free tier's 20 requests a day would
 Written before either open model has answered anything. `gpt-oss-120b` runs at Hugging Face revision `b5c939de8f754692c1647ca79fbf85e8c1e70f8a`, on two A100s with vLLM's tensor parallelism. For Qwen3-Coder-Next I use Qwen's own FP8 release, `Qwen/Qwen3-Coder-Next-FP8`, pinned at submission to the revision Hugging Face reports that day: the full-precision weights are about 160 GB, more than one job may hold under my PACE allocation, while the FP8 weights, about 80 GB, fit four L40S cards, which run FP8 in hardware. FP8 is how this model is commonly served, and I report it as the FP8 version, not as the full-precision model. Each job runs at most four hours on four GPUs, within the per-job GPU-time limit, and is resubmitted until the run finishes; the run resumes where it stopped.
 
 Qwen3-Coder-Next-FP8 was submitted on 2026-11-04 at Hugging Face revision `da6e2ed27304dd39abadd9c82ef50e8de67bdd4c`.
+
+## Amendment, 2026-11-04: what the rest of the ChatGPT Plus month is used for
+
+Written before either run below has started, and with no Codex result read. Every OpenAI run above is complete; the plan's remaining usage goes to two additions, in this order, each stopping at the plan's limit and reported on the prefix of the fixed order it completed:
+
+1. **Agent repeatability.** `codex-agent` with `gpt-6-astra` answers a second time on `fresh-repeat50`, the same 50 bugs as the one-call repeat, as the separate system `codex-agent-astra-repeat`. Agents take many steps and are likely the least stable systems, so I report the same measures as for the one-call repeat. It replaces nothing.
+2. **OpenAI's newest coding model.** `gpt-6.1-sol` ("Latest workhorse model for coding"), with every setting of the other Codex systems (reasoning effort `medium`, read-only sandbox, web search off, under Linux), as `codex-single-sol` and then `codex-agent-sol` on the 198-bug agent subsample. It is reported beside gpt-6-astra, which stays OpenAI's frontier system as recorded above, to show whether a newer model changes the comparison; it is not chosen between them after the fact.
