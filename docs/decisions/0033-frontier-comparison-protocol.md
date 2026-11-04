@@ -234,3 +234,7 @@ Written before either run below has started, and with no Codex result read. Ever
 
 1. **Agent repeatability.** `codex-agent` with `gpt-6-astra` answers a second time on `fresh-repeat50`, the same 50 bugs as the one-call repeat, as the separate system `codex-agent-astra-repeat`. Agents take many steps and are likely the least stable systems, so I report the same measures as for the one-call repeat. It replaces nothing.
 2. **OpenAI's newest coding model.** `gpt-6.1-sol` ("Latest workhorse model for coding"), with every setting of the other Codex systems (reasoning effort `medium`, read-only sandbox, web search off, under Linux), as `codex-single-sol` and then `codex-agent-sol` on the 198-bug agent subsample. It is reported beside gpt-6-astra, which stays OpenAI's frontier system as recorded above, to show whether a newer model changes the comparison; it is not chosen between them after the fact.
+
+## Amendment, 2026-11-04: Gemini calls that never return
+
+Written before any Gemini answer has been read. On some bugs gemini-3.8-flash does not answer within the 20-minute limit of a call, three times in a row (`rust-lang/rust#161131` so far); the prompt is not the reason, since it answered prompts four times longer within minutes. I do not change the model's settings for these bugs. Instead, bugs that timed out are retried after every other bug, and a bug that times out on all three attempts in two separate passes is recorded as no answer, a miss, with the reason kept, as the agent runs already treat a call that times out.

@@ -540,8 +540,19 @@ def cmd_run(args: argparse.Namespace) -> int:
     done |= reuse_subsample(args.set, name, target, done)
     if not started:
         log_test_run(args.set, name, model, target)
+    failed = target.with_suffix(".errors.jsonl")
+    timed_out_before = {
+        r["id"]
+        for r in (map(json.loads, failed.open(encoding="utf-8")) if failed.exists() else [])
+        if str(r.get("error", "")).startswith("network: TimeoutError")
+    }
+    queue = issues[: args.limit or None]
+    if args.errors_last:
+        queue = [q for q in queue if q not in timed_out_before] + [
+            q for q in queue if q in timed_out_before
+        ]
     with target.open("a", encoding="utf-8", newline="\n") as handle:
-        for q in issues[: args.limit or None]:
+        for q in queue:
             if q in done:
                 continue
             item = items[q]
@@ -565,6 +576,10 @@ def cmd_run(args: argparse.Namespace) -> int:
                 "seconds": round(time.perf_counter() - start, 1), **record,
                 "web_tool_used": any(WEB_TOOLS.search(t) for t in record.get("tools") or []),
             }  # fmt: skip
+            if str(record.get("error") or "").startswith("network: TimeoutError") and (
+                q in timed_out_before
+            ):
+                record["error"] = f"timed out in two passes: {record['error']}"
             if record.get("error") and not str(record["error"]).startswith("timed out"):
                 with target.with_suffix(".errors.jsonl").open(
                     "a", encoding="utf-8", newline="\n"
@@ -650,6 +665,7 @@ def main() -> int:
     rn.add_argument("--limit", type=int, default=0)
     rn.add_argument("--keep", action="store_true")
     rn.add_argument("--allow-billing", action="store_true")
+    rn.add_argument("--errors-last", action="store_true")
     pp = sub.add_parser("prepare")
     pp.add_argument("--set", required=True)
     sc = sub.add_parser("score")
