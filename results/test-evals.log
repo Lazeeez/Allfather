@@ -131,3 +131,4 @@ undated | lite | hybrid-notests | function | results/hybrid-notests_function_lit
 2026-11-03 | fresh | codex-single (gpt-6-luna) | function | results/research/frontier/fresh_codex-single.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-03 | fresh-repeat50 | codex-single-astra-repeat (gpt-6-astra) | function | results/research/frontier/fresh-repeat50_codex-single-astra-repeat.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-04 | fresh-repeat50 | codex-agent-astra-repeat (gpt-6-astra) | function | results/research/frontier/fresh-repeat50_codex-agent-astra-repeat.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
+2026-11-04 | fresh | swerank-embed-small (Salesforce/SweRankEmbed-Small@745d2a06103a66d3cfa600aa52fc0d3523010daa) | function | results/research/frontier/fresh_swerank-embed-small.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
