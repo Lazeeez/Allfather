@@ -1,0 +1,269 @@
+{
+ "issues": 2728,
+ "projects": 61,
+ "halves": [
+  {
+   "chosen_on_projects": 30,
+   "applied_to_issues": 1438,
+   "setting": [
+    50,
+    1.0
+   ],
+   "grid_hit@10_on_choosing_half": {
+    "20/0.25": 0.5992,
+    "20/0.5": 0.6054,
+    "20/1.0": 0.614,
+    "20/2.0": 0.6155,
+    "20/4.0": 0.6124,
+    "20/inf": 0.6,
+    "50/0.25": 0.6031,
+    "50/0.5": 0.6186,
+    "50/1.0": 0.6217,
+    "50/2.0": 0.6124,
+    "50/4.0": 0.5837,
+    "50/inf": 0.5535
+   },
+   "website": {
+    "n": 1438,
+    "mrr": 0.4477,
+    "recall@1": 0.1475,
+    "hit@1": 0.338,
+    "all@1": 0.0869,
+    "recall@5": 0.351,
+    "hit@5": 0.5946,
+    "all@5": 0.2281,
+    "recall@10": 0.466,
+    "hit@10": 0.7003,
+    "all@10": 0.3206
+   },
+   "with_reranker": {
+    "n": 1438,
+    "mrr": 0.5163,
+    "recall@1": 0.1832,
+    "hit@1": 0.3992,
+    "all@1": 0.1161,
+    "recall@5": 0.4251,
+    "hit@5": 0.6766,
+    "all@5": 0.2837,
+    "recall@10": 0.5223,
+    "hit@10": 0.7545,
+    "all@10": 0.3713
+   }
+  },
+  {
+   "chosen_on_projects": 31,
+   "applied_to_issues": 1290,
+   "setting": [
+    50,
+    1.0
+   ],
+   "grid_hit@10_on_choosing_half": {
+    "20/0.25": 0.7163,
+    "20/0.5": 0.726,
+    "20/1.0": 0.7364,
+    "20/2.0": 0.7455,
+    "20/4.0": 0.7399,
+    "20/inf": 0.7288,
+    "50/0.25": 0.7232,
+    "50/0.5": 0.742,
+    "50/1.0": 0.7545,
+    "50/2.0": 0.7503,
+    "50/4.0": 0.7302,
+    "50/inf": 0.6975
+   },
+   "website": {
+    "n": 1290,
+    "mrr": 0.3701,
+    "recall@1": 0.136,
+    "hit@1": 0.2767,
+    "all@1": 0.0899,
+    "recall@5": 0.3021,
+    "hit@5": 0.5016,
+    "all@5": 0.2132,
+    "recall@10": 0.379,
+    "hit@10": 0.5853,
+    "all@10": 0.2721
+   },
+   "with_reranker": {
+    "n": 1290,
+    "mrr": 0.4214,
+    "recall@1": 0.164,
+    "hit@1": 0.3302,
+    "all@1": 0.1093,
+    "recall@5": 0.343,
+    "hit@5": 0.5504,
+    "all@5": 0.2442,
+    "recall@10": 0.4097,
+    "hit@10": 0.6217,
+    "all@10": 0.293
+   }
+  }
+ ],
+ "pooled": {
+  "website": {
+   "n": 2728,
+   "mrr": 0.411,
+   "recall@1": 0.142,
+   "hit@1": 0.309,
+   "all@1": 0.0883,
+   "recall@5": 0.3278,
+   "hit@5": 0.5506,
+   "all@5": 0.221,
+   "recall@10": 0.4248,
+   "hit@10": 0.6459,
+   "all@10": 0.2977
+  },
+  "with_reranker": {
+   "n": 2728,
+   "mrr": 0.4714,
+   "recall@1": 0.1741,
+   "hit@1": 0.3666,
+   "all@1": 0.1129,
+   "recall@5": 0.3863,
+   "hit@5": 0.6169,
+   "all@5": 0.265,
+   "recall@10": 0.469,
+   "hit@10": 0.6917,
+   "all@10": 0.3343
+  },
+  "paired": {
+   "hit@10": {
+    "delta": 0.0458,
+    "ci95": [
+     0.0352,
+     0.0565
+    ],
+    "p_value": 0.0,
+    "wins": 173,
+    "losses": 48
+   },
+   "hit@1": {
+    "delta": 0.0576,
+    "ci95": [
+     0.0411,
+     0.0744
+    ],
+    "p_value": 0.0,
+    "wins": 353,
+    "losses": 196
+   },
+   "hit@5": {
+    "delta": 0.0663,
+    "ci95": [
+     0.0535,
+     0.0795
+    ],
+    "p_value": 0.0,
+    "wins": 256,
+    "losses": 75
+   },
+   "mrr": {
+    "delta": 0.0604,
+    "ci95": [
+     0.0488,
+     0.072
+    ],
+    "p_value": 0.0001,
+    "wins": 728,
+    "losses": 426
+   },
+   "recall@10": {
+    "delta": 0.0442,
+    "ci95": [
+     0.0359,
+     0.0525
+    ],
+    "p_value": 0.0001,
+    "wins": 456,
+    "losses": 182
+   },
+   "all@10": {
+    "delta": 0.0367,
+    "ci95": [
+     0.0268,
+     0.0466
+    ],
+    "p_value": 0.0,
+    "wins": 144,
+    "losses": 44
+   }
+  }
+ },
+ "by_language": {
+  "go": {
+   "issues": 816,
+   "website_hit@10": 0.6887,
+   "with_reranker_hit@10": 0.7206,
+   "gain": 0.0319,
+   "wins": 42,
+   "losses": 16,
+   "p_exact": 0.000862,
+   "p_holm": 0.0026,
+   "passes_adr_0034": true
+  },
+  "java": {
+   "issues": 768,
+   "website_hit@10": 0.6289,
+   "with_reranker_hit@10": 0.6862,
+   "gain": 0.0573,
+   "wins": 56,
+   "losses": 12,
+   "p_exact": 0.0,
+   "p_holm": 0.0,
+   "passes_adr_0034": true
+  },
+  "javascript": {
+   "issues": 438,
+   "website_hit@10": 0.6826,
+   "with_reranker_hit@10": 0.7283,
+   "gain": 0.0457,
+   "wins": 30,
+   "losses": 10,
+   "p_exact": 0.002221,
+   "p_holm": 0.0026,
+   "passes_adr_0034": true
+  },
+  "rust": {
+   "issues": 120,
+   "website_hit@10": 0.7333,
+   "with_reranker_hit@10": 0.8417,
+   "gain": 0.1083,
+   "wins": 13,
+   "losses": 0,
+   "p_exact": 0.000244,
+   "p_holm": 0.001,
+   "passes_adr_0034": true
+  },
+  "typescript": {
+   "issues": 586,
+   "website_hit@10": 0.5631,
+   "with_reranker_hit@10": 0.6007,
+   "gain": 0.0375,
+   "wins": 32,
+   "losses": 10,
+   "p_exact": 0.000941,
+   "p_holm": 0.0026,
+   "passes_adr_0034": true
+  }
+ },
+ "decision": {
+  "rule": "build the server if pooled function hit@10 improves by >= 0.020 with p < 0.05",
+  "met": true
+ },
+ "provenance": {
+  "timestamp": "2026-11-04T04:24:21+00:00",
+  "git_commit": "bc732631641f1ab9c403fe181ea82be5b09ef32c",
+  "git_dirty": false,
+  "python": "3.11.16",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "packages": {
+   "numpy": "2.4.6",
+   "scipy": "1.17.1",
+   "tree-sitter": "0.26.0",
+   "lightgbm": "4.7.0",
+   "torch": "2.14.0+cu130",
+   "sentence-transformers": "6.1.0"
+  },
+  "models": {}
+ }
+}
