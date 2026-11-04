@@ -163,15 +163,13 @@ def strata_agreement() -> dict:
     }
 
 
-def repeatability(items: dict[str, dict]) -> dict | None:
-    again = OUT / "fresh-repeat50_codex-single-astra-repeat.jsonl"
+def repeatability(items: dict[str, dict], system: str = "codex-single-astra") -> dict | None:
+    again = OUT / f"fresh-repeat50_{system}-repeat.jsonl"
     if not again.exists():
         return None
     first = {
         r["id"]: r
-        for r in map(
-            json.loads, (OUT / "fresh-agents_codex-single-astra.jsonl").open(encoding="utf-8")
-        )
+        for r in map(json.loads, (OUT / f"fresh-agents_{system}.jsonl").open(encoding="utf-8"))
     }
     second = {r["id"]: r for r in map(json.loads, again.open(encoding="utf-8"))}
     ids = sorted(set(first) & set(second))
@@ -290,7 +288,9 @@ def main() -> int:
             }  # fmt: skip
     if args.set.startswith("fresh"):
         report["strata_hand_check"] = strata_agreement()
-        report["repeatability"] = repeatability(items)
+        report["repeatability"] = {
+            s: repeatability(items, s) for s in ("codex-single-astra", "codex-agent-astra")
+        }
     strata = {q: stratum(items[q]["text"], items[q]["gold"]) for q in items if items[q]["gold"]}
     for system, res in runs.items():
         report["strata"][system] = {

@@ -82,6 +82,7 @@ def test_repeatability_compares_the_two_answers(tmp_path, monkeypatch):
     out = fa.repeatability(items)
     assert out["issues"] == 2 and out["hit@10_outcome_changed"] == 1
     assert out["same_first_answer"] == 0.5 and out["top10_jaccard_mean"] == 0.5
+    assert fa.repeatability(items, "codex-agent-astra") is None
 
 
 def test_long_path_list_and_languages_cover_the_sealed_set():
