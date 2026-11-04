@@ -242,3 +242,11 @@ Written before any Gemini answer has been read. On some bugs gemini-3.8-flash do
 ## Amendment, 2026-11-04: the open models' context length, and agents that run out of room
 
 Written before any open-model answer has been read. Each open model is served at its own maximum context length: 262,144 tokens for Qwen3-Coder-Next-FP8 and 131,072 for gpt-oss-120b, instead of the 65,536 my job script used by default, after the first Qwen run stopped when one agent's conversation outgrew 65,536. If a conversation still outgrows the model's context, or the agent uses all 40 turns without answering, the bug is recorded as no answer, a miss, with the reason kept, and is not retried; this is the same treatment as Codex's prompts that are too long. Bugs that failed for other reasons are retried as before.
+
+## Amendment, 2026-11-05: the open-model agent gets an answer channel, and its first Qwen run is set aside
+
+Found before any open-model answer was read, from the run's own records: 132 of Qwen3-Coder-Next-FP8's 198 agent bugs ended with no answer after all 40 turns, and the tools it called show why. It tried to hand in its answer by calling tools that do not exist (`JSON` 64 times, `JSON_output`, `JSON_OUTPUT`), which my harness refused, so it never finished. Claude Code and Codex both receive the answer schema as a structured output (`--json-schema`, `--output-schema`); my open-model harness gave the model no such channel, which is a defect of the harness, not a property of the model.
+
+- **The harness now matches the others:** an `answer` tool carries the same schema; a call to any other unknown tool whose arguments hold a valid `functions` list is taken as the answer; and after the 40th turn one last request, without tools, asks for the final answer, as Claude Code's schema enforcement does when a session ends.
+- **Qwen's agent run is redone on all 198 bugs** with the corrected harness, so every answer comes from one harness. The first run is kept, unread, in `results/research/frontier/superseded/` and is never scored. Its one-call run is unaffected (one-call has no tools) and stands; its 5 misses are prompts longer than the model's 262,144-token context, as recorded above.
+- gpt-oss-120b has not run yet and uses the corrected harness from the start.

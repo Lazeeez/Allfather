@@ -76,7 +76,31 @@ TOOLS = [
             },
         },
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "answer",
+            "description": "Give the final answer: the functions or methods that must change, at most 10, the most likely first. Call this once, when you are done.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "functions": {
+                        "type": "array",
+                        "maxItems": 10,
+                        "items": {
+                            "type": "object",
+                            "properties": {"file": {"type": "string"}, "name": {"type": "string"}},
+                            "required": ["file", "name"],
+                        },
+                    }
+                },
+                "required": ["functions"],
+            },
+        },
+    },
 ]
+READ_TOOLS = {"list_files", "grep", "read_file"}
+FINAL = "You have used every turn. Give your final answer now, as JSON only, in the shape the first message asked for."
 
 
 def inside(root: Path, rel: str) -> Path | None:
@@ -224,26 +248,66 @@ def run(prompt: str, cwd: Path, model: str, agent: bool, parse_answer) -> dict:
                 "tools": sorted(set(tools_used)),
                 "error": None,
             }
+        for c in calls:
+            tools_used.append(c["function"]["name"])
+        given = next((a for c in calls if (a := handed_in(c)) is not None), None)
+        if given is not None:
+            return {
+                "answer": given,
+                "model": reply.get("model", model),
+                "cost_usd": None,
+                "usage": tokens | {"gpu_seconds": round(time.perf_counter() - start, 1)},
+                "turns": turn,
+                "tools": sorted(set(tools_used)),
+                "error": None,
+            }
         messages.append(
             {"role": "assistant", "content": message.get("content") or "", "tool_calls": calls}
         )
         for c in calls:
-            name = c["function"]["name"]
-            tools_used.append(name)
             messages.append(
                 {
                     "role": "tool",
                     "tool_call_id": c["id"],
-                    "content": call_tool(cwd, name, c["function"].get("arguments", ""))[:20000],
+                    "content": call_tool(
+                        cwd, c["function"]["name"], c["function"].get("arguments", "")
+                    )[:20000],
                 }
             )
+    messages.append({"role": "user", "content": FINAL})
+    try:
+        reply = chat(model, messages, None)
+        last = parse_answer(reply["choices"][0]["message"].get("content") or "")
+        for k in tokens:
+            tokens[k] += (reply.get("usage") or {}).get(k, 0)
+    except ContextFull:
+        last = None
     return {
-        "answer": None,
+        "answer": last,
         "model": model,
         "cost_usd": None,
-        "usage": tokens,
-        "turns": MAX_TURNS,
+        "usage": tokens | {"gpu_seconds": round(time.perf_counter() - start, 1)},
+        "turns": MAX_TURNS + 1,
         "tools": sorted(set(tools_used)),
         "error": None,
-        "no_answer": f"no answer after {MAX_TURNS} turns",
+        **({} if last else {"no_answer": f"no answer after {MAX_TURNS} turns and a final request"}),
+    }
+
+
+def handed_in(call: dict) -> dict | None:
+    if call["function"]["name"] in READ_TOOLS:
+        return None
+    try:
+        args = json.loads(call["function"].get("arguments") or "{}")
+    except json.JSONDecodeError:
+        return None
+    functions = args.get("functions") if isinstance(args, dict) else None
+    if not isinstance(functions, list):
+        return None
+    return {
+        "functions": [
+            {"file": str(f["file"]), "name": str(f["name"])}
+            for f in functions[:10]
+            if isinstance(f, dict) and f.get("file") and f.get("name")
+        ]
     }

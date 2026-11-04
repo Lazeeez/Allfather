@@ -94,7 +94,8 @@ def test_running_out_of_turns_is_no_answer_not_an_error(tmp_path, monkeypatch):
     monkeypatch.setattr(open_agent, "chat", lambda model, messages, tools: reply)
     out = open_agent.run("find the bug", tmp_path, "m", True, parse)
     assert (
-        out["error"] is None and out["no_answer"] == f"no answer after {open_agent.MAX_TURNS} turns"
+        out["error"] is None
+        and out["no_answer"] == f"no answer after {open_agent.MAX_TURNS} turns and a final request"
     )
 
 
@@ -114,3 +115,45 @@ def test_tools_accept_numbers_in_any_form_and_never_crash(tmp_path):
     assert (
         open_agent.call_tool(tmp_path, "read_file", "[1, 2]") == "arguments must be a JSON object"
     )
+
+
+def tool_reply(name: str, arguments: str) -> dict:
+    call = {"id": "c", "function": {"name": name, "arguments": arguments}}
+    return {"choices": [{"message": {"content": "", "tool_calls": [call]}}], "usage": {}}
+
+
+def test_the_answer_tool_and_an_answer_handed_to_an_unknown_tool_both_count(tmp_path, monkeypatch):
+    write(tmp_path)
+    given = '{"functions": [{"file": "pkg/config.py", "name": "load_config"}]}'
+    for name in ("answer", "JSON"):
+        monkeypatch.setattr(
+            open_agent, "chat", lambda model, messages, tools, n=name: tool_reply(n, given)
+        )
+        out = open_agent.run("find the bug", tmp_path, "m", True, parse)
+        assert out["answer"] == {"functions": [{"file": "pkg/config.py", "name": "load_config"}]}
+        assert out["turns"] == 1 and "no_answer" not in out
+    monkeypatch.setattr(
+        open_agent, "chat", lambda model, messages, tools: tool_reply("JSON", '{"x": 1}')
+    )
+    assert open_agent.run("find the bug", tmp_path, "m", True, parse)["answer"] is None
+
+
+def test_a_final_request_collects_an_answer_after_the_last_turn(tmp_path, monkeypatch):
+    write(tmp_path)
+    final = {
+        "choices": [
+            {
+                "message": {
+                    "content": '{"functions": [{"file": "pkg/config.py", "name": "load_config"}]}'
+                }
+            }
+        ],
+        "usage": {},
+    }
+
+    def chat(model, messages, tools):
+        return final if tools is None else tool_reply("list_files", '{"pattern": "**/*.py"}')
+
+    monkeypatch.setattr(open_agent, "chat", chat)
+    out = open_agent.run("find the bug", tmp_path, "m", True, parse)
+    assert out["answer"]["functions"][0]["name"] == "load_config" and "no_answer" not in out
