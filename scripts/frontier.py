@@ -15,6 +15,7 @@ score: hit@k, all@10 and MRR against the answer key, the unmapped-answer rate, a
 from __future__ import annotations
 
 import argparse
+import http.client
 import json
 import os
 import random
@@ -356,6 +357,11 @@ def gemini_api(prompt: str, cwd: Path, model: str, agent: bool) -> dict:
                 time.sleep(65)
                 continue
             return {"answer": None, "error": f"HTTP {exc.code}: {message[:300]}"}
+        except (http.client.HTTPException, urllib.error.URLError, OSError) as exc:
+            if attempt < 2:
+                time.sleep(30)
+                continue
+            return {"answer": None, "error": f"network: {type(exc).__name__}: {str(exc)[:200]}"}
     candidate = (data.get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in (candidate.get("content") or {}).get("parts", []))
     return {
