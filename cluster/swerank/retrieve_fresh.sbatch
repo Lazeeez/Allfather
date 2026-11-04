@@ -4,7 +4,7 @@ SW="$HOME/scratch/swerank"
 REPO="$HOME/scratch/Odin"
 export HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
 . "$HOME/scratch/Odin/cluster/stage_models.sh"
-export HF_HUB_OFFLINE=1 PYTHONUTF8=1
+export PYTHONUTF8=1
 PY="$SW/env/bin/python"
 OUT="$SW/out/fresh-$TAG"
 mkdir -p "$OUT"
