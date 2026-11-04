@@ -2,6 +2,11 @@
 set -euo pipefail
 REPO="$HOME/scratch/Odin"
 export HF_TOKEN_PATH="$HOME/.cache/huggingface/token" PYTHONUTF8=1
+VLLM_ENV="${VLLM_ENV:-$HOME/scratch/vllm-env}"
+export PATH="$VLLM_ENV/bin:$PATH"
+if command -v module >/dev/null 2>&1 && module load cuda >/dev/null 2>&1 && command -v nvcc >/dev/null; then
+  export CUDA_HOME="$(dirname "$(dirname "$(command -v nvcc)")")"
+fi
 . "$REPO/cluster/stage_models.sh"
 stamp() { echo "[$(date +%T)] $*"; }
 nvidia-smi -L
@@ -12,7 +17,7 @@ PORT=$((20000 + ${SLURM_JOB_ID:-$$} % 20000))
 LOG="$HOME/scratch/odin-cache/logs/vllm-${SLURM_JOB_ID:-$$}.log"
 mkdir -p "$(dirname "$LOG")"
 stamp "starting vLLM for $MODEL on ${GPUS:-1} GPU(s), port $PORT"
-"${VLLM_ENV:-$HOME/scratch/vllm-env}/bin/vllm" serve "$MODEL" --revision "$REVISION" \
+"$VLLM_ENV/bin/vllm" serve "$MODEL" --revision "$REVISION" \
   --tensor-parallel-size "${GPUS:-1}" --max-model-len "${CONTEXT:-65536}" \
   --enable-auto-tool-choice --tool-call-parser "$PARSER" --served-model-name "$MODEL" \
   --host 127.0.0.1 --port "$PORT" > "$LOG" 2>&1 &
