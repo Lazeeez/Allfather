@@ -11,6 +11,7 @@ mkdir -p "$OUT"
 stamp() { echo "[$(date +%T)] $*"; }
 nvidia-smi -L
 stage_models "$MODEL"
+unset HF_HUB_OFFLINE TRANSFORMERS_OFFLINE
 stamp "retrieving with $MODEL over $DATA"
 "$PY" "$REPO/scripts/swerank_cached_retrieval.py" --dataset_dir "$SW/$DATA" --prefix fresh-function_ \
   --model "$MODEL" --revision "$REVISION" --batch_size "${BATCH:-32}" --cache "$SW/cache/$(basename "$MODEL")" \
