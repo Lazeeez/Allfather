@@ -73,3 +73,26 @@ def test_single_call_sends_no_tools(tmp_path, monkeypatch):
     monkeypatch.setattr(open_agent, "chat", fake_chat)
     out = open_agent.run("find it", tmp_path, "m", False, parse)
     assert calls == [None] and out["answer"] == {"functions": []}
+
+
+def test_a_full_context_is_recorded_as_no_answer(tmp_path, monkeypatch):
+    write(tmp_path)
+
+    def full(model, messages, tools):
+        raise open_agent.ContextFull("This model's maximum context length is 262144 tokens")
+
+    monkeypatch.setattr(open_agent, "chat", full)
+    out = open_agent.run("find the bug", tmp_path, "m", True, parse)
+    assert out["answer"] is None and out["error"] is None
+    assert out["no_answer"].startswith("context full at turn 1")
+
+
+def test_running_out_of_turns_is_no_answer_not_an_error(tmp_path, monkeypatch):
+    write(tmp_path)
+    call = {"id": "c", "function": {"name": "list_files", "arguments": '{"pattern": "**/*.py"}'}}
+    reply = {"choices": [{"message": {"content": "", "tool_calls": [call]}}], "usage": {}}
+    monkeypatch.setattr(open_agent, "chat", lambda model, messages, tools: reply)
+    out = open_agent.run("find the bug", tmp_path, "m", True, parse)
+    assert (
+        out["error"] is None and out["no_answer"] == f"no answer after {open_agent.MAX_TURNS} turns"
+    )

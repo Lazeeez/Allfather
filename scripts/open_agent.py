@@ -12,6 +12,7 @@ import json
 import os
 import re
 import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -159,8 +160,20 @@ def chat(model: str, messages: list[dict], tools: list[dict] | None) -> dict:
         headers={"Content-Type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=600) as r:
-        return json.loads(r.read())
+    try:
+        with urllib.request.urlopen(request, timeout=600) as r:
+            return json.loads(r.read())
+    except urllib.error.HTTPError as exc:
+        message = exc.read().decode("utf-8", "replace")
+        if exc.code == 400 and re.search(
+            r"context|maximum.{0,40}length|too long|max_model_len", message, re.I
+        ):
+            raise ContextFull(message[:300]) from exc
+        raise
+
+
+class ContextFull(RuntimeError):
+    pass
 
 
 def run(prompt: str, cwd: Path, model: str, agent: bool, parse_answer) -> dict:
@@ -169,7 +182,19 @@ def run(prompt: str, cwd: Path, model: str, agent: bool, parse_answer) -> dict:
     tools_used: list[str] = []
     start = time.perf_counter()
     for turn in range(1, (MAX_TURNS if agent else 1) + 1):
-        reply = chat(model, messages, TOOLS if agent else None)
+        try:
+            reply = chat(model, messages, TOOLS if agent else None)
+        except ContextFull as exc:
+            return {
+                "answer": None,
+                "model": model,
+                "cost_usd": None,
+                "usage": tokens | {"gpu_seconds": round(time.perf_counter() - start, 1)},
+                "turns": turn,
+                "tools": sorted(set(tools_used)),
+                "error": None,
+                "no_answer": f"context full at turn {turn}: {exc}",
+            }
         for k in tokens:
             tokens[k] += (reply.get("usage") or {}).get(k, 0)
         message = reply["choices"][0]["message"]
@@ -204,5 +229,6 @@ def run(prompt: str, cwd: Path, model: str, agent: bool, parse_answer) -> dict:
         "usage": tokens,
         "turns": MAX_TURNS,
         "tools": sorted(set(tools_used)),
-        "error": f"no answer after {MAX_TURNS} turns",
+        "error": None,
+        "no_answer": f"no answer after {MAX_TURNS} turns",
     }

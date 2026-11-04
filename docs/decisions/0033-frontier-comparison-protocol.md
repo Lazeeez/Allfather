@@ -238,3 +238,7 @@ Written before either run below has started, and with no Codex result read. Ever
 ## Amendment, 2026-11-04: Gemini calls that never return
 
 Written before any Gemini answer has been read. On some bugs gemini-3.8-flash does not answer within the 20-minute limit of a call, three times in a row (`rust-lang/rust#161131` so far); the prompt is not the reason, since it answered prompts four times longer within minutes. I do not change the model's settings for these bugs. Instead, bugs that timed out are retried after every other bug, and a bug that times out on all three attempts in two separate passes is recorded as no answer, a miss, with the reason kept, as the agent runs already treat a call that times out.
+
+## Amendment, 2026-11-04: the open models' context length, and agents that run out of room
+
+Written before any open-model answer has been read. Each open model is served at its own maximum context length: 262,144 tokens for Qwen3-Coder-Next-FP8 and 131,072 for gpt-oss-120b, instead of the 65,536 my job script used by default, after the first Qwen run stopped when one agent's conversation outgrew 65,536. If a conversation still outgrows the model's context, or the agent uses all 40 turns without answering, the bug is recorded as no answer, a miss, with the reason kept, and is not retried; this is the same treatment as Codex's prompts that are too long. Bugs that failed for other reasons are retried as before.
