@@ -137,3 +137,5 @@ undated | lite | hybrid-notests | function | results/hybrid-notests_function_lit
 2026-11-05 | fresh-full-agents | gemini-single (gemini-3.8-flash) | function | results/research/frontier/fresh-full-agents_gemini-single.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-05 | fresh-full-agents | website (ranker df8659ea9d94) | function | results/research/frontier/fresh-full-agents_website.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-05 | fresh-full | website (ranker df8659ea9d94) | function | results/research/frontier/fresh-full_website.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
+2026-11-05 | fresh-agents | claude-single-sonnet (sonnet) | function | results/research/frontier/fresh-agents_claude-single-sonnet.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
+2026-11-05 | fresh-full-agents | claude-single-sonnet (sonnet) | function | results/research/frontier/fresh-full-agents_claude-single-sonnet.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
