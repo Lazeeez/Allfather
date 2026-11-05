@@ -321,7 +321,7 @@ def main() -> int:
         key=lambda n: -report["systems"][n]["hit@10"],
     )
     report["free_to_use"] = {
-        "rule": "free to a user: Allfather, SweRank, open-weight models, gemini-3.8-flash (a free-tier model) and gpt-6-luna (the free ChatGPT model); decided by system, not by result (ADR 0033)",
+        "rule": "free to a user: Allfather, SweRank, open-weight models, gemini-3.8-flash (a free-tier model) and gpt-6-luna (the free ChatGPT model), Devstral Small 2 (open weights); decided by system, not by result (ADR 0033)",
         "ranking": [
             {
                 "system": n,
