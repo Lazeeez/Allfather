@@ -6,7 +6,7 @@ export HF_TOKEN_PATH="$HOME/.cache/huggingface/token"
 . "$HOME/scratch/Odin/cluster/stage_models.sh"
 export PYTHONUTF8=1
 PY="$SW/env/bin/python"
-OUT="$SW/out/fresh-$TAG"
+OUT="$SW/out/${DATA}-$TAG"
 mkdir -p "$OUT"
 stamp() { echo "[$(date +%T)] $*"; }
 nvidia-smi -L
