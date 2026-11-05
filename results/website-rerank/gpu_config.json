@@ -1,0 +1,11 @@
+{
+ "adapters": ["models/ce_multi/A/foldall"],
+ "languages": {
+  "python": {"depth": 50, "weight": 1.0},
+  "go": {"depth": 50, "weight": 2.0},
+  "java": {"depth": 50, "weight": 2.0},
+  "javascript": {"depth": 50, "weight": 2.0},
+  "typescript": {"depth": 50, "weight": 2.0},
+  "rust": {"depth": 50, "weight": 2.0}
+ }
+}
