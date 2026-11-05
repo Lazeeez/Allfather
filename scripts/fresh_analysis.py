@@ -111,6 +111,14 @@ def escalation(ref: dict, other: dict, ids: list[str], threshold: float | None) 
     return out
 
 
+FREE_PREFIXES = ("website", "allfather", "swerank", "open-", "gemini-")
+FREE_LUNA = {"codex-single", "codex-agent"}
+
+
+def free_to_use(system: str) -> bool:
+    return system.startswith(FREE_PREFIXES) or system in FREE_LUNA
+
+
 def languages(set_name: str) -> dict[str, str]:
     if not set_name.startswith("fresh"):
         return {}
@@ -308,6 +316,21 @@ def main() -> int:
         if e["hit@10"] > best:
             report["pareto"].append(system)
             best = e["hit@10"]
+    free = sorted(
+        (name for name in report["systems"] if free_to_use(name)),
+        key=lambda n: -report["systems"][n]["hit@10"],
+    )
+    report["free_to_use"] = {
+        "rule": "free to a user: Allfather, SweRank, open-weight models, gemini-3.8-flash (a free-tier model) and gpt-6-luna (the free ChatGPT model); decided by system, not by result (ADR 0033)",
+        "ranking": [
+            {
+                "system": n,
+                "hit@10": report["systems"][n]["hit@10"],
+                "hit@10_ci95": report["systems"][n]["hit@10_ci95"],
+            }
+            for n in free
+        ],
+    }
     target = ROOT / "results" / "research" / f"analysis_{args.set}.json"
     target.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8", newline="\n")
     for system, e in report["systems"].items():

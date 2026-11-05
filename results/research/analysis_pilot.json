@@ -645,5 +645,26 @@
  "pareto": [
   "website-gpu",
   "claude-agent"
- ]
+ ],
+ "free_to_use": {
+  "rule": "free to a user: Allfather, SweRank, open-weight models, gemini-3.8-flash (a free-tier model) and gpt-6-luna (the free ChatGPT model); decided by system, not by result (ADR 0033)",
+  "ranking": [
+   {
+    "system": "website-gpu",
+    "hit@10": 0.7,
+    "hit@10_ci95": [
+     0.5385,
+     1.0
+    ]
+   },
+   {
+    "system": "website",
+    "hit@10": 0.7,
+    "hit@10_ci95": [
+     0.5385,
+     1.0
+    ]
+   }
+  ]
+ }
 }

@@ -90,3 +90,26 @@ def test_long_path_list_and_languages_cover_the_sealed_set():
     langs = fa.languages("fresh")
     assert len(langs) == 580 and listed <= set(langs)
     assert fa.long_path_bugs("pilot") == set() and fa.languages("pilot") == {}
+
+
+def test_free_to_use_follows_the_plan_not_the_result():
+    free = [
+        "website",
+        "website-gpu",
+        "allfather-fast",
+        "swerank-embed-small",
+        "open-agent-gpt-oss-120b",
+        "gemini-single",
+        "codex-single",
+        "codex-agent",
+    ]
+    paid = [
+        "claude-agent",
+        "claude-single",
+        "codex-single-astra",
+        "codex-agent-astra",
+        "codex-single-sol",
+        "codex-agent-astra-repeat",
+    ]
+    assert all(fa.free_to_use(s) for s in free)
+    assert not any(fa.free_to_use(s) for s in paid)
