@@ -1,0 +1,506 @@
+{
+ "languages": {
+  "current pair": {
+   "go": {
+    "issues": 816,
+    "website": 0.6887,
+    "with": 0.7255,
+    "delta": 0.0368,
+    "wins": 45,
+    "losses": 15,
+    "p": 0.000135,
+    "p_holm": 0.0005,
+    "passes": true
+   },
+   "java": {
+    "issues": 768,
+    "website": 0.6289,
+    "with": 0.6797,
+    "delta": 0.0508,
+    "wins": 51,
+    "losses": 12,
+    "p": 1e-06,
+    "p_holm": 0.0,
+    "passes": true
+   },
+   "javascript": {
+    "issues": 438,
+    "website": 0.6826,
+    "with": 0.7283,
+    "delta": 0.0457,
+    "wins": 27,
+    "losses": 7,
+    "p": 0.000821,
+    "p_holm": 0.0025,
+    "passes": true
+   },
+   "python": {
+    "issues": 3174,
+    "website": 0.7933,
+    "with": 0.8192,
+    "delta": 0.0258,
+    "wins": 134,
+    "losses": 52,
+    "p": 0.0,
+    "p_holm": null,
+    "passes": false
+   },
+   "rust": {
+    "issues": 120,
+    "website": 0.7333,
+    "with": 0.8083,
+    "delta": 0.075,
+    "wins": 10,
+    "losses": 1,
+    "p": 0.011719,
+    "p_holm": 0.0153,
+    "passes": true
+   },
+   "typescript": {
+    "issues": 586,
+    "website": 0.5631,
+    "with": 0.5922,
+    "delta": 0.029,
+    "wins": 27,
+    "losses": 10,
+    "p": 0.007632,
+    "p_holm": 0.0153,
+    "passes": true
+   }
+  },
+  "A": {
+   "go": {
+    "issues": 816,
+    "website": 0.6887,
+    "with": 0.7328,
+    "delta": 0.0441,
+    "wins": 62,
+    "losses": 26,
+    "p": 0.000157,
+    "p_holm": 0.0006,
+    "passes": true
+   },
+   "java": {
+    "issues": 768,
+    "website": 0.6289,
+    "with": 0.7005,
+    "delta": 0.0716,
+    "wins": 71,
+    "losses": 16,
+    "p": 0.0,
+    "p_holm": 0.0,
+    "passes": true
+   },
+   "javascript": {
+    "issues": 438,
+    "website": 0.6826,
+    "with": 0.7283,
+    "delta": 0.0457,
+    "wins": 37,
+    "losses": 17,
+    "p": 0.009073,
+    "p_holm": 0.0091,
+    "passes": true
+   },
+   "python": {
+    "issues": 3174,
+    "website": 0.7933,
+    "with": 0.8362,
+    "delta": 0.0428,
+    "wins": 195,
+    "losses": 59,
+    "p": 0.0,
+    "p_holm": null,
+    "passes": false
+   },
+   "rust": {
+    "issues": 120,
+    "website": 0.7333,
+    "with": 0.8333,
+    "delta": 0.1,
+    "wins": 13,
+    "losses": 1,
+    "p": 0.001831,
+    "p_holm": 0.0037,
+    "passes": true
+   },
+   "typescript": {
+    "issues": 586,
+    "website": 0.5631,
+    "with": 0.6126,
+    "delta": 0.0495,
+    "wins": 43,
+    "losses": 14,
+    "p": 0.000154,
+    "p_holm": 0.0006,
+    "passes": true
+   }
+  },
+  "B": {
+   "go": {
+    "issues": 816,
+    "website": 0.6887,
+    "with": 0.7206,
+    "delta": 0.0319,
+    "wins": 42,
+    "losses": 16,
+    "p": 0.000862,
+    "p_holm": 0.0026,
+    "passes": true
+   },
+   "java": {
+    "issues": 768,
+    "website": 0.6289,
+    "with": 0.6862,
+    "delta": 0.0573,
+    "wins": 56,
+    "losses": 12,
+    "p": 0.0,
+    "p_holm": 0.0,
+    "passes": true
+   },
+   "javascript": {
+    "issues": 438,
+    "website": 0.6826,
+    "with": 0.7283,
+    "delta": 0.0457,
+    "wins": 30,
+    "losses": 10,
+    "p": 0.002221,
+    "p_holm": 0.0026,
+    "passes": true
+   },
+   "python": {
+    "issues": 3174,
+    "website": 0.7933,
+    "with": 0.827,
+    "delta": 0.0337,
+    "wins": 173,
+    "losses": 66,
+    "p": 0.0,
+    "p_holm": null,
+    "passes": false
+   },
+   "rust": {
+    "issues": 120,
+    "website": 0.7333,
+    "with": 0.8417,
+    "delta": 0.1083,
+    "wins": 13,
+    "losses": 0,
+    "p": 0.000244,
+    "p_holm": 0.001,
+    "passes": true
+   },
+   "typescript": {
+    "issues": 586,
+    "website": 0.5631,
+    "with": 0.6007,
+    "delta": 0.0375,
+    "wins": 32,
+    "losses": 10,
+    "p": 0.000941,
+    "p_holm": 0.0026,
+    "passes": true
+   }
+  },
+  "C": {
+   "go": {
+    "issues": 816,
+    "website": 0.6887,
+    "with": 0.7549,
+    "delta": 0.0662,
+    "wins": 64,
+    "losses": 10,
+    "p": 0.0,
+    "p_holm": 0.0,
+    "passes": true
+   },
+   "java": {
+    "issues": 768,
+    "website": 0.6289,
+    "with": 0.5807,
+    "delta": -0.0482,
+    "wins": 38,
+    "losses": 75,
+    "p": 0.000641,
+    "p_holm": 0.0019,
+    "passes": false
+   },
+   "javascript": {
+    "issues": 438,
+    "website": 0.6826,
+    "with": 0.7443,
+    "delta": 0.0616,
+    "wins": 33,
+    "losses": 6,
+    "p": 1.4e-05,
+    "p_holm": 0.0001,
+    "passes": true
+   },
+   "python": {
+    "issues": 3174,
+    "website": 0.7933,
+    "with": 0.8292,
+    "delta": 0.0359,
+    "wins": 173,
+    "losses": 59,
+    "p": 0.0,
+    "p_holm": null,
+    "passes": false
+   },
+   "rust": {
+    "issues": 120,
+    "website": 0.7333,
+    "with": 0.85,
+    "delta": 0.1167,
+    "wins": 16,
+    "losses": 2,
+    "p": 0.001312,
+    "p_holm": 0.0026,
+    "passes": true
+   },
+   "typescript": {
+    "issues": 586,
+    "website": 0.5631,
+    "with": 0.587,
+    "delta": 0.0239,
+    "wins": 27,
+    "losses": 13,
+    "p": 0.038477,
+    "p_holm": 0.0385,
+    "passes": true
+   }
+  }
+ },
+ "head_to_head": {
+  "A vs current pair": {
+   "go": {
+    "delta": -0.0074,
+    "wins": 27,
+    "losses": 33,
+    "p": 0.518958
+   },
+   "java": {
+    "delta": -0.0208,
+    "wins": 13,
+    "losses": 29,
+    "p": 0.01952
+   },
+   "javascript": {
+    "delta": 0.0,
+    "wins": 16,
+    "losses": 16,
+    "p": 1.0
+   },
+   "python": {
+    "delta": -0.017,
+    "wins": 58,
+    "losses": 112,
+    "p": 4.2e-05
+   },
+   "rust": {
+    "delta": -0.025,
+    "wins": 4,
+    "losses": 7,
+    "p": 0.548828
+   },
+   "typescript": {
+    "delta": -0.0205,
+    "wins": 14,
+    "losses": 26,
+    "p": 0.08069
+   }
+  },
+  "A vs B": {
+   "go": {
+    "delta": -0.0123,
+    "wins": 26,
+    "losses": 36,
+    "p": 0.252854
+   },
+   "java": {
+    "delta": -0.0143,
+    "wins": 18,
+    "losses": 29,
+    "p": 0.143865
+   },
+   "javascript": {
+    "delta": 0.0,
+    "wins": 14,
+    "losses": 14,
+    "p": 1.0
+   },
+   "python": {
+    "delta": -0.0091,
+    "wins": 63,
+    "losses": 92,
+    "p": 0.024198
+   },
+   "rust": {
+    "delta": 0.0083,
+    "wins": 4,
+    "losses": 3,
+    "p": 1.0
+   },
+   "typescript": {
+    "delta": -0.0119,
+    "wins": 13,
+    "losses": 20,
+    "p": 0.296206
+   }
+  },
+  "A vs C": {
+   "go": {
+    "delta": 0.0221,
+    "wins": 42,
+    "losses": 24,
+    "p": 0.035583
+   },
+   "java": {
+    "delta": -0.1198,
+    "wins": 16,
+    "losses": 108,
+    "p": 0.0
+   },
+   "javascript": {
+    "delta": 0.016,
+    "wins": 27,
+    "losses": 20,
+    "p": 0.381693
+   },
+   "python": {
+    "delta": -0.0069,
+    "wins": 92,
+    "losses": 114,
+    "p": 0.143245
+   },
+   "rust": {
+    "delta": 0.0167,
+    "wins": 4,
+    "losses": 2,
+    "p": 0.6875
+   },
+   "typescript": {
+    "delta": -0.0256,
+    "wins": 23,
+    "losses": 38,
+    "p": 0.072177
+   }
+  },
+  "B vs current pair": {
+   "go": {
+    "delta": 0.0049,
+    "wins": 24,
+    "losses": 20,
+    "p": 0.651588
+   },
+   "java": {
+    "delta": -0.0065,
+    "wins": 18,
+    "losses": 23,
+    "p": 0.532709
+   },
+   "javascript": {
+    "delta": 0.0,
+    "wins": 14,
+    "losses": 14,
+    "p": 1.0
+   },
+   "python": {
+    "delta": -0.0079,
+    "wins": 65,
+    "losses": 90,
+    "p": 0.053538
+   },
+   "rust": {
+    "delta": -0.0333,
+    "wins": 3,
+    "losses": 7,
+    "p": 0.34375
+   },
+   "typescript": {
+    "delta": -0.0085,
+    "wins": 12,
+    "losses": 17,
+    "p": 0.458258
+   }
+  },
+  "B vs C": {
+   "go": {
+    "delta": 0.0343,
+    "wins": 42,
+    "losses": 14,
+    "p": 0.000234
+   },
+   "java": {
+    "delta": -0.1055,
+    "wins": 18,
+    "losses": 99,
+    "p": 0.0
+   },
+   "javascript": {
+    "delta": 0.016,
+    "wins": 22,
+    "losses": 15,
+    "p": 0.324009
+   },
+   "python": {
+    "delta": 0.0022,
+    "wins": 106,
+    "losses": 99,
+    "p": 0.675277
+   },
+   "rust": {
+    "delta": 0.0083,
+    "wins": 4,
+    "losses": 3,
+    "p": 1.0
+   },
+   "typescript": {
+    "delta": -0.0137,
+    "wins": 21,
+    "losses": 29,
+    "p": 0.322236
+   }
+  },
+  "C vs current pair": {
+   "go": {
+    "delta": -0.0294,
+    "wins": 16,
+    "losses": 40,
+    "p": 0.001842
+   },
+   "java": {
+    "delta": 0.099,
+    "wins": 99,
+    "losses": 23,
+    "p": 0.0
+   },
+   "javascript": {
+    "delta": -0.016,
+    "wins": 13,
+    "losses": 20,
+    "p": 0.296206
+   },
+   "python": {
+    "delta": -0.0101,
+    "wins": 87,
+    "losses": 119,
+    "p": 0.030534
+   },
+   "rust": {
+    "delta": -0.0417,
+    "wins": 2,
+    "losses": 7,
+    "p": 0.179688
+   },
+   "typescript": {
+    "delta": 0.0051,
+    "wins": 25,
+    "losses": 22,
+    "p": 0.770867
+   }
+  }
+ }
+}

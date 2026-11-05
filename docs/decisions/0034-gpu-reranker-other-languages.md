@@ -85,3 +85,22 @@ The two shipped adapters, trained on Python only, scored all 2,728 five-language
 ## Amendment, 2026-11-04: candidate C trains in resumable pieces
 
 Written before any fold of candidate C has trained and before candidate B's results are read. Candidate A's folds took about 46 minutes and B's about 3 hours each on an L40S; C is B's recipe on a model about six times larger, so a fold may need longer than one PACE job may run (16 hours), and my allocation also caps the GPU time my running jobs may reserve at once. Training now saves its state every 200 steps (adapter weights, optimizer, schedule and random state) and a resubmitted job continues from the last save; the sequence of training examples is drawn up front with the same calls in the same order as before, so nothing about what a candidate learns changes. I checked both: a unit test shows the drawn sequence is identical to the one A and B were trained with, and a short run stopped half-way and resumed on the laptop GPU produced adapter weights identical to an uninterrupted run (all 392 tensors, largest difference 0). C's folds therefore run as several jobs of at most 8 hours each.
+
+## Outcome of step 2, 2026-11-05: candidate A
+
+All three candidates were cross-validated with five folds of whole projects and evaluated as step 1 was (`scripts/rerank_choice.py`, `results/website-rerank/choice.json`). Function hit@10, depth and weight chosen on one half of the projects and applied to the other:
+
+| Language | Website | Current pair | A | B | C |
+|---|---|---|---|---|---|
+| Python (3,174) | 79.3% | 81.9% | **83.6%** | 82.7% | 82.9% |
+| Go (816) | 68.9% | 72.6% | 73.3% | 72.1% | 75.5% |
+| Java (768) | 62.9% | 68.0% | **70.1%** | 68.6% | 58.1% |
+| JavaScript (438) | 68.3% | 72.8% | 72.8% | 72.8% | 74.4% |
+| Rust (120) | 73.3% | 80.8% | 83.3% | 84.2% | 85.0% |
+| TypeScript (586) | 56.3% | 59.2% | **61.3%** | 60.1% | 58.7% |
+
+- **C fails the rule in Java**, falling below the website pipeline without a reranker (23 wins, 99 losses against the current pair), so it cannot be the one reranker for all six languages; its leads elsewhere are significant against A only in Go (42 wins, 24 losses, p = 0.036).
+- **B** never beats A significantly and trails it in four of six languages, at four times A's training cost.
+- **A passes the rule in all five other languages** and beats the current pair on Python (58 losses, 112 wins, p < 0.001), so by the rule above it replaces the pair for Python too.
+
+**The choice is candidate A**: one LoRA adapter on Qwen3-Reranker-0.6B, trained on all six languages with the shipped recipe. It is the cheapest to serve, one adapter of the size the site already serves twice, so it meets the 3 s limit by construction; I time it on the server anyway before switching it on. Its depth and weight are chosen once on all training bugs, as each half chose them: depth 50 and weight 1.0 for Python (83.9% on all 3,174), depth 50 and weight 2.0 for the other five languages (70.2% on all 2,728). C took about 50 A100-hours against a budget of 30 to 40 for all three; I report the overrun. The final adapter is trained once more on every project (`--fold all`) before it ships or runs on fresh-2026.
