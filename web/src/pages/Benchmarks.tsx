@@ -388,7 +388,6 @@ function NextStudy() {
 }
 
 const ROADMAP: [string, string, string][] = [
-  ["November 2026", "The GPU reranker in all six languages", "Shipped: one reranker trained on all six languages re-reads results for every repository, when you switch it on."],
   ["December 2026", "Results against frontier AI agents", "Once every system has run on fresh-2026, I'll publish the full comparison here: accuracy, cost, speed, and how Allfather ranks among the free tools."],
   ["Early 2027", "More languages", "C, C++, C# and PHP come next, chosen for how widely they're used and whether public bug data exists to train and test on. Each new language gets its own held-out test before I claim anything for it."],
 ];
@@ -396,7 +395,7 @@ const ROADMAP: [string, string, string][] = [
 function Roadmap() {
   return (
     <section class="card frame block">
-      <p class="kicker">Roadmap</p>
+      <p class="kicker">Coming soon</p>
       <h2>What I'm working on</h2>
       <ol class="roadmap">
         {ROADMAP.map(([when, what, detail]) => (
