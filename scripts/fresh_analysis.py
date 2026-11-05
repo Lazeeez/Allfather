@@ -24,6 +24,7 @@ from pathlib import Path
 import numpy as np
 
 ROOT = Path(__file__).resolve().parent.parent
+FRESH_FULL = ROOT / "data" / "fresh-full"
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
@@ -143,7 +144,7 @@ def cohen_kappa(a: list, b: list) -> float:
 
 
 def strata_agreement() -> dict:
-    sheet = list(csv.DictReader((FRESH / "strata_check.csv").open(encoding="utf-8")))
+    sheet = list(csv.DictReader((FRESH_FULL / "strata_check.csv").open(encoding="utf-8")))
     column = next(c for c in sheet[0] if c.startswith("your_answer"))
     mine = {r["id"]: r[column].strip().lower() for r in sheet if r[column].strip()}
     if len(mine) < len(sheet):
@@ -152,7 +153,7 @@ def strata_agreement() -> dict:
         sys.exit(f"strata_check.csv has answers outside {STRATA}: {bad}")
     parser = {
         r["id"]: r["parser_says"]
-        for r in csv.DictReader((FRESH / "strata_parser.csv").open(encoding="utf-8"))
+        for r in csv.DictReader((FRESH_FULL / "strata_parser.csv").open(encoding="utf-8"))
     }
     ids = sorted(mine)
     a, b = [mine[q] for q in ids], [parser[q] for q in ids]

@@ -1,0 +1,3436 @@
+id,language,changed (file :: function),report,your_answer (function / file / trace / none),notes
+earendil-works/pi#9601,typescript,"packages/coding-agent/src/core/session-manager.ts :: SessionManager
+packages/coding-agent/src/main.ts :: createSessionManager
+packages/coding-agent/src/main.ts :: findLocalSessionByExactId","`--session-id` with fresh id scans all transcripts
+
+### What happened?
+
+We have an extension that precomputes a session ID and uses `--session-id` with a fresh id to create new sessions (per #4874). However, we also have over 4K+ transcripts so running `pi` (even `-ne`) can take ~16s (compared to 0.47s when using `--no-session`). Quit noticeable hang that gets worse with time (as we create more and more transcripts).
+
+### Steps to reproduce
+
+Uh... generate a bunch of sessions and then try to run `pi` with an fresh `--session-id`.
+(My agent used the whole `PI_STARTUP_BENCHMARK` thing, but it's extremely noticeable.)
+
+### Expected behavior
+
+Faster start up time (different from the closed #5804). My agent suggests:
+- You could look at the file names to see if the session exists.
+- If you need to support renamed session files, maybe just parse the header record? (#8683 also suggests reasonable approaches)
+
+I expect this to be a relatively small change, so if maintainers agree, I could make a PR.
+
+### Version
+
+0.85.1",,
+immich-app/immich#31143,python,"machine-learning/immich_ml/sessions/rknn/__init__.py :: RknnSession.run
+machine-learning/immich_ml/sessions/rknn/rknnpool.py :: RknnPoolExecutor
+machine-learning/immich_ml/sessions/rknn/rknnpool.py :: RknnPoolExecutor.__init__
+machine-learning/immich_ml/sessions/rknn/rknnpool.py :: RknnPoolExecutor.get
+machine-learning/immich_ml/sessions/rknn/rknnpool.py :: RknnPoolExecutor.put","RKNN: a caller may receive another thread's result
+
+### I have searched the existing issues, both open and closed, to make sure this is not a duplicate report.
+
+- [x] Yes
+
+### The bug
+
+Description:
+Summary
+- The current RKNN pool implementation in machine-learning/immich_ml/sessions/rknn/rknnpool.py uses a shared queue and separate put() and get() methods. When multiple threads call RknnSession.run concurrently, put()/get() pairs can interleave and a caller may receive another thread's result. This is a race condition and can cause incorrect inference results.
+- There is also a race condition on `self.num += 1` which may cause the jobs distributed unevenly on the three NPU cores.
+
+### The OS that Immich Server is running on
+
+Ubuntu 24.04
+
+### Version of Immich Server
+
+v3.1.0
+
+### Version of Immich Mobile App
+
+v3.1.0
+
+### Platform with the issue
+
+- [x] Server
+- [ ] Web
+- [ ] Mobile
+
+### Device make and model
+
+Orange Pi 5B
+
+### Your docker-compose.yml content
+
+```YAML
+name: immich
+
+services:
+  immich-server:
+    container_name: immich_server
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
+    extends:
+      file: hwaccel.transcoding.yml
+      service: rkmpp  # set to one of [nvenc, quicksync, rkmpp, vaapi, vaapi-wsl] for accelerated transcoding
+    volumes:
+      - ${UPLOAD_LOCATION}:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    ports:
+      - 2283:2283
+    depends_on:
+      - redis
+      - database
+    restart: always
+    healthcheck:
+      disable: false
+
+  immich-machine-learning:
+    container_name: immich_machine_learning
+    # For hardware acceleration, add one of -[armnn, cuda, rocm, openvino, rknn] to the image tag.
+    # Example tag: ${IMMICH_VERSION:-release}-cuda
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}-rknn
+    extends: # uncomment this section for hardware acceleration - see https://docs.immich.app/features/ml-hardware-acceleration
+      file: hwaccel.ml.yml
+      service: rknn # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
+    volumes:
+      - model-cache:/cache
+      - /dev/dri:/dev/dri
+    env_file:
+      - .env
+    environment:
+      HF_TOKEN: ****
+      MACHINE_LEARNING_RKNN_THREADS: 3
+    restart: always
+    healthcheck:
+      disable: false
+
+  redis:
+    container_name: immich_redis
+    image: docker.io/valkey/valkey:8-bookworm@sha256:fea8b3e67b15729d4bb70589eb03367bab9ad1ee89c876f54327fc7c6e618571
+    healthcheck:
+      test: redis-cli ping || exit 1
+    restart: always
+
+  database:
+    container_name: immich_postgres
+    image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE_NAME}
+      POSTGRES_INITDB_ARGS: '--data-checksums'
+    volumes:
+      - ${DB_DATA_LOCATION}:/var/lib/postgresql/data
+    shm_size: 128mb
+    restart: always
+
+volumes:
+  model-cache:
+```
+
+### Your .env content
+
+```Shell
+# You can find documentation for all the supported env variables at https://immich.app/docs/install/environment-variables
+
+# The location where your uploaded files are stored
+UPLOAD_LOCATION=./library
+
+# The location where your database files are stored. Network shares are not supported for the database
+DB_DATA_LOCATION=./postgres
+
+# To set a timezone, uncomment the next line and change Etc/UTC to a TZ identifier from this list: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
+TZ=Europe/Amsterdam
+
+# The Immich version to use. You can pin this to a specific version like ""v1.71.0""
+IMMICH_VERSION=v3
+
+# Connection secret for postgres. You should change it to a random password
+# Please use only the characters `A-Za-z0-9`, without special characters or spaces
+DB_PASSWORD=******
+```
+
+### Reproduction steps
+
+1. Concurrent machine learning jobs trigger two threads (A and B).
+2. Thread A calls RknnSession.run(...) which internally calls rknnpool.put(...) then is preempted.
+3. Thread B calls RknnSession.run(...) (put + get) and its get() consumes the output produced for A.
+4. Thread A later resumes and calls get() and receives B's output (or blocks if queue empty).
+
+### Relevant log output
+
+```shell
+
+```
+
+### Additional information
+
+_No response_",,
+langchain-ai/langchain#39301,python,"libs/partners/openrouter/langchain_openrouter/chat_models.py :: ChatOpenRouter._create_chat_result
+libs/partners/openrouter/langchain_openrouter/chat_models.py :: _create_stream_generation_info","Preserve the serving provider from OpenRouter responses in ChatOpenRouter's response_metadata
+
+### Submission checklist
+
+- [x] This is a feature request, not a bug report or usage question.
+- [x] I added a clear and descriptive title that summarizes the feature request.
+- [x] I used the GitHub search to find a similar feature request and didn't find it.
+- [x] I checked the LangChain documentation and API reference to see if this feature already exists.
+- [x] This is not related to the langchain-community package.
+
+### Package (Required)
+
+- [ ] langchain
+- [ ] langchain-openai
+- [ ] langchain-anthropic
+- [ ] langchain-classic
+- [ ] langchain-core
+- [ ] langchain-model-profiles
+- [ ] langchain-tests
+- [ ] langchain-text-splitters
+- [ ] langchain-chroma
+- [ ] langchain-deepseek
+- [ ] langchain-exa
+- [ ] langchain-fireworks
+- [ ] langchain-groq
+- [ ] langchain-huggingface
+- [ ] langchain-mistralai
+- [ ] langchain-nomic
+- [ ] langchain-ollama
+- [x] langchain-openrouter
+- [ ] langchain-perplexity
+- [ ] langchain-qdrant
+- [ ] langchain-xai
+- [ ] Other / not sure / general
+
+### Feature Description
+
+OpenRouter returns the serving backend as a top-level `provider` field on chat
+completions. `ChatOpenRouter` drops it, so there is no way to tell which backend
+served a request.
+
+The same prompt sent twice with default routing — once against the HTTP API to
+show what the wire returns, once through the integration:
+
+```python
+import json
+import os
+
+import httpx
+from langchain_openrouter import ChatOpenRouter
+
+KEY = os.environ[""OPENROUTER_API_KEY""]
+MODEL = ""meta-llama/llama-3.1-8b-instruct""
+MSG = [{""role"": ""user"", ""content"": ""What is 2+2?""}]
+
+d = httpx.post(
+    ""https://openrouter.ai/api/v1/chat/completions"",
+    headers={""Authorization"": f""Bearer {KEY}""},
+    json={""model"": MODEL, ""messages"": MSG},
+    timeout=60,
+).json()
+print(""--- raw HTTP response (choices omitted) ---"")
+print(json.dumps({k: v for k, v in d.items() if k != ""choices""}, indent=2))
+
+resp = ChatOpenRouter(model=MODEL, openrouter_api_key=KEY).invoke(MSG)
+print(""--- ChatOpenRouter response_metadata ---"")
+print(json.dumps(resp.response_metadata, indent=2, default=str))
+```
+
+```
+--- raw HTTP response (choices omitted) ---
+{
+  ""id"": ""gen-1786003718-HRoJ0jUzGm8nyrROAuro"",
+  ""object"": ""chat.completion"",
+  ""created"": 1786003718,
+  ""model"": ""meta-llama/llama-3.1-8b-instruct"",
+  ""provider"": ""Novita"",
+  ""system_fingerprint"": null,
+  ""service_tier"": null,
+  ""usage"": {
+    ""prompt_tokens"": 18,
+    ""completion_tokens"": 8,
+    ""total_tokens"": 26,
+    ""cost"": 7.6e-07,
+    ""is_byok"": false,
+    ""prompt_tokens_details"": {
+      ""cached_tokens"": 0,
+      ""cache_write_tokens"": 0,
+      ""audio_tokens"": 0,
+      ""video_tokens"": 0
+    },
+    ""cost_details"": {
+      ""upstream_inference_cost"": 7.6e-07,
+      ""upstream_inference_prompt_cost"": 3.6e-07,
+      ""upstream_inference_completions_cost"": 4e-07
+    },
+    ""completion_tokens_details"": {
+      ""reasoning_tokens"": 0,
+      ""image_tokens"": 0,
+      ""audio_tokens"": 0
+    }
+  }
+}
+--- ChatOpenRouter response_metadata ---
+{
+  ""model_name"": ""meta-llama/llama-3.1-8b-instruct"",
+  ""id"": ""gen-1786003719-TXndPAGhhttfoE1qWcr3"",
+  ""created"": 1786003719,
+  ""object"": ""chat.completion"",
+  ""finish_reason"": ""stop"",
+  ""logprobs"": null,
+  ""model_provider"": ""openrouter"",
+  ""cost"": 6.6e-07,
+  ""cost_details"": {
+    ""upstream_inference_completions_cost"": 3.2e-07,
+    ""upstream_inference_prompt_cost"": 3.4e-07,
+    ""upstream_inference_cost"": 6.6e-07
+  }
+}
+```
+
+Every other top-level field is carried across — `id`, `object`, `created`,
+`model`, plus `cost` / `cost_details` lifted out of the nested `usage` object.
+Only `provider` is dropped. `model_provider` is the constant `""openrouter""`,
+which is correct as integration identity but doesn't say which backend ran.
+
+The two calls above also landed on different backends. Same model, same prompt,
+a second apart — `GET /api/v1/generation` reports `Novita` for the raw one and
+`DeepInfra` for the LangChain one, which is why the costs differ (`7.6e-07` vs
+`6.6e-07`). That is `allow_fallbacks` working as designed. The point is that
+nothing in `response_metadata` distinguishes the two.
+
+Pinning confirms the field reports the real backend rather than echoing the
+request: with `openrouter_provider={""only"": [""DeepInfra""]}` the raw response says
+`""provider"": ""DeepInfra""` where the default-routed one said `""Novita""`, and
+`response_metadata` has the same shape as above — still no `provider` key.
+
+`_create_chat_result` reads `model` and `system_fingerprint` off the top level
+(`chat_models.py:836-838`) but never `provider`. The streaming paths hardcode
+`generation_info[""model_provider""] = ""openrouter""` (`:651`, `:736`) and don't
+read it either. The value is discarded while the `AIMessage` is built, so
+callbacks, logs and LangSmith never get the chance — they faithfully record
+metadata the field has already been stripped from.
+
+Worth flagging: `provider` isn't in OpenRouter's documented response schema,
+though it's present on every live response I've made and is the same value
+`GET /api/v1/generation` returns. A truthy guard makes an absent field a no-op,
+as `system_fingerprint` already is.
+
+### Use Case
+
+I run claim-verification workloads through OpenRouter with `allow_fallbacks` on,
+so any call can land on one of several backends that don't always share the same
+quantization. When output quality shifts, the first question is which backend
+served the affected runs — and that's unanswerable today.
+
+The gap isn't limited to output quality. Latency and cost vary by backend the
+same way, and we're exploring blind on all of it — even with LangSmith in place.
+It faithfully records the cost and latency of every run; what it can't record is
+the one variable that would explain why they differ. Two runs of the same model
+with different numbers look identical in the trace.
+
+What does get recorded is the request side — `openrouter_provider` shows up in
+trace metadata — which is what you asked for, never what served you. With
+fallbacks on those two diverge exactly when it matters, as they did by accident
+in the snippet above.
+
+### Proposed Solution
+
+Read `provider` where the other top-level response fields are already read, and
+apply it beside `system_fingerprint`:
+
+```python
+response_model = response.get(""model"")
+system_fingerprint = response.get(""system_fingerprint"")
+serving_provider = response.get(""provider"")  # new
+
+...
+
+if isinstance(message, AIMessage):
+    if system_fingerprint:
+        message.response_metadata[""system_fingerprint""] = system_fingerprint
+    if serving_provider:                                   # new
+        message.response_metadata[""provider""] = serving_provider
+```
+
+Plus the equivalent in the two streaming paths. Unit-testable without network by
+passing a response dict to `_create_chat_result`.
+
+Open question on the key name: `provider` matches the wire format but sits next
+to `model_provider: ""openrouter""` and could read as contradictory.
+`upstream_provider` or `serving_provider` disambiguate. Happy either way.
+
+### Alternatives Considered
+
+- **`ChatOpenAI` with OpenRouter's `base_url`** (our current setup) — drops
+  `provider` too, and misreports `ls_provider` as `""openai""`. #34962 covered this.
+- **Pin one provider and disable fallbacks** — then you know, but you give up the
+  routing availability that's the reason to use OpenRouter.
+- **A follow-up `GET /api/v1/generation?id=<id>` per call** — this is how I
+  identified the two backends above, so it works, but it's an extra round trip
+  and arrives too late to attach to the run.
+- **A local subclass overriding `_create_chat_result`** — what we'll do meanwhile.
+  Three lines against a private method that every user needing provenance has to
+  write themselves.
+
+### Additional Context
+
+The RFC that led to this package, #34962, named this as a motivation:
+
+> - Loses OpenRouter-specific metadata (which provider served the request)
+> - Breaks LangSmith traces with incorrect provider attribution
+
+The package landed shortly after in #35211, but the field itself wasn't carried
+through. #37137 (`session_id` / `trace`) is the closest precedent for surfacing
+OpenRouter-specific metadata. Verified against `langchain-openrouter==0.2.7`.
+
+Happy to open the PR — just let me know on the key name and assign me.",,
+stablyai/orca#12477,typescript,"src/renderer/src/components/settings/RepositoryHostSetupsSection.tsx :: RepositoryHostSetupsSection
+src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: RuntimeHostConnectionState
+src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: RuntimeHostStatusRow
+src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: runtimeActionLabel
+src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: runtimeDotColor
+src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: runtimeStatusLabel
+src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: runtimeStatusTone
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: HostStatus
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: SshStatusSegment
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: isConnectedRuntimeHostState
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: overallDotColor
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: overallStatus
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: runtimeHostConnectionDetail
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: runtimeHostConnectionState
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: runtimeStatusForOverall
+src/renderer/src/components/status-bar/SshStatusSegment.tsx :: sshStatusForOverall","[Bug]: Reachable remote server is shown as Ready without a workspace window
+
+### Operating system
+
+macOS
+
+### Orca version
+
+Observed with a 1.4.167 client connected to a 1.4.150 host. The runtime protocol versions were compatible.
+
+### Details
+
+**Short summary**
+
+A paired Remote Orca Server can remain reachable after its workspace window/renderer graph becomes unavailable. In that state, project Settings still labels the host setup **Ready**, and the status bar still presents the server as ordinarily connected, even though interactive workspace actions cannot use the missing renderer graph.
+
+**What happened?**
+
+The host runtime remained reachable and returned status successfully, but reported:
+
+- `graphStatus: unavailable`
+- `desktopWindowStatus: openable`
+
+Settings > Project > Available Hosts nevertheless showed the remote setup as **Ready**. Attempting graph-dependent terminal actions then failed instead of explaining that Orca needed to be opened on the host. Opening Orca on the host restored the graph immediately.
+
+**How can we reproduce it?**
+
+1. Pair a desktop Orca client with a headed Remote Orca Server.
+2. Close the server's workspace window while leaving its main process/runtime reachable.
+3. Confirm the server reports an unavailable graph and an openable desktop window.
+4. Open the project's **Available Hosts** settings or the status-bar remote-host menu.
+5. Observe that the setup is still shown as **Ready/Connected** rather than identifying the unavailable workspace window.
+
+**Expected behavior**
+
+A reachable server without a usable workspace renderer should have a distinct, actionable state—for example, **Open Orca** / **Workspace window closed**—without being mislabeled as network-disconnected.
+
+**Roadmap context**
+
+This report is intentionally narrower than the ongoing work to remove the renderer dependency:
+
+- #8300 keeps serving remote clients by optionally hiding rather than destroying the headed renderer.
+- #6844 introduces an Electron-free headless server.
+
+Those changes can prevent this state in more configurations. This issue only tracks truthful status for current, legacy, and degraded headed servers while the runtime explicitly reports that its desktop window is openable but its graph is unavailable.
+
+The separate terminal-surface race present on the older host build was resolved by updating the host and is not the scope of this report.
+",,
+tt-a1i/archify#793,javascript,"archify/renderers/architecture/render-architecture.mjs :: validateArchitecture
+archify/renderers/shared/geometry.mjs :: suggestComponentSeparation","[Bug]: Architecture component-level failures report empty subject/evidence/supportedFixes while their messages carry the repair
+
+## Problem
+
+`architecture` renderer diagnostics for component-level failures arrive with every structured field empty, even though each message already carries the measured repair. With `validate --json`:
+
+- `subject` is only `{""diagramType"":""architecture""}` — it does not name the affected component (or pair),
+- `evidence` is `{}` — none of the numbers the message itself already computed,
+- `supportedFixes` is `[]` — although the message ends in a concrete repair, e.g. `Suggested fix: move ""right"" pos to [248, 40] (right of ""left"") or [244, 128] (below)`.
+
+`references/authoring-contract.md` tells agents to ""Consume `diagnostics[]` by stable `code`, exact `subject`, measured `evidence`, and `supportedFixes`"". For these four failure kinds the documented repair loop has nothing to act on and the free-text message is the only signal, while the sibling families already carry the fields — `layout/boundary-out-of-bounds`, `layout/route-out-of-bounds`, `composition/label-gap` in the same renderer, and `sequence/participant-label-overflow` in the sequence renderer.
+
+Affected kinds (all fall back to the untyped `layout/constraint` default):
+
+1. Component falls outside the viewBox.
+2. Two components closer than 8px (the message already includes a two-coordinate suggestion).
+3. Label wider than its component.
+4. Sublabel/tag unreadable at the legible minimum.
+
+## Reproduction
+
+```json
+{
+  ""schema_version"": 1,
+  ""diagram_type"": ""architecture"",
+  ""meta"": { ""title"": ""Component diagnostics probe"", ""output"": ""probe.html"", ""quality_profile"": ""standard"", ""viewBox"": [640, 360] },
+  ""components"": [
+    { ""id"": ""left"",    ""type"": ""backend"",  ""label"": ""Left"", ""pos"": [40, 40],   ""size"": [200, 80] },
+    { ""id"": ""right"",   ""type"": ""backend"",  ""label"": ""Right"", ""pos"": [244, 40],  ""size"": [200, 80] },
+    { ""id"": ""outside"", ""type"": ""database"", ""label"": ""Outside"", ""pos"": [520, 300], ""size"": [200, 80] },
+    { ""id"": ""narrow"",  ""type"": ""backend"",  ""label"": ""A Deliberately Long Label"", ""pos"": [40, 180], ""size"": [56, 80], ""sublabel"": ""A very long sublabel that cannot possibly fit"" }
+  ],
+  ""connections"": []
+}
+```
+
+`node archify/bin/archify.mjs validate architecture <file> --json` → 4 diagnostics, each
+`code: ""layout/constraint""`, `subject: {""diagramType"":""architecture""}`, `evidence: {}`, `supportedFixes: []`.
+
+## Actual (verbatim messages; the fields shown above are empty on all four)
+
+1. `Component ""outside"" falls outside the viewBox 640x360 — adjust pos/size or set a larger meta.viewBox.`
+2. `Label ""A Deliberately Long Label"" (~165px) is wider than component ""narrow"" (56px) — shorten the label or widen size.`
+3. `Sublabel ""A very long sublabel that cannot possibly fit"" needs ~162px at the 6px legible minimum, but component ""narrow"" provides 48px — shorten the sublabel or widen size.`
+4. Multi-line: `Components ""left"" and ""right"" are less than 8px apart — move one or shrink its size.` plus the two-line bounds/suggestion hint.
+
+The same empty fields appear in `render`/`deliver` failure receipts, under `layout.mode: ""grid""`, and under `quality_profile: ""showcase""`.
+
+## Expected
+
+The four kinds carry the affected component (or pair) in `subject`, the numbers the message already computes in `evidence`, and the concrete repair(s) in `supportedFixes`, following the same contract as the sibling diagnostics listed above.
+
+Environment: `dev` 9ef0961, Node 22.23.1, repo checkout.
+",,
+tt-a1i/archify#484,javascript,viewer/export.js :: serializeSvg,"[Bug]: Standalone SVG retains Viewer width rules when opened directly
+
+## Problem
+
+Opening a Viewer-exported SVG directly in Chromium lets the embedded Viewer CSS override its intrinsic width without adjusting its height. The outer SVG viewport therefore changes aspect ratio with the browser window.
+
+This came up in [the review of #272](https://github.com/tt-a1i/archify/pull/272#discussion_r4030640337), but reproduces on untouched `dev` at `53bc4e19b0d82993609110b865d47178fccd5004`. The Viewer and CLI outputs from `3abe10bb203cd82950219d9c8da0842062d170c5` behave identically. Tracking it separately avoids changing existing Viewer export behaviour as part of CLI parity work.
+
+## Reproduction
+
+From a source checkout at the `dev` commit above:
+
+```sh
+out=$(mktemp -d)
+node archify/bin/archify.mjs deliver architecture \
+  archify/examples/web-app.architecture.json ""$out/viewer.html"" --json
+```
+
+Use the checked-in `web-app.architecture.json` unchanged. Open the HTML, export SVG from the Viewer, then open the downloaded SVG directly. In browser DevTools, set the viewport to 640×900 and 1440×900 and run:
+
+```js
+const svg = document.documentElement;
+const bounds = svg.getBoundingClientRect();
+({
+  viewBox: svg.getAttribute('viewBox'),
+  width: svg.getAttribute('width'),
+  height: svg.getAttribute('height'),
+  rendered: [bounds.width, bounds.height],
+  minWidth: getComputedStyle(svg).minWidth
+});
+```
+
+## Observed result
+
+The root declares `viewBox=""0 0 1080 588""`, `width=""1080""` and `height=""588""`. Its measured size is **640×588** in the first viewport and **1440×588** in the second, on both revisions. Delivery and deterministic checks pass.
+
+The exported stylesheet includes:
+
+```css
+svg {
+  width: 100%;
+  min-width: min(900px, 100%);
+}
+```
+
+This concerns the outer viewport, not a claim that shapes are stretched: the default SVG aspect-ratio behaviour still applies to the diagram content. Image/canvas parity at explicit intrinsic dimensions does not exercise this top-level-document case.
+
+## Expected behaviour / scope
+
+Standalone exports should have a deliberate sizing policy: either honour the intrinsic dimensions or scale responsively while preserving the viewport ratio. Please confirm the preferred behaviour before changing the shared export path. Keep the interactive Viewer's layout unchanged, and cover direct SVG navigation as well as raster export when fixing it.
+
+Environment: Linux, Node 22.23.2, Chromium 153.0.8010.36; source checkout. No other browser engines tested. Codex assisted with the reproduction and report.
+",,
+ethereum/go-ethereum#35933,go,eth/filters/filter_system.go :: EventSystem.SubscribeLogs,"eth_newFilter rejects earliest-to-earliest ranges while eth_getLogs accepts them
+
+#### System information
+
+Geth version: `Geth/v1.17.8-stable-a5790770/darwin-arm64/go1.25.1`  
+CL client & version: None; isolated reproduction at genesis without syncing or mining.  
+OS & Version: macOS 26.5.1, ARM64  
+Commit hash: `a579077007b98217c3e253a66e4b452ca0c32b96` (v1.17.8)
+
+Both clients were tested using fresh data directories with Ethereum mainnet genesis, chain ID 1, no peers, and block height 0.
+
+Comparison client: Reth v2.7.0, commit `3d592ece6de8c4559987416a544fc215fd6d6921`.
+
+#### Expected behaviour
+
+In this fresh, unpruned environment, creating a filter with `fromBlock: ""earliest""` and `toBlock: ""earliest""` should succeed, consistently with the equivalent `""0x0""` range and with `eth_getLogs` using the same tags.
+
+Querying the resulting filter with `eth_getFilterLogs` should return `[]`, since the genesis block contains no logs.
+
+If rejecting this range is intentional, could you clarify why `eth_newFilter` handles it differently from `eth_getLogs`?
+
+#### Actual behaviour
+
+Geth rejects the filter during `eth_newFilter`:
+
+```json
+{""jsonrpc"":""2.0"",""id"":1,""error"":{""code"":-32602,""message"":""invalid block range params""}}
+```
+
+No filter ID is returned, so there is no subsequent valid `eth_getFilterLogs` call for this case.
+
+The following results were consistent across three repetitions:
+
+| Request | Geth v1.17.8 | Reth v2.7.0 |
+|---|---|---|
+| `eth_newFilter`, `earliest` → `earliest` | `-32602: invalid block range params` | Returns a filter ID |
+| `eth_getFilterLogs` for that filter | Not applicable; creation failed | `[]` |
+| `eth_getLogs`, `earliest` → `earliest` | `[]` | `[]` |
+| `eth_newFilter`, `0x0` → `0x0` | Returns a filter ID | Returns a filter ID |
+| `eth_newFilter`, `latest` → `latest` | Returns a filter ID | Returns a filter ID |
+
+**Possible cause**
+
+In Geth, [`EarliestBlockNumber` is represented internally as `-5`](https://github.com/ethereum/go-ethereum/blob/a579077007b98217c3e253a66e4b452ca0c32b96/rpc/types.go#L66-L72).
+
+In [`SubscribeLogs`](https://github.com/ethereum/go-ethereum/blob/a579077007b98217c3e253a66e4b452ca0c32b96/eth/filters/filter_system.go#L328-L348), `from == rpc.EarliestBlockNumber` is converted to `HistoryPruningCutoff()`, but the corresponding conversion is not applied to `to`.
+
+In this environment, the resulting range is therefore `from = 0`, `to = -5`, which fails the subsequent range checks. This appears to be an asymmetric tag normalization issue.
+
+For comparison, Reth [installs the filter at creation](https://github.com/paradigmxyz/reth/blob/3d592ece6de8c4559987416a544fc215fd6d6921/crates/rpc/rpc/src/eth/filter.rs#L358-L364), then [applies `convert_block_number` to both bounds when querying logs](https://github.com/paradigmxyz/reth/blob/3d592ece6de8c4559987416a544fc215fd6d6921/crates/rpc/rpc/src/eth/filter.rs#L594-L605). Its [`Earliest` conversion](https://github.com/paradigmxyz/reth/blob/3d592ece6de8c4559987416a544fc215fd6d6921/crates/storage/storage-api/src/block_id.rs#L62-L64) calls `earliest_block_number()`, whose [default implementation returns `0`](https://github.com/paradigmxyz/reth/blob/3d592ece6de8c4559987416a544fc215fd6d6921/crates/storage/storage-api/src/block_id.rs#L22-L25).
+
+#### Steps to reproduce the behaviour
+
+1. Start Geth v1.17.8 with a fresh data directory:
+
+```bash
+GETH_TEST_DIR=""$(mktemp -d)""
+
+geth \
+  --datadir ""$GETH_TEST_DIR"" \
+  --mainnet \
+  --http --http.addr 127.0.0.1 --http.port 18571 \
+  --http.api eth,net,web3 \
+  --authrpc.addr 127.0.0.1 --authrpc.port 19571 \
+  --ipcdisable \
+  --nodiscover --discovery.dns """" --maxpeers 0 \
+  --port 0 --nat none \
+  --syncmode full --cache 128
+```
+
+2. In another terminal, create an `earliest` → `earliest` filter:
+
+```bash
+curl -sS http://127.0.0.1:18571 \
+  -H 'Content-Type: application/json' \
+  --data '{""jsonrpc"":""2.0"",""id"":1,""method"":""eth_newFilter"",""params"":[{""fromBlock"":""earliest"",""toBlock"":""earliest""}]}'
+```
+
+Result:
+
+```json
+{""jsonrpc"":""2.0"",""id"":1,""error"":{""code"":-32602,""message"":""invalid block range params""}}
+```
+
+3. Query the same range directly:
+
+```bash
+curl -sS http://127.0.0.1:18571 \
+  -H 'Content-Type: application/json' \
+  --data '{""jsonrpc"":""2.0"",""id"":2,""method"":""eth_getLogs"",""params"":[{""fromBlock"":""earliest"",""toBlock"":""earliest""}]}'
+```
+
+Result:
+
+```json
+{""jsonrpc"":""2.0"",""id"":2,""result"":[]}
+```
+
+4. Create a filter using explicit block zero:
+
+```bash
+curl -sS http://127.0.0.1:18571 \
+  -H 'Content-Type: application/json' \
+  --data '{""jsonrpc"":""2.0"",""id"":3,""method"":""eth_newFilter"",""params"":[{""fromBlock"":""0x0"",""toBlock"":""0x0""}]}'
+```
+
+This succeeds and returns a filter ID. Calling `eth_getFilterLogs` with that ID returns `[]`.
+
+#### Backtrace
+
+Not applicable. The node does not crash; this is a JSON-RPC validation error.
+",,
+tauri-apps/tauri#16195,typescript,"crates/tauri/scripts/bundle.global.js :: n
+packages/api/src/webview.ts :: Webview.onDragDropEvent
+packages/api/src/window.ts :: Window.onDragDropEvent
+packages/api/src/window.ts :: Window.onFocusChanged","[bug] Combined unlisten from onDragDropEvent / onFocusChanged discards inner promises, causing unhandled rejections
+
+### Describe the bug
+
+Several `@tauri-apps/api` helpers register multiple event listeners and return one combined cleanup (`UnlistenFn`) function. That combined cleanup calls each inner unlisten function but discards the promises they return:
+
+```ts
+// packages/api/src/webview.ts — Webview.onDragDropEvent
+return () => {
+  unlistenDragEnter()
+  unlistenDragDrop()
+  unlistenDragOver()
+  unlistenDragLeave()
+}
+```
+
+Each inner unlisten comes from `listen()` and is `async () => _unlisten(event, eventId)`. It can reject, for example when the listener was already removed, or when the `plugin:event|unlisten` invoke fails.
+
+Because the combined cleanup returns `undefined`, callers have nothing to `await` or `.catch()`, so a rejection surfaces as an **unhandled promise rejection**. This commonly happens on React unmount, when cleanup races listener registration or teardown. A production app saw thousands of these.
+
+Affected APIs (verified still present on `dev` and in `@tauri-apps/api` 2.12.0):
+
+- `Webview.onDragDropEvent` — `packages/api/src/webview.ts` (4 listeners)
+- `Window.onDragDropEvent` — `packages/api/src/window.ts` (4 listeners: drag, drop, dragOver, cancel)
+- `Window.onFocusChanged` — `packages/api/src/window.ts` (2 listeners: focus, blur)
+
+A grep of `packages/api/src` for `return () => { unlistenX(); ... }` finds no other combined cleanups besides these three.
+
+Note: this is distinct from #15799, which was about a single `unlisten` throwing internally. Even a correctly-rejecting single unlisten is unobservable here because the combined wrapper drops its promise.
+
+### Reproduction
+
+```ts
+import { getCurrentWebview } from '@tauri-apps/api/webview'
+
+// 1. Register a combined listener
+const unlisten = await getCurrentWebview().onDragDropEvent(() => {})
+
+// 2. Call the combined cleanup when one of the underlying listeners is
+//    already gone — e.g. after the webview listener was torn down,
+//    or call cleanup twice — so an inner _unlisten rejects:
+//      TypeError: undefined is not an object
+//        (evaluating 'listeners[eventId].handlerId')
+//    or the `plugin:event|unlisten` invoke fails.
+unlisten()
+
+// 3. Observe: there is no promise to await/catch on the returned cleanup,
+//    so the inner rejection becomes an unhandled promise rejection.
+```
+
+The same pattern reproduces with `getCurrentWindow().onDragDropEvent(...)` and `getCurrentWindow().onFocusChanged(...)`, and in practice via a React effect cleanup on unmount racing teardown.
+
+### Expected behavior
+
+The combined cleanup should return one promise that settles once every inner unlisten has run, e.g.:
+
+```ts
+return async () => {
+  await Promise.all([
+    unlistenDragEnter(),
+    unlistenDragDrop(),
+    unlistenDragOver(),
+    unlistenDragLeave()
+  ])
+}
+```
+
+`UnlistenFn` is typed `() => void`, so an async function stays assignable and the public type does not change. Callers that ignore the result behave as before; callers that `await` or `.catch()` it can now handle failures. All inner unlistens still start synchronously, same as today.
+
+### Full `tauri info` output
+
+Not from a full app reproduction — the bug is visible directly in the `@tauri-apps/api` sources:
+
+```
+@tauri-apps/api 2.12.0 (also present on dev at time of filing)
+packages/api/src/webview.ts: Webview.onDragDropEvent
+packages/api/src/window.ts: Window.onDragDropEvent, Window.onFocusChanged
+```
+
+### Stack trace
+
+```text
+TypeError: undefined is not an object (evaluating 'listeners[eventId].handlerId')
+  — raised inside an inner async unlisten, surfaced as an unhandled promise rejection
+    because the combined cleanup returned undefined
+```
+
+### Additional context
+
+- `Promise.allSettled` plus rethrowing the first error is an alternative if maintainers prefer that every failure be observed.
+- Separately, a rejected intermediate `await this.listen(...)` inside these helpers leaks the listeners registered before it. That is a possible follow-up and is not part of this report's proposed fix.
+",,
+morluto/rea#1116,javascript,scripts/verify-package-pack.mjs :: verifyPackagePack,"[Bug] Builds can ship a stale unused generated MCP catalog artifact
+
+## Before submitting
+
+- [x] I searched the open and closed issues for a related report.
+- [x] I removed credentials, tokens, private paths, and sensitive target data.
+
+## Area
+
+Setup, packaging, or upgrade; generated artifacts and validation.
+
+## Observed behavior
+
+A successful cached build restored a package whose generated TypeScript catalog was current but whose compiled generated catalog contained older input/output definitions. Direct conversion of all 139 canonical contracts matched the generated source. The compiled artifact differed at 78 leaf locations across seven tools: `observe_native_calls`, `trace_dylib_resolution`, `analyze_javascript_application`, `trace_javascript_semantics`, `observe_web_execution`, `inspect_web_event_listeners`, and `binary_session`.
+
+**Scope correction after tracing the actual consumer:** this compiled artifact is not imported by the current production server. A real stdio `tools/list` call against the same baseline advertised all 139 tools and matched the freshly generated source for every input/output schema, while differing from the stale compiled artifact for exactly those seven tools. The initial report incorrectly described the generated file as the server's source. No stale-schema client failure is established; the report now concerns generated-artifact consistency and unnecessary package contents.
+
+## Reproduction
+
+1. Build a checkout, then change a canonical schema or update to a revision with schema changes while retaining previously generated catalog source.
+2. Run `npm run build:cached` once.
+3. Compare `dist/generatedMcpToolCatalog.js` with the current generated source and canonical post-SDK contracts.
+4. Also connect to the built production MCP server and compare the actual `tools/list` result, rather than assuming it consumes the compiled generated module.
+
+Observed at `cc0ee2edc60dda42d7b7cfb2c08e39b0b736b5e9`:
+
+```json
+{
+  ""live_tools"": 139,
+  ""live_matches_fresh_generated_source"": true,
+  ""compiled_generated_matches_fresh_source"": false,
+  ""live_vs_stale_compiled_difference_tools"": 7
+}
+```
+
+## Expected behavior
+
+Generated artifacts included in a package should match the current build. If an artifact exists only for source-level schema/conformance tests, consider excluding its compiled form from the shipping package instead of adding unnecessary runtime generation or compilation. Preserve the useful generated source tests.
+
+## Impact and scope
+
+The package contains a stale, unused generated module, and the current source generator check does not validate its compiled form. Source-level tests can pass while this unused compiled output drifts. The observed module was about 6.7 MB on disk; compressed archive impact has not yet been measured independently.
+
+Actual live discovery/validation continues to use the registered canonical contracts. Existing production MCP behavior, target Evidence, graph identity and full real Notion/Obsidian analyses remain unaffected by this compiled-file discrepancy.
+
+## REA version
+
+Source revision `cc0ee2edc60dda42d7b7cfb2c08e39b0b736b5e9`; package version 6.0.0. This is a concrete build observation, not a claim about every published package.
+
+## Runtime and platform
+
+Linux x64, Node.js 24.18.0; package-file inspection also performed on native Windows x64, Node.js 22.19.0. This generation boundary is not Windows-specific.
+
+## Target and artifact context
+
+Generated MCP catalog source and compiled package output. Discovered during actual complete Notion/Obsidian verification for #1065/#1112. Target code is unnecessary for a reduced regression.
+
+## Interface
+
+Build/package and generated-schema validation.
+
+## Earliest failure stage
+
+Compiled generated artifact consistency. Actual production `tools/list` was verified current.
+
+## Relevant output or evidence
+
+The stale artifact contained 2,030,334 serialized characters versus 2,035,845 for the freshly generated source. Structural comparison, not byte count, established the mismatch. A separate real stdio consumer check verified all 139 current advertised input/output schemas.
+
+## Typed outcome or recovery expected
+
+One build should produce internally consistent necessary artifacts. Do not add runtime errors or user configuration to address an unused build artifact.
+
+## Analysis or suspected cause
+
+`build:unlocked` compiles TypeScript before `generate-mcp-tool-catalog.mjs` writes its updated TypeScript source. An older existing source can therefore be compiled before regeneration, and this compiled output can be cached. The generated catalog is used by source-level tests; current production registration uses named contracts and `toolRegistrationOptions` directly. Exact cache population history was not reconstructed.
+
+## Additional context
+
+- Related roadmap: #1065 T3; package storage and generated conformance boundaries.
+- #1076 moved derived outputs out of Git; preserve that design.
+- #1001 concerns missing generated shard inputs and is distinct.
+- #919 requires checking the representation actually consumed by clients; that check corrected this report's original impact assumption.
+
+Acceptance: seed older generated source and run one build/cache restoration; verify the necessary generated test source remains current, compiled/package outputs contain only appropriate current artifacts, actual packaged `tools/list` matches post-SDK contracts, and inventory/identity/packaged skill metadata agree. Keep the build/resource budget small.
+",,
+stablyai/orca#12622,typescript,"src/main/ipc/crash-reporting.ts :: rendererBreadcrumbCoalesceKey
+src/renderer/src/components/terminal-pane/terminal-render-desync-sentinel.ts :: persistEvidenceThenRecover
+src/renderer/src/components/terminal-pane/terminal-render-desync-sentinel.ts :: sampleRenderDesyncOnce
+src/renderer/src/components/terminal-pane/terminal-visibility-resume.ts :: recoverVisibleTerminalWindowWake
+src/renderer/src/components/terminal-pane/terminal-visibility-resume.ts :: resumeTerminalVisibility
+src/renderer/src/components/terminal-pane/terminal-webgl-atlas-recovery.ts :: resetAtlasesAndRefreshPanes
+src/renderer/src/components/terminal-pane/terminal-webgl-atlas-recovery.ts :: scheduleAtlasRecoveryBurst
+src/renderer/src/components/terminal-pane/terminal-webgl-atlas-recovery.ts :: scheduleImagePasteWebglAtlasRecovery
+src/renderer/src/components/terminal-pane/terminal-webgl-atlas-recovery.ts :: scheduleTabRevealWebglAtlasRecovery
+src/renderer/src/components/terminal-pane/terminal-webgl-atlas-recovery.ts :: scheduleTerminalWebglAtlasRecovery
+src/renderer/src/lib/pane-manager/pane-manager-registry.ts :: RegisteredPaneManager","[Bug]: Renderer spins at 100% CPU after macOS sleep/wake with WebGL terminals
+
+## Environment
+
+- Orca 1.4.162
+- macOS 26.5 (25F71), arm64
+- Several remote SSH workspaces and terminal tabs open
+- Terminal GPU Acceleration: Auto
+
+## Steps to reproduce
+
+1. Keep several remote terminal workspaces open.
+2. Close the MacBook lid and let macOS sleep.
+3. Wake the MacBook and return to Orca.
+
+## Actual behavior
+
+- Orca frequently becomes unresponsive after wake.
+- The Orca Renderer process sustains about 100% CPU.
+- Remote PTYs remain connected and writable, so the underlying SSH sessions appear healthy.
+- This happens without memory pressure (roughly 30 GB was available when inspected).
+- Force-quitting and restarting Orca restores the UI.
+
+Relevant log event names seen around the failure:
+
+```text
+terminal_safe_fit_retry_exhausted
+terminal_replay_guard_wedged_release
+terminal_webgl_diagnostic
+webgl-atlas-reset
+```
+
+The repeated WebGL diagnostic/reset events and renderer CPU usage suggest the terminal renderer enters a loop during wake/layout/replay.
+
+## Expected behavior
+
+Orca should restore terminal tabs after macOS wakes without freezing or spinning the renderer CPU.
+
+## Workaround being tested
+
+Terminal GPU Acceleration has been switched from Auto to Off for comparison; this has not yet been validated across enough sleep/wake cycles.
+
+## Diagnostics upload
+
+Settings > Privacy & Telemetry > Create diagnostic file did not respond, including after restarting Orca, so I could not attach a diagnostics reference ID.",,
+rtk-ai/rtk#4444,rust,src/lib.rs :: is_operational_command,"Seven hook-rewritten commands skip the hook integrity check (aws, psql, wc, mypy, gradlew, mvn, mvnd)
+
+Seven commands the hook rewrites into skip the hook integrity check: `aws`, `psql`, `wc`, `mypy`, `gradlew`, `mvn` and `mvnd`. They are missing from `is_operational_command` in `src/main.rs`, which is an explicit whitelist (""a forgotten command fails open"").
+
+With a legacy `~/.claude/hooks/rtk-rewrite.sh` whose content no longer matches `.rtk-hook.sha256`, `rtk git status` and `rtk vitest` stop with `rtk: hook integrity check FAILED` and exit 1, while these seven go on to run the tool (`rtk wc -l` prints its count; the others reach their tool lookup). Each one is a command `rtk rewrite` produces:
+
+```
+aws s3 ls         -> rtk aws s3 ls
+psql -c 'select 1' -> rtk psql -c 'select 1'
+wc -l src/main.rs -> rtk wc -l src/main.rs
+mypy src          -> rtk mypy src
+./gradlew build   -> rtk gradlew build
+mvn test          -> rtk mvn test
+mvnd test         -> rtk mvnd test
+```
+
+`jest` had the same gap; #2418 adds it.
+
+The list drifts because it is opt-in: a new command is unchecked until someone remembers it. An exhaustive `match` over `Commands` (meta commands listed as `false` by name, no `_` arm) makes the compiler ask for a decision on every new variant, and a test can assert that every command `rtk rewrite` emits is operational.
+",,
+langchain-ai/langchain#40213,python,libs/core/langchain_core/messages/block_translators/anthropic.py :: _convert_to_v1_from_anthropic,"core: `_convert_to_v1_from_anthropic` mutates message.content when lifting `index` off an unrecognized block
+
+### Submission checklist
+
+- [x] This is a bug, not a usage question.
+- [x] I added a clear and descriptive title that summarizes this issue.
+- [x] I used the GitHub search to find a similar question and didn't find it.
+- [x] I am sure that this is a bug in LangChain rather than my code.
+- [x] The bug is not resolved by updating to the latest stable version of LangChain (or the specific integration package).
+- [x] This is not related to the langchain-community package.
+- [x] I posted a self-contained, minimal, reproducible example. A maintainer can copy it and run it AS IS.
+
+### Package (Required)
+
+- [ ] langchain
+- [ ] langchain-openai
+- [x] langchain-anthropic
+- [ ] langchain-classic
+- [x] langchain-core
+- [ ] langchain-model-profiles
+- [ ] langchain-tests
+- [ ] langchain-text-splitters
+- [ ] langchain-chroma
+- [ ] langchain-deepseek
+- [ ] langchain-exa
+- [ ] langchain-fireworks
+- [ ] langchain-groq
+- [ ] langchain-huggingface
+- [ ] langchain-mistralai
+- [ ] langchain-nomic
+- [ ] langchain-ollama
+- [ ] langchain-openrouter
+- [ ] langchain-perplexity
+- [ ] langchain-qdrant
+- [ ] langchain-xai
+- [ ] Other / not sure / general
+
+### Related Issues / PRs
+
+Same broader defect class raised in #40001 (""AIMessage.content_blocks mutates message.content in the Anthropic, Bedrock and Google translators""), which explicitly identified this exact Anthropic-translator case. #40001 was closed as completed after #40022 (bedrock_converse fix) and #40023 (google-genai fix) merged, but neither of those touches anthropic.py -- this specific half was never fixed. bedrock.py's _convert_to_v1_from_bedrock() imports and calls _convert_to_v1_from_anthropic() directly, so model_provider=""bedrock"" (for Claude-backed models) inherits the same bug.
+
+### Reproduction Steps / Example Code (Python)
+
+```python
+from copy import deepcopy
+
+from langchain_core.messages import AIMessage
+
+message = AIMessage(
+    content=[{""type"": ""custom"", ""payload"": ""value"", ""index"": 3}],
+    response_metadata={""model_provider"": ""anthropic""},
+)
+original = deepcopy(message.content)
+
+first = message.content_blocks  # first read
+
+print(""before:"", original)
+print(""after: "", message.content)
+assert message.content == original  # fails: `index` is gone
+```
+
+### Error Message and Stack Trace (if applicable)
+
+```shell
+N/A -- not an exception, silent data corruption.
+
+AssertionError: assert [{'type': 'custom', 'payload': 'value'}] == [{'type': 'custom', 'payload': 'value', 'index': 3}]
+```
+
+### Description
+
+`_convert_to_v1_from_anthropic` in `libs/core/langchain_core/messages/block_translators/anthropic.py` builds most content blocks as fresh dicts, but the fallback `else` branch for an unrecognized block type wraps the original block by reference and then pops a key off it: it builds `new_block[""value""] = block` (the same dict, not a copy) and then does `new_block[""value""].pop(""index"")`. Since `new_block[""value""]` is `block`, the original dict living inside `message.content`, that pop deletes `index` from the message's own stored content as a side effect of reading the read-only-looking `.content_blocks` property.
+
+Impact. A message that carries a non-standard content block with an `index` key silently loses that key the first time `.content_blocks` is read, e.g. from logging, middleware, or a second unrelated call site. Anything that persists or re-serializes `message.content` afterward (checkpointers, conversation stores, `dumps()`) captures the corrupted version. `bedrock.py`'s `_convert_to_v1_from_bedrock` imports and calls this same function directly, so `model_provider=""bedrock""` for Claude-backed models inherits the identical bug (confirmed locally).
+
+Proposed fix: copy the block before popping `index` off it, exactly the pattern already accepted for the analogous Bedrock Converse fix (#40022, in `bedrock_converse.py`) -- `value = block.copy()`, pop `index` from `value`, and build the `non_standard` wrapper (with the lifted `index`) from that copy instead of from `block` directly. I already have this implemented with regression tests for both the `anthropic` and `bedrock` providers (message content provably unchanged after one or more `.content_blocks` reads) and verified locally: full `langchain-core` unit suite passing (2256 passed), `ruff check`/`ruff format --diff`/`mypy` clean, import-linter clean. Happy to open the PR -- could I be assigned to this issue per the contribution guidelines?
+
+### System Info
+
+System Information
+------------------
+> OS:  Darwin
+> OS Version:  Darwin Kernel Version 25.5.0: Tue Jun  9 22:26:46 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T8103
+> Python Version:  3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 17.0.0 (clang-1700.6.4.2)]
+
+Package Information
+-------------------
+> langchain_core: 1.6.1
+> langsmith: 0.11.1
+> langchain_protocol: 0.0.18
+> langchain_tests: 1.1.9
+> langchain_text_splitters: 1.1.2
+
+### Social handles (optional)
+
+_No response_",,
+YunaiV/ruoyi-vue-pro#1217,java,"yudao-framework/yudao-spring-boot-starter-excel/src/main/java/cn/iocoder/yudao/framework/excel/core/convert/AreaConvert.java :: AreaConvert
+yudao-framework/yudao-spring-boot-starter-excel/src/main/java/cn/iocoder/yudao/framework/excel/core/handler/SelectSheetWriteHandler.java :: SelectSheetWriteHandler.afterSheetCreate","[BUG] HRM：员工导入模板下载恒 500——空字典下拉拼出非法区间（另有地区列写方向缺失同链路）
+
+# [BUG] HRM：员工导入模板下载恒 500——空字典下拉拼出非法区间（另有地区列写方向缺失同链路）
+
+## 环境
+- 版本：master-jdk17 @ 8e43004cf6
+- 模块：yudao-framework/yudao-spring-boot-starter-excel（框架层，所有导入模板同链路）
+- 复现日期：2026-09-19（2026-09-22 复核）
+
+## 一、复现路径（真实用户视角）
+1. 进入 HRM 员工管理，点「导入」打开导入弹窗（图 1，含「下载模板」入口）：
+
+   ![员工导入弹窗（含下载模板入口）](https://raw.githubusercontent.com/dadiyang/ruoyi-vue-pro-defect-evidence/main/a43/a43-01-import-dialog.png)
+
+2. 点「下载模板」→ 页面右上红条「服务器错误,请联系管理员!」（图 2）：
+
+   ![点击下载后报错红条](https://raw.githubusercontent.com/dadiyang/ruoyi-vue-pro-defect-evidence/main/a43/a43-02-download-error-toast.png)
+
+接口响应原文：
+```
+GET /admin-api/hrm/employee/get-import-template → {""code"": 500, ""msg"": ""系统异常""}
+```
+
+## 二、问题现象（用户看到什么）
+- 下载员工导入模板恒「服务器错误」，拿不到模板——**导入功能整体不可用**（不下载模板用户无法知道列格式）；
+- 所有基于该框架的导入模板（不止员工）同链路风险：模板列绑定的字典/选项源为空时，模板生成端崩溃。
+
+## 三、用户所见错误背后的服务端行为
+服务器日志（15:45:28，决定性）：
+```
+org.apache.poi.ss.formula.FormulaParseException: ... $F$1:$F$0 ...
+```
+链路：模板生成读字典下拉数据源 `SELECT ... system_dict_data WHERE dict_type='hrm_employee_id_type'` 返回 **0 行**（该字典无任何字典项）→ 下拉校验区间退化为 `$F$1:$F$0` 非法区间 → POI 抛 FormulaParseException → 500。
+
+**第二处同链路问题（修第一处后暴露）**：「开户地区」列 `bankAreaId` 绑定的 `AreaConvert` 只实现了读方向（`convertToJavaData`），未实现写方向 `convertToExcelData`——模板写示例值 330100 时抛 `UnsupportedOperationException`，模板仍下载不了（日志堆栈在档，A/B 见 PR）。
+
+## 四、根因（到源码级）
+1. `SelectSheetWriteHandler.afterSheetCreate`（yudao-framework/yudao-spring-boot-starter-excel/.../core/handler/SelectSheetWriteHandler.java）对下拉列**不判空**：字典/选项源 0 行时仍拼数据验证区间，行数 0 → 区间 `$F$1:$F$0` 非法 → POI FormulaParseException；
+2. `AreaConvert`（.../core/convert/AreaConvert.java）未覆写 `convertToExcelData`（父类默认抛 UnsupportedOperationException），模板生成写示例值即崩。
+
+## 五、修复建议与复验口径
+- 修复：
+  1. 下拉生成对空字典/空选项源整列跳过（该列退化为普通文本列；全列皆空时连字典 sheet 都不创建）；
+  2. `AreaConvert` 补写方向：地区编号经 `AreaUtils.format(id, ""/"")` 转全路径（如 330100 → 浙江省/杭州市/西湖区），与读方向 `parseArea` 可往返。
+- 复验口径：员工导入模板下载 HTTP 200 且为合法 XLSX（PK 魔数＋[Content_Types].xml）；空字典列不再崩；地区列示例值为地区全路径且可被导入解析。
+",,
+langgenius/dify#40443,python,"dify-agent/src/dify_agent/adapters/llm/model.py :: _map_model_request_to_prompt_messages
+dify-agent/src/dify_agent/layers/shell/layer.py :: DifyShellLayer._tool_input
+dify-agent/src/dify_agent/layers/shell/layer.py :: DifyShellLayer._tool_interrupt
+dify-agent/src/dify_agent/layers/shell/layer.py :: DifyShellLayer._tool_run
+dify-agent/src/dify_agent/layers/shell/layer.py :: DifyShellLayer._tool_wait","Agent (Beta) + AWS Bedrock: empty tool descriptions from sandbox shell tools cause ValidationException
+
+### Self Checks
+
+- [x] I have read the [Contributing Guide](https://github.com/langgenius/dify/blob/main/CONTRIBUTING.md) and [Language Policy](https://github.com/langgenius/dify/issues/1542).
+- [x] This is only for bug report, if you would like to ask a question, please head to [Discussions](https://github.com/langgenius/dify/discussions/categories/general).
+- [x] I have searched for existing issues [search for existing issues](https://github.com/langgenius/dify/issues), including closed ones.
+- [x] I confirm that I am using English to submit this report, otherwise it will be closed.
+- [x] 【中文用户 & Non English User】请使用英语提交，否则会被关闭 ：）
+- [x] Please do not modify this template :) and fill in all the required fields.
+
+### Dify version
+
+latest
+
+### Cloud or Self Hosted
+
+Self Hosted (Docker)
+
+### Steps to reproduce
+
+1. Create a Dify Agent (Beta) with the sandbox/shell runtime enabled (`AGENT_SHELL_ENABLED=true`)
+2. Set the agent model to an AWS Bedrock model (e.g. inference profile `eu.anthropic.claude-haiku-4-5-20251001-v1:0`)
+3. Run the agent
+
+### ✔️ Expected Behavior
+
+Agent runs normally on Bedrock.
+
+### ❌ Actual Behavior
+
+Every run fails with:
+
+InvokeError: [models] Error: Failed to invoke inference profile
+eu.anthropic.claude-haiku-4-5-20251001-v1:0: Parameter validation failed:
+Invalid length for parameter system[2].text, value: 0, valid min length: 1
+Invalid length for parameter toolConfig.tools[0].toolSpec.description, value: 0, valid min length: 1
+Invalid length for parameter toolConfig.tools[1].toolSpec.description, value: 0, valid min length: 1
+Invalid length for parameter toolConfig.tools[2].toolSpec.description, value: 0, valid min length: 1
+Invalid length for parameter toolConfig.tools[3].toolSpec.description, value: 0, valid min length: 1
+
+
+## Root cause
+The four sandbox shell tools (`shell_run`, `shell_wait`, `shell_input`, `shell_interrupt`) in `dify-agent/src/dify_agent/layers/shell/layer.py` (~L251) are registered without docstrings, so no description is derived. The adapter in `dify-agent/src/dify_agent/adapters/llm/model.py` (L554) then sends `description=""""`. The Bedrock Converse API enforces `minLength: 1` on `toolSpec.description` and rejects the whole request. The `system[2].text` error is an analogous empty system/instruction block.
+
+This makes Agent (Beta) unusable with any Bedrock model whenever the shell layer is active, independent of user-configured tools.
+
+## Suggested fix
+Add descriptions to the shell layer tools and/or use a non-empty fallback in `_map_tool_definitions_to_prompt_tools`; filter empty system text blocks before sending.
+
+",,
+pbakaus/impeccable#707,javascript,"cli/engine/detect-antipatterns-browser.js :: checkColors
+cli/engine/rules/checks.mjs :: checkColors","detect: [gray-on-color] false-positives on opacity modifiers, ternary branches, and sibling elements
+
+`detect`'s `[gray-on-color]` rule false-positives on Tailwind opacity-modifier classes, ternary `className` branches, and adjacent sibling elements sharing a line. On a real ~400-file React/Tailwind codebase this produced 39 findings; on manual review, 39/39 were false positives — zero were real contrast problems.
+
+### Bug 1 — opacity modifiers (`/10`, `/20`, ...) read as solid color
+
+```jsx
+<button className=""text-slate-300 hover:bg-red-500/10 hover:text-red-400"">
+  Log out
+</button>
+```
+
+`detect .` reports:
+
+```
+line 3: [gray-on-color] text-slate-300 on bg-red-500
+```
+
+But `bg-red-500/10` is a 10%-opacity tint over the page background, not a solid `bg-red-500` — actual contrast is fine. The `/NN` suffix appears to be stripped before the color is compared.
+
+### Bug 2 — ternary branches conflated as if both render simultaneously
+
+```jsx
+<button className={`px-4 py-2 text-sm rounded-lg transition-colors ${mode === ""a"" ? ""bg-amber-600 text-white"" : ""bg-white/5 text-slate-400 hover:bg-white/10""}`}>
+  Mode
+</button>
+```
+
+`detect .` reports:
+
+```
+line 1: [gray-on-color] text-slate-400 on bg-amber-600
+```
+
+Only one ternary branch ever renders — `bg-amber-600` pairs with `text-white` (fine), `text-slate-400` pairs with `bg-white/5` (also fine, and itself an opacity modifier, compounding bug 1). The rule appears to scan all color classes on the line without respecting which conditional branch they belong to.
+
+### Bug 3 — sibling elements on one line cross-matched
+
+```jsx
+<div className=""flex items-center gap-1.5""><div className=""w-3 h-3 rounded bg-amber-500"" /><span className=""text-slate-400"">Vital few (&le;80%)</span></div>
+```
+
+`detect .` reports:
+
+```
+line 4: [gray-on-color] text-slate-400 on bg-amber-500
+```
+
+`bg-amber-500` belongs to a small color-swatch `<div>`; `text-slate-400` belongs to the adjacent, backgroundless `<span>`. They're unrelated elements that happen to share one physical line (common with Prettier's JSX formatting for short sibling elements).
+
+### Repro
+
+Both snippets above reproduce standalone — attached as `Repro2.jsx`. Ran with:
+
+```
+npx impeccable detect .
+```
+
+### Why this matters
+
+All three bugs share a root cause: the rule appears to do same-line text-matching for `text-*`/`bg-*` class pairs rather than resolving which JSX element and which conditional branch each class actually belongs to. Any Tailwind + conditional-className codebase (which is most of them) will hit this. A few also had stale line numbers pointing past the end of the file, though I couldn't isolate a minimal repro for that one.
+
+Happy to help test a fix — this is a genuinely useful check when it's accurate, just not trustworthy as-is on real components.
+",,
+langgenius/dify#41222,go,"dify-agent-runtime/internal/server/config.go :: Config
+dify-agent-runtime/internal/server/config.go :: DefaultConfig
+dify-agent-runtime/internal/server/service.go :: Service.WaitJob","[Refactor/Chore] Benchmark Rust runtime optimization opportunities
+
+## Self Checks
+
+- [x] I have read the [Contributing Guide](https://github.com/langgenius/dify/blob/main/CONTRIBUTING.md) and [Language Policy](https://github.com/langgenius/dify/issues/1542).
+- [x] This is only for refactors or chores; if you would like to ask a question, please head to [Discussions](https://github.com/langgenius/dify/discussions/categories/general).
+- [x] I have searched for existing issues [search for existing issues](https://github.com/langgenius/dify/issues), including closed ones.
+- [x] I confirm that I am using English to submit this report, otherwise it will be closed.
+- [x] 【中文用户 & Non English User】请使用英语提交，否则会被关闭 ：）
+- [x] Please do not modify this template :) and fill in all the required fields.
+
+## Description
+
+Update (2026-08-11): I also tested the `8e74d7d715c88f1bd0a681cb275a8f7811522c97` implementation on a self-hosted Linux Dify deployment using the exact deployed Agent backend and Go/Rust sandbox images. The production-host, full Agent v2 shadow A/B below complements (and does not replace) the matched-container microbenchmarks above.
+
+Update (2026-08-08): I rebased the experiment on current Dify `main` at `60d6be5b137bc021364f4b4a9bce268a58e9b439`, ported the protocol-compatible Rust runtime to that tree, fixed the benchmark methodology, optimized the Rust implementation, and reran correctness and performance tests. This update supersedes all numbers previously shown in this issue.
+
+Related work:
+
+- [#38671 — Go prototype with lower idle memory and faster startup](https://github.com/langgenius/dify/issues/38671)
+- [#38841 — migrate the Python shell runtime to Go](https://github.com/langgenius/dify/pull/38841)
+
+This is not a proposal to rewrite Dify in Rust. It asks whether a narrowly scoped, protocol-compatible Rust implementation of `dify-agent-runtime` is worth pursuing, given the maintenance cost of another toolchain.
+
+The prototype implements the current shell runtime HTTP contract and the four runtime helpers (`shellctl`, PTY sanitizer, runner, and runner-exit). The production image uses the same Python 3.12 slim base and the same Node, pnpm, uv, tmux, and CLI tooling as the Go image. The implementation also preserves tmux job supervision, SQLite state, interactive input, output offsets, termination/deletion, and Linux Landlock behavior.
+
+### Correction to the previous memory claim
+
+The earlier revision compared historical Python, Go, and Rust server-process RSS values from unlike process boundaries. In particular, tmux and container memory were not accounted for consistently, and the earlier Rust prototype did not yet keep the current persistent tmux server behavior. Therefore the previous “8.81x lower than Python” and related idle-memory ratios should be treated as invalid for a whole-runtime comparison.
+
+The corrected matched-container result is substantially smaller: final Rust uses **48.4% less long-lived-process RSS than Go (1.94x)** in the Linux container test. Depending on the container memory definition, the measured reduction is **56.8% for cgroup `memory.current`** or **68.6% for Docker's displayed working set**. These definitions are reported separately and should not be mixed.
+
+## Motivation
+
+### Reproducible benchmark design
+
+- Host: Apple Silicon, Docker Desktop 29.2.1; benchmark containers are Linux/arm64.
+- Runtime images: Go and Rust use identical production tooling and are limited to 2 CPUs and 1 GiB RAM.
+- Seven independent paired rounds; execution order alternates `go,rust` and `rust,go`.
+- Each round includes one cold job, five untimed warmups, 50 sequential jobs, 12 jobs returning at least 32 KiB, and 25 jobs through 8 workers.
+- Every timed job must return `done=true`, `status=exited`, `exit_code=0`, and the expected output; failures abort the comparison.
+- Values below are medians of the seven round-level medians. Reduction confidence intervals use a deterministic 10,000-resample paired bootstrap.
+- Memory is sampled separately as cgroup `memory.current`, Docker working set, and RSS of long-lived processes (`tini` + runtime server + tmux). The short-lived `ps` sampler is explicitly excluded.
+- Reports record raw samples, image IDs, source SHA-256 digests, repository SHA/status, runtime order, and tool versions.
+
+Lower is better for every metric below.
+
+| Linux container metric | Go median | Final Rust median | Go/Rust | Rust reduction (95% CI) |
+|---|---:|---:|---:|---:|
+| Cold first real job | 126.735 ms | **26.766 ms** | 4.60x | **78.3%** [73.8%, 81.4%] |
+| 50 sequential real jobs | 125.779 ms | **21.549 ms** | 5.78x | **82.7%** [82.3%, 83.2%] |
+| 32 KiB output job | 175.354 ms | **30.549 ms** | 5.82x | **82.8%** [82.1%, 82.9%] |
+| 8-worker concurrent jobs | 119.057 ms | **20.025 ms** | 5.90x | **83.1%** [82.2%, 83.5%] |
+| Startup to healthy | 164.324 ms | 160.725 ms | 1.01x | 1.0% [-7.8%, 6.5%] |
+| Idle long-lived-process RSS | 17.008 MiB | **8.770 MiB** | 1.94x | **48.4%** [48.4%, 48.5%] |
+| Idle cgroup `memory.current` | 7.830 MiB | **3.309 MiB** | 2.31x | **56.8%** [56.2%, 58.1%] |
+| Idle Docker working set | 6.723 MiB | **2.105 MiB** | 3.19x | **68.6%** [67.8%, 68.8%] |
+| Post-workload cgroup memory | 19.943 MiB | **11.088 MiB** | 1.79x | **44.3%** [43.6%, 45.5%] |
+
+There is no statistically supported startup improvement: its confidence interval crosses zero.
+
+### Rust optimization A/B on the same Dify revision
+
+I preserved the pre-optimization Rust image and reran both images with the corrected harness. Each side has seven independent paired Go/Rust rounds. To control for host drift, the A/B result first computes Rust/Go within every round and then compares those ratios across the pre/final runs.
+
+| Metric | Pre-optimization Rust | Final Rust | Direct Rust speedup | Go-normalized speedup (95% CI) |
+|---|---:|---:|---:|---:|
+| Sequential real job | 69.969 ms | **21.549 ms** | 3.25x | **3.29x** [3.19x, 3.48x] |
+| 32 KiB output job | 68.900 ms | **30.549 ms** | 2.26x | **2.31x** [2.19x, 2.37x] |
+| 8-worker concurrent jobs | 67.343 ms | **20.025 ms** | 3.36x | **3.35x** [3.08x, 3.48x] |
+| Cold first job | 73.987 ms | **26.766 ms** | 2.76x | **2.68x** [1.58x, 3.18x] |
+| Idle long-lived-process RSS | 9.023 MiB | **8.770 MiB** | 1.03x | **1.03x** [1.02x, 1.17x] |
+| Startup to healthy | 153.561 ms | 160.725 ms | 0.96x | 0.98x [0.86x, 1.05x] |
+
+The main latency changes were:
+
+1. poll cheap atomic completion artifacts every 5 ms while retaining the expensive tmux liveness fallback at 50 ms;
+2. avoid two unconditional tmux liveness probes at the beginning of every wait;
+3. combine `new-session` and `pipe-pane` into one tmux client invocation;
+4. reuse the sanitizer output buffer and avoid flushing every 8 KiB chunk;
+5. use a current-thread Tokio runtime for the lightweight HTTP server; and
+6. enable thin LTO, one codegen unit, and symbol stripping for release builds.
+
+The result is primarily a short-job/process-management improvement, not an LLM, database, vector-search, or provider-latency benchmark. Long-running wait CPU overhead and production-scale mixed workloads still need dedicated profiling before any adoption decision.
+
+### Self-hosted Linux full Agent v2 shadow A/B (2026-08-11)
+
+To check whether the runtime microbenchmark gains survive the real Agent v2 orchestration path, I ran an isolated A/B on a self-hosted Linux Dify host.
+
+Method:
+
+- Dify source revision: `8e74d7d715c88f1bd0a681cb275a8f7811522c97`.
+- Exact deployed images: Agent backend `local/dify-agent-backend:8e74d7d-rust-canary-v3`, Go sandbox `langgenius/dify-agent-local-sandbox:1.16.1`, and Rust sandbox `local/dify-agent-local-sandbox-rust:8e74d7d-canary-v1`.
+- Temporary, unexposed shadow containers ran on the production host's internal Docker network. They had no host ports and received no production traffic; the production containers were not restarted.
+- The benchmark exercised the full `/execution-bindings` → `/runs` → events/status → `/workspace/files/read` → binding-destroy path.
+- A deterministic in-process model removed provider latency while retaining the Agent v2 tool loop.
+- Two warm-up pairs were followed by 20 measured paired samples with alternating Go-first/Rust-first order and a fresh binding/workspace for every sample.
+- Every run executed five sequential shell actions: marker creation, 32 KiB file creation, SHA-256, 32 KiB stdout, and final file verification.
+- The model validated every tool result, including completion state, exit code, and content, and called `shell_wait` whenever `done=false`.
+- Confidence intervals use a deterministic paired bootstrap with 10,000 resamples.
+
+| Full Agent v2 metric | Go median | Rust median | Go/Rust | Rust reduction (95% CI) |
+|---|---:|---:|---:|---:|
+| Binding create | 187.236 ms | **41.883 ms** | 4.470x | **77.6%** [70.0%, 79.0%] |
+| Agent run | 882.419 ms | **290.734 ms** | 3.035x | **67.1%** [66.8%, 68.5%] |
+| 32 KiB file read | 424.267 ms | **150.012 ms** | 2.828x | **64.6%** [63.4%, 65.4%] |
+| Binding destroy | 134.766 ms | **36.042 ms** | 3.739x | **73.3%** [72.6%, 73.6%] |
+| Full session | 1,999.212 ms | **670.795 ms** | 2.980x | **66.4%** [65.8%, 67.4%] |
+
+Rust was faster in all 20 paired full-session samples (two-sided sign test, `p ≈ 1.91e-6`). Full-session p95 was 2,126.475 ms for Go and 691.185 ms for Rust.
+
+Runtime observations:
+
+- Go required 13 `shell_wait` calls over 20 sessions (median 1 per session); Rust required 1 total (median 0).
+- Go produced one `done=true`, `exit_code=0`, `status=lost` terminal anomaly; Rust produced none. The output still passed strict content validation, and the anomaly was counted separately.
+- Immediately before the temporary sandboxes were removed, the Go container used 26.39 MiB with 802 PIDs and 783 zombie `sh`/`tmux` processes; Rust used 4.766 MiB with 4 PIDs and no zombies. This is a post-workload diagnostic snapshot, **not** a controlled idle-memory benchmark, so it should not replace the matched idle-memory results above.
+
+Safety/cleanup checks:
+
+- The production Agent backend, Go sandbox, and Rust sandbox retained their original container IDs, start times, and restart count of zero.
+- Dify still returned HTTP 200 and both production sandbox `/healthz` endpoints passed after the benchmark.
+- All temporary containers, workspaces, homes, and shellctl job records were absent after cleanup.
+
+This measures the runtime-dependent Agent v2 local shell/file path, not end-user UI latency, external LLM latency, database/vector-search performance, or ordinary workflows that do not use this runtime. It is also a single-host, 20-pair result; broader hardware coverage and long-running soak tests would still be needed. I retained the authoritative raw JSON report with SHA-256 `a50cf5d7b4c248aa75286a937bdb1c3e02935e2b88f3c1a340f4c85e3c5c42de`.
+
+## Additional Context
+
+### Correctness and CI/CD checks reproduced locally
+
+- Current Go command: `go test -race -count=1 ./...` passed; `golangci-lint` reported 0 issues.
+- Rust runtime: formatting and Clippy passed; 4 unit tests passed.
+- Extracted Rust workflow/RAG/security/API-edge crates: formatting and Clippy passed; 11 tests passed.
+- Benchmark harness: 12 unit tests passed, including strict lifecycle validation, mixed-source rejection, corrected RSS parsing, paired aggregation, deterministic bootstrap, and Go-normalized A/B validation.
+- Clean Linux Docker build used `cargo build --locked --release --bins` successfully.
+- The existing Go acceptance suite was parameterized to run against Go and Rust. All 23 test groups passed across Go/Rust, including auth, env/cwd, non-zero exits, wait/offset/tail/status/list, input, terminate/delete/force-delete, and Landlock allow/deny/bypass behavior. Go and Rust no-isolation modes were also exercised.
+- The Rust image built and ran on Linux/arm64. A separate Buildx `linux/amd64` image built successfully and completed a real job under QEMU (`done=true`, `status=exited`, `exit_code=0`, expected output).
+- Proposed workflow changes add Rust fmt/Clippy/tests, both runtimes to the integration suite, benchmark-harness tests, path filters, and Rust Docker build entries for amd64/arm64. The edited workflow YAML files parse locally. No hosted GitHub Actions run is claimed because this experiment has not been submitted as a PR.
+- Five additional native macOS rounds independently showed similar direction: sequential jobs 132.311 vs 22.185 ms (5.96x), 32 KiB output 192.799 vs 37.024 ms (5.20x), concurrent jobs 149.523 vs 33.936 ms (4.36x), and server+tmux RSS 21.453 vs 11.188 MiB (1.93x). Interactive-input and offset-wait timing intervals crossed zero, so no performance improvement is claimed for those scenarios; their correctness tests passed.
+
+### Questions for maintainers
+
+1. Is reducing local sandbox job-management latency and idle memory currently useful enough to justify further work in this area?
+2. Which memory definition and production workload should be the upstream acceptance criterion?
+3. Would maintainers prefer a Go profiling/optimization contribution first, before considering another runtime language?
+4. If Rust is acceptable at this boundary, would a benchmark/CI-only PR followed by a small runtime PR be the preferred review path?
+5. Are there deployment, supply-chain, cross-compilation, or long-running workload requirements missing from this experiment?
+
+I can provide the benchmark harness, raw JSON reports, Dockerfiles, and the protocol-compatibility patch if maintainers consider this direction useful.
+",,
+thedotmack/claude-mem#5084,typescript,"src/cli/handlers/context.ts :: contextHandler.execute
+src/services/context/ContextBuilder.ts :: fitContextForDelivery","SessionStart systemMessage exceeds Claude Code's 10,000-char cap: footer appended after the preview trim
+
+### What happens
+
+The hook trims the terminal preview to a 10,000-char budget, then appends the viewer line and the
+Pro trial line outside that budget (where `proTrialLine('session-start')` is added, cited in #4768).
+When the preview is full, `systemMessage` is over 10,000 and Claude Code shows this instead:
+
+```text
+<persisted-output> Output too large (9.8KB). Full output saved to: …-systemMessage.txt
+```
+
+Same symptom as #1591 / #1899.
+
+### Measured (claude-mem 15.2.1, Claude Code 2.1.310, macOS 27.0.1)
+
+- `systemMessage` 10,054 = preview 9,881 + footer 173
+- `additionalContext` 7,641, all 50 observations: only the terminal display is lost
+- 12 of 12 SessionStarts since 2026-10-25 show the stub
+
+### Expected
+
+`systemMessage` <= 10,000. Subtract the footer (viewer line, trial line, countdown, one-time notice)
+from the preview budget, or trim after composing it.
+
+Claude Code docs ([Hooks > JSON output](https://code.claude.com/docs/en/hooks)): each field is
+capped at 10,000 characters; ""this cap has no setting or environment variable to raise it"".
+
+Related: #4768 / PR #4806 drop the trial line, but the viewer line still sits outside the budget.
+",,
+storytold/photocraft#658,rust,"crates/algo/src/blur.rs :: average_samples
+crates/algo/src/blur.rs :: radial
+crates/algo/src/lib.rs :: FilterParams
+crates/algo/src/lib.rs :: kernel
+crates/algo/src/tests.rs :: all_filters
+crates/engine/src/filters.rs :: params_for
+crates/engine/src/filters.rs :: specs","Bug: radial blur clamps intervals to <64
+
+in blur dot rs, the radial blur clamps intervals to < 64, which would mean at 1000px image the samples would be 27 pixels apart",,
+QuantumNous/new-api#7410,go,relay/channel/openai/relay_image.go :: normalizeOpenAIUsage,"Images API 未将 output_tokens_details 映射到 img_o，表达式少收图输出
+
+### Deployment source
+
+Repository release / official image (self-hosted)
+
+### Your current newapi version
+
+69a500298
+
+### Submission Checks
+
+- [x] **Non-duplicate issue:** I have searched existing [Issues](https://github.com/QuantumNous/new-api/issues?q=is%3Aissue) and confirmed there are no similar issues.
+- [x] **Read this first:** I have fully read the section above, reviewed the docs at https://docs.newapi.ai/ and the project README, and asked AI first, confirming this is not a usage, configuration, or integration question.
+- [x] **Supported version:** I have provided an exact version, commit, or image tag (not `latest` or `unknown`) and confirmed that the issue reproduces on an unmodified, supported version from this repository.
+- [x] **Not a third-party service:** I confirm that this issue is not exclusive to a third-party hosting site, relay, API service, or fork that has not been verified against the unmodified repository. Third-party instance issues must be reported to their operator.
+- [x] **Issue attribution:** I have provided evidence that distinguishes the client, new-api, and upstream layers. For relay issues, I compared equivalent redacted requests sent directly upstream and through new-api, confirming that new-api introduces or changes the error rather than merely forwarding the upstream error unchanged.
+- [x] **Channel and protocol boundary:** I confirm that the issue is not caused by a Coding Plan service, reverse-engineered channel, third-party API wrapper, Codex reverse-proxy endpoint, or behavior specific to the Codex API. If first observed through such an interface, I have reproduced it using a standard API protocol supported by this repository.
+- [x] **Maintainer time:** I understand that maintainers have limited time and issues that do not follow this template may be ignored or closed directly.
+
+### Issue Description
+
+实际行为：
+请求走 POST /v1/images/generations（OpenAI Images，不是 Gemini 原生 chat）。模型定价是阶梯表达式，例如：
+tier(""base"", p * 2 + c * 12 + img_o * 120)
+上游 usage 里已有 output_tokens_details.image_tokens（例如 1120），但结算时 img_o 仍是 0。这 1120 个 token 全进了 c，按文本补全价收取。
+
+影响：
+表达式里 img_o 单价高于 c 时会少收图输出。典型 Gemini Images 1K 出图约 1120 个图输出 token，会被当成补全文本收。
+
+出现频率：
+凡是 Images 的 generations/edits（含带 usage 的流式 chunk）回了 output_tokens_details.image_tokens，且表达式用了 img_o，每次都会发生。与具体客户端无关。已在未修改的 QuantumNous/new-api main 上核对过 normalizeOpenAIUsage。
+
+证据（问题在 new-api，不在客户端或上游）：
+1）直连上游的 Images JSON 已经带有 output_tokens_details.image_tokens。
+2）relay/channel/openai/relay_image.go 的 normalizeOpenAIUsage 只把 input_tokens_details 拷到 PromptTokensDetails（img），没有把 output_tokens_details 拷到 CompletionTokenDetails。
+3）service/tiered_settle.go 的 img_o 只读 usage.CompletionTokenDetails.ImageTokens。
+4）当前 main 的 Usage 已能解析 OutputTokensDetails，但计费仍看到 0。
+
+不是 pass-through 只转发。未修改的 main 源码即可看出缺口。#2500 按「用表达式」关掉了，但 Images 路径并没有把字段喂给 img_o。相关：#6248 里有这处拷贝，尚未合入且范围更大。
+
+Relay / API：
+- 接口：POST /v1/images/generations（edits、以及带 usage 的 stream 同样）
+- 渠道：OpenAI 兼容 Images
+- 转换：openai_image
+- 透传：否
+- 脱敏后的上游 usage（直连上游和经 new-api 回给客户端的 JSON 一样；出错的是规范化后的计费状态）：
+
+{
+  ""input_tokens"": 15,
+  ""output_tokens"": 1352,
+  ""total_tokens"": 1367,
+  ""input_tokens_details"": { ""text_tokens"": 15, ""image_tokens"": 0 },
+  ""output_tokens_details"": { ""image_tokens"": 1120, ""text_tokens"": 232 }
+}
+
+normalizeOpenAIUsage 之后：PromptTokens=15，CompletionTokens=1352，CompletionTokenDetails.ImageTokens=0，因此 img_o=0，c 里含 1120。
+
+Billing：
+- 表达式使用了 img_o
+- 消费日志里 1120 按 c 的文本价收，而不是 img_o 的图输出价
+- 预期：img_o=1120；表达式引用 img_o 时从 c 中扣除这 1120
+
+Frontend：不适用
+Deployment：不适用（main 69a500298 上的字段映射问题）
+
+### Steps to Reproduce
+
+1. 在未修改的 new-api main 上，给模型配表达式：
+   tier(""base"", p * 2 + c * 12 + img_o * 120)
+2. 经 OpenAI 兼容 Images 渠道 POST /v1/images/generations，上游回包带 output_tokens_details.image_tokens（例如 1120）。
+3. 看消费日志 / BuildTieredTokenParams：img_o 为 0，补全 token 仍包含图输出。
+4. 代码里 normalizeOpenAIUsage 从未把 OutputTokensDetails 赋给 CompletionTokenDetails。
+
+### Expected Result
+
+将 output_tokens_details.image_tokens 拷到 CompletionTokenDetails.ImageTokens，使 img_o 为 1120（示例）。结算按 img_o 收图输出；表达式使用 img_o 时从 c 中减去这些 token。
+
+### Related Screenshots
+
+无截图。缺口在 main 的 relay/channel/openai/relay_image.go normalizeOpenAIUsage。#6248 已有对应的三行拷贝。",,
+rclone/rclone#9959,go,"fs/bwtimetable.go :: BwPair.String
+fs/registry.go :: Option.String","rc core/bwlimit: sub-KiB rate is scaled by 1024 when the reported rate is fed back in
+
+#### What is the problem you are having with rclone?
+
+`BwPair.String()` prints a sub-KiB bandwidth without a unit, and `Set` reads a bare number as KiB, so a bandwidth below 1 KiB is multiplied by 1024 when it goes through a string.
+
+This is the same corruption as 63c4fef27 (""fs: fix corruption of SizeSuffix with `B` suffix in config""), which fixed it for `fs.Option` by suffixing bare numbers with `B`. `BwPair.String()` calls `SizeSuffix.String()` directly, so it never got that treatment.
+
+It shows up on `rc core/bwlimit`, which documents that the returned `rate` uses the same format as the `rate` parameter and as `--bwlimit`:
+
+```
+rclone rc core/bwlimit rate=500B
+{
+    ""bytesPerSecond"": 500,
+    ""rate"": ""500""
+}
+```
+
+Feeding that `rate` back in gives a limit 1024 times larger:
+
+```
+rclone rc core/bwlimit rate=500
+{
+    ""bytesPerSecond"": 512000,
+    ""rate"": ""500Ki""
+}
+```
+
+So anything that reads the current limit and writes it back, or restores a saved value, silently raises the limit.
+
+#### What is your rclone version?
+
+master at 4e7a21bea
+
+#### Which OS you are using and how many bits
+
+macOS 15.1, darwin/arm64
+
+#### How to replicate with a test
+
+```go
+var tt fs.BwTimetable
+tt.Set(""500B"")          // Tx: 500
+printed := tt.String()  // ""500""
+
+var got fs.BwTimetable
+got.Set(printed)        // Tx: 512000
+```
+
+The same holds for `1B`, `1023B`, `1B:2B` and `Mon-10:00,500B`. Values of 1 KiB and above already round trip, because their suffix is not a digit.
+
+I have a fix that moves the `B` suffixing out of `Option.String()` into a `SizeSuffix` method and uses it from `BwPair.String()` too, with a round trip test. Happy to open a PR.
+",,
+langchain-ai/langchain#40211,python,"libs/core/langchain_core/callbacks/file.py :: FileCallbackHandler._write
+libs/core/langchain_core/outputs/chat_generation.py :: ChatGeneration.set_text","core: stale docstrings in `_write` and `set_text` — parameters that do not exist and an exception never raised
+
+### Submission checklist
+
+- [x] This is a bug, not a usage question.
+- [x] I added a clear and descriptive title that summarizes this issue.
+- [x] I used the GitHub search to find a similar question and didn't find it.
+- [x] I am sure that this is a bug in LangChain rather than my code.
+- [x] The bug is not resolved by updating to the latest stable version of LangChain (or the specific integration package).
+- [x] This is not related to the langchain-community package.
+- [x] I posted a self-contained, minimal, reproducible example. A maintainer can copy it and run it AS IS.
+
+### Package (Required)
+
+- [ ] langchain
+- [ ] langchain-openai
+- [ ] langchain-anthropic
+- [ ] langchain-classic
+- [x] langchain-core
+- [ ] langchain-model-profiles
+- [ ] langchain-tests
+- [ ] langchain-text-splitters
+- [ ] langchain-chroma
+- [ ] langchain-deepseek
+- [ ] langchain-exa
+- [ ] langchain-fireworks
+- [ ] langchain-groq
+- [ ] langchain-huggingface
+- [ ] langchain-mistralai
+- [ ] langchain-nomic
+- [ ] langchain-ollama
+- [ ] langchain-openrouter
+- [ ] langchain-perplexity
+- [ ] langchain-qdrant
+- [ ] langchain-xai
+- [ ] Other / not sure / general
+
+### Related Issues / PRs
+
+Most of the fix exists: **#38535 by @eeshsaxena** removes both stale `Args` entries and
+rewrites the `Returns:` line, but leaves the `Raises:` block untouched, so the third defect
+below survives it. #38535 was auto-closed because its author was not assigned to an issue;
+#38536, its companion report, was closed eleven minutes later as `not_planned` for being
+submitted programmatically.
+
+Neither got a human review, so none of it has been assessed; every entry below still stands
+on `master`. Reviving #38535 is the right first step — assigning its author reopens it
+automatically. I would carry it only if its author is unavailable.
+
+### Reproduction Steps / Example Code (Python)
+
+```python
+import ast
+import inspect
+import textwrap
+
+from langchain_core.callbacks.file import FileCallbackHandler
+from langchain_core.outputs.chat_generation import ChatGeneration
+
+# FileCallbackHandler._write documents a `file` parameter it does not accept.
+params = set(inspect.signature(FileCallbackHandler._write).parameters) - {""self""}
+assert params == {""text"", ""color"", ""end""}, params
+assert ""file:"" in inspect.getdoc(FileCallbackHandler._write)
+
+# ChatGeneration.set_text documents a `values` parameter; it takes none.
+params = set(inspect.signature(ChatGeneration.set_text).parameters) - {""self""}
+assert params == set(), params
+doc = inspect.getdoc(ChatGeneration.set_text)
+assert ""values: The values of the object."" in doc
+assert ""The values of the object with the text attribute set."" in doc
+
+# set_text also documents a ValueError it never raises.
+assert ""ValueError: If the message is not a string or a list."" in doc
+src = textwrap.dedent(inspect.getsource(ChatGeneration.set_text))
+assert [n for n in ast.walk(ast.parse(src)) if isinstance(n, ast.Raise)] == []
+```
+
+### Error Message and Stack Trace (if applicable)
+
+```shell
+
+```
+
+### Description
+
+Two docstrings in `langchain-core` describe an API that does not exist: reading
+`ChatGeneration.set_text`, you would believe you can pass `values` and catch a
+`ValueError`; reading `FileCallbackHandler._write`, that you can redirect output with
+`file=`.
+
+`FileCallbackHandler._write` accepts only `text`, `color` and `end`, yet its `Args:` lists
+`file`. There is no such parameter and no `**kwargs` to absorb one; the body always writes
+to its own handle.
+
+`ChatGeneration.set_text` is a `model_validator(mode=""after"")` with signature
+`(self) -> Self`, yet documents a `values` parameter and a `Returns:` describing those
+values. Both describe its original form, added in d32e511826 as `set_text(cls, values)`
+taking and returning a dict. The signature changed; the docstring did not.
+
+`set_text` also promises `Raises: ValueError: If the message is not a string or a list`,
+but its body contains no `raise` at all. The implementation before #31238 did raise, inside
+a `try`/`except`; #31238 removed the validator, and the revert in #31555 restored a
+simplified body without it while keeping the docstring whole. Content that is not a `str`
+or a `list` is rejected by pydantic field validation, before this validator ever runs — so
+the error this block attributes to `set_text` cannot come from it.
+
+None of it changes behaviour. #40139 is the same problem, and you labelled it a bug.
+
+I checked every Google-style `Args:` entry against its signature across core, `langchain`,
+text-splitters and the partner packages here; these are the only two naming something
+neither a parameter nor reachable through `**kwargs`.
+
+### System Info
+
+System Information
+------------------
+> OS:  Linux
+> OS Version:  #30~24.04.1-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug  7 13:27:52 UTC 2
+> Python Version:  3.13.13 (main, May 10 2026, 19:26:54) [Clang 22.1.3 ]
+
+Package Information
+-------------------
+> langchain_core: 1.6.1
+> langsmith: 0.11.1
+> langchain_protocol: 0.0.18
+> langchain_tests: 1.1.9
+> langchain_text_splitters: 1.1.2
+
+Verified on master at commit 0d50cbddd9. Affected files:
+libs/core/langchain_core/callbacks/file.py
+libs/core/langchain_core/outputs/chat_generation.py
+
+Independent of operating system, Python version and model provider.
+
+### Social handles (optional)
+
+_No response_",,
+moby/moby#54006,go,"daemon/libnetwork/drivers/bridge/internal/iptabler/port.go :: network.setPerPortNAT
+daemon/libnetwork/drivers/bridge/internal/nftabler/port.go :: network.setPerPortDNAT
+daemon/libnetwork/drivers/bridge/port_mapping_linux.go :: toNATBinding
+daemon/libnetwork/service_linux.go :: publishedPort
+daemon/libnetwork/types/types.go :: PortBinding
+daemon/libnetwork/types/types.go :: PortBinding.Copy
+daemon/libnetwork/types/types.go :: PortBinding.Equal
+daemon/libnetwork/types/types.go :: PublishedPort
+daemon/libnetwork/types/types.go :: PublishedPort.PortBinding","Swarm: container on an overlay network cannot reach an ingress-published port when the service task runs on the same node (29.9.0; worked on 29.7.2)
+
+### Description
+
+After upgrading our Swarm cluster (13 nodes, Ubuntu 24.04.5) from Docker Engine 29.7.2/29.8.0 to 29.9.0, containers attached to an overlay network can no longer establish new TCP connections to a port published through the ingress routing mesh when the service task runs on the same node as the connecting container. The connection attempt times out (ETIMEDOUT).
+
+Connections from containers on any other node to the same published port work fine.
+Connections from the host itself (host network namespace) to its own published port work fine. Only containers attached to overlay networks on the same node are affected.
+Already-established TCP connections keep working; only new connects fail. This made the problem surface gradually (long-lived DB connections survived, restarted containers could not reconnect).
+
+The problem affects every node in the cluster equally (verified on two different nodes with a minimal reproduction), so it is not corrupted state on a single node. It survives:
+
+systemctl restart docker on the affected node
+docker service update --force on the published service and on the client services
+a full reboot of the affected node
+
+Last known good version: 29.7.2 (the same workload ran for months with the client containers co-located with the published service). We did not bisect 29.8.x, so the regression is somewhere in 29.8.0–29.9.0.
+
+Possibly related to the fixes that landed in 29.9.0 itself (moby/moby#53723 ""published port unreachable from another container ... including Swarm services published through the routing mesh"", moby/moby#53663 stale VXLAN FDB entries, moby/moby#53825 DOCKER-INGRESS chain cleanup) — the symptom matches the first one, but on 29.9.0 it is not fixed for the same-node case in our environment.
+
+### Reproduce
+
+Multi-node swarm, default ingress network. NODE_A is any worker, NODE_A_IP its address on the swarm data path. testnet is any attachable overlay network (the same happens with stack-created overlay networks).
+`# on a manager
+docker network create -d overlay --attachable testnet
+docker service create --name lbtest \
+  --constraint node.hostname==NODE_A \
+  --publish 18080:80 nginx:alpine
+
+# 1) SAME NODE — on NODE_A:
+docker run --rm --network testnet alpine \
+  sh -c 'wget -qO- --timeout=5 http://NODE_A_IP:18080 >/dev/null \
+         && echo SAMEHOST_OK || echo SAMEHOST_FAIL'
+# -> SAMEHOST_FAIL   (wget: download timed out)
+
+# 2) OTHER NODE — on NODE_B:
+docker run --rm --network testnet alpine \
+  sh -c 'wget -qO- --timeout=5 http://NODE_A_IP:18080 >/dev/null \
+         && echo REMOTE_OK || echo REMOTE_FAIL'
+# -> REMOTE_OK
+
+# 3) HOST ITSELF — on NODE_A (host netns):
+timeout 5 bash -c ""</dev/tcp/NODE_A_IP/18080"" && echo HOST_OK
+# -> HOST_OK`
+
+Same result with a MariaDB client container against a published ProxySQL service (ERROR 2002 (HY000): Can't connect to server (110) from the same node, Access denied i.e. successful TCP from any other node).
+
+### Expected behavior
+
+A container attached to an overlay network should be able to reach an ingress-published port regardless of whether the service task runs on the same node or a different one (as it did on 29.7.2).
+Observations from the ingress sandbox on an affected node
+`# nft DNAT rule for the published port exists and its counter increases
+# with every attempt:
+nft list table ip nat | grep 3306
+  iifname != ""docker_gwbridge"" tcp dport 3306 counter packets 295311 ... dnat to 172.18.0.2:3306
+
+# (iptables -t nat -L DOCKER-INGRESS prints ""Incompatible with this kernel""
+#  via the iptables-nft wrapper, but the rules are present in nft.)
+
+# inside the ingress sandbox:
+nsenter --net=/var/run/docker/netns/ingress_sbox cat /proc/net/ip_vs
+  IP Virtual Server version 1.2.1 (size=4096)
+  Prot LocalAddress:Port Scheduler Flags
+    -> RemoteAddress:Port Forward Weight ActiveConn InActConn
+  FWM  0000015A rr
+    -> 0A000013:0000      Masq    1      5          1489
+
+# route to the service's ingress VIP inside the sandbox:
+nsenter --net=/var/run/docker/netns/ingress_sbox ip route get 10.0.0.30
+  local 10.0.0.30 dev lo src 10.0.0.30
+
+# TCP connect to the VIP inside the sandbox:
+nsenter --net=/var/run/docker/netns/ingress_sbox bash -c ""</dev/tcp/10.0.0.30/3306""
+  Connection reset by peer`
+
+So the DNAT fires, but on the node that hosts the task the IPVS/ingress path does not deliver the connection to the local backend.
+
+### docker version
+
+```bash
+Client: Docker Engine - Community
+ Version:           29.9.0
+ API version:       1.56
+ Go version:        go1.26.9
+ Git commit:        f415da8
+ Built:             Thu Oct  8 20:38:42 2026
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          29.9.0
+  API version:      1.56 (minimum version 1.40)
+  Go version:       go1.26.9
+  Git commit:       a5b58c9
+  Built:            Thu Oct  8 20:38:42 2026
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.4.1
+  GitCommit:        f2551031d7276a770f65f98c9b52e57e7dad07e8
+ runc:
+  Version:          1.5.2
+  GitCommit:        v1.5.2-0-g29dd3dc2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+```
+
+### docker info
+
+```bash
+Client: Docker Engine - Community
+ Version:    29.9.0
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.38.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v5.6.0
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 83
+  Running: 70
+  Paused: 0
+  Stopped: 13
+ Images: 118
+ Server Version: 29.9.0
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Swarm: active
+  NodeID: gtlr3ooi4rf6631bkzmvksuu2
+  Is Manager: false
+  Node Address: 10.1.0.10
+  Manager Addresses:
+   10.1.0.12:2377
+   10.1.0.3:2377
+   10.1.0.5:2377
+   10.1.0.7:2377
+   10.1.0.9:2377
+ Runtimes: runc io.containerd.runc.v2
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc version: v1.5.2-0-g29dd3dc2
+ init version: de40ad0
+ Security Options:
+  apparmor
+   Profile: default
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.8.0-147-generic
+ Operating System: Ubuntu 24.04.5 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 16
+ Total Memory: 30.6GiB
+ Name: anidockfs01
+ ID: 7213b2b9-19ae-43d5-bc02-3db258c61ac8
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ HTTP Proxy: http://10.1.0.3:3128/
+ HTTPS Proxy: http://10.1.0.3:3128/
+ No Proxy: localhost,127.0.0.1,10.0.0.0/8,.int.animate.de
+ Experimental: false
+ Insecure Registries:
+  127.0.0.0/8
+  ::1/128
+ Live Restore Enabled: false
+ Firewall Backend: iptables
+  EnableUserlandProxy: true
+  UserlandProxyPath: /usr/bin/docker-proxy
+```
+
+### Additional Info
+
+13-node swarm (5 managers), Linux only, kernel 6.8.0-147-generic on all nodes, iptables-nft 1.8.10, firewall backend iptables, userland proxy enabled.
+All nodes upgraded to 29.9.0 on the same day; the symptom was first noticed when containers co-located with a published ProxySQL service could not reconnect to it after a node reboot (containers with DB healthchecks went into a 137/unhealthy restart loop; long-running containers kept working on pre-existing connections).
+Workaround in production: point the clients' DNS name for the published service at the IP of a node that hosts no client containers, so every connection takes the (working) remote routing-mesh path.",,
+zed-industries/zed#62086,rust,crates/gpui_linux/src/linux/wayland/window.rs :: WaylandWindow.update_ime_position,"IME candidate window flickers between two positions
+
+### Reproduction steps
+
+When two Zed windows are open, the IME candidate window in the second window continuously flickers between two positions if a terminal in the first window is producing continuous output.
+
+The IME itself remains functional: Chinese text can still be composed and committed. Only the candidate window position is unstable.
+
+1. Open two Zed windows.
+2. In the first window, open the integrated terminal.
+3. Run a command that continuously produces terminal output, for example: `while true; do echo .; done`
+4. Switch to the second Zed window.
+5. Focus an editor and start composing Chinese text with Fcitx5.
+6. Observe the IME candidate window.
+
+
+### Current vs. Expected behavior
+
+**Expected behavior**
+
+Terminal activity in an inactive Zed window should not affect the IME candidate window position in the active window.
+
+**Actual behavior**
+
+The IME candidate window flickers between two positions while Chinese input remains functional. Stopping the terminal output or restarting Zed makes the issue disappear.
+
+https://github.com/user-attachments/assets/08de276e-255e-43dc-b457-d4738c9f38de
+
+### Zed version and system specs
+
+Zed: v1.13.1+stable.332.00bd72e7838f4b875a913cd112b47a0ebe1ca62b (Zed) 
+OS: Linux Wayland ubuntu 24.04
+Memory: 30.3 GiB
+Architecture: x86_64
+GPU: Intel(R) Graphics (ARL) || Intel open-source Mesa driver || Mesa 25.2.8-0ubuntu0.24.04.2
+
+### Attach Zed log file
+
+<details><summary>Zed.log</summary>
+
+<!-- Paste your log inside the https://github.com/user-attachments/assets/eeaedef2-070b-4387-8d97-a78be5ed3cbdcode block. -->
+```log
+
+```
+
+</details>
+
+
+### Relevant Zed settings
+
+<details><summary>settings.json</summary>
+
+<!-- Paste your settings inside the code block. -->
+```json
+
+```
+
+</details>
+
+
+### Relevant Keymap
+
+<details><summary>keymap.json</summary>
+
+<!-- Paste your keymap file inside the code block. -->
+```json
+
+```
+
+</details>
+
+
+### (for AI issues) Model provider details
+
+_No response_
+
+### If you are using WSL on Windows, what flavor of Linux are you using?
+
+_No response_",,
+infiniflow/ragflow#18188,python,"deepdoc/parser/mineru_parser.py :: MinerUParser
+deepdoc/parser/mineru_parser.py :: MinerUParser._enhance_images_with_vlm
+deepdoc/parser/mineru_parser.py :: MinerUParser.parse_pdf","Follow-up to #17227: MinerU and Mistral figure-description paths ignore dataset language
+
+## Problem
+
+While working on #17227, two additional figure-description paths were found that bypass `VisionFigureParser` and do not forward the dataset language.
+
+As a result, their figure-description prompts fall back to English even when the dataset language is configured differently.
+
+## Affected paths
+
+- `deepdoc/parser/mineru_parser.py:897`
+  - MinerU image enrichment calls `vision_llm_figure_describe_prompt()` directly without forwarding `lang`.
+  - This path bypasses `VisionFigureParser`.
+
+- `deepdoc/parser/mistral_parser.py:329`
+  - The Mistral parser also calls `vision_llm_figure_describe_prompt()` directly without forwarding `lang`.
+
+## Expected behavior
+
+Both paths should pass the dataset language to the figure-description prompt so generated descriptions honor the configured dataset language.
+
+Visible text in images should remain verbatim in its original language.
+
+## Suggested fix
+
+- Thread the dataset language through the MinerU and Mistral image-enrichment paths.
+- Call `vision_llm_figure_describe_prompt(language=lang)`.
+- Normalize a missing or empty language to `English`.
+- Add focused tests for language propagation and the empty-string fallback.
+
+## Related
+
+Follow-up to #17227.",,
+career-ops-hq/career-ops#3400,javascript,"scan.mjs :: buildContentFilter
+title-keywords.mjs :: compileKeyword","bug(scan): single-token content_filter negatives match inside other words (""java"" rejects every JavaScript posting)
+
+### What
+
+`buildContentFilter()` in `scan.mjs` matches negative keywords with plain `String.includes()`. Single tokens therefore reject postings that merely *mention* them inside another word:
+
+```js
+buildContentFilter({ negative: ['java'] })('We ship TypeScript/JavaScript')
+// → false — a Node/TS role discarded because of one substring hit
+```
+
+The same collision hits `ios`: a negative `ios` rejects any posting containing the word ""curiosity"".
+
+Combined with #2695 (discards leave no record), these postings vanish silently.
+
+### Proposed fix
+
+Anchor single tokens at word boundaries (same lookaround discipline `compileLocationKeyword()` already uses, so the two filters can't drift); multi-word phrases like `security clearance` keep exact-substring semantics since those are intended to match anywhere. Genuine standalone mentions still reject: `java` still blocks an actual Java shop, and a real `ios` negative still blocks iOS-only roles.
+
+A tested implementation exists locally (unit tests covering both the anchoring and phrase passthrough); happy to share the diff if a PR isn't wanted from my side.
+",,
+QuantumNous/new-api#7844,go,pkg/perf_metrics/outcome.go :: ClassifyRelayOutcome,"非流式请求响应后客户端断开，不计入模型性能统计
+
+### 提交前必读
+
+- 文档：https://docs.newapi.ai/
+- 使用问题先看或先问：https://deepwiki.com/QuantumNous/new-api
+- 开启透传请勿反馈问题；透传会直接发送内容，不会经过 new-api 的逻辑处理。
+- 请以简练语言陈述事实与证据。Issue 正文及后续评论均不得直接粘贴未经人工过滤的大段 AI 文本。
+- 转发类问题必须先确认问题发生在 new-api 这一层：请使用等价的脱敏请求分别直连上游和经过 new-api，对比响应状态、错误体与服务端日志。未经对比、仅展示上游报错的反馈不接受 issue。
+- 不接受 Coding Plan、逆向渠道、第三方封装接口，以及将 Codex 接口反代为通用 API 后产生的兼容性问题；Codex API 自身特有的协议或行为也不应被当作标准 OpenAI API 行为，相关问题请先向渠道或接口提供方确认。
+- 本项目不提供官方托管服务，也不为第三方托管站、中转站或 API 服务提供技术支持；此类问题请联系对应运营方。
+- 警告：删除本模板、删除小节标题或随意清空内容的 issue，可能会被直接关闭；多次提交未经人工过滤的大段 AI 文本，或重复恶意提交者，可能会被 block。
+
+### 部署来源
+
+本仓库 main 分支源码（自行构建）
+
+### 您当前的 newapi 版本
+
+main 45fbb149f
+
+### 提交确认
+
+- [x] **非重复 issue:** 我已搜索现有 [Issues](https://github.com/QuantumNous/new-api/issues?q=is%3Aissue)，确认目前没有类似 issue。
+- [x] **提交前必读:** 我已完整阅读上方“提交前必读”，并已查看文档 https://docs.newapi.ai/、项目 README 且向 AI 提问，确认这不是使用、配置或接入类问题。
+- [x] **受支持版本:** 我已提供准确的版本号、commit 或镜像标签（不是 `latest` 或 `unknown`），并确认问题可在本仓库未修改的受支持版本中复现。
+- [x] **非第三方服务:** 我确认这不是第三方托管站、中转站、API 服务或未经本仓库原版验证的 fork 所独有的问题；第三方实例问题应联系其运营方。
+- [x] **非透传:** 我确认相关渠道未开启透传。开启透传会直接发送内容，不会经过 new-api 的逻辑处理，此类问题不接受 issue。
+- [x] **问题归属:** 我已提供足以区分客户端、new-api 和上游的证据；转发问题已使用等价的脱敏请求对比直连上游与经过 new-api 的结果，确认错误由 new-api 引入或改变，而非仅原样转发上游报错。
+- [x] **渠道与协议边界:** 我确认问题不是由 Coding Plan、逆向渠道、第三方封装接口、Codex 反代接口，或 Codex API 自身特有行为导致；若问题最初出现于此类接口，我已在本仓库支持的标准 API 协议上复现。
+- [x] **维护成本:** 我理解项目维护者精力有限。Issue 正文及后续评论均不得直接粘贴未经人工过滤的大段 AI 文本，须先提炼可复核的要点；不遵循模板要求或缺少要点、无法复核的内容可能会被无视或直接关闭。多次提交此类内容可能会被 block。
+
+### 问题描述
+
+非流式请求成功返回后，如果客户端收完响应就断开连接，这次请求不计入模型性能统计（perf_metrics）。
+
+原因：响应写完后 ctx 被取消，`ClassifyRelayOutcome` 把它判成 ignored。#7638 只修了流式。
+
+线上 gpt-6-sol（/v1/responses 非流式）一天 261 次请求，perf_metrics 里是 0。
+
+浏览器会复用连接，测不出来；用 curl 能复现。
+
+### 复现步骤
+
+main 45fbb149f，OpenAI 渠道，模型 gpt-6-sol。
+
+1. 发 10 个非流式请求：
+
+```bash
+for i in $(seq 10); do
+  curl -s -o /dev/null http://127.0.0.1:3000/v1/responses \
+    -H ""Authorization: Bearer $KEY"" -H ""Content-Type: application/json"" \
+    -d '{""model"":""gpt-6-sol"",""input"":""hi""}'
+done
+```
+
+2. 等 perf_metrics 落库后查 gpt-6-sol：0 条。
+
+### 预期结果
+
+记录 10 条。
+
+### 相关截图
+
+无
+",,
+moby/moby#53934,go,daemon/pkg/plugin/backend_linux.go :: Manager.Privileges,"Plugin privilege lookup hides fetch errors
+
+I used the static analysis tool [rstyled/gstyle](https://github.com/rstyled/gstyle) to help find this bug.
+
+In [`Manager.Privileges`](https://github.com/moby/moby/blob/9fabd6dfbb926381278c436a866bc8d6ac222274/daemon/pkg/plugin/backend_linux.go#L196), a failed `pm.fetch` returns `plugin.Privileges{}, nil`, its returning `nil` instead of `err`. The API then returns HTTP 200 with empty privileges instead of reporting the failure.
+
+A local unit test confirms this on master.
+
+Would you accept a one-line fix and regression test?
+
+AI-assisted triage, test preparation, and proposed fix.
+",,
+langchain-ai/langchain#41062,python,"libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware.__init__
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware._create_action_and_config
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware._process_decision
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware._reviewer_edit
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware._should_interrupt
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware.after_model
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware.awrap_tool_call
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: HumanInTheLoopMiddleware.wrap_tool_call
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: InterruptOnConfig
+libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py :: ReviewConfig","HumanInTheLoopMiddleware: opt-in per-call interrupts with typed response_schema
+
+### Privileged issue
+
+- [x] I am a LangChain maintainer, or was asked directly by a LangChain maintainer to create an issue here.
+
+### Issue Content
+
+Today HITL raises one interrupt per model turn carrying a list of actions, with the allowed decisions in a separate `review_configs` list matched by position, so approval UIs have to infer what they're looking at. LangGraph now supports typed interrupts (`response_schema`, langchain-ai/langgraph#8886).
+
+#### Scope
+
+Add an opt-in `interrupt_mode=""per_call""` (the default in the next major; `batched` deprecated):
+
+- One interrupt per gated tool call, raised from `wrap_tool_call` and resumed by interrupt ID.
+- `value`: `type: ""tool_approval""`, `tool_call_id`, `name`, `args`, `description`.
+- `response_schema`: a union of today's decision types, limited to the tool's allowed decisions. The `edit` branch is pinned to the called tool and carries the tool's own args schema. LangGraph validates answers before saving them, so a malformed answer can no longer leave a thread stuck, and bad edits are caught before the tool runs.
+- In per-call mode an edit can't switch to another tool; batched mode keeps renaming.
+
+Requires `langgraph>=1.2.12`. JS counterpart: langchain-ai/langchainjs#11832.
+
+#### Related
+
+- #37579: per-call prototyped, scoped out before merge
+- #40166: closed for per-call mode (edits can't switch tools)
+- #40164: per-call puts the tool's args schema in `response_schema`
+- #40492: `jump_to=""tools""` routing; a separate fix, out of scope here
+
+### Package (Required)
+
+- [x] langchain
+",,
+github/spec-kit#4134,python,src/specify_cli/workflows/_commands.py :: workflow_add,"[Bug]: Workflow URL download leaves a temp file after interrupt
+
+### Bug Description
+
+`specify workflow add <url>` writes the download to `tempfile.NamedTemporaryFile(..., delete=False)`. Cleanup on failure is only in `except Exception`. Two paths skip that cleanup:
+
+1. `except typer.Exit: raise` re-raises without unlinking.
+2. `KeyboardInterrupt` (a `BaseException`) is not an `Exception`, so Ctrl+C during the size-limited read leaves the file in the system temp directory.
+
+The later `finally: tmp_path.unlink(...)` only runs after a successful download, when install has started.
+
+The comment next to the `NamedTemporaryFile` already says the path is assigned immediately so a failed read can still remove the file. The `typer.Exit` and `BaseException` paths were left out.
+
+### Steps to Reproduce
+
+1. Run `specify workflow add` with an HTTPS URL that starts streaming a large body (or mock `read_response_limited` to block).
+2. Press Ctrl+C while bytes are being written to the temp file.
+3. List the system temp directory for a leftover `*.yml`, `*.download`, or archive-suffixed file created by this process.
+
+Alternatively, read `src/specify_cli/workflows/_commands.py` around the download `try`/`except typer.Exit`/`except Exception` block and the later install `finally`.
+
+### Expected Behavior
+
+Any exit after the temp file is created (error, `typer.Exit`, or interrupt) should unlink it, matching the existing best-effort cleanup on other download errors.
+
+### Actual Behavior
+
+Interrupt or `typer.Exit` during download leaves `delete=False` temp files behind.
+
+### Specify CLI Version
+
+0.16.5.dev0 (main at [bf88c9f9a82f](https://github.com/github/spec-kit/commit/bf88c9f9a82fa370c7a7257aa2b3cf10b457b65c))
+
+### AI Agent
+
+Grok Build
+
+### Operating System
+
+macOS 26.6.1
+
+### Python Version
+
+Python 3.14.7
+
+### Additional Context
+
+Suggested fix: catch `BaseException` for cleanup in the download `try`, or put download and install under one `try`/`finally` that always unlinks `tmp_path`. I can open a PR if wanted.
+
+Posted on behalf of @SebTardif by Grok (model: grok-4.6).
+",,
+Significant-Gravitas/AutoGPT#15178,python,autogpt_platform/backend/backend/blocks/rss.py :: ReadRSSFeedBlock.run,"RSS block sleeps its full polling interval even when set to run once
+
+**What happens**
+The RSS block waits out its polling interval even in run-once mode (`rss.py`). That adds about 60 s to every run of an agent that reads a feed once.
+
+**Fix**
+Skip the sleep when the block isn't running continuously, and add a test.
+
+*Found by the weekly copilot trace review. Filed by Claude Code for Nick.*",,
+nodejs/node#66617,javascript,lib/internal/abort_controller.js :: followCompositeSignal,"AbortSignal.any() of another composite leaks: an observed outer composite outlives all of its sources
+
+### Version
+
+v26.10.0 and v26.11.1.
+
+### Platform
+
+Linux arm64.
+
+### Subsystem
+
+lib (abortcontroller)
+
+### What steps will reproduce the bug?
+
+Run `node --expose-gc repro.mjs`:
+
+```js
+// node --expose-gc e3.mjs
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+const collect = async () => { for (let round = 0; round < 4; round++) { await sleep(10); globalThis.gc(); } };
+for (const nested of [false, true]) {
+  let sources = [];
+  const handed = [];
+  for (let i = 0; i < 8; i++) {
+    (() => {
+      const a = new AbortController();
+      const b = new AbortController();
+      sources.push(a, b);
+      const composite = nested ? AbortSignal.any([a.signal, AbortSignal.any([b.signal])]) : AbortSignal.any([a.signal, b.signal]);
+      const payload = new Uint8Array(2 ** 20);
+      composite.addEventListener(""abort"", () => payload.fill(1));
+      handed.push(new WeakRef(composite));
+    })();
+  }
+  // While the sources live, nothing holds the inner composite, which a collection takes first.
+  await collect();
+  sources = undefined;
+  await collect();
+  console.log(`nested: ${nested}; ${handed.filter(ref => ref.deref() !== undefined).length}/8 composites alive once their sources were collected`);
+}
+```
+
+### How often does it reproduce? Is there a required condition?
+
+Always: 5 of 5 runs on each version, when the inner composite is collected before its sources, as the repro arranges. If the order is left to the collector, it reproduces only sometimes.
+
+### What is the expected behavior? Why is that the expected behavior?
+
+`nested: true; 0/8 composites alive`, the same as `nested: false`. Once every source of a composite is gone, nothing can abort it, so its listener, and what the listener holds, should go too.
+
+### What do you see instead?
+
+`nested: true; 8/8 composites alive`: each outer composite, with its listener and the 1 MiB it holds, stays reachable for good.
+
+### Additional information
+
+`AbortSignal.any()` follows an inner composite's sources directly. The outer composite's clean-up seems to be tied to the inner composite, so collecting the inner one first leaves the outer one in `gcPersistentSignals` with no source left to release it.
+",,
+career-ops-hq/career-ops#3925,go,"dashboard/internal/ui/screens/pipeline.go :: PipelineModel.Update
+dashboard/main.go :: openCmd","bug(dashboard): open failures are written to stderr under an active alt-screen, so o/m/d are silent no-ops over SSH
+
+## Summary
+
+`openCmd` reports failures by writing to **stderr while the Bubble Tea alt-screen is active**, so the message is painted over and never reaches the user. The three keys that route through it — `o` (job URL), `m` (manifesto), `d` (open CV PDF) — become silent no-ops on any machine where opening fails, most commonly a dashboard run over SSH.
+
+The correct pattern already exists **25 lines below**, in the same file: `runGeneratePDF` surfaces the identical error as a flash (`""PDF generated but could not open: %v""`). `openCmd` is the one open path that never got it.
+
+## The code
+
+`dashboard/main.go`:
+
+```go
+func openCmd(target string) tea.Cmd {
+	return func() tea.Msg {
+		if err := openWithDefaultApp(target); err != nil {
+			fmt.Fprintf(os.Stderr, ""WARN: failed to open %q: %v\n"", target, err)
+		}
+		return nil
+	}
+}
+```
+
+The program runs with `tea.NewProgram(m, tea.WithAltScreen())` (main.go:408), so that `Fprintf` is invisible by construction — on every platform, for every failure mode. It is not a headless-specific bug; SSH is just where it is guaranteed to fire.
+
+Meanwhile, in the same file:
+
+```go
+if err := openWithDefaultApp(pdfAbs); err != nil {
+    return screens.PipelinePDFGeneratedMsg{Err: fmt.Sprintf(""PDF generated but could not open: %v"", err)}
+}
+```
+
+…which `Update` turns into a flash at `pipeline.go:477`. So `D` tells you when opening failed; `o`, `m` and `d` do not.
+
+## Reproduction
+
+1. SSH into a machine with no `DISPLAY` (a Pi, a VPS, any headless box) — a TUI is a normal thing to run this way.
+2. Run the dashboard, select a row that **has** a URL.
+3. Press `o`. Also try `m` and `d`.
+
+Expected: some indication that nothing could be opened.
+Actual: nothing at all. No flash, no error, no visible change. Indistinguishable from an unbound key.
+
+## Secondary defect: `xdg-open` exit 0 on failure
+
+For some failure classes `xdg-open` exits **0** while still failing, so `err` is nil and even the (invisible) stderr line never fires. Measured on Debian/xdg-utils:
+
+| target | result | exit |
+|---|---|---|
+| missing file | correctly reports failure | 2 |
+| registered handler that cannot run | prints `Error: no ""view"" rule for type ... passed its test case` | **0** |
+
+This matters beyond `openCmd`: it means even the correctly-written `runGeneratePDF` path can flash **""PDF regenerated and opened""** when nothing opened. Any fix that only forwards the error will still miss this class.
+
+## Why this isn't already covered
+
+- **#3379** (`'o' doesn't work for entries without reports`) fixed the *empty-`JobURL`* branch and added `m.flash = ""No URL found for this application""`. That established flash-on-failure as the intended UX for exactly this key. This issue is the **remaining** branch of the same behaviour: the URL is present, the opener is invoked, it fails, and we are back to a silent no-op.
+- **#981 / #980** are about shell-injection hardening of the Windows opener. #981 notes *""Error-propagation for `openNow` was fixed in PR #797""* — correct, but that propagation terminates at `openCmd`'s stderr write, one layer short of the UI.
+- **#88** is which command to invoke per-OS, not what to do when it fails.
+
+## Suggested fix
+
+Follow the pattern already in the file rather than inventing one:
+
+1. Have `openCmd` return a message carrying the error (a small `OpenFailedMsg{Target, Err}`, or reuse the existing flash path) instead of writing to stderr.
+2. Handle it in `Update` by setting `m.flash`, as `PipelinePDFGeneratedMsg` already does.
+3. Because of the exit-0 class above, do not rely solely on the exit code — capture the opener's output, or detect the no-graphical-session case up front (`DISPLAY`/`WAYLAND_DISPLAY` unset on Linux) and report it without shelling out.
+4. Optional, but it turns three dead keys into useful ones on remote boxes: include the URL/path in the flash so it can be selected and copied out of the terminal.
+
+Not claiming this one — leaving it for whoever wants it. It should be a well-scoped pickup: the change is confined to `dashboard/main.go` plus one `case` in `pipeline.go`'s `Update`, and the pattern to copy is already in the same file.
+
+## Environment
+
+Raspberry Pi OS (Debian, arm64), Go 1.24.4, xdg-utils; dashboard at v1.31.0, `dashboard/main.go` verified identical on current `main`.
+",,
+morluto/rea#1195,java,"bridge/ghidra/ReaGhidraBridge.java :: ReaGhidraBridge.resolveProcedure
+scripts/lib/real-ghidra-boundaries.mjs :: verifyGhidraBoundaries
+src/ghidra/GhidraAnalysisProfile.ts :: resolveGhidraAnalysisProfile","[Bug] Ghidra cannot select a function by the imported `_main` symbol from its name inventory
+
+### Before submitting
+
+- [x] I searched the open and closed issues for a related report.
+- [x] I removed credentials, tokens, private paths, and sensitive target data.
+
+### Area
+
+Native analysis or decompilation
+
+### Observed behavior
+
+With the Ghidra provider, `list_names` returns an imported label `_main` at the exact entry address of the function Ghidra names `entry`, but selecting `_main` in `function`/`analyze_function` or `procedure_pseudo_code` fails with `invalid_request` ""Unknown Ghidra procedure name or address: _main"". The address and the canonical name `entry` both work. The documentation tells callers to use the names the inventory returns, including platform symbol prefixes, so the C `main` of an ordinary unstripped macOS executable cannot be selected by the name an agent naturally tries.
+
+`list_names` includes `{""address"":""0x100000328"",""value"":""_main"",""symbol"":{""primary"":false,""type"":""label"",""source"":""imported""}}`, and `list_procedures` includes `entry` at `0x100000328`. Selecting `_main` exits 1 (CLI) or returns `isError: true` (MCP):
+
+```json
+{""code"":""invalid_request"",""details"":{""operation"":""analyze_function"",""issues"":[{""path"":[],""reason"":""invalid_value"",""message"":""Unknown Ghidra procedure name or address: _main""}]}}
+```
+
+Selecting `entry` or `0x100000328` returns the function and its pseudocode (`undefined8 entry(void) { return 0; }`). Reproduced on two separately built fixtures through CLI and MCP on the npm release, and through CLI and a raw MCP client on the `main` build. Other alias kinds and the Hopper and IDA providers were not tested.
+
+### Reproduction
+
+```sh
+export GHIDRA_INSTALL_DIR=/path/to/ghidra_12.1.4_PUBLIC JAVA_HOME=/path/to/jdk-21
+printf 'int main(void) { return 0; }\n' > minimal.c
+clang -O0 minimal.c -o minimal
+nm -nm minimal                 # _main at the entry address, 0x100000328 on this host
+npx -y rea-agents@6.1.0 function ./minimal _main --provider ghidra --json; echo ""exit=$?""
+npx -y rea-agents@6.1.0 function ./minimal 0x100000328 --provider ghidra --json; echo ""exit=$?""
+```
+
+Use the `_main` address `nm` prints if it differs. Over MCP, `open_binary` (`provider_id: ""ghidra""`), then `list_names`, `list_procedures`, and `analyze_function` / `procedure_pseudo_code` with `procedure: ""_main""` and with `procedure: ""entry""` show the same split.
+
+### Expected behavior
+
+`docs/native-investigation.md` (procedure identifiers): ""an exact database symbol name takes precedence over a bare hexadecimal address ... Use the names returned by the inventory, including their namespaces and any platform symbol prefix."" `_main` is an exact database symbol returned by the name inventory and sits at a function entry, so selecting it should return that function, the same result as `entry` or `0x100000328`.
+
+### Impact and scope
+
+Callers following the documented selector rule cannot select a C program's `main` by its inventory name with Ghidra; the failure is bounded and the target is not affected.
+
+Workaround: Selecting the function by its address or by the canonical `entry` name returned by `list_procedures` works and was observed.
+
+### REA version
+
+`rea-agents@6.1.0` from npm, and `main` at 089bbf58f3561e3f465c544bbcf8c307287b1256 built locally with `npm ci && npm run build:cached`.
+
+### Runtime and platform
+
+Node v24.21.0, macOS 27.0.1 (26A434), arm64; Apple clang 21.0.0.; Ghidra 12.1.4 (official `ghidra_12.1.4_PUBLIC` archive, macOS natives built with `buildNatives`), Eclipse Temurin JDK 21.0.12.1+1; `rea doctor --provider ghidra --json` healthy.
+
+### Target and artifact context
+
+Unstripped arm64 Mach-O C executable (Ghidra provider)
+
+### Interface
+
+CLI
+
+### Earliest failure stage
+
+Native analysis or reconstruction
+
+### Relevant output or evidence
+
+- Expected source: `docs/native-investigation.md`, procedure-identifier paragraph (unchanged on the `main` build).
+- Failure source: the `list_names` entry and selection error quoted under Observed behavior.
+- Evidence provenance: observed
+- Local verification: reproduced
+- Reproduction completeness: complete
+
+### Typed outcome or recovery expected
+
+Failing now: `function ./minimal _main --provider ghidra` exits 1 with ""Unknown Ghidra procedure name or address: _main"". Restored: it exits 0 and returns the function at the `_main` address. Control: a label that is not at a function entry is still rejected rather than resolved to an enclosing function, and `entry` and the address keep working.
+
+### Analysis or suspected cause
+
+Source-derived, not verified by a patch: `bridge/ghidra/ReaGhidraBridge.java` `resolveProcedure` matches only each function's own name or qualified symbol, not secondary symbols at a function's entry address. If only `list_procedures` names are meant to be selectors, the documentation's ""names returned by the inventory"" wording is the part that disagrees.
+
+### Additional context
+
+Found while exercising typical REA workflows on macOS with `rea-agents@6.1.0`; each case was reproduced on the npm release and on a local build of `main`, and re-checked on `main` at 6a1e558db3ec2b69561e91ea817f1c2065dfc676 just before filing.
+",,
+infiniflow/ragflow#18018,python,"rag/flow/parser/pdf_chunk_metadata.py :: _extract_raw_positions
+rag/flow/parser/pdf_chunk_metadata.py :: _fetch_source_blob
+rag/flow/parser/pdf_chunk_metadata.py :: _load_pdf_page_images","pytest: collecting rag/flow/tests/ together with test/unit_test/rag/ corrupts deepdoc.parser (cascading PlainParser ImportError)
+
+## Summary
+
+Collecting `rag/flow/tests/` and `test/unit_test/rag/` **together in a single pytest invocation** corrupts the cached `deepdoc.parser` package module in `sys.modules`, which then makes **every** `from deepdoc.parser import X` fail with a cascading `ImportError: cannot import name 'PlainParser' from 'deepdoc.parser.pdf_parser' (unknown location)`.
+
+This is **not** a `deepdoc` native-build problem and **not** a bug in any single test file. Each suite collects cleanly on its own.
+
+## Reproduction
+
+Each suite alone is green:
+
+```bash
+python -m pytest rag/flow/tests/ --collect-only -q          # 12 tests, OK
+python -m pytest test/unit_test/rag/test_naive_merge.py --collect-only -q   # 23 tests, OK
+```
+
+Combined collection fails:
+
+```bash
+python -m pytest rag/flow/tests/test_token_chunker_tag_overlap.py test/unit_test/rag/test_naive_merge.py --collect-only -q
+# ERROR collecting rag/flow/tests/test_token_chunker_tag_overlap.py
+# ImportError: cannot import name 'PlainParser' from 'deepdoc.parser.pdf_parser' (unknown location)
+```
+
+The failure is **order-independent** (swapping the two args still fails) and **survives `--import-mode=importlib`**.
+
+## Root cause
+
+`PlainParser` is only a symptom. At the moment of failure, `sys.modules` shows:
+
+```
+deepdoc.parser.pdf_parser  cached: __file__=None  __path__=None  hasPlainParser=False
+deepdoc.parser.__path__=None          # the deepdoc.parser package module itself is broken/partial
+deepdoc.__path__=['/home/.../ragflow/deepdoc']   # correct
+```
+
+`deepdoc.parser.pdf_parser` has `__file__=None` and its `SourceFileLoader.exec_module` is never invoked, so the real `deepdoc/parser/pdf_parser.py` is never executed — it was cached as a namespace/partial module. Any later `from deepdoc.parser import ...` then fails against this poisoned cache, and the error chain cascades into `docs_generator`, `invoke`, `rag.flow.*`, etc.
+
+The trigger is structural to the test layout:
+
+- `test/unit_test/rag/` and `rag/flow/tests/` are **not packages** (no `__init__.py`). pytest's default `prepend` import mode puts each of these directories on `sys.path[0]`.
+- `test/unit_test/rag` is itself named `rag`, and `test/unit_test/` contains a `deepdoc/` directory (`test/unit_test/deepdoc/parser/...`).
+- When both suites are imported in one process — the flow suite via `rag.flow.parser.pdf_chunk_metadata → api.db.services → deepdoc.parser`, and the `test/unit_test` suite via `rag.nlp` and its conftest — `deepdoc` / `deepdoc.parser` resolution hits a namespace / partial-module cache collision and `deepdoc.parser` ends up cached as a non-package broken module.
+
+Note: CPython 3.13 executes most of the import machinery in C, bypassing `builtins.__import__`, `module_from_spec`, and `SourceFileLoader.exec_module`, so the precise first corruption event cannot be observed via Python-level import hooks; the `sys.modules` end-state above plus the failure conditions are sufficient to localize the mechanism.
+
+## Independent verification that `deepdoc` is fine
+
+```bash
+python -c ""import deepdoc.parser.pdf_parser as m; print(m.__file__)""   # OK
+python -c ""from api.db.services.task_service import TaskService; print('ok')""  # OK
+# pure-python: import rag.nlp then import rag.flow.chunker.token_chunker  -> OK
+```
+
+## Suggested fixes (out of scope for this issue)
+
+1. **Decouple the import path**: `rag/flow/parser/pdf_chunk_metadata.py` does `from api.db.services.file_service import FileService` at module top level, which pulls in the entire `api.db` stack (and thus `deepdoc.parser`) whenever the chunker package is imported. Moving that heavy import behind a function / lazy import removes the chunker from the `deepdoc` import chain.
+2. **Make test directories real packages** (add `__init__.py` to `test/unit_test/rag`, `rag/flow/tests`, etc.) so pytest resolves them unambiguously instead of as `sys.path` roots / namespace portions.
+3. **Keep the two suites in separate pytest invocations** in CI as a stopgap (each already collects green alone).
+
+## Workaround for the affected test
+
+`rag/flow/tests/test_token_chunker_tag_overlap.py` collects and passes cleanly **on its own** (and will in CI once `deepdoc` is built). It only breaks when collected in the same process as `test/unit_test/rag/`. No code change is required in that test.
+",,
+thedotmack/claude-mem#4574,typescript,"src/services/infrastructure/ProjectMerge.ts :: mergeProjectInto
+src/services/infrastructure/WorktreeAdoption.ts :: adoptMergedWorktrees","CLAUDE_MEM_CHROMA_ENABLED=false does not stop merged-worktree adoption from spawning chroma-mcp, and worker shutdown then orphans it
+
+**Version:** 13.34.2 (also seen on 13.32.0), macOS (Darwin 25.6, Apple Silicon), bun 1.3.9
+**Related:** #3610 (Chroma sidecar contract), #3602 (child process ownership)
+
+### Summary
+With `CLAUDE_MEM_CHROMA_ENABLED=false` in `~/.claude-mem/settings.json`, every worker start still spawns chroma-mcp via the merged-worktree adoption pass, which then rewrites the merged-project metadata on all vector documents. Because the flag also leaves `chromaMcpManager` unset, the worker's graceful shutdown never stops that chroma-mcp, so it is left running (~1.2 GB footprint here) and can be killed mid-persist on the next restart.
+
+### Steps to reproduce
+1. Set `""CLAUDE_MEM_CHROMA_ENABLED"": ""false""` and restart the worker.
+2. Have at least one worktree that adoption has merged into a parent project.
+3. Watch the log and `pgrep -fl chroma-mcp`.
+
+### Observed (13.34.2, worker started 2026-10-06 21:31:48)
+- 21:31:48 `Chroma disabled … skipping ChromaMcpManager`, then in the same second `Adopting merged worktrees (background)…`
+- 21:32:03 `Connecting to chroma-mcp`, `Removed stale Chroma writer lock (priorPid=8008)`
+- 21:53:23 `merged_into_project metadata patched … chromaDocsPatched=88056`, then `Merged worktrees adopted in background … chromaUpdates=12879, chromaFailed=0`
+- The same full re-patch happened at the previous start (20:49), even with `adoptedObservations=0`, so every start opens a ~21-minute Chroma write window.
+- chroma-mcp then stays resident and idle indefinitely (1241 MB footprint, mostly swapped).
+
+### Cause (from the shipped bundle)
+- `scripts/worker-service.cjs`: both adoption paths construct a Chroma client with no flag check, e.g. `new Fi(""claude-mem"").updateMergedIntoProject(...)`. That client goes through `getInstance()`, which spawns chroma-mcp.
+- The flag gates only `ChromaMcpManager` and search.
+- The shutdown routine stops chroma only `if (chromaMcpManager)`, which is unset when the flag is off, so the adoption-spawned chroma-mcp is never stopped by the worker.
+
+### Why it matters
+- Defeats the documented way to run without Chroma (RAM/swap pressure on small machines).
+- An orphaned chroma-mcp killed during that write window is the same mid-persist kill that left us with 1,034 all-zero, id-less HNSW entries and `Error finding id` on every project-filtered query (fixed locally by a full rebuild).
+- Re-patching all 88k docs when nothing new was adopted is wasted work on every start.
+
+### Suggested fix
+1. Skip the Chroma side of adoption (or defer it to the next Chroma-enabled start) when `CLAUDE_MEM_CHROMA_ENABLED=false`.
+2. Make adoption's Chroma re-patch idempotent: only patch when `adoptedObservations > 0` or the merged set changed.
+3. Have shutdown stop any chroma-mcp the worker spawned, regardless of how it was spawned (fits #3602).
+
+### Workaround
+After `Merged worktrees adopted in background` appears in the log, and once chroma-mcp is idle: `pkill -TERM -f chroma-mcp`.
+",,
+kubernetes/kubernetes#142197,go,"pkg/registry/core/pod/storage/eviction.go :: EvictionREST.Create
+pkg/registry/core/pod/storage/eviction.go :: addConditionAndDeletePod
+pkg/registry/core/pod/storage/storage.go :: NewStorage","Objects that return v1.status don't return resource version on update
+
+When calling objects that return a status we don't get a resource version back to track our progress, e.g.
+
+```
+curl -X POST \
+        -H ""Content-Type: application/json"" \
+        http://localhost:8001/api/v1/namespaces/paperless/pods/paperless-644c46b5f-4fwt5/eviction \
+        -d '{
+      ""apiVersion"": ""policy/v1"",
+      ""kind"": ""Eviction"",
+      ""metadata"": {
+        ""name"": ""paperless-644c46b5f-4fwt5"",
+        ""namespace"": ""paperless""
+      }
+    }'
+{
+  ""kind"": ""Status"",
+  ""apiVersion"": ""v1"",
+  ""metadata"": {},
+  ""status"": ""Success"",
+  ""code"": 201
+}
+```
+
+We should add support for resource version in metadata, otherwise there are gaps that we are fixing with things like deletion resource version.
+
+KEP: https://github.com/kubernetes/enhancements/issues/5647",,
+Comfy-Org/ComfyUI#16500,python,comfy_extras/nodes_upscale_model.py :: ImageUpscaleWithModel.execute,"[Bug / Feature]: ImageUpscaleWithModel fails on images with an alpha channel (RGBA)
+
+### Custom Node Testing
+
+- [x] I have tried disabling custom nodes and the issue persists (see [how to disable custom nodes](https://docs.comfy.org/troubleshooting/custom-node-issues#step-1%3A-test-with-all-custom-nodes-disabled) if you need help)
+
+### Expected Behavior
+
+`ImageUpscaleWithModel` should support images with an alpha channel (RGBA `[B, H, W, 4]`), consistent with the recent alpha
+  channel updates across built-in image nodes (#15622–#15634). It should upscale the RGB channels through the model, rescale   
+  the alpha mask to the destination resolution, and return an RGBA image preserving transparency.
+
+### Actual Behavior
+
+ When passing an RGBA image (`[B, H, W, 4]`, such as a PNG with transparency or output from alpha-aware nodes) to           
+  `ImageUpscaleWithModel`, execution crashes.                                                                                  
+                                                                                                                               
+    The underlying neural upscale models loaded via Spandrel (ESRGAN, HAT, DAT, RealESRGAN, etc.) strictly expect 3 input      
+  channels (`in_channels=3`). Because `ImageUpscaleWithModel` passes all 4 channels directly into the model, PyTorch throws a  
+  RuntimeError regarding convolution weight channel mismatch:                                                                  
+    `RuntimeError: Given groups=1, weight of size [... 3 ...], expected input to have 3 channels, but got 4 channels instead`
+
+### Steps to Reproduce
+
+1. Load a transparent PNG image using `LoadImage` (outputs an image tensor with 4 channels).                               
+    2. Connect the `IMAGE` output directly to `ImageUpscaleWithModel`.                                                         
+    3. Load any standard upscale model (e.g. 4x-UltraSharp or RealESRGAN_x4plus) with `UpscaleModelLoader` and connect it to   
+  `ImageUpscaleWithModel`.                                                                                                     
+    4. Queue the prompt.                                                                                                       
+    5. Execution crashes on `ImageUpscaleWithModel` due to channel count mismatch (4 channels instead of 3).   
+
+### Debug Logs
+
+```powershell
+RuntimeError: Given groups=1, weight of size [64, 3, 3, 3], expected input[1, 4, 512, 512] to have 3 channels, but got 4   
+  channels instead                                                                                                             
+                                                                                                                               
+      File ""comfy_extras/nodes_upscale_model.py"", line 90, in execute                                                          
+        s = comfy.utils.tiled_scale(in_img, lambda a: upscale_model(a.float()), tile_x=tile, tile_y=tile, overlap=overlap,     
+  upscale_amount=upscale_model.scale, pbar=pbar, output_device=output_device)                                                  
+      File ""comfy/utils.py"", line 475, in tiled_scale                                                                          
+        out = function(tile)                                                                                                   
+    RuntimeError: Given groups=1, weight of size [64, 3, 3, 3], expected input to have 3 channels, but got 4 channels instead
+```
+
+### Other
+
+Following the recent batch of PRs addressing alpha channel preservation across standard image nodes (#15622, #15625, #15626,
+  #15629, #15630, #15631, #15632, #15634), `ImageUpscaleWithModel` in `comfy_extras/nodes_upscale_model.py` was left out and   
+  still assumes images are strictly RGB.
+  
+    Downstream projects like SwarmUI recently had to inject workaround node chains (`SplitImageWithAlpha` ->
+  `ImageUpscaleWithModel` -> `JoinImageWithAlpha`) specifically for this limitation:
+    `// TODO: Pending comfy fix for alpha compat`
+",,
+nextlevelbuilder/ui-ux-pro-max-skill#533,typescript,"cli/src/commands/uninstall.ts :: removeSkillDir
+cli/src/commands/uninstall.ts :: uninstallCommand
+cli/src/types/index.ts :: PlatformConfig
+cli/src/utils/detect.ts :: detectAIType
+cli/src/utils/detect.ts :: getAITypeDescription
+cli/src/utils/template.ts :: PlatformConfig
+cli/src/utils/template.ts :: generatePlatformFiles
+cli/src/utils/template.ts :: planPlatformInstallActions
+cli/src/utils/template.ts :: renderSkillFile
+cli/src/utils/template.ts :: resolveInstallPaths","Github Copilot - Skills instead of Prompts
+
+### Category
+
+Other
+
+### What do you want to see added or changed?
+
+Dear all,
+Currently, running the command ""uipro init --ai copilot"" generates output in a generic .github/prompts folder.
+Could you please update this command to:
+- Target the correct standard folder structure for GitHub Copilot skills (e.g., .github/skills/ instead of prompts).
+- Adopt the SKILL.md (instead of PROMPT.md) format so that GitHub Copilot (GHCP) in Visual Studio Code can natively discover and load the skill.
+
+Thank you for your amazing work on this tool!
+
+Regards
+
+### Why is this useful? (use case, example project)
+
+GHCP supports now SKILL.md. With PROMPT.md GHCP can't load this skill.",,
+tt-a1i/archify#254,javascript,"viewer/focus.js :: clear
+viewer/focus.js :: placeRelationshipLens
+viewer/focus.js :: setMany","Make Semantic Passport manually movable with bounded pointer and keyboard controls
+
+## Problem and user value
+
+Semantic Passport is the reader's single proof surface for a focused node, but on desktop it is anchored to the left edge and only its vertical position is chosen automatically. In a dense or wide diagram, focusing a left-side node can place the Passport directly over the node and nearby authored relationships. The reader can close it, but cannot move it aside while retaining the selected node and its evidence.
+
+This issue proposes a bounded, reader-controlled escape hatch: allow the existing Passport to be moved within the visible diagram container, without changing authored geometry, persisted application state, or canonical exports.
+
+## Existing contract and precedent
+
+- The Viewer Runtime defines Semantic Passport as a viewer-only surface outside canonical export.
+- #98 / #100 added bounded dragging and collision recovery for Semantic Radar, but explicitly left Semantic Passport dragging out of scope.
+- This proposal keeps that boundary explicit: it does not introduce a generic floating-window manager and does not change Radar behavior.
+
+## Proposed behavior
+
+Desktop/fine-pointer readers receive one small move handle in the Passport header:
+
+- pointer drag starts only after a 3 px threshold;
+- pointer capture keeps the gesture coherent outside the handle;
+- movement is clamped to the diagram container and currently visible vertical area;
+- a valid manual position survives switching the focused node;
+- closing the Passport clears the manual position;
+- double-clicking the handle or pressing `Home` restores automatic placement;
+- arrow keys move by 16 px; `Shift` + arrow moves by 4 px;
+- viewport/container resize reclamps the current manual position;
+- narrow/mobile layouts hide the move affordance and retain existing automatic placement.
+
+The handle should expose localized English and Simplified Chinese accessible names and a visible keyboard focus state.
+
+## Compatibility and truth boundary
+
+- No schema, typed JSON, renderer topology, node identity, relationship identity, or permalink change.
+- No cross-page or local-storage persistence.
+- No mobile drag surface.
+- No automatic claim that manual movement resolves every overlap with Radar, Legend, or Dock.
+- Semantic Passport remains viewer-only and must not enter canonical SVG, PNG, JPEG, WebP, Share Card, or WebM exports.
+- Existing automatic placement remains the default and the fallback after reset.
+
+## Alternatives considered
+
+1. **Automatic avoidance only.** This can handle known Viewer obstacles, but cannot reliably infer what authored content the reader wants to keep visible.
+2. **Reuse Radar's entire placement manager.** The two panels have different ownership and fallback behavior; extracting a general window manager would expand the change beyond this user problem.
+3. **Make the whole header draggable.** This risks stealing clicks from close, relation, and evidence controls. A dedicated handle keeps the interaction explicit.
+
+## Failure behavior and rollback
+
+- If bounds cannot be measured, retain the current automatic placement.
+- Cancelled pointer input restores the position from before that gesture.
+- A resize clamps rather than discards a still-valid manual intent.
+- Removing the handle, localized message, and bounded interaction block restores the current behavior without data migration.
+
+## Acceptance evidence
+
+Real-Chrome regression coverage should verify:
+
+1. drag threshold and pointer movement;
+2. clamping at all four edges;
+3. focused-node switching preserves manual position;
+4. close clears it;
+5. `Home` and double-click reset it;
+6. arrow and `Shift` + arrow movement;
+7. resize and wide-diagram horizontal scrolling reclamp correctly;
+8. mobile hides the affordance;
+9. Radar, Legend, and Dock remain operable in combination;
+10. canonical export clones contain neither the Passport nor its temporary state.
+
+## Non-goals
+
+- generic floating-panel infrastructure;
+- drag inertia, snapping, docking, or saved preferences;
+- changes to Semantic Radar;
+- automatic relocation of authored nodes;
+- a new mobile product surface.
+
+## Environment used for the initial reproduction
+
+- Archify `main` at `2bfb47132c057195d8dddb3e25ae966dd7c7a72e` (v2.16.0)
+- macOS 14.5 (23F79)
+- Node.js 24.14.1
+- Google Chrome 151.0.7922.174
+
+Existing issues and pull requests were searched for Semantic Passport move, drag, movable, and reposition variants; no duplicate was found.
+",,
+langgenius/dify#40746,python,api/core/workflow/nodes/human_input/callback.py :: DifyHITLCallback,"Human Input timeout handle drifted from ""__timeout"" to ""__timeout__"" in the backend
+
+**AI disclosure**: This issue was drafted and analyzed with Codex using gpt-5.6-sol. I have reviewed the analysis, and I am responsible for the content.
+
+### Self Checks
+
+- [x] I have read the [Contributing Guide](https://github.com/langgenius/dify/blob/main/CONTRIBUTING.md) and [Language Policy](https://github.com/langgenius/dify/issues/1542).
+- [x] This is only for bug report, if you would like to ask a question, please head to [Discussions](https://github.com/langgenius/dify/discussions/categories/general).
+- [x] I have searched for existing issues [search for existing issues](https://github.com/langgenius/dify/issues), including closed ones.
+- [x] I confirm that I am using English to submit this report, otherwise it will be closed.
+- [x] 【中文用户 & Non English User】请使用英语提交，否则会被关闭 ：）
+- [x] Please do not modify this template :) and fill in all the required fields.
+
+### Dify version
+
+1.16.1 and current `main` (`f785af3cec3f31bdb7481221333e2a22df317963` as of 2026-08-11)
+
+### Cloud or Self Hosted
+
+Self Hosted (Source)
+
+### Steps to reproduce
+
+1. Add a Human Input node to a workflow.
+2. Connect the node's Timeout branch to another node and save the workflow.
+3. Inspect the persisted workflow DSL. The frontend timeout source handle is `__timeout`.
+4. Let the Human Input form reach its node-level timeout.
+5. The backend `DifyHITLCallback` returns `Expired(selected_handle=""__timeout__"")`.
+
+The two sides currently use different persisted control-flow identifiers:
+
+- Frontend: [`handleId=""__timeout""`](https://github.com/langgenius/dify/blob/f785af3cec3f31bdb7481221333e2a22df317963/web/app/components/workflow/nodes/human-input/shared/node-branches.tsx#L30)
+- Backend: [`_TIMEOUT_HANDLE = ""__timeout__""`](https://github.com/langgenius/dify/blob/f785af3cec3f31bdb7481221333e2a22df317963/api/core/workflow/nodes/human_input/callback.py#L82)
+
+This appears to be a migration regression:
+
+- The original Dify implementation used `__timeout` as the timeout source handle.
+- The superseded migration PR [#38225](https://github.com/langgenius/dify/pull/38225) still had a RED test asserting `__timeout` ([`dbd2d24`](https://github.com/langgenius/dify/commit/dbd2d246e4d46b6332bb9f0a9c92d4c0c5de3a84)) and an implementation using `_TIMEOUT_HANDLE = ""__timeout""` ([`97c393c`](https://github.com/langgenius/dify/commit/97c393c46f609de13f90bbd1127dacf42dea74a3)).
+- The extra trailing underscores first appeared in the rewritten migration commit [`56ff71e`](https://github.com/langgenius/dify/commit/56ff71ec3e34b5b497a35e79004f8c17248b4ee2), later merged through [#38247](https://github.com/langgenius/dify/pull/38247).
+- The frontend timeout handle was not changed by that migration.
+
+### ✔️ Expected Behavior
+
+The backend timeout decision should select `__timeout`, matching the frontend source handle and the existing persisted workflow DSL contract.
+
+A regression test should cover the contract from the frontend/DSL timeout edge through the backend `selected_handle`, rather than asserting the frontend and backend values independently.
+
+### ❌ Actual Behavior
+
+The frontend persists the timeout edge with `sourceHandle: ""__timeout""`, while the backend emits `selected_handle=""__timeout__""`.
+
+As a result, the runtime timeout decision does not match the configured timeout edge. If a user action happens to use the currently valid ID `__timeout__`, the timeout decision may instead collide with that user-action branch.
+
+This is a workflow routing and persisted DSL compatibility issue, not only a naming inconsistency.
+",,
+openclaw/openclaw#117853,typescript,"src/tui/tui-session-actions.ts :: SessionActionContext
+src/tui/tui-session-actions.ts :: createSessionActions
+src/tui/tui.ts :: runTui","[Bug]: TUI session switch retains previous run ownership
+
+## Bug type
+
+Behavior bug (incorrect output/state without crash)
+
+## Beta release blocker
+
+No
+
+## Summary
+
+Selecting a different TUI session can leave the previous session's run coordinator and watchdog state alive long enough to interfere with a restored in-flight run in the new session.
+
+## Steps to reproduce
+
+1. Open session A in the TUI and let an assistant run begin streaming.
+2. While A is active, select session B whose history reports a different in-flight run.
+3. Let B finalize from its live event.
+4. Wait beyond the streaming watchdog interval and submit a follow-up in B.
+
+The deterministic regression follows the same event order: A delta, session switch, B history adoption, B final, watchdog advance.
+
+## Expected behavior
+
+Changing the selected session retires every run-ownership fact from A before B history can adopt its in-flight run. B finalizes to idle, no stale watchdog appears, and a follow-up remains owned by B. Reloading the same session should preserve its active ownership.
+
+## Actual behavior
+
+The semantic session selection changed before the event lifecycle owner was invalidated. Coordinator, watchdog, pending terminal, local-run, and stream state from A could therefore remain live while B history adopted another run, allowing a delayed A completion or watchdog to promote stale ownership.
+
+## OpenClaw version
+
+Current `main` through `b08569f6fdc130810ad73fcec34ebcee72fbe25f`.
+
+## Operating system
+
+Ubuntu Linux in a Blacksmith Testbox real PTY; applies to the cross-platform TUI state machine.
+
+## Install method
+
+Trusted source checkout via pnpm TUI/PTY test runner.
+
+## Model
+
+Not applicable; fake-backend PTY isolates the TUI ownership contract.
+
+## Provider / routing chain
+
+Not applicable; fake-backend PTY isolates the TUI ownership contract.
+
+## Additional provider/model setup details
+
+Not applicable.
+
+## Logs
+
+```text
+Contract sequence:
+session A visibly streaming
+select session B
+restore and finalize run B
+wait beyond 30-second watchdog window
+submit and complete a real B follow-up
+```
+
+## Screenshots, recordings, and evidence
+
+Blacksmith Testbox run https://github.com/openclaw/openclaw/actions/runs/30729243036 exercises the real PTY contract and the original ownership order.
+
+## Impact and severity
+
+Affected: TUI users switching sessions while a run is active or while the target session has a restorable in-flight run.
+
+Severity: Moderate. The visible terminal can show stale streaming/watchdog state or mis-own later completion/follow-up events.
+
+Frequency: Timing-dependent but deterministic under the recorded event order.
+
+Consequence: Incorrect session activity state and possible stale-run reactivation after the operator intentionally switched context.
+
+## Additional information
+
+The event lifecycle already has a canonical `dispose` owner that clears tracked coordinator, watchdog, pending-terminal, stream, and run state. The missing boundary is the semantic `setSession` transition: ownership must be retired there before history restoration, while same-session reloads remain intact.
+",,
+openclaw/openclaw#117636,typescript,"src/cli/daemon-cli/status.gather.ts :: gatherDaemonStatus
+src/daemon/service.ts :: readGatewayServiceState","[Bug]: gateway status timeout does not bound service-manager reads
+
+### Bug type
+
+Crash (process/app exits or hangs)
+
+### Beta release blocker
+
+No
+
+### Summary
+
+`openclaw gateway status --deep --timeout <ms> --json` can hang indefinitely before emitting JSON when the native service manager is wedged, because the requested timeout is applied only after the service-state reads finish.
+
+### Steps to reproduce
+
+1. On Linux, make the `systemctl --user` status path stop responding, or inject a `GatewayService` whose `isLoaded` and `readRuntime` promises never settle.
+2. Run `openclaw gateway status --deep --timeout 100 --json`.
+3. Observe that current `gatherDaemonStatus` calls both service-manager reads without the parsed timeout and never reaches the RPC timeout or JSON renderer.
+
+The focused regression reproduces this deterministically by making both reads never settle unless they receive the explicit `100` ms bound.
+
+### Expected behavior
+
+The explicit status deadline should bound every fallible service-manager probe used by the command. A service-manager timeout should degrade the service row and the CLI should still emit valid JSON within the requested bound.
+
+### Actual behavior
+
+`gatherDaemonStatus` parses `opts.rpc.timeout` only after `service.isLoaded` and `service.readRuntime` complete. Those calls receive no timeout, so a wedged `systemctl` prevents all output indefinitely.
+
+### OpenClaw version
+
+Current `main` at `fb3d473a73b039251ac8f28297a54d2a89e5d67e` (`2026.7.2` source checkout)
+
+### Operating system
+
+Ubuntu 24.04 / systemd user service
+
+### Install method
+
+Source checkout; reproduced in the daemon status boundary harness and verified on Blacksmith Testbox
+
+### Model
+
+N/A (daemon CLI path; no model invocation)
+
+### Provider / routing chain
+
+N/A (local service-manager inspection)
+
+### Additional provider/model setup details
+
+N/A
+
+### Logs
+
+```shell
+# Current main: no terminal output after the two unbounded service reads stop settling.
+openclaw gateway status --deep --timeout 100 --json
+```
+
+### Screenshots, recordings, and evidence
+
+- Current owner: `src/cli/daemon-cli/status.gather.ts` reads service state before parsing the timeout.
+- Canonical bounded owner: `src/daemon/service.ts` already propagates one deadline to both `isLoaded` and `readRuntime` and fails soft.
+- The systemd adapter already forwards that bound to every relevant `systemctl` subprocess.
+
+### Impact and severity
+
+- Affected: Linux operators and automation using `gateway status` while the user service manager or D-Bus path is wedged.
+- Severity: high operationally; the diagnostic command intended to explain a sick Gateway becomes another unbounded hang.
+- Frequency: deterministic whenever either service-manager read does not settle.
+- Consequence: no human-readable or JSON status is emitted, `--timeout` is misleading, and watchdog/health scripts can block indefinitely.
+
+### Additional information
+
+The root cause is duplicated service-state policy in `gatherDaemonStatus`. The canonical repair is to parse the effective timeout at command entry and reuse `readGatewayServiceState`, deleting the unbounded duplicate reads. No output shape, config, protocol, or default deadline change is required.
+
+AI-assisted: yes. The owner boundary, sibling status path, focused regression, Linux timeout contract, changed gate, and final patch were independently reviewed. No agent transcript is attached.
+",,
+ethereum/go-ethereum#35905,go,"core/tracing/hooks.go :: VMContext
+core/vm/evm.go :: EVM.GetVMContext
+eth/tracers/api.go :: API.traceTx","core/state, core/tracing: live tracer state reads are recorded in the block access list, making Amsterdam blocks fail validation
+
+#### System information
+
+Geth version: v1.17.6 (also present on master @ 93d78a01ab)
+CL client & version: lighthouse v8.3.0-rc.0
+OS & Version: Linux
+Network: Sepolia, Amsterdam (activated 2026-10-06 13:53:36 UTC)
+
+#### Summary
+
+We run geth with a live tracer (`--vmtrace`) at Tenderly to index Sepolia and mainnet. At the Sepolia
+Amsterdam fork, both of our live-traced nodes stopped importing at block 11856336, the last pre-fork
+block, while untraced nodes kept following the chain.
+
+Since Amsterdam, `StateDB` records every account and storage *read* into the block access list
+(EIP-7928). The `StateDB` that live tracers receive in `tracing.VMContext` is the same object the EVM
+executes on. Any `GetBalance` / `GetNonce` / `GetCode` / `GetState` / `Exist` call a tracer makes from
+a hook is therefore recorded in the locally constructed BAL. If the tracer reads an account or slot
+that execution itself did not touch, the local BAL hash no longer matches the header, and
+`ValidateState` rejects a valid block:
+
+```
+access list hash mismatch, local: aa8f…, remote: e604…
+```
+
+The node then stalls at the last pre-fork block. Nodes without a tracer are unaffected: they don't
+make the extra reads, and they also take the BAL-parallel path. So the failure only appears on nodes
+running `--vmtrace`, where it is easy to misread as a consensus bug.
+
+#### Where it happens
+
+- `core/state/statedb.go` `getStateObject` calls `s.stateAccessList.AccountRead(addr)` on every
+  lookup once `Prepare` has seen `rules.IsAmsterdam`. `stateObject.GetCommittedState` does the same with
+  `StorageRead(addr, key)`.
+- `core/state_processor.go` wraps the state in `state.NewHookedState(statedb, hooks)` and builds the
+  EVM on it. `EVM.GetVMContext()` then hands that same `evm.StateDB` to `OnTxStart` and
+  `OnSystemCallStartV2`. The `tracing.StateDB` interface is read-only, but its reads aren't
+  side-effect free.
+- `core/blockchain.go` `supportsParallelExecution` disables the BAL-parallel processor whenever a
+  tracer is attached, and block import always runs with `EnableTracer: true`. Every live-traced node
+  therefore builds its BAL sequentially, with tracer reads included.
+- `core/block_validator.go` `ValidateState` compares `res.Bal.ToEncodingObj().Hash()` with
+  `header.BlockAccessListHash`.
+
+#### Why this is hard to avoid inside a tracer
+
+Reading state from hooks has been a normal tracer pattern, and the built-in `prestateTracer` and
+`erc7562` tracers do it. Under Amsterdam a live tracer may only read an account or slot at a point
+where geth has *provably* already read it in the same block. In practice that rule is subtle. We hit
+these cases on Sepolia within the first 24h:
+
+1. **System calls.** `OnEnter` for the beacon-root/history/request system calls has
+   `from = params.SystemAddress`, but `evm.Call` with `isSystemCall` never reads the caller (it skips
+   `CanTransfer`/`Transfer`). Reading the caller's balance adds `SystemAddress` to the BAL.
+2. **Frames that fail before touching the callee.** Calls rejected on depth (`> CallCreateDepth`) or on
+   `CanTransfer` never read `to`.
+3. **Steps reported with an error.** The interpreter's deferred `EmitOpcode` reports a step that
+   failed before executing (e.g. OOG on dynamic gas). The operand is visible on the stack, but the
+   state read never happened.
+4. **Halted top frames.** A type-4 tx whose authorization cannot pay the Amsterdam account-creation
+   state gas goes through `applyAuthorizations` → `haltTopFrame`, which emits `OnEnter`/`OnExit(OOG)`
+   for a frame that never read the recipient. A tracer reading `tx.To()` in `OnTxStart`, the common
+   pattern, adds it to the BAL (Sepolia block 11859740, tx 22, recipient `0x0`).
+
+Each of these is a correct-looking tracer. The block is still rejected, and the node stays stuck even
+after the tracer is fixed, until it is restarted (the bad-block mark is in memory).
+
+#### Expected behaviour
+
+Attaching a live tracer has no effect on block validity. Reads a tracer makes through
+`tracing.StateDB` are not recorded in the block access list.
+
+#### Actual behaviour
+
+Tracer reads are recorded into the BAL. The block fails `ValidateState` with
+`access list hash mismatch`, and the node stops importing.
+
+#### Steps to reproduce
+
+1. On an Amsterdam chain, run geth with a live tracer whose `OnSystemCallStartV2` / `OnEnter` hook
+   calls `ctx.StateDB.GetBalance(from)`.
+2. Import a block. The beacon-root system call alone is enough: the caller `params.SystemAddress` is
+   not in the header's BAL.
+3. Import fails with `access list hash mismatch`.
+
+Programmatic reproduction: execute `core.ProcessBeaconBlockRoot` twice on the same state, once with
+`vm.Config{}` and once with a tracer whose `OnEnter` reads the caller's balance. Compare
+`statedb.Finalise(rules)`/BAL hashes: they differ, and the traced BAL contains `SystemAddress`.
+
+#### Possible paths forward
+
+We'd like a fix in geth rather than every tracer author rediscovering these cases. Options we
+considered, roughly from least to most invasive:
+
+**A. Give tracers a non-recording view of the state (preferred).**
+`GetVMContext()` returns a thin wrapper instead of `evm.StateDB`. The wrapper serves reads without
+calling `stateAccessList.AccountRead` / `StorageRead`, for example through unexported
+`getStateObjectNoRecord` / `GetCommittedStateNoRecord` variants, or through a ""suspend access recording""
+toggle the wrapper sets around each read. This can't be done inside `hookedStateDB` itself, because
+the EVM's own reads go through that object too; it needs a separate tracer-facing view.
+- Pros: transparent to every existing tracer, no API change, BAL is exactly what execution produced.
+- Cons: tracer reads still load objects into `stateObjects` and the reader cache, which is
+  state-neutral but not free. The same leak exists for any other read-tracking structure (e.g. witness
+  collection, if a tracer is ever combined with `MakeWitness`), so the wrapper should bypass those too.
+
+**B. Restrict tracer reads to what the block already accessed.**
+The tracer-facing view answers only for accounts and slots that already appear in the access list,
+either the in-flight construction list or, better, the BAL carried in the block body
+(`block.AccessList()`). Anything else returns zero, or `(value, false)` via a new
+`tracing.StateDB` method.
+- Pros: the BAL can never change. Checking against the block's own BAL makes the result independent
+  of when in the block the tracer reads.
+- Cons: silently returning zero for an unknown account is a semantic trap, so an explicit
+  `ok`/error return is better, but that is an interface change. It also doesn't help pre-Amsterdam
+  blocks (which aren't affected anyway) or blocks imported without a BAL body.
+
+**C. Skip or relax the BAL hash check when a live tracer is attached.**
+For example, an opt-in `--vmtrace.skipbalcheck`, or validating the header BAL with `enc.Validate`
+only.
+- Pros: trivial and unblocks indexers immediately.
+- Cons: a traced node would accept blocks with an invalid BAL, which weakens consensus validation.
+  Acceptable at most as an explicit opt-in for nodes that follow a trusted CL and never build blocks.
+  We don't think it should be the default.
+
+**D. Suspend BAL recording for the duration of each hook dispatch.**
+The `Emit*` helpers, or a `WrapWithJournal`-style wrapper on the live tracer's hooks, set a flag on
+the `StateDB` while a hook runs so that nothing it reads is recorded.
+- Pros: covers every hook, including reads made through references the tracer kept from an earlier
+  `VMContext`.
+- Cons: hook dispatch doesn't currently know the `StateDB`, which needs plumbing. It is also easy to
+  miss a dispatch site.
+
+**E. Re-validate without the tracer before declaring the block bad.**
+On a BAL mismatch with a tracer attached, re-execute the block untraced, or with recording suspended.
+If the hash then matches, accept the block and log a loud ""tracer-induced BAL divergence"" warning.
+- Pros: never marks a valid block bad, and makes the cause obvious.
+- Cons: doubles the work on the failing path. The tracer already received `OnBlockEnd(err)` for the
+  failed attempt and needs a consistent replay.
+
+**F. Document the constraint.**
+Whatever the fix, `core/tracing` docs and the live-tracer guide should state that, post-Amsterdam, a
+tracer must not read state that execution hasn't touched. The four cases above make useful examples.
+On its own this isn't a fix: the cases are too subtle to rely on documentation.
+
+We (Tenderly) are happy to send a PR for **A**, possibly with **B** as an opt-in strict mode, if that
+direction sounds right to you. In the meantime we have worked around all four cases in our tracer, but
+any other live tracer that reads state is exposed to the same failure on Amsterdam chains.
+",,
+astral-sh/uv#21416,rust,crates/uv/src/commands/workspace/list.rs :: list,"Should `uv workspace list --scripts` be resilient to malformed scripts?
+
+This is kind of a ""our problem only"" problem, but IMO worth considering.
+
+See https://github.com/astral-sh/ruff/pull/28129#discussion_r3905022410 for context.
+
+TL;DR we have `uv workspace list --scripts`, which lists the paths of all PEP 723 scripts in the workspace. However, it currently bombs out if any script has an invalid PEP 723 stanza state:
+
+```
+warning: The `--scripts` option is experimental and may change without warning. Pass `--preview-features workspace-list-scripts` to disable this warning.
+error: Failed to discover PEP 723 scripts under workspace root `/prefix/astral-sh/ruff`
+  Caused by: Failed to parse PEP 723 script: /prefix/astral-sh/ruff/crates/ruff_linter/resources/test/fixtures/eradicate/ERA001.py
+  Caused by: The script contains multiple PEP 723 metadata blocks
+```
+
+(This is in Ruff's workspace, and it happens because Ruff intentionally includes invalid PEP 723 scripts as part of its test fixtures.)
+
+A few options, probably not exhaustive:
+
+- Maybe `uv workspace list --scripts` should warn-and-skip instead of failing hard in this case?
+- Maybe we should have some kind of `--skip-invalid` option? That feels like a kludge to me though.
+
+CC @AlexWaygood @zanieb",,
+NationalSecurityAgency/ghidra#9993,java,"Ghidra/Framework/Docking/src/main/java/docking/DockingWindowManager.java :: DockingWindowManager.getJavaActiveWindow
+Ghidra/Framework/Docking/src/main/java/docking/DockingWindowManager.java :: DockingWindowManager.getParentWindow","A detached Memory Map window goes behind the CodeBrowser window after doing Delete Block
+
+After doing a Delete Block in a detached (undocked) Memory Map window, the Memory Map window goes behind the main CodeBrowser window, and the CodeBrowser window gets the focus. It looks as if the Memory Map had closed. It is still open behind the CodeBrowser (Window → Memory Map brings it back).
+Observed on macOS 27.
+
+**To Reproduce**
+
+1. Open any program in the CodeBrowser (no analysis needed).
+2. Window → Memory Map, and undock the Memory Map so it is a separate window floating above the CodeBrowser window.
+3. Add Block (the green plus): an uninitialized block named `myblock` at an address after the existing blocks, length 0x100.
+4. Select `myblock`, press Delete Block (the red cross) and click Yes in the confirmation dialog.
+5. The Memory Map window goes behind the CodeBrowser window, and the CodeBrowser window has the focus.
+
+**Expected behavior**
+
+The Memory Map window stays in front and keeps the focus after Delete Block.
+
+**Workaround**
+
+Bring the Memory Map back with Window → Memory Map, or dock it in the CodeBrowser window.
+
+**Environment:**
+ - OS: macOS 27.0.1 (26A434)
+ - Java Version: OpenJDK 21.0.12.1 (Homebrew)
+ - Ghidra Version: 12.1.4
+ - Ghidra Origin: Homebrew (third party distro)
+
+**Additional context**
+
+I stumbled upon this issue while investigating issue #9962.
+",,
+nodejs/node#66407,javascript,"lib/internal/quic/quic.js :: QuicStream
+lib/internal/quic/quic.js :: QuicStream.constructor","quic: reader is lazily allocated in QuicStream, an incoming unidi stream with fin will loose its data
+
+Again, when working on webtransport support, my test uncovered after rebasing  after 3 weeks absence,
+an issue that data can be lost. (was not there before, can be changes in quic or stream iter).
+
+What the test does is, create a server side unidirectional stream with some bytes and immediately closing the stream.
+The client is unable to read the data, because I use:
+```
+this.readiterator_ = this.stream[Symbol.asyncIterator]()
+```
+and then later call:
+```
+ await this.readiterator_.next()
+```
+when the code needs it.
+
+The problem is, that only at the call to `next()` the async iterator of `QuicStream` is called, that creates the reader on the C++ Stream object.
+However, the `#handle` is destroyed once the stream is closed (from the server side) and a later call to `this.readiterator_.next()` can not retrieve that data on client side as the `#handle` is gone, and the data was in its accumulation buffer. 
+
+I can work around this problem, by calling `next()` early and awaiting the promise later. (at least I hope)
+
+But I am wondering, if the lazy allocation of the stream's reader is a good idea. I know from user querys about my webtransport package, that a lot of user use streams to send messages and immediately close them (though I do not like this pattern), but this use pattern may result into the same problem.
+
+@pimterry @jasnell 
+What do you think about this? ",,
+zed-industries/zed#63336,rust,"crates/lsp/src/lsp.rs :: AnyResponse
+crates/lsp/src/lsp.rs :: Error
+crates/lsp/src/lsp.rs :: LanguageServer.new_internal
+crates/lsp/src/lsp.rs :: LanguageServer.on_custom_request
+crates/lsp/src/lsp.rs :: LanguageServer.request_internal_with_timer
+crates/lsp/src/lsp.rs :: LanguageServer.request_with_timer
+crates/lsp/src/lsp.rs :: LspResult
+crates/project/src/lsp_store.rs :: LspStore.background_diagnostics_worker
+crates/project/src/lsp_store.rs :: LspStore.on_lsp_progress
+crates/project/src/lsp_store.rs :: LspStore.pull_diagnostics_for_buffer
+crates/project/src/lsp_store.rs :: LspStore.pull_document_diagnostics_for_buffer_edit
+crates/project/src/lsp_store.rs :: LspStore.query_lsp_locally
+crates/project/src/lsp_store.rs :: LspStore.request_filtered_lsp_locally
+crates/project/src/lsp_store.rs :: LspStore.request_lsp
+crates/project/src/lsp_store.rs :: WorkspaceRefreshTask
+crates/project/src/lsp_store.rs :: lsp_workspace_diagnostics_refresh","Multi-GB memory growth in basedpyright with `diagnosticMode` set to `""workspace""`
+
+(apologies if this is a duplicate; I searched for related issues but couldn't find any with this exact situation, though I found others about unbounded memory growth)
+
+### Reproduction steps
+
+1. Add this block to your `settings.json`:
+```json
+{
+  ""lsp"": {
+    ""basedpyright"": {
+      ""settings"": {
+        ""basedpyright.analysis"": {
+          ""diagnosticMode"": ""workspace""
+        }
+      }
+    }
+  }
+}
+```
+2. Open a repo with multiple Python files (mine has 80).
+3. Restart the language server and wait 10 minutes.
+4. Observe high memory usage by the language server process, growing over time.
+
+In my case, it grew from ~400MB at initialization to nearly 3GB.
+
+I wrote this issue text myself, but my LLM had a diagnosis that I thought sounded reasonable (and I verified the steps it took to test it):
+<details>
+<summary>LLM diagnosis</summary>
+
+> My diagnosis is that Zed’s workspace-diagnostics timeout is creating a retry loop. Every two minutes, Zed cancels the existing request and starts a new one. Basedpyright treats each new request as a reason to analyze the workspace again, so memory grows with every retry.
+>
+> I tested this by temporarily preventing repeated requests from starting another analysis. Zed continued to time out and retry—eight times over 17 minutes—but basedpyright settled at about 19 MiB instead of growing toward 3 GiB. This suggests the repeated requests, rather than the project’s size, are causing the growth.
+>
+> I believe Zed should own the primary fix because it creates and controls the retry loop, and `diagnosticMode: ""workspace""` is explicitly supported in Zed’s Python documentation. Basedpyright keeping the request open contributes to the interaction, but that behavior is inherited from Pyright. Zed can prevent the repeated work for both servers by handling a timed-out workspace-diagnostics request without immediately starting the same work again.
+>
+> For comparison, VS Code’s standard language client leaves the current workspace-diagnostics request open and processes partial results as they arrive. It only starts another request after the current one finishes and does not apply Zed’s 120-second inactivity timeout. This allows basedpyright’s long-running request to remain active without repeatedly restarting workspace analysis. This behavior is visible in [VS Code’s language-client implementation](https://github.com/microsoft/vscode-languageserver-node/blob/main/client/src/common/diagnostic.ts#L481-L531).
+</details>
+
+### Current vs. Expected behavior
+
+Current behaviour: Memory usage grows unboundedly in workspace mode.
+Expected behaviour: Memory usage stays roughly flat over time after the initial workspace analysis.
+
+### Zed version and system specs
+
+Zed: v1.14.2+stable.337.02abf5b08fa12c1c20a155ae3f796ef4c6c1a01e (Zed) 
+OS: macOS 15.7.7
+Memory: 16 GiB
+Architecture: aarch64
+basedpyright 1.39.9
+
+### Attach Zed log file
+
+<details><summary>Zed.log</summary>
+
+<!-- Paste your log inside the code block. -->
+```log
+...
+2026-08-09T13:26:36-04:00 INFO  [project::lsp_store] stopping language server json-language-server
+2026-08-09T13:26:36-04:00 ERROR [project::lsp_store] Failed to start language server ""oxfmt"": from extension ""Oxc"" version 0.4.7: failed to execute npm install subcommand:
+stdout: """"
+stderr: ""npm error code ETARGET\nnpm error notarget No matching version found for oxfmt@0.62.0 with a date before 8/2/2026, 1:26:36 PM.\nnpm error notarget In most cases you or one of your dependencies are requesting a package version that doesn't exist.\nnpm error A complete log of this run can be found in: /Users/[REDACTED]/Library/Application Support/Zed/node/cache/_logs/2026-08-09T17_26_36_700Z-debug-0.log\n""
+2026-08-09T13:26:37-04:00 INFO  [lsp] Language server with id 4 sent unhandled notification eslint/noLibrary:
+{
+  ""source"": {
+    ""uri"": ""file:///Users/[REDACTED]/projects/miness/packages/backend/vite.config.ts""
+  }
+}
+2026-08-09T13:26:37-04:00 INFO  [project::lsp_store] language server 12: unregistered workspace/DidChangeWatchedFiles capability with id 72ba2530-4bf1-4dea-95e7-006c4b92b633
+2026-08-09T13:26:37-04:00 INFO  [lsp] starting language server process. binary path: ""/opt/homebrew/bin/node"", working directory: ""/Users/[REDACTED]/.config/zed"", args: [""/Users/[REDACTED]/Library/Application Support/Zed/languages/json-language-server/node_modules/vscode-langservers-extracted/bin/vscode-json-language-server"", ""--stdio""]
+2026-08-09T13:26:51-04:00 INFO  [zed::reliability] memory usage: resident 204 MiB (+140 MiB), virtual 429359 MiB
+2026-08-09T13:26:51-04:00 INFO  [zed::reliability] worktree diagnostics: stores 2, slots 6, live 4, visible 3, strong 3, dead weak 2, loading 0, entries 393, visible entries 343, largest /Users/[REDACTED]/projects/homelab/config (170 entries, 155 visible)
+2026-08-09T13:28:36-04:00 ERROR [lsp] Cancelled LSP request task for ""textDocument/diagnostic"" id 119 which took over 120s
+2026-08-09T13:28:36-04:00 WARN  [project::lsp_store] Get diagnostics via ruff failed: Request timed out
+2026-08-09T13:28:36-04:00 ERROR [crates/editor/src/diagnostics.rs:563] pulling diagnostics: Get diagnostics via ruff failed: Request timed out
+2026-08-09T13:28:38-04:00 ERROR [lsp] Cancelled LSP request task for ""workspace/diagnostic"" id 63 which took over 120s
+2026-08-09T13:28:38-04:00 ERROR [project::lsp_store] Timeout during workspace diagnostics pull
+2026-08-09T13:29:37-04:00 INFO  [zed::reliability::hang_detection::logging] New foreground hang detected:
+Tasks(s) that ran too long
+278.889084ms         - crates/gpui_macos/src/window.rs:1431:18
+
+2026-08-09T13:29:37-04:00 INFO  [zed::reliability::hang_detection] Task trace has been saved to: /Users/[REDACTED]/Library/Application Support/Zed/hang_traces/hang-2026-08-09_13-29-37.miniprof.json
+2026-08-09T13:30:39-04:00 ERROR [lsp] Cancelled LSP request task for ""workspace/diagnostic"" id 64 which took over 120s
+2026-08-09T13:30:39-04:00 ERROR [project::lsp_store] Timeout during workspace diagnostics pull
+
+```
+
+</details>
+
+
+### Relevant Zed settings
+
+<details><summary>settings.json</summary>
+
+<!-- Paste your settings inside the code block. -->
+```json
+{
+  ""lsp"": {
+    ""basedpyright"": {
+      ""settings"": {
+        ""basedpyright.analysis"": {
+          ""diagnosticMode"": ""workspace""
+        }
+      }
+    }
+  }
+}
+```
+
+</details>
+
+
+### Relevant Keymap
+
+<details><summary>keymap.json</summary>
+
+<!-- Paste your keymap file inside the code block. -->
+```json
+
+```
+
+</details>
+
+
+### (for AI issues) Model provider details
+
+_No response_
+
+### If you are using WSL on Windows, what flavor of Linux are you using?
+
+_No response_",,
+Significant-Gravitas/AutoGPT#14750,python,autogpt_platform/backend/backend/util/file.py :: get_exec_file_path,"Path traversal in get_exec_file_path escapes the exec_file sandbox
+
+Hey! Found that get_exec_file_path in backend/util/file.py joins the user-controlled path with no containment check, so ../../evil.txt or an absolute path like /etc/passwd escapes the exec_file sandbox. Media blocks pass graph input straight through to it. Happy to PR a fix (resolve + reject outside base) if that helps.",,
+dbeaver/dbeaver#42433,java,"plugins/org.jkiss.dbeaver.ext.oracle/src/org/jkiss/dbeaver/ext/oracle/model/OracleConstants.java :: OracleConstants
+plugins/org.jkiss.dbeaver.ext.oracle/src/org/jkiss/dbeaver/ext/oracle/model/OracleDataSource.java :: OracleDataSource
+plugins/org.jkiss.dbeaver.ext.oracle/src/org/jkiss/dbeaver/ext/oracle/model/OracleDataSource.java :: OracleDataSource.checkForPasswordWillExpireWarning","Oracle: support ORA-28098 password grace period warning
+
+### Description
+
+### Description
+
+DBeaver supports Oracle password expiration warnings, notably `ORA-28002`, since version 22.2.
+
+Recent Oracle Database versions may return `ORA-28098` when a user account enters the password grace period:
+
+> ORA-28098: Profile limits PASSWORD_LIFE_TIME and PASSWORD_GRACE_TIME are not unlimited. Password will expire after the grace period.
+
+The connection may still succeed, but DBeaver does not appear to recognize this warning as a password-expiration condition. As a result, the user may not receive a clear notification prompting them to change their password before the grace period ends.
+
+### Expected behavior
+
+When Oracle returns `ORA-28098`, DBeaver should:
+
+1. Display a visible password-expiration warning after a successful connection.
+2. Explain that the account is in the password grace period.
+3. Prompt the user to change the password, or provide a direct link/action to:
+   `Security → Change user password`
+4. Handle the warning similarly to `ORA-28002`.
+
+### Actual behavior
+
+The connection succeeds, but no specific password-expiration notification is displayed to the user.
+
+Alternatively, depending on the driver and DBeaver version, `ORA-28098` may only appear as a generic warning and is not recognized as an actionable password-expiration event.
+
+
+### Suggested implementation
+
+Extend the existing Oracle password-expiration warning detection to recognize `ORA-28098` in addition to `ORA-28002`.
+
+If possible, detection should rely on the Oracle error code rather than the localized error message.
+
+
+
+### DBeaver Version
+
+Community edition 26.2.2.202610041844
+
+### Operating System
+
+Windows 11 Professionnel
+
+### Database and driver
+
+- Oracle Database version: 26.23.1
+- Oracle JDBC driver version: ojdbc11-23.2.0.0
+- Java version: 25.0.4.1
+
+### Steps to reproduce
+
+1. Use an Oracle account associated with a profile where:
+   - `PASSWORD_LIFE_TIME` is not `UNLIMITED`;
+   - `PASSWORD_GRACE_TIME` is not `UNLIMITED`.
+2. Let the password reach its expiration date so that the account enters the grace period.
+3. Verify that the account status is `EXPIRED(GRACE)`.
+4. Connect to the database using DBeaver.
+5. Observe how the `ORA-28098` warning is handled.
+
+### Additional context
+
+DBeaver added an Oracle password expiration warning in version 22.2, apparently in relation to `ORA-28002`:
+
+- https://github.com/dbeaver/dbeaver/issues/8476
+- https://dbeaver.io/2022/09/04/dbeaver-22-2/
+
+Oracle documentation for `ORA-28098`:
+
+- https://docs.oracle.com/en/error-help/db/ora-28098/
+
+This request is specifically about recognizing `ORA-28098` as a password grace-period warning and proactively notifying the user before the account password fully expires.",,
+affaan-m/ECC#3794,javascript,scripts/codex/check-plugin-cache.js :: collectManifestRefs,"[Problem] Codex cache checker ignores manifest.hooks and accepts a missing hook file
+
+### What is the impact?
+
+Some components are missing or silently ignored: the Codex cache validator can report success without checking the hook file declared by the manifest. This reports a validator coverage gap, not a demonstrated live hook-loading failure.
+
+### What happened?
+
+At upstream main `25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b`, `.codex-plugin/plugin.json` declares `""hooks"": ""./hooks/codex-hooks.json""`, but `collectManifestRefs()` in `scripts/codex/check-plugin-cache.js` collects only skills, MCP config and interface assets. The declared hook path never reaches the existing file-kind and cache-boundary checks.
+
+Current static inspection confirms this omission. The existing public [downstream report](https://github.com/alexpostnik/ECC/issues/5) also reports a disposable-fixture reproduction: complete fixture passes; removing only the hook file still returns exit 0; removing skills returns exit 1. That historical fixture execution was not rerun for this submission. No live Codex profile, hook trust or hook execution was changed or tested.
+
+### Harness
+
+Codex app or CLI — specifically ECC's cache validation utility.
+
+### Install method
+
+Other: disposable cache fixture, rather than a new installation or repair.
+
+### Operating system
+
+Other: current evidence is platform-independent source inspection. The historical public fixture report does not specify its OS or Node version.
+
+### ECC and harness versions
+
+ECC manifest version 2.2.3, upstream main at the revision above. Exact Codex/Node runtime versions are not established by this report.
+
+### Reproduction and expected result
+
+1. Prepare a temporary cache fixture with the manifest and all its skills/MCP/interface references present. Keep the string-valued `hooks` reference in the manifest.
+2. Remove only the referenced hook file from that fixture.
+3. From the ECC checkout, run `node scripts/codex/check-plugin-cache.js --plugin-dir FIXTURE_DIRECTORY`, replacing `FIXTURE_DIRECTORY` with the disposable fixture location.
+4. Reported actual result: exit 0, despite the missing hook reference. Expected: nonzero exit with a missing-hook diagnostic, as for the other declared files.
+
+Verification criteria: a present regular hook file passes; a missing file, directory in place of that file, or reference escaping the cache fails. This still validates references only; success must not be presented as proof of hook trust, loading or execution.
+
+### Public source and duplicate review
+
+- [Manifest at the inspected revision](https://github.com/affaan-m/ECC/blob/25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b/.codex-plugin/plugin.json).
+- [Checker at the inspected revision](https://github.com/affaan-m/ECC/blob/25278e7d7b6cf6e6a4e7a6c8e10f14ff22f0eb5b/scripts/codex/check-plugin-cache.js).
+- Closed #2247 concerns packaging/cache contents; this concerns a declared reference omitted by the checker. Open #3526 concerns revision drift, and #3742 concerns Codex rejecting npm-created symlinks during hook fingerprinting. Those mechanisms differ. Closed #200/#368 concern Claude plugin path resolution. Open and closed component searches found no exact report of this omission.
+
+<!-- chat-error-monitor:codex-cache-checker-missing-manifest-hooks -->
+",,
