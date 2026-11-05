@@ -217,6 +217,8 @@ def main() -> int:
     _, items = load_set(args.set)
     runs = {}
     for path in sorted(OUT.glob(f"{args.set}_*.jsonl")):
+        if path.name.endswith(".errors.jsonl"):
+            continue
         system = path.stem[len(args.set) + 1 :]
         runs[system] = per_issue([json.loads(line) for line in path.open(encoding="utf-8")], items)
     if args.reference not in runs:
