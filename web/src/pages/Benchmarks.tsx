@@ -370,15 +370,17 @@ function NextStudy() {
         <li>
           <b>What I'm comparing.</b> Allfather against Claude Opus 5.5 in Claude Code, OpenAI's gpt-6-astra and gpt-6-luna in Codex, Gemini 3.8
           Flash, the open-weight models gpt-oss-120b and Qwen3-Coder-Next, and SweRank, a published research system. Each AI model is tested
-          both as an agent that reads the code and with a single question that gives only the bug report and the list of files.
+          both as an agent that reads the code and with a single question that gives only the bug report and the list of files. Every system
+          gets the same full bug report.
         </li>
         <li>
           <b>What I'm measuring.</b> Accuracy, cost and time per bug; whether sending only the bugs Allfather is least sure about to an agent
           gets most of the agent's accuracy for a fraction of its cost; and how Allfather ranks among the tools that are free to use.
         </li>
         <li>
-          <b>How I keep it fair.</b> I wrote down every method and decision before any result existed, and I'm not looking at any results until
-          every system has finished. I'll publish them here when the analysis is done.
+          <b>How I keep it fair.</b> I wrote down every method and decision before any result existed. Partway through, I read an interim
+          analysis of the systems that had finished, as the protocol allows; the runs still going keep the settings they had, and nothing about
+          them changed after I read it. I'll publish the full results here once every system has finished.
         </li>
       </ul>
     </section>
@@ -386,7 +388,7 @@ function NextStudy() {
 }
 
 const ROADMAP: [string, string, string][] = [
-  ["November 2026", "The GPU reranker in all six languages", "Done: one reranker trained on all six languages now re-reads results for every repository."],
+  ["November 2026", "The GPU reranker in all six languages", "Shipped: one reranker trained on all six languages re-reads results for every repository, when you switch it on."],
   ["December 2026", "Results against frontier AI agents", "Once every system has run on fresh-2026, I'll publish the full comparison here: accuracy, cost, speed, and how Allfather ranks among the free tools."],
   ["Early 2027", "More languages", "C, C++, C# and PHP come next, chosen for how widely they're used and whether public bug data exists to train and test on. Each new language gets its own held-out test before I claim anything for it."],
 ];
@@ -394,7 +396,7 @@ const ROADMAP: [string, string, string][] = [
 function Roadmap() {
   return (
     <section class="card frame block">
-      <p class="kicker">Coming soon</p>
+      <p class="kicker">Roadmap</p>
       <h2>What I'm working on</h2>
       <ol class="roadmap">
         {ROADMAP.map(([when, what, detail]) => (
