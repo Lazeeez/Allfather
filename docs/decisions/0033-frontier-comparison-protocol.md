@@ -250,3 +250,7 @@ Found before any open-model answer was read, from the run's own records: 132 of 
 - **The harness now matches the others:** an `answer` tool carries the same schema; a call to any other unknown tool whose arguments hold a valid `functions` list is taken as the answer; and after the 40th turn one last request, without tools, asks for the final answer, as Claude Code's schema enforcement does when a session ends.
 - **Qwen's agent run is redone on all 198 bugs** with the corrected harness, so every answer comes from one harness. The first run is kept, unread, in `results/research/frontier/superseded/` and is never scored. Its one-call run is unaffected (one-call has no tools) and stands; its 5 misses are prompts longer than the model's 262,144-token context, as recorded above.
 - gpt-oss-120b has not run yet and uses the corrected harness from the start.
+
+## Amendment, 2026-11-05: the hand-check sheet shows the exact sealed text
+
+Before any row was filled in, I found the sheet cut each report at 1,500 characters of title and body together, while every system received the title and the first 1,500 characters of the body, as this protocol defines; 36 of the 50 rows showed up to about 130 characters less than the systems saw. The sheet's report column is now the sealed text itself, character for character. The person checking judges that text only, not the full issue on GitHub, because the strata describe what the systems were given.

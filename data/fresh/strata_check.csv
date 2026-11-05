@@ -84,7 +84,11 @@ services:
     depends_on:
       - redis
       - database
-    restar",,
+    restart: always
+    healthcheck:
+      disable: false
+
+  i",,
 langchain-ai/langchain#39301,python,"libs/partners/openrouter/langchain_openrouter/chat_models.py :: ChatOpenRouter._create_chat_result
 libs/partners/openrouter/langchain_openrouter/chat_models.py :: _create_stream_generation_info","Preserve the serving provider from OpenRouter responses in ChatOpenRouter's response_metadata
 
@@ -135,7 +139,10 @@ import json
 import os
 
 import httpx
-from langchain_openrouter imp",,
+from langchain_openrouter import ChatOpenRouter
+
+KEY = os.environ[""OPENROUTER_API_KEY""]
+MODEL = ""meta-llama/llama-3.1-8b-ins",,
 stablyai/orca#12477,typescript,"src/renderer/src/components/settings/RepositoryHostSetupsSection.tsx :: RepositoryHostSetupsSection
 src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: RuntimeHostConnectionState
 src/renderer/src/components/status-bar/RuntimeHostStatusRow.tsx :: RuntimeHostStatusRow
@@ -182,7 +189,11 @@ Settings > Project > Available Hosts nevertheless showed the remote setup as **R
 2. Close the server's workspace window while leaving its main process/runtime reachable.
 3. Confirm the server reports an unavailable graph and an openable desktop window.
 4. Open the project's **Available Hosts** settings or the status-bar remote-host menu.
-5. Observe that the setup is still shown as **Ready/Connected** rather than identifying the unavailable workspac",,
+5. Observe that the setup is still shown as **Ready/Connected** rather than identifying the unavailable workspace window.
+
+**Expected behavior**
+
+A reachable server without a usable workspa",,
 tt-a1i/archify#793,javascript,"archify/renderers/architecture/render-architecture.mjs :: validateArchitecture
 archify/renderers/shared/geometry.mjs :: suggestComponentSeparation","[Bug]: Architecture component-level failures report empty subject/evidence/supportedFixes while their messages carry the repair
 
@@ -203,7 +214,13 @@ Affected kinds (all fall back to the untyped `layout/constraint` default):
 3. Label wider than its component.
 4. Sublabel/tag unreadable at the legible minimum.
 
-",,
+## Reproduction
+
+```json
+{
+  ""schema_version"": 1,
+  ""diagram_type"": ""architecture"",
+  ""meta"": { ""title"": ""Component diagnostics p",,
 tt-a1i/archify#484,javascript,viewer/export.js :: serializeSvg,"[Bug]: Standalone SVG retains Viewer width rules when opened directly
 
 ## Problem
@@ -238,7 +255,7 @@ const bounds = svg.getBoundingClientRect();
 
 ## Observed result
 
-The root declares `viewBox=""0 0 1080 588""`, `width=""1080""` and `h",,
+The root declares `viewBox=""0 0 1080 588""`, `width=""1080""` and `height=""588""`. Its measured size is **640×588** in the first viewport an",,
 ethereum/go-ethereum#35933,go,eth/filters/filter_system.go :: EventSystem.SubscribeLogs,"eth_newFilter rejects earliest-to-earliest ranges while eth_getLogs accepts them
 
 #### System information
@@ -274,7 +291,8 @@ The following results were consistent across three repetitions:
 
 | Request | Geth v1.17.8 | Reth v2.7.0 |
 |---|---|---|
-| `eth_newFilter`, `earliest` → `earliest` | ",,
+| `eth_newFilter`, `earliest` → `earliest` | `-32602: invalid block range params` | Returns a filter ID |
+| `eth_getFilterLogs`",,
 tauri-apps/tauri#16195,typescript,"crates/tauri/scripts/bundle.global.js :: n
 packages/api/src/webview.ts :: Webview.onDragDropEvent
 packages/api/src/window.ts :: Window.onDragDropEvent
@@ -304,7 +322,9 @@ Affected APIs (verified still present on `dev` and in `@tauri-apps/api` 2.12.0):
 - `Window.onDragDropEvent` — `packages/api/src/window.ts` (4 listeners: drag, drop, dragOver, cancel)
 - `Window.onFocusChanged` — `packages/api/src/window.ts` (2 listeners: focus, blur)
 
-A grep of `packages/api/src` for `return () => { unlistenX(); ... }` finds no other combined cleanups besides these three.",,
+A grep of `packages/api/src` for `return () => { unlistenX(); ... }` finds no other combined cleanups besides these three.
+
+Note: this is distinct from #15799, which was about a single `unlisten` throwing internally. Even a correctly-rejec",,
 morluto/rea#1116,javascript,scripts/verify-package-pack.mjs :: verifyPackagePack,"[Bug] Builds can ship a stale unused generated MCP catalog artifact
 
 ## Before submitting
@@ -324,7 +344,7 @@ A successful cached build restored a package whose generated TypeScript catalog 
 
 ## Reproduction
 
-1. Build a checkout, then change a canonical sche",,
+1. Build a checkout, then change a canonical schema or update to a revision with schema changes while retaining previo",,
 stablyai/orca#12622,typescript,"src/main/ipc/crash-reporting.ts :: rendererBreadcrumbCoalesceKey
 src/renderer/src/components/terminal-pane/terminal-render-desync-sentinel.ts :: persistEvidenceThenRecover
 src/renderer/src/components/terminal-pane/terminal-render-desync-sentinel.ts :: sampleRenderDesyncOnce
@@ -379,7 +399,7 @@ Terminal GPU Acceleration has been switched from Auto to Off for comparison; thi
 
 ## Diagnostics upload
 
-Settings > Privacy & Telemetry > Create diagnostic file did not respond, including after restarting Orca, so I could not att",,
+Settings > Privacy & Telemetry > Create diagnostic file did not respond, including after restarting Orca, so I could not attach a diagnostics reference ID.",,
 rtk-ai/rtk#4444,rust,src/lib.rs :: is_operational_command,"Seven hook-rewritten commands skip the hook integrity check (aws, psql, wc, mypy, gradlew, mvn, mvnd)
 
 Seven commands the hook rewrites into skip the hook integrity check: `aws`, `psql`, `wc`, `mypy`, `gradlew`, `mvn` and `mvnd`. They are missing from `is_operational_command` in `src/main.rs`, which is an explicit whitelist (""a forgotten command fails open"").
@@ -439,7 +459,7 @@ langchain-ai/langchain#40213,python,libs/core/langchain_core/messages/block_tran
 
 ### Related Issues / PRs
 
-Same broader defect class raised in #40001 (""AIMessage.content_blocks mutates message.content in the Anthropic, Bedrock and Google translators""), which explicitly identified this exact Anthropic-translator case. #40001 w",,
+Same broader defect class raised in #40001 (""AIMessage.content_blocks mutates message.content in the Anthropic, Bedrock and Google translators""), which explicitly identified this exact Anthropic-translator case. #40001 was closed as completed after #40022 (bedrock_converse fix) and #40023 (google-genai fix) merged, but neither o",,
 YunaiV/ruoyi-vue-pro#1217,java,"yudao-framework/yudao-spring-boot-starter-excel/src/main/java/cn/iocoder/yudao/framework/excel/core/convert/AreaConvert.java :: AreaConvert
 yudao-framework/yudao-spring-boot-starter-excel/src/main/java/cn/iocoder/yudao/framework/excel/core/handler/SelectSheetWriteHandler.java :: SelectSheetWriteHandler.afterSheetCreate","[BUG] HRM：员工导入模板下载恒 500——空字典下拉拼出非法区间（另有地区列写方向缺失同链路）
 
@@ -478,7 +498,7 @@ org.apache.poi.ss.formula.FormulaParseException: ... $F$1:$F$0 ...
 **第二处同链路问题（修第一处后暴露）**：「开户地区」列 `bankAreaId` 绑定的 `AreaConvert` 只实现了读方向（`convertToJavaData`），未实现写方向 `convertToExcelData`——模板写示例值 330100 时抛 `UnsupportedOperationException`，模板仍下载不了（日志堆栈在档，A/B 见 PR）。
 
 ## 四、根因（到源码级）
-1. `SelectSheetWriteHandler.afterSheetCreate`（yudao-framework/yudao-spring-boot-starter-excel/.../core/handler/SelectSheetWriteHandler.java）对下拉列**不判空**：字典/选项源 0 行时仍拼数",,
+1. `SelectSheetWriteHandler.afterSheetCreate`（yudao-framework/yudao-spring-boot-starter-excel/.../core/handler/SelectSheetWriteHandler.java）对下拉列**不判空**：字典/选项源 0 行时仍拼数据验证区间，行数 0 → 区间 `$F$1:$F$0` 非法 → POI FormulaParseExce",,
 langgenius/dify#40443,python,"dify-agent/src/dify_agent/adapters/llm/model.py :: _map_model_request_to_prompt_messages
 dify-agent/src/dify_agent/layers/shell/layer.py :: DifyShellLayer._tool_input
 dify-agent/src/dify_agent/layers/shell/layer.py :: DifyShellLayer._tool_interrupt
@@ -519,7 +539,8 @@ Every run fails with:
 InvokeError: [models] Error: Failed to invoke inference profile
 eu.anthropic.claude-haiku-4-5-20251001-v1:0: Parameter validation failed:
 Invalid length for parameter system[2].text, value: 0, valid min length: 1
-Invalid length for para",,
+Invalid length for parameter toolConfig.tools[0].toolSpec.description, value: 0, valid min length: 1
+Invalid length for paramet",,
 pbakaus/impeccable#707,javascript,"cli/engine/detect-antipatterns-browser.js :: checkColors
 cli/engine/rules/checks.mjs :: checkColors","detect: [gray-on-color] false-positives on opacity modifiers, ternary branches, and sibling elements
 
@@ -555,7 +576,12 @@ But `bg-red-500/10` is a 10%-opacity tint over the page background, not a solid 
 line 1: [gray-on-color] text-slate-400 on bg-amber-600
 ```
 
-Only one ternary branch ever renders — `bg-amber-600` pairs with `text-white` (fine), `text-slate-400` pairs with `bg-white/5` (also fine, and itself an opacity modifier, compounding bug 1). The rule appears to scan all color classes on the line without respecting which condition",,
+Only one ternary branch ever renders — `bg-amber-600` pairs with `text-white` (fine), `text-slate-400` pairs with `bg-white/5` (also fine, and itself an opacity modifier, compounding bug 1). The rule appears to scan all color classes on the line without respecting which conditional branch they belong to.
+
+### Bug 3 — sibling elements on one line cross-matched
+
+```jsx
+<div classNa",,
 langgenius/dify#41222,go,"dify-agent-runtime/internal/server/config.go :: Config
 dify-agent-runtime/internal/server/config.go :: DefaultConfig
 dify-agent-runtime/internal/server/service.go :: Service.WaitJob","[Refactor/Chore] Benchmark Rust runtime optimization opportunities
@@ -573,7 +599,11 @@ dify-agent-runtime/internal/server/service.go :: Service.WaitJob","[Refactor/Cho
 
 Update (2026-08-11): I also tested the `8e74d7d715c88f1bd0a681cb275a8f7811522c97` implementation on a self-hosted Linux Dify deployment using the exact deployed Agent backend and Go/Rust sandbox images. The production-host, full Agent v2 shadow A/B below complements (and does not replace) the matched-container microbenchmarks above.
 
-Update (2026-08-08): I rebased the experiment on current Dify `main` at `60d6be5b137bc021364f4b4a9bce268a58e9b439`, ported the protocol-compatible Rust runtime to that tree, fixed the benchmark methodology, optimized the Rust implementation, and reran correctness and performance tests. This update supersedes all numbers previously shown in this is",,
+Update (2026-08-08): I rebased the experiment on current Dify `main` at `60d6be5b137bc021364f4b4a9bce268a58e9b439`, ported the protocol-compatible Rust runtime to that tree, fixed the benchmark methodology, optimized the Rust implementation, and reran correctness and performance tests. This update supersedes all numbers previously shown in this issue.
+
+Related work:
+
+- [#38671 — Go prototype with lower idle memory",,
 thedotmack/claude-mem#5084,typescript,"src/cli/handlers/context.ts :: contextHandler.execute
 src/services/context/ContextBuilder.ts :: fitContextForDelivery","SessionStart systemMessage exceeds Claude Code's 10,000-char cap: footer appended after the preview trim
 
@@ -631,7 +661,7 @@ Repository release / official image (self-hosted)
 - [x] **Supported version:** I have provided an exact version, commit, or image tag (not `latest` or `unknown`) and confirmed that the issue reproduces on an unmodified, supported version from this repository.
 - [x] **Not a third-party service:** I confirm that this issue is not exclusive to a third-party hosting site, relay, API service, or fork that has not been verified against the unmodified repository. Third-party instance issues must be reported to their operator.
 - [x] **Issue attribution:** I have provided evidence that distinguishes the client, new-api, and upstream layers. For relay issues, I compared equivalent redacted requests sent directly upstream and through new-api, confirming that new-api introduces or changes the error rather than merely forwarding the upstream error unchanged.
-- [x] **Channel and protocol boundary:** I confirm that the issue is not caused by a Coding Plan servi",,
+- [x] **Channel and protocol boundary:** I confirm that the issue is not caused by a Coding Plan service, reverse-engineered channel, third-party API wrapper,",,
 rclone/rclone#9959,go,"fs/bwtimetable.go :: BwPair.String
 fs/registry.go :: Option.String","rc core/bwlimit: sub-KiB rate is scaled by 1024 when the reported rate is fed back in
 
@@ -682,7 +712,9 @@ var got fs.BwTimetable
 got.Set(printed)        // Tx: 512000
 ```
 
-The same holds for `1B`, `1023B`, `1B:2B` and `Mon-10:00,500B`. Values of 1 KiB and ab",,
+The same holds for `1B`, `1023B`, `1B:2B` and `Mon-10:00,500B`. Values of 1 KiB and above already round trip, because their suffix is not a digit.
+
+I have a fix that moves t",,
 langchain-ai/langchain#40211,python,"libs/core/langchain_core/callbacks/file.py :: FileCallbackHandler._write
 libs/core/langchain_core/outputs/chat_generation.py :: ChatGeneration.set_text","core: stale docstrings in `_write` and `set_text` — parameters that do not exist and an exception never raised
 
@@ -725,7 +757,8 @@ libs/core/langchain_core/outputs/chat_generation.py :: ChatGeneration.set_text",
 
 Most of the fix exists: **#38535 by @eeshsaxena** removes both stale `Args` entries and
 rewrites the `Returns:` line, but leaves the `Raises:` block untouched, so the third defect
-below survives it. #38535 was auto-clo",,
+below survives it. #38535 was auto-closed because its author was not assigned to an issue;
+#38536, its companion report, was closed eleven minutes lat",,
 moby/moby#54006,go,"daemon/libnetwork/drivers/bridge/internal/iptabler/port.go :: network.setPerPortNAT
 daemon/libnetwork/drivers/bridge/internal/nftabler/port.go :: network.setPerPortDNAT
 daemon/libnetwork/drivers/bridge/port_mapping_linux.go :: toNATBinding
@@ -750,7 +783,9 @@ systemctl restart docker on the affected node
 docker service update --force on the published service and on the client services
 a full reboot of the affected node
 
-Last known good version: 29.7.2 (the same workload ran for months with the client containers co-located with the published service). We did not bisect 29.8.x, so the regression ",,
+Last known good version: 29.7.2 (the same workload ran for months with the client containers co-located with the published service). We did not bisect 29.8.x, so the regression is somewhere in 29.8.0–29.9.0.
+
+Possibly related to the fixes that landed in 29.9.0 itself (moby/moby#53723 ""published port unreachable from another c",,
 zed-industries/zed#62086,rust,crates/gpui_linux/src/linux/wayland/window.rs :: WaylandWindow.update_ime_position,"IME candidate window flickers between two positions
 
 ### Reproduction steps
@@ -789,7 +824,9 @@ GPU: Intel(R) Graphics (ARL) || Intel open-source Mesa driver || Mesa 25.2.8-0ub
 
 ### Attach Zed log file
 
-<details><summary>Zed.log</summar",,
+<details><summary>Zed.log</summary>
+
+<!-- Paste your log inside the https://github.com",,
 infiniflow/ragflow#18188,python,"deepdoc/parser/mineru_parser.py :: MinerUParser
 deepdoc/parser/mineru_parser.py :: MinerUParser._enhance_images_with_vlm
 deepdoc/parser/mineru_parser.py :: MinerUParser.parse_pdf","Follow-up to #17227: MinerU and Mistral figure-description paths ignore dataset language
@@ -881,7 +918,7 @@ main 45fbb149f
 
 ### 问题描述
 
-非流式请求成功返回后，如",,
+非流式请求成功返回后，如果客户端收完响应就断开连接，这次请求不计入模型性能",,
 moby/moby#53934,go,daemon/pkg/plugin/backend_linux.go :: Manager.Privileges,"Plugin privilege lookup hides fetch errors
 
 I used the static analysis tool [rstyled/gstyle](https://github.com/rstyled/gstyle) to help find this bug.
@@ -929,7 +966,8 @@ Requires `langgraph>=1.2.12`. JS counterpart: langchain-ai/langchainjs#11832.
 
 - #37579: per-call prototyped, scoped out before merge
 - #40166: closed for per-call mode (edits can't switch tools)
-- #40164: per-call puts the tool's args sc",,
+- #40164: per-call puts the tool's args schema in `response_schema`
+- #40492: `jump_to=""tools""` routing; a separate fix, ou",,
 github/spec-kit#4134,python,src/specify_cli/workflows/_commands.py :: workflow_add,"[Bug]: Workflow URL download leaves a temp file after interrupt
 
 ### Bug Description
@@ -957,7 +995,7 @@ Any exit after the temp file is created (error, `typer.Exit`, or interrupt) shou
 
 ### Actual Behavior
 
-Interrup",,
+Interrupt or `typer.Exit` during download leaves `delete=False` temp file",,
 Significant-Gravitas/AutoGPT#15178,python,autogpt_platform/backend/backend/blocks/rss.py :: ReadRSSFeedBlock.run,"RSS block sleeps its full polling interval even when set to run once
 
 **What happens**
@@ -1013,7 +1051,9 @@ for (const nested of [false, true]) {
 
 ### How often does it reproduce? Is there a required condition?
 
-Always: 5 of 5 runs on each version, when the inner composite is collected before its sources, as th",,
+Always: 5 of 5 runs on each version, when the inner composite is collected before its sources, as the repro arranges. If the order is left to the collector, it reproduces only sometimes.
+
+### What is the",,
 career-ops-hq/career-ops#3925,go,"dashboard/internal/ui/screens/pipeline.go :: PipelineModel.Update
 dashboard/main.go :: openCmd","bug(dashboard): open failures are written to stderr under an active alt-screen, so o/m/d are silent no-ops over SSH
 
@@ -1048,7 +1088,11 @@ if err := openWithDefaultApp(pdfAbs); err != nil {
 }
 ```
 
-…which `Update` turns into a flash at `pipeline.go:477`. So `D` tells you when opening failed; `o",,
+…which `Update` turns into a flash at `pipeline.go:477`. So `D` tells you when opening failed; `o`, `m` and `d` do not.
+
+## Reproduction
+
+1. SSH into a machine with no `DISPLAY` (a Pi, a VPS, any headless box) — a ",,
 morluto/rea#1195,java,"bridge/ghidra/ReaGhidraBridge.java :: ReaGhidraBridge.resolveProcedure
 scripts/lib/real-ghidra-boundaries.mjs :: verifyGhidraBoundaries
 src/ghidra/GhidraAnalysisProfile.ts :: resolveGhidraAnalysisProfile","[Bug] Ghidra cannot select a function by the imported `_main` symbol from its name inventory
@@ -1072,7 +1116,7 @@ With the Ghidra provider, `list_names` returns an imported label `_main` at the 
 {""code"":""invalid_request"",""details"":{""operation"":""analyze_function"",""issues"":[{""path"":[],""reason"":""invalid_value"",""message"":""Unknown Ghidra procedure name or address: _main""}]}}
 ```
 
-Selecting `entry` or `0x100000328` returns the function and its pseudocode (`undefined8 entry(void) { return 0; }`). Reproduced on two separately b",,
+Selecting `entry` or `0x100000328` returns the function and its pseudocode (`undefined8 entry(void) { return 0; }`). Reproduced on two separately built fixtures through CLI and MCP on the npm release, and through CLI and a raw MCP client on ",,
 infiniflow/ragflow#18018,python,"rag/flow/parser/pdf_chunk_metadata.py :: _extract_raw_positions
 rag/flow/parser/pdf_chunk_metadata.py :: _fetch_source_blob
 rag/flow/parser/pdf_chunk_metadata.py :: _load_pdf_page_images","pytest: collecting rag/flow/tests/ together with test/unit_test/rag/ corrupts deepdoc.parser (cascading PlainParser ImportError)
@@ -1108,7 +1152,8 @@ The failure is **order-independent** (swapping the two args still fails) and **s
 
 ```
 deepdoc.parser.pdf_parser  cached: __file__=None  __path__=None  hasPlainParser=False
-deepdoc.parser.",,
+deepdoc.parser.__path__=None          # the deepdoc.parser package module itself is broken/partial
+deepdoc.__path__=['/home/.../ragflow/deepdoc']",,
 thedotmack/claude-mem#4574,typescript,"src/services/infrastructure/ProjectMerge.ts :: mergeProjectInto
 src/services/infrastructure/WorktreeAdoption.ts :: adoptMergedWorktrees","CLAUDE_MEM_CHROMA_ENABLED=false does not stop merged-worktree adoption from spawning chroma-mcp, and worker shutdown then orphans it
 
@@ -1127,7 +1172,8 @@ With `CLAUDE_MEM_CHROMA_ENABLED=false` in `~/.claude-mem/settings.json`, every w
 - 21:31:48 `Chroma disabled … skipping ChromaMcpManager`, then in the same second `Adopting merged worktrees (background)…`
 - 21:32:03 `Connecting to chroma-mcp`, `Removed stale Chroma writer lock (priorPid=8008)`
 - 21:53:23 `merged_into_project metadata patched … chromaDocsPatched=88056`, then `Merged worktrees adopted in background … chromaUpdates=12879, chromaFailed=0`
-- The same full re-patch happened at the previous start (20:49), even with `adoptedObservat",,
+- The same full re-patch happened at the previous start (20:49), even with `adoptedObservations=0`, so every start opens a ~21-minute Chroma write window.
+- chroma-mcp then stays resident and idle indefinitely (1241 MB footpr",,
 kubernetes/kubernetes#142197,go,"pkg/registry/core/pod/storage/eviction.go :: EvictionREST.Create
 pkg/registry/core/pod/storage/eviction.go :: addConditionAndDeletePod
 pkg/registry/core/pod/storage/storage.go :: NewStorage","Objects that return v1.status don't return resource version on update
@@ -1178,7 +1224,7 @@ Comfy-Org/ComfyUI#16500,python,comfy_extras/nodes_upscale_model.py :: ImageUpsca
     The underlying neural upscale models loaded via Spandrel (ESRGAN, HAT, DAT, RealESRGAN, etc.) strictly expect 3 input      
   channels (`in_channels=3`). Because `ImageUpscaleWithModel` passes all 4 channels directly into the model, PyTorch throws a  
   RuntimeError regarding convolution weight channel mismatch:                                                                  
-    `R",,
+    `RuntimeError: Given groups=1, weight of size [... 3 ...], expected input to have 3 cha",,
 nextlevelbuilder/ui-ux-pro-max-skill#533,typescript,"cli/src/commands/uninstall.ts :: removeSkillDir
 cli/src/commands/uninstall.ts :: uninstallCommand
 cli/src/types/index.ts :: PlatformConfig
@@ -1232,7 +1278,8 @@ Desktop/fine-pointer readers receive one small move handle in the Passport heade
 - pointer drag starts only after a 3 px threshold;
 - pointer capture keeps the gesture coherent outside the handle;
 - movement is clamped to the diagram container and currently visible vertical area;
-- a valid manual position",,
+- a valid manual position survives switching the focused node;
+- closing the Passport clears the manual posit",,
 langgenius/dify#40746,python,api/core/workflow/nodes/human_input/callback.py :: DifyHITLCallback,"Human Input timeout handle drifted from ""__timeout"" to ""__timeout__"" in the backend
 
 **AI disclosure**: This issue was drafted and analyzed with Codex using gpt-5.6-sol. I have reviewed the analysis, and I am responsible for the content.
@@ -1262,7 +1309,9 @@ Self Hosted (Source)
 4. Let the Human Input form reach its node-level timeout.
 5. The backend `DifyHITLCallback` returns `Expired(selected_handle=""__timeout__"")`.
 
-The two s",,
+The two sides currently use different persisted control-flow identifiers:
+
+- Frontend: [`handl",,
 openclaw/openclaw#117853,typescript,"src/tui/tui-session-actions.ts :: SessionActionContext
 src/tui/tui-session-actions.ts :: createSessionActions
 src/tui/tui.ts :: runTui","[Bug]: TUI session switch retains previous run ownership
@@ -1302,7 +1351,7 @@ Current `main` through `b08569f6fdc130810ad73fcec34ebcee72fbe25f`.
 
 ## Operating system
 
-",,
+Ubuntu Linux in a Blacksmith Testbox real PTY; applies to ",,
 openclaw/openclaw#117636,typescript,"src/cli/daemon-cli/status.gather.ts :: gatherDaemonStatus
 src/daemon/service.ts :: readGatewayServiceState","[Bug]: gateway status timeout does not bound service-manager reads
 
@@ -1336,7 +1385,11 @@ The explicit status deadline should bound every fallible service-manager probe u
 
 ### OpenClaw version
 
-Current `main` at `fb3d473a73b039251ac8f28297a54d2a89e5d67e` (`2026.7.2` s",,
+Current `main` at `fb3d473a73b039251ac8f28297a54d2a89e5d67e` (`2026.7.2` source checkout)
+
+### Operating system
+
+Ubuntu 24.04 / systemd user s",,
 ethereum/go-ethereum#35905,go,"core/tracing/hooks.go :: VMContext
 core/vm/evm.go :: EVM.GetVMContext
 eth/tracers/api.go :: API.traceTx","core/state, core/tracing: live tracer state reads are recorded in the block access list, making Amsterdam blocks fail validation
@@ -1369,7 +1422,10 @@ The node then stalls at the last pre-fork block. Nodes without a tracer are unaf
 make the extra reads, and they also take the BAL-parallel path. So the failure only appears on nodes
 running `--vmtrace`, where it is easy to misread as a consensus bug.
 
-#### Where it happen",,
+#### Where it happens
+
+- `core/state/statedb.go` `getStateObject` calls `s.stateAccessList.AccountRead(addr)` on every
+  lookup once `Prepare` has see",,
 astral-sh/uv#21416,rust,crates/uv/src/commands/workspace/list.rs :: list,"Should `uv workspace list --scripts` be resilient to malformed scripts?
 
 This is kind of a ""our problem only"" problem, but IMO worth considering.
@@ -1498,7 +1554,9 @@ I wrote this issue text myself, but my LLM had a diagnosis that I thought sounde
 
 > My diagnosis is that Zed’s workspace-diagnostics timeout is creating a retry loop. Every two minutes, Zed cancels the existing request and starts a new one. Basedpyright treats each new request as a reason to analyze the workspace again, so memory grows with every retry.
 >
-> I tested this by temporarily preventing repeated requests from starting another analysis. Zed continued to time out and retry—eight times over 17 minutes—but basedpyright settled at about 19 MiB instead of growing toward 3 GiB. This suggests the repeated requests, rather than the project’s s",,
+> I tested this by temporarily preventing repeated requests from starting another analysis. Zed continued to time out and retry—eight times over 17 minutes—but basedpyright settled at about 19 MiB instead of growing toward 3 GiB. This suggests the repeated requests, rather than the project’s size, are causing the growth.
+>
+> I believe Zed should own the primary fix because i",,
 Significant-Gravitas/AutoGPT#14750,python,autogpt_platform/backend/backend/util/file.py :: get_exec_file_path,"Path traversal in get_exec_file_path escapes the exec_file sandbox
 
 Hey! Found that get_exec_file_path in backend/util/file.py joins the user-controlled path with no containment check, so ../../evil.txt or an absolute path like /etc/passwd escapes the exec_file sandbox. Media blocks pass graph input straight through to it. Happy to PR a fix (resolve + reject outside base) if that helps.",,
@@ -1537,7 +1595,9 @@ Alternatively, depending on the driver and DBeaver version, `ORA-28098` may only
 
 ### Suggested implementation
 
-Extend the existing Oracle password-expiration warning detection to recognize `ORA-28098` in addition to ",,
+Extend the existing Oracle password-expiration warning detection to recognize `ORA-28098` in addition to `ORA-28002`.
+
+If possible, detection should rely on the O",,
 affaan-m/ECC#3794,javascript,scripts/codex/check-plugin-cache.js :: collectManifestRefs,"[Problem] Codex cache checker ignores manifest.hooks and accepts a missing hook file
 
 ### What is the impact?
@@ -1562,4 +1622,6 @@ Other: disposable cache fixture, rather than a new installation or repair.
 
 Other: current evidence is platform-independent source inspection. The historical public fixture report does not specify its OS or Node version.
 
-### EC",,
+### ECC and harness versions
+
+ECC manifest version 2.2.3, upstream main at the revision abov",,
