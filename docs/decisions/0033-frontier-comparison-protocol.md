@@ -281,3 +281,11 @@ Written before any fresh-2026 result has been read.
 ## Amendment, 2026-11-05: Claude Sonnet 5.5 as an additional system
 
 Written before any Sonnet run and with no fresh-2026 result read. Opus 5.5 is too costly on my plan to run in the full-report condition, so Anthropic's report-length effect is measured with Claude Sonnet 5.5 (`claude-sonnet-5-5`, the CLI's `sonnet` alias, checked on a test prompt) as an additional system, `claude-single-sonnet`, with every setting of `claude-single` unchanged. It runs on the 198-bug agent subsample in both conditions, shortened reports first, then full reports, so its pair is like Gemini's; a Sonnet agent pair follows only if my plan's usage allows, decided before any Sonnet result is read and in the fixed order. Opus 5.5 stays Anthropic's frontier system in the main comparison and is not replaced. Sonnet runs in the fixed order, each run reported on the prefix it completes, and I project its usage from its first ten bugs before continuing.
+
+## Amendment, 2026-11-05: the primary question becomes Allfather against free models, on full reports
+
+Written before any fresh-2026 result has been read. Allfather is free, so the question that matters most to its users is how it compares with the strongest models they can also use for free, given the whole bug report. From here on:
+
+- **The primary analysis is the full-report condition (fresh-full)**, comparing Allfather with the free-to-use systems recorded above (gpt-6-luna, gemini-3.8-flash, gpt-oss-120b, Qwen3-Coder-Next-FP8, SweRank), with the paid frontier systems (Claude Opus 5.5 and Sonnet 5.5, gpt-6-astra) as the reference where they have run.
+- **The shortened-report runs already made are kept and reported as a secondary condition.** No further shortened-report runs are started; those in progress (Sonnet 5.5, 2 of 198) stop where they are.
+- **Nothing else changes:** the test set, metrics, statistics, escalation threshold and every system's settings stay as recorded. This decides only which comparison the paper leads with, and it is made without any result in view.
