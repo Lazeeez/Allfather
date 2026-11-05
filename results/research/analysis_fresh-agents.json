@@ -18141,6 +18141,791 @@
    }
   }
  },
+ "also_reference": {
+  "reference": "website",
+  "paired": {
+   "claude-agent:hit@1": {
+    "issues": 198,
+    "delta": 0.3586,
+    "ci95": [
+     0.2778,
+     0.4343
+    ],
+    "p": 0.0,
+    "wins": 80,
+    "losses": 9,
+    "p_holm": 0.0
+   },
+   "claude-agent:hit@5": {
+    "issues": 198,
+    "delta": 0.2475,
+    "ci95": [
+     0.1768,
+     0.3182
+    ],
+    "p": 0.0,
+    "wins": 57,
+    "losses": 8,
+    "p_holm": 0.0
+   },
+   "claude-agent:hit@10": {
+    "issues": 198,
+    "delta": 0.1717,
+    "ci95": [
+     0.1061,
+     0.2374
+    ],
+    "p": 0.0,
+    "wins": 43,
+    "losses": 9,
+    "p_holm": 0.0
+   },
+   "claude-agent:all@10": {
+    "issues": 198,
+    "delta": 0.101,
+    "ci95": [
+     0.0354,
+     0.1667
+    ],
+    "p": 0.0055,
+    "wins": 34,
+    "losses": 14,
+    "p_holm": 0.176
+   },
+   "claude-agent:mrr": {
+    "issues": 198,
+    "delta": 0.3077,
+    "ci95": [
+     0.2387,
+     0.3749
+    ],
+    "p": 0.0001,
+    "wins": 93,
+    "losses": 18,
+    "p_holm": 0.0044
+   },
+   "claude-single-sonnet:hit@1": {
+    "issues": 2,
+    "delta": 0.5,
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "p": 1.0,
+    "wins": 1,
+    "losses": 0,
+    "p_holm": 1.0
+   },
+   "claude-single-sonnet:hit@5": {
+    "issues": 2,
+    "delta": 0.5,
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "p": 1.0,
+    "wins": 1,
+    "losses": 0,
+    "p_holm": 1.0
+   },
+   "claude-single-sonnet:hit@10": {
+    "issues": 2,
+    "delta": 0.5,
+    "ci95": [
+     0.0,
+     1.0
+    ],
+    "p": 1.0,
+    "wins": 1,
+    "losses": 0,
+    "p_holm": 1.0
+   },
+   "claude-single-sonnet:all@10": {
+    "issues": 2,
+    "delta": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "p": 1.0,
+    "wins": 0,
+    "losses": 0,
+    "p_holm": 1.0
+   },
+   "claude-single-sonnet:mrr": {
+    "issues": 2,
+    "delta": 0.4167,
+    "ci95": [
+     0.3333,
+     0.5
+    ],
+    "p": 0.4882,
+    "wins": 2,
+    "losses": 0,
+    "p_holm": 1.0
+   },
+   "codex-agent-astra:hit@1": {
+    "issues": 198,
+    "delta": 0.3838,
+    "ci95": [
+     0.303,
+     0.4646
+    ],
+    "p": 0.0,
+    "wins": 86,
+    "losses": 10,
+    "p_holm": 0.0
+   },
+   "codex-agent-astra:hit@5": {
+    "issues": 198,
+    "delta": 0.2121,
+    "ci95": [
+     0.1414,
+     0.283
+    ],
+    "p": 0.0,
+    "wins": 53,
+    "losses": 11,
+    "p_holm": 0.0
+   },
+   "codex-agent-astra:hit@10": {
+    "issues": 198,
+    "delta": 0.1263,
+    "ci95": [
+     0.0556,
+     0.197
+    ],
+    "p": 0.0008,
+    "wins": 39,
+    "losses": 14,
+    "p_holm": 0.0296
+   },
+   "codex-agent-astra:all@10": {
+    "issues": 198,
+    "delta": 0.0202,
+    "ci95": [
+     -0.0404,
+     0.0808
+    ],
+    "p": 0.6358,
+    "wins": 22,
+    "losses": 18,
+    "p_holm": 1.0
+   },
+   "codex-agent-astra:mrr": {
+    "issues": 198,
+    "delta": 0.3102,
+    "ci95": [
+     0.2397,
+     0.3804
+    ],
+    "p": 0.0001,
+    "wins": 91,
+    "losses": 18,
+    "p_holm": 0.0044
+   },
+   "codex-agent:hit@1": {
+    "issues": 198,
+    "delta": 0.2525,
+    "ci95": [
+     0.1717,
+     0.3333
+    ],
+    "p": 0.0,
+    "wins": 65,
+    "losses": 15,
+    "p_holm": 0.0
+   },
+   "codex-agent:hit@5": {
+    "issues": 198,
+    "delta": 0.1061,
+    "ci95": [
+     0.0303,
+     0.1768
+    ],
+    "p": 0.0075,
+    "wins": 39,
+    "losses": 18,
+    "p_holm": 0.2325
+   },
+   "codex-agent:hit@10": {
+    "issues": 198,
+    "delta": 0.0202,
+    "ci95": [
+     -0.0505,
+     0.0909
+    ],
+    "p": 0.6718,
+    "wins": 27,
+    "losses": 23,
+    "p_holm": 1.0
+   },
+   "codex-agent:all@10": {
+    "issues": 198,
+    "delta": -0.0505,
+    "ci95": [
+     -0.1111,
+     0.0101
+    ],
+    "p": 0.1539,
+    "wins": 15,
+    "losses": 25,
+    "p_holm": 1.0
+   },
+   "codex-agent:mrr": {
+    "issues": 198,
+    "delta": 0.1898,
+    "ci95": [
+     0.1193,
+     0.2585
+    ],
+    "p": 0.0001,
+    "wins": 72,
+    "losses": 30,
+    "p_holm": 0.0044
+   },
+   "codex-single-astra:hit@1": {
+    "issues": 198,
+    "delta": 0.0152,
+    "ci95": [
+     -0.0657,
+     0.096
+    ],
+    "p": 0.8043,
+    "wins": 34,
+    "losses": 31,
+    "p_holm": 1.0
+   },
+   "codex-single-astra:hit@5": {
+    "issues": 198,
+    "delta": -0.0909,
+    "ci95": [
+     -0.1667,
+     -0.0202
+    ],
+    "p": 0.0247,
+    "wins": 20,
+    "losses": 38,
+    "p_holm": 0.6669
+   },
+   "codex-single-astra:hit@10": {
+    "issues": 198,
+    "delta": -0.1768,
+    "ci95": [
+     -0.2525,
+     -0.101
+    ],
+    "p": 0.0,
+    "wins": 14,
+    "losses": 49,
+    "p_holm": 0.0
+   },
+   "codex-single-astra:all@10": {
+    "issues": 198,
+    "delta": -0.1768,
+    "ci95": [
+     -0.2374,
+     -0.1162
+    ],
+    "p": 0.0,
+    "wins": 5,
+    "losses": 40,
+    "p_holm": 0.0
+   },
+   "codex-single-astra:mrr": {
+    "issues": 198,
+    "delta": -0.031,
+    "ci95": [
+     -0.1007,
+     0.0365
+    ],
+    "p": 0.3819,
+    "wins": 46,
+    "losses": 60,
+    "p_holm": 1.0
+   },
+   "codex-single:hit@1": {
+    "issues": 198,
+    "delta": -0.1162,
+    "ci95": [
+     -0.1869,
+     -0.0455
+    ],
+    "p": 0.0032,
+    "wins": 17,
+    "losses": 40,
+    "p_holm": 0.1088
+   },
+   "codex-single:hit@5": {
+    "issues": 198,
+    "delta": -0.2727,
+    "ci95": [
+     -0.3485,
+     -0.202
+    ],
+    "p": 0.0,
+    "wins": 7,
+    "losses": 61,
+    "p_holm": 0.0
+   },
+   "codex-single:hit@10": {
+    "issues": 198,
+    "delta": -0.3586,
+    "ci95": [
+     -0.4343,
+     -0.2879
+    ],
+    "p": 0.0,
+    "wins": 4,
+    "losses": 75,
+    "p_holm": 0.0
+   },
+   "codex-single:all@10": {
+    "issues": 198,
+    "delta": -0.2374,
+    "ci95": [
+     -0.298,
+     -0.1818
+    ],
+    "p": 0.0,
+    "wins": 0,
+    "losses": 47,
+    "p_holm": 0.0
+   },
+   "codex-single:mrr": {
+    "issues": 198,
+    "delta": -0.1814,
+    "ci95": [
+     -0.2461,
+     -0.1182
+    ],
+    "p": 0.0001,
+    "wins": 21,
+    "losses": 84,
+    "p_holm": 0.0044
+   },
+   "gemini-single:hit@1": {
+    "issues": 198,
+    "delta": -0.0556,
+    "ci95": [
+     -0.1313,
+     0.0202
+    ],
+    "p": 0.1849,
+    "wins": 23,
+    "losses": 34,
+    "p_holm": 1.0
+   },
+   "gemini-single:hit@5": {
+    "issues": 198,
+    "delta": -0.1566,
+    "ci95": [
+     -0.2273,
+     -0.0859
+    ],
+    "p": 0.0001,
+    "wins": 14,
+    "losses": 45,
+    "p_holm": 0.0044
+   },
+   "gemini-single:hit@10": {
+    "issues": 198,
+    "delta": -0.2222,
+    "ci95": [
+     -0.298,
+     -0.1465
+    ],
+    "p": 0.0,
+    "wins": 13,
+    "losses": 57,
+    "p_holm": 0.0
+   },
+   "gemini-single:all@10": {
+    "issues": 198,
+    "delta": -0.1717,
+    "ci95": [
+     -0.2374,
+     -0.1061
+    ],
+    "p": 0.0,
+    "wins": 7,
+    "losses": 41,
+    "p_holm": 0.0
+   },
+   "gemini-single:mrr": {
+    "issues": 198,
+    "delta": -0.1029,
+    "ci95": [
+     -0.1677,
+     -0.0379
+    ],
+    "p": 0.0023,
+    "wins": 34,
+    "losses": 74,
+    "p_holm": 0.0828
+   },
+   "open-agent-qwen3-coder-next-fp8:hit@1": {
+    "issues": 198,
+    "delta": 0.1061,
+    "ci95": [
+     0.0202,
+     0.1919
+    ],
+    "p": 0.0203,
+    "wins": 48,
+    "losses": 27,
+    "p_holm": 0.5684
+   },
+   "open-agent-qwen3-coder-next-fp8:hit@5": {
+    "issues": 198,
+    "delta": -0.0505,
+    "ci95": [
+     -0.1313,
+     0.0303
+    ],
+    "p": 0.282,
+    "wins": 30,
+    "losses": 40,
+    "p_holm": 1.0
+   },
+   "open-agent-qwen3-coder-next-fp8:hit@10": {
+    "issues": 198,
+    "delta": -0.1313,
+    "ci95": [
+     -0.2121,
+     -0.0505
+    ],
+    "p": 0.0025,
+    "wins": 22,
+    "losses": 48,
+    "p_holm": 0.0875
+   },
+   "open-agent-qwen3-coder-next-fp8:all@10": {
+    "issues": 198,
+    "delta": -0.096,
+    "ci95": [
+     -0.1616,
+     -0.0303
+    ],
+    "p": 0.0079,
+    "wins": 14,
+    "losses": 33,
+    "p_holm": 0.237
+   },
+   "open-agent-qwen3-coder-next-fp8:mrr": {
+    "issues": 198,
+    "delta": 0.0372,
+    "ci95": [
+     -0.0402,
+     0.1129
+    ],
+    "p": 0.3429,
+    "wins": 56,
+    "losses": 55,
+    "p_holm": 1.0
+   },
+   "open-single-gpt-oss-120b:hit@1": {
+    "issues": 198,
+    "delta": -0.2121,
+    "ci95": [
+     -0.2778,
+     -0.1465
+    ],
+    "p": 0.0,
+    "wins": 7,
+    "losses": 49,
+    "p_holm": 0.0
+   },
+   "open-single-gpt-oss-120b:hit@5": {
+    "issues": 198,
+    "delta": -0.404,
+    "ci95": [
+     -0.4747,
+     -0.3333
+    ],
+    "p": 0.0,
+    "wins": 2,
+    "losses": 82,
+    "p_holm": 0.0
+   },
+   "open-single-gpt-oss-120b:hit@10": {
+    "issues": 198,
+    "delta": -0.4899,
+    "ci95": [
+     -0.5606,
+     -0.4192
+    ],
+    "p": 0.0,
+    "wins": 1,
+    "losses": 98,
+    "p_holm": 0.0
+   },
+   "open-single-gpt-oss-120b:all@10": {
+    "issues": 198,
+    "delta": -0.2879,
+    "ci95": [
+     -0.3485,
+     -0.2273
+    ],
+    "p": 0.0,
+    "wins": 0,
+    "losses": 57,
+    "p_holm": 0.0
+   },
+   "open-single-gpt-oss-120b:mrr": {
+    "issues": 198,
+    "delta": -0.2957,
+    "ci95": [
+     -0.3559,
+     -0.2355
+    ],
+    "p": 0.0001,
+    "wins": 7,
+    "losses": 104,
+    "p_holm": 0.0044
+   },
+   "open-single-qwen3-coder-next-fp8:hit@1": {
+    "issues": 198,
+    "delta": -0.1768,
+    "ci95": [
+     -0.2525,
+     -0.101
+    ],
+    "p": 0.0,
+    "wins": 15,
+    "losses": 50,
+    "p_holm": 0.0
+   },
+   "open-single-qwen3-coder-next-fp8:hit@5": {
+    "issues": 198,
+    "delta": -0.3283,
+    "ci95": [
+     -0.404,
+     -0.2525
+    ],
+    "p": 0.0,
+    "wins": 6,
+    "losses": 71,
+    "p_holm": 0.0
+   },
+   "open-single-qwen3-coder-next-fp8:hit@10": {
+    "issues": 198,
+    "delta": -0.404,
+    "ci95": [
+     -0.4749,
+     -0.3283
+    ],
+    "p": 0.0,
+    "wins": 4,
+    "losses": 84,
+    "p_holm": 0.0
+   },
+   "open-single-qwen3-coder-next-fp8:all@10": {
+    "issues": 198,
+    "delta": -0.2828,
+    "ci95": [
+     -0.3436,
+     -0.2222
+    ],
+    "p": 0.0,
+    "wins": 0,
+    "losses": 56,
+    "p_holm": 0.0
+   },
+   "open-single-qwen3-coder-next-fp8:mrr": {
+    "issues": 198,
+    "delta": -0.2426,
+    "ci95": [
+     -0.3095,
+     -0.1763
+    ],
+    "p": 0.0001,
+    "wins": 18,
+    "losses": 95,
+    "p_holm": 0.0044
+   },
+   "swerank-embed-large:hit@1": {
+    "issues": 198,
+    "delta": 0.0101,
+    "ci95": [
+     -0.0657,
+     0.0859
+    ],
+    "p": 0.8957,
+    "wins": 30,
+    "losses": 28,
+    "p_holm": 1.0
+   },
+   "swerank-embed-large:hit@5": {
+    "issues": 198,
+    "delta": -0.0051,
+    "ci95": [
+     -0.0758,
+     0.0657
+    ],
+    "p": 1.0,
+    "wins": 26,
+    "losses": 27,
+    "p_holm": 1.0
+   },
+   "swerank-embed-large:hit@10": {
+    "issues": 198,
+    "delta": -0.0354,
+    "ci95": [
+     -0.1061,
+     0.0354
+    ],
+    "p": 0.3817,
+    "wins": 20,
+    "losses": 27,
+    "p_holm": 1.0
+   },
+   "swerank-embed-large:all@10": {
+    "issues": 198,
+    "delta": -0.0202,
+    "ci95": [
+     -0.0758,
+     0.0354
+    ],
+    "p": 0.5847,
+    "wins": 13,
+    "losses": 17,
+    "p_holm": 1.0
+   },
+   "swerank-embed-large:mrr": {
+    "issues": 198,
+    "delta": 0.0004,
+    "ci95": [
+     -0.0609,
+     0.0623
+    ],
+    "p": 0.9913,
+    "wins": 50,
+    "losses": 53,
+    "p_holm": 1.0
+   },
+   "swerank-embed-small:hit@1": {
+    "issues": 198,
+    "delta": -0.0253,
+    "ci95": [
+     -0.101,
+     0.0505
+    ],
+    "p": 0.6029,
+    "wins": 27,
+    "losses": 32,
+    "p_holm": 1.0
+   },
+   "swerank-embed-small:hit@5": {
+    "issues": 198,
+    "delta": -0.101,
+    "ci95": [
+     -0.1768,
+     -0.0253
+    ],
+    "p": 0.0119,
+    "wins": 19,
+    "losses": 39,
+    "p_holm": 0.3451
+   },
+   "swerank-embed-small:hit@10": {
+    "issues": 198,
+    "delta": -0.1111,
+    "ci95": [
+     -0.1818,
+     -0.0404
+    ],
+    "p": 0.0038,
+    "wins": 16,
+    "losses": 38,
+    "p_holm": 0.1254
+   },
+   "swerank-embed-small:all@10": {
+    "issues": 198,
+    "delta": -0.0657,
+    "ci95": [
+     -0.1212,
+     -0.0101
+    ],
+    "p": 0.0351,
+    "wins": 10,
+    "losses": 23,
+    "p_holm": 0.9126
+   },
+   "swerank-embed-small:mrr": {
+    "issues": 198,
+    "delta": -0.0638,
+    "ci95": [
+     -0.1295,
+     0.0027
+    ],
+    "p": 0.0614,
+    "wins": 43,
+    "losses": 65,
+    "p_holm": 1.0
+   },
+   "website-gpu:hit@1": {
+    "issues": 198,
+    "delta": 0.0354,
+    "ci95": [
+     -0.0303,
+     0.1061
+    ],
+    "p": 0.3916,
+    "wins": 28,
+    "losses": 21,
+    "p_holm": 1.0
+   },
+   "website-gpu:hit@5": {
+    "issues": 198,
+    "delta": 0.0152,
+    "ci95": [
+     -0.0354,
+     0.0657
+    ],
+    "p": 0.7011,
+    "wins": 15,
+    "losses": 12,
+    "p_holm": 1.0
+   },
+   "website-gpu:hit@10": {
+    "issues": 198,
+    "delta": 0.0051,
+    "ci95": [
+     -0.0354,
+     0.0455
+    ],
+    "p": 1.0,
+    "wins": 8,
+    "losses": 7,
+    "p_holm": 1.0
+   },
+   "website-gpu:all@10": {
+    "issues": 198,
+    "delta": 0.0404,
+    "ci95": [
+     -0.0051,
+     0.0859
+    ],
+    "p": 0.1153,
+    "wins": 14,
+    "losses": 6,
+    "p_holm": 1.0
+   },
+   "website-gpu:mrr": {
+    "issues": 198,
+    "delta": 0.0206,
+    "ci95": [
+     -0.0282,
+     0.0704
+    ],
+    "p": 0.4233,
+    "wins": 44,
+    "losses": 42,
+    "p_holm": 1.0
+   }
+  }
+ },
  "by_language": {
   "claude-agent": {
    "go": {
