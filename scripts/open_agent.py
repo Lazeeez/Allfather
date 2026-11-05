@@ -165,7 +165,26 @@ def line_number(value: object) -> int | None:
         return None
 
 
+ALIASES = {
+    "search": "grep",
+    "find": "grep",
+    "search_files": "grep",
+    "list_file": "list_files",
+    "print_tree": "list_files",
+    "ls": "list_files",
+    "open": "read_file",
+    "cat": "read_file",
+}
+
+
+def text_of(message: dict) -> str:
+    return (
+        message.get("content") or message.get("reasoning_content") or message.get("reasoning") or ""
+    )
+
+
 def call_tool(root: Path, name: str, raw: str) -> str:
+    name = ALIASES.get(name, name)
     try:
         args = json.loads(raw or "{}")
     except json.JSONDecodeError:
@@ -174,9 +193,10 @@ def call_tool(root: Path, name: str, raw: str) -> str:
         return "arguments must be a JSON object"
     try:
         if name == "list_files":
-            return list_files(root, str(args.get("pattern", "")))
+            return list_files(root, str(args.get("pattern") or args.get("path") or "**/*"))
         if name == "grep":
-            return grep(root, str(args.get("pattern", "")), args.get("glob"))
+            pattern = args.get("pattern") or args.get("query") or args.get("regex") or ""
+            return grep(root, str(pattern), args.get("glob") or args.get("include"))
         if name == "read_file":
             return read_file(
                 root,
@@ -240,7 +260,7 @@ def run(prompt: str, cwd: Path, model: str, agent: bool, parse_answer) -> dict:
         calls = message.get("tool_calls") or []
         if not calls:
             return {
-                "answer": parse_answer(message.get("content") or ""),
+                "answer": parse_answer(text_of(message)),
                 "model": reply.get("model", model),
                 "cost_usd": None,
                 "usage": tokens | {"gpu_seconds": round(time.perf_counter() - start, 1)},
@@ -277,7 +297,7 @@ def run(prompt: str, cwd: Path, model: str, agent: bool, parse_answer) -> dict:
     messages.append({"role": "user", "content": FINAL})
     try:
         reply = chat(model, messages, None)
-        last = parse_answer(reply["choices"][0]["message"].get("content") or "")
+        last = parse_answer(text_of(reply["choices"][0]["message"]))
         for k in tokens:
             tokens[k] += (reply.get("usage") or {}).get(k, 0)
     except ContextFull:

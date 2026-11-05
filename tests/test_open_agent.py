@@ -157,3 +157,28 @@ def test_a_final_request_collects_an_answer_after_the_last_turn(tmp_path, monkey
     monkeypatch.setattr(open_agent, "chat", chat)
     out = open_agent.run("find the bug", tmp_path, "m", True, parse)
     assert out["answer"]["functions"][0]["name"] == "load_config" and "no_answer" not in out
+
+
+def test_tool_names_other_models_are_trained_on_map_to_the_read_only_tools(tmp_path):
+    write(tmp_path)
+    assert "load_config" in open_agent.call_tool(tmp_path, "search", '{"query": "load_config"}')
+    assert "pkg/config.py" in open_agent.call_tool(tmp_path, "print_tree", "{}")
+    assert open_agent.call_tool(tmp_path, "apply_patch", "{}") == "unknown tool apply_patch"
+
+
+def test_an_answer_given_only_in_the_reasoning_field_is_read(tmp_path, monkeypatch):
+    write(tmp_path)
+    reply = {
+        "choices": [
+            {
+                "message": {
+                    "content": "",
+                    "reasoning_content": '{"functions": [{"file": "pkg/config.py", "name": "load_config"}]}',
+                }
+            }
+        ],
+        "usage": {},
+    }
+    monkeypatch.setattr(open_agent, "chat", lambda model, messages, tools: reply)
+    out = open_agent.run("find the bug", tmp_path, "m", False, parse)
+    assert out["answer"]["functions"][0]["name"] == "load_config"
