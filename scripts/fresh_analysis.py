@@ -272,7 +272,7 @@ def main() -> int:
         entry = {"issues": len(ids), "projects": int(len(set(projects)))}
         for m in METRICS:
             v = np.array([res[q][m] for q in ids])
-            entry[m] = round(float(v.mean()), 4)
+            entry[m] = round(float(v.mean()), 6)
             entry[f"{m}_ci95"] = project_ci(v, projects)
         entry["cost_usd"] = round(float(np.mean([res[q]["cost"] for q in ids])), 5)
         entry["seconds"] = round(float(np.mean([res[q]["seconds"] for q in ids])), 1)

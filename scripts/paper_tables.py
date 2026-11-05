@@ -14,16 +14,19 @@ from __future__ import annotations
 
 import json
 import statistics as st
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results" / "research"
 RUNS = RESULTS / "frontier"
 OUT = ROOT / "docs" / "paper" / "generated"
+sys.path.insert(0, str(ROOT / "scripts"))
+from fresh_analysis import load_set, per_issue  # noqa: E402
 
 NAMES = {
-    "website-gpu": "Allfather + GPU reranker",
-    "website": "Allfather, browser only",
+    "website-gpu": "\\toolgpu{}",
+    "website": "\\tool{}, browser only",
     "allfather-fast": "allfather-fast (Python)",
     "swerank-embed-large": "SweRankEmbed-Large",
     "swerank-embed-small": "SweRankEmbed-Small",
@@ -135,6 +138,12 @@ def money(x: float | None) -> str:
     return f"\\${x:.3f}" if x < 0.1 else f"\\${x:.2f}"
 
 
+def pmath(p: float | None) -> str:
+    if p is None:
+        return "=?"
+    return "<0.001" if p < 0.001 else f"={p:.3f}"
+
+
 def pvalue(p: float | None) -> str:
     if p is None:
         return "--"
@@ -206,7 +215,7 @@ def language_table(set_name: str, caption: str, label: str) -> str:
 def escalation_table(set_name: str, label: str) -> str:
     a = analysis(set_name)
     lines = ["\\begin{table}[t]", "\\centering", "\\small",
-             "\\caption{Confidence-gated escalation (RQ3): the bugs Allfather is least confident about, at the threshold fixed before the study (0.7899), go to an agent; the rest keep Allfather's answer. Random escalates the same share at random.}",
+             "\\caption{Confidence-gated escalation (RQ3): the bugs \\tool{} is least confident about, at the threshold fixed before the study (0.7899), go to an agent; the rest keep \\tool{}'s answer. Random escalates the same share at random.}",
              f"\\label{{{label}}}", "\\begin{tabular}{lrrrrr}", "\\toprule",
              "Agent & Escalated & Cascade & Random & Agent alone & Cascade cost/bug \\\\", "\\midrule"]  # fmt: skip
     ref_cost = cost_per_bug(set_name, a["reference"]) or 0.0
@@ -223,24 +232,29 @@ def escalation_table(set_name: str, label: str) -> str:
     return "\n".join(lines)
 
 
+def outcomes(set_name: str, system: str) -> dict[str, float]:
+    _, items = load_set(set_name)
+    return {q: v["hit@10"] for q, v in per_issue(rows(set_name, system), items).items()}
+
+
 def condition_table(label: str) -> str:
     rows_out = []
-    for short, full, n in (
-        ("fresh-agents", "fresh-full-agents", 198),
-        ("fresh", "fresh-full", 580),
-    ):
+    for short, full in (("fresh-agents", "fresh-full-agents"), ("fresh", "fresh-full")):
         s, f = analysis(short), analysis(full)
         for name in sorted(
             set(s["systems"]) & set(f["systems"]), key=lambda x: -f["systems"][x]["hit@10"]
         ):
-            if (
-                name in NAMES
-                and min(s["systems"][name]["issues"], f["systems"][name]["issues"]) >= MIN_ISSUES
-            ):
-                a, b = s["systems"][name]["hit@10"], f["systems"][name]["hit@10"]
-                rows_out.append(
-                    f"{NAMES[name]} & {n} & {pct(a)} & {pct(b)} & {(b - a) * 100:+.1f} \\\\"
-                )
+            if name not in NAMES:
+                continue
+            a, b = outcomes(short, name), outcomes(full, name)
+            common = sorted(set(a) & set(b))
+            if len(common) < MIN_ISSUES:
+                continue
+            x = sum(a[q] for q in common) / len(common)
+            y = sum(b[q] for q in common) / len(common)
+            rows_out.append(
+                f"{NAMES[name]} & {len(common)} & {pct(x)} & {pct(y)} & {(y - x) * 100:+.1f} \\\\"
+            )
     return "\n".join(
         ["\\begin{table}[t]", "\\centering", "\\small",
          "\\caption{Shortened (first 1,500 characters of the body) against full bug reports, function hit@10 on the same bugs.}",
@@ -322,7 +336,7 @@ def numbers() -> str:
         "NAgent": len(m["agent_subsample"]),
         "NCandidates": f"{m['candidates']:,}",
         "NUsable": f"{m['usable']:,}",
-        "GoldHash": m["gold_sha256"][:16],
+        "GoldHash": m["gold_sha256"][:8],
         "NLonger": sum(
             1
             for r in map(
@@ -388,7 +402,7 @@ def results_macros() -> str:
                     continue
                 put(name, system, f"{prefix}d{m}", f"{v['delta'] * 100:+.1f}")
                 put(name, system, f"{prefix}wl{m}", f"{v['wins']}/{v['losses']}")
-                put(name, system, f"{prefix}p{m}", pvalue(v.get("p_holm")))
+                put(name, system, f"{prefix}p{m}", pmath(v.get("p_holm")))
         for system, strata in a["strata"].items():
             for stratum, v in strata.items():
                 put(name, system, f"s-{stratum}", pct(v["hit@10"]))
@@ -414,7 +428,7 @@ def main() -> int:
         "main_full_agents.tex": systems_table(
             "fresh-full-agents",
             "website-gpu",
-            "Full bug reports, the 198-bug agent subset: every free system and Allfather. hit@k: a function the fix changed is in the top $k$; all@10: every changed function is in the top 10. 95\\% intervals from a bootstrap over projects. $\\Delta$: against Allfather + GPU reranker, with wins/losses and the exact paired test, Holm-adjusted across the table.",
+            "Full bug reports, the 198-bug agent subset: every free system and \\tool{}. hit@k: a function the fix changed is in the top $k$; all@10: every changed function is in the top 10. 95\\% intervals from a bootstrap over projects. $\\Delta$: against \\toolgpu{}, with wins/losses and the exact paired test, Holm-adjusted across the table.",
             "tab:full198",
         ),  # fmt: skip
         "main_full_all.tex": systems_table(

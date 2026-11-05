@@ -6,10 +6,10 @@
 \toprule
 System & Free & $n$ & hit@1 & hit@10 & 95\% CI & all@10 & MRR & Cost/bug & $\Delta$ hit@10 (W/L, $p_{\mathrm{Holm}}$) \\
 \midrule
-\textbf{Allfather + GPU reranker} & \checkmark & 580 & 46.7 & 77.9 & 73.4--82.4 & 45.5 & 0.575 & \$0.001 & reference \\
-Allfather, browser only & \checkmark & 580 & 46.0 & 75.3 & 70.1--80.1 & 41.4 & 0.560 & \$0 & -2.6 (12/27, 0.118) \\
+\textbf{\toolgpu{}} & \checkmark & 580 & 46.7 & 77.9 & 73.4--82.4 & 45.5 & 0.575 & \$0.001 & reference \\
+\tool{}, browser only & \checkmark & 580 & 46.0 & 75.3 & 70.1--80.1 & 41.4 & 0.560 & \$0 & -2.6 (12/27, 0.118) \\
 SweRankEmbed-Large & \checkmark & 580 & 43.3 & 72.9 & 66.5--78.5 & 37.9 & 0.538 & -- & -5.0 (35/64, 0.037) \\
-SweRankEmbed-Small & \checkmark & 580 & 37.4 & 65.9 & 59.4--71.9 & 35.0 & 0.469 & -- & -12.1 (30/100, $<$0.001) \\
+SweRankEmbed-Small & \checkmark & 580 & 37.4 & 65.9 & 59.4--71.9 & 35.0 & 0.470 & -- & -12.1 (30/100, $<$0.001) \\
 gpt-6-luna, one call & \checkmark & 580 & 34.0 & 39.8 & 33.3--46.3 & 19.1 & 0.366 & \$0.005 & -38.1 (8/229, $<$0.001) \\
 \bottomrule
 \end{tabular}

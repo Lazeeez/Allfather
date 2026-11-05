@@ -1,14 +1,14 @@
 \begin{table*}[t]
 \centering
-\caption{Full bug reports, the 198-bug agent subset: every free system and Allfather. hit@k: a function the fix changed is in the top $k$; all@10: every changed function is in the top 10. 95\% intervals from a bootstrap over projects. $\Delta$: against Allfather + GPU reranker, with wins/losses and the exact paired test, Holm-adjusted across the table.}
+\caption{Full bug reports, the 198-bug agent subset: every free system and \tool{}. hit@k: a function the fix changed is in the top $k$; all@10: every changed function is in the top 10. 95\% intervals from a bootstrap over projects. $\Delta$: against \toolgpu{}, with wins/losses and the exact paired test, Holm-adjusted across the table.}
 \label{tab:full198}
 \begin{tabular}{lcrrrrrrrr}
 \toprule
 System & Free & $n$ & hit@1 & hit@10 & 95\% CI & all@10 & MRR & Cost/bug & $\Delta$ hit@10 (W/L, $p_{\mathrm{Holm}}$) \\
 \midrule
-gpt-6-luna, agent & \checkmark & 198 & 65.1 & 77.3 & 70.9--83.3 & 36.4 & 0.702 & \$0.003 & +0.5 (26/25, 1.000) \\
-Allfather, browser only & \checkmark & 198 & 46.0 & 77.3 & 71.0--83.1 & 42.9 & 0.566 & \$0 & +0.5 (7/6, 1.000) \\
-\textbf{Allfather + GPU reranker} & \checkmark & 198 & 47.5 & 76.8 & 69.8--83.0 & 45.5 & 0.566 & \$0.001 & reference \\
+gpt-6-luna, agent & \checkmark & 198 & 65.2 & 77.3 & 70.9--83.3 & 36.4 & 0.702 & \$0.003 & +0.5 (26/25, 1.000) \\
+\tool{}, browser only & \checkmark & 198 & 46.0 & 77.3 & 71.0--83.1 & 42.9 & 0.566 & \$0 & +0.5 (7/6, 1.000) \\
+\textbf{\toolgpu{}} & \checkmark & 198 & 47.5 & 76.8 & 69.8--83.0 & 45.5 & 0.566 & \$0.001 & reference \\
 SweRankEmbed-Large & \checkmark & 198 & 40.4 & 72.7 & 66.1--79.6 & 38.4 & 0.518 & -- & -4.0 (14/22, 1.000) \\
 gpt-6-astra, one call &  & 95 & 55.8 & 67.4 & 54.8--78.8 & 28.4 & 0.601 & \$0.62 & -10.5 (8/18, 1.000) \\
 SweRankEmbed-Small & \checkmark & 198 & 38.4 & 62.1 & 54.5--69.7 & 33.8 & 0.459 & -- & -14.6 (11/40, 0.004) \\
