@@ -239,7 +239,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--set", required=True)
     ap.add_argument("--reference", default="website")
-    ap.add_argument("--threshold", type=float)
+    ap.add_argument("--threshold", type=float, default=0.7899)
     ap.add_argument("--also-reference")
     args = ap.parse_args()
     _, items = load_set(args.set)
