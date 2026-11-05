@@ -81,12 +81,10 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
             note={holdout ? `allfather-fast, ${holdout.runs.holdout_function.issues} bugs from 184 projects it never saw` : ""} />
           <Tile label="SWE-bench Lite" value={holdout ? holdout.runs.lite_function["hit@10"] : fn ? fn["hit@10"] : null}
             note={holdout ? `allfather-fast, ${holdout.runs.lite_function.issues} issues from 12 projects in its training data` : fn ? `full pipeline, ${fn.n} issues` : ""} />
-          {gpu?.held_out?.unseen ? (
-            <Tile label="The website, 30 unseen projects" value={gpu.held_out.unseen.with_reranker["hit@10"]}
-              note={`${gpu.held_out.unseen.issues} bugs, Python, with the GPU reranker; ${Math.round(gpu.held_out.unseen.website["hit@10"] * 1000) / 10}% without`} />
-          ) : (
-            <Tile label="In the browser, 30 unseen projects" value={unseen} note={lite ? `${lite.held_out.unseen.keyword.n} bugs, Python` : ""} />
-          )}
+          <Tile label="In your browser, 30 unseen projects" value={gpu?.held_out?.unseen ? gpu.held_out.unseen.website["hit@10"] : unseen}
+            note={gpu?.held_out?.unseen
+              ? `${gpu.held_out.unseen.issues} bugs, Python; ${Math.round(gpu.held_out.unseen.with_reranker["hit@10"] * 1000) / 10}% with the first, Python-only GPU reranker`
+              : lite ? `${lite.held_out.unseen.keyword.n} bugs, Python` : ""} />
           {liveWindow && liveWindow.bugs >= LIVE_MIN_BUGS && liveWindow.function ? (
             <Tile label="Live, bugs fixed this month" value={liveWindow.function["hit@10"]} note={`${liveWindow.bugs} bugs from ${liveWindow.projects} projects`} />
           ) : (
