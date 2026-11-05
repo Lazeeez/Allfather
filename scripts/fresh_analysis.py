@@ -208,11 +208,38 @@ def repeatability(items: dict[str, dict], system: str = "codex-single-astra") ->
     }
 
 
+def paired_family(runs: dict, reference: str) -> dict:
+    ref = runs[reference]
+    out, family = {}, {}
+    for system, res in runs.items():
+        if system == reference:
+            continue
+        common = sorted(set(res) & set(ref))
+        for m in METRICS:
+            d = paired_bootstrap(
+                np.array([ref[q][m] for q in common]), np.array([res[q][m] for q in common])
+            )
+            key = f"{system}:{m}"
+            out[key] = {
+                "issues": len(common),
+                "delta": d.delta,
+                "ci95": list(d.ci95),
+                "p": d.p_value,
+                "wins": d.wins,
+                "losses": d.losses,
+            }
+            family[key] = d.p_value
+    for key, p in holm(family).items():
+        out[key]["p_holm"] = p
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--set", required=True)
     ap.add_argument("--reference", default="website")
     ap.add_argument("--threshold", type=float)
+    ap.add_argument("--also-reference")
     args = ap.parse_args()
     _, items = load_set(args.set)
     runs = {}
@@ -232,7 +259,12 @@ def main() -> int:
         "strata": {},
         "escalation": {},
     }
-    family = {}
+    report["paired"] = paired_family(runs, args.reference)
+    if args.also_reference in runs:
+        report["also_reference"] = {
+            "reference": args.also_reference,
+            "paired": paired_family(runs, args.also_reference),
+        }
     for system, res in runs.items():
         ids = sorted(res)
         projects = np.array([items[q]["repo"] for q in ids])
@@ -247,24 +279,8 @@ def main() -> int:
         if system == args.reference:
             continue
         common = sorted(set(res) & set(ref))
-        for m in METRICS:
-            d = paired_bootstrap(
-                np.array([ref[q][m] for q in common]), np.array([res[q][m] for q in common])
-            )
-            key = f"{system}:{m}"
-            report["paired"][key] = {
-                "issues": len(common),
-                "delta": d.delta,
-                "ci95": list(d.ci95),
-                "p": d.p_value,
-                "wins": d.wins,
-                "losses": d.losses,
-            }
-            family[key] = d.p_value
         if all(ref[q]["confidence"] is not None for q in common):
             report["escalation"][system] = escalation(ref, res, common, args.threshold)
-    for key, p in holm(family).items():
-        report["paired"][key]["p_holm"] = p
     langs = languages(args.set)
     if langs:
         report["by_language"] = {}
