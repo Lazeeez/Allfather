@@ -171,7 +171,7 @@ def systems_table(set_name: str, ref: str, caption: str, label: str) -> str:
 
 def language_table(set_name: str, caption: str, label: str) -> str:
     a = analysis(set_name)
-    langs = [l for l in LANG if l in next(iter(a["by_language"].values()))]
+    langs = [lang for lang in LANG if lang in next(iter(a["by_language"].values()))]
     order = sorted(
         (
             s
@@ -180,23 +180,25 @@ def language_table(set_name: str, caption: str, label: str) -> str:
         ),
         key=lambda s: -a["systems"][s]["hit@10"],
     )
-    head = " & ".join(f"{LANG[l]}" for l in langs)
+    head = " & ".join(f"{LANG[lang]}" for lang in langs)
     lines = ["\\begin{table}[t]", "\\centering", "\\small", f"\\caption{{{caption}}}", f"\\label{{{label}}}",
              "\\begin{tabular}{l" + "r" * len(langs) + "}", "\\toprule", f"System & {head} \\\\", "\\midrule"]  # fmt: skip
     for s in order:
         cells = []
         best = {
-            l: max(a["by_language"][x][l]["hit@10"] for x in order if l in a["by_language"][x])
-            for l in langs
+            lang: max(
+                a["by_language"][x][lang]["hit@10"] for x in order if lang in a["by_language"][x]
+            )
+            for lang in langs
         }
-        for l in langs:
-            v = a["by_language"][s].get(l, {}).get("hit@10")
+        for lang in langs:
+            v = a["by_language"][s].get(lang, {}).get("hit@10")
             cells.append(
-                "--" if v is None else (f"\\textbf{{{pct(v)}}}" if v == best[l] else pct(v))
+                "--" if v is None else (f"\\textbf{{{pct(v)}}}" if v == best[lang] else pct(v))
             )
         lines.append(f"{NAMES[s]} & " + " & ".join(cells) + " \\\\")
-    n = {l: a["by_language"][order[0]][l]["issues"] for l in langs}
-    lines += ["\\midrule", "Bugs & " + " & ".join(str(n[l]) for l in langs) + " \\\\",
+    n = {lang: a["by_language"][order[0]][lang]["issues"] for lang in langs}
+    lines += ["\\midrule", "Bugs & " + " & ".join(str(n[lang]) for lang in langs) + " \\\\",
               "\\bottomrule", "\\end{tabular}", "\\end{table}", ""]  # fmt: skip
     return "\n".join(lines)
 
@@ -265,10 +267,10 @@ def dataset_table(label: str) -> str:
     lines = ["\\begin{table}[t]", "\\centering", "\\small", "\\caption{fresh-2026: bugs reported from 1 August to 2 November 2026.}",
              f"\\label{{{label}}}", "\\begin{tabular}{lrrrrr}", "\\toprule",
              "Language & Bugs & Projects & Agent subset & Funcs/bug & Report chars (full) \\\\", "\\midrule"]  # fmt: skip
-    for l in LANG:
-        g = [r for r in gold if r["language"] == l]
+    for lang in LANG:
+        g = [r for r in gold if r["language"] == lang]
         lines.append(
-            f"{LANG[l]} & {len(g)} & {len({r['repo'] for r in g})} & {sum(r['id'] in sub for r in g)} & "
+            f"{LANG[lang]} & {len(g)} & {len({r['repo'] for r in g})} & {sum(r['id'] in sub for r in g)} & "
             f"{st.median(len(r['gold_functions']) for r in g):.0f} & {st.median(len(full[r['id']]['text']) for r in g):,.0f} \\\\"
         )
     lines += ["\\midrule",
@@ -286,11 +288,11 @@ def reranker_table(label: str) -> str:
              "\\caption{The GPU reranker on training bugs, cross-validated with whole projects held out: function hit@10. Current pair: two adapters trained on Python only. A, B, C: one adapter trained on all six languages (A: the shipped recipe; B: larger groups, two epochs, language-balanced; C: B's recipe on a 4B model). $^*$ passes the rule (gain $\\geq$ 2 points, Holm $p<0.05$).}",
              f"\\label{{{label}}}", "\\begin{tabular}{lrrrrrr}", "\\toprule",
              "Language & Bugs & No reranker & Python pair & A & B & C \\\\", "\\midrule"]  # fmt: skip
-    for l in LANG:
-        r = {x: c[x][l] for x in cols}
+    for lang in LANG:
+        r = {x: c[x][lang] for x in cols}
         cells = [f"{pct(r[x]['with'])}{'$^*$' if r[x]['passes'] else ''}" for x in cols]
         lines.append(
-            f"{LANG[l]} & {r['A']['issues']} & {pct(r['A']['website'])} & "
+            f"{LANG[lang]} & {r['A']['issues']} & {pct(r['A']['website'])} & "
             + " & ".join(cells)
             + " \\\\"
         )
@@ -357,6 +359,47 @@ def numbers() -> str:
     return "\n".join(f"\\newcommand{{\\{k}}}{{{v}}}" for k, v in out.items()) + "\n"
 
 
+def results_macros() -> str:
+    out = [
+        r"\newcommand{\res}[3]{\ifcsname r@#1@#2@#3\endcsname\csname r@#1@#2@#3\endcsname\else\textbf{\textcolor{red}{pending}}\fi}",
+        r"\newcommand{\setres}[4]{\expandafter\def\csname r@#1@#2@#3\endcsname{#4}}",
+    ]
+
+    def put(name: str, system: str, key: str, value: str) -> None:
+        out.append(rf"\setres{{{name}}}{{{system}}}{{{key}}}{{{value}}}")
+
+    for name in ("fresh-full-agents", "fresh-full", "fresh-agents", "fresh"):
+        a = analysis(name)
+        for system, e in a["systems"].items():
+            for m in ("hit@1", "hit@5", "hit@10", "all@10"):
+                lo, hi = e[f"{m}_ci95"]
+                put(name, system, m, pct(e[m]))
+                put(name, system, f"{m}-ci", f"{pct(lo)}--{pct(hi)}")
+            put(name, system, "mrr", f"{e['mrr']:.3f}")
+            put(name, system, "n", str(e["issues"]))
+            put(name, system, "cost", money(cost_per_bug(name, system)))
+        families = [("", a["paired"])]
+        if "also_reference" in a:
+            families.append(("browser-", a["also_reference"]["paired"]))
+        for prefix, paired in families:
+            for key, v in paired.items():
+                system, m = key.split(":", 1)
+                if m not in ("hit@1", "hit@10"):
+                    continue
+                put(name, system, f"{prefix}d{m}", f"{v['delta'] * 100:+.1f}")
+                put(name, system, f"{prefix}wl{m}", f"{v['wins']}/{v['losses']}")
+                put(name, system, f"{prefix}p{m}", pvalue(v.get("p_holm")))
+        for system, strata in a["strata"].items():
+            for stratum, v in strata.items():
+                put(name, system, f"s-{stratum}", pct(v["hit@10"]))
+                put(name, system, f"sn-{stratum}", str(v["issues"]))
+        for system, e in a["escalation"].items():
+            if c := e.get("chosen"):
+                for k in ("escalated", "hit@10", "random_hit@10"):
+                    put(name, system, f"esc-{k}", pct(c[k]))
+    return "\n".join(out) + "\n"
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     files = {
@@ -384,7 +427,9 @@ def main() -> int:
             "Function hit@10 by language, full reports, all 580 bugs. Bold: best in the column.",
             "tab:languages",
         ),
-        "escalation.tex": escalation_table("fresh-agents", "tab:escalation"),
+        "escalation.tex": escalation_table("fresh-full-agents", "tab:escalation"),
+        "escalation_short.tex": escalation_table("fresh-agents", "tab:escalation-short"),
+        "results.tex": results_macros(),
         "conditions.tex": condition_table("tab:conditions"),
         "reranker.tex": reranker_table("tab:reranker"),
         "numbers.tex": numbers(),
