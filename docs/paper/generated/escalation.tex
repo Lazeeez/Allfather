@@ -3,7 +3,7 @@
 \small
 \caption{Confidence-gated escalation (RQ3): the bugs \tool{} is least confident about, at the threshold fixed before the study (0.7899), go to an agent; the rest keep \tool{}'s answer. Random escalates the same share at random.}
 \label{tab:escalation}
-\resizebox{\columnwidth}{!}{\begin{tabular}{lrrrrr}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lrrrrr}
 \toprule
 Agent & Escalated & Cascade & Random & Agent alone & Cascade cost/bug \\
 \midrule
@@ -11,5 +11,5 @@ gpt-6-luna, agent & 56.1\% & 81.8 & 77.0 & 77.3 & \$0.003 \\
 Qwen3-Coder-Next, agent & 56.1\% & 67.2 & 68.3 & 61.6 & \$0.016 \\
 gpt-oss-120b, agent & 56.1\% & 63.6 & 62.3 & 51.0 & \$0.029 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}\end{adjustbox}
 \end{table}

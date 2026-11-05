@@ -330,7 +330,16 @@ def numbers() -> str:
         return pct(a["systems"][s][k])
 
     esc = short198["escalation"].get("claude-agent", {}).get("chosen", {})
+    vetted = [
+        json.loads(line)
+        for line in (ROOT / "data" / "fresh" / "vetted.jsonl").open(encoding="utf-8")
+    ]
+    excluded = [v["excluded"] for v in vetted if v["excluded"]]
     out = {
+        "NVetted": len(vetted),
+        "NVetExcluded": len(excluded),
+        "NVetAI": sum("AI-written" in e for e in excluded),
+        "NVetBot": sum("AI-written" not in e for e in excluded),
         "NBugs": len(gold),
         "NProjects": len({r["repo"] for r in gold}),
         "NAgent": len(m["agent_subsample"]),
@@ -392,6 +401,7 @@ def results_macros() -> str:
             put(name, system, "mrr", f"{e['mrr']:.3f}")
             put(name, system, "n", str(e["issues"]))
             put(name, system, "cost", money(cost_per_bug(name, system)))
+            put(name, system, "sec", f"{median_seconds(name, system):.1f}")
         families = [("", a["paired"])]
         if "also_reference" in a:
             families.append(("browser-", a["also_reference"]["paired"]))
@@ -414,11 +424,184 @@ def results_macros() -> str:
     return "\n".join(out) + "\n"
 
 
+FIGURE_SYSTEMS = [
+    "website-gpu",
+    "website",
+    "codex-agent",
+    "codex-single",
+    "gemini-single",
+    "open-agent-qwen3-coder-next-fp8",
+    "open-single-qwen3-coder-next-fp8",
+    "open-agent-gpt-oss-120b",
+    "open-single-gpt-oss-120b",
+    "codex-agent-astra",
+    "codex-single-astra",
+    "claude-agent",
+]
+FREE_FLOOR = 1e-4
+
+
+def cost_figure(set_name: str, label: str, caption: str) -> str:
+    a = analysis(set_name)
+    points = []
+    for s in FIGURE_SYSTEMS:
+        e = a["systems"].get(s)
+        if not e or e["issues"] < MIN_ISSUES:
+            continue
+        c = cost_per_bug(set_name, s)
+        if c is None:
+            continue
+        points.append((max(c, FREE_FLOOR), e["hit@10"] * 100, NAMES[s], s in FREE))
+    lines = [
+        "\\begin{figure}[t]",
+        "\\centering",
+        "\\begin{tikzpicture}",
+        "\\begin{axis}[width=0.92\\linewidth, height=6.2cm, xmode=log, xmin=5e-5, xmax=2,",
+        "  xlabel={Cost per bug (US\\$, log scale; free systems at the left edge)}, ylabel={Function hit@10 (\\%)},",
+        "  ymin=20, ymax=100, grid=major, grid style={gray!20}, tick label style={font=\\footnotesize},",
+        "  label style={font=\\small}, legend style={font=\\footnotesize, at={(0.98,0.03)}, anchor=south east}]",
+    ]
+    for free, style, name in (
+        (True, "mark=*, color=black", "free to use"),
+        (False, "mark=triangle*, color=gray", "paid"),
+    ):
+        coords = " ".join(f"({x:.6f},{y:.2f})" for x, y, _, f in points if f == free)
+        if coords:
+            lines.append(
+                f"\\addplot[only marks, {style}, mark size=2.4pt] coordinates {{{coords}}};"
+            )
+            lines.append(f"\\addlegendentry{{{name}}}")
+    for x, y, n, _ in points:
+        lines.append(
+            f"\\node[font=\\scriptsize, anchor=west] at (axis cs:{x * 1.25:.6f},{y:.2f}) {{{n}}};"
+        )
+    lines += [
+        "\\end{axis}",
+        "\\end{tikzpicture}",
+        f"\\caption{{{caption}}}",
+        f"\\label{{{label}}}",
+        "\\end{figure}",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def escalation_figure(label: str, caption: str) -> str:
+    panels = []
+    for set_name, system, title in (
+        ("fresh-full-agents", "codex-agent", "Full reports, gpt-6-luna agent"),
+        ("fresh-agents", "claude-agent", "Shortened reports, Claude Opus 5.5 agent"),
+    ):
+        e = analysis(set_name)["escalation"].get(system)
+        if not e:
+            continue
+        curve = sorted(e["curve"], key=lambda p: p["escalated"])
+        gate = " ".join(f"({p['escalated'] * 100:.2f},{p['hit@10'] * 100:.2f})" for p in curve)
+        rand = " ".join(
+            f"({p['escalated'] * 100:.2f},{p['random_hit@10'] * 100:.2f})" for p in curve
+        )
+        c = e["chosen"]
+        panels.append(
+            "\n".join(
+                [
+                    "\\begin{tikzpicture}",
+                    f"\\begin{{axis}}[width=0.49\\linewidth, height=5.4cm, title={{\\small {title}}}, xmin=0, xmax=100, ymin=55, ymax=100,",
+                    "  xlabel={Bugs escalated (\\%)}, ylabel={Function hit@10 (\\%)}, grid=major, grid style={gray!20},",
+                    "  tick label style={font=\\footnotesize}, label style={font=\\small}, legend style={font=\\footnotesize, at={(0.98,0.03)}, anchor=south east}]",
+                    f"\\addplot[thick, color=black, mark=none] coordinates {{{gate}}};",
+                    "\\addlegendentry{confidence gate}",
+                    f"\\addplot[thick, dashed, color=gray, mark=none] coordinates {{{rand}}};",
+                    "\\addlegendentry{random}",
+                    f"\\addplot[only marks, mark=*, mark size=2.6pt, color=black, forget plot] coordinates {{({c['escalated'] * 100:.2f},{c['hit@10'] * 100:.2f})}};",
+                    f"\\node[font=\\scriptsize, anchor=south east] at (axis cs:{c['escalated'] * 100:.2f},{c['hit@10'] * 100 + 1:.2f}) {{fixed threshold}};",
+                    "\\end{axis}",
+                    "\\end{tikzpicture}",
+                ]
+            )
+        )
+    return "\n".join(
+        [
+            "\\begin{figure}[t]",
+            "\\centering",
+            "\\hfill".join(panels),
+            f"\\caption{{{caption}}}",
+            f"\\label{{{label}}}",
+            "\\end{figure}",
+            "",
+        ]
+    )
+
+
+def hitk_figure(set_name: str, label: str, caption: str) -> str:
+    a = analysis(set_name)
+    chosen = [s for s in ("website-gpu", "website", "codex-agent", "swerank-embed-large", "open-agent-qwen3-coder-next-fp8", "gemini-single", "codex-single")
+              if a["systems"].get(s, {}).get("issues", 0) >= MIN_ISSUES]  # fmt: skip
+    marks = ["*", "o", "triangle*", "square*", "diamond*", "triangle", "square"]
+    lines = [
+        "\\begin{figure}[t]",
+        "\\centering",
+        "\\begin{tikzpicture}",
+        "\\begin{axis}[width=0.7\\linewidth, height=6cm, xtick={1,5,10}, xmin=0.5, xmax=10.5, ymin=10, ymax=90,",
+        "  xlabel={$k$}, ylabel={Function hit@$k$ (\\%)}, grid=major, grid style={gray!20}, tick label style={font=\\footnotesize},",
+        "  label style={font=\\small}, legend style={font=\\footnotesize, at={(1.03,0.5)}, anchor=west}]",
+    ]
+    for s, m in zip(chosen, marks, strict=False):
+        e = a["systems"][s]
+        coords = " ".join(f"({k},{e[f'hit@{k}'] * 100:.2f})" for k in (1, 5, 10))
+        lines.append(f"\\addplot[mark={m}, color=black] coordinates {{{coords}}};")
+        lines.append(f"\\addlegendentry{{{NAMES[s]}}}")
+    lines += [
+        "\\end{axis}",
+        "\\end{tikzpicture}",
+        f"\\caption{{{caption}}}",
+        f"\\label{{{label}}}",
+        "\\end{figure}",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def no_answer_table(set_name: str, label: str) -> str:
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\small",
+        "\\caption{Bugs for which a system returned no function, full reports, 198-bug subset. Each counts as a miss. \\emph{Turns}: the agent used all 40 turns and a final request without answering; \\emph{Context}: the prompt or conversation outgrew the model's context; \\emph{Empty}: the reply had no function that could be read.}",
+        f"\\label{{{label}}}",
+        "\\begin{tabular}{lrrrrr}",
+        "\\toprule",
+        "System & Bugs & Turns & Context & Empty & Total \\\\",
+        "\\midrule",
+    ]
+    for s in FIGURE_SYSTEMS + ["swerank-embed-large", "swerank-embed-small"]:
+        rs = rows(set_name, s)
+        if len(rs) < MIN_ISSUES or s not in NAMES:
+            continue
+        turns = context = empty = 0
+        for r in rs:
+            if (r.get("answer") or {}).get("functions"):
+                continue
+            reason = r.get("no_answer") or ""
+            if reason.startswith("no answer after"):
+                turns += 1
+            elif reason.startswith("context full"):
+                context += 1
+            else:
+                empty += 1
+        lines.append(
+            f"{NAMES[s]} & {len(rs)} & {turns} & {context} & {empty} & {turns + context + empty} \\\\"
+        )
+    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}", ""]
+    return "\n".join(lines)
+
+
 def fit(text: str) -> str:
-    if not text.startswith("\\begin{table}"):
+    if not text.startswith("\\begin{table"):
         return text
-    text = text.replace("\\begin{tabular}", "\\resizebox{\\columnwidth}{!}{\\begin{tabular}", 1)
-    return text.replace("\\end{tabular}", "\\end{tabular}}", 1)
+    text = text.replace(
+        "\\begin{tabular}", "\\begin{adjustbox}{max width=\\linewidth}\\begin{tabular}", 1
+    )
+    return text.replace("\\end{tabular}", "\\end{tabular}\\end{adjustbox}", 1)
 
 
 def main() -> int:
@@ -454,6 +637,21 @@ def main() -> int:
         "conditions.tex": condition_table("tab:conditions"),
         "reranker.tex": reranker_table("tab:reranker"),
         "numbers.tex": numbers(),
+        "fig_cost.tex": cost_figure(
+            "fresh-full-agents",
+            "fig:cost",
+            "Accuracy against cost per bug, full reports, 198-bug subset. Costs are list prices for the tokens each run used, or GPU rental time; systems that cost nothing to run sit at the left edge.",
+        ),
+        "fig_escalation.tex": escalation_figure(
+            "fig:escalation",
+            "Escalating the bugs \tool{} is least confident about to an agent (solid) against escalating the same number of bugs at random (dashed). The dot is the threshold fixed before the study.",
+        ),
+        "fig_hitk.tex": hitk_figure(
+            "fresh-full-agents",
+            "fig:hitk",
+            "Function hit@$k$ for $k=1,5,10$, full reports, 198-bug subset.",
+        ),
+        "no_answer.tex": no_answer_table("fresh-full-agents", "tab:noanswer"),
     }
     for name, text in files.items():
         (OUT / name).write_text(fit(text), encoding="utf-8", newline="\n")

@@ -2,7 +2,7 @@
 \centering
 \caption{Shortened bug reports (title and first 1,500 characters of the body), the 198-bug agent subset, including the paid frontier agents. Columns as in Table~\ref{tab:full198}.}
 \label{tab:short198}
-\begin{tabular}{lcrrrrrrrr}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lcrrrrrrrr}
 \toprule
 System & Free & $n$ & hit@1 & hit@10 & 95\% CI & all@10 & MRR & Cost/bug & $\Delta$ hit@10 (W/L, $p_{\mathrm{Holm}}$) \\
 \midrule
@@ -20,5 +20,5 @@ gpt-6-luna, one call & \checkmark & 198 & 30.3 & 37.9 & 29.6--46.0 & 15.7 & 0.33
 Qwen3-Coder-Next, one call & \checkmark & 198 & 24.2 & 33.3 & 25.8--41.3 & 11.1 & 0.277 & \$0.007 & -40.9 (5/86, $<$0.001) \\
 gpt-oss-120b, one call & \checkmark & 198 & 20.7 & 24.7 & 17.0--32.6 & 10.6 & 0.224 & \$0.006 & -49.5 (1/99, $<$0.001) \\
 \bottomrule
-\end{tabular}
+\end{tabular}\end{adjustbox}
 \end{table*}

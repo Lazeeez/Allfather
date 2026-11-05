@@ -1,8 +1,12 @@
-\documentclass[sigconf,review,anonymous]{acmart}
+\documentclass[acmsmall,screen,review,anonymous]{acmart}
 
 \usepackage{booktabs}
+\usepackage{adjustbox}
 \usepackage{xcolor}
 \usepackage{xspace}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[most]{tcolorbox}
 
 \input{generated/numbers}
 \input{generated/results}
@@ -17,212 +21,327 @@
   \newcommand{\artifact}{\url{https://github.com/Lazeeez/Allfather}}
 \fi
 \newcommand{\toolgpu}{\tool{}+GPU\xspace}
-\newcommand{\fresh}{\textsc{fresh-2026}\xspace}
+\newcommand{\fresh}{\textsc{Fresh-2026}\xspace}
 \newcommand{\FF}{fresh-full-agents}
 \newcommand{\FFA}{fresh-full}
 \newcommand{\SH}{fresh-agents}
 \newcommand{\SHA}{fresh}
 \newcommand{\RQ}[1]{\textbf{RQ#1}}
+\newcommand{\pending}{\textbf{\textcolor{red}{[pending]}}}
 
-\setcopyright{none}
-\acmConference[ISSTA '27]{ACM SIGSOFT International Symposium on Software Testing and Analysis}{September 2027}{Singapore}
-\acmYear{2027}
+\newtcolorbox{finding}[1]{enhanced, breakable, colback=gray!6, colframe=gray!60, boxrule=0.5pt, arc=1pt,
+  left=4pt, right=4pt, top=3pt, bottom=3pt, fonttitle=\bfseries\small, title={#1}, fontupper=\small}
 
 \setlength{\emergencystretch}{1.5em}
 
 \begin{document}
 
-\title{Can a Free Bug Localizer Keep Up with Frontier Coding Agents on Bugs They Have Never Seen?}
+\title{Do You Need a Frontier Agent to Find the Bug? A Pre-Registered Comparison of Bug Localizers on Post-Cutoff Bugs}
 
 \author{Lajat Manekar}
-\affiliation{\institution{Georgia Institute of Technology}\city{Atlanta}\country{USA}}
+\affiliation{\institution{Georgia Institute of Technology}\city{Atlanta}\state{Georgia}\country{USA}}
 \email{lajatm9@gmail.com}
 
 \begin{abstract}
-Bug localization asks which functions must change to fix a reported bug. Coding agents built on frontier language models now do this well, but their benchmarks predate the models, and a model that has read a project's history can answer from memory. I built \fresh, \NBugs{} bugs reported between 1 August and 2 November 2026 in \NProjects{} open-source projects and six languages, after the training cutoffs of every model compared, and sealed it before any system ran on it. On it I compare a free bug localizer that runs entirely in the browser, with an optional small GPU reranker, against SweRank, open-weight models, free-tier frontier models and paid frontier agents, under a protocol fixed in advance and amended only before the results it affects were read.
-
-On full bug reports the free localizer reaches \res{\FFA}{website-gpu}{hit@10}\% function hit@10 on all \NBugs{} bugs, ahead of every other system that ran on the whole set. On the \NAgent{}-bug agent subset it ties the best free coding agent (\res{\FF}{website}{hit@10}\% browser-only and \res{\FF}{codex-agent}{hit@10}\% for gpt-6-luna in Codex) and is significantly ahead of both open-weight models, as agents and as single calls, and of every single-call model. The agent ranks better: its hit@1 is \res{\FF}{codex-agent}{hit@1}\% against \res{\FF}{website-gpu}{hit@1}\%. On shortened reports, where they have already run, paid frontier agents are ahead by a wide margin, and a confidence gate fixed before the study escalates the bugs the localizer is least sure of to an agent and recovers most of that margin while escalating fewer than two thirds of the bugs. The gap between a model asked once and the same model as an agent is far larger on \fresh than on SWE-bench, which is consistent with memorization inflating older benchmarks.
+Coding agents built on frontier language models now localize bugs by reading a repository with tools, and they report strong results on SWE-bench. Those results are hard to interpret for two reasons: the benchmark's bugs predate the models, which may have seen the fixes during training, and the comparisons rarely include cost, privacy, or the tools a developer can use for free. I present \fresh, a benchmark of \NBugs{} bugs reported between 1 August and 2 November 2026 in \NProjects{} open-source projects written in Go, Java, JavaScript, Python, Rust, and TypeScript. Every bug postdates the training cutoff of every model studied, was vetted for bot- and AI-written issues and fixes, and was sealed by hash before any system ran. On it, I compare a free bug localizer that runs entirely in the browser, with an optional small GPU reranker, against a published retrieval system, two open-weight models, free-tier and paid frontier models asked once, and frontier coding agents, under a protocol fixed in advance. With full bug reports, the free localizer reaches \res{\FFA}{website-gpu}{hit@10}\% function-level hit@10 on all \NBugs{} bugs, more than any other system that ran on the whole set. On a \NAgent{}-bug subset, it ties the best free coding agent at hit@10 and outperforms both open-weight models, as agents and as single calls, and every single-call model; the agent, however, ranks the faulty function first far more often. On shortened reports, paid frontier agents are more accurate still, and a confidence gate fixed before the study recovers most of their advantage while escalating only part of the bugs. Finally, frontier models asked once fall far behind the same models used as agents on \fresh, a gap that is absent on SWE-bench Verified and is consistent with memorization inflating older benchmarks.
 \end{abstract}
 
-\keywords{bug localization, fault localization, large language models, coding agents, benchmark contamination, information retrieval}
+\begin{CCSXML}
+<ccs2012>
+<concept><concept_id>10011007.10011074.10011099.10011102.10011103</concept_id><concept_desc>Software and its engineering~Software testing and debugging</concept_desc><concept_significance>500</concept_significance></concept>
+<concept><concept_id>10011007.10011006.10011073</concept_id><concept_desc>Software and its engineering~Software maintenance tools</concept_desc><concept_significance>300</concept_significance></concept>
+</ccs2012>
+\end{CCSXML}
+\ccsdesc[500]{Software and its engineering~Software testing and debugging}
+\ccsdesc[300]{Software and its engineering~Software maintenance tools}
+
+\keywords{bug localization, fault localization, large language models, coding agents, benchmark contamination, empirical study}
 
 \maketitle
 
+%% ---------------------------------------------------------------------------
 \section{Introduction}
+\label{sec:intro}
 
-A developer reading a new bug report first has to find where the fault is. Information-retrieval bug localization ranks a project's files or functions against the report's text~\cite{zhou2012buglocator,saha2013bluir,ye2014learning}; it is fast and cheap, but for a decade it has been measured on a few Java projects whose bugs are years old~\cite{lee2018bench4bl}. Coding agents now localize bugs by reading the repository with tools, as a developer would~\cite{yang2024sweagent,xia2024agentless,chen2025locagent}, and are usually evaluated on SWE-bench~\cite{jimenez2024swebench}, whose issues come from twelve popular Python projects between 2012 and 2023.
+Before a developer can fix a reported bug, they must find the code responsible for it. Bug localization automates this step: given a bug report and a repository, it ranks the repository's files or functions by how likely they are to need a change~\cite{zhou2012buglocator,saha2013bluir,ye2014learning}. For two decades the field relied on information retrieval and learning to rank, evaluated mostly on a handful of Java projects~\cite{lee2018bench4bl}. In the last two years, large language models have changed both the methods and the evaluation. Coding agents now localize bugs the way a developer would, by listing, searching, and reading files~\cite{yang2024sweagent,xia2024agentless,chen2025locagent}, and they are evaluated on SWE-bench~\cite{jimenez2024swebench}, a set of GitHub issues from twelve popular Python projects.
 
-Two problems make the current evidence hard to act on. First, frontier models were trained on the same public repositories, issues and fixes. When a model has seen the fix, a benchmark measures recall, not localization. In a ten-bug pilot on SWE-bench Verified, Claude Opus~5.5 given only the report and the list of files, with no way to read code, located as many bugs as the same model running as an agent that could read every file (9 of 10 each). Second, comparisons rarely include cost, privacy or the systems a developer can use for free, so they cannot say when an expensive agent is worth calling.
+A developer who wants to adopt one of these tools faces three open questions. The first is whether the reported accuracy holds on new bugs. SWE-bench's issues were filed between 2012 and 2023, before any current model was trained, and frontier models have read the same public repositories, issues, and fixes. When a model has seen a fix, a benchmark measures recall rather than localization. In a ten-bug pilot on SWE-bench Verified, Claude Opus~5.5 given only the bug report and the list of file paths, with no way to read any code, localized as many bugs as the same model running as an agent that could read every file. The second question is cost. Agents spend tokens on every bug, and published comparisons rarely report what a correct answer costs, or compare against tools that cost nothing. The third question is privacy: every model-based tool sends the repository and the report to a third party, which many organizations cannot do for proprietary code.
 
-I address both. I built \fresh: \NBugs{} bugs from \NProjects{} projects in Go, Java, JavaScript, Python, Rust and TypeScript, reported after the published training cutoff of every model in the study, vetted to exclude bot- and AI-written issues and fixes, and sealed by hash before any system ran. On it I compare \tool, a localizer that indexes and ranks a repository in the user's browser and optionally re-reads its top 50 with a 0.6B-parameter reranker on a GPU, against a published research system, two open-weight models, free-tier and paid frontier models asked once, and frontier coding agents. Everything except the reranker's training data was fixed in a written protocol before the test set was scored; each change is a dated amendment written before the results it affects were read.
+This paper answers these questions with a pre-registered empirical study. I built \fresh, \NBugs{} bugs from \NProjects{} open-source projects in six languages, all reported after the published training cutoff of every model in the study and sealed before any system ran. On it I compare sixteen system configurations, from a localizer that runs in the user's browser to frontier coding agents, on the same bugs, with the same answer format, and with the cost of every answer measured. The protocol, including the systems, metrics, statistical tests, and decision thresholds, was written before the test set was scored; every later change is a dated amendment written before the results it affects were read. I study four research questions:
 
-I ask four questions.
+\begin{description}
+\item[\RQ1 (accuracy)] On bugs no model can have seen, how accurate is each kind of system relative to a free, browser-based localizer?
+\item[\RQ2 (cost)] Which systems are not outperformed by any other system on both accuracy and cost?
+\item[\RQ3 (escalation)] Can a confidence gate that sends only uncertain bugs to an agent approach the agent's accuracy at a fraction of its cost?
+\item[\RQ4 (where the gap lies)] How do the systems differ by programming language and by the information a bug report contains?
+\end{description}
+
+The free localizer studied here, \tool, splits a repository into functions, indexes them with a code-aware lexical index and static embeddings, and ranks them with a learned ranker; all of it runs in a web browser, and no code leaves the device. An optional variant, \toolgpu, re-reads the top 50 candidates with a 0.6B-parameter cross-encoder on a GPU. The main findings are as follows.
+
 \begin{itemize}
-\item \RQ1, accuracy: on bugs no model could have seen, how far is each kind of system above or below \tool?
-\item \RQ2, cost: which systems does no other system beat on both accuracy and cost?
-\item \RQ3, escalation: can a confidence gate that sends only the bugs \tool is unsure of to an agent approach the agent's accuracy at a fraction of its cost?
-\item \RQ4, where the gap is: how do the systems differ by language and by what the report names?
+\item \textbf{Among free systems, \tool is tied for most accurate at hit@10.} On all \NBugs{} full bug reports, \toolgpu places a changed function in its top ten for \res{\FFA}{website-gpu}{hit@10}\% of bugs, ahead of SweRankEmbed-Large (\res{\FFA}{swerank-embed-large}{hit@10}\%), the strongest published retriever. On the \NAgent{}-bug subset, it ties the best free coding agent, gpt-6-luna in Codex (\res{\FF}{website-gpu}{hit@10}\% against \res{\FF}{codex-agent}{hit@10}\%), and outperforms both open-weight models and every single-call model.
+\item \textbf{Agents rank better.} The free agent puts a changed function first for \res{\FF}{codex-agent}{hit@1}\% of bugs, against \res{\FF}{website-gpu}{hit@1}\% for \toolgpu.
+\item \textbf{Paid frontier agents are the most accurate systems, and a gate can call them sparingly.} On shortened reports, Claude Opus~5.5 in Claude Code reaches \ClaudeAgentShort\% hit@10. Escalating to it only the \CascadeClaudeEscalated\% of bugs \tool is least confident about yields \CascadeClaude\%, against \CascadeClaudeRandom\% when the same number of bugs is escalated at random.
+\item \textbf{Single-call accuracy collapses on fresh bugs.} gpt-6-astra asked once reaches \AstraSingleShort\% on the bugs where its agent reaches \AstraAgentShort\%, although on SWE-bench Verified the single call matched the agent.
 \end{itemize}
 
-The main findings, on full bug reports:
+\noindent In summary, this paper makes the following contributions:
 \begin{itemize}
-\item \tool is the most accurate system on all \NBugs{} bugs among those that ran on the whole set (\res{\FFA}{website-gpu}{hit@10}\% function hit@10 with the GPU reranker, \res{\FFA}{website}{hit@10}\% in the browser alone), ahead of SweRankEmbed-Large (\res{\FFA}{swerank-embed-large}{hit@10}\%; $p_\mathrm{Holm}\res{\FFA}{swerank-embed-large}{phit@10}$).
-\item On the \NAgent{}-bug subset it ties the best free agent at hit@10 and is significantly ahead of every open-weight model and every single-call model; the free agent is well ahead at hit@1.
-\item On shortened reports, paid frontier agents are ahead of everything else (Section~\ref{sec:shortened}); a gate fixed in advance recovers most of their advantage while escalating \CascadeClaudeEscalated\% of bugs.
-\item A frontier model asked once falls far behind the same model as an agent on \fresh, unlike on SWE-bench Verified.
+\item \fresh, a six-language bug-localization benchmark of post-cutoff bugs with a documented vetting and sealing procedure (Section~\ref{sec:benchmark});
+\item a pre-registered comparison of sixteen configurations, including frontier agents used as developers use them, with exact paired tests, project-clustered intervals, and per-answer cost (Sections~\ref{sec:design} and~\ref{sec:results});
+\item evidence that a free, private-by-default localizer matches the best free coding agent at hit@10 on unseen bugs, together with an account of where it falls short (Section~\ref{sec:rq1});
+\item a measured design for escalating only uncertain bugs to a paid agent (Section~\ref{sec:rq3});
+\item all data, run records, prompts, and analysis scripts, from which every number in this paper is regenerated (Data Availability).
 \end{itemize}
 
-\textbf{Contributions.} (1)~\fresh, its construction, vetting and sealing procedure, released with every run record; (2)~a pre-registered comparison of sixteen system configurations, with exact paired tests, project-clustered intervals and every deviation recorded; (3)~evidence that a free, private-by-default localizer matches free coding agents on unseen bugs at hit@10, with an honest account of where it does not; (4)~a measured escalation design for using paid agents only where they are needed; and (5)~evidence that a learned function reranker trained on Python transfers to five other languages.
+%% ---------------------------------------------------------------------------
+\section{Background}
+\label{sec:background}
 
-\section{Background and Related Work}
+\subsection{Bug Localization}
 
-\textbf{Information-retrieval localization.} BugLocator ranks files with a revised vector space model and similar past bugs~\cite{zhou2012buglocator}; BLUiR adds code structure~\cite{saha2013bluir}; learning to rank combines many such signals~\cite{ye2014learning}. Bench4BL showed these results vary widely across projects and that evaluation choices change conclusions~\cite{lee2018bench4bl}. Most of this work localizes files in Java; \tool localizes functions in six languages.
+Bug localization takes a bug report, usually a title and a free-text description, and a repository at the commit where the bug was reported, and returns a ranked list of code locations. The ground truth is the set of locations the developers' fix changed. Localization can be evaluated at file, function, or line granularity; function level is a useful middle ground, because a function is small enough to inspect and is the unit most fixes change~\cite{chen2025locagent}. A localizer is useful to a developer only if the faulty location appears near the top of the list: practitioners report that they would inspect at most the first five to ten results~\cite{kochhar2016practitioners}, and a correct answer far down the list may not help at all~\cite{parnin2011automated}.
 
-\textbf{Neural retrieval and reranking.} Dense retrievers embed reports and code in one space; cross-encoders read the pair together and rerank a short list~\cite{nogueira2019passage}. SweRank trains both for issue localization on data mined from GitHub, reporting state-of-the-art results on SWE-bench Lite and LocBench~\cite{reddy2025swerank}. \tool uses a learned ranker over lexical, structural and static-embedding features, and an optional cross-encoder reranker fine-tuned with LoRA~\cite{hu2022lora} from Qwen3-Reranker~\cite{zhang2025qwen3embedding}.
+\subsection{Three Families of Localizers}
 
-\textbf{Agents.} SWE-agent gives a model an interface for navigating and editing a repository~\cite{yang2024sweagent}; Agentless localizes hierarchically without an agent loop~\cite{xia2024agentless}; LocAgent searches a graph of the code~\cite{chen2025locagent}. Commercial agents such as Claude Code and Codex now do the same for developers. Whether better localization helps an agent repair a bug is contested; I measure localization only.
+\textbf{Retrieval and learning to rank.} Classic localizers treat the report as a query and code as documents, scoring them with vector-space or BM25 models, sometimes with the history of similar bugs~\cite{zhou2012buglocator,saha2013bluir}, and combine many such signals with learning to rank~\cite{ye2014learning}. Neural retrievers embed reports and code in one space, and cross-encoders rerank a short list by reading the report and the code together~\cite{nogueira2019passage}. SweRank trains both kinds of model for issue localization on pairs mined from GitHub~\cite{reddy2025swerank}.
 
-\textbf{Contamination.} Benchmarks built from public repositories leak into training data, and fresh, time-split benchmarks are the usual remedy~\cite{jain2024livecodebench}. SWE-bench's issues predate every current model. \fresh takes only bugs reported after the stated cutoff of each model compared.
+\textbf{Single-call language models.} A language model can be given the report and a description of the repository, such as its file list, and asked for the faulty locations in one response. This is cheap, but the model cannot read code it is not shown, so its answer depends on what it can infer from names and on what it remembers.
 
-\textbf{Practitioners.} Developers want a localizer to put the fault in its top five and to explain itself~\cite{kochhar2016practitioners}, and controlled studies question whether ranked lists help at all when used naively~\cite{parnin2011automated}. I report hit@1 and hit@5 alongside hit@10 for that reason.
+\textbf{Agents.} A coding agent gives a model tools to list, search, and read files and lets it decide what to inspect, over many turns~\cite{yang2024sweagent}. Agentless localizes hierarchically, from files to functions, without an open-ended loop~\cite{xia2024agentless}; LocAgent searches a graph of the code~\cite{chen2025locagent}. Commercial agents such as Claude Code and Codex make this workflow available to every developer.
 
+\subsection{Contamination}
+
+A benchmark drawn from public repositories can leak into a model's training data. When it does, a model may reproduce a known fix without localizing anything, and the benchmark overstates its ability on new bugs. The usual remedy is a benchmark built only from data created after the models' training cutoffs~\cite{jain2024livecodebench}. SWE-bench's issues predate every current frontier model, so its results cannot separate localization from recall.
+
+%% ---------------------------------------------------------------------------
 \section{The \fresh Benchmark}
 \label{sec:benchmark}
 
-\textbf{Projects.} Public GitHub projects in the six languages, the most starred active projects with issues enabled, excluding every project used in any of \tool's training, development or earlier test sets (compared by repository ID, so forks and renames are caught).
+\subsection{Construction}
 
-\textbf{Bugs.} An issue created from 1 August 2026, after the latest published training cutoff of every model compared, and closed by exactly one merged pull request opened after the issue. The answer key is the set of functions the merged diff changes, tests excluded, at the pull request's base commit. Issues edited after their fix's pull request was opened are excluded, because GitHub serves only an issue's current text. Of \NCandidates{} candidate issues, \NUsable{} were usable; I drew up to 100 per language with at most 12 per project (Table~\ref{tab:dataset}).
+\textbf{Projects.} I selected public GitHub projects in the six languages, taking the most-starred active projects with issues enabled. I excluded every project used in any of \tool's training, development, or earlier test sets, comparing repositories by GitHub's numeric identifier so that renamed or forked copies are also caught.
 
-\textbf{Vetting.} Before sealing, I checked sampled issues and pull requests for bot and AI authorship, and excluded pull requests that state they were written by an AI tool and those opened by bot accounts.
+\textbf{Bugs.} A bug enters the candidate pool if its issue was created on or after 1 August 2026, after the latest published training cutoff of the compared models, and was closed by exactly one merged pull request that was opened after the issue. The ground truth is the set of functions that the merged diff changes, excluding tests, at the pull request's base commit. GitHub serves only an issue's current text, so issues edited after their fix's pull request was opened are excluded, as is any issue whose fix changes no function. Of \NCandidates{} candidate issues, \NUsable{} met these criteria.
 
-\textbf{Sealing.} The answer keys were hashed (sha256 \texttt{\GoldHash\ldots}) and committed on 3 November 2026 before any system ran; every later run is logged. The \NAgent{}-bug agent subset is a seeded draw stratified by language, fixed at sealing.
-
-\textbf{Two report conditions.} The protocol first gave systems the title and the first 1,500 characters of the body. \NLonger{} of the \NBugs{} bodies are longer, so a second condition with the full title and body was added by amendment before those texts were fetched or any result read; the full report is the primary condition throughout this paper. The shortened condition is reported as a robustness check (Section~\ref{sec:shortened}).
+\textbf{Sampling.} I drew up to 100 bugs per language at random with a fixed seed, with at most 12 bugs from any one project so that no project dominates a language. Java had fewer eligible bugs than the other languages and contributes 80. Table~\ref{tab:dataset} summarizes the result.
 
 \input{generated/dataset}
 
-\textbf{Hint strata.} Each bug is assigned, from its report text, to the first of four strata that applies: the report names a function the fix changes (\emph{function}); otherwise it names a changed file (\emph{file}); otherwise it contains a stack trace (\emph{trace}); otherwise \emph{none}. A parser assigns them. I check 50 bugs by hand, blind to the parser, and report Cohen's kappa~\cite{cohen1960kappa}; if kappa is below 0.6, \RQ4's strata are reported as indicative only.
+\textbf{Vetting.} A bug written by an AI model, or fixed by one, would favor the models under study. Before sealing, I fetched each drawn bug's issue and pull request again and excluded the bug if either was opened by a bot or a known coding-agent account, or if either stated that it was AI-written (for example, ``Generated with Claude Code''), drawing the next random bug in its place. Of \NVetted{} drawn bugs, \NVetExcluded{} were excluded: \NVetAI{} because the issue or pull request said it was AI-written, and \NVetBot{} because a bot or agent account opened it. AI assistance that leaves no trace cannot be detected and remains a threat to validity (Section~\ref{sec:threats}).
 
-\section{Systems}
-\label{sec:systems}
+\textbf{Sealing.} I committed the benchmark and the SHA-256 hash of its ground truth (beginning \texttt{\GoldHash}) on 3 November 2026, before any system ran on it, and every later run is recorded in a log in the artifact. The \NAgent{}-bug agent subset, a random sample stratified by language, was fixed at the same time.
 
-Every system returns at most ten functions, most likely first. Free-text answers (paths and names) are mapped to the functions at the base commit with Tree-sitter; an answer that maps to nothing is a miss.
+\subsection{Report Conditions}
 
-\textbf{\tool (browser only).} Runs in a web worker. It downloads the repository at the base commit, splits it into functions with Tree-sitter compiled to WebAssembly, and indexes them with a code-aware BM25. Every function is embedded with a static code embedding model (16.8\,MB, no neural network at encode time), and a two-stage LambdaMART ranker over lexical, structural, mention and embedding features ranks the candidates. The ranker was trained on 7,845 issues from projects disjoint from \fresh in all six languages. No code leaves the device.
+The protocol first gave every system the issue's title and the first 1,500 characters of its body, a common way to bound prompt length. \NLonger{} of the \NBugs{} bodies are longer than that. Because a truncated report may hide the very information a localizer needs, I added a second condition, the full title and body, by an amendment written before the full texts were fetched or any result read. The full report is the primary condition in this paper; the shortened condition is reported as a robustness check (Section~\ref{sec:robustness}).
 
-\textbf{\toolgpu.} The same pipeline, with its top 50 re-read by Qwen3-Reranker-0.6B with one LoRA adapter trained on bugs from all six languages, blended with the browser score. Its configuration was chosen on training projects only (Section~\ref{sec:reranker}) and frozen in the protocol before it ran on any \fresh bug.
+\subsection{Hint Strata}
 
-\textbf{SweRankEmbed-Small and -Large}~\cite{reddy2025swerank}, the published retrievers, run on every function at the base commit.
+What a report says strongly affects how hard a bug is to localize. I assign each bug to the first of four strata that applies: the report names a function the fix changed (\emph{function}); otherwise, it names a changed file (\emph{file}); otherwise, it contains a stack trace (\emph{trace}); otherwise, \emph{none}. A parser assigns the strata. To check it, I labeled 50 randomly drawn bugs by hand without seeing the parser's labels, and I report Cohen's kappa~\cite{cohen1960kappa}; the protocol treats the strata analysis as indicative only if kappa is below 0.6.
 
-\textbf{One-call models.} The model gets the report and the repository's file list in one request and returns ten functions as JSON, with no tools: gpt-6-luna and gpt-6-astra (OpenAI, through Codex with the shell disabled), Gemini~3.8 Flash (Google, through its API), Claude Opus~5.5 and Sonnet~5.5 (Anthropic, through Claude Code with every tool disabled), and two open-weight models, Qwen3-Coder-Next (FP8) and gpt-oss-120b~\cite{openai2025gptoss}, served with vLLM.
+%% ---------------------------------------------------------------------------
+\section{Study Design}
+\label{sec:design}
 
-\textbf{Agents.} The model gets the same report, a read-only checkout and tools to list, search and read files, with web access off, and returns ten functions: Claude Code with Opus~5.5, Codex with gpt-6-luna and gpt-6-astra, and the two open-weight models in a minimal agent loop with the same three tools, an answer tool and 40 turns.
+\subsection{Systems}
 
-\textbf{Free to use.} I call a system free if a developer can use it at no charge: \tool, SweRank, the open-weight models, Gemini~3.8 Flash (on Google's free tier) and gpt-6-luna (the model in ChatGPT's free plan). This was decided by system before any result was read.
+Table~\ref{tab:systems} lists the systems. Every system receives the same bug report and returns at most ten functions, most likely first. Answers given as file paths and names are mapped to the functions at the base commit with Tree-sitter; an answer that matches no function is a miss.
 
-\section{Method}
-\label{sec:method}
+\begin{table}[t]
+\centering
+\small
+\caption{Systems compared. \emph{Free}: usable at no charge by a developer (decided by system, before any result was read). Agents ran on the \NAgent{}-bug subset; the other systems also ran on all \NBugs{} bugs where access allowed.}
+\label{tab:systems}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{llllc}
+\toprule
+Family & System & Model & Access & Free \\
+\midrule
+Free localizer & \tool, browser only & learned ranker, static embeddings & runs in the browser & \checkmark \\
+ & \toolgpu & + Qwen3-Reranker-0.6B with LoRA & one GPU & \checkmark \\
+Retrieval & SweRankEmbed-Small, -Large~\cite{reddy2025swerank} & published checkpoints & one GPU & \checkmark \\
+Single call & gpt-6-luna & OpenAI & Codex CLI, shell disabled & \checkmark \\
+ & gpt-6-astra & OpenAI & Codex CLI, shell disabled & \\
+ & Gemini 3.8 Flash & Google & Gemini API & \checkmark \\
+ & Claude Opus 5.5, Sonnet 5.5 & Anthropic & Claude Code, tools disabled & \\
+ & Qwen3-Coder-Next (FP8) & open weights & vLLM, 4$\times$L40S & \checkmark \\
+ & gpt-oss-120b~\cite{openai2025gptoss} & open weights & vLLM, 2--4$\times$L40S & \checkmark \\
+Agent & gpt-6-luna, gpt-6-astra & OpenAI & Codex CLI, read-only sandbox & luna \\
+ & Claude Opus 5.5 & Anthropic & Claude Code, read-only tools & \\
+ & Qwen3-Coder-Next, gpt-oss-120b & open weights & my agent loop, 40 turns & \checkmark \\
+\bottomrule
+\end{tabular}\end{adjustbox}
+\end{table}
 
-\textbf{Metrics.} Function-level hit@$k$ (a changed function is in the top $k$) for $k \in \{1,5,10\}$, all@10 (every changed function is in the top 10) and MRR. Hit@10 is primary.
+\textbf{\tool.} \tool runs in a web worker. It downloads the repository at the base commit, splits every source file into functions with Tree-sitter compiled to WebAssembly, and indexes them with a BM25 variant that tokenizes identifiers. It embeds every function with a 16.8\,MB static code-embedding model, which needs no neural network at encoding time, and ranks candidates with a two-stage LambdaMART ranker over lexical, structural, mention, and embedding features. The ranker was trained on 7,845 bugs, in all six languages, from projects disjoint from \fresh. No code or report leaves the user's device.
 
-\textbf{Statistics.} 95\% intervals come from a bootstrap that resamples projects, since bugs in one project are correlated. Paired comparisons use the exact McNemar test on yes/no metrics, with Holm's correction across all comparisons in a table~\cite{mcnemar1947,holm1979}. Each comparison is reported against both \toolgpu and \tool, each as its own Holm family.
+\textbf{\toolgpu.} The same pipeline, with its top 50 candidates re-read by Qwen3-Reranker-0.6B~\cite{zhang2025qwen3embedding} with one LoRA adapter~\cite{hu2022lora} trained on bugs from all six languages, and the reranker's score blended with the browser's. Its configuration was selected on training projects only (Section~\ref{sec:reranker}) and frozen before it ran on any \fresh bug.
 
-\textbf{Cost.} Dollars per bug at list prices on the run date: tokens times the provider's API rates for model systems, and GPU time at a public rental rate for the reranker and the open-weight models. Systems run on a subscription are priced from their own token counts at API rates.
+\textbf{SweRank.} SweRankEmbed-Small and -Large~\cite{reddy2025swerank} embed the report and every function at the base commit and rank functions by similarity.
 
-\textbf{Escalation.} \tool's confidence model, a logistic regression on ten features of its ranking trained on its own out-of-fold training predictions, estimates the probability that a changed function is in its top 10. A bug is escalated when this is below 0.7899, a threshold fixed before the study as the 40th percentile on development bugs. A random gate escalating the same share is the baseline.
+\textbf{Single-call models.} The model receives the report and the repository's file list in one request and returns ten functions as JSON. It has no tools and cannot read code. The frontier models run through their vendors' own command-line tools with every tool disabled, or through the vendor's API; the open-weight models are served with vLLM on the same hardware for every bug.
 
-\textbf{Non-determinism and partial runs.} Each system gives one answer per bug, in a fixed order. Repeatability is measured by asking gpt-6-astra again on 50 bugs. A run stopped by a usage limit is reported on the prefix it completed, which is a random subset because the order is random.
+\textbf{Agents.} The model receives the same report, a read-only checkout of the repository, and tools to list, search, and read files, with web access disabled, and returns ten functions. Claude Opus~5.5 runs in Claude Code and the OpenAI models in Codex, as developers use them; Claude Code also delegates some sub-tasks to Claude Haiku~5.5. The open-weight models run in a minimal agent loop of my own with the same three read-only tools and an answer tool, for at most 40 turns.
 
-\textbf{Pre-registration.} The protocol and every amendment are in the artifact, dated and committed before the results they affect. Amendments covered the full-report condition, harness fixes for the open-weight agents found from run records before any answer was read, model substitutions forced by access, and the order of rate-limited runs.
+\textbf{Free to use.} I classify a system as free if a developer can use it at no charge: \tool, SweRank, the open-weight models, Gemini~3.8 Flash, which is available on Google's free tier, and gpt-6-luna, the model in ChatGPT's free plan. This classification was fixed by system before any result was read.
 
+\subsection{Metrics}
+
+The primary metric is function-level hit@10, the share of bugs for which at least one changed function is among the ten returned. I also report hit@1 and hit@5, all@10 (every changed function is among the ten), and mean reciprocal rank (MRR). Cost per bug is measured at list prices on the run date: for model-based systems, the tokens each run used at the provider's API rates, including runs made under a subscription; for GPU systems, GPU time at a public rental rate.
+
+\subsection{Statistical Analysis}
+
+Bugs from the same project are correlated, so every 95\% confidence interval comes from a bootstrap that resamples projects rather than bugs. Paired comparisons use the exact McNemar test~\cite{mcnemar1947}, with Holm's correction~\cite{holm1979} across all comparisons in a table. I report every comparison against both \toolgpu and \tool, each as a separate family. With \NAgent{} bugs and about 20\% of pairs discordant, the subset detects a paired difference of about nine points with power 0.8 at $\alpha=0.05$; smaller differences between top systems are reported as ties, not as evidence of equivalence.
+
+\subsection{Escalation}
+
+\tool estimates its own confidence: a logistic regression on ten features of its ranking, such as the score gap between the first and second candidates, trained on its own out-of-fold training predictions, predicts the probability that a changed function is in its top ten. A bug is escalated to an agent when this probability is below 0.7899. I fixed the threshold before the study as the 40th percentile of the model's predictions on development bugs. Escalated bugs take the agent's answer; the rest keep \tool's. The baseline escalates the same number of bugs at random.
+
+\subsection{Protocol and Deviations}
+
+The protocol and its amendments are in the artifact. Each system gives one answer per bug, in a fixed random order; I measure repeatability by asking gpt-6-astra again on 50 bugs. A run stopped by a usage limit is reported on the prefix it completed, which is itself a random sample because the order is random. The amendments added the full-report condition, fixed gaps in the open-weight agents' harness that I found in run records before reading any answer, replaced models that I could not access, and set the order of rate-limited runs. No amendment was written after reading the results it affects.
+
+%% ---------------------------------------------------------------------------
 \section{Results}
 \label{sec:results}
 
-\subsection{RQ1: Accuracy}
+\subsection{RQ1: How Accurate Is Each System?}
+\label{sec:rq1}
 
 \input{generated/main_full_agents}
+
+\textbf{The agent subset.} Table~\ref{tab:full198} compares every system on the \NAgent{}-bug subset with full reports. \tool reaches \res{\FF}{website}{hit@10}\% hit@10 in the browser alone and \res{\FF}{website-gpu}{hit@10}\% with the GPU reranker, a difference within noise on this subset. The best free agent, gpt-6-luna in Codex, reaches \res{\FF}{codex-agent}{hit@10}\%. It wins on \res{\FF}{codex-agent}{wlhit@10} bugs against \toolgpu (wins/losses), so the two are tied. Every other free system is less accurate. SweRankEmbed-Large trails \toolgpu by \res{\FF}{swerank-embed-large}{dhit@10} points, which is not significant on this subset. The open-weight agents trail by \res{\FF}{open-agent-qwen3-coder-next-fp8}{dhit@10} (Qwen3-Coder-Next) and \res{\FF}{open-agent-gpt-oss-120b}{dhit@10} points (gpt-oss-120b), and every single-call model by more than 20 points, all with $p_\mathrm{Holm}<0.01$.
+
+\input{generated/fig_hitk}
+
+\textbf{Ranking quality.} The agent ranks better than \tool. Its hit@1 is \res{\FF}{codex-agent}{hit@1}\%, against \res{\FF}{website-gpu}{hit@1}\% for \toolgpu ($p_\mathrm{Holm}\res{\FF}{codex-agent}{phit@1}$): when the agent finds a faulty function, it usually puts it first (Figure~\ref{fig:hitk}). \tool more often has every changed function in its top ten (all@10 of \res{\FF}{website-gpu}{all@10}\% against \res{\FF}{codex-agent}{all@10}\%), which matters for the many fixes that change more than one function.
+
 \input{generated/main_full_all}
 
-\textbf{The agent subset.} Table~\ref{tab:full198} compares every system on the \NAgent{} bugs. \tool reaches \res{\FF}{website}{hit@10}\% hit@10 in the browser alone and \res{\FF}{website-gpu}{hit@10}\% with the GPU reranker, a difference that is not significant here. The best free agent, gpt-6-luna in Codex, reaches \res{\FF}{codex-agent}{hit@10}\% (wins/losses against \toolgpu: \res{\FF}{codex-agent}{wlhit@10}). Every other free system is behind (differences in points): SweRankEmbed-Large \res{\FF}{swerank-embed-large}{dhit@10} (not significant), the Qwen3-Coder-Next agent \res{\FF}{open-agent-qwen3-coder-next-fp8}{dhit@10}, the gpt-oss-120b agent \res{\FF}{open-agent-gpt-oss-120b}{dhit@10}, and every one-call model more than 20 points ($p_\mathrm{Holm}<0.001$ each).
+\textbf{All \NBugs{} bugs.} Table~\ref{tab:full580} covers the systems that ran on the whole benchmark. \toolgpu reaches \res{\FFA}{website-gpu}{hit@10}\% (95\% CI \res{\FFA}{website-gpu}{hit@10-ci}). SweRankEmbed-Large trails it by \res{\FFA}{swerank-embed-large}{dhit@10} points ($p_\mathrm{Holm}\res{\FFA}{swerank-embed-large}{phit@10}$) and gpt-6-luna asked once by \res{\FFA}{codex-single}{dhit@10}. The GPU reranker adds \res{\FFA}{website-gpu}{browser-dhit@10} points over the browser alone, which is not significant after correction for the other comparisons in its family ($p_\mathrm{Holm}\res{\FFA}{website-gpu}{browser-phit@10}$).
 
-The agent ranks better. Its hit@1 is \res{\FF}{codex-agent}{hit@1}\% against \toolgpu's \res{\FF}{website-gpu}{hit@1}\% (\res{\FF}{codex-agent}{dhit@1} points, $p_\mathrm{Holm}\res{\FF}{codex-agent}{phit@1}$): when it finds the fault, it usually puts it first. \tool more often has the fault somewhere in the top ten, and more often has every changed function there (all@10 \res{\FF}{website-gpu}{all@10}\% against \res{\FF}{codex-agent}{all@10}\%).
+\textbf{Paid frontier agents.} With full reports, Claude Opus~5.5 as an agent reaches \res{\FF}{claude-agent}{hit@10}\% hit@10 and gpt-6-astra \res{\FF}{codex-agent-astra}{hit@10}\%; gpt-6-astra asked once reaches \res{\FF}{codex-single-astra}{hit@10}\% on the \res{\FF}{codex-single-astra}{n} bugs completed so far. On shortened reports, where both agents completed every bug, they were the two most accurate systems in the study (Table~\ref{tab:short198}).
 
-\textbf{Paid frontier models.} With full reports, Claude Opus~5.5 as an agent reaches \res{\FF}{claude-agent}{hit@10}\% and gpt-6-astra \res{\FF}{codex-agent-astra}{hit@10}\% as an agent and \res{\FF}{codex-single-astra}{hit@10}\% asked once (on \res{\FF}{codex-single-astra}{n} bugs so far).
+\input{generated/no_answer}
 
-\textbf{All \NBugs{} bugs.} Table~\ref{tab:full580} covers the systems that ran on the whole set. \toolgpu reaches \AFgpuFullAll\% (\res{\FFA}{website-gpu}{hit@10-ci}), and the reranker adds \res{\FFA}{website-gpu}{browser-dhit@10} points over the browser alone ($p_\mathrm{Holm}\res{\FFA}{website-gpu}{browser-phit@10}$). SweRankEmbed-Large is \res{\FFA}{swerank-embed-large}{dhit@10} points behind it ($p_\mathrm{Holm}\res{\FFA}{swerank-embed-large}{phit@10}$), and gpt-6-luna asked once \res{\FFA}{codex-single}{dhit@10}.
+\textbf{Unanswered bugs.} Some systems returned no usable answer for some bugs, and the protocol counts these as misses (Table~\ref{tab:noanswer}). The open-weight agents account for most of them: gpt-oss-120b used all 40 turns without answering on many bugs and outgrew its context on others, and some full reports do not fit in its 131,072-token context even as a single call. These failures are part of what these models are as localizers today, but they also mean that a different harness could score them higher.
 
-\textbf{Open-weight agents fail to answer.} The open-weight agents sometimes used all 40 turns or filled their context without answering; the protocol counts these as misses. This is part of what they are as systems, and it is reported per system in the artifact.
+\begin{finding}{Answer to RQ1}
+On unseen bugs, the free browser localizer is tied with the best free coding agent at hit@10 and is significantly more accurate than SweRank on the full benchmark, both open-weight models, and every single-call model. The free agent ranks the faulty function first far more often. Paid frontier agents are the most accurate systems overall.
+\end{finding}
 
-\subsection{RQ2: Cost}
+\subsection{RQ2: What Does Accuracy Cost?}
+\label{sec:rq2}
 
-\tool in the browser costs nothing to run; the GPU reranker costs about \CostAFgpu{} per bug in GPU time. gpt-6-luna as an agent costs \res{\FF}{codex-agent}{cost} per bug at API prices, and the paid frontier agents cost \CostClaudeAgent{} (Claude) and \CostAstraAgent{} (gpt-6-astra). Among the systems that ran on all \NBugs{} bugs, the two \tool systems are the only ones no other system beats on both accuracy and cost. Cost is not the only price: every model-based system sends the repository and the report to a third party, which rules them out for private code under many policies; \tool sends nothing.
+\input{generated/fig_cost}
 
-\subsection{RQ3: Escalation}
+Figure~\ref{fig:cost} plots accuracy against cost per bug. \tool in the browser costs nothing to run, and the GPU reranker costs about \CostAFgpu{} per bug in GPU time. gpt-6-luna as an agent costs \res{\FF}{codex-agent}{cost} per bug at API prices, gpt-6-astra as an agent \CostAstraAgent{}, and Claude Opus~5.5 as an agent \CostClaudeAgent{}. Among the systems that ran on all \NBugs{} bugs, the two \tool variants are the only ones that no other system outperforms on both accuracy and cost.
+
+Speed and privacy differ as well. \tool's median time per bug is \res{\FF}{website}{sec}\,s in the browser, and the agents' is \res{\FF}{codex-agent}{sec}\,s for gpt-6-luna. More importantly for many organizations, every model-based system sends the repository and the report to a third party; \tool sends nothing.
+
+\begin{finding}{Answer to RQ2}
+The free localizer is on the cost--accuracy frontier: it costs nothing in the browser and about a tenth of a cent with the GPU reranker, and it is the only option that keeps code on the developer's machine. Paid frontier agents buy higher accuracy at about two hundred times the cost of the GPU reranker.
+\end{finding}
+
+\subsection{RQ3: Can Escalation Get the Best of Both?}
+\label{sec:rq3}
 
 \input{generated/escalation}
+\input{generated/fig_escalation}
+
+Table~\ref{tab:escalation} and Figure~\ref{fig:escalation} send the bugs below the fixed confidence threshold to an agent and keep \tool's answer for the rest. With full reports, the threshold escalates \res{\FF}{codex-agent}{esc-escalated}\% of bugs. Escalating them to gpt-6-luna raises hit@10 to \res{\FF}{codex-agent}{esc-hit@10}\%, above both systems alone and above the \res{\FF}{codex-agent}{esc-random_hit@10}\% obtained by escalating the same number of bugs at random. The confidence gate therefore selects the bugs on which the agent's help is worth most.
+
+With a paid agent the gain is larger. On shortened reports, escalating \CascadeClaudeEscalated\% of bugs to Claude Opus~5.5 reaches \CascadeClaude\% hit@10, against \CascadeClaudeRandom\% for random escalation and \ClaudeAgentShort\% for the agent on every bug (Table~\ref{tab:escalation-short}), at roughly two thirds of the agent's cost.
+
 \input{generated/escalation_short}
 
-Table~\ref{tab:escalation} sends the bugs below the fixed threshold to an agent and keeps \tool's answer for the rest. On full reports the threshold escalates \res{\FF}{codex-agent}{esc-escalated}\% of bugs. With gpt-6-luna the cascade reaches \res{\FF}{codex-agent}{esc-hit@10}\% against \res{\FF}{codex-agent}{esc-random_hit@10}\% for a random gate of the same size. With Claude Opus~5.5 on shortened reports (Table~\ref{tab:escalation-short}), the cascade reaches \CascadeClaude\% against \CascadeClaudeRandom\% for random escalation and \ClaudeAgentShort\% for the agent on every bug.
+\begin{finding}{Answer to RQ3}
+Yes. A confidence threshold fixed before the study escalates the bugs on which an agent helps most: with either a free or a paid agent, the cascade beats random escalation of the same size, and with a paid agent it matches the agent's accuracy on every bug at lower cost.
+\end{finding}
 
-\subsection{RQ4: Where the Gap Is}
+\subsection{RQ4: Where Do the Systems Differ?}
+\label{sec:rq4}
 
 \input{generated/languages_full_all}
 
-\textbf{Language.} Table~\ref{tab:languages} breaks down hit@10 on all \NBugs{} bugs. \toolgpu is best in JavaScript, Python and Rust, and SweRankEmbed-Large in Go, Java and TypeScript; the GPU reranker helps most in Rust and Java, where the browser ranker is weakest.
+\textbf{Language.} Table~\ref{tab:languages} breaks down hit@10 on all \NBugs{} bugs by language. \toolgpu is the most accurate system in JavaScript, Python, and Rust, and SweRankEmbed-Large in Go, Java, and TypeScript. The GPU reranker helps most in Rust and Java, where the browser ranker is weakest.
 
-\textbf{What the report names.} When the report names a changed function (\res{\FF}{website-gpu}{sn-function} of \NAgent{} bugs), \tool finds it \res{\FF}{website-gpu}{s-function}\% of the time, against \res{\FF}{codex-agent}{s-function}\% for the Luna agent. When the report names neither a changed function nor a changed file (\res{\FF}{website-gpu}{sn-none} bugs), \tool reaches \res{\FF}{website-gpu}{s-none}\% and the Luna agent \res{\FF}{codex-agent}{s-none}\%; the open-weight Qwen agent falls to \res{\FF}{open-agent-qwen3-coder-next-fp8}{s-none}\%. The hand check's kappa is \textbf{\textcolor{red}{pending}}.
+\textbf{What the report says.} The strata show where agents gain. When the report names a changed function (\res{\FF}{website-gpu}{sn-function} of the \NAgent{} bugs), \tool finds it \res{\FF}{website-gpu}{s-function}\% of the time and the gpt-6-luna agent \res{\FF}{codex-agent}{s-function}\%. When the report names neither a changed function nor a changed file (\res{\FF}{website-gpu}{sn-none} bugs), \tool reaches \res{\FF}{website-gpu}{s-none}\% and the agent \res{\FF}{codex-agent}{s-none}\%, while the Qwen3-Coder-Next agent drops to \res{\FF}{open-agent-qwen3-coder-next-fp8}{s-none}\% and Gemini~3.8 Flash asked once to \res{\FF}{gemini-single}{s-none}\%. The hand check of the strata gives Cohen's kappa \pending.
+
+\begin{finding}{Answer to RQ4}
+No system dominates across languages. Reports that name the faulty function are easy for every system; on reports that name nothing, single-call models and the open-weight agent fall far behind, while \tool and the free agent hold up.
+\end{finding}
 
 \subsection{The Reranker Across Languages}
 \label{sec:reranker}
 
 \input{generated/reranker}
 
-The GPU reranker was first trained on Python only. Before \fresh was scored, I tested on training projects, cross-validated by whole projects, whether it transfers to the other five languages, and chose between three six-language candidates by a rule fixed in advance (Table~\ref{tab:reranker}). The Python-trained pair already passes in all five other languages; the shipped adapter A, trained on all six, is the one \toolgpu uses.
+The GPU reranker was first trained on Python bugs only. Before scoring \fresh, I tested on training projects, cross-validated by whole projects, whether it transfers to the other five languages, and chose among three six-language candidates by a rule fixed in advance: a candidate passes a language if it improves hit@10 by at least two points with $p_\mathrm{Holm}<0.05$ (Table~\ref{tab:reranker}). The Python-trained reranker already passes in all five other languages. Candidate~A, a single adapter trained on all six languages with the original recipe, also passes in all five and is the one \toolgpu uses; candidate~C, a 4B-parameter model, collapsed on Java.
 
 \subsection{Robustness}
-\label{sec:shortened}
+\label{sec:robustness}
 
 \input{generated/conditions}
+
+\textbf{Shortened reports.} Every system except SweRankEmbed-Small gains from the full report, by up to eight points (Table~\ref{tab:conditions}), and the order of the systems is essentially unchanged. Table~\ref{tab:short198} gives the full results on shortened reports, the condition on which the paid agents completed every bug.
+
 \input{generated/main_short_agents}
 
-\textbf{Shortened reports.} Every system gains from the full report (Table~\ref{tab:conditions}), by two to seven points, and the order of systems is unchanged. The shortened condition (Table~\ref{tab:short198}) is where the paid agents first ran: Claude Opus~5.5 reached \ClaudeAgentShort\% and gpt-6-astra \AstraAgentShort\% as agents, against \AFgpuShortAgents\% for \toolgpu.
+\textbf{Memorization.} On the SWE-bench Verified pilot, Claude Opus~5.5 asked once matched its own agent. On \fresh, gpt-6-astra asked once reaches \AstraSingleShort\% hit@10 on the bugs where its agent reaches \AstraAgentShort\%. A model that cannot read the code is far weaker on bugs it cannot have seen, which is what memorization of older benchmarks would predict. The pilot has only ten bugs, so this is suggestive rather than conclusive.
 
-\textbf{Memorization.} On the SWE-bench Verified pilot, Claude's single call matched its agent. On \fresh, gpt-6-astra asked once reaches \AstraSingleShort\% against \AstraAgentShort\% as an agent on the same bugs. A model that cannot read the code is far weaker on bugs it cannot have seen, which is what memorization of older benchmarks predicts.
+\textbf{Repeatability.} Asked again on 50 bugs, gpt-6-astra asked once changed its hit@10 outcome on \RepeatSingleChanged{} of \RepeatSingleN{} bugs, and its agent on \RepeatAgentChanged{} of \RepeatAgentN{}. One answer per bug is therefore a small source of noise compared with the differences reported above. \tool is deterministic.
 
-\textbf{Repeatability.} Asked again on 50 bugs, gpt-6-astra's single call changed its hit@10 outcome on \RepeatSingleChanged{} of \RepeatSingleN{}, and its agent on \RepeatAgentChanged{} of \RepeatAgentN{}. \tool is deterministic.
+\textbf{Long paths.} Some early agent runs on Windows silently dropped deeply nested files from their checkouts, never a file a fix changed. Repeating every comparison without the affected bugs (135 of \NBugs{}, 41 of \NAgent{}) changes no test's conclusion at $\alpha=0.05$. All later runs used Linux.
 
-\textbf{Long paths.} Early agent runs on Windows dropped some deeply nested files from their checkouts (never a file the fix changed). Repeating every comparison without the affected bugs (135 of \NBugs{}, 41 of \NAgent{}) changes no test's conclusion at $\alpha=0.05$; all later runs used Linux.
-
+%% ---------------------------------------------------------------------------
 \section{Discussion}
+\label{sec:discussion}
 
-\textbf{Where a free localizer fits.} On unseen bugs, a localizer that runs in the browser and costs nothing finds the fault in its top ten as often as the best free coding agent, and more often than open-weight models with tools. It answers in seconds, the same answer every time, and reads no private code off the device. That suits uses an agent does not: triaging every incoming issue in a large project, commenting on new issues automatically, or working where code may not be sent to a model provider.
+\textbf{Implications for developers.} A free, local localizer is not a replacement for a frontier agent, but it is a strong first step. It finds a faulty function in its top ten as often as the best free agent, answers in seconds with the same answer every time, and never sends code off the machine. These properties suit uses where an agent is impractical: triaging every new issue in a large project, commenting on incoming issues automatically, or working on code that may not be sent to a model provider. For a developer fixing one bug who may share the code, a paid agent is more accurate and ranks the fault first more often.
 
-\textbf{Where it does not.} The free agent ranks the fault first far more often, and paid frontier agents are better on every metric. For a developer fixing one bug who can send the code to a provider, an agent is the better tool. The escalation result suggests the two are complements: \tool answers the bugs it is confident about and passes the rest to an agent.
+\textbf{Implications for tool builders.} The escalation results suggest building the two as complements rather than competitors. A cheap localizer can answer the bugs it is confident about and call an agent for the rest; the gate in this study was fitted on development data and still selected the right bugs on unseen ones. Its ranking could also be handed to the agent as a starting point, which this study does not evaluate.
 
-\textbf{For researchers.} Comparisons on older benchmarks overstate models that can recall a fix. The difference between single-call and agent accuracy on fresh bugs is a cheap probe for it.
+\textbf{Implications for researchers.} Evaluations on benchmarks that predate the models overstate models that may recall a fix. Comparing a model's single-call accuracy with its accuracy as an agent is a cheap diagnostic: on \fresh the two differ by about thirty points, on SWE-bench Verified they did not differ at all. Benchmarks should also report cost and the free baselines a developer actually has, because accuracy alone hides most of the trade-off.
 
+%% ---------------------------------------------------------------------------
 \section{Threats to Validity}
+\label{sec:threats}
 
-\textbf{Internal.} Closed models change without notice; I record model identifiers and run dates. Subscription-run agents include their vendor's system prompts and tools; I compare them as developers use them. One answer per bug may differ on a rerun; I measure this on 50 bugs. Partial runs are reported on a random prefix. The open-weight agents run in my own harness, not their vendors'; I fixed harness gaps found from run records before reading any answer, and report the rest as they are.
+\textbf{Internal validity.} Closed models change without notice; I record each model's identifier and run date. The frontier agents include their vendors' system prompts, tools, and sub-agents, so I compare them as developers use them rather than as bare models. The open-weight agents run in my own harness; I fixed harness gaps found in run records before reading any answer, and a harness designed by their vendors might score higher. Each system answers each bug once; I measured the resulting noise on 50 bugs. Runs stopped by usage limits are reported on a random prefix.
 
-\textbf{Construct.} The answer key is what the maintainers' fix changed, which may include incidental edits or miss alternative fixes. Function hit@10 is a proxy for developer usefulness~\cite{kochhar2016practitioners,parnin2011automated}.
+\textbf{Construct validity.} The ground truth is what the developers' fix changed. A fix may include incidental edits or omit equally valid alternatives, and some issues describe missing features rather than defects. Hit@10 is a proxy for usefulness to a developer~\cite{kochhar2016practitioners,parnin2011automated}; I therefore also report hit@1 and all@10.
 
-\textbf{External.} \fresh covers popular open-source projects in six languages over three months. The cutoff postdates every model's stated training cutoff, but projects and their older code may be known to the models; this affects all model systems alike and would favor them. \tool's own ranker was trained on projects disjoint from \fresh.
+\textbf{External validity.} \fresh covers popular open-source projects in six languages over three months, and results may differ for proprietary code, other languages, or other kinds of bug. Every bug postdates every model's stated training cutoff, but older code in the same projects may be known to the models, which would favor them. \tool's own ranker was trained on projects disjoint from \fresh. AI-written issues or fixes that carry no marker could not be excluded.
 
-\textbf{Conclusion validity.} The agent subset has \NAgent{} bugs, enough to detect about a nine-point paired difference; smaller differences between top systems are reported as ties, not as equivalence.
+\textbf{Conclusion validity.} The agent subset has \NAgent{} bugs, enough to detect a difference of about nine points; smaller differences are reported as ties. I correct for multiple comparisons within each table and cluster intervals by project.
 
+%% ---------------------------------------------------------------------------
+\section{Related Work}
+\label{sec:related}
+
+\textbf{Information-retrieval localization.} BugLocator combined a revised vector space model with similar fixed bugs~\cite{zhou2012buglocator}, BLUiR exploited the structure of code and reports~\cite{saha2013bluir}, and Ye et al. learned to rank files from many domain features~\cite{ye2014learning}. Bench4BL reproduced these techniques on 46 projects and showed that their performance varies widely across projects~\cite{lee2018bench4bl}. This line of work localizes files, mostly in Java; this study localizes functions in six languages.
+
+\textbf{Neural localization.} Cross-encoder reranking~\cite{nogueira2019passage} and parameter-efficient fine-tuning~\cite{hu2022lora} underlie \toolgpu. SweRank trains a retriever and a reranker for issue localization and reports state-of-the-art results on SWE-bench Lite and LocBench~\cite{reddy2025swerank}; I compare against its published retrievers on fresh bugs.
+
+\textbf{Agents and LLM-based localization.} SWE-agent introduced agent--computer interfaces for repositories~\cite{yang2024sweagent}, Agentless showed that a fixed hierarchical procedure is competitive with agents~\cite{xia2024agentless}, and LocAgent localizes with graph-guided search~\cite{chen2025locagent}. These systems are evaluated on SWE-bench and its variants, whose bugs predate current models. This study evaluates commercial agents as developers use them, on bugs that postdate them, with cost.
+
+\textbf{Contamination and fresh benchmarks.} LiveCodeBench collects programming problems continuously after models' cutoffs to avoid contamination~\cite{jain2024livecodebench}. \fresh applies the same principle to bug localization and adds sealing and vetting for AI-written bugs.
+
+\textbf{Developers and localization.} Kochhar et al. surveyed what practitioners expect from automated localization~\cite{kochhar2016practitioners}, and Parnin and Orso questioned whether ranked lists help programmers at all~\cite{parnin2011automated}. Both motivate reporting the top of the ranking, not only hit@10.
+
+%% ---------------------------------------------------------------------------
 \section{Conclusion}
+\label{sec:conclusion}
 
-On \NBugs{} bugs no model could have seen, a free bug localizer running in the browser matches the best free coding agent at hit@10, beats open-weight models and every single-call model, and trails paid frontier agents, which a confidence gate can call only when needed. \fresh, every run record and the protocol with its amendments are available at \artifact.
+On \NBugs{} bugs that no model could have seen, a free bug localizer that runs in the browser matches the best free coding agent at hit@10, outperforms open-weight models and every single-call model, and trails paid frontier agents, which a confidence gate can call only when needed. The gap between single-call and agent accuracy suggests that older benchmarks overstate what models can do on new bugs. \fresh, every run record, and the protocol with its amendments are available for others to extend with new systems and new bugs.
 
 \section*{Data Availability}
-The benchmark, run records, analysis scripts and protocol are in the artifact. The paper's tables and numbers are generated from the committed results by one script.
 
-\section*{Use of AI Tools}
-\textbf{\textcolor{red}{To complete per the ISSTA 2027 call for papers.}} I used an AI coding assistant to write analysis scripts and to draft and edit text; I checked every result against the run records and take responsibility for the content.
+The benchmark (bugs, ground truth, and both report conditions), every system's answers and run records, the prompts and harnesses, the analysis scripts, and the protocol with its dated amendments are available at \artifact. Every table, figure, and number in this paper is generated from the committed run records by a single script.
 
 \begin{acks}
-This research used the Partnership for an Advanced Computing Environment (PACE) at the Georgia Institute of Technology.
+This research was supported in part by research cyberinfrastructure resources and services provided by the Partnership for an Advanced Computing Environment (PACE) at the Georgia Institute of Technology, Atlanta, Georgia, USA. AI disclosure: \pending{} (to be written according to the ACM Policy on Authorship).
 \end{acks}
 
 \bibliographystyle{ACM-Reference-Format}

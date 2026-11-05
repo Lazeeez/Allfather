@@ -3,7 +3,7 @@
 \small
 \caption{The GPU reranker on training bugs, cross-validated with whole projects held out: function hit@10. Current pair: two adapters trained on Python only. A, B, C: one adapter trained on all six languages (A: the shipped recipe; B: larger groups, two epochs, language-balanced; C: B's recipe on a 4B model). $^*$ passes the rule (gain $\geq$ 2 points, Holm $p<0.05$).}
 \label{tab:reranker}
-\resizebox{\columnwidth}{!}{\begin{tabular}{lrrrrrr}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lrrrrrr}
 \toprule
 Language & Bugs & No reranker & Python pair & A & B & C \\
 \midrule
@@ -14,5 +14,5 @@ Go & 816 & 68.9 & 72.5$^*$ & 73.3$^*$ & 72.1$^*$ & 75.5$^*$ \\
 Java & 768 & 62.9 & 68.0$^*$ & 70.0$^*$ & 68.6$^*$ & 58.1 \\
 Rust & 120 & 73.3 & 80.8$^*$ & 83.3$^*$ & 84.2$^*$ & 85.0$^*$ \\
 \bottomrule
-\end{tabular}}
+\end{tabular}\end{adjustbox}
 \end{table}

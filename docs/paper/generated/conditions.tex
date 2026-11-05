@@ -3,7 +3,7 @@
 \small
 \caption{Shortened (first 1,500 characters of the body) against full bug reports, function hit@10 on the same bugs.}
 \label{tab:conditions}
-\resizebox{\columnwidth}{!}{\begin{tabular}{lrrrr}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lrrrr}
 \toprule
 System & Bugs & Shortened & Full & Change \\
 \midrule
@@ -24,5 +24,5 @@ SweRankEmbed-Large & 580 & 70.9 & 72.9 & +2.1 \\
 SweRankEmbed-Small & 580 & 65.3 & 65.9 & +0.5 \\
 gpt-6-luna, one call & 580 & 32.8 & 39.8 & +7.1 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}\end{adjustbox}
 \end{table}

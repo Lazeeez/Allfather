@@ -1,0 +1,24 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Bugs for which a system returned no function, full reports, 198-bug subset. Each counts as a miss. \emph{Turns}: the agent used all 40 turns and a final request without answering; \emph{Context}: the prompt or conversation outgrew the model's context; \emph{Empty}: the reply had no function that could be read.}
+\label{tab:noanswer}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lrrrrr}
+\toprule
+System & Bugs & Turns & Context & Empty & Total \\
+\midrule
+\toolgpu{} & 198 & 0 & 0 & 0 & 0 \\
+\tool{}, browser only & 198 & 0 & 0 & 0 & 0 \\
+gpt-6-luna, agent & 198 & 0 & 0 & 2 & 2 \\
+gpt-6-luna, one call & 198 & 0 & 0 & 10 & 10 \\
+Gemini 3.8 Flash, one call & 198 & 0 & 0 & 0 & 0 \\
+Qwen3-Coder-Next, agent & 198 & 12 & 0 & 17 & 29 \\
+Qwen3-Coder-Next, one call & 198 & 0 & 5 & 7 & 12 \\
+gpt-oss-120b, agent & 198 & 36 & 7 & 5 & 48 \\
+gpt-oss-120b, one call & 198 & 0 & 32 & 1 & 33 \\
+gpt-6-astra, one call & 95 & 0 & 0 & 6 & 6 \\
+SweRankEmbed-Large & 198 & 0 & 0 & 0 & 0 \\
+SweRankEmbed-Small & 198 & 0 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular}\end{adjustbox}
+\end{table}

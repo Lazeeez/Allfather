@@ -2,7 +2,7 @@
 \centering
 \caption{Full bug reports, the 198-bug agent subset: every free system and \tool{}. hit@k: a function the fix changed is in the top $k$; all@10: every changed function is in the top 10. 95\% intervals from a bootstrap over projects. $\Delta$: against \toolgpu{}, with wins/losses and the exact paired test, Holm-adjusted across the table.}
 \label{tab:full198}
-\begin{tabular}{lcrrrrrrrr}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lcrrrrrrrr}
 \toprule
 System & Free & $n$ & hit@1 & hit@10 & 95\% CI & all@10 & MRR & Cost/bug & $\Delta$ hit@10 (W/L, $p_{\mathrm{Holm}}$) \\
 \midrule
@@ -19,5 +19,5 @@ gpt-6-luna, one call & \checkmark & 198 & 37.4 & 42.9 & 33.7--52.4 & 20.2 & 0.39
 Qwen3-Coder-Next, one call & \checkmark & 198 & 31.8 & 40.9 & 31.7--50.0 & 20.7 & 0.351 & \$0.006 & -35.9 (5/76, $<$0.001) \\
 gpt-oss-120b, one call & \checkmark & 198 & 25.8 & 31.3 & 22.8--40.0 & 14.1 & 0.277 & \$0.006 & -45.5 (3/93, $<$0.001) \\
 \bottomrule
-\end{tabular}
+\end{tabular}\end{adjustbox}
 \end{table*}

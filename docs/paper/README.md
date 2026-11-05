@@ -4,7 +4,7 @@ Target: ISSTA 2027 research track (abstract 8 January 2027, paper 11 January 202
 
 ## Building
 
-Upload `main.tex`, `refs.bib` and `generated/` to Overleaf (acmart is built in). Every number comes from `generated/`, which one command rewrites from the committed results:
+The format is ISSTA's: `acmart` with `acmsmall,screen,review,anonymous`, single column, 18 pages excluding references and the Data Availability section (2026 call; the 2027 call is not out yet). Build with Overleaf (upload `main.tex`, `refs.bib` and `generated/`) or locally with `tectonic -X compile main.tex`. Every number comes from `generated/`, which one command rewrites from the committed results:
 
     uv run python scripts/paper_tables.py
 
@@ -17,7 +17,8 @@ A result that has not run yet prints as a red **pending**. Never type a number i
 - [ ] Paid agents on full reports: Claude Opus 5.5 agent, gpt-6-astra agent and one-call (198), Astra one-call (580)
 - [ ] Open models one-call on all 580 full reports
 - [ ] Strata hand check filled in; kappa into RQ4
-- [ ] Check the ISSTA 2027 call: page limit, double-blind rules, data-availability and AI-use statements
+- [ ] Check the ISSTA 2027 call when it is published (the 2026 rules are applied now)
+- [ ] Write the AI-use disclosure under the ACM Policy on Authorship
 - [ ] Verify every `refs.bib` entry with a `VERIFY` note
 - [ ] Anonymous artifact (anonymous.4open.science) built from the repository
 - [ ] An advisor or another reader goes through it

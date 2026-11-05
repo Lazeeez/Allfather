@@ -1,0 +1,25 @@
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[width=0.7\linewidth, height=6cm, xtick={1,5,10}, xmin=0.5, xmax=10.5, ymin=10, ymax=90,
+  xlabel={$k$}, ylabel={Function hit@$k$ (\%)}, grid=major, grid style={gray!20}, tick label style={font=\footnotesize},
+  label style={font=\small}, legend style={font=\footnotesize, at={(1.03,0.5)}, anchor=west}]
+\addplot[mark=*, color=black] coordinates {(1,47.47) (5,69.70) (10,76.77)};
+\addlegendentry{\toolgpu{}}
+\addplot[mark=o, color=black] coordinates {(1,45.96) (5,69.19) (10,77.27)};
+\addlegendentry{\tool{}, browser only}
+\addplot[mark=triangle*, color=black] coordinates {(1,65.15) (5,77.27) (10,77.27)};
+\addlegendentry{gpt-6-luna, agent}
+\addplot[mark=square*, color=black] coordinates {(1,40.40) (5,65.15) (10,72.73)};
+\addlegendentry{SweRankEmbed-Large}
+\addplot[mark=diamond*, color=black] coordinates {(1,53.54) (5,61.62) (10,61.62)};
+\addlegendentry{Qwen3-Coder-Next, agent}
+\addplot[mark=triangle, color=black] coordinates {(1,42.42) (5,53.03) (10,55.56)};
+\addlegendentry{Gemini 3.8 Flash, one call}
+\addplot[mark=square, color=black] coordinates {(1,37.37) (5,42.93) (10,42.93)};
+\addlegendentry{gpt-6-luna, one call}
+\end{axis}
+\end{tikzpicture}
+\caption{Function hit@$k$ for $k=1,5,10$, full reports, 198-bug subset.}
+\label{fig:hitk}
+\end{figure}
