@@ -40,13 +40,13 @@ def write_sheet(folder: Path, answers: list[str], parser: list[str]) -> None:
 
 
 def test_strata_agreement_waits_until_every_row_is_filled(tmp_path, monkeypatch):
-    monkeypatch.setattr(fa, "FRESH", tmp_path)
+    monkeypatch.setattr(fa, "FRESH_FULL", tmp_path)
     write_sheet(tmp_path, ["function", ""], ["function", "none"])
     assert fa.strata_agreement() == {"filled_in": 1, "rows": 2}
 
 
 def test_strata_agreement_reports_kappa_and_the_rule(tmp_path, monkeypatch):
-    monkeypatch.setattr(fa, "FRESH", tmp_path)
+    monkeypatch.setattr(fa, "FRESH_FULL", tmp_path)
     write_sheet(
         tmp_path, ["function", "file", "trace", "None "], ["function", "file", "trace", "none"]
     )
@@ -59,7 +59,7 @@ def test_strata_agreement_reports_kappa_and_the_rule(tmp_path, monkeypatch):
 
 
 def test_strata_agreement_refuses_unknown_answers(tmp_path, monkeypatch):
-    monkeypatch.setattr(fa, "FRESH", tmp_path)
+    monkeypatch.setattr(fa, "FRESH_FULL", tmp_path)
     write_sheet(tmp_path, ["functon"], ["function"])
     with pytest.raises(SystemExit):
         fa.strata_agreement()
