@@ -316,3 +316,10 @@ Found from run records only, before any open-model answer was read. gpt-oss-120b
 **The website system with the GPU reranker on the shortened reports, 2026-11-05.** One exception to stopping shortened-report runs, decided before this run has a result: `website-gpu`, frozen above, also runs on fresh-agents and fresh, because it is the system the study is about and should appear in every table, including the shortened-report comparison where the paid agents ran. Same configuration, unchanged.
 
 **gpt-oss-120b on two L40S cards, 2026-11-05.** Four L40S cards on one node rarely come free on this allocation, so gpt-oss-120b's full-report run moves to two (96 GB: about 65 GB of weights plus its 131,072-token context), with the same revision, context and harness; only speed changes. Qwen3-Coder-Next-FP8 stays on four, since its weights and context do not fit in two.
+
+## Amendment, 2026-11-06: the open models' one-call variant on all 580 full reports, and both Allfather systems as references
+
+Written before either open model has any result on fresh-full, and before their fresh-full-agents results have been read.
+
+- **Qwen3-Coder-Next-FP8 and gpt-oss-120b also run one-call on fresh-full**, all 580 bugs, so that every free system with a one-call variant is compared on the whole set and not only on the 198-bug subset. Same revisions, contexts, hardware and harness as their fresh-full-agents runs; only the set changes. The agents stay on the 198-bug subset, as for every other agent.
+- **Both Allfather systems are reference columns.** Every paired comparison is reported against `website-gpu`, the primary system, and also against `website`, the browser-only system a user gets with no server; both are Holm-adjusted within their own column. This changes only what the analysis reports, not any run.
