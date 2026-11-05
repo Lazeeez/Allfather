@@ -103,8 +103,16 @@ def gold_rows() -> dict[str, dict]:
 
 def load_set(name: str) -> tuple[list[str], dict[str, dict]]:
     if name.startswith("fresh"):
-        manifest = json.loads((FRESH / "manifest.json").read_text(encoding="utf-8"))
-        rows = [json.loads(line) for line in (FRESH / "gold.jsonl").open(encoding="utf-8")]
+        full = name.startswith("fresh-full")
+        folder = FRESH.parent / "fresh-full" if full else FRESH
+        manifest = json.loads((folder / "manifest.json").read_text(encoding="utf-8"))
+        rows = [json.loads(line) for line in (folder / "gold.jsonl").open(encoding="utf-8")]
+        if full:
+            rows = [r for r in rows if r["full_text_status"] == "unchanged"]
+            kept = {r["id"] for r in rows}
+            manifest["agent_subsample"] = [q for q in manifest["agent_subsample"] if q in kept]
+            manifest["instances"] = [i for i in manifest["instances"] if i["id"] in kept]
+            name = name.replace("fresh-full", "fresh", 1)
         items = {
             r["id"]: {
                 "repo": r["repo"],
@@ -502,10 +510,12 @@ def cmd_prepare(args: argparse.Namespace) -> int:
 
 
 def reuse_subsample(set_name: str, name: str, target: Path, done: set[str]) -> set[str]:
-    prior = OUT / f"fresh-agents_{name}.jsonl"
-    if set_name != "fresh" or not prior.exists():
+    if set_name not in ("fresh", "fresh-full"):
         return set()
-    subsample, _ = load_set("fresh-agents")
+    prior = OUT / f"{set_name}-agents_{name}.jsonl"
+    if not prior.exists():
+        return set()
+    subsample, _ = load_set(f"{set_name}-agents")
     records = {r["id"]: r for r in map(json.loads, prior.open(encoding="utf-8"))}
     missing = [q for q in subsample if q not in records]
     if missing:

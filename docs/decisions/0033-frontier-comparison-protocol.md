@@ -254,3 +254,11 @@ Found before any open-model answer was read, from the run's own records: 132 of 
 ## Amendment, 2026-11-05: the hand-check sheet shows the exact sealed text
 
 Before any row was filled in, I found the sheet cut each report at 1,500 characters of title and body together, while every system received the title and the first 1,500 characters of the body, as this protocol defines; 36 of the 50 rows showed up to about 130 characters less than the systems saw. The sheet's report column is now the sealed text itself, character for character. The person checking judges that text only, not the full issue on GitHub, because the strata describe what the systems were given.
+
+## Amendment, 2026-11-05: a second condition with the full bug reports
+
+Written before the full reports have been fetched, and with no fresh-2026 result read. Every system above received the title and the first 1,500 characters of each issue's body, as defined at the start; 427 of the 580 bodies are longer than that, so most reports reached the systems shortened. Whether the cut changes the results, or changes which system does best, is worth measuring rather than assuming, so the study gets a second condition.
+
+- **fresh-full** is the same 580 bugs, base commits and answer keys; only the text changes, to the issue's title and its full body, still without comments. `scripts/fresh_set.py full` fetches each issue again and keeps a bug only if the full text begins with exactly the sealed text and the issue has not been edited since its fix's pull request opened, so every full report is the one the reporter wrote; any other bug is left out of this condition and counted. `fresh-full-agents` is the agent subsample within it.
+- **Every system runs on it with exactly the settings it used on fresh-2026**, in the same order of priority, as plans and budgets allow; each run is reported on the prefix of the fixed order it completed, like every other run.
+- **Analysis:** each system is compared with itself, shortened against full report, on the bugs both conditions cover, with the same paired tests; and the main comparisons are repeated on the full reports. The shortened-report condition stays the primary analysis, as pre-registered; the full-report condition is reported beside it, and neither is chosen after seeing which looks better.

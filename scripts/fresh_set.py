@@ -3,6 +3,7 @@
     GITHUB_TOKEN=... uv run python scripts/fresh_set.py exclusions
     GITHUB_TOKEN=... uv run python scripts/fresh_set.py projects --per-language 17
     GITHUB_TOKEN=... uv run python scripts/fresh_set.py mine --created-after 2026-08-01 --until 2026-11-30
+    GITHUB_TOKEN=... uv run python scripts/fresh_set.py full
     uv run python scripts/fresh_set.py seal --size 600 --agents 200
 
 exclusions: every repository in any existing set, resolved to GitHub's repository ID (and its fork
@@ -398,6 +399,59 @@ def cmd_seal(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_full(_: argparse.Namespace) -> int:
+    rows = [json.loads(line) for line in (DATA / "gold.jsonl").open(encoding="utf-8")]
+    out_dir = DATA.parent / "fresh-full"
+    out_dir.mkdir(exist_ok=True)
+    partial = out_dir / "gold.jsonl.partial"
+    done = (
+        {json.loads(line)["id"] for line in partial.open(encoding="utf-8")}
+        if partial.exists()
+        else set()
+    )
+    with partial.open("a", encoding="utf-8", newline="\n") as handle:
+        for n, row in enumerate(rows, 1):
+            if row["id"] in done:
+                continue
+            issue = github(f"/repos/{row['repo']}/issues/{row['issue']}")
+            full = f"{issue['title']}\n\n{issue.get('body') or ''}"
+            edited = last_body_edit(row["repo"], row["issue"])
+            if not full.startswith(row["text"]):
+                status = "differs from the sealed text"
+            elif edited and edited > row["pr_created"]:
+                status = "edited after the pull request opened"
+            else:
+                status = "unchanged"
+            handle.write(json.dumps({**row, "text": full, "full_text_status": status}) + "\n")
+            handle.flush()
+            if n % 50 == 0:
+                print(f"  {n}/{len(rows)}", flush=True)
+    by_id = {r["id"]: r for r in map(json.loads, partial.open(encoding="utf-8"))}
+    full_rows = [by_id[r["id"]] for r in rows]
+    target = out_dir / "gold.jsonl"
+    with target.open("w", encoding="utf-8", newline="\n") as handle:
+        for r in full_rows:
+            handle.write(json.dumps(r) + "\n")
+    partial.unlink()
+    status = Counter(r["full_text_status"] for r in full_rows)
+    longer = sum(1 for r, s in zip(full_rows, rows, strict=True) if len(r["text"]) > len(s["text"]))
+    manifest = json.loads((DATA / "manifest.json").read_text(encoding="utf-8"))
+    manifest |= {
+        "derived_from": "data/fresh/gold.jsonl: the same bugs, commits and answer keys; text is the issue's title and full body, without comments",
+        "gold_sha256": hashlib.sha256(target.read_bytes()).hexdigest(),
+        "full_text_status": dict(status),
+        "longer_than_sealed": longer,
+        "built": date.today().isoformat(),
+    }
+    (out_dir / "manifest.json").write_text(
+        json.dumps(manifest, indent=1) + "\n", encoding="utf-8", newline="\n"
+    )
+    print(
+        f"wrote {target}: {len(full_rows)} bugs, {longer} longer than the sealed text; {dict(status)}"
+    )
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -414,12 +468,14 @@ def main() -> int:
     sp.add_argument("--cap", type=int, default=12)
     sp.add_argument("--agents", type=int, default=200)
     sp.add_argument("--seed", type=int, default=0)
+    sub.add_parser("full")
     args = ap.parse_args()
     return {
         "exclusions": cmd_exclusions,
         "projects": cmd_projects,
         "mine": cmd_mine,
         "seal": cmd_seal,
+        "full": cmd_full,
     }[args.cmd](args)
 
 
