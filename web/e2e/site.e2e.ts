@@ -274,7 +274,7 @@ test("the GPU is woken for a Python repository and left asleep for one in anothe
   await page.goto(`./search?repo=${encodeURIComponent(GO_REPO)}`);
   await expect(page.locator(".repo-pill")).toContainText(GO_REPO);
   await page.locator("#demo-query").fill("LoadConfig fails when the settings file is missing");
-  await expect(page.locator("p.status-line", { hasText: "trained on Python code only" })).toBeVisible();
+  await expect(page.locator("p.status-line", { hasText: "runs on Python repositories for now" })).toBeVisible();
   await expect(page.locator("#search-app ol.hits .qual").first()).toHaveText("LoadConfig");
   expect(calls).toEqual([]);
   await page.goto(`./search?repo=${encodeURIComponent(REPO)}`);

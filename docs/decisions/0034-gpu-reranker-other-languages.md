@@ -73,7 +73,7 @@ The two shipped adapters, trained on Python only, scored all 2,728 five-language
 
 | Language | Bugs | Website | With reranker | Gain | Wins / losses | Holm p |
 |---|---|---|---|---|---|---|
-| Go | 816 | 68.9% | 72.6% | +3.7 | 45 / 15 | 0.0005 |
+| Go | 816 | 68.9% | 72.5% | +3.7 | 45 / 15 | 0.0005 |
 | Java | 768 | 62.9% | 68.0% | +5.1 | 51 / 12 | < 0.0001 |
 | JavaScript | 438 | 68.3% | 72.8% | +4.6 | 27 / 7 | 0.0025 |
 | Rust | 120 | 73.3% | 80.8% | +7.5 | 10 / 1 | 0.015 |

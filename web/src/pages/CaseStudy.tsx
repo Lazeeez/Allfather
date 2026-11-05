@@ -22,6 +22,10 @@ function decisions(lite: Lite | null): [string, string][] {
       "I put the full pipeline's reranker on a GPU server for the website only after a test I fixed in advance showed +2.6 points; a second test showed I could then skip the browser's own language model, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. I trained and measured it on Python, so the site uses it for Python repositories only."],
     ["Six languages, each earning its ranker",
       `I added JavaScript, TypeScript, Go, Java and Rust under a rule I wrote before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
+    ["A reranker that travels",
+      "The GPU reranker was trained on Python bugs only, so I tested it on the other five languages before training anything new. It helped all five in cross-validation, under the same 2-point rule; a single reranker trained on all six languages is next."],
+    ["A test the frontier can't have memorized",
+      "Frontier models answer older benchmarks from memory, so I sealed a new set of 580 bugs reported after their training, in all six languages, and wrote the whole comparison down before running anything on it."],
   ];
 }
 

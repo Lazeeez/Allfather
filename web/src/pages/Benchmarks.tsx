@@ -188,6 +188,10 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
 
       {live && <LiveSection live={live} />}
 
+      <NextStudy />
+
+      <Roadmap />
+
       <section class="card frame block">
         <p class="kicker">Method</p>
         <h2>How I keep the numbers honest</h2>
@@ -312,6 +316,97 @@ function Gpu({ g }: { g: GpuReranker }) {
           <p class="note">Function in the top 10, what the site runs (the GPU reranker blended into the browser's semantic ranking), on projects nothing was trained on.</p>
         </>
       )}
+      {g.other_languages && <BeyondPython o={g.other_languages} />}
+    </section>
+  );
+}
+
+function BeyondPython({ o }: { o: NonNullable<GpuReranker["other_languages"]> }) {
+  const rows = Object.entries(o.by_language).filter(([lang]) => lang in LANGUAGE_NAMES);
+  return (
+    <>
+      <h3 class="subhead">Beyond Python</h3>
+      <p class="note">
+        For now the server re-reads results for Python repositories only, because I trained the reranker on Python bugs. To see whether it
+        would help elsewhere, I ran the same reranker, unchanged, on {o.issues.toLocaleString()} bugs from {o.projects} projects in the five
+        other languages the site reads, with whole projects held out as before. It helped in every one of them. I'm now training a single
+        reranker on all six languages, and I'll switch it on for every language once I've chosen it and checked that it answers quickly enough.
+      </p>
+      <div class="table-wrap" tabIndex={0} role="region" aria-label="The GPU reranker in other languages">
+        <table class="label-first">
+          <thead><tr><th>Language</th><th class="phone-hide-col">Bugs</th><th class="phone-hide-col">Without the GPU</th><th>With it</th><th>Change</th><th class="phone-hide-col wrap">Adjusted p</th></tr></thead>
+          <tbody>
+            {rows.map(([lang, r]) => (
+              <tr key={lang}>
+                <td>{LANGUAGE_NAMES[lang]}<span class="phone-only">{r.issues} bugs · {pct(r["website_hit@10"])} without</span></td>
+                <td class="num phone-hide-col">{r.issues}</td>
+                <td class="num phone-hide-col">{pct(r["website_hit@10"])}</td>
+                <td class="num">{pct(r["with_reranker_hit@10"])}</td>
+                <td class={`num${r.p_holm < 0.05 && r.gain > 0 ? " sig" : ""}`}>{r.gain >= 0 ? "+" : ""}{(r.gain * 100).toFixed(1)}</td>
+                <td class="num phone-hide-col">{r.p_holm < 0.001 ? "<0.001" : r.p_holm.toFixed(3)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Function in the top 10, cross-validated on training projects. Adjusted p: the exact paired test on each language with Holm's correction
+        across the five; bold changes are significant after adjustment.
+      </p>
+    </>
+  );
+}
+
+function NextStudy() {
+  return (
+    <section class="card frame block">
+      <p class="kicker">In progress</p>
+      <h2>Next: against frontier AI agents</h2>
+      <p class="card-lede">
+        Frontier models can answer older benchmarks from memory: on SWE-bench Verified, Claude given only the list of file names did as well as
+        Claude reading the code. So I built a new test set, fresh-2026: 580 bugs from 74 popular projects in all six languages, every one
+        reported after August 1, 2026, so no model could have seen its fix in training. I sealed it before running anything on it.
+      </p>
+      <ul class="plain-list">
+        <li>
+          <b>What I'm comparing.</b> Allfather against Claude Opus 5.5 in Claude Code, OpenAI's gpt-6-astra and gpt-6-luna in Codex, Gemini 3.8
+          Flash, the open-weight models gpt-oss-120b and Qwen3-Coder-Next, and SweRank, a published research system. Each AI model is tested
+          both as an agent that reads the code and with a single question that gives only the bug report and the list of files.
+        </li>
+        <li>
+          <b>What I'm measuring.</b> Accuracy, cost and time per bug; whether sending only the bugs Allfather is least sure about to an agent
+          gets most of the agent's accuracy for a fraction of its cost; and how Allfather ranks among the tools that are free to use.
+        </li>
+        <li>
+          <b>How I keep it fair.</b> I wrote down every method and decision before any result existed, and I'm not looking at any results until
+          every system has finished. I'll publish them here when the analysis is done.
+        </li>
+      </ul>
+    </section>
+  );
+}
+
+const ROADMAP: [string, string, string][] = [
+  ["November 2026", "The GPU reranker in all six languages", "I'm choosing between three rerankers trained on all six languages, then checking that the winner answers quickly enough before I switch it on for every language."],
+  ["December 2026", "Results against frontier AI agents", "Once every system has run on fresh-2026, I'll publish the full comparison here: accuracy, cost, speed, and how Allfather ranks among the free tools."],
+  ["Early 2027", "More languages", "C, C++, C# and PHP come next, chosen for how widely they're used and whether public bug data exists to train and test on. Each new language gets its own held-out test before I claim anything for it."],
+];
+
+function Roadmap() {
+  return (
+    <section class="card frame block">
+      <p class="kicker">Coming soon</p>
+      <h2>What I'm working on</h2>
+      <ol class="roadmap">
+        {ROADMAP.map(([when, what, detail]) => (
+          <li key={what}>
+            <span class="roadmap-when">{when}</span>
+            <b>{what}</b>
+            <span class="roadmap-detail">{detail}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="note">Rough dates, not promises; each step ships only when its test passes.</p>
     </section>
   );
 }

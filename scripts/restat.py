@@ -80,6 +80,28 @@ def main() -> int:
     held = json.loads((GPU / "heldout_heldout.json").read_text(encoding="utf-8"))
     for which, entry in gpu["held_out"].items():
         entry["hit@10_gain"]["p_value"] = exact(held[which]["paired"]["hit@10"])
+    transfer = json.loads(
+        (GPU / "server_reranker_zero-shot-multilang.json").read_text(encoding="utf-8")
+    )
+    gpu["other_languages"] = {
+        "issues": transfer["issues"],
+        "projects": transfer["projects"],
+        "by_language": {
+            lang: {
+                k: row[k]
+                for k in (
+                    "issues",
+                    "website_hit@10",
+                    "with_reranker_hit@10",
+                    "gain",
+                    "wins",
+                    "losses",
+                    "p_holm",
+                )
+            }
+            for lang, row in transfer["by_language"].items()
+        },
+    }
 
     lite["tests"] = TEST
     LITE.write_text(json.dumps(lite, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
