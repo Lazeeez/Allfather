@@ -1,0 +1,3705 @@
+{
+ "name": "fresh-2026",
+ "adr": "docs/decisions/0033-frontier-comparison-protocol.md",
+ "sealed": "2026-11-03",
+ "seed": 0,
+ "candidates": 9270,
+ "usable": 4072,
+ "by_language": {
+  "go": 100,
+  "java": 80,
+  "javascript": 100,
+  "python": 100,
+  "rust": 100,
+  "typescript": 100
+ },
+ "instances": [
+  {
+   "id": "AlistGo/alist#9624",
+   "repo": "AlistGo/alist",
+   "base_commit": "508aa2ba18a3b83c75db550492c17854c422a724",
+   "issue_created": "2026-08-17T13:04:28Z"
+  },
+  {
+   "id": "AlistGo/alist#9636",
+   "repo": "AlistGo/alist",
+   "base_commit": "cb3a98a6f0aa5f01540073c1b7437f854f3e14e6",
+   "issue_created": "2026-08-05T09:00:41Z"
+  },
+  {
+   "id": "AlistGo/alist#9676",
+   "repo": "AlistGo/alist",
+   "base_commit": "d819d76d1977631685c748a0d7494af4585d5a41",
+   "issue_created": "2026-10-10T06:34:37Z"
+  },
+  {
+   "id": "Comfy-Org/ComfyUI#15922",
+   "repo": "Comfy-Org/ComfyUI",
+   "base_commit": "d3eaf6adb388c27245374ac26e585fef4936c485",
+   "issue_created": "2026-08-01T02:19:23Z"
+  },
+  {
+   "id": "Comfy-Org/ComfyUI#16130",
+   "repo": "Comfy-Org/ComfyUI",
+   "base_commit": "eb357862592aefe8e136031b9e3aa14e55abddaa",
+   "issue_created": "2026-09-05T12:25:19Z"
+  },
+  {
+   "id": "Comfy-Org/ComfyUI#16485",
+   "repo": "Comfy-Org/ComfyUI",
+   "base_commit": "95539f56344958339e39b7582a476267d489b0ee",
+   "issue_created": "2026-09-22T23:54:06Z"
+  },
+  {
+   "id": "Comfy-Org/ComfyUI#16500",
+   "repo": "Comfy-Org/ComfyUI",
+   "base_commit": "2255709aa0be2deade91c7c80cda49d31b73906f",
+   "issue_created": "2026-09-23T15:24:34Z"
+  },
+  {
+   "id": "DietrichGebert/ponytail#1059",
+   "repo": "DietrichGebert/ponytail",
+   "base_commit": "d65a612f36cb672b43ed245337b6245688ec96c2",
+   "issue_created": "2026-10-07T12:11:43Z"
+  },
+  {
+   "id": "DietrichGebert/ponytail#1090",
+   "repo": "DietrichGebert/ponytail",
+   "base_commit": "487cd74d520bae32b887f4536e4aca209aae5a75",
+   "issue_created": "2026-10-09T19:53:01Z"
+  },
+  {
+   "id": "DietrichGebert/ponytail#1115",
+   "repo": "DietrichGebert/ponytail",
+   "base_commit": "2961b52fc1fe6a5a87c7a959a79512e5c2f3ffe5",
+   "issue_created": "2026-10-13T02:27:00Z"
+  },
+  {
+   "id": "DietrichGebert/ponytail#1291",
+   "repo": "DietrichGebert/ponytail",
+   "base_commit": "6309875aa27a788030b8e3f43e29a1342a6370ee",
+   "issue_created": "2026-10-25T09:03:04Z"
+  },
+  {
+   "id": "DietrichGebert/ponytail#963",
+   "repo": "DietrichGebert/ponytail",
+   "base_commit": "6c97ffa48710714672214915ad092e3fc6e85516",
+   "issue_created": "2026-09-30T11:38:20Z"
+  },
+  {
+   "id": "JuliusBrussee/caveman#794",
+   "repo": "JuliusBrussee/caveman",
+   "base_commit": "dbbc0929b019c1f59d5e04a6e6d062e16e3bf0e1",
+   "issue_created": "2026-08-04T19:32:26Z"
+  },
+  {
+   "id": "Leonxlnx/taste-skill#158",
+   "repo": "Leonxlnx/taste-skill",
+   "base_commit": "63aba5f43b5056758b15bbe7d683da8c86a7a7ad",
+   "issue_created": "2026-10-20T17:43:20Z"
+  },
+  {
+   "id": "Leonxlnx/taste-skill#165",
+   "repo": "Leonxlnx/taste-skill",
+   "base_commit": "5fac2066df0731ae58e7a2d673a015acaa2e32c2",
+   "issue_created": "2026-10-22T14:26:31Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6176",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "e1b81345980bdc8cbaf9ca91fcab21fd691dc18e",
+   "issue_created": "2026-08-22T14:42:18Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6241",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "52ee9c9e2c7f548ce6a1be0d6b2bff3763d56269",
+   "issue_created": "2026-08-31T19:47:43Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6343",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "c3e7ce3e8570c039f6e64708445490b37244fbf3",
+   "issue_created": "2026-09-08T20:59:49Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6358",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "08ff2c733661dcceef54e11b852a4f0224c29187",
+   "issue_created": "2026-09-14T03:18:16Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6371",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "03a9f7e5ad16fe28be05b7c7ae9a75533202df9b",
+   "issue_created": "2026-09-15T19:55:38Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6500",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "c09759673fa34ab430db76740d9a8b8e61195692",
+   "issue_created": "2026-09-26T02:35:58Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6527",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "0bfa067e40c7af7bdb4fde9b6753a84e7d3bd4c8",
+   "issue_created": "2026-09-28T21:27:48Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6534",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "9eacc95a8ebd70fca1bd1fc55d89430d88bd9c25",
+   "issue_created": "2026-09-29T04:55:24Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6738",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "cbcc43c5f383ac2a49e8ec808cd8f05da9025ed2",
+   "issue_created": "2026-10-15T11:27:51Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6793",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "afd2da90e14002e764e2ccdb0e5eceb7c8fd0ae0",
+   "issue_created": "2026-10-21T10:53:27Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6879",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "c67eafed8c39992a27fb804726c3055a548c9c49",
+   "issue_created": "2026-10-28T08:08:43Z"
+  },
+  {
+   "id": "Mintplex-Labs/anything-llm#6886",
+   "repo": "Mintplex-Labs/anything-llm",
+   "base_commit": "b985cac4e17fe4f86ab45e28424ffaa167fdfc75",
+   "issue_created": "2026-10-26T23:17:35Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9508",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "d5f144c24d6bc53c9cbf4448c6d11143e7696206",
+   "issue_created": "2026-08-16T08:57:32Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9595",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "2035b8153afaf7ce2edde24a2c80b62bbcf5127f",
+   "issue_created": "2026-09-06T16:53:42Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9676",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "e54510eb317a72556e4e5e44011df8e99b7db17b",
+   "issue_created": "2026-09-18T09:22:21Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9690",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "8ea5e45f8cb09e1fe959fac00fc680ea67cf3487",
+   "issue_created": "2026-09-27T08:51:16Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9773",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "918d44ebc2962a53d23eeee52b8f44c7816e7815",
+   "issue_created": "2026-10-08T13:10:20Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9892",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "918acd744d17e3b95fbde44ec6ab3e59b6dbd45f",
+   "issue_created": "2026-10-14T07:14:21Z"
+  },
+  {
+   "id": "NationalSecurityAgency/ghidra#9993",
+   "repo": "NationalSecurityAgency/ghidra",
+   "base_commit": "92cfb5553b508faaa197df2954c81abb84651635",
+   "issue_created": "2026-10-19T15:56:34Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#77337",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "648c01c6939e08e9f840236bfd58774370d3f126",
+   "issue_created": "2026-08-03T03:05:14Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#80004",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "997a913a58dd4435516489f8fb97a25147ed8504",
+   "issue_created": "2026-08-06T04:39:54Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#80465",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "b7329647a9d7caea531032bd8a9026abbd807594",
+   "issue_created": "2026-08-06T16:15:44Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#80491",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "9d213918e456a07e46aa023cd37d82534a818b31",
+   "issue_created": "2026-08-06T14:26:58Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#80912",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "a1e5ccb325e2a6991d2fe3097412abd8c804812b",
+   "issue_created": "2026-08-05T23:40:50Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#81691",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "57ca5995c671cb573e8709363a5cc82a5fb35925",
+   "issue_created": "2026-08-07T23:22:28Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#81946",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "91a545ab1e09a266aead11da62665ab7230d9840",
+   "issue_created": "2026-08-08T14:35:44Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#82149",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "0b33ee88e43b89065da8154ada764fffa7eb6815",
+   "issue_created": "2026-08-05T07:00:36Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#82171",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "851f23ebc678ee10fb55341de40b340b4586a3dc",
+   "issue_created": "2026-08-08T19:27:15Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#82313",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "62431364e35aa10ea17a197a344f9b9f774c1a8e",
+   "issue_created": "2026-08-03T02:07:40Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#83044",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "7e1bfeab8899bb0603db422b7a1bb374a99335a4",
+   "issue_created": "2026-08-10T03:59:04Z"
+  },
+  {
+   "id": "NousResearch/hermes-agent#83636",
+   "repo": "NousResearch/hermes-agent",
+   "base_commit": "9da6d455c9e1f2bf74bb9f47766ee9fc52e17bfb",
+   "issue_created": "2026-08-11T01:26:22Z"
+  },
+  {
+   "id": "QuantumNous/new-api#6605",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "85feb7a345d2d94d3ed4df89eb67ac504e0c1560",
+   "issue_created": "2026-08-02T06:37:25Z"
+  },
+  {
+   "id": "QuantumNous/new-api#6674",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "5c3abffe8572aa8a49f15c3916707d2019d66af4",
+   "issue_created": "2026-08-05T14:42:43Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7051",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "cae3676ec6f46ee5ef596443256f78c4e9b34ceb",
+   "issue_created": "2026-08-24T09:41:44Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7108",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "2b6f1dfefbe217fed31fc0726717cc7de6958e8e",
+   "issue_created": "2026-08-30T22:03:41Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7317",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "d032204733db31208f10bac118b6e683aab3bf29",
+   "issue_created": "2026-09-11T03:55:00Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7376",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "2bfb89c1b99d5eb7a799ba5706813614bfb6189a",
+   "issue_created": "2026-09-07T16:10:41Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7387",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "5caafd3d84dc74c8b0d081524f57a534b3980cb0",
+   "issue_created": "2026-09-04T14:58:56Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7410",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "ed7c4e35d4297962991ac5f00eea504ceac0fbd0",
+   "issue_created": "2026-09-16T08:43:20Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7510",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "54eee488bed3ec6b9659b3a792194b18c2dfad27",
+   "issue_created": "2026-09-21T05:12:54Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7638",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "3827fd83076b9cbaa3f1d9f9d2957ae653573ed7",
+   "issue_created": "2026-10-01T16:16:27Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7761",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "b22a43b6e89e5349d8cdbddc88d570b16e15fb1f",
+   "issue_created": "2026-10-09T06:54:37Z"
+  },
+  {
+   "id": "QuantumNous/new-api#7844",
+   "repo": "QuantumNous/new-api",
+   "base_commit": "ad561128202c0a1f0a547df6c283d1efeb803692",
+   "issue_created": "2026-10-16T05:59:53Z"
+  },
+  {
+   "id": "Shubhamsaboo/awesome-llm-apps#1246",
+   "repo": "Shubhamsaboo/awesome-llm-apps",
+   "base_commit": "346fef055d0945ee64ea26aacaabe195338c6c7c",
+   "issue_created": "2026-10-18T03:02:38Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14008",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "58fb04c1c6fe758edcc1d3578e338645bd96a8f3",
+   "issue_created": "2026-08-12T03:26:36Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14154",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "6c0680b92e75b3aed3d08cabda2c40f258611361",
+   "issue_created": "2026-08-25T07:28:13Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14488",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "3c478d08bffcf05ed39d3d7918a6a14b4c50b826",
+   "issue_created": "2026-09-10T07:43:10Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14536",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "bb4b2e488abbb7422a359e52696da63e06f7ab33",
+   "issue_created": "2026-09-13T19:32:26Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14749",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "8dfbd4cb97a929eb1286c442afd03bc98c958022",
+   "issue_created": "2026-09-16T17:28:25Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14750",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "69513ae269df3179819016d6642f477a74943d61",
+   "issue_created": "2026-09-16T12:06:16Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#14875",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "cb6eb93cc3b9da5288734f8f05d3d6a0edb57fbe",
+   "issue_created": "2026-09-23T09:50:20Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#15150",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "119303cd9b76e85ab12eb3d60cc3702910c4f88c",
+   "issue_created": "2026-10-02T15:33:39Z"
+  },
+  {
+   "id": "Significant-Gravitas/AutoGPT#15178",
+   "repo": "Significant-Gravitas/AutoGPT",
+   "base_commit": "8eb4062750b552ec44b4359fda2b94814f4df2fe",
+   "issue_created": "2026-10-01T12:07:56Z"
+  },
+  {
+   "id": "TheAlgorithms/Java#7633",
+   "repo": "TheAlgorithms/Java",
+   "base_commit": "2fdcde75a497bdedcd5385bda224b4fb80ea3d15",
+   "issue_created": "2026-10-04T20:07:17Z"
+  },
+  {
+   "id": "TheAlgorithms/Python#15356",
+   "repo": "TheAlgorithms/Python",
+   "base_commit": "17d96feaa38dbfbc9feb1afc6f8a524b028fb489",
+   "issue_created": "2026-09-15T05:20:53Z"
+  },
+  {
+   "id": "TheAlgorithms/Python#15492",
+   "repo": "TheAlgorithms/Python",
+   "base_commit": "f465ad780670dffc467c5fd5363f9fecc9dd172c",
+   "issue_created": "2026-09-27T13:40:14Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1211",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "256280e8ba8ddf38bc732eade38aaf1d7111fe34",
+   "issue_created": "2026-09-23T11:53:01Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1217",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "052c8f5ddab368b7456669a21088201d00819213",
+   "issue_created": "2026-09-23T12:04:47Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1227",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "330fa3a2974cb36eb81bce68485fbc1963586668",
+   "issue_created": "2026-09-24T00:39:47Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1254",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "d68047bb6481c96a18f5d9d71c5e5c61be6ef7f4",
+   "issue_created": "2026-09-26T23:43:55Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1258",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "3dcbf38249ced4dffd13b7c4fa787a3a6b45ddc6",
+   "issue_created": "2026-09-28T07:58:11Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1262",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "b3355de9aeb30d881f352526b45a0e5cca07275a",
+   "issue_created": "2026-09-29T12:03:58Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1264",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "7c397bbfae3e768b26e3ee962c5aa7064e8d7c96",
+   "issue_created": "2026-10-06T05:30:28Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1270",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "06ffce77c8de083fa63a1fcd4469247d0ef2ae96",
+   "issue_created": "2026-10-06T05:44:33Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1315",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "3e575a2102b2e5f4ad8e8f22fd890fc75adfc2cc",
+   "issue_created": "2026-10-24T16:17:48Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1317",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "3fb2a88e1f27a3242b2da25be19ae4261afe46c4",
+   "issue_created": "2026-10-24T16:18:30Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1319",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "8531eaef71a11f6a92813217b372421ab516573d",
+   "issue_created": "2026-10-24T16:18:45Z"
+  },
+  {
+   "id": "YunaiV/ruoyi-vue-pro#1323",
+   "repo": "YunaiV/ruoyi-vue-pro",
+   "base_commit": "7e18819d3d6f77b84e4c8980355118def9f8b20d",
+   "issue_created": "2026-10-24T16:19:14Z"
+  },
+  {
+   "id": "addyosmani/agent-skills#573",
+   "repo": "addyosmani/agent-skills",
+   "base_commit": "e77fed035bcc7a8180d48f8ce7efa0685b005f7c",
+   "issue_created": "2026-09-15T16:52:04Z"
+  },
+  {
+   "id": "affaan-m/ECC#3060",
+   "repo": "affaan-m/ECC",
+   "base_commit": "ef57e979ef7b60e99f5b9d38199bf50ca17c9930",
+   "issue_created": "2026-09-08T05:59:03Z"
+  },
+  {
+   "id": "affaan-m/ECC#3168",
+   "repo": "affaan-m/ECC",
+   "base_commit": "9e06a2792bb3a5c1bc3ca272b853bac7998485d8",
+   "issue_created": "2026-09-18T14:02:37Z"
+  },
+  {
+   "id": "affaan-m/ECC#3184",
+   "repo": "affaan-m/ECC",
+   "base_commit": "111387afe47ba077670875d446919373cf98465b",
+   "issue_created": "2026-09-20T05:58:48Z"
+  },
+  {
+   "id": "affaan-m/ECC#3440",
+   "repo": "affaan-m/ECC",
+   "base_commit": "7753a55d084538d5ed106a46ffbd96d4e1590f29",
+   "issue_created": "2026-10-06T16:07:57Z"
+  },
+  {
+   "id": "affaan-m/ECC#3464",
+   "repo": "affaan-m/ECC",
+   "base_commit": "41ce11d88987b82c48d148047708beac5b0f00de",
+   "issue_created": "2026-10-08T18:02:20Z"
+  },
+  {
+   "id": "affaan-m/ECC#3470",
+   "repo": "affaan-m/ECC",
+   "base_commit": "a003286e10518b83867efe32a2a901a3cba0236d",
+   "issue_created": "2026-10-09T05:12:56Z"
+  },
+  {
+   "id": "affaan-m/ECC#3490",
+   "repo": "affaan-m/ECC",
+   "base_commit": "bb15240c9c015063517dd4b8e07ed4060bf2bd13",
+   "issue_created": "2026-10-08T18:02:21Z"
+  },
+  {
+   "id": "affaan-m/ECC#3523",
+   "repo": "affaan-m/ECC",
+   "base_commit": "d4a44ded8c150aac89b37c1f665b5a749fe52b02",
+   "issue_created": "2026-10-11T14:05:17Z"
+  },
+  {
+   "id": "affaan-m/ECC#3590",
+   "repo": "affaan-m/ECC",
+   "base_commit": "e3292b00102412fad4f1f85b570c1affdbf04af6",
+   "issue_created": "2026-10-12T23:17:48Z"
+  },
+  {
+   "id": "affaan-m/ECC#3730",
+   "repo": "affaan-m/ECC",
+   "base_commit": "c337d7c0579c983cc8adbf22fa3f96e06476203e",
+   "issue_created": "2026-10-24T18:22:12Z"
+  },
+  {
+   "id": "affaan-m/ECC#3775",
+   "repo": "affaan-m/ECC",
+   "base_commit": "8fc06b13cb7422c6dbc3a7ec891e595e49c37878",
+   "issue_created": "2026-10-27T18:00:27Z"
+  },
+  {
+   "id": "affaan-m/ECC#3794",
+   "repo": "affaan-m/ECC",
+   "base_commit": "14ba1e211f86d80264b146b9373ddf3fd166f4e3",
+   "issue_created": "2026-10-28T23:20:50Z"
+  },
+  {
+   "id": "alibaba/arthas#3274",
+   "repo": "alibaba/arthas",
+   "base_commit": "65589689d0df9ca6b9d7441c0221b8627e5b3301",
+   "issue_created": "2026-09-18T08:10:41Z"
+  },
+  {
+   "id": "anomalyco/opencode#40692",
+   "repo": "anomalyco/opencode",
+   "base_commit": "ebf6fc07a11d5759e1bd79228a8802dae08d5628",
+   "issue_created": "2026-08-05T17:28:19Z"
+  },
+  {
+   "id": "anomalyco/opencode#41522",
+   "repo": "anomalyco/opencode",
+   "base_commit": "2b8a5969e932c15083e599c82d34ce0268f81b9e",
+   "issue_created": "2026-08-10T09:44:50Z"
+  },
+  {
+   "id": "anomalyco/opencode#41782",
+   "repo": "anomalyco/opencode",
+   "base_commit": "a183fb561540cb2c36c0e06500c9a265eb5c6f29",
+   "issue_created": "2026-08-08T19:33:10Z"
+  },
+  {
+   "id": "anomalyco/opencode#41793",
+   "repo": "anomalyco/opencode",
+   "base_commit": "d6ed520c25907065d8d8b288965c05d51cecba9d",
+   "issue_created": "2026-08-11T07:35:39Z"
+  },
+  {
+   "id": "anomalyco/opencode#42133",
+   "repo": "anomalyco/opencode",
+   "base_commit": "66c29675202797b926d20c9c4cbe864e722c3c3a",
+   "issue_created": "2026-08-12T19:29:03Z"
+  },
+  {
+   "id": "anomalyco/opencode#42384",
+   "repo": "anomalyco/opencode",
+   "base_commit": "2cf20e660eca535515a8dc259efd859ac5d5e1f2",
+   "issue_created": "2026-08-13T17:41:58Z"
+  },
+  {
+   "id": "anomalyco/opencode#42432",
+   "repo": "anomalyco/opencode",
+   "base_commit": "2cba7e227d68a7e7e4a2aa9c85b808e8ecb14daf",
+   "issue_created": "2026-08-03T07:59:36Z"
+  },
+  {
+   "id": "anomalyco/opencode#42791",
+   "repo": "anomalyco/opencode",
+   "base_commit": "75ec0b454c3b48303aa8b87ac7b618a26ab9b16c",
+   "issue_created": "2026-08-15T16:19:34Z"
+  },
+  {
+   "id": "anomalyco/opencode#43498",
+   "repo": "anomalyco/opencode",
+   "base_commit": "c2a3b813a05fc858af9360bc8e2dc2ac5d4000e2",
+   "issue_created": "2026-08-19T16:36:35Z"
+  },
+  {
+   "id": "anomalyco/opencode#43618",
+   "repo": "anomalyco/opencode",
+   "base_commit": "d6625397d9794ad81fa1eb4bac2b66c429cdfc50",
+   "issue_created": "2026-08-19T21:10:57Z"
+  },
+  {
+   "id": "anomalyco/opencode#44112",
+   "repo": "anomalyco/opencode",
+   "base_commit": "793ea52fa71bc8adca25b96caad0a9eac29bd5c3",
+   "issue_created": "2026-08-22T10:41:10Z"
+  },
+  {
+   "id": "anomalyco/opencode#44281",
+   "repo": "anomalyco/opencode",
+   "base_commit": "611cc73d84839393d0d2707041955c5d466f64c5",
+   "issue_created": "2026-08-23T00:37:44Z"
+  },
+  {
+   "id": "astral-sh/uv#21146",
+   "repo": "astral-sh/uv",
+   "base_commit": "3deab43bed27b7239947dba1fe493411c29e1d87",
+   "issue_created": "2026-08-14T04:03:09Z"
+  },
+  {
+   "id": "astral-sh/uv#21275",
+   "repo": "astral-sh/uv",
+   "base_commit": "45e75a4f89c56cd61ba0dbe0df252d7a45c97cb5",
+   "issue_created": "2026-08-19T15:05:41Z"
+  },
+  {
+   "id": "astral-sh/uv#21313",
+   "repo": "astral-sh/uv",
+   "base_commit": "d6a02ad562bebadc092ba6e4a1b98c01012cb959",
+   "issue_created": "2026-08-25T20:02:31Z"
+  },
+  {
+   "id": "astral-sh/uv#21416",
+   "repo": "astral-sh/uv",
+   "base_commit": "bf1d7e8049017a363565185a7df7e86f33041452",
+   "issue_created": "2026-09-01T14:34:40Z"
+  },
+  {
+   "id": "astral-sh/uv#21971",
+   "repo": "astral-sh/uv",
+   "base_commit": "0e7433eee906fe81709c95c5bde556263367f21f",
+   "issue_created": "2026-09-24T17:21:23Z"
+  },
+  {
+   "id": "astral-sh/uv#22055",
+   "repo": "astral-sh/uv",
+   "base_commit": "c9dab42beb393eaa04d399bf41b33908cf8641f3",
+   "issue_created": "2026-09-28T17:22:05Z"
+  },
+  {
+   "id": "avelino/awesome-go#6737",
+   "repo": "avelino/awesome-go",
+   "base_commit": "2cbf46ba436617720030cf7eb2a32c934123498c",
+   "issue_created": "2026-09-11T03:30:39Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#2497",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "4dd9cba7891b4528f3bbb475f2db3ce18ee7a0b4",
+   "issue_created": "2026-08-04T07:54:07Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#2639",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "ad382c0b7f1fc2d4fc9a32094a49931c114e2a4b",
+   "issue_created": "2026-08-07T18:45:03Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#2825",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "4dfdb27347c0d585e39c6d6544b0347e1d63f2f1",
+   "issue_created": "2026-08-13T19:24:53Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#2864",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "3bc0053368f202bb22c83e9422f6b533a5fa9b1d",
+   "issue_created": "2026-08-09T02:05:49Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3400",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "13de7175b176742573f31ca8221fa46acc3a92da",
+   "issue_created": "2026-08-24T18:57:29Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3631",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "1b299faa659c782d2385c4119191c382a0b01dea",
+   "issue_created": "2026-09-01T04:29:53Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3653",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "ead56e8c158ea8353636f85600062b0b1102cdb4",
+   "issue_created": "2026-09-02T01:31:15Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3747",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "f8e9201f2cd0f55f82291482ca57ea313037a8c5",
+   "issue_created": "2026-08-31T05:17:23Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3851",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "3834b91843b903734447633f66fdefd41a42a3d1",
+   "issue_created": "2026-09-05T01:07:22Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3912",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "76e0616b68a0034fea92f70d87ec67c341add88f",
+   "issue_created": "2026-09-02T19:04:56Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3925",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "a639b15404b042be03e71851dbd2a46ba0856b43",
+   "issue_created": "2026-09-06T00:16:16Z"
+  },
+  {
+   "id": "career-ops-hq/career-ops#3931",
+   "repo": "career-ops-hq/career-ops",
+   "base_commit": "b7826c2e5b2934424030bd9ab9d9370a806c87e0",
+   "issue_created": "2026-09-02T19:39:46Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#7662",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "8ef6f0cc2387c28038537f586439a908b34c0976",
+   "issue_created": "2026-08-01T10:02:38Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#7893",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "3253828bf0fe1c871b3c08028f240a11a4861073",
+   "issue_created": "2026-08-19T12:07:16Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#8054",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "63ee674dcba6cf1b3784df4f5c340421b89b4d88",
+   "issue_created": "2026-09-22T14:09:08Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#8064",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "5d7dc3aed9393f08ed8210e733aff5245f0d36bd",
+   "issue_created": "2026-09-25T07:13:59Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#8068",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "6b4d4e1551310f811c21766db299b077ceb7a1fe",
+   "issue_created": "2026-09-25T16:17:44Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#8291",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "d4287970bc7dbe3430c9a33bf2922e355c92c0be",
+   "issue_created": "2026-10-12T00:50:48Z"
+  },
+  {
+   "id": "clash-verge-rev/clash-verge-rev#8411",
+   "repo": "clash-verge-rev/clash-verge-rev",
+   "base_commit": "eefd025806f255b85e7bc28158c30fdad477935d",
+   "issue_created": "2026-10-23T16:51:08Z"
+  },
+  {
+   "id": "dani-garcia/vaultwarden#7639",
+   "repo": "dani-garcia/vaultwarden",
+   "base_commit": "de7abaaafa5ce6627e43efa52840f6df6f43da23",
+   "issue_created": "2026-08-24T04:15:05Z"
+  },
+  {
+   "id": "dani-garcia/vaultwarden#7699",
+   "repo": "dani-garcia/vaultwarden",
+   "base_commit": "a6c3bd6d1826fb527822df4a2655f34fd440d7d4",
+   "issue_created": "2026-09-06T18:31:43Z"
+  },
+  {
+   "id": "dani-garcia/vaultwarden#7722",
+   "repo": "dani-garcia/vaultwarden",
+   "base_commit": "25dfedafd73cdeee47a50c1dfa7a451afe1ae1bd",
+   "issue_created": "2026-08-11T17:21:16Z"
+  },
+  {
+   "id": "dani-garcia/vaultwarden#7795",
+   "repo": "dani-garcia/vaultwarden",
+   "base_commit": "c925c04de088104f365f8fe9ce6a81da6bfcf72f",
+   "issue_created": "2026-10-01T08:52:44Z"
+  },
+  {
+   "id": "dani-garcia/vaultwarden#7807",
+   "repo": "dani-garcia/vaultwarden",
+   "base_commit": "7c188967e7a467b19b2757bc3326f9cf3ccae327",
+   "issue_created": "2026-10-03T17:48:33Z"
+  },
+  {
+   "id": "dani-garcia/vaultwarden#7827",
+   "repo": "dani-garcia/vaultwarden",
+   "base_commit": "acbf49018f616e52e9310789cf861f6e3923c8be",
+   "issue_created": "2026-08-09T09:53:05Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#41737",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "fde63a817d45ac222915bfc55a324129e0f837c4",
+   "issue_created": "2026-08-05T15:48:45Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#41824",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "c1e3b777627abf93ee67b6949b97fc74f6c752e9",
+   "issue_created": "2026-08-17T20:18:25Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#41828",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "d16fbab1ea681a07c36e975f9a50e6913da2d0a1",
+   "issue_created": "2026-08-17T09:00:54Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#41857",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "e5587d60df6ba64076858dfcde2ec92ee3254516",
+   "issue_created": "2026-08-20T11:32:04Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42026",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "2d2a1af5e2562d2fc6b815ef0efdb20816596c1f",
+   "issue_created": "2026-09-05T21:27:23Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42154",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "05fa174b17ee3aeff6f1de2cb5a6bde40b6d4f0f",
+   "issue_created": "2026-08-26T10:39:54Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42155",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "8c4fb30e654e887a07176394b6e604aa94ae33a1",
+   "issue_created": "2026-09-13T11:16:26Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42211",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "182da8ee51ea06bc7e334fe28cba58eef8d5e26c",
+   "issue_created": "2026-09-05T01:57:57Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42271",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "03631a5cd0db7fc67854307fac9d2905ec9b3829",
+   "issue_created": "2026-09-21T10:02:38Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42430",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "562f13291ba10f9dae5386a95bf0f7795e079b51",
+   "issue_created": "2026-10-12T23:52:55Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42432",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "cefa9de4398b2dfdb5c3c97bbef89bcd6ac4e71e",
+   "issue_created": "2026-10-14T12:00:31Z"
+  },
+  {
+   "id": "dbeaver/dbeaver#42433",
+   "repo": "dbeaver/dbeaver",
+   "base_commit": "b14293446c728b3cb3150fdc1e15e2b9489d65bd",
+   "issue_created": "2026-10-14T10:12:02Z"
+  },
+  {
+   "id": "denoland/deno#36437",
+   "repo": "denoland/deno",
+   "base_commit": "753517f4564d9f943bbdec85b8e50ef1fb7fa407",
+   "issue_created": "2026-08-05T15:53:16Z"
+  },
+  {
+   "id": "denoland/deno#36546",
+   "repo": "denoland/deno",
+   "base_commit": "cfa75711620f7ee9e0ccc838ff627e19b5269f43",
+   "issue_created": "2026-08-11T11:39:25Z"
+  },
+  {
+   "id": "denoland/deno#36574",
+   "repo": "denoland/deno",
+   "base_commit": "851406c4fb913cf324076288763584b7b49b1cdf",
+   "issue_created": "2026-08-05T05:35:08Z"
+  },
+  {
+   "id": "denoland/deno#36619",
+   "repo": "denoland/deno",
+   "base_commit": "6e0621c57435fd2b59c2821ac1db4f878bc2d8e9",
+   "issue_created": "2026-08-17T19:27:23Z"
+  },
+  {
+   "id": "denoland/deno#36630",
+   "repo": "denoland/deno",
+   "base_commit": "6ba8619c575d2183605055cd291cf16ee8f3f1e1",
+   "issue_created": "2026-08-18T12:42:11Z"
+  },
+  {
+   "id": "denoland/deno#36650",
+   "repo": "denoland/deno",
+   "base_commit": "dff0be4dcd70ebca8b7c708e75fd993f4b16363d",
+   "issue_created": "2026-08-17T13:35:29Z"
+  },
+  {
+   "id": "denoland/deno#36784",
+   "repo": "denoland/deno",
+   "base_commit": "60e01b1dabc1fce03ccd819a01796b52496671a4",
+   "issue_created": "2026-09-07T02:02:22Z"
+  },
+  {
+   "id": "denoland/deno#36976",
+   "repo": "denoland/deno",
+   "base_commit": "2f885193c678c1802f4de6e25659e8ef7aa5e8cd",
+   "issue_created": "2026-10-05T01:51:43Z"
+  },
+  {
+   "id": "earendil-works/pi#10020",
+   "repo": "earendil-works/pi",
+   "base_commit": "5d4de953ce48ebe1fbdd72e9819b8bccabaeb08d",
+   "issue_created": "2026-08-31T12:12:28Z"
+  },
+  {
+   "id": "earendil-works/pi#10557",
+   "repo": "earendil-works/pi",
+   "base_commit": "76f6c06dafe3f8b1e3e8b76c903b2edc90715df1",
+   "issue_created": "2026-09-23T08:49:41Z"
+  },
+  {
+   "id": "earendil-works/pi#10680",
+   "repo": "earendil-works/pi",
+   "base_commit": "ce950d78f424dcaf9f5d6a03ce80ab141130eb1d",
+   "issue_created": "2026-10-07T23:08:49Z"
+  },
+  {
+   "id": "earendil-works/pi#10887",
+   "repo": "earendil-works/pi",
+   "base_commit": "34a8bb38b2592c61bbae69413c89b720366b533c",
+   "issue_created": "2026-10-10T22:32:29Z"
+  },
+  {
+   "id": "earendil-works/pi#10913",
+   "repo": "earendil-works/pi",
+   "base_commit": "47fc5f38ec18d56fe64abd41a2dcf9e5170a3dcf",
+   "issue_created": "2026-09-29T08:40:34Z"
+  },
+  {
+   "id": "earendil-works/pi#11230",
+   "repo": "earendil-works/pi",
+   "base_commit": "bd3c9b823762b7383954aa49e13ee350471015fe",
+   "issue_created": "2026-10-21T05:39:52Z"
+  },
+  {
+   "id": "earendil-works/pi#11293",
+   "repo": "earendil-works/pi",
+   "base_commit": "64627838b276da852f312800ff423d83bba0b139",
+   "issue_created": "2026-10-21T16:18:31Z"
+  },
+  {
+   "id": "earendil-works/pi#11617",
+   "repo": "earendil-works/pi",
+   "base_commit": "d280e1ffa24c8bfcbc67d9ad45e58762f5b75180",
+   "issue_created": "2026-10-28T14:43:41Z"
+  },
+  {
+   "id": "earendil-works/pi#7612",
+   "repo": "earendil-works/pi",
+   "base_commit": "bb6a1cddc72de48b12257df83fd04495303dbd22",
+   "issue_created": "2026-08-01T23:37:06Z"
+  },
+  {
+   "id": "earendil-works/pi#7953",
+   "repo": "earendil-works/pi",
+   "base_commit": "d711bd5f0a5fca7f10f8a681763b5ed5e63d9400",
+   "issue_created": "2026-08-11T02:50:21Z"
+  },
+  {
+   "id": "earendil-works/pi#9601",
+   "repo": "earendil-works/pi",
+   "base_commit": "b03a367a4fbc02df81bfd96702d7a12c2d79aa45",
+   "issue_created": "2026-09-10T12:35:50Z"
+  },
+  {
+   "id": "earendil-works/pi#9662",
+   "repo": "earendil-works/pi",
+   "base_commit": "bdee230f1ea4beec1972c54716433ced691a92b5",
+   "issue_created": "2026-09-03T12:21:02Z"
+  },
+  {
+   "id": "elastic/elasticsearch#155838",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "5f2ceadd0daf92bd14fdc6e4e6d1068fe57f4831",
+   "issue_created": "2026-08-04T08:13:41Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156075",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "f0fc81936a2fb94dcdb88e1554ee7ad034911e37",
+   "issue_created": "2026-08-05T14:35:43Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156148",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "6e39436a489ecc8e6a5849325475ef2ee64b0763",
+   "issue_created": "2026-08-05T13:59:19Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156162",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "75b7472dbc708851e614f1c550649e30dbcfcff9",
+   "issue_created": "2026-08-05T16:05:45Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156414",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "025b7be005e8e92affbe8b67ff744b0061303b99",
+   "issue_created": "2026-08-06T16:45:05Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156537",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "74f50be167af3e7e4e3f49a7348754f15e2351d5",
+   "issue_created": "2026-08-03T17:48:01Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156545",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "e697ef92fc6c75c73e8e02563141a99c26c94c69",
+   "issue_created": "2026-08-08T04:01:48Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156585",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "98b64781e55b328cddc3e5a6090beea11613e5f1",
+   "issue_created": "2026-08-07T13:54:24Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156635",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "a6d5ed98d99a0d41035757f63a416af1a3391076",
+   "issue_created": "2026-08-11T20:14:02Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156674",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "569086a86aa5fe9f1376de3cff197434c50671b4",
+   "issue_created": "2026-08-13T09:57:41Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156690",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "090b182ec5d4f17700a2c887fec326b870e75b86",
+   "issue_created": "2026-08-11T13:02:56Z"
+  },
+  {
+   "id": "elastic/elasticsearch#156945",
+   "repo": "elastic/elasticsearch",
+   "base_commit": "25df1ccb88af14c99be77fa7226b455d1f7b44fd",
+   "issue_created": "2026-08-17T10:58:37Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35637",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "854fbb8cedf09e00f64470bfdbb306e54a2b0ec2",
+   "issue_created": "2026-09-02T08:13:04Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35672",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "94a0b9917fc4822867c33e15da8ef650849492fb",
+   "issue_created": "2026-09-08T00:50:12Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35753",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "c6e3a0d7de3dee3e213eab2dfceda89cb6f7f8ef",
+   "issue_created": "2026-09-21T08:00:45Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35821",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "f0b3fcd6cdc2e2eb54f5e33dcc6a8b2739bfa74a",
+   "issue_created": "2026-09-28T07:46:46Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35905",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "653da5f614d07f6cb010abd2ba1805f03901783e",
+   "issue_created": "2026-10-07T08:40:15Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35933",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "6d9b792191cee1ba2279d1e5b2d1364e40dbfd05",
+   "issue_created": "2026-10-10T03:36:35Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35978",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "943517bd622a05c70185e5154916aff43b1964d8",
+   "issue_created": "2026-10-17T10:07:57Z"
+  },
+  {
+   "id": "ethereum/go-ethereum#35983",
+   "repo": "ethereum/go-ethereum",
+   "base_commit": "ec87af181a7c51bbe71fc0d42f4a21d78fcc63b9",
+   "issue_created": "2026-09-02T02:57:25Z"
+  },
+  {
+   "id": "farion1231/cc-switch#6228",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "40d747c009bff6a6097d5094e57d205420d9b24c",
+   "issue_created": "2026-08-06T03:45:27Z"
+  },
+  {
+   "id": "farion1231/cc-switch#6232",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "413c09e0790c304506888ae24b9be72820aca126",
+   "issue_created": "2026-08-07T06:28:53Z"
+  },
+  {
+   "id": "farion1231/cc-switch#6851",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "21fda0ea01dd6df5bf610d30924bb6ee5f74dc9c",
+   "issue_created": "2026-08-26T09:29:09Z"
+  },
+  {
+   "id": "farion1231/cc-switch#7635",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "3da322eb309804ae3c033c9fcbedcc72924b386a",
+   "issue_created": "2026-09-23T10:42:36Z"
+  },
+  {
+   "id": "farion1231/cc-switch#7653",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "f264ce620a9ec691221e89852de95cc7e162abf5",
+   "issue_created": "2026-09-24T03:00:27Z"
+  },
+  {
+   "id": "farion1231/cc-switch#7853",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "a776a3b184cb5a0c92f0fdc687441fd31db31321",
+   "issue_created": "2026-10-04T05:50:55Z"
+  },
+  {
+   "id": "farion1231/cc-switch#7878",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "df40d53c36b604e044b4d5b9091aeb961aa56990",
+   "issue_created": "2026-10-05T03:11:48Z"
+  },
+  {
+   "id": "farion1231/cc-switch#7991",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "8642171835069fbd428d67b71a6d76247b36c76d",
+   "issue_created": "2026-10-08T13:41:05Z"
+  },
+  {
+   "id": "farion1231/cc-switch#8281",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "c1051f8e4eb3d96c35c1e073bccac2c94da10c95",
+   "issue_created": "2026-10-11T07:34:23Z"
+  },
+  {
+   "id": "farion1231/cc-switch#8437",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "ad9f0f20745df7ea8223d7bf27a1fd8cf7e105ea",
+   "issue_created": "2026-10-16T17:46:15Z"
+  },
+  {
+   "id": "farion1231/cc-switch#8764",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "c3ad9bb0bd265d5a0eeb8367e51ea97c1e620ad4",
+   "issue_created": "2026-10-23T08:26:33Z"
+  },
+  {
+   "id": "farion1231/cc-switch#9026",
+   "repo": "farion1231/cc-switch",
+   "base_commit": "ba3d80d87ce7e3fe1ed52a5d5cbe9fa79eb5898e",
+   "issue_created": "2026-08-20T11:56:46Z"
+  },
+  {
+   "id": "freeCodeCamp/freeCodeCamp#69263",
+   "repo": "freeCodeCamp/freeCodeCamp",
+   "base_commit": "7f796364b30fbedefdd957d2148318180c7f4737",
+   "issue_created": "2026-08-03T23:40:40Z"
+  },
+  {
+   "id": "freeCodeCamp/freeCodeCamp#69474",
+   "repo": "freeCodeCamp/freeCodeCamp",
+   "base_commit": "41874d4bba0c7e96fed191189d2a3125abfe0758",
+   "issue_created": "2026-08-10T18:10:56Z"
+  },
+  {
+   "id": "freeCodeCamp/freeCodeCamp#70413",
+   "repo": "freeCodeCamp/freeCodeCamp",
+   "base_commit": "e51bacde7c482deee6a993d3d8ddb58bb666cdf4",
+   "issue_created": "2026-09-25T23:26:01Z"
+  },
+  {
+   "id": "garrytan/gstack#3134",
+   "repo": "garrytan/gstack",
+   "base_commit": "f4d8c7130dd444107a5e00457c0d6d61058693a0",
+   "issue_created": "2026-10-08T14:49:33Z"
+  },
+  {
+   "id": "garrytan/gstack#3142",
+   "repo": "garrytan/gstack",
+   "base_commit": "e6edff026519da3e06dce1e91d83932c43527a8d",
+   "issue_created": "2026-10-10T02:04:30Z"
+  },
+  {
+   "id": "garrytan/gstack#3304",
+   "repo": "garrytan/gstack",
+   "base_commit": "9cce38bd46f9037029d7eda76f4c84777903e977",
+   "issue_created": "2026-10-19T07:44:04Z"
+  },
+  {
+   "id": "garrytan/gstack#3380",
+   "repo": "garrytan/gstack",
+   "base_commit": "080b752140b6629c6b13e013b5532f343d11056f",
+   "issue_created": "2026-10-22T20:37:00Z"
+  },
+  {
+   "id": "garrytan/gstack#3402",
+   "repo": "garrytan/gstack",
+   "base_commit": "f2ddc495dddd4de3bd96f44c7d3aaebc3e63902d",
+   "issue_created": "2026-10-22T23:56:25Z"
+  },
+  {
+   "id": "garrytan/gstack#3848",
+   "repo": "garrytan/gstack",
+   "base_commit": "82e9d7ec7a2c222f20b04aaf5b965fa50d7b6bdb",
+   "issue_created": "2026-10-30T15:17:28Z"
+  },
+  {
+   "id": "github/spec-kit#3952",
+   "repo": "github/spec-kit",
+   "base_commit": "4751777a38ce9d12d396797664d457bad4b125a1",
+   "issue_created": "2026-08-02T17:06:16Z"
+  },
+  {
+   "id": "github/spec-kit#4045",
+   "repo": "github/spec-kit",
+   "base_commit": "85d3ed289df560bc19270da34b3df600f0c9099d",
+   "issue_created": "2026-08-11T03:44:52Z"
+  },
+  {
+   "id": "github/spec-kit#4104",
+   "repo": "github/spec-kit",
+   "base_commit": "e79fa25f3f465b1ce779f570ccacef7b379e9166",
+   "issue_created": "2026-08-12T21:38:42Z"
+  },
+  {
+   "id": "github/spec-kit#4133",
+   "repo": "github/spec-kit",
+   "base_commit": "fa3a5c5ce7241e32d262a7fd777946f4b7d51bcc",
+   "issue_created": "2026-08-15T09:42:48Z"
+  },
+  {
+   "id": "github/spec-kit#4134",
+   "repo": "github/spec-kit",
+   "base_commit": "39c36c414490474bf31e60c12e20130bcf9e75cc",
+   "issue_created": "2026-08-15T09:42:49Z"
+  },
+  {
+   "id": "github/spec-kit#4250",
+   "repo": "github/spec-kit",
+   "base_commit": "d4ba7536a373782c78ed2429ff845de5dc78f4d8",
+   "issue_created": "2026-08-20T15:12:22Z"
+  },
+  {
+   "id": "github/spec-kit#4284",
+   "repo": "github/spec-kit",
+   "base_commit": "1ceb4565917af2e79e8d37a56a5475a5e84bbf74",
+   "issue_created": "2026-08-23T07:53:29Z"
+  },
+  {
+   "id": "github/spec-kit#4492",
+   "repo": "github/spec-kit",
+   "base_commit": "98eb2fb4fc9f1ef995f03f233e52c1a6e0e11113",
+   "issue_created": "2026-09-09T15:22:31Z"
+  },
+  {
+   "id": "github/spec-kit#4764",
+   "repo": "github/spec-kit",
+   "base_commit": "1a25202243e532af215e4adf9dca1b8f3aa1d71f",
+   "issue_created": "2026-09-22T15:07:25Z"
+  },
+  {
+   "id": "github/spec-kit#4957",
+   "repo": "github/spec-kit",
+   "base_commit": "e6ab4474b9e39ac07f55a5f03f82d717d9a369ff",
+   "issue_created": "2026-09-17T10:11:50Z"
+  },
+  {
+   "id": "github/spec-kit#4960",
+   "repo": "github/spec-kit",
+   "base_commit": "fe971dcb454323d3fe23341a243cf080bc40c5f3",
+   "issue_created": "2026-10-13T20:43:35Z"
+  },
+  {
+   "id": "github/spec-kit#5106",
+   "repo": "github/spec-kit",
+   "base_commit": "600eba9df3a50b535f5865cca7b73a01d99dff0e",
+   "issue_created": "2026-10-23T17:23:21Z"
+  },
+  {
+   "id": "halo-dev/halo#10272",
+   "repo": "halo-dev/halo",
+   "base_commit": "1b1a61d4a53d49f147f702d639605c79d712ad81",
+   "issue_created": "2026-08-27T08:13:56Z"
+  },
+  {
+   "id": "halo-dev/halo#10289",
+   "repo": "halo-dev/halo",
+   "base_commit": "b754b542d5593acd5a6aa76c83a08da2d958630a",
+   "issue_created": "2026-09-01T13:19:47Z"
+  },
+  {
+   "id": "halo-dev/halo#10329",
+   "repo": "halo-dev/halo",
+   "base_commit": "40fcfd775c014a625037a2d37822e741aad1ff65",
+   "issue_created": "2026-08-13T09:30:21Z"
+  },
+  {
+   "id": "halo-dev/halo#10344",
+   "repo": "halo-dev/halo",
+   "base_commit": "9dea5cdb2ae89e5ceacf2bb77b3c51795afab0c6",
+   "issue_created": "2026-09-24T05:33:57Z"
+  },
+  {
+   "id": "halo-dev/halo#10362",
+   "repo": "halo-dev/halo",
+   "base_commit": "7b24afc6d014ad15422c2bd38b6ae2a4d0c0530c",
+   "issue_created": "2026-10-07T02:29:20Z"
+  },
+  {
+   "id": "halo-dev/halo#10368",
+   "repo": "halo-dev/halo",
+   "base_commit": "a5ec276ffee96822e91ee633b654bd9857b3500b",
+   "issue_created": "2026-09-28T04:45:37Z"
+  },
+  {
+   "id": "halo-dev/halo#10373",
+   "repo": "halo-dev/halo",
+   "base_commit": "efaf6155ddbdcb3b32aca4a9a98cd1ca0d9eb243",
+   "issue_created": "2026-09-22T06:02:54Z"
+  },
+  {
+   "id": "halo-dev/halo#10403",
+   "repo": "halo-dev/halo",
+   "base_commit": "6745dd2f85de791cfacd3d664f34818d3326f6a1",
+   "issue_created": "2026-10-05T17:11:06Z"
+  },
+  {
+   "id": "halo-dev/halo#10436",
+   "repo": "halo-dev/halo",
+   "base_commit": "5b3f2680c4ce0cfc97d6e3fab9b7e867a5e3245a",
+   "issue_created": "2026-10-20T17:16:37Z"
+  },
+  {
+   "id": "immich-app/immich#30976",
+   "repo": "immich-app/immich",
+   "base_commit": "dc3d6eeec4a22174041187247d817ae3aa08ceba",
+   "issue_created": "2026-08-18T14:33:53Z"
+  },
+  {
+   "id": "immich-app/immich#31075",
+   "repo": "immich-app/immich",
+   "base_commit": "762f93798dd012609aa5855e3dbbfc8e49089614",
+   "issue_created": "2026-08-21T23:43:56Z"
+  },
+  {
+   "id": "immich-app/immich#31079",
+   "repo": "immich-app/immich",
+   "base_commit": "2ccd0effc8d551086f6445046206f0f8731b789a",
+   "issue_created": "2026-08-22T17:43:15Z"
+  },
+  {
+   "id": "immich-app/immich#31143",
+   "repo": "immich-app/immich",
+   "base_commit": "fa8a191aaa7703f1f1c8d286f7fd6ec3480aebdf",
+   "issue_created": "2026-08-31T08:52:40Z"
+  },
+  {
+   "id": "immich-app/immich#31236",
+   "repo": "immich-app/immich",
+   "base_commit": "fbff5f41bedbed1340b1e30deb14e9b2e75623af",
+   "issue_created": "2026-08-20T01:32:02Z"
+  },
+  {
+   "id": "immich-app/immich#31348",
+   "repo": "immich-app/immich",
+   "base_commit": "6874c07dbe0f6443d43e8a014fd18cfa6783c7c5",
+   "issue_created": "2026-08-23T17:28:15Z"
+  },
+  {
+   "id": "immich-app/immich#31551",
+   "repo": "immich-app/immich",
+   "base_commit": "d2928cecce2a73b1098a85d9585e87e06f28cc51",
+   "issue_created": "2026-09-14T13:46:16Z"
+  },
+  {
+   "id": "immich-app/immich#32010",
+   "repo": "immich-app/immich",
+   "base_commit": "28e375c0585f8ee69f80257dc0be073a2b114cdf",
+   "issue_created": "2026-09-27T04:03:24Z"
+  },
+  {
+   "id": "immich-app/immich#32094",
+   "repo": "immich-app/immich",
+   "base_commit": "a01a9140b6f1a01e2c80278d5cc2505e1fd1a12d",
+   "issue_created": "2026-10-05T04:45:11Z"
+  },
+  {
+   "id": "immich-app/immich#32097",
+   "repo": "immich-app/immich",
+   "base_commit": "464400f82109ca80f11d9ad278b515b6a0abf1f5",
+   "issue_created": "2026-10-05T10:30:50Z"
+  },
+  {
+   "id": "immich-app/immich#32182",
+   "repo": "immich-app/immich",
+   "base_commit": "86fed468a7f625c759072cb07a0d82accb74cf5e",
+   "issue_created": "2026-10-07T03:20:10Z"
+  },
+  {
+   "id": "immich-app/immich#32577",
+   "repo": "immich-app/immich",
+   "base_commit": "ca25e8becc4bfb18d63ca7920d26a984eae0e16f",
+   "issue_created": "2026-10-16T09:30:04Z"
+  },
+  {
+   "id": "infiniflow/ragflow#17688",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "a33ee7d4a09a249098a47453b5214a482702f1cb",
+   "issue_created": "2026-08-02T12:48:39Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18018",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "9784814a9b3e8ceb3486c02f4f5c2fa4c71f6895",
+   "issue_created": "2026-08-07T06:51:33Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18132",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "75363af54b54feda3b28395d3d53e3cf3946c2db",
+   "issue_created": "2026-08-11T08:41:51Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18168",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "7646afab1ba476395ae8d5d247ede1f6470717fc",
+   "issue_created": "2026-08-12T07:27:58Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18188",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "ffff5100e86f6bfb20456a61c0a892770b1eb0b7",
+   "issue_created": "2026-08-05T10:12:39Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18321",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "e3d46efce362b9730de4141422add47142639ec7",
+   "issue_created": "2026-08-04T02:13:05Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18469",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "b27623a0c2b74819f9d5b6dd02f647a1c2b9421d",
+   "issue_created": "2026-08-18T17:06:48Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18649",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "4afa19e7e478ac534d976778082eae22def83a1d",
+   "issue_created": "2026-08-21T09:38:07Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18663",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "d6382e4b419e1dab54b972ceb979f5dba74f1e77",
+   "issue_created": "2026-08-23T00:58:33Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18753",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "ee3360bccb3ef35c833d2954b159ea6da892596b",
+   "issue_created": "2026-08-25T10:00:20Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18842",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "968380c2a14284e497d71aed2fa4201f616ca989",
+   "issue_created": "2026-08-27T02:21:53Z"
+  },
+  {
+   "id": "infiniflow/ragflow#18889",
+   "repo": "infiniflow/ragflow",
+   "base_commit": "ff667331ac208d7b25590638abd766ee78f2ef6b",
+   "issue_created": "2026-08-20T15:56:03Z"
+  },
+  {
+   "id": "keycloak/keycloak#51484",
+   "repo": "keycloak/keycloak",
+   "base_commit": "1712fae48cd18a3147981aaa3ab11708ee2fefeb",
+   "issue_created": "2026-08-06T06:12:10Z"
+  },
+  {
+   "id": "keycloak/keycloak#51591",
+   "repo": "keycloak/keycloak",
+   "base_commit": "898fea015f480d35470d4b16b503b4c97d8b75cb",
+   "issue_created": "2026-08-10T20:21:19Z"
+  },
+  {
+   "id": "keycloak/keycloak#52456",
+   "repo": "keycloak/keycloak",
+   "base_commit": "9960642b3245e073139f4b4f0f69c2cddc281858",
+   "issue_created": "2026-09-04T08:46:02Z"
+  },
+  {
+   "id": "keycloak/keycloak#52621",
+   "repo": "keycloak/keycloak",
+   "base_commit": "b84fb15b55a862ec07aff361a484533f724d57c4",
+   "issue_created": "2026-09-10T10:33:21Z"
+  },
+  {
+   "id": "keycloak/keycloak#52698",
+   "repo": "keycloak/keycloak",
+   "base_commit": "81feb35e82c44bdb6a7d62a128c847496035c658",
+   "issue_created": "2026-09-10T20:40:28Z"
+  },
+  {
+   "id": "keycloak/keycloak#52734",
+   "repo": "keycloak/keycloak",
+   "base_commit": "afa93f8b02f4989093dd5c22f674de2743646af5",
+   "issue_created": "2026-09-11T11:08:49Z"
+  },
+  {
+   "id": "keycloak/keycloak#52741",
+   "repo": "keycloak/keycloak",
+   "base_commit": "8b78facb75c61b82024f7bb8b7063e74f01dd15f",
+   "issue_created": "2026-09-11T11:10:07Z"
+  },
+  {
+   "id": "keycloak/keycloak#53052",
+   "repo": "keycloak/keycloak",
+   "base_commit": "f94b1a35dda4c399411d7ade97d5233d8686bf9f",
+   "issue_created": "2026-09-15T11:02:54Z"
+  },
+  {
+   "id": "keycloak/keycloak#53196",
+   "repo": "keycloak/keycloak",
+   "base_commit": "9046035c2c91878eb9addbad3c31a365d0363496",
+   "issue_created": "2026-09-22T14:19:22Z"
+  },
+  {
+   "id": "keycloak/keycloak#53337",
+   "repo": "keycloak/keycloak",
+   "base_commit": "6d2c039b9abcf01eb94de588b6233a4aaa7c2387",
+   "issue_created": "2026-08-27T09:21:38Z"
+  },
+  {
+   "id": "keycloak/keycloak#53465",
+   "repo": "keycloak/keycloak",
+   "base_commit": "47092ab0f731b4ce690da0d07410d7663b15bff0",
+   "issue_created": "2026-10-01T15:53:19Z"
+  },
+  {
+   "id": "keycloak/keycloak#53520",
+   "repo": "keycloak/keycloak",
+   "base_commit": "1dda509456cfca0d4e30c18b1af996f7cc6493c4",
+   "issue_created": "2026-09-22T12:25:18Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141211",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "06b066f1bc5bf656ffa7e9edcd05efd404ed8ac8",
+   "issue_created": "2026-08-06T01:14:11Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141276",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "13f9a12cdb4fba8269e8c214e20d4143073a83d1",
+   "issue_created": "2026-08-08T22:00:15Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141556",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "85becae7ee541642ebfc8eb782958f06f009d822",
+   "issue_created": "2026-08-19T16:28:05Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141557",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "c3b384d230923ba888fbf9129e9800b5373cad4a",
+   "issue_created": "2026-08-24T16:06:02Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141648",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "fc2468dcc64b1f984ceae7643a988a0fc5e1d1b3",
+   "issue_created": "2026-08-27T09:17:56Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141861",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "ab9b0dcfd32039601ad368ae891efa3ff67600e0",
+   "issue_created": "2026-09-04T01:47:35Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141886",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "5b0aabc9f33aee4dc7c58b728cb77f3e61b45483",
+   "issue_created": "2026-09-05T13:46:50Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#141966",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "8a1ebaa4eb27b6ba1cbfab00fd927cd7ea230606",
+   "issue_created": "2026-08-18T10:25:29Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#142197",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "21c50b7d1bddeaad38eb96fd640131b75bbe0122",
+   "issue_created": "2026-09-17T20:21:32Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#142607",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "a30693dd26e052fb1aed9223d781b78dff507bf8",
+   "issue_created": "2026-10-01T20:45:02Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#142758",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "f708a1f9c1e8c5f7d05e583dad821d1141ecd1e3",
+   "issue_created": "2026-10-06T19:51:09Z"
+  },
+  {
+   "id": "kubernetes/kubernetes#143002",
+   "repo": "kubernetes/kubernetes",
+   "base_commit": "a8b7c6042103448ba1bb9ec01b052b88d2c4c675",
+   "issue_created": "2026-10-12T11:17:39Z"
+  },
+  {
+   "id": "langchain-ai/langchain#39301",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "367df8e3d95da4b766d2a262b40ed7cb56fcc464",
+   "issue_created": "2026-08-06T08:36:56Z"
+  },
+  {
+   "id": "langchain-ai/langchain#39590",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "39b4e0f9a8c3ab5537ee9fc5baa57ed98de165f1",
+   "issue_created": "2026-08-05T00:32:02Z"
+  },
+  {
+   "id": "langchain-ai/langchain#39978",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "885e858ac4361685be4b3dc87940a0d07ea0471f",
+   "issue_created": "2026-08-27T22:33:06Z"
+  },
+  {
+   "id": "langchain-ai/langchain#40026",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "e92c8a08bf382121cc1e95f7e75ddc8cb9c01ab0",
+   "issue_created": "2026-08-30T03:13:19Z"
+  },
+  {
+   "id": "langchain-ai/langchain#40211",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "b34f5669de2a19fd260c1c0a78f80977289400f9",
+   "issue_created": "2026-09-04T16:40:30Z"
+  },
+  {
+   "id": "langchain-ai/langchain#40213",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "e26358afd59e90ee9eab091c1a6e76bd8539139c",
+   "issue_created": "2026-08-31T19:16:54Z"
+  },
+  {
+   "id": "langchain-ai/langchain#40815",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "021dce467195a8c767ec3e1a807eda546c17994c",
+   "issue_created": "2026-09-24T11:43:00Z"
+  },
+  {
+   "id": "langchain-ai/langchain#40864",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "80b74090515a594cc8421fb2d82e98f4e256c29f",
+   "issue_created": "2026-09-27T02:27:26Z"
+  },
+  {
+   "id": "langchain-ai/langchain#41062",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "f295bfef22e9aeb02ad0f79b49883f4b446e4641",
+   "issue_created": "2026-10-02T21:57:37Z"
+  },
+  {
+   "id": "langchain-ai/langchain#41093",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "4db8c0e8359dc9789669af140e9c2728718566f8",
+   "issue_created": "2026-09-10T13:42:32Z"
+  },
+  {
+   "id": "langchain-ai/langchain#41553",
+   "repo": "langchain-ai/langchain",
+   "base_commit": "8875dc8f5b44e5706df44f5bbee983489e4e63e0",
+   "issue_created": "2026-10-27T11:21:27Z"
+  },
+  {
+   "id": "langflow-ai/langflow#14448",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "885adfcaf07698ec0cd78fab79a390a1d3fe5fa3",
+   "issue_created": "2026-08-06T10:30:45Z"
+  },
+  {
+   "id": "langflow-ai/langflow#14604",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "9ecbf4c1dcfcb2562af31f21d3f86db4707c07cf",
+   "issue_created": "2026-08-16T13:05:46Z"
+  },
+  {
+   "id": "langflow-ai/langflow#14694",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "e0b5f33f186da49f6fc34fbf3ed1a25a0955f895",
+   "issue_created": "2026-08-18T13:11:56Z"
+  },
+  {
+   "id": "langflow-ai/langflow#14925",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "eb612e736d638f71ca039fc016ed706d97ba309f",
+   "issue_created": "2026-08-31T13:07:22Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15029",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "c0ab168eb0859124084b409160d6a5952c82e7e8",
+   "issue_created": "2026-09-06T10:35:59Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15030",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "1d81c0d8fdda31715604e6e621caf3402f4ba042",
+   "issue_created": "2026-09-08T20:39:28Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15064",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "022c74bcdf4218ad4ab50b2f4ff9a6293d20fb54",
+   "issue_created": "2026-08-31T14:53:19Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15074",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "999fc3583d687db51ae9c19ce6b8aa3059daea01",
+   "issue_created": "2026-08-31T14:53:17Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15262",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "1616f2937a791a8ab770ac770c84beb37705a687",
+   "issue_created": "2026-09-22T15:00:41Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15372",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "7cea329499d0ec1bfdfb7927d1987e49e25428c0",
+   "issue_created": "2026-09-21T21:36:52Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15466",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "bedde5c76286fd8d736bb36bd8dc0887910aed79",
+   "issue_created": "2026-09-30T05:30:13Z"
+  },
+  {
+   "id": "langflow-ai/langflow#15752",
+   "repo": "langflow-ai/langflow",
+   "base_commit": "1bd7a4116c3e0f4e0c78b839d4fdcd583f39c1d8",
+   "issue_created": "2026-10-09T23:33:41Z"
+  },
+  {
+   "id": "langgenius/dify#39872",
+   "repo": "langgenius/dify",
+   "base_commit": "b6824334cf527504efff4785f8ccefd4b85943c5",
+   "issue_created": "2026-08-01T06:38:09Z"
+  },
+  {
+   "id": "langgenius/dify#40055",
+   "repo": "langgenius/dify",
+   "base_commit": "8170a2a5f3cf4d4fbf68d5f37ab9e71b8b0a3d3b",
+   "issue_created": "2026-08-06T02:35:47Z"
+  },
+  {
+   "id": "langgenius/dify#40443",
+   "repo": "langgenius/dify",
+   "base_commit": "5018f8aa8a7fe56d47aac3a29fe6080cd2a9610c",
+   "issue_created": "2026-08-09T21:04:58Z"
+  },
+  {
+   "id": "langgenius/dify#40738",
+   "repo": "langgenius/dify",
+   "base_commit": "c9c7fb9962d35ed793bfb08f748b21d806783f32",
+   "issue_created": "2026-08-10T09:33:47Z"
+  },
+  {
+   "id": "langgenius/dify#40742",
+   "repo": "langgenius/dify",
+   "base_commit": "8238684334e8d3de7b6d61b43e99f8dd4ceb30c3",
+   "issue_created": "2026-08-13T17:32:10Z"
+  },
+  {
+   "id": "langgenius/dify#40746",
+   "repo": "langgenius/dify",
+   "base_commit": "6ba29b3f0c1573abedd567dcff8b82b98d35b06e",
+   "issue_created": "2026-08-11T01:34:19Z"
+  },
+  {
+   "id": "langgenius/dify#40905",
+   "repo": "langgenius/dify",
+   "base_commit": "6d89557355839a8546f79d2951577cbae636226c",
+   "issue_created": "2026-08-17T08:51:41Z"
+  },
+  {
+   "id": "langgenius/dify#40945",
+   "repo": "langgenius/dify",
+   "base_commit": "248df5dd25fca099b6536a75bf8acef8196a5e93",
+   "issue_created": "2026-08-18T17:08:15Z"
+  },
+  {
+   "id": "langgenius/dify#41107",
+   "repo": "langgenius/dify",
+   "base_commit": "77998e41e4b1d1bfe9ff1f6f7a34078521905d89",
+   "issue_created": "2026-08-23T12:00:19Z"
+  },
+  {
+   "id": "langgenius/dify#41145",
+   "repo": "langgenius/dify",
+   "base_commit": "7737f7c1619b990a2ac2769d30e50b9c97f9c2e8",
+   "issue_created": "2026-08-24T03:48:53Z"
+  },
+  {
+   "id": "langgenius/dify#41222",
+   "repo": "langgenius/dify",
+   "base_commit": "9643dcacce2f475bfbdc9dd9fc02b12371194961",
+   "issue_created": "2026-08-04T06:18:26Z"
+  },
+  {
+   "id": "langgenius/dify#41581",
+   "repo": "langgenius/dify",
+   "base_commit": "8707d0c82f6f8e812b5fb5b9202fdce016c80d09",
+   "issue_created": "2026-09-01T08:10:47Z"
+  },
+  {
+   "id": "louislam/uptime-kuma#7754",
+   "repo": "louislam/uptime-kuma",
+   "base_commit": "a0546c0db982d26e443b31c89d39bbca57fad024",
+   "issue_created": "2026-08-22T07:11:03Z"
+  },
+  {
+   "id": "louislam/uptime-kuma#8082",
+   "repo": "louislam/uptime-kuma",
+   "base_commit": "4a8adbe271ec25ca0d53cbb13accbc23b999eb46",
+   "issue_created": "2026-08-01T04:26:35Z"
+  },
+  {
+   "id": "microsoft/markitdown#2342",
+   "repo": "microsoft/markitdown",
+   "base_commit": "d04418ec9a507b711051e71e7b05862aed2ef2c0",
+   "issue_created": "2026-08-25T09:44:32Z"
+  },
+  {
+   "id": "microsoft/markitdown#2356",
+   "repo": "microsoft/markitdown",
+   "base_commit": "0b3a45234ef8cc060e9a64e4dbd36d80eaa81ff3",
+   "issue_created": "2026-08-25T09:44:32Z"
+  },
+  {
+   "id": "microsoft/markitdown#2371",
+   "repo": "microsoft/markitdown",
+   "base_commit": "42b98ec25654a8309f2301cbaa04e7137496419d",
+   "issue_created": "2026-09-02T17:41:10Z"
+  },
+  {
+   "id": "microsoft/markitdown#2430",
+   "repo": "microsoft/markitdown",
+   "base_commit": "b6e8bbdce628d564c6af031b5f26cda6e818ea10",
+   "issue_created": "2026-09-06T07:32:54Z"
+  },
+  {
+   "id": "moby/moby#53723",
+   "repo": "moby/moby",
+   "base_commit": "30a4e29b7d3a677fe71902665d99c03c07b1deee",
+   "issue_created": "2026-09-17T17:57:21Z"
+  },
+  {
+   "id": "moby/moby#53933",
+   "repo": "moby/moby",
+   "base_commit": "899ce4e7f9a138a35b811c4300165862672f5633",
+   "issue_created": "2026-10-12T21:41:43Z"
+  },
+  {
+   "id": "moby/moby#53934",
+   "repo": "moby/moby",
+   "base_commit": "cdfbf7d3199d400441298ca155f823f195edd4a8",
+   "issue_created": "2026-10-10T17:03:39Z"
+  },
+  {
+   "id": "moby/moby#54006",
+   "repo": "moby/moby",
+   "base_commit": "71b1b4b34db9e0f71073b1fe5b8521e4af80f181",
+   "issue_created": "2026-10-15T08:54:31Z"
+  },
+  {
+   "id": "morluto/rea#1116",
+   "repo": "morluto/rea",
+   "base_commit": "8f9da251647beb530f6851c9dad5040b19a50a35",
+   "issue_created": "2026-10-08T18:19:47Z"
+  },
+  {
+   "id": "morluto/rea#1195",
+   "repo": "morluto/rea",
+   "base_commit": "f36c10f9e8dc45a298d668e608f8e945bde487cf",
+   "issue_created": "2026-10-09T02:28:56Z"
+  },
+  {
+   "id": "morluto/rea#1297",
+   "repo": "morluto/rea",
+   "base_commit": "1f099a6fc00b08fb0283dcabc5a238025d4c4c8b",
+   "issue_created": "2026-10-09T07:34:34Z"
+  },
+  {
+   "id": "morluto/rea#1303",
+   "repo": "morluto/rea",
+   "base_commit": "e09cfe9b5970d75da478c9dd741451cc2be5c91a",
+   "issue_created": "2026-10-09T14:05:37Z"
+  },
+  {
+   "id": "morluto/rea#1463",
+   "repo": "morluto/rea",
+   "base_commit": "b118f044926ae6b4880c4214621ae6c5b2a71f17",
+   "issue_created": "2026-10-10T06:09:59Z"
+  },
+  {
+   "id": "morluto/rea#1635",
+   "repo": "morluto/rea",
+   "base_commit": "d6f698d8af7150ef465e4ca1203194a22780da14",
+   "issue_created": "2026-10-10T20:18:04Z"
+  },
+  {
+   "id": "morluto/rea#1715",
+   "repo": "morluto/rea",
+   "base_commit": "031d7781f0f6c99e5f14e67f56cb89a88d6af3eb",
+   "issue_created": "2026-10-09T09:22:38Z"
+  },
+  {
+   "id": "morluto/rea#1876",
+   "repo": "morluto/rea",
+   "base_commit": "ea40f717b26392000f989a8b500f6774b5e85091",
+   "issue_created": "2026-10-11T14:21:20Z"
+  },
+  {
+   "id": "morluto/rea#2206",
+   "repo": "morluto/rea",
+   "base_commit": "8e004522f232ec698c77536235853088a851e6b5",
+   "issue_created": "2026-10-12T13:36:51Z"
+  },
+  {
+   "id": "morluto/rea#503",
+   "repo": "morluto/rea",
+   "base_commit": "4fbc501121e96b33665a76cad2e5c3e8ac2e2c6d",
+   "issue_created": "2026-10-04T06:28:33Z"
+  },
+  {
+   "id": "morluto/rea#535",
+   "repo": "morluto/rea",
+   "base_commit": "3e4d4d93fdc3eb5fdffda3a8dc8bec43201cdd98",
+   "issue_created": "2026-10-05T06:32:02Z"
+  },
+  {
+   "id": "morluto/rea#585",
+   "repo": "morluto/rea",
+   "base_commit": "205a9777776476b4f361e38f25d1c75baaccd420",
+   "issue_created": "2026-10-05T10:38:39Z"
+  },
+  {
+   "id": "multica-ai/multica#6338",
+   "repo": "multica-ai/multica",
+   "base_commit": "671a1a0c2199f16e4e4da16a16007dafde6b3c68",
+   "issue_created": "2026-08-04T01:12:53Z"
+  },
+  {
+   "id": "multica-ai/multica#6422",
+   "repo": "multica-ai/multica",
+   "base_commit": "b3fa17f0e0101f43442885fc2304fe1814b30186",
+   "issue_created": "2026-08-05T02:14:08Z"
+  },
+  {
+   "id": "multica-ai/multica#7312",
+   "repo": "multica-ai/multica",
+   "base_commit": "f737974b74d265b9307ea2b6b202989ef34b7a1f",
+   "issue_created": "2026-08-20T07:08:17Z"
+  },
+  {
+   "id": "multica-ai/multica#7323",
+   "repo": "multica-ai/multica",
+   "base_commit": "fbb4ec59da35df249f63690e5c37ce3e592be683",
+   "issue_created": "2026-08-20T06:26:05Z"
+  },
+  {
+   "id": "multica-ai/multica#7373",
+   "repo": "multica-ai/multica",
+   "base_commit": "9ecc6787b06872a18aefb2232fcaf1603a26ad81",
+   "issue_created": "2026-08-21T03:51:28Z"
+  },
+  {
+   "id": "multica-ai/multica#7391",
+   "repo": "multica-ai/multica",
+   "base_commit": "d60775aa9394b911b18701a326f655465604e7d1",
+   "issue_created": "2026-08-21T05:22:35Z"
+  },
+  {
+   "id": "multica-ai/multica#7489",
+   "repo": "multica-ai/multica",
+   "base_commit": "f48f24c4058472802efefd1be0ebb205c2d5663e",
+   "issue_created": "2026-08-24T03:56:14Z"
+  },
+  {
+   "id": "multica-ai/multica#7574",
+   "repo": "multica-ai/multica",
+   "base_commit": "26c04803c8d1f92345c528e5d1ebc692ed9aadb1",
+   "issue_created": "2026-08-24T07:56:50Z"
+  },
+  {
+   "id": "multica-ai/multica#7689",
+   "repo": "multica-ai/multica",
+   "base_commit": "c1e1f11e21cc2ee7dca0ac506a21cb64cca87af4",
+   "issue_created": "2026-08-28T08:24:33Z"
+  },
+  {
+   "id": "multica-ai/multica#7805",
+   "repo": "multica-ai/multica",
+   "base_commit": "a6d2a5ca836523b8fe1c215114aec03dcb975f93",
+   "issue_created": "2026-08-29T11:16:09Z"
+  },
+  {
+   "id": "multica-ai/multica#8297",
+   "repo": "multica-ai/multica",
+   "base_commit": "fe4d6a49c341980a22a5d3746932dfe7782411c9",
+   "issue_created": "2026-09-11T05:46:30Z"
+  },
+  {
+   "id": "multica-ai/multica#8657",
+   "repo": "multica-ai/multica",
+   "base_commit": "d5a25d743862d28d6aa6bcc60bc1f3db0a96097a",
+   "issue_created": "2026-09-08T11:10:27Z"
+  },
+  {
+   "id": "n8n-io/n8n#35802",
+   "repo": "n8n-io/n8n",
+   "base_commit": "14cd525465a9b287e4df7a866f3a1ae3dc0293c6",
+   "issue_created": "2026-08-07T05:16:52Z"
+  },
+  {
+   "id": "n8n-io/n8n#35939",
+   "repo": "n8n-io/n8n",
+   "base_commit": "885083f257cc36d0af5b2a472c9ec0731abc47b7",
+   "issue_created": "2026-08-09T13:04:34Z"
+  },
+  {
+   "id": "n8n-io/n8n#36082",
+   "repo": "n8n-io/n8n",
+   "base_commit": "42adcc0e7b0dd93f962aa8e85c0bf3fee3fe2106",
+   "issue_created": "2026-08-10T05:54:16Z"
+  },
+  {
+   "id": "netdata/netdata#23423",
+   "repo": "netdata/netdata",
+   "base_commit": "aa09a89966631389d3da6bb1fa3c07ad0b025ab7",
+   "issue_created": "2026-08-05T05:09:27Z"
+  },
+  {
+   "id": "netdata/netdata#23588",
+   "repo": "netdata/netdata",
+   "base_commit": "524e761d1d5a26be2790166103a44059e1253f13",
+   "issue_created": "2026-08-21T13:32:28Z"
+  },
+  {
+   "id": "netdata/netdata#24186",
+   "repo": "netdata/netdata",
+   "base_commit": "6a79f5fc41fa10b7864d8a4bf3a42f23380bc53c",
+   "issue_created": "2026-10-07T14:18:26Z"
+  },
+  {
+   "id": "netdata/netdata#24367",
+   "repo": "netdata/netdata",
+   "base_commit": "3d186e835b279d758e911c6125c4b5f70554d1b4",
+   "issue_created": "2026-10-17T23:32:49Z"
+  },
+  {
+   "id": "netdata/netdata#24448",
+   "repo": "netdata/netdata",
+   "base_commit": "29ab6180cce15e546194d8af306e0bd10beb6160",
+   "issue_created": "2026-10-26T15:19:45Z"
+  },
+  {
+   "id": "nextlevelbuilder/ui-ux-pro-max-skill#460",
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "base_commit": "bd19ab9070ecfeff9581bf0fbd3049fd542def84",
+   "issue_created": "2026-08-25T14:01:18Z"
+  },
+  {
+   "id": "nextlevelbuilder/ui-ux-pro-max-skill#501",
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "base_commit": "15de38fb70bc80ae9276fa7703b48ae861a672e6",
+   "issue_created": "2026-09-14T19:46:16Z"
+  },
+  {
+   "id": "nextlevelbuilder/ui-ux-pro-max-skill#533",
+   "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "base_commit": "616663179c5f9b5e2b3e07cab23ac9cad76378f3",
+   "issue_created": "2026-08-23T09:03:33Z"
+  },
+  {
+   "id": "nodejs/node#65076",
+   "repo": "nodejs/node",
+   "base_commit": "46a7dbd2d016412b574f7b4a81aa5908048c48f8",
+   "issue_created": "2026-08-06T06:02:57Z"
+  },
+  {
+   "id": "nodejs/node#65083",
+   "repo": "nodejs/node",
+   "base_commit": "bcb680c08cd4b874745f40d2064163cea9ebebc8",
+   "issue_created": "2026-08-06T14:43:01Z"
+  },
+  {
+   "id": "nodejs/node#65184",
+   "repo": "nodejs/node",
+   "base_commit": "3781ebc149d58cf4604403f48c6109b6a9833b22",
+   "issue_created": "2026-08-10T05:41:53Z"
+  },
+  {
+   "id": "nodejs/node#65346",
+   "repo": "nodejs/node",
+   "base_commit": "55e4ca33f3a6dfe364bd9558b726576a6d1a2fba",
+   "issue_created": "2026-08-17T05:20:59Z"
+  },
+  {
+   "id": "nodejs/node#65693",
+   "repo": "nodejs/node",
+   "base_commit": "cb9b8708c93e992fa0a1e15eec1c0333bb07e465",
+   "issue_created": "2026-09-01T03:18:19Z"
+  },
+  {
+   "id": "nodejs/node#65727",
+   "repo": "nodejs/node",
+   "base_commit": "1278496599a6ae55863380bbebe57bf454ea17f8",
+   "issue_created": "2026-09-01T18:55:57Z"
+  },
+  {
+   "id": "nodejs/node#65829",
+   "repo": "nodejs/node",
+   "base_commit": "3407386503e54ed20287b995daa6dd84a626e8d1",
+   "issue_created": "2026-09-05T20:31:34Z"
+  },
+  {
+   "id": "nodejs/node#65986",
+   "repo": "nodejs/node",
+   "base_commit": "b69172459c4c4c817170b6794b228ae9cbddc042",
+   "issue_created": "2026-08-07T16:19:21Z"
+  },
+  {
+   "id": "nodejs/node#66025",
+   "repo": "nodejs/node",
+   "base_commit": "6f723ec6e724dba723f03b5c5754267038a664fe",
+   "issue_created": "2026-09-12T15:58:24Z"
+  },
+  {
+   "id": "nodejs/node#66075",
+   "repo": "nodejs/node",
+   "base_commit": "31e841f05633513db165eeaa8f51986d6932f8ca",
+   "issue_created": "2026-09-04T09:49:08Z"
+  },
+  {
+   "id": "nodejs/node#66407",
+   "repo": "nodejs/node",
+   "base_commit": "70e1db3deb6ed16dad31ace0dbc61e0d8c6be0ff",
+   "issue_created": "2026-09-27T12:12:26Z"
+  },
+  {
+   "id": "nodejs/node#66617",
+   "repo": "nodejs/node",
+   "base_commit": "3b639be3a4dd88f81d33d4c375c8af3cfc8fe695",
+   "issue_created": "2026-10-08T17:28:27Z"
+  },
+  {
+   "id": "ollama/ollama#17757",
+   "repo": "ollama/ollama",
+   "base_commit": "f427fa075361d51f4b3a1cf4237f22dda4c1e624",
+   "issue_created": "2026-08-14T19:24:26Z"
+  },
+  {
+   "id": "ollama/ollama#18049",
+   "repo": "ollama/ollama",
+   "base_commit": "13f2fb8c99278469b954429d5541019f4d83a4d0",
+   "issue_created": "2026-08-26T03:34:37Z"
+  },
+  {
+   "id": "ollama/ollama#18353",
+   "repo": "ollama/ollama",
+   "base_commit": "b859a94509d19ad9018fdbadc83b0000b3e6c0ec",
+   "issue_created": "2026-08-15T16:28:03Z"
+  },
+  {
+   "id": "ollama/ollama#18955",
+   "repo": "ollama/ollama",
+   "base_commit": "9d353328802a6d560768a9acad3d170cde33745a",
+   "issue_created": "2026-09-24T08:49:14Z"
+  },
+  {
+   "id": "ollama/ollama#19188",
+   "repo": "ollama/ollama",
+   "base_commit": "de25dd526f4c9ba367ee69022168c6c5f2dc3285",
+   "issue_created": "2026-10-21T08:52:41Z"
+  },
+  {
+   "id": "open-webui/open-webui#28872",
+   "repo": "open-webui/open-webui",
+   "base_commit": "dcff244f9e87e615ee0a3f345f7f801c5ebe370d",
+   "issue_created": "2026-08-21T03:48:18Z"
+  },
+  {
+   "id": "open-webui/open-webui#30196",
+   "repo": "open-webui/open-webui",
+   "base_commit": "5d7c17f41a643bd7bd8a2f4c3640f2131b047e2f",
+   "issue_created": "2026-09-19T11:15:24Z"
+  },
+  {
+   "id": "open-webui/open-webui#31351",
+   "repo": "open-webui/open-webui",
+   "base_commit": "b233d0d94bf8f464da648101d2655fc81f488557",
+   "issue_created": "2026-09-24T19:11:46Z"
+  },
+  {
+   "id": "open-webui/open-webui#31393",
+   "repo": "open-webui/open-webui",
+   "base_commit": "a5176f4cdac144b45d8515978568c67ca77d0214",
+   "issue_created": "2026-09-25T02:12:53Z"
+  },
+  {
+   "id": "open-webui/open-webui#31416",
+   "repo": "open-webui/open-webui",
+   "base_commit": "e8d6a8734a96cbccc434e7ade89c459d564e896e",
+   "issue_created": "2026-09-25T16:15:45Z"
+  },
+  {
+   "id": "open-webui/open-webui#31423",
+   "repo": "open-webui/open-webui",
+   "base_commit": "6c2cdd04247a3643b612900e8fbe35ce267951c0",
+   "issue_created": "2026-09-25T20:05:21Z"
+  },
+  {
+   "id": "open-webui/open-webui#31438",
+   "repo": "open-webui/open-webui",
+   "base_commit": "9d6b17ffbc9f533a9708e3e660bc2dccada957a2",
+   "issue_created": "2026-09-25T23:22:28Z"
+  },
+  {
+   "id": "open-webui/open-webui#31461",
+   "repo": "open-webui/open-webui",
+   "base_commit": "2ab5023e5a7d8147d8581e89803ce1e203864630",
+   "issue_created": "2026-09-26T22:35:00Z"
+  },
+  {
+   "id": "open-webui/open-webui#31489",
+   "repo": "open-webui/open-webui",
+   "base_commit": "0082c153f52d68cee6e44012069dfb38ec0cdf52",
+   "issue_created": "2026-09-27T19:54:07Z"
+  },
+  {
+   "id": "open-webui/open-webui#31531",
+   "repo": "open-webui/open-webui",
+   "base_commit": "52533c567586c363a1baa48e8a5b3c4e20aea115",
+   "issue_created": "2026-09-28T07:36:39Z"
+  },
+  {
+   "id": "open-webui/open-webui#31862",
+   "repo": "open-webui/open-webui",
+   "base_commit": "8c34af303329e80a0c68bd93c214f1808af29d99",
+   "issue_created": "2026-10-02T13:47:17Z"
+  },
+  {
+   "id": "open-webui/open-webui#32429",
+   "repo": "open-webui/open-webui",
+   "base_commit": "980225e5823808de7ace86a8ee73a0b880b37023",
+   "issue_created": "2026-09-17T11:56:07Z"
+  },
+  {
+   "id": "openclaw/openclaw#117176",
+   "repo": "openclaw/openclaw",
+   "base_commit": "0d6639fe8e258cde9315802b5c64d5c31425b667",
+   "issue_created": "2026-08-01T01:45:22Z"
+  },
+  {
+   "id": "openclaw/openclaw#117292",
+   "repo": "openclaw/openclaw",
+   "base_commit": "b721cffa44618b7b556d06cceb9b1907e0382984",
+   "issue_created": "2026-08-01T08:00:39Z"
+  },
+  {
+   "id": "openclaw/openclaw#117410",
+   "repo": "openclaw/openclaw",
+   "base_commit": "20ac22f647a4212fb801930603ae7e98103208cf",
+   "issue_created": "2026-08-01T12:55:27Z"
+  },
+  {
+   "id": "openclaw/openclaw#117436",
+   "repo": "openclaw/openclaw",
+   "base_commit": "d86d4439a57102dafbdd184e8168ea48ac65a308",
+   "issue_created": "2026-08-01T14:03:14Z"
+  },
+  {
+   "id": "openclaw/openclaw#117449",
+   "repo": "openclaw/openclaw",
+   "base_commit": "5c430848b34d9d4d63fd7696431204baa5dd21a1",
+   "issue_created": "2026-08-01T13:01:30Z"
+  },
+  {
+   "id": "openclaw/openclaw#117580",
+   "repo": "openclaw/openclaw",
+   "base_commit": "aeaaaad4d045755f870e048fe697a113bb69af6c",
+   "issue_created": "2026-08-01T15:27:11Z"
+  },
+  {
+   "id": "openclaw/openclaw#117636",
+   "repo": "openclaw/openclaw",
+   "base_commit": "47bb0378eb1c79cf1cb820a73d615571487b4f35",
+   "issue_created": "2026-08-01T20:37:40Z"
+  },
+  {
+   "id": "openclaw/openclaw#117675",
+   "repo": "openclaw/openclaw",
+   "base_commit": "4153451a9a1d2cab1040e548cb33033179c51e64",
+   "issue_created": "2026-08-01T22:52:58Z"
+  },
+  {
+   "id": "openclaw/openclaw#117714",
+   "repo": "openclaw/openclaw",
+   "base_commit": "9bc3c29555009deb24bb059cc5a1dddf06fcd0a8",
+   "issue_created": "2026-08-02T00:25:25Z"
+  },
+  {
+   "id": "openclaw/openclaw#117737",
+   "repo": "openclaw/openclaw",
+   "base_commit": "b8cd96fba799ff044577b4f4f5e1b67c34100d66",
+   "issue_created": "2026-08-02T01:40:31Z"
+  },
+  {
+   "id": "openclaw/openclaw#117845",
+   "repo": "openclaw/openclaw",
+   "base_commit": "ad46acf102fc3ce9a026dbdc2f76cda1e4e24dc6",
+   "issue_created": "2026-08-02T04:07:23Z"
+  },
+  {
+   "id": "openclaw/openclaw#117853",
+   "repo": "openclaw/openclaw",
+   "base_commit": "a9662914b015fb431250e706e728e1ce615e3974",
+   "issue_created": "2026-08-02T05:33:02Z"
+  },
+  {
+   "id": "oven-sh/bun#36969",
+   "repo": "oven-sh/bun",
+   "base_commit": "9530797623c9b425cab4f85fdbff246fe120b8d7",
+   "issue_created": "2026-08-05T15:51:24Z"
+  },
+  {
+   "id": "oven-sh/bun#36989",
+   "repo": "oven-sh/bun",
+   "base_commit": "a6637728262fc74b9f70e40b1013f370294efbfc",
+   "issue_created": "2026-08-05T20:06:50Z"
+  },
+  {
+   "id": "oven-sh/bun#37023",
+   "repo": "oven-sh/bun",
+   "base_commit": "c6f3f7d01b08694117571d95e16aa34918dd360b",
+   "issue_created": "2026-08-06T06:01:38Z"
+  },
+  {
+   "id": "oven-sh/bun#37154",
+   "repo": "oven-sh/bun",
+   "base_commit": "0c35ccc0373bb4684282be401f25884d0beec5c8",
+   "issue_created": "2026-08-07T17:37:24Z"
+  },
+  {
+   "id": "oven-sh/bun#38243",
+   "repo": "oven-sh/bun",
+   "base_commit": "40546a0e91f9b41c85efeb757b6c8f38e36303a6",
+   "issue_created": "2026-08-13T13:54:38Z"
+  },
+  {
+   "id": "oven-sh/bun#40112",
+   "repo": "oven-sh/bun",
+   "base_commit": "bf6f8a96f8a557c93bc56c291a4da65a9eb66d44",
+   "issue_created": "2026-08-22T15:40:37Z"
+  },
+  {
+   "id": "oven-sh/bun#40116",
+   "repo": "oven-sh/bun",
+   "base_commit": "e5cf9e9f1c5420e14e67025866c98a7fac198934",
+   "issue_created": "2026-08-22T17:12:04Z"
+  },
+  {
+   "id": "oven-sh/bun#40608",
+   "repo": "oven-sh/bun",
+   "base_commit": "e0ead955399c5be0707ed839b4b98454a4063a44",
+   "issue_created": "2026-08-27T07:10:23Z"
+  },
+  {
+   "id": "oven-sh/bun#40655",
+   "repo": "oven-sh/bun",
+   "base_commit": "b20b90987808459889e944122c28a6bd605eeac2",
+   "issue_created": "2026-08-27T13:32:09Z"
+  },
+  {
+   "id": "pbakaus/impeccable#532",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "477484aaee2eb47e5d973666363063a66f06c873",
+   "issue_created": "2026-08-01T04:16:36Z"
+  },
+  {
+   "id": "pbakaus/impeccable#533",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "4596f3183cf1ae32aa527e40b3d558f021a49bb1",
+   "issue_created": "2026-08-02T02:45:29Z"
+  },
+  {
+   "id": "pbakaus/impeccable#553",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "3b96bd5090cd7dc7a8355edee7c53f094548ccce",
+   "issue_created": "2026-08-09T08:29:03Z"
+  },
+  {
+   "id": "pbakaus/impeccable#594",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "1159100c96e1fe4e38f26142983dd360f1869049",
+   "issue_created": "2026-08-12T15:16:24Z"
+  },
+  {
+   "id": "pbakaus/impeccable#630",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "01e51121275ff547289a866f9d88be0acdc5f1d3",
+   "issue_created": "2026-08-14T16:14:48Z"
+  },
+  {
+   "id": "pbakaus/impeccable#644",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "c39b6425fa54a093749b9a236adcd003818167c1",
+   "issue_created": "2026-08-23T19:00:50Z"
+  },
+  {
+   "id": "pbakaus/impeccable#653",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "fcd7622cd2d8e2b09344ba8ede9fcac82cec4e70",
+   "issue_created": "2026-08-25T13:37:37Z"
+  },
+  {
+   "id": "pbakaus/impeccable#658",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "d5873ff8eb2d354cbf32dc747f7014f71468ff56",
+   "issue_created": "2026-08-26T03:42:56Z"
+  },
+  {
+   "id": "pbakaus/impeccable#663",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "af2e8b3ac34eb01cba53d860eaeda5912f29419b",
+   "issue_created": "2026-08-26T15:16:33Z"
+  },
+  {
+   "id": "pbakaus/impeccable#682",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "bfafc7dbcbbe550e7eb1a42f7b431dfbfc1d659a",
+   "issue_created": "2026-08-26T08:50:05Z"
+  },
+  {
+   "id": "pbakaus/impeccable#707",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "5a7e2837d2036b2ea8386031c2cd9a539b0dab13",
+   "issue_created": "2026-08-22T01:40:49Z"
+  },
+  {
+   "id": "pbakaus/impeccable#996",
+   "repo": "pbakaus/impeccable",
+   "base_commit": "d631a8827f99414d2b6daba4ef08b7f8701751d7",
+   "issue_created": "2026-09-23T01:54:57Z"
+  },
+  {
+   "id": "rclone/rclone#10045",
+   "repo": "rclone/rclone",
+   "base_commit": "6c45cde8707f73b4bb6312cd7a2c89df67c4e751",
+   "issue_created": "2026-10-05T12:48:44Z"
+  },
+  {
+   "id": "rclone/rclone#10072",
+   "repo": "rclone/rclone",
+   "base_commit": "78be7079b97dd693e68281a579cc7d309108b672",
+   "issue_created": "2026-10-11T13:24:14Z"
+  },
+  {
+   "id": "rclone/rclone#10108",
+   "repo": "rclone/rclone",
+   "base_commit": "0677b0ca1eee360a79b772437fb6dbff911eaed4",
+   "issue_created": "2026-10-16T14:34:10Z"
+  },
+  {
+   "id": "rclone/rclone#10109",
+   "repo": "rclone/rclone",
+   "base_commit": "694dae2ed712dccac3b76b3aba6d078720ebce68",
+   "issue_created": "2026-10-16T09:31:01Z"
+  },
+  {
+   "id": "rclone/rclone#10135",
+   "repo": "rclone/rclone",
+   "base_commit": "e236d983a6365a8904980829e589f55d55d8d98c",
+   "issue_created": "2026-10-18T22:06:42Z"
+  },
+  {
+   "id": "rclone/rclone#10166",
+   "repo": "rclone/rclone",
+   "base_commit": "ea465cbb97d97a2257ff70ddcd54fb7230a9f950",
+   "issue_created": "2026-10-22T01:17:02Z"
+  },
+  {
+   "id": "rclone/rclone#10202",
+   "repo": "rclone/rclone",
+   "base_commit": "a89766467ea3c1fab84f30da43b35f042af7a1c9",
+   "issue_created": "2026-10-28T07:46:54Z"
+  },
+  {
+   "id": "rclone/rclone#9752",
+   "repo": "rclone/rclone",
+   "base_commit": "fc348fcb0bb866bd401266a248c45536bb768ed7",
+   "issue_created": "2026-08-04T01:26:56Z"
+  },
+  {
+   "id": "rclone/rclone#9823",
+   "repo": "rclone/rclone",
+   "base_commit": "c140d36a1f372cdf331e8f02abf7df39410646a4",
+   "issue_created": "2026-08-26T08:18:25Z"
+  },
+  {
+   "id": "rclone/rclone#9912",
+   "repo": "rclone/rclone",
+   "base_commit": "0e19ed565fab73afcc463457d04339df63923518",
+   "issue_created": "2026-09-12T12:40:09Z"
+  },
+  {
+   "id": "rclone/rclone#9918",
+   "repo": "rclone/rclone",
+   "base_commit": "4f0148db0c3762e299b45d8c28d57c64ea268da2",
+   "issue_created": "2026-09-14T05:09:06Z"
+  },
+  {
+   "id": "rclone/rclone#9959",
+   "repo": "rclone/rclone",
+   "base_commit": "14a1359c96b57c3aa675b6bf56925edcb8f384f0",
+   "issue_created": "2026-09-22T02:20:32Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#4865",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "673bac5fc606e0b8f9c8d536b3ac5db52f4cb149",
+   "issue_created": "2026-08-09T08:54:30Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#5048",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "55397bf68d01a99dc8fd523fe56719857afd579c",
+   "issue_created": "2026-08-14T05:01:22Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#5228",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "e1bf89395687c6ebd162fcb09bfc1c7174f941dd",
+   "issue_created": "2026-08-24T08:00:49Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#5496",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "f2041a2c787b1106e51467491dc80ca058346e05",
+   "issue_created": "2026-09-04T07:10:09Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#5596",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "82f4f370df45f7a5a4be52f8101d4294f656ff02",
+   "issue_created": "2026-09-04T08:49:40Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#5820",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "cdfb79ef843f0a0b236d9f479442fb776705f334",
+   "issue_created": "2026-09-10T05:47:45Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#6175",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "59baf7314af5255b6519689b3a0c51993274f731",
+   "issue_created": "2026-09-28T10:12:02Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#6547",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "bbcd5734f87d786a28064838fc30c1f45bd6ea9c",
+   "issue_created": "2026-10-10T17:39:49Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#7095",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "eabcb1b76fa8f1f3dbcc13e7a687340490dd44f3",
+   "issue_created": "2026-10-29T03:45:46Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#7141",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "a96e640d886a38f289f82a8e53590cc3b5e36ffa",
+   "issue_created": "2026-10-31T16:58:47Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#7166",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "ef04e83ae9e22ebd9d8e1ed8d8db0976e2db543f",
+   "issue_created": "2026-11-01T11:45:21Z"
+  },
+  {
+   "id": "router-for-me/CLIProxyAPI#7187",
+   "repo": "router-for-me/CLIProxyAPI",
+   "base_commit": "7cad1cb7df48c6c5ffb7ff0b34ef8198806115bc",
+   "issue_created": "2026-11-02T01:40:22Z"
+  },
+  {
+   "id": "rtk-ai/rtk#3519",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "f57af3581b86624790bce23cf3e5e31db2c5b53a",
+   "issue_created": "2026-08-07T15:05:04Z"
+  },
+  {
+   "id": "rtk-ai/rtk#3728",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "0022842eb28bc254d734ca306e99fabc36b276bf",
+   "issue_created": "2026-08-27T11:23:24Z"
+  },
+  {
+   "id": "rtk-ai/rtk#3788",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "a2d9f01577b23c645ea722c69f8dee8dc4fa52c4",
+   "issue_created": "2026-08-30T06:40:26Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4076",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "45b0b4c39c5ce931b364aae25d6fb00ec877c346",
+   "issue_created": "2026-09-15T03:26:14Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4335",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "2dabd83b2d2e92c75c9a2920f917bdcf32f0992e",
+   "issue_created": "2026-09-28T00:50:23Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4356",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "a4cddfc5ce6e6412c66e9729c4200792d822a964",
+   "issue_created": "2026-09-30T09:08:50Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4444",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "2ba995696e9767e56044c640a7828d1b6dc8f82b",
+   "issue_created": "2026-10-03T15:49:01Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4622",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "9a501c8d3b783b23a96073261708715381eb5ceb",
+   "issue_created": "2026-10-16T17:04:48Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4658",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "954c3371d4efa9e650f84002d4b3a0a67f97eaa7",
+   "issue_created": "2026-10-18T23:13:43Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4738",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "6c2313a6616b81408d776b39921a934e39f841ae",
+   "issue_created": "2026-10-21T00:31:35Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4740",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "7fcd1cde5afdad3ca1158ab4e0dcbd3fd14339f7",
+   "issue_created": "2026-10-03T00:13:24Z"
+  },
+  {
+   "id": "rtk-ai/rtk#4785",
+   "repo": "rtk-ai/rtk",
+   "base_commit": "16d1ccfd40d1ba7030b1b6cbabede735b4218323",
+   "issue_created": "2026-10-23T16:01:38Z"
+  },
+  {
+   "id": "rust-lang/rust#160518",
+   "repo": "rust-lang/rust",
+   "base_commit": "3c91a88cc87bbe3003dc3af7d9efc50e05053195",
+   "issue_created": "2026-08-04T14:53:59Z"
+  },
+  {
+   "id": "rust-lang/rust#160719",
+   "repo": "rust-lang/rust",
+   "base_commit": "c095cebdc48a59eaf96311f66497a0fa9508ae12",
+   "issue_created": "2026-08-07T18:14:58Z"
+  },
+  {
+   "id": "rust-lang/rust#160970",
+   "repo": "rust-lang/rust",
+   "base_commit": "02d9b6368450c6c902f7fedbdd6e3b75d421ff4f",
+   "issue_created": "2026-08-12T07:41:04Z"
+  },
+  {
+   "id": "rust-lang/rust#161024",
+   "repo": "rust-lang/rust",
+   "base_commit": "19523e0188270ed9b30336831116acc84adaca3f",
+   "issue_created": "2026-08-07T10:42:17Z"
+  },
+  {
+   "id": "rust-lang/rust#161131",
+   "repo": "rust-lang/rust",
+   "base_commit": "065bee9e85d772d5bbeb0f72d86c8bf4996465c1",
+   "issue_created": "2026-08-14T15:00:13Z"
+  },
+  {
+   "id": "rust-lang/rust#161190",
+   "repo": "rust-lang/rust",
+   "base_commit": "141ccbc3a38f9a484f0cd78ad212e5fd72d81046",
+   "issue_created": "2026-08-14T15:23:18Z"
+  },
+  {
+   "id": "rust-lang/rust#161411",
+   "repo": "rust-lang/rust",
+   "base_commit": "a7ace5d4116ff906a625467f786bc7b47747dbc5",
+   "issue_created": "2026-08-17T05:18:24Z"
+  },
+  {
+   "id": "rust-lang/rust#161467",
+   "repo": "rust-lang/rust",
+   "base_commit": "2a07cd54bfa31f3d7ff50bdde2e886d8eed65511",
+   "issue_created": "2026-08-19T17:12:45Z"
+  },
+  {
+   "id": "rustdesk/rustdesk#15924",
+   "repo": "rustdesk/rustdesk",
+   "base_commit": "f1a06f67653029baa2a3959763ed52d7959c2bf6",
+   "issue_created": "2026-08-20T16:36:16Z"
+  },
+  {
+   "id": "rustdesk/rustdesk#15978",
+   "repo": "rustdesk/rustdesk",
+   "base_commit": "fd471fcf028eaef38a447f03a5a482251208117b",
+   "issue_created": "2026-08-24T01:30:39Z"
+  },
+  {
+   "id": "rustdesk/rustdesk#16390",
+   "repo": "rustdesk/rustdesk",
+   "base_commit": "0c18a8cbc9c9fa3ce8c7f174fa40abcf9749115e",
+   "issue_created": "2026-08-31T03:19:41Z"
+  },
+  {
+   "id": "rustdesk/rustdesk#16519",
+   "repo": "rustdesk/rustdesk",
+   "base_commit": "67090d3aa14cec95af702aa01e1f3800c0c8e13c",
+   "issue_created": "2026-10-09T13:25:07Z"
+  },
+  {
+   "id": "ruvnet/RuView#1631",
+   "repo": "ruvnet/RuView",
+   "base_commit": "a76adc3c2fdf715919ea2bec5cec3a26d36cce74",
+   "issue_created": "2026-08-17T23:22:18Z"
+  },
+  {
+   "id": "ruvnet/RuView#2101",
+   "repo": "ruvnet/RuView",
+   "base_commit": "e223d86ba27c8ea4e699b8ad1897c57b98c1d1e3",
+   "issue_created": "2026-08-24T17:49:21Z"
+  },
+  {
+   "id": "ruvnet/RuView#2108",
+   "repo": "ruvnet/RuView",
+   "base_commit": "add075595842cc39c93602d9cd5535a2515c8439",
+   "issue_created": "2026-10-02T19:22:55Z"
+  },
+  {
+   "id": "ruvnet/RuView#2126",
+   "repo": "ruvnet/RuView",
+   "base_commit": "890e521a3af21a4a669aba4893cdbdc439a3906f",
+   "issue_created": "2026-10-02T19:23:15Z"
+  },
+  {
+   "id": "ruvnet/RuView#2128",
+   "repo": "ruvnet/RuView",
+   "base_commit": "9f0821cf6922b6f2fd6185f380d461f7780eefa3",
+   "issue_created": "2026-10-02T19:23:22Z"
+  },
+  {
+   "id": "ruvnet/RuView#2152",
+   "repo": "ruvnet/RuView",
+   "base_commit": "044a41d2deeb0cccef05064b5a73f84127f0d166",
+   "issue_created": "2026-08-31T15:09:15Z"
+  },
+  {
+   "id": "skylot/jadx#2995",
+   "repo": "skylot/jadx",
+   "base_commit": "ee3310cda7d93751b827c56f265cca6c6426c4a7",
+   "issue_created": "2026-10-08T23:11:26Z"
+  },
+  {
+   "id": "skylot/jadx#3044",
+   "repo": "skylot/jadx",
+   "base_commit": "979acd9b31f324077df5a4c66e9c854d25a2163c",
+   "issue_created": "2026-10-25T13:17:12Z"
+  },
+  {
+   "id": "spring-projects/spring-boot#51461",
+   "repo": "spring-projects/spring-boot",
+   "base_commit": "37a20a302b844a064abef670b0ba6a7ccda4cb7b",
+   "issue_created": "2026-08-25T09:12:28Z"
+  },
+  {
+   "id": "spring-projects/spring-boot#51774",
+   "repo": "spring-projects/spring-boot",
+   "base_commit": "d28fc5b5ffe3bb26d83960bb4b0fbd03a0b894f0",
+   "issue_created": "2026-09-03T19:05:06Z"
+  },
+  {
+   "id": "spring-projects/spring-boot#51842",
+   "repo": "spring-projects/spring-boot",
+   "base_commit": "093ea126ca4984822df88506cfdb9127bde2d011",
+   "issue_created": "2026-09-19T12:35:42Z"
+  },
+  {
+   "id": "spring-projects/spring-boot#52201",
+   "repo": "spring-projects/spring-boot",
+   "base_commit": "ac1b357395ee443a87c6d20a4faf815f40550b88",
+   "issue_created": "2026-10-06T14:57:16Z"
+  },
+  {
+   "id": "spring-projects/spring-boot#52246",
+   "repo": "spring-projects/spring-boot",
+   "base_commit": "026e96c872955f65c8e6bff652493a1b3c9b1950",
+   "issue_created": "2026-10-15T13:27:21Z"
+  },
+  {
+   "id": "spring-projects/spring-framework#37202",
+   "repo": "spring-projects/spring-framework",
+   "base_commit": "8f4fcb6cbc3b85ba0cdaae7fc2b1c552f7ef9715",
+   "issue_created": "2026-08-27T12:43:17Z"
+  },
+  {
+   "id": "spring-projects/spring-framework#37203",
+   "repo": "spring-projects/spring-framework",
+   "base_commit": "2aa36fea64d580d0e2e531ac96e6ed31660bd412",
+   "issue_created": "2026-08-27T12:43:30Z"
+  },
+  {
+   "id": "spring-projects/spring-framework#37386",
+   "repo": "spring-projects/spring-framework",
+   "base_commit": "429dd1932ba5c0e270400e76ae656fa86eef7d30",
+   "issue_created": "2026-10-03T13:29:26Z"
+  },
+  {
+   "id": "stablyai/orca#12462",
+   "repo": "stablyai/orca",
+   "base_commit": "cb960408f26e8643e2ab58cac48ae1e4db15d5de",
+   "issue_created": "2026-08-03T17:04:08Z"
+  },
+  {
+   "id": "stablyai/orca#12477",
+   "repo": "stablyai/orca",
+   "base_commit": "6ea99f66075dfa212e7099eb0630b429eaaa3697",
+   "issue_created": "2026-08-03T21:08:12Z"
+  },
+  {
+   "id": "stablyai/orca#12564",
+   "repo": "stablyai/orca",
+   "base_commit": "e4aadccefffd99189e08683eec082f7d11b931f3",
+   "issue_created": "2026-08-04T10:33:11Z"
+  },
+  {
+   "id": "stablyai/orca#12622",
+   "repo": "stablyai/orca",
+   "base_commit": "fe72eeb75c35c6ed198b229c5ccf3097ceb9fd02",
+   "issue_created": "2026-08-02T09:24:19Z"
+  },
+  {
+   "id": "stablyai/orca#12786",
+   "repo": "stablyai/orca",
+   "base_commit": "6182ca4b0485ae90493e4b73aaf3303c4354605b",
+   "issue_created": "2026-08-05T06:41:20Z"
+  },
+  {
+   "id": "stablyai/orca#12863",
+   "repo": "stablyai/orca",
+   "base_commit": "f0443c326ad3e1e29b5ff5d5690b5a85138db513",
+   "issue_created": "2026-08-06T03:59:10Z"
+  },
+  {
+   "id": "stablyai/orca#13139",
+   "repo": "stablyai/orca",
+   "base_commit": "fc8441194ce400ad3a6dfdc053d163a9f9688a33",
+   "issue_created": "2026-08-06T09:49:45Z"
+  },
+  {
+   "id": "stablyai/orca#13598",
+   "repo": "stablyai/orca",
+   "base_commit": "a0cc9f35ba1ddf85751dc1c2e0c037729f09dc4e",
+   "issue_created": "2026-08-10T12:46:33Z"
+  },
+  {
+   "id": "stablyai/orca#13981",
+   "repo": "stablyai/orca",
+   "base_commit": "36dfcc3955e38dfe16d84f28aa4153ed05569b16",
+   "issue_created": "2026-08-12T06:12:45Z"
+  },
+  {
+   "id": "stablyai/orca#14179",
+   "repo": "stablyai/orca",
+   "base_commit": "630371e879aa1e760145a07855a9ae8d2afa6c66",
+   "issue_created": "2026-08-13T03:10:26Z"
+  },
+  {
+   "id": "stablyai/orca#14359",
+   "repo": "stablyai/orca",
+   "base_commit": "f9f55075f69c5d6fa9d24e8f064f746a417c1557",
+   "issue_created": "2026-08-07T13:57:26Z"
+  },
+  {
+   "id": "stablyai/orca#14462",
+   "repo": "stablyai/orca",
+   "base_commit": "3035aa92110cdcc383ac197661ca3bd70cbbaba6",
+   "issue_created": "2026-08-14T05:25:17Z"
+  },
+  {
+   "id": "storytold/photocraft#1141",
+   "repo": "storytold/photocraft",
+   "base_commit": "ab4920a4df5020734dbfd8c0d23e7a59d5406595",
+   "issue_created": "2026-10-08T07:30:24Z"
+  },
+  {
+   "id": "storytold/photocraft#1196",
+   "repo": "storytold/photocraft",
+   "base_commit": "0d6e58e2f4682fe55fc77e0148dca987932ce240",
+   "issue_created": "2026-10-08T12:18:55Z"
+  },
+  {
+   "id": "storytold/photocraft#1268",
+   "repo": "storytold/photocraft",
+   "base_commit": "d8dfb60b9a4e2596030557385432c69c9644f012",
+   "issue_created": "2026-10-08T15:19:01Z"
+  },
+  {
+   "id": "storytold/photocraft#1269",
+   "repo": "storytold/photocraft",
+   "base_commit": "184ec31f1c2981b0942c08c6beb5cede7f492403",
+   "issue_created": "2026-10-08T15:21:00Z"
+  },
+  {
+   "id": "storytold/photocraft#1307",
+   "repo": "storytold/photocraft",
+   "base_commit": "93694cf2f60cb393ad70c285df727de812038857",
+   "issue_created": "2026-10-08T15:48:56Z"
+  },
+  {
+   "id": "storytold/photocraft#2052",
+   "repo": "storytold/photocraft",
+   "base_commit": "0493d06aaad086c62d780978de91cf23790504bc",
+   "issue_created": "2026-10-08T05:52:47Z"
+  },
+  {
+   "id": "storytold/photocraft#2131",
+   "repo": "storytold/photocraft",
+   "base_commit": "ea4579ea1181811be27387ceece5277eb646613c",
+   "issue_created": "2026-10-09T20:21:58Z"
+  },
+  {
+   "id": "storytold/photocraft#658",
+   "repo": "storytold/photocraft",
+   "base_commit": "3ac39e1edefb6847de06f7174bf6c9caf570c4d6",
+   "issue_created": "2026-10-07T03:56:59Z"
+  },
+  {
+   "id": "storytold/photocraft#660",
+   "repo": "storytold/photocraft",
+   "base_commit": "1e1f78325c021cf15d976562d1cc6cfbe8843d82",
+   "issue_created": "2026-10-07T11:13:36Z"
+  },
+  {
+   "id": "storytold/photocraft#699",
+   "repo": "storytold/photocraft",
+   "base_commit": "fe4243ba1fac2924f1e80f3f518d4c339b44c33b",
+   "issue_created": "2026-10-07T16:11:32Z"
+  },
+  {
+   "id": "storytold/photocraft#799",
+   "repo": "storytold/photocraft",
+   "base_commit": "385e8979de6c2f208ea3e43ab7f6bf91becc4f62",
+   "issue_created": "2026-10-07T16:44:00Z"
+  },
+  {
+   "id": "storytold/photocraft#885",
+   "repo": "storytold/photocraft",
+   "base_commit": "5049a1d06218211bf482e48d9070a9bd414dec3f",
+   "issue_created": "2026-10-07T17:50:25Z"
+  },
+  {
+   "id": "supabase/supabase#49940",
+   "repo": "supabase/supabase",
+   "base_commit": "e4ea619251c1e6eaa4ac23483ef896c6e772a6ef",
+   "issue_created": "2026-09-02T12:54:38Z"
+  },
+  {
+   "id": "supabase/supabase#50426",
+   "repo": "supabase/supabase",
+   "base_commit": "7ab2a0d84f7a0f326b479d3707c6750f7b022dee",
+   "issue_created": "2026-09-01T16:39:32Z"
+  },
+  {
+   "id": "tauri-apps/tauri#16195",
+   "repo": "tauri-apps/tauri",
+   "base_commit": "7c87f907ebca5e46f59c99ed1d30381d6e5bda5d",
+   "issue_created": "2026-10-02T02:46:53Z"
+  },
+  {
+   "id": "tauri-apps/tauri#16231",
+   "repo": "tauri-apps/tauri",
+   "base_commit": "a225a18e601c1d8c3c24536a2137bff263ea74bf",
+   "issue_created": "2026-10-08T04:48:44Z"
+  },
+  {
+   "id": "tauri-apps/tauri#16235",
+   "repo": "tauri-apps/tauri",
+   "base_commit": "7c24f5b154822acc53bb1a1e0186e3e972c76160",
+   "issue_created": "2026-10-08T11:03:47Z"
+  },
+  {
+   "id": "tauri-apps/tauri#16326",
+   "repo": "tauri-apps/tauri",
+   "base_commit": "4a6f512519286ff9862b2e86c67ef39f4562aee5",
+   "issue_created": "2026-10-17T09:35:32Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#3709",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "1ce59d484aa5509a1591dae7482265ff528cd815",
+   "issue_created": "2026-08-23T21:29:01Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#3878",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "be44b6c8e238a7e2bc5b3403c05afac071a59ead",
+   "issue_created": "2026-09-03T02:19:15Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#3945",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "b2ce078a9c5549928923d01013c27195903062b7",
+   "issue_created": "2026-09-06T10:47:21Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#3949",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "b6e464628135c5014cdd6926d85e9c46a9f47f24",
+   "issue_created": "2026-09-08T10:25:30Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#3972",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "e8aa53db61cfd99d179ceb7e1cc8d6fe15208ab5",
+   "issue_created": "2026-08-27T08:47:21Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#4483",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "bb7545bd126128f987d71e255656789dfe25724e",
+   "issue_created": "2026-09-29T09:35:32Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#4574",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "076b46989ab1bbe91116e60ee69d1cfdcc7bb821",
+   "issue_created": "2026-10-06T21:58:55Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#4587",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "925d48444e84aa2c30bfae6d21855ac3db3dac5e",
+   "issue_created": "2026-10-07T21:47:00Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#4617",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "cdc337e0cee5143b3d49d25e84c8d5888ef6b341",
+   "issue_created": "2026-10-09T09:42:23Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#4620",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "b4e014525ef83bb643c425a214b7dc01585e7d0e",
+   "issue_created": "2026-10-09T10:24:01Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#4868",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "4e8929319513732d0356c6256accae0a03dbaef7",
+   "issue_created": "2026-10-16T07:40:16Z"
+  },
+  {
+   "id": "thedotmack/claude-mem#5084",
+   "repo": "thedotmack/claude-mem",
+   "base_commit": "b0d1091a3f53834167907c445ee352a2795be1ff",
+   "issue_created": "2026-10-26T12:21:14Z"
+  },
+  {
+   "id": "traefik/traefik#13726",
+   "repo": "traefik/traefik",
+   "base_commit": "a45081336754c669819e729fe272b72725e9d09c",
+   "issue_created": "2026-08-19T14:36:11Z"
+  },
+  {
+   "id": "traefik/traefik#13939",
+   "repo": "traefik/traefik",
+   "base_commit": "2c0892dcc9c1761aa32930cfd8b894525ecd7311",
+   "issue_created": "2026-09-14T07:12:31Z"
+  },
+  {
+   "id": "traefik/traefik#14054",
+   "repo": "traefik/traefik",
+   "base_commit": "ee45d7a18e0f9efe87ffc74dfb793abc6c095da3",
+   "issue_created": "2026-10-12T11:16:15Z"
+  },
+  {
+   "id": "traefik/traefik#14153",
+   "repo": "traefik/traefik",
+   "base_commit": "70336717e9fa555cb60eed3b754cd46f0209ae2d",
+   "issue_created": "2026-10-28T00:36:32Z"
+  },
+  {
+   "id": "tt-a1i/archify#1094",
+   "repo": "tt-a1i/archify",
+   "base_commit": "df45c315b9ba2dc9a83760f6f7b95cf3f60d5ce4",
+   "issue_created": "2026-10-22T07:51:34Z"
+  },
+  {
+   "id": "tt-a1i/archify#166",
+   "repo": "tt-a1i/archify",
+   "base_commit": "a617076ab2e050057d4038b6f9b21da2488eb80d",
+   "issue_created": "2026-08-27T10:16:23Z"
+  },
+  {
+   "id": "tt-a1i/archify#254",
+   "repo": "tt-a1i/archify",
+   "base_commit": "99d07e1e7ab9ea0128582437a99c415a8ca57a52",
+   "issue_created": "2026-08-31T17:02:26Z"
+  },
+  {
+   "id": "tt-a1i/archify#256",
+   "repo": "tt-a1i/archify",
+   "base_commit": "b86b60789e18829885dd23c844e36549f0b40303",
+   "issue_created": "2026-08-31T13:56:45Z"
+  },
+  {
+   "id": "tt-a1i/archify#373",
+   "repo": "tt-a1i/archify",
+   "base_commit": "50e2dccf06060f430afe0f085bd37037b6fa9b11",
+   "issue_created": "2026-09-09T05:46:53Z"
+  },
+  {
+   "id": "tt-a1i/archify#484",
+   "repo": "tt-a1i/archify",
+   "base_commit": "f3cc060fd5f25810568b31e3897efa413faa4b5d",
+   "issue_created": "2026-09-16T21:09:32Z"
+  },
+  {
+   "id": "tt-a1i/archify#515",
+   "repo": "tt-a1i/archify",
+   "base_commit": "aafcdbff991d9a2349b65fc80068133c07fad83f",
+   "issue_created": "2026-09-22T10:55:06Z"
+  },
+  {
+   "id": "tt-a1i/archify#550",
+   "repo": "tt-a1i/archify",
+   "base_commit": "1c1e47ad2172c442514e36349c463d01a39af102",
+   "issue_created": "2026-09-24T01:57:45Z"
+  },
+  {
+   "id": "tt-a1i/archify#687",
+   "repo": "tt-a1i/archify",
+   "base_commit": "68b77b73eaf12297356d122968d9b7b8767be278",
+   "issue_created": "2026-10-04T02:31:58Z"
+  },
+  {
+   "id": "tt-a1i/archify#748",
+   "repo": "tt-a1i/archify",
+   "base_commit": "af49a28a2046fc0baf5a9ef7b4d9f48310d62e05",
+   "issue_created": "2026-10-07T15:19:59Z"
+  },
+  {
+   "id": "tt-a1i/archify#793",
+   "repo": "tt-a1i/archify",
+   "base_commit": "e787c8dbd376eb936be24d980e1dacdb997ec1aa",
+   "issue_created": "2026-10-09T11:29:36Z"
+  },
+  {
+   "id": "tt-a1i/archify#991",
+   "repo": "tt-a1i/archify",
+   "base_commit": "bc2a6bb94087f045bd9984d3366f6ae84bde1219",
+   "issue_created": "2026-10-14T02:59:36Z"
+  },
+  {
+   "id": "ultraworkers/claw-code#3332",
+   "repo": "ultraworkers/claw-code",
+   "base_commit": "20578124c4c02156ce328dee48c3854fd9f513ca",
+   "issue_created": "2026-10-12T23:11:48Z"
+  },
+  {
+   "id": "usememos/memos#6156",
+   "repo": "usememos/memos",
+   "base_commit": "d7226089476e72e4329f29d3bbe3cb1243dcc19b",
+   "issue_created": "2026-08-02T16:27:17Z"
+  },
+  {
+   "id": "usememos/memos#6208",
+   "repo": "usememos/memos",
+   "base_commit": "16cd3107bf324dc159ec5d1894d6c11dec7edd96",
+   "issue_created": "2026-08-18T02:30:01Z"
+  },
+  {
+   "id": "usememos/memos#6215",
+   "repo": "usememos/memos",
+   "base_commit": "488b71a00ae6107a96fd58659b44767e09041951",
+   "issue_created": "2026-08-19T10:02:52Z"
+  },
+  {
+   "id": "usememos/memos#6310",
+   "repo": "usememos/memos",
+   "base_commit": "c218355b1b6e4c9c39599f165e32bdabac54187f",
+   "issue_created": "2026-09-07T16:22:10Z"
+  },
+  {
+   "id": "usememos/memos#6324",
+   "repo": "usememos/memos",
+   "base_commit": "49b7ecc5834112e4732c864d753cdec9bdc5696c",
+   "issue_created": "2026-09-12T12:15:21Z"
+  },
+  {
+   "id": "usememos/memos#6424",
+   "repo": "usememos/memos",
+   "base_commit": "f7a61867315ff7d3b2cd7347adfc161f32022227",
+   "issue_created": "2026-10-02T15:12:33Z"
+  },
+  {
+   "id": "usememos/memos#6491",
+   "repo": "usememos/memos",
+   "base_commit": "334925a5f10c58e17b66dbc67fd4b27ed0d3fa8e",
+   "issue_created": "2026-10-21T18:37:02Z"
+  },
+  {
+   "id": "usememos/memos#6494",
+   "repo": "usememos/memos",
+   "base_commit": "901bf9f4cc89ed99a3a506e965000756b9590908",
+   "issue_created": "2026-08-06T16:57:30Z"
+  },
+  {
+   "id": "usememos/memos#6504",
+   "repo": "usememos/memos",
+   "base_commit": "bb09eb4f2807d7bd13b2ea897f15fe0ea0e2f2ea",
+   "issue_created": "2026-10-25T19:03:42Z"
+  },
+  {
+   "id": "vercel/next.js#96681",
+   "repo": "vercel/next.js",
+   "base_commit": "55ff2d23c198340f2aa782c66d8151861415bc6e",
+   "issue_created": "2026-08-04T11:16:03Z"
+  },
+  {
+   "id": "vercel/next.js#97353",
+   "repo": "vercel/next.js",
+   "base_commit": "d8be6c5b73d8ca94ad8340a2b862e2f02e334b4a",
+   "issue_created": "2026-08-07T12:21:14Z"
+  },
+  {
+   "id": "vercel/next.js#97502",
+   "repo": "vercel/next.js",
+   "base_commit": "f0088acc7daac3222d8d43ea593cf6dc6c7bc746",
+   "issue_created": "2026-08-17T17:22:20Z"
+  },
+  {
+   "id": "vercel/next.js#97723",
+   "repo": "vercel/next.js",
+   "base_commit": "cb463843e78506c6b79518af8125af05e6cbac77",
+   "issue_created": "2026-08-21T10:06:27Z"
+  },
+  {
+   "id": "vercel/next.js#97953",
+   "repo": "vercel/next.js",
+   "base_commit": "d8f95c12de0c8874b775346029a5c547b784a2cb",
+   "issue_created": "2026-08-26T13:42:38Z"
+  },
+  {
+   "id": "vercel/next.js#98252",
+   "repo": "vercel/next.js",
+   "base_commit": "64596d1f53a0f47571f3e9df9bd09dcd1e7b1480",
+   "issue_created": "2026-09-04T00:56:36Z"
+  },
+  {
+   "id": "vercel/next.js#98607",
+   "repo": "vercel/next.js",
+   "base_commit": "996f957c060aa17957a166216c69565c72996f4a",
+   "issue_created": "2026-08-05T21:40:51Z"
+  },
+  {
+   "id": "vercel/next.js#98661",
+   "repo": "vercel/next.js",
+   "base_commit": "f1285cec5f6db387f845da3cac27666b492b397e",
+   "issue_created": "2026-09-03T00:56:26Z"
+  },
+  {
+   "id": "vercel/next.js#98674",
+   "repo": "vercel/next.js",
+   "base_commit": "c92542c99c0c55237d2966243852ab5b18622569",
+   "issue_created": "2026-09-10T09:28:42Z"
+  },
+  {
+   "id": "vercel/next.js#98767",
+   "repo": "vercel/next.js",
+   "base_commit": "b1c15da6c6b2a09ac02abf371a98b39b9d8482e9",
+   "issue_created": "2026-09-11T04:08:50Z"
+  },
+  {
+   "id": "vercel/next.js#98997",
+   "repo": "vercel/next.js",
+   "base_commit": "851b6cb093a75d69175df45ce34389b7ac01ee44",
+   "issue_created": "2026-09-20T10:35:19Z"
+  },
+  {
+   "id": "zed-industries/zed#62086",
+   "repo": "zed-industries/zed",
+   "base_commit": "381953d44897c53c4d252ae30620bafaa7d060b7",
+   "issue_created": "2026-08-02T14:19:20Z"
+  },
+  {
+   "id": "zed-industries/zed#62534",
+   "repo": "zed-industries/zed",
+   "base_commit": "bc463bc205f944d620d5925f01dc59b1adc4084e",
+   "issue_created": "2026-08-12T14:31:34Z"
+  },
+  {
+   "id": "zed-industries/zed#62644",
+   "repo": "zed-industries/zed",
+   "base_commit": "db7c1d38c8e17e9d4f01c35179c847fcd5bfa09b",
+   "issue_created": "2026-08-14T08:59:06Z"
+  },
+  {
+   "id": "zed-industries/zed#62691",
+   "repo": "zed-industries/zed",
+   "base_commit": "a8b5f6b94f006850a79e0efb24446aa0e137d2b6",
+   "issue_created": "2026-08-12T09:49:12Z"
+  },
+  {
+   "id": "zed-industries/zed#62785",
+   "repo": "zed-industries/zed",
+   "base_commit": "3624a5bfda8a4610bf9926499517a776c7028321",
+   "issue_created": "2026-08-12T13:53:55Z"
+  },
+  {
+   "id": "zed-industries/zed#63336",
+   "repo": "zed-industries/zed",
+   "base_commit": "ad251e0a04e78670ea0d4c940bebcd7cfe19b6cb",
+   "issue_created": "2026-08-09T17:36:13Z"
+  },
+  {
+   "id": "zed-industries/zed#63909",
+   "repo": "zed-industries/zed",
+   "base_commit": "14b7b0ef3764d62a85070c8b5ccea105a2ad3235",
+   "issue_created": "2026-09-06T19:18:21Z"
+  },
+  {
+   "id": "zed-industries/zed#63944",
+   "repo": "zed-industries/zed",
+   "base_commit": "0d08af1e53378fc2aca09eed049ab77df1a8439a",
+   "issue_created": "2026-09-06T22:27:05Z"
+  },
+  {
+   "id": "zed-industries/zed#64007",
+   "repo": "zed-industries/zed",
+   "base_commit": "73be6ac6b1975f428328bbf7fe185d3b671afec4",
+   "issue_created": "2026-09-08T22:46:25Z"
+  },
+  {
+   "id": "zed-industries/zed#64039",
+   "repo": "zed-industries/zed",
+   "base_commit": "52e0b848dafed5d59a7634995b8b7021672dc5ab",
+   "issue_created": "2026-08-20T04:53:24Z"
+  },
+  {
+   "id": "zed-industries/zed#64788",
+   "repo": "zed-industries/zed",
+   "base_commit": "70e686c2a377f15423af4275d3c70f92374735b3",
+   "issue_created": "2026-09-24T14:13:37Z"
+  },
+  {
+   "id": "zed-industries/zed#64840",
+   "repo": "zed-industries/zed",
+   "base_commit": "0bdc70c2ebfb3f75c597f04f3e9540f992c86626",
+   "issue_created": "2026-09-26T15:32:53Z"
+  }
+ ],
+ "agent_subsample": [
+  "Comfy-Org/ComfyUI#16130",
+  "Comfy-Org/ComfyUI#16500",
+  "DietrichGebert/ponytail#1090",
+  "Leonxlnx/taste-skill#158",
+  "Mintplex-Labs/anything-llm#6343",
+  "Mintplex-Labs/anything-llm#6371",
+  "Mintplex-Labs/anything-llm#6534",
+  "Mintplex-Labs/anything-llm#6738",
+  "Mintplex-Labs/anything-llm#6879",
+  "NationalSecurityAgency/ghidra#9773",
+  "NationalSecurityAgency/ghidra#9993",
+  "NousResearch/hermes-agent#80004",
+  "NousResearch/hermes-agent#82313",
+  "QuantumNous/new-api#6674",
+  "QuantumNous/new-api#7051",
+  "QuantumNous/new-api#7387",
+  "QuantumNous/new-api#7410",
+  "Significant-Gravitas/AutoGPT#14750",
+  "Significant-Gravitas/AutoGPT#14875",
+  "Significant-Gravitas/AutoGPT#15178",
+  "TheAlgorithms/Java#7633",
+  "TheAlgorithms/Python#15492",
+  "YunaiV/ruoyi-vue-pro#1211",
+  "YunaiV/ruoyi-vue-pro#1217",
+  "YunaiV/ruoyi-vue-pro#1227",
+  "YunaiV/ruoyi-vue-pro#1270",
+  "YunaiV/ruoyi-vue-pro#1317",
+  "YunaiV/ruoyi-vue-pro#1319",
+  "YunaiV/ruoyi-vue-pro#1323",
+  "addyosmani/agent-skills#573",
+  "affaan-m/ECC#3168",
+  "affaan-m/ECC#3440",
+  "affaan-m/ECC#3590",
+  "affaan-m/ECC#3730",
+  "alibaba/arthas#3274",
+  "anomalyco/opencode#42133",
+  "anomalyco/opencode#42432",
+  "anomalyco/opencode#42791",
+  "anomalyco/opencode#44112",
+  "astral-sh/uv#21313",
+  "astral-sh/uv#21416",
+  "career-ops-hq/career-ops#2497",
+  "career-ops-hq/career-ops#3653",
+  "career-ops-hq/career-ops#3851",
+  "career-ops-hq/career-ops#3925",
+  "clash-verge-rev/clash-verge-rev#7893",
+  "clash-verge-rev/clash-verge-rev#8064",
+  "clash-verge-rev/clash-verge-rev#8411",
+  "dani-garcia/vaultwarden#7807",
+  "dbeaver/dbeaver#41857",
+  "dbeaver/dbeaver#42211",
+  "denoland/deno#36437",
+  "denoland/deno#36546",
+  "denoland/deno#36619",
+  "denoland/deno#36784",
+  "earendil-works/pi#10020",
+  "earendil-works/pi#10887",
+  "earendil-works/pi#7612",
+  "earendil-works/pi#7953",
+  "earendil-works/pi#9662",
+  "elastic/elasticsearch#156414",
+  "elastic/elasticsearch#156537",
+  "elastic/elasticsearch#156674",
+  "ethereum/go-ethereum#35753",
+  "ethereum/go-ethereum#35933",
+  "ethereum/go-ethereum#35978",
+  "farion1231/cc-switch#6228",
+  "farion1231/cc-switch#7635",
+  "farion1231/cc-switch#7991",
+  "garrytan/gstack#3134",
+  "garrytan/gstack#3380",
+  "garrytan/gstack#3848",
+  "github/spec-kit#3952",
+  "github/spec-kit#4133",
+  "github/spec-kit#4284",
+  "github/spec-kit#4764",
+  "halo-dev/halo#10368",
+  "halo-dev/halo#10436",
+  "immich-app/immich#30976",
+  "immich-app/immich#31079",
+  "immich-app/immich#31143",
+  "immich-app/immich#32010",
+  "infiniflow/ragflow#18649",
+  "infiniflow/ragflow#18663",
+  "keycloak/keycloak#51484",
+  "keycloak/keycloak#52456",
+  "keycloak/keycloak#52621",
+  "keycloak/keycloak#52734",
+  "keycloak/keycloak#53196",
+  "kubernetes/kubernetes#141276",
+  "kubernetes/kubernetes#141648",
+  "kubernetes/kubernetes#141966",
+  "kubernetes/kubernetes#142197",
+  "kubernetes/kubernetes#142607",
+  "kubernetes/kubernetes#142758",
+  "langchain-ai/langchain#39590",
+  "langchain-ai/langchain#39978",
+  "langchain-ai/langchain#40026",
+  "langchain-ai/langchain#40213",
+  "langchain-ai/langchain#40815",
+  "langchain-ai/langchain#41062",
+  "langflow-ai/langflow#14604",
+  "langflow-ai/langflow#14694",
+  "langflow-ai/langflow#15029",
+  "langflow-ai/langflow#15074",
+  "langflow-ai/langflow#15262",
+  "langgenius/dify#41145",
+  "langgenius/dify#41581",
+  "microsoft/markitdown#2430",
+  "moby/moby#53934",
+  "morluto/rea#1297",
+  "morluto/rea#1463",
+  "morluto/rea#1635",
+  "morluto/rea#1715",
+  "morluto/rea#503",
+  "multica-ai/multica#7373",
+  "multica-ai/multica#7391",
+  "multica-ai/multica#7489",
+  "multica-ai/multica#7574",
+  "n8n-io/n8n#35802",
+  "n8n-io/n8n#35939",
+  "netdata/netdata#23423",
+  "nextlevelbuilder/ui-ux-pro-max-skill#460",
+  "nodejs/node#65184",
+  "nodejs/node#65346",
+  "ollama/ollama#18049",
+  "ollama/ollama#18353",
+  "ollama/ollama#18955",
+  "ollama/ollama#19188",
+  "open-webui/open-webui#28872",
+  "open-webui/open-webui#31416",
+  "open-webui/open-webui#31438",
+  "openclaw/openclaw#117410",
+  "openclaw/openclaw#117449",
+  "openclaw/openclaw#117580",
+  "openclaw/openclaw#117714",
+  "oven-sh/bun#36989",
+  "oven-sh/bun#38243",
+  "pbakaus/impeccable#532",
+  "pbakaus/impeccable#533",
+  "pbakaus/impeccable#553",
+  "pbakaus/impeccable#594",
+  "pbakaus/impeccable#630",
+  "pbakaus/impeccable#644",
+  "pbakaus/impeccable#996",
+  "rclone/rclone#10202",
+  "rclone/rclone#9912",
+  "router-for-me/CLIProxyAPI#4865",
+  "router-for-me/CLIProxyAPI#5048",
+  "router-for-me/CLIProxyAPI#5228",
+  "router-for-me/CLIProxyAPI#5820",
+  "router-for-me/CLIProxyAPI#7187",
+  "rtk-ai/rtk#4356",
+  "rtk-ai/rtk#4444",
+  "rtk-ai/rtk#4658",
+  "rtk-ai/rtk#4785",
+  "rust-lang/rust#160719",
+  "rust-lang/rust#160970",
+  "rust-lang/rust#161131",
+  "rust-lang/rust#161190",
+  "rustdesk/rustdesk#15924",
+  "rustdesk/rustdesk#16519",
+  "ruvnet/RuView#2152",
+  "skylot/jadx#3044",
+  "spring-projects/spring-boot#51842",
+  "spring-projects/spring-boot#52201",
+  "stablyai/orca#12477",
+  "stablyai/orca#13139",
+  "storytold/photocraft#1141",
+  "storytold/photocraft#1268",
+  "storytold/photocraft#1307",
+  "storytold/photocraft#2052",
+  "storytold/photocraft#2131",
+  "storytold/photocraft#658",
+  "supabase/supabase#50426",
+  "tauri-apps/tauri#16195",
+  "tauri-apps/tauri#16231",
+  "thedotmack/claude-mem#3709",
+  "thedotmack/claude-mem#3945",
+  "thedotmack/claude-mem#4574",
+  "thedotmack/claude-mem#4587",
+  "thedotmack/claude-mem#5084",
+  "traefik/traefik#13726",
+  "traefik/traefik#14153",
+  "tt-a1i/archify#254",
+  "tt-a1i/archify#550",
+  "tt-a1i/archify#793",
+  "tt-a1i/archify#991",
+  "usememos/memos#6208",
+  "usememos/memos#6215",
+  "usememos/memos#6310",
+  "usememos/memos#6504",
+  "vercel/next.js#98661",
+  "vercel/next.js#98997",
+  "zed-industries/zed#62644",
+  "zed-industries/zed#62691",
+  "zed-industries/zed#63336",
+  "zed-industries/zed#64039"
+ ],
+ "gold_sha256": "ee111883a714b7cab37f8fdb81fad95c0fcb03d803f5f41196be98737771e994",
+ "derived_from": "data/fresh/gold.jsonl: the same bugs, commits and answer keys; text is the issue's title and full body, without comments",
+ "full_text_status": {
+  "unchanged": 580
+ },
+ "longer_than_sealed": 427,
+ "built": "2026-11-05"
+}
