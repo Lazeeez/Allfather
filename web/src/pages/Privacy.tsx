@@ -15,7 +15,7 @@ export function Privacy() {
           Parsing, indexing and ranking run in your browser. The report is kept in the page's own address after a # sign, so you can share the
           search, but browsers never send that part of an address to a server.{" "}
           {GPU
-            ? "It leaves your browser only through the GPU reranker, which is on by default (you can switch it off next to the results). Then the report and the text of the top 50 functions go to my server, which passes them to a GPU to be scored. This happens each time you pause typing, so a report you are still writing is sent too. I keep only the scores, for a day, under a hash of the request, so an identical search is answered at once. My code on the GPU server does not log or store the text."
+            ? "It leaves your browser only if you switch on the GPU reranker next to the results; it is off unless you do. Then the report and the text of the top 50 functions go to my server, which passes them to a GPU to be scored. This happens each time you pause typing, so a report you are still writing is sent too. I keep only the scores, for a day, under a hash of the request, so an identical search is answered at once. My code on the GPU server does not log or store the text."
             : "It never leaves your browser."}
         </p>
       </section>

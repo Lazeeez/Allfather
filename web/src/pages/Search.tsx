@@ -313,7 +313,12 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
   };
   const recorded = useRef<Set<string>>(new Set());
   const [semanticOn, setSemanticOn] = useState(true);
-  const [serverOn, setServerOn] = useState<boolean>(() => load("gpuRerank", true));
+  const [serverOn, setServerOn] = useState<boolean>(() => load("gpuRerank", false));
+  const [hintDismissed, setHintDismissed] = useState<boolean>(() => load("gpuHintDismissed", false));
+  const turnOnServer = (on: boolean) => {
+    setServerOn(on);
+    save("gpuRerank", on);
+  };
   const [view, setView] = useState<"functions" | "files">("functions");
   const [recent, setRecent] = useState<string[]>(() => load("recentRepos", []));
   const [issues, setIssues] = useState<GitIssue[] | "loading" | string | null>(null);
@@ -534,7 +539,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
     <div class="container app" id="search-app">
       <PageHero kicker="Search" title="Search a repository">
         <p>Downloads a public repository in Python, JavaScript, TypeScript, Go, Java or Rust into this tab, parses it with Tree-sitter (WebAssembly) and ranks its functions against your bug report with learned rankers.<span class="phone-hide">{import.meta.env.VITE_RERANK_SERVER
-          ? " The search runs in this tab; for a Python repository with the GPU reranker on, your bug report and the top 50 functions are also sent to Allfather's server to be re-read."
+          ? " The search runs in this tab. If you switch on the GPU reranker, your bug report and the top 50 functions are also sent to Allfather's server to be re-read."
           : " The search runs entirely in this tab: your bug report is never sent anywhere."}</span></p>
       </PageHero>
 
@@ -641,7 +646,7 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
               </label>
               <label class="switch" hidden={!w.stages?.rerank || !w.serverReady || !semanticOn}
                 title="Send the bug report and the top 50 functions to Allfather's GPU server, where its fine-tuned reranker re-reads them">
-                <input type="checkbox" checked={serverOn} onChange={(e) => { const on = e.currentTarget.checked; setServerOn(on); save("gpuRerank", on); }} />
+                <input type="checkbox" checked={serverOn} onChange={(e) => turnOnServer(e.currentTarget.checked)} />
                 <span class="track" aria-hidden="true" />GPU reranker
               </label>
               <span class="toolbar-links push">
@@ -663,6 +668,10 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
             {w.results?.confidence != null && (measurable(query)
               ? <Confidence p={w.results.confidence} gpu={w.results.stage === "server"} />
               : <p class="confidence low"><b>Too short to estimate</b> · reports this brief are outside what the confidence estimate was measured on. Adding the error message, a stack trace or what you expected to happen gives it more to go on.</p>)}
+            {w.results && query.trim() && w.serverReady && w.stages?.rerank && semanticOn && !serverOn && !hintDismissed && (
+              <GpuHint unsure={w.results.confidence != null && measurable(query) && band(w.results.confidence) !== "high"}
+                onEnable={() => turnOnServer(true)} onDismiss={() => { setHintDismissed(true); save("gpuHintDismissed", true); }} />
+            )}
             {w.results && (
               <p class="tokens">
                 {(w.results.stage === "instant" || w.results.stage === "semantic") && `${w.results.stage === "semantic" ? "Semantic" : "Instant"} ranking of ${info.units.toLocaleString()} functions in ${w.results.ms.toFixed(0)} ms · `}
@@ -679,12 +688,29 @@ export function Search({ active, request }: { active: boolean; request: URLSearc
             How accurate is this? <a href={href("benchmarks")}>See the benchmarks</a>.
             {feedbackEnabled && " I count searches by repository, and 👍/👎 records the function you rated and its rank. If it came from a public GitHub issue, I keep that issue's link with your vote."}
             {w.serverReady && semanticOn && serverOn
-              ? " With the GPU reranker on, a Python repository's search sends your bug report and the top 50 functions to my server to be scored, each time you pause typing; I keep only the scores, for a day, under a hash of the request. Otherwise the report stays in this tab."
+              ? " With the GPU reranker on, each search sends your bug report and the top 50 functions to my server to be scored, each time you pause typing; I keep only the scores, for a day, under a hash of the request. Otherwise the report stays in this tab."
               : " Your bug report never leaves this tab."}
           </p>
         </>
       )}
     </div>
+  );
+}
+
+function GpuHint({ unsure, onEnable, onDismiss }: { unsure: boolean; onEnable: () => void; onDismiss: () => void }) {
+  return (
+    <aside class="gpu-hint" aria-label="GPU reranker">
+      <p class="gpu-hint-text">
+        <b>{unsure ? "Not sure about this one? A second read may help." : "Want a sharper ranking?"}</b>
+        Switch on the GPU reranker: a fine-tuned model re-reads the top 50 functions on my server. Tested on projects it never trained on, it put
+        a function the fix changed in the top 10 for 4 to 10 more bugs in every 100, in all six languages. It sends your bug report and those 50
+        functions to the server, which keeps only the scores, for a day. <a href={href("benchmarks")}>See the numbers</a>.
+      </p>
+      <div class="gpu-hint-actions">
+        <button class="btn primary" type="button" onClick={onEnable}>Turn on the GPU reranker</button>
+        <button class="link-btn" type="button" onClick={onDismiss}>Not now</button>
+      </div>
+    </aside>
   );
 }
 

@@ -241,7 +241,49 @@ test("the landing page shows a real example bug, with the fix marked", async ({ 
   await expect(page.locator(".preview-results li").first().locator(".reason")).toHaveText("changed by the real fix");
 });
 
+test("the GPU reranker is off until the visitor turns it on from the hint, and the choice is remembered", async ({ page }) => {
+  const calls: string[] = [];
+  await page.route("https://rerank.allfather-e2e.test/rerank/warm", (route) => {
+    calls.push("warm");
+    return route.fulfill({ status: 202, json: { warming: true } });
+  });
+  await page.route("https://rerank.allfather-e2e.test/rerank", (route) => {
+    calls.push("rerank");
+    return route.fulfill({ json: { scores: [[0, 0]] } });
+  });
+  await page.goto(`./search?repo=${encodeURIComponent(REPO)}`);
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
+  await page.locator("#demo-query").fill("load_config crashes with KeyError when the settings file is missing");
+  const hint = page.locator(".gpu-hint");
+  await expect(hint).toBeVisible();
+  await expect(page.locator(".fineprint")).toContainText("Your bug report never leaves this tab.");
+  expect(calls).toEqual([]);
+  await hint.getByRole("button", { name: "Turn on the GPU reranker" }).click();
+  await expect.poll(() => calls.includes("rerank")).toBe(true);
+  await expect(hint).toBeHidden();
+  await page.reload();
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
+  await page.locator("#demo-query").fill("load_config crashes with KeyError when the settings file is missing");
+  await expect(page.locator("label.switch", { hasText: "GPU reranker" }).locator("input")).toBeChecked();
+  await expect(page.locator(".gpu-hint")).toHaveCount(0);
+});
+
+test("dismissing the GPU hint keeps it away", async ({ page }) => {
+  await page.route("https://rerank.allfather-e2e.test/rerank/warm", (route) => route.fulfill({ status: 202, json: { warming: true } }));
+  await page.goto(`./search?repo=${encodeURIComponent(REPO)}`);
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
+  await page.locator("#demo-query").fill("load_config crashes with KeyError when the settings file is missing");
+  await page.locator(".gpu-hint").getByRole("button", { name: "Not now" }).click();
+  await expect(page.locator(".gpu-hint")).toHaveCount(0);
+  await page.reload();
+  await expect(page.locator(".repo-pill")).toContainText(REPO);
+  await page.locator("#demo-query").fill("load_config crashes with KeyError when the settings file is missing");
+  await expect(page.locator("#search-app ol.hits > li").first()).toBeVisible();
+  await expect(page.locator(".gpu-hint")).toHaveCount(0);
+});
+
 test("the GPU reranker reorders the top results without downloading the browser's language model", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("gpuRerank", "true"));
   const languageModel: string[] = [];
   page.on("request", (r) => { if (/onnx|ort-wasm|transformers@/.test(r.url())) languageModel.push(r.url()); });
   await page.route("https://rerank.allfather-e2e.test/rerank/warm", (route) => route.fulfill({ status: 202, json: { warming: true } }));
@@ -262,6 +304,7 @@ test("the GPU reranker reorders the top results without downloading the browser'
 });
 
 test("the GPU is woken for a repository in another language and re-reads its results", async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem("gpuRerank", "true"));
   const calls: string[] = [];
   await page.route("https://rerank.allfather-e2e.test/rerank/warm", (route) => {
     calls.push("warm");

@@ -29,7 +29,7 @@ export interface Results {
 export function useSearchWorker() {
   const worker = useRef<Worker | null>(null);
   const seq = useRef(0);
-  const gpu = useRef<boolean>(stored("gpuRerank", true));
+  const gpu = useRef<boolean>(stored("gpuRerank", false));
   const loadingRef = useRef(false);
   /** The furthest overall progress of the current load: never shown going backwards. */
   const furthest = useRef(0);
