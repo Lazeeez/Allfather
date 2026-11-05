@@ -8,7 +8,7 @@ import { type Listing, type LoadedRepo, LoadError, type Parsing, type RepoCache,
 import { type Candidate, explain, type FileCandidate, type RankerModel, rankFiles, rankUnits, rerankStage, type Similarity, type Stage, signals } from "../engine/rank.ts";
 import { issueFields } from "../engine/mentions.ts";
 import { type Embed, SEMANTIC, unitText } from "../engine/semantic.ts";
-import { blend, forServer, servedLanguage, SERVER, ServerUnavailable, serverScores } from "../engine/server.ts";
+import { blend, forServer, serverLanguage, servedLanguage, SERVER, SERVER_WEIGHTS, ServerUnavailable, serverScores, SKIP_LANGUAGE_MODEL } from "../engine/server.ts";
 import { confidence, confidenceFeatures, type ConfidenceModel } from "../engine/confidence.ts";
 import { embedText, parseStaticModel, type StaticModel } from "../engine/static.ts";
 import type { Unit } from "../engine/types.ts";
@@ -291,14 +291,14 @@ async function load(input: string, includeTests: boolean, gpu: boolean): Promise
     const { index: _index, units, ...info } = repo;
     post({ type: "loaded", info: { ...info, units: units.length } });
     if (warmPending) warmServer();
-    const python = servedLanguage(units.map((u) => u.path));
+    const served = serverLanguage(units.map((u) => u.path));
     void buildSemantic(repo.index);
     void ranker().then((m) => {
       post({ type: "stages", rerank: !!m.rerank, file: !!m.file });
       // Warm the rerank model while the visitor reads the first results, if it is used at all:
       // not on a Data Saver connection, and not when the GPU reranker will answer instead.
       const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
-      if (m.rerank && !saveData && !(gpu && rerankServer && SERVER.skipLanguageModel && python)) embedder().catch(() => {});
+      if (m.rerank && !saveData && !(gpu && rerankServer && served && SKIP_LANGUAGE_MODEL.has(served))) embedder().catch(() => {});
     }, () => {});
     void trimVectors(); // keep stored embeddings within budget
   } catch (err) {
@@ -355,10 +355,12 @@ async function search(id: number, query: string, semantic: boolean, server: bool
   });
   // The rerank stage was trained on the semantic stage's candidates.
   if (!semantic || !model.rerank || !semanticStage || ranked.candidates.length < 2) return;
-  const python = forServer(ranked.candidates.map((c) => c.unit.path));
-  if (server && rerankServer && !python) post({ type: "server-skip", id });
-  const gpu = server && rerankServer && python ? askServer(id, query, ranked.candidates) : null;
-  if (gpu && SERVER.skipLanguageModel && ((await serverStage(id, gpu, stage, ranked.candidates, files, ranked.terms, k, sure)) || id !== state.latest)) return;
+  const lang = forServer(ranked.candidates.map((c) => c.unit.path));
+  if (server && rerankServer && !lang) post({ type: "server-skip", id });
+  const gpu = server && rerankServer && lang ? askServer(id, query, ranked.candidates) : null;
+  const weight = lang ? SERVER_WEIGHTS[lang] : 1;
+  const skip = !!lang && SKIP_LANGUAGE_MODEL.has(lang);
+  if (gpu && skip && ((await serverStage(id, gpu, stage, ranked.candidates, files, ranked.terms, k, weight, sure)) || id !== state.latest)) return;
   let final = ranked.candidates;
   let finalStage: Stage = stage;
   try {
@@ -392,7 +394,7 @@ async function search(id: number, query: string, semantic: boolean, server: bool
     if (err instanceof Superseded) return;
     post({ type: "semantic-error", id, message: err instanceof Error ? err.message : String(err) });
   }
-  if (gpu && !SERVER.skipLanguageModel && id === state.latest) await serverStage(id, gpu, finalStage, final, files, ranked.terms, k, sure);
+  if (gpu && !skip && id === state.latest) await serverStage(id, gpu, finalStage, final, files, ranked.terms, k, weight, sure);
 }
 
 interface ServerJob {
@@ -419,7 +421,7 @@ function askServer(id: number, query: string, candidates: Candidate[]): ServerJo
   return job;
 }
 
-async function serverStage(id: number, job: ServerJob, stage: Stage, order: Candidate[], files: WireFile[] | undefined, terms: string[], k: number, sure?: number): Promise<boolean> {
+async function serverStage(id: number, job: ServerJob, stage: Stage, order: Candidate[], files: WireFile[] | undefined, terms: string[], k: number, weight: number, sure?: number): Promise<boolean> {
   try {
     const byRow = await job.scores;
     if (id !== state.latest) return false;
@@ -428,7 +430,7 @@ async function serverStage(id: number, job: ServerJob, stage: Stage, order: Cand
     const members = byRow.get(head[0].row)!.length;
     const scores = Array.from({ length: members }, (_, m) => head.map((c) => byRow.get(c.row)![m]));
     const prior = new Map(order.map((c, i) => [c.row, i + 1]));
-    const blended = blend(order, scores);
+    const blended = blend(order, scores, SERVER.depth, weight);
     const hits = explained(stage, blended, k);
     hits.forEach((h, i) => {
       const was = prior.get(blended[i].row);

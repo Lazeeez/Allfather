@@ -140,7 +140,7 @@ export function useSearchWorker() {
       case "server-skip":
         if (msg.id === seq.current) {
           setServerSince(null);
-          setServer("The GPU reranker runs on Python repositories for now, with all six languages coming soon, so for this repository the ranking stays in your browser.");
+          setServer("The GPU reranker re-reads a list when most of its top 50 functions are in one language, and these are mixed, so for this search the ranking stays in your browser.");
         }
         return;
       case "server-error":

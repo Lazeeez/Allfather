@@ -7,8 +7,10 @@ BASE = "Qwen/Qwen3-Reranker-0.6B"
 BASE_REVISION = "e61197ed45024b0ed8a2d74b80b4d909f1255473"
 ROOT = Path(__file__).resolve().parent.parent.parent
 MEMBERS = {
-    "v1": ("ce_adapter_v1", "91246a13d417d71e01b2f24a7b35bfc46c51f231ac2ae2728761499604d603b9"),
-    "v2": ("ce_adapter", "9ce9bafbf4c21b80a89a99557871792b07ac5368528eb151f48be0cb021e08a0"),
+    "six": (
+        "ce_multi/A/foldall",
+        "cfb03fda28c7aed89c9b397440fdc72eabb0c1d3c55dc168a6d2195aeb1fcd82",
+    ),
 }
 MAX_TEXTS = 50
 MAX_CHARS = 8000
@@ -61,7 +63,9 @@ class Reranker:
         for member, (_, digest) in MEMBERS.items():
             weights = Path(f"/adapters/{member}/adapter_model.safetensors").read_bytes()
             if hashlib.sha256(weights).hexdigest() != digest:
-                raise RuntimeError(f"adapter {member} does not match models/adapters.json")
+                raise RuntimeError(
+                    f"adapter {member} does not match the hash in deploy/modal/reranker.py"
+                )
         self.members = [
             CrossEncoder(adapter=Path(f"/adapters/{m}"), base=base, batch=MAX_TEXTS)
             for m in MEMBERS

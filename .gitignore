@@ -41,7 +41,7 @@ results/more-data/parts/
 dist/
 
 # Reranker adapter weights (~39 MB each): rebuild with `make reranker`; recipes are kept.
-models/*/*.safetensors
+models/**/*.safetensors
 web/node_modules/
 web/dist/
 *.tsbuildinfo

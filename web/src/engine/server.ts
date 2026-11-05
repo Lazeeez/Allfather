@@ -1,22 +1,31 @@
-export const SERVER = { depth: 50, weight: 1, maxChars: 8000, timeoutMs: 90_000, settleMs: 500, skipLanguageModel: true } as const;
+export const SERVER = { depth: 50, maxChars: 8000, timeoutMs: 90_000, settleMs: 500 } as const;
 
 import { type Lang, languageOf } from "./languages-rules.ts";
 
-export const SERVER_LANGUAGES: ReadonlySet<string> = new Set(["python"]);
+export const SERVER_WEIGHTS: Readonly<Record<string, number>> = { python: 1, go: 2, java: 2, javascript: 2, typescript: 2, rust: 2 };
+
+export const SERVER_LANGUAGES: ReadonlySet<string> = new Set(Object.keys(SERVER_WEIGHTS));
+
+export const SKIP_LANGUAGE_MODEL: ReadonlySet<string> = new Set(["python"]);
 
 const family = (lang: Lang | null): string | null => (lang === "tsx" ? "typescript" : lang);
 
-export function forServer(paths: string[]): boolean {
-  return servedLanguage(paths.slice(0, SERVER.depth));
+export function forServer(paths: string[]): string | null {
+  return serverLanguage(paths.slice(0, SERVER.depth));
 }
 
-export function servedLanguage(paths: readonly string[]): boolean {
+export function serverLanguage(paths: readonly string[]): string | null {
   const counts = new Map<string, number>();
   for (const p of paths) {
     const lang = family(languageOf(p));
     if (lang) counts.set(lang, (counts.get(lang) ?? 0) + 1);
   }
-  return [...counts].some(([lang, n]) => SERVER_LANGUAGES.has(lang) && n * 2 > paths.length);
+  const found = [...counts].find(([lang, n]) => SERVER_LANGUAGES.has(lang) && n * 2 > paths.length);
+  return found ? found[0] : null;
+}
+
+export function servedLanguage(paths: readonly string[]): boolean {
+  return serverLanguage(paths) !== null;
 }
 
 export class ServerUnavailable extends Error {
@@ -34,7 +43,7 @@ const z = (x: number[]): number[] => {
   return std > 0 ? x.map((v) => (v - mean) / std) : x.map(() => 0);
 };
 
-export function blend<T>(items: T[], scores: number[][], depth: number = SERVER.depth, weight: number = SERVER.weight): T[] {
+export function blend<T>(items: T[], scores: number[][], depth: number = SERVER.depth, weight = 1): T[] {
   const n = Math.min(depth, items.length, ...scores.map((s) => s.length));
   if (!scores.length || n < 2) return items;
   const members = scores.map((s) => z(s.slice(0, n)));

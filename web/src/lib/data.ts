@@ -88,10 +88,10 @@ export interface GpuReranker {
   "hit@10_gain": { delta: number; ci95: [number, number]; p_value: number };
   "skip_hit@10": { delta: number; ci95: [number, number]; p_value: number };
   held_out?: Record<string, { issues: number; website: Metrics; with_reranker: Metrics; "hit@10_gain": { delta: number; ci95: [number, number]; p_value: number } }>;
-  other_languages?: {
+  six_languages?: {
     issues: number;
     projects: number;
-    by_language: Record<string, { issues: number; "website_hit@10": number; "with_reranker_hit@10": number; gain: number; wins: number; losses: number; p_holm: number }>;
+    by_language: Record<string, { issues: number; "website_hit@10": number; "with_reranker_hit@10": number; gain: number; wins: number; losses: number; p_holm: number | null }>;
   };
 }
 

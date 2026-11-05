@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { blend, forServer, SERVER_LANGUAGES, servedLanguage, ServerUnavailable, serverScores } from "../src/engine/server.ts";
+import { readFileSync } from "node:fs";
+import { blend, forServer, SERVER, SERVER_LANGUAGES, SERVER_WEIGHTS, serverLanguage, servedLanguage, ServerUnavailable, serverScores, SKIP_LANGUAGE_MODEL } from "../src/engine/server.ts";
 import cases from "./server-blend.json";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -43,31 +44,50 @@ describe("GPU reranker call", () => {
 });
 
 describe("which searches go to the GPU reranker", () => {
-  it("sends a list whose top functions are mostly Python", () => {
-    expect(forServer(["a.py", "b.py", "c.ts"])).toBe(true);
+  it("sends a list whose top functions are mostly in one of the six languages, and names it", () => {
+    expect(forServer(["a.py", "b.py", "c.ts"])).toBe("python");
+    expect(forServer(["a.go", "b.go", "c.py"])).toBe("go");
+    expect(forServer(["a.ts", "b.tsx", "c.py"])).toBe("typescript");
   });
 
-  it("keeps other languages in the browser, since the reranker was trained on Python only", () => {
-    expect(forServer(["src/a.ts", "src/b.go", "lib/c.py"])).toBe(false);
-    expect(forServer(["a.py", "b.java"])).toBe(false);
-    expect(forServer([])).toBe(false);
+  it("keeps mixed lists in the browser, since no language has a majority", () => {
+    expect(forServer(["src/a.ts", "src/b.go", "lib/c.py"])).toBeNull();
+    expect(forServer(["a.py", "b.java"])).toBeNull();
+    expect(forServer([])).toBeNull();
   });
 
   it("decides on the 50 functions the server would re-read", () => {
-    expect(forServer([...Array(50).fill("a.py"), ...Array(200).fill("b.rs")])).toBe(true);
+    expect(forServer([...Array(50).fill("a.py"), ...Array(200).fill("b.rs")])).toBe("python");
+  });
+});
+
+describe("the frozen setting for each language (ADR 0034)", () => {
+  it("serves all six languages, weight 1 for Python and 2 for the rest", () => {
+    expect([...SERVER_LANGUAGES].sort()).toEqual(["go", "java", "javascript", "python", "rust", "typescript"]);
+    expect(SERVER_WEIGHTS).toEqual({ python: 1, go: 2, java: 2, javascript: 2, typescript: 2, rust: 2 });
+  });
+
+  it("skips the browser's language model only where a test showed it safe", () => {
+    expect([...SKIP_LANGUAGE_MODEL]).toEqual(["python"]);
+  });
+
+  it("matches the configuration the study froze", () => {
+    const config = JSON.parse(readFileSync(new URL("../../results/website-rerank/gpu_config.json", import.meta.url), "utf-8"));
+    for (const [lang, setting] of Object.entries(config.languages) as [string, { depth: number; weight: number }][]) {
+      expect(SERVER_WEIGHTS[lang]).toBe(setting.weight);
+      expect(setting.depth).toBe(SERVER.depth);
+    }
   });
 });
 
 describe("repositories the GPU is woken for", () => {
   it("counts every indexed function, not only the top of a list", () => {
     expect(servedLanguage(["a.py", "b.py", "c.go"])).toBe(true);
-    expect(servedLanguage(["a.go", "b.go", "c.py"])).toBe(false);
+    expect(servedLanguage(["a.go", "b.rs", "c.py"])).toBe(false);
     expect(servedLanguage([])).toBe(false);
   });
 
-  it("serves only the languages listed, counting .tsx as TypeScript", () => {
-    expect([...SERVER_LANGUAGES]).toEqual(["python"]);
-    expect(servedLanguage(["a.ts", "b.tsx", "c.py"])).toBe(false);
-    expect(servedLanguage(["a.py", "b.tsx", "c.tsx", "d.py", "e.py"])).toBe(true);
+  it("counts .tsx as TypeScript", () => {
+    expect(serverLanguage(["a.ts", "b.tsx", "c.py"])).toBe("typescript");
   });
 });

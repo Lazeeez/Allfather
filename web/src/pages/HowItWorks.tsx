@@ -21,9 +21,9 @@ const JOURNEY: [IconName, string, string, string][] = [
   ["vector", "Understand", "In the background, Allfather learns what every function means, to find code the report never names.",
     "A static code-embedding model (16.8 MB, downloaded once) embeds every function in the background; a second ranker adds how close each function is in meaning to the issue."],
   ["layers", "Reread", "The top 20 get a closer read, the way a developer would skim them.",
-    `A small language model (MiniLM: 45 MB on a GPU through WebGPU, 23 MB on the CPU, downloaded once) embeds the issue and the top 20 functions; a third ranker reorders them with that evidence. A file ranker orders whole files for the Files view.${GPU_RERANK ? " With the GPU reranker on, this step runs only if the server does not answer: the reranker does as well without it." : ""}`],
+    `A small language model (MiniLM: 45 MB on a GPU through WebGPU, 23 MB on the CPU, downloaded once) embeds the issue and the top 20 functions; a third ranker reorders them with that evidence. A file ranker orders whole files for the Files view.${GPU_RERANK ? " With the GPU reranker on, for Python repositories this step runs only if the server does not answer: there the reranker does as well without it." : ""}`],
   ...(GPU_RERANK ? [["chip", "Judge", "Allfather's own fine-tuned reranker reads the top 50 against the report, on a GPU server.",
-    "The full pipeline's reranker (two LoRA adapters on Qwen3-Reranker-0.6B, too large and too slow for a browser) scores the top 50 on a GPU; its scores are blended with the browser's order, without waiting for the language model above. Cross-validated on 3,174 bugs from 119 projects it never trained on, it lifts function hit@10 from 79.3% to 81.9%. I trained and measured it on Python, so the site uses it only for Python repositories; you can switch it off, and the browser's ranking stays if the server does not answer."]] as typeof JOURNEY : []),
+    "A fine-tuned reranker (one LoRA adapter on Qwen3-Reranker-0.6B, trained on bugs in all six languages, too large and too slow for a browser) scores the top 50 on a GPU, and its scores are blended with the browser's order. Cross-validated with whole projects held out, it lifts function hit@10 in every language, from 79.3% to 83.6% in Python. You can switch it off, and the browser's ranking stays if the server does not answer."]] as typeof JOURNEY : []),
   ["clock", "Remember", "The next visit to the same repository skips the download and the parsing.",
     "Parsed repositories are cached by git tree hash in IndexedDB. Everything heavy runs in background threads, so the page stays responsive."],
 ];
@@ -43,7 +43,7 @@ export function HowItWorks({ summary }: { summary: Summary | null }) {
         <p class="kicker">In your browser</p>
         <h2>What happens when you press Search</h2>
         <p class="section-lede">When you <a href={href("search")}>search a repository</a>, everything below runs in Web Workers in your tab.{GPU_RERANK
-          ? " Two steps use servers of ours: the relay that passes the repository download through, and, for Python repositories, the GPU reranker, which receives your bug report and the top 50 functions to score them."
+          ? " Two steps use servers of ours: the relay that passes the repository download through, and the GPU reranker, which receives your bug report and the top 50 functions to score them."
           : " The only server of ours is the relay that passes the repository download through, and your bug report is never sent anywhere."}</p>
         <ol class="journey">
           {JOURNEY.map(([icon, title, plain, detail]) => (

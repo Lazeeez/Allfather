@@ -261,7 +261,7 @@ test("the GPU reranker reorders the top results without downloading the browser'
   expect(languageModel).toEqual([]);
 });
 
-test("the GPU is woken for a Python repository and left asleep for one in another language", async ({ page }) => {
+test("the GPU is woken for a repository in another language and re-reads its results", async ({ page }) => {
   const calls: string[] = [];
   await page.route("https://rerank.allfather-e2e.test/rerank/warm", (route) => {
     calls.push("warm");
@@ -273,13 +273,10 @@ test("the GPU is woken for a Python repository and left asleep for one in anothe
   });
   await page.goto(`./search?repo=${encodeURIComponent(GO_REPO)}`);
   await expect(page.locator(".repo-pill")).toContainText(GO_REPO);
-  await page.locator("#demo-query").fill("LoadConfig fails when the settings file is missing");
-  await expect(page.locator("p.status-line", { hasText: "runs on Python repositories for now" })).toBeVisible();
-  await expect(page.locator("#search-app ol.hits .qual").first()).toHaveText("LoadConfig");
-  expect(calls).toEqual([]);
-  await page.goto(`./search?repo=${encodeURIComponent(REPO)}`);
-  await expect(page.locator(".repo-pill")).toContainText(REPO);
   await expect.poll(() => calls.includes("warm")).toBe(true);
+  await page.locator("#demo-query").fill("LoadConfig fails when the settings file is missing");
+  await expect.poll(() => calls.includes("rerank")).toBe(true);
+  await expect(page.locator("#search-app ol.hits .qual").first()).toHaveText("LoadConfig");
 });
 
 test("Explore shows bugs in other languages, ranked by the website's own stages", async ({ page }) => {

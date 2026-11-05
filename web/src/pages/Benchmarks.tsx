@@ -260,7 +260,7 @@ function Gpu({ g }: { g: GpuReranker }) {
   const rows: [string, Record<string, number>][] = [
     ["The browser's ranking", g.website],
     ["With the GPU reranker", g.with_reranker],
-    ["GPU reranker, no browser language model (what the site runs)", g.without_language_model],
+    ["GPU reranker, no browser language model (what the site runs for Python)", g.without_language_model],
   ];
   const gain = g["hit@10_gain"];
   return (
@@ -268,11 +268,11 @@ function Gpu({ g }: { g: GpuReranker }) {
       <p class="kicker">On a GPU server</p>
       <h2>The fine-tuned reranker</h2>
       <p class="card-lede">
-        For a Python repository, the search page can send your bug report and its top 50 functions to a GPU, where the full pipeline's
-        reranker re-reads them.
-        I measured it before building it, by cross-validation on {g.issues.toLocaleString()} bugs from {g.projects} projects the reranker never
+        The search page can send your bug report and its top 50 functions to a GPU, where a fine-tuned reranker re-reads them. I first
+        built it for Python and measured it before building it, by cross-validation on {g.issues.toLocaleString()} bugs from {g.projects} projects the reranker never
         trained on: function hit@10 {gain.delta >= 0 ? "+" : ""}{(gain.delta * 100).toFixed(1)} points (95% interval {(gain.ci95[0] * 100).toFixed(1)} to{" "}
-        {(gain.ci95[1] * 100).toFixed(1)}, p {gain.p_value < 0.001 ? "< 0.001" : `= ${gain.p_value.toFixed(3)}`}).
+        {(gain.ci95[1] * 100).toFixed(1)}, p {gain.p_value < 0.001 ? "< 0.001" : `= ${gain.p_value.toFixed(3)}`}). The first two tables are that
+        Python-only version; the last is the reranker the site runs now, trained on all six languages.
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="The GPU reranker's effect">
         <table class="label-first">
@@ -316,21 +316,20 @@ function Gpu({ g }: { g: GpuReranker }) {
           <p class="note">Function in the top 10, what the site runs (the GPU reranker blended into the browser's semantic ranking), on projects nothing was trained on.</p>
         </>
       )}
-      {g.other_languages && <BeyondPython o={g.other_languages} />}
+      {g.six_languages && <SixLanguages o={g.six_languages} />}
     </section>
   );
 }
 
-function BeyondPython({ o }: { o: NonNullable<GpuReranker["other_languages"]> }) {
+function SixLanguages({ o }: { o: NonNullable<GpuReranker["six_languages"]> }) {
   const rows = Object.entries(o.by_language).filter(([lang]) => lang in LANGUAGE_NAMES);
   return (
     <>
-      <h3 class="subhead">Beyond Python</h3>
+      <h3 class="subhead">In all six languages</h3>
       <p class="note">
-        For now the server re-reads results for Python repositories only, because I trained the reranker on Python bugs. To see whether it
-        would help elsewhere, I ran the same reranker, unchanged, on {o.issues.toLocaleString()} bugs from {o.projects} projects in the five
-        other languages the site reads, with whole projects held out as before. It helped in every one of them. I'm now training a single
-        reranker on all six languages, and I'll switch it on for every language once I've chosen it and checked that it answers quickly enough.
+        The Python-only reranker, run unchanged on bugs in the five other languages, helped in every one of them. So I trained one reranker on
+        bugs from all six, chose it from three candidates by a rule I fixed in advance, and the site now uses it for every language. Measured
+        with whole projects held out, on {o.issues.toLocaleString()} bugs from {o.projects} projects:
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="The GPU reranker in other languages">
         <table class="label-first">
@@ -342,8 +341,8 @@ function BeyondPython({ o }: { o: NonNullable<GpuReranker["other_languages"]> })
                 <td class="num phone-hide-col">{r.issues}</td>
                 <td class="num phone-hide-col">{pct(r["website_hit@10"])}</td>
                 <td class="num">{pct(r["with_reranker_hit@10"])}</td>
-                <td class={`num${r.p_holm < 0.05 && r.gain > 0 ? " sig" : ""}`}>{r.gain >= 0 ? "+" : ""}{(r.gain * 100).toFixed(1)}</td>
-                <td class="num phone-hide-col">{r.p_holm < 0.001 ? "<0.001" : r.p_holm.toFixed(3)}</td>
+                <td class={`num${r.p_holm != null && r.p_holm < 0.05 && r.gain > 0 ? " sig" : ""}`}>{r.gain >= 0 ? "+" : ""}{(r.gain * 100).toFixed(1)}</td>
+                <td class="num phone-hide-col">{r.p_holm == null ? "–" : r.p_holm < 0.001 ? "<0.001" : r.p_holm.toFixed(3)}</td>
               </tr>
             ))}
           </tbody>
@@ -351,7 +350,7 @@ function BeyondPython({ o }: { o: NonNullable<GpuReranker["other_languages"]> })
       </div>
       <p class="note">
         Function in the top 10, cross-validated on training projects. Adjusted p: the exact paired test on each language with Holm's correction
-        across the five; bold changes are significant after adjustment.
+        across the five languages other than Python; bold changes are significant after adjustment.
       </p>
     </>
   );
@@ -387,7 +386,7 @@ function NextStudy() {
 }
 
 const ROADMAP: [string, string, string][] = [
-  ["November 2026", "The GPU reranker in all six languages", "I'm choosing between three rerankers trained on all six languages, then checking that the winner answers quickly enough before I switch it on for every language."],
+  ["November 2026", "The GPU reranker in all six languages", "Done: one reranker trained on all six languages now re-reads results for every repository."],
   ["December 2026", "Results against frontier AI agents", "Once every system has run on fresh-2026, I'll publish the full comparison here: accuracy, cost, speed, and how Allfather ranks among the free tools."],
   ["Early 2027", "More languages", "C, C++, C# and PHP come next, chosen for how widely they're used and whether public bug data exists to train and test on. Each new language gets its own held-out test before I claim anything for it."],
 ];

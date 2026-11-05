@@ -19,11 +19,11 @@ function decisions(lite: Lite | null): [string, string][] {
     ["The same engine, twice",
       "I ported the Python engine to TypeScript so the website can run it in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so I can measure the browser's accuracy in Python. The pinned parity run covers Python repositories; the other languages are covered by unit tests."],
     ["A GPU only where it pays",
-      "I put the full pipeline's reranker on a GPU server for the website only after a test I fixed in advance showed +2.6 points; a second test showed I could then skip the browser's own language model, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. I trained and measured it on Python, so the site uses it for Python repositories only."],
+      "I put the full pipeline's reranker on a GPU server for the website only after a test I fixed in advance showed +2.6 points; a second test showed I could then skip the browser's own language model, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. I trained and measured it on Python first; the site now runs one reranker trained on all six languages."],
     ["Six languages, each earning its ranker",
       `I added JavaScript, TypeScript, Go, Java and Rust under a rule I wrote before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
     ["A reranker that travels",
-      "The GPU reranker was trained on Python bugs only, so I tested it on the other five languages before training anything new. It helped all five in cross-validation, under the same 2-point rule; a single reranker trained on all six languages is next."],
+      "The GPU reranker was trained on Python bugs only, so I tested it on the other five languages before training anything new. It helped all five in cross-validation, under the same 2-point rule, so I trained one reranker on all six languages, chose it by a rule fixed in advance, and switched it on for every language."],
     ["A test the frontier can't have memorized",
       "Frontier models answer older benchmarks from memory, so I sealed a new set of 580 bugs reported after their training, in all six languages, and wrote the whole comparison down before running anything on it."],
   ];
@@ -104,12 +104,12 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
         <p class="kicker">Architecture</p>
         <h2>What runs where.</h2>
         <p class="section-lede">
-          Most ranking happens in the visitor's browser; for Python repositories a GPU server re-reads the top 50. One Cloudflare Worker serves the
+          Most ranking happens in the visitor's browser; a GPU server re-reads the top 50. One Cloudflare Worker serves the
           site and relays GitHub and the GPU; the GPU reranker on Modal scales to zero when idle. The research pipeline trains every model the site ships.
         </p>
         <figure class="architecture">
           <img src="/system.svg" width="1200" height="800" loading="lazy" decoding="async"
-            alt="The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and, for Python repositories, sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships." />
+            alt="The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships." />
         </figure>
       </section>
 
