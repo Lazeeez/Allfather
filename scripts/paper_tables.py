@@ -400,6 +400,13 @@ def results_macros() -> str:
     return "\n".join(out) + "\n"
 
 
+def fit(text: str) -> str:
+    if not text.startswith("\\begin{table}"):
+        return text
+    text = text.replace("\\begin{tabular}", "\\resizebox{\\columnwidth}{!}{\\begin{tabular}", 1)
+    return text.replace("\\end{tabular}", "\\end{tabular}}", 1)
+
+
 def main() -> int:
     OUT.mkdir(parents=True, exist_ok=True)
     files = {
@@ -435,7 +442,7 @@ def main() -> int:
         "numbers.tex": numbers(),
     }
     for name, text in files.items():
-        (OUT / name).write_text(text, encoding="utf-8", newline="\n")
+        (OUT / name).write_text(fit(text), encoding="utf-8", newline="\n")
     print(f"wrote {len(files)} files to {OUT}")
     return 0
 

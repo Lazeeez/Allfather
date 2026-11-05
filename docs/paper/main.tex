@@ -2,7 +2,6 @@
 
 \usepackage{booktabs}
 \usepackage{xcolor}
-\usepackage{amssymb}
 \usepackage{xspace}
 
 \input{generated/numbers}
@@ -23,11 +22,13 @@
 \newcommand{\FFA}{fresh-full}
 \newcommand{\SH}{fresh-agents}
 \newcommand{\SHA}{fresh}
-\newcommand{\rq}[1]{\textbf{RQ#1}}
+\newcommand{\RQ}[1]{\textbf{RQ#1}}
 
 \setcopyright{none}
 \acmConference[ISSTA '27]{ACM SIGSOFT International Symposium on Software Testing and Analysis}{September 2027}{Singapore}
 \acmYear{2027}
+
+\setlength{\emergencystretch}{1.5em}
 
 \begin{document}
 
@@ -57,10 +58,10 @@ I address both. I built \fresh: \NBugs{} bugs from \NProjects{} projects in Go, 
 
 I ask four questions.
 \begin{itemize}
-\item \rq1, accuracy: on bugs no model could have seen, how far is each kind of system above or below \tool?
-\item \rq2, cost: which systems does no other system beat on both accuracy and cost?
-\item \rq3, escalation: can a confidence gate that sends only the bugs \tool is unsure of to an agent approach the agent's accuracy at a fraction of its cost?
-\item \rq4, where the gap is: how do the systems differ by language and by what the report names?
+\item \RQ1, accuracy: on bugs no model could have seen, how far is each kind of system above or below \tool?
+\item \RQ2, cost: which systems does no other system beat on both accuracy and cost?
+\item \RQ3, escalation: can a confidence gate that sends only the bugs \tool is unsure of to an agent approach the agent's accuracy at a fraction of its cost?
+\item \RQ4, where the gap is: how do the systems differ by language and by what the report names?
 \end{itemize}
 
 The main findings, on full bug reports:
@@ -100,7 +101,7 @@ The main findings, on full bug reports:
 
 \input{generated/dataset}
 
-\textbf{Hint strata.} Each bug is assigned, from its report text, to the first of four strata that applies: the report names a function the fix changes (\emph{function}); otherwise it names a changed file (\emph{file}); otherwise it contains a stack trace (\emph{trace}); otherwise \emph{none}. A parser assigns them. I check 50 bugs by hand, blind to the parser, and report Cohen's kappa~\cite{cohen1960kappa}; if kappa is below 0.6, \rq4's strata are reported as indicative only.
+\textbf{Hint strata.} Each bug is assigned, from its report text, to the first of four strata that applies: the report names a function the fix changes (\emph{function}); otherwise it names a changed file (\emph{file}); otherwise it contains a stack trace (\emph{trace}); otherwise \emph{none}. A parser assigns them. I check 50 bugs by hand, blind to the parser, and report Cohen's kappa~\cite{cohen1960kappa}; if kappa is below 0.6, \RQ4's strata are reported as indicative only.
 
 \section{Systems}
 \label{sec:systems}

@@ -3,12 +3,12 @@
 \small
 \caption{Shortened (first 1,500 characters of the body) against full bug reports, function hit@10 on the same bugs.}
 \label{tab:conditions}
-\begin{tabular}{lrrrr}
+\resizebox{\columnwidth}{!}{\begin{tabular}{lrrrr}
 \toprule
 System & Bugs & Shortened & Full & Change \\
 \midrule
-Allfather, browser only & 198 & 73.7 & 77.3 & +3.5 \\
 gpt-6-luna, agent & 198 & 75.8 & 77.3 & +1.5 \\
+Allfather, browser only & 198 & 73.7 & 77.3 & +3.5 \\
 Allfather + GPU reranker & 198 & 74.2 & 76.8 & +2.5 \\
 SweRankEmbed-Large & 198 & 70.2 & 72.7 & +2.5 \\
 gpt-6-astra, one call & 198 & 56.1 & 67.4 & +11.3 \\
@@ -24,5 +24,5 @@ SweRankEmbed-Large & 580 & 70.9 & 72.9 & +2.1 \\
 SweRankEmbed-Small & 580 & 65.3 & 65.9 & +0.5 \\
 gpt-6-luna, one call & 580 & 32.8 & 39.8 & +7.1 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
