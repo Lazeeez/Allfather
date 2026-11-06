@@ -327,3 +327,10 @@ Written before either open model has any result on fresh-full, and before their 
 ## Amendment, 2026-11-06: the strata hand check uses the full reports
 
 Written before any row of the sheet was filled in. The full reports are now the primary condition, and the strata of the primary results are assigned from the full text, so the hand check has to judge that text too. The same 50 bugs (seed 33) are kept. `data/fresh-full/strata_check.csv` replaces `data/fresh/strata_check.csv`: the same blind columns, with each report exactly as the full-report systems received it (35 of the 50 are longer than the shortened text). The parser's strata on that text are in `data/fresh-full/strata_parser.csv`, again to be opened only after every row is filled in. The shortened sheet and its parser file are removed so only one sheet can be filled in; the definitions, kappa and the 0.6 rule are unchanged.
+
+## Amendment, 2026-11-06: how file-level results are computed, and Allfather's file ranker
+
+The protocol names file hit@1 and hit@5 as secondary metrics but does not say how a system's file-level answer is formed. Written after I had computed file-level numbers from every system's ranked functions for the full-report sets, and before Allfather's file ranker had run on any fresh-2026 bug:
+
+- **Every system:** its file-level answer is the distinct files of its ranked functions, in the order they first appear. File hit@1, hit@5 and hit@10 are scored against the files the fix changed (`gold_files`). This is the same rule for every system and is reported for all of them.
+- **Allfather also has a file ranker**, which orders whole files (the site's Files view) and is part of the frozen website pipeline. Its top 10 is run once on fresh-full-agents and fresh-full as `website-files`, with the rankers sealed on 2026-11-03 and nothing changed, and reported as Allfather's own file-level answer, next to the rule above. The GPU reranker reorders functions only, so the file ranker's answer is the same with or without it.

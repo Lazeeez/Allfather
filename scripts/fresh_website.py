@@ -7,7 +7,8 @@ The same ranking the live-accuracy monitor runs (browser rankers, semantic and l
 stages), in all six languages. With --gpu, the top functions are also re-read by the GPU reranker's
 adapters on this machine and blended into the order as the site does, for the languages and with
 the depth and weight the configuration names (ADR 0034); the output is then <set>_website-gpu.jsonl.
-Writes results/research/frontier/<set>_website.jsonl otherwise. Resumable.
+With --files, each record also keeps the file ranker's top 10 (ADR 0033's file-level amendment), written
+to <set>_website-files.jsonl. Writes results/research/frontier/<set>_website.jsonl otherwise. Resumable.
 """
 
 from __future__ import annotations
@@ -75,9 +76,10 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--set", required=True)
     ap.add_argument("--gpu", type=Path)
+    ap.add_argument("--files", action="store_true")
     args = ap.parse_args()
     ids, items = load_set(args.set)
-    system = "website-gpu" if args.gpu else "website"
+    system = "website-gpu" if args.gpu else "website-files" if args.files else "website"
     target = OUT / f"{args.set}_{system}.jsonl"
     done = (
         {json.loads(line)["id"] for line in target.open(encoding="utf-8")}
@@ -98,7 +100,7 @@ def main() -> int:
             inst = Instance(q, item["repo"], item["base_commit"], "", item["text"])
             start = time.perf_counter()
             site.last_semantic = None
-            ranked, _, units = site.rank(inst, set(item["gold"]), set())
+            ranked, ranked_files, units = site.rank(inst, set(item["gold"]), set())
             sure = None
             if site.last_semantic is not None:
                 s_b, X, chars = site.last_semantic
@@ -119,6 +121,7 @@ def main() -> int:
                 "units": units,
                 "confidence": sure,
                 "gpu_language": reranked_for,
+                **({"files": ranked_files[:10]} if args.files else {}),
                 "cost_usd": 0.0,
                 "tools": [],
                 "web_tool_used": False,
