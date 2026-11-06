@@ -20196,6 +20196,24 @@
      0.8159
     ]
    },
+   "website-files": {
+    "issues": 198,
+    "file_hit@1": 0.636364,
+    "file_hit@1_ci95": [
+     0.559,
+     0.7062
+    ],
+    "file_hit@5": 0.828283,
+    "file_hit@5_ci95": [
+     0.7621,
+     0.8873
+    ],
+    "file_hit@10": 0.878788,
+    "file_hit@10_ci95": [
+     0.8291,
+     0.9244
+    ]
+   },
    "website-gpu": {
     "issues": 198,
     "file_hit@1": 0.60101,
@@ -20256,7 +20274,7 @@
     "p": 0.0008,
     "wins": 27,
     "losses": 7,
-    "p_holm": 0.0088
+    "p_holm": 0.0096
    },
    "codex-agent": {
     "issues": 198,
@@ -20292,7 +20310,7 @@
     "p": 0.0064,
     "wins": 11,
     "losses": 29,
-    "p_holm": 0.0576
+    "p_holm": 0.064
    },
    "gemini-single": {
     "issues": 198,
@@ -20328,7 +20346,7 @@
     "p": 0.0025,
     "wins": 12,
     "losses": 33,
-    "p_holm": 0.025
+    "p_holm": 0.0275
    },
    "open-single-gpt-oss-120b": {
     "issues": 198,
@@ -20352,7 +20370,7 @@
     "p": 0.0161,
     "wins": 14,
     "losses": 31,
-    "p_holm": 0.1127
+    "p_holm": 0.1288
    },
    "swerank-embed-large": {
     "issues": 198,
@@ -20376,7 +20394,19 @@
     "p": 0.0115,
     "wins": 12,
     "losses": 29,
-    "p_holm": 0.092
+    "p_holm": 0.1035
+   },
+   "website-files": {
+    "issues": 198,
+    "delta": 0.0455,
+    "ci95": [
+     0.0101,
+     0.0859
+    ],
+    "p": 0.0352,
+    "wins": 12,
+    "losses": 3,
+    "p_holm": 0.2464
    },
    "website": {
     "issues": 198,

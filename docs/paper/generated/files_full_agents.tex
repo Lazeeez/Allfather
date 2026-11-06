@@ -1,0 +1,26 @@
+\begin{table}[t]
+\centering
+\small
+\caption{File-level results, full reports, 198-bug subset. For every system, its ranked functions' files in order; \tool{}'s file ranker (the site's Files view) is its own file-level answer. $\Delta$: against \toolgpu{}'s function-derived files, Holm-adjusted.}
+\label{tab:files198}
+\begin{adjustbox}{max width=\linewidth}\begin{tabular}{lrrrrr}
+\toprule
+System & $n$ & File hit@1 & File hit@5 & File hit@10 & $\Delta$ hit@10 ($p_{\mathrm{Holm}}$) \\
+\midrule
+gpt-6-astra, agent & 198 & 87.9 & 93.4 & 93.4 & +10.1 (0.010) \\
+gpt-6-luna, agent & 198 & 84.3 & 89.4 & 89.4 & +6.1 (0.346) \\
+\tool{}, file ranker & 198 & 63.6 & 82.8 & 87.9 & +4.5 (0.246) \\
+Gemini 3.8 Flash, one call & 198 & 70.2 & 86.4 & 87.4 & +4.0 (1.000) \\
+gpt-6-astra, one call & 198 & 75.8 & 85.4 & 85.4 & +2.0 (1.000) \\
+\tool{}, browser only & 198 & 60.6 & 83.3 & 84.8 & +1.5 (1.000) \\
+\toolgpu{} & 198 & 60.1 & 82.3 & 83.3 & reference \\
+SweRankEmbed-Large & 198 & 58.1 & 78.3 & 81.3 & -2.0 (1.000) \\
+Qwen3-Coder-Next, one call & 198 & 61.6 & 72.7 & 74.7 & -8.6 (0.129) \\
+SweRankEmbed-Small & 198 & 52.5 & 72.2 & 74.7 & -8.6 (0.103) \\
+gpt-6-luna, one call & 198 & 68.7 & 74.2 & 74.2 & -9.1 (0.064) \\
+Qwen3-Coder-Next, agent & 198 & 68.7 & 72.7 & 72.7 & -10.6 (0.028) \\
+gpt-oss-120b, agent & 198 & 63.1 & 65.7 & 65.7 & -17.7 ($<$0.001) \\
+gpt-oss-120b, one call & 198 & 49.5 & 59.6 & 60.6 & -22.7 ($<$0.001) \\
+\bottomrule
+\end{tabular}\end{adjustbox}
+\end{table}

@@ -27,6 +27,7 @@ from fresh_analysis import load_set, per_issue  # noqa: E402
 NAMES = {
     "website-gpu": "\\toolgpu{}",
     "website": "\\tool{}, browser only",
+    "website-files": "\\tool{}, file ranker",
     "allfather-fast": "allfather-fast (Python)",
     "swerank-embed-large": "SweRankEmbed-Large",
     "swerank-embed-small": "SweRankEmbed-Small",
@@ -595,6 +596,36 @@ def no_answer_table(set_name: str, label: str) -> str:
     return "\n".join(lines)
 
 
+def file_table(set_name: str, label: str, caption: str) -> str:
+    a = analysis(set_name)["file_level"]
+    order = sorted(
+        (s for s, e in a["systems"].items() if e["issues"] >= MIN_ISSUES and s in NAMES),
+        key=lambda s: -a["systems"][s]["file_hit@10"],
+    )
+    lines = [
+        "\\begin{table}[t]",
+        "\\centering",
+        "\\small",
+        f"\\caption{{{caption}}}",
+        f"\\label{{{label}}}",
+        "\\begin{tabular}{lrrrrr}",
+        "\\toprule",
+        "System & $n$ & File hit@1 & File hit@5 & File hit@10 & $\\Delta$ hit@10 ($p_{\\mathrm{Holm}}$) \\\\",
+        "\\midrule",
+    ]
+    for s in order:
+        e = a["systems"][s]
+        pr = a["paired"].get(s)
+        delta = (
+            "reference" if pr is None else f"{pr['delta'] * 100:+.1f} ({pvalue(pr.get('p_holm'))})"
+        )
+        lines.append(
+            f"{NAMES[s]} & {e['issues']} & {pct(e['file_hit@1'])} & {pct(e['file_hit@5'])} & {pct(e['file_hit@10'])} & {delta} \\\\"
+        )
+    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}", ""]
+    return "\n".join(lines)
+
+
 def fit(text: str) -> str:
     if not text.startswith("\\begin{table"):
         return text
@@ -652,6 +683,16 @@ def main() -> int:
             "Function hit@$k$ for $k=1,5,10$, full reports, 198-bug subset.",
         ),
         "no_answer.tex": no_answer_table("fresh-full-agents", "tab:noanswer"),
+        "files_full_agents.tex": file_table(
+            "fresh-full-agents",
+            "tab:files198",
+            "File-level results, full reports, 198-bug subset. For every system, its ranked functions' files in order; \\tool{}'s file ranker (the site's Files view) is its own file-level answer. $\\Delta$: against \\toolgpu{}'s function-derived files, Holm-adjusted.",
+        ),
+        "files_full_all.tex": file_table(
+            "fresh-full",
+            "tab:files580",
+            "File-level results, full reports, all 580 bugs; systems still running are shown on the bugs completed. Columns as in Table~\\ref{tab:files198}.",
+        ),
     }
     for name, text in files.items():
         (OUT / name).write_text(fit(text), encoding="utf-8", newline="\n")
