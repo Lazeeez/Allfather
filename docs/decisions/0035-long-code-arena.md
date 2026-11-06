@@ -32,3 +32,7 @@ The system is the website's pipeline in the browser configuration (the `website`
 
 - The leaderboard entry is comparable with the others only on two of their three languages; the email and any table I publish say so.
 - Allfather's ranking quality is not what this leaderboard measures. Its own metrics (hit@k) are reported alongside, from the same run.
+
+## Amendment, 2026-11-06: replacing training bugs whose repository is gone
+
+Written after the training rankings were collected and before `choose` has computed any score from them. Two of the 150 Java training bugs (`hashgraph/hedera-mirror-node` #286 and #59) cannot be run: the repository no longer exists on GitHub. Counting them as misses would score every setting on 148 real bugs and two blanks. Instead, a training bug whose repository cannot be cloned is replaced by the next bug in a shuffle of the remaining training bugs (seed 1), skipping any whose repository cannot be cloned either, until the language has 150 bugs with a ranking; `choose` uses exactly those 150. The replacements are drawn by this rule, not chosen. The test split is not changed: a test bug that cannot be run counts as a miss, as the leaderboard defines its set.

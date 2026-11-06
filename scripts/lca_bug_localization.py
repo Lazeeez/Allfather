@@ -44,7 +44,12 @@ def bugs(lang: str, split: str) -> list[dict]:
     )
     rows = pq.read_table(path).to_pylist()
     if split == "train":
-        rows = random.Random(0).sample(sorted(rows, key=lambda r: r["text_id"]), SAMPLE)
+        ordered = sorted(rows, key=lambda r: r["text_id"])
+        first = random.Random(0).sample(ordered, SAMPLE)
+        taken = {r["text_id"] for r in first}
+        rest = [r for r in ordered if r["text_id"] not in taken]
+        random.Random(1).shuffle(rest)
+        rows = first + rest
     return rows
 
 
@@ -100,15 +105,17 @@ def cmd_rank(lang: str, split: str) -> int:
         if not target.exists():
             log_test_run(lang, target)
     OUT.mkdir(parents=True, exist_ok=True)
-    done = (
-        {json.loads(line)["text_id"] for line in target.open(encoding="utf-8")}
-        if target.exists()
-        else set()
+    earlier = (
+        [json.loads(line) for line in target.open(encoding="utf-8")] if target.exists() else []
     )
+    done = {r["text_id"] for r in earlier}
+    ok = sum("error" not in r for r in earlier)
     site = Site()
     cache = site.snaps.r.indexer.cache
     with target.open("a", encoding="utf-8", newline="\n") as handle:
         for r in bugs(lang, split):
+            if split == "train" and ok >= SAMPLE:
+                break
             if r["text_id"] in done:
                 continue
             repo = f"{r['repo_owner']}/{r['repo_name']}"
@@ -128,6 +135,7 @@ def cmd_rank(lang: str, split: str) -> int:
                 }
             except Exception as exc:  # noqa: BLE001
                 record["error"] = f"{type(exc).__name__}: {str(exc)[:300]}"
+            ok += "error" not in record
             handle.write(json.dumps(record) + "\n")
             handle.flush()
             print(f"  {r['text_id']}: {len(record.get('files', []))} files"
@@ -178,11 +186,16 @@ def cmd_choose() -> int:
     if target.exists():
         sys.exit(f"{target} exists: the setting is fixed (ADR 0035)")
     out = {
-        "rule": "highest mean F1 on 150 random train bugs; ties to smaller k, then off",
+        "rule": "highest mean F1 on 150 random train bugs (seed 0; unrunnable ones replaced in seed-1 order); ties to smaller k, then off",
         "languages": {},
     }
     for lang in EXT:
-        rs = records(lang, "train")
+        every = records(lang, "train")
+        rs = [r for r in every if "error" not in r]
+        if len(rs) != SAMPLE:
+            sys.exit(
+                f"{lang}: {len(rs)} training bugs with a ranking, not {SAMPLE}; run rank again"
+            )
         grid = {
             f"k={k},tests={t}": mean([metrics(r, answer(r, k, t)) for r in rs])
             for k in KS
@@ -194,7 +207,7 @@ def cmd_choose() -> int:
         )
         out["languages"][lang] = {
             "bugs": len(rs),
-            "errors": sum("error" in r for r in rs),
+            "replaced": [r["text_id"] for r in every if "error" in r],
             "k": best[0],
             "tests": best[1],
             "grid": grid,
