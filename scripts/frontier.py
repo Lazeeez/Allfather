@@ -119,6 +119,7 @@ def load_set(name: str) -> tuple[list[str], dict[str, dict]]:
                 "base_commit": r["base_commit"],
                 "text": r["text"],
                 "gold": r["gold_functions"],
+                "gold_files": r.get("gold_files", []),
             }
             for r in rows
         }

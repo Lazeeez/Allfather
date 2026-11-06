@@ -209,6 +209,61 @@ def repeatability(items: dict[str, dict], system: str = "codex-single-astra") ->
     }
 
 
+FILE_KS = (1, 5, 10)
+
+
+def file_hits(rows: list[dict], items: dict[str, dict]) -> dict[str, dict[str, float]]:
+    out = {}
+    for r in rows:
+        item = items.get(r["id"])
+        if not item or not item["gold"] or not item.get("gold_files"):
+            continue
+        gold = set(item["gold_files"])
+        ranked = r.get("files") or list(
+            dict.fromkeys(u.split("::", 1)[0] for u in unit_ids(r.get("answer")))
+        )
+        out[r["id"]] = {f"file_hit@{k}": float(bool(set(ranked[:k]) & gold)) for k in FILE_KS}
+    return out
+
+
+def file_level(files: dict, items: dict[str, dict], reference: str) -> dict:
+    ref = files.get(reference, {})
+    report: dict = {
+        "rule": "distinct files of the ranked functions in order; website-files is Allfather's file ranker (ADR 0033)",
+        "systems": {},
+        "paired": {},
+    }
+    family = {}
+    for system, res in files.items():
+        ids = sorted(res)
+        if not ids:
+            continue
+        projects = np.array([items[q]["repo"] for q in ids])
+        entry = {"issues": len(ids)}
+        for k in FILE_KS:
+            v = np.array([res[q][f"file_hit@{k}"] for q in ids])
+            entry[f"file_hit@{k}"] = round(float(v.mean()), 6)
+            entry[f"file_hit@{k}_ci95"] = project_ci(v, projects)
+        report["systems"][system] = entry
+        if system == reference:
+            continue
+        common = sorted(set(res) & set(ref))
+        if not common:
+            continue
+        d = paired_bootstrap(
+            np.array([ref[q]["file_hit@10"] for q in common]),
+            np.array([res[q]["file_hit@10"] for q in common]),
+        )
+        report["paired"][system] = {
+            "issues": len(common), "delta": d.delta, "ci95": list(d.ci95), "p": d.p_value,
+            "wins": d.wins, "losses": d.losses,
+        }  # fmt: skip
+        family[system] = d.p_value
+    for system, p in holm(family).items():
+        report["paired"][system]["p_holm"] = p
+    return report
+
+
 def paired_family(runs: dict, reference: str) -> dict:
     ref = runs[reference]
     out, family = {}, {}
@@ -243,12 +298,15 @@ def main() -> int:
     ap.add_argument("--also-reference")
     args = ap.parse_args()
     _, items = load_set(args.set)
-    runs = {}
+    runs, files = {}, {}
     for path in sorted(OUT.glob(f"{args.set}_*.jsonl")):
         if path.name.endswith(".errors.jsonl"):
             continue
         system = path.stem[len(args.set) + 1 :]
-        runs[system] = per_issue([json.loads(line) for line in path.open(encoding="utf-8")], items)
+        rows = [json.loads(line) for line in path.open(encoding="utf-8")]
+        files[system] = file_hits(rows, items)
+        if system != "website-files":
+            runs[system] = per_issue(rows, items)
     if args.reference not in runs:
         sys.exit(f"no {args.reference} run for {args.set}")
     ref = runs[args.reference]
@@ -350,6 +408,7 @@ def main() -> int:
             for n in free
         ],
     }
+    report["file_level"] = file_level(files, items, args.reference)
     target = ROOT / "results" / "research" / f"analysis_{args.set}.json"
     target.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8", newline="\n")
     for system, e in report["systems"].items():
