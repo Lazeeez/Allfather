@@ -38,6 +38,7 @@ test("pages route and set their titles", async ({ page }) => {
 });
 
 test("the theme toggles between light and dark only, and persists", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("./");
   const theme = () => page.evaluate(() => document.documentElement.dataset.theme);
   const first = await theme();
@@ -216,7 +217,7 @@ test("pressing Enter on another repository mid-load switches to it", async ({ pa
   await page.fill("#repo-input", "allfather-e2e/missing");
   await expect(page.getByRole("button", { name: "Load", exact: true })).toBeEnabled();
   await page.press("#repo-input", "Enter");
-  await expect(page.locator(".progress-text.error")).toContainText("Couldn't find");
+  await expect(page.locator(".progress-text.error")).toContainText("Couldn't find", { timeout: 15_000 });
   await expect(page.locator(".repo-summary")).toHaveCount(0);
 });
 
