@@ -164,3 +164,4 @@ undated | lite | hybrid-notests | function | results/hybrid-notests_function_lit
 2026-11-06 | fresh-full | open-single-qwen3-coder-next-fp8 (Qwen/Qwen3-Coder-Next-FP8) | function | results/research/frontier/fresh-full_open-single-qwen3-coder-next-fp8.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-06 | fresh-full | website-files (ranker df8659ea9d94) | function | results/research/frontier/fresh-full_website-files.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
 2026-11-06 | fresh-full | codex-single-astra (gpt-6-astra) | function | results/research/frontier/fresh-full_codex-single-astra.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
+2026-11-06 | fresh-full-agents | website-files (ranker df8659ea9d94) | function | results/research/frontier/fresh-full-agents_website-files.jsonl | ADR 0033 run on the sealed fresh-2026 set; nothing decided from it
