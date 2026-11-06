@@ -147,3 +147,10 @@ sbatch --array=0-4 --gres=gpu:H100:1 --time=24:00:00 --export=ALL,CANDIDATE=C cl
 ```
 
 Each fold writes its held-out scores to `results/website-rerank/work/scores_cand-<X>.fold<k>.jsonl`; when all five are in, run `scripts/ce_multilang.py merge --candidate <X>`, bring the merged file back and evaluate on the laptop. The chosen candidate is then trained on every project with `--export=ALL,CANDIDATE=<X>,FOLD=all`.
+
+ADR 0036 adds two candidates that read up to 2,048 tokens of the report. `A-read2048` reuses candidate A's five fold adapters (`models/ce_multi/A/fold<k>`, already on PACE) and only scores; `L` trains A's recipe with the longer report, and resumes from its checkpoint if a job hits the time limit:
+
+```bash
+sbatch --array=0-4 --gres=gpu:l40s:1 --time=4:00:00 --export=ALL,CANDIDATE=A-read2048 cluster/ce_multilang/fold.sbatch
+sbatch --array=0-4 --gres=gpu:l40s:1 --time=16:00:00 --export=ALL,CANDIDATE=L cluster/ce_multilang/fold.sbatch
+```
