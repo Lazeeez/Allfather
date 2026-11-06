@@ -65,35 +65,35 @@
    "seconds": 11.1
   },
   "gemini-single": {
-   "issues": 425,
-   "projects": 72,
-   "hit@1": 0.409412,
+   "issues": 580,
+   "projects": 74,
+   "hit@1": 0.393103,
    "hit@1_ci95": [
-    0.338,
-    0.479
+    0.3312,
+    0.4551
    ],
-   "hit@5": 0.494118,
+   "hit@5": 0.496552,
    "hit@5_ci95": [
-    0.4241,
-    0.5631
+    0.4355,
+    0.5572
    ],
-   "hit@10": 0.527059,
+   "hit@10": 0.532759,
    "hit@10_ci95": [
-    0.4556,
-    0.5958
+    0.4713,
+    0.5929
    ],
-   "all@10": 0.268235,
+   "all@10": 0.260345,
    "all@10_ci95": [
-    0.2112,
-    0.3269
+    0.2121,
+    0.3101
    ],
-   "mrr": 0.446057,
+   "mrr": 0.438255,
    "mrr_ci95": [
-    0.3741,
-    0.5143
+    0.378,
+    0.499
    ],
    "cost_usd": 0.0,
-   "seconds": 103.5
+   "seconds": 100.9
   },
   "open-single-gpt-oss-120b": {
    "issues": 580,
@@ -404,63 +404,63 @@
    "p_holm": 0.0017
   },
   "gemini-single:hit@1": {
-   "issues": 425,
-   "delta": -0.0565,
+   "issues": 580,
+   "delta": -0.0741,
    "ci95": [
-    -0.1082,
-    -0.0047
+    -0.119,
+    -0.0293
    ],
-   "p": 0.0433,
-   "wins": 53,
-   "losses": 77,
-   "p_holm": 0.2165
+   "p": 0.0017,
+   "wins": 69,
+   "losses": 112,
+   "p_holm": 0.017
   },
   "gemini-single:hit@5": {
-   "issues": 425,
-   "delta": -0.2188,
+   "issues": 580,
+   "delta": -0.2241,
    "ci95": [
-    -0.2706,
-    -0.1671
+    -0.269,
+    -0.1793
    ],
    "p": 0.0,
-   "wins": 28,
-   "losses": 121,
+   "wins": 38,
+   "losses": 168,
    "p_holm": 0.0
   },
   "gemini-single:hit@10": {
-   "issues": 425,
-   "delta": -0.2494,
+   "issues": 580,
+   "delta": -0.2466,
    "ci95": [
-    -0.2988,
-    -0.2
+    -0.2897,
+    -0.2051
    ],
    "p": 0.0,
-   "wins": 20,
-   "losses": 126,
+   "wins": 26,
+   "losses": 169,
    "p_holm": 0.0
   },
   "gemini-single:all@10": {
-   "issues": 425,
-   "delta": -0.2024,
+   "issues": 580,
+   "delta": -0.1948,
    "ci95": [
-    -0.2447,
-    -0.16
+    -0.231,
+    -0.1586
    ],
    "p": 0.0,
-   "wins": 8,
-   "losses": 94,
+   "wins": 12,
+   "losses": 125,
    "p_holm": 0.0
   },
   "gemini-single:mrr": {
-   "issues": 425,
-   "delta": -0.1258,
+   "issues": 580,
+   "delta": -0.1371,
    "ci95": [
-    -0.1708,
-    -0.0811
+    -0.1757,
+    -0.0981
    ],
    "p": 0.0001,
-   "wins": 73,
-   "losses": 152,
+   "wins": 96,
+   "losses": 216,
    "p_holm": 0.0017
   },
   "open-single-gpt-oss-120b:hit@1": {
@@ -605,7 +605,7 @@
    "p": 0.0095,
    "wins": 48,
    "losses": 78,
-   "p_holm": 0.076
+   "p_holm": 0.0665
   },
   "swerank-embed-large:hit@10": {
    "issues": 580,
@@ -617,7 +617,7 @@
    "p": 0.0046,
    "wins": 35,
    "losses": 64,
-   "p_holm": 0.046
+   "p_holm": 0.0414
   },
   "swerank-embed-large:all@10": {
    "issues": 580,
@@ -641,7 +641,7 @@
    "p": 0.0276,
    "wins": 131,
    "losses": 154,
-   "p_holm": 0.1659
+   "p_holm": 0.1422
   },
   "swerank-embed-small:hit@1": {
    "issues": 580,
@@ -725,7 +725,7 @@
    "p": 0.0067,
    "wins": 22,
    "losses": 45,
-   "p_holm": 0.0603
+   "p_holm": 0.0536
   },
   "website:hit@10": {
    "issues": 580,
@@ -737,7 +737,7 @@
    "p": 0.0237,
    "wins": 12,
    "losses": 27,
-   "p_holm": 0.1659
+   "p_holm": 0.1422
   },
   "website:all@10": {
    "issues": 580,
@@ -803,20 +803,20 @@
   },
   "gemini-single": {
    "function": {
-    "issues": 186,
-    "hit@10": 0.8387
+    "issues": 246,
+    "hit@10": 0.8415
    },
    "file": {
-    "issues": 58,
-    "hit@10": 0.431
+    "issues": 68,
+    "hit@10": 0.4559
    },
    "trace": {
     "issues": 6,
     "hit@10": 0.0
    },
    "none": {
-    "issues": 175,
-    "hit@10": 0.2457
+    "issues": 260,
+    "hit@10": 0.2731
    }
   },
   "open-single-gpt-oss-120b": {
@@ -8756,2914 +8756,3915 @@
    }
   },
   "gemini-single": {
-   "reference_hit@10": 0.7765,
-   "other_hit@10": 0.5271,
+   "reference_hit@10": 0.7793,
+   "other_hit@10": 0.5328,
    "other_cost": 0.0,
    "curve": [
     {
      "threshold": 0.0,
      "escalated": 0.0,
-     "hit@10": 0.7765,
-     "random_hit@10": 0.7765,
+     "hit@10": 0.7793,
+     "random_hit@10": 0.7793,
      "cost": 0.0
     },
     {
      "threshold": 0.1116,
      "escalated": 0.0,
-     "hit@10": 0.7765,
-     "random_hit@10": 0.7765,
+     "hit@10": 0.7793,
+     "random_hit@10": 0.7793,
      "cost": 0.0
     },
     {
      "threshold": 0.1542,
-     "escalated": 0.0024,
-     "hit@10": 0.7765,
-     "random_hit@10": 0.7759,
+     "escalated": 0.0017,
+     "hit@10": 0.7793,
+     "random_hit@10": 0.7789,
      "cost": 0.0
     },
     {
      "threshold": 0.1825,
-     "escalated": 0.0047,
-     "hit@10": 0.7741,
-     "random_hit@10": 0.7753,
+     "escalated": 0.0034,
+     "hit@10": 0.7776,
+     "random_hit@10": 0.7785,
      "cost": 0.0
     },
     {
      "threshold": 0.2568,
-     "escalated": 0.0071,
-     "hit@10": 0.7741,
-     "random_hit@10": 0.7747,
+     "escalated": 0.0052,
+     "hit@10": 0.7776,
+     "random_hit@10": 0.778,
      "cost": 0.0
     },
     {
      "threshold": 0.2614,
-     "escalated": 0.0094,
-     "hit@10": 0.7741,
-     "random_hit@10": 0.7741,
+     "escalated": 0.0069,
+     "hit@10": 0.7776,
+     "random_hit@10": 0.7776,
      "cost": 0.0
     },
     {
      "threshold": 0.2846,
-     "escalated": 0.0118,
-     "hit@10": 0.7741,
-     "random_hit@10": 0.7735,
+     "escalated": 0.0086,
+     "hit@10": 0.7776,
+     "random_hit@10": 0.7772,
      "cost": 0.0
     },
     {
      "threshold": 0.3012,
-     "escalated": 0.0141,
+     "escalated": 0.0103,
+     "hit@10": 0.7776,
+     "random_hit@10": 0.7768,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3122,
+     "escalated": 0.0121,
+     "hit@10": 0.7759,
+     "random_hit@10": 0.7763,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3248,
+     "escalated": 0.0138,
+     "hit@10": 0.7759,
+     "random_hit@10": 0.7759,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.328,
+     "escalated": 0.0155,
+     "hit@10": 0.7759,
+     "random_hit@10": 0.7755,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.329,
+     "escalated": 0.0172,
+     "hit@10": 0.7759,
+     "random_hit@10": 0.7751,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3306,
+     "escalated": 0.019,
+     "hit@10": 0.7741,
+     "random_hit@10": 0.7746,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3334,
+     "escalated": 0.0207,
+     "hit@10": 0.7759,
+     "random_hit@10": 0.7742,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3407,
+     "escalated": 0.0224,
+     "hit@10": 0.7759,
+     "random_hit@10": 0.7738,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3449,
+     "escalated": 0.0259,
      "hit@10": 0.7741,
      "random_hit@10": 0.7729,
      "cost": 0.0
     },
     {
-     "threshold": 0.3122,
-     "escalated": 0.0165,
-     "hit@10": 0.7718,
-     "random_hit@10": 0.7724,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.3248,
-     "escalated": 0.0188,
-     "hit@10": 0.7718,
-     "random_hit@10": 0.7718,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.328,
-     "escalated": 0.0212,
-     "hit@10": 0.7718,
-     "random_hit@10": 0.7712,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.3306,
-     "escalated": 0.0235,
-     "hit@10": 0.7718,
-     "random_hit@10": 0.7706,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.3334,
-     "escalated": 0.0259,
-     "hit@10": 0.7741,
-     "random_hit@10": 0.77,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.3407,
-     "escalated": 0.0282,
-     "hit@10": 0.7741,
-     "random_hit@10": 0.7694,
-     "cost": 0.0
-    },
-    {
      "threshold": 0.3515,
-     "escalated": 0.0329,
-     "hit@10": 0.7718,
-     "random_hit@10": 0.7683,
+     "escalated": 0.0276,
+     "hit@10": 0.7741,
+     "random_hit@10": 0.7725,
      "cost": 0.0
     },
     {
      "threshold": 0.356,
-     "escalated": 0.0353,
-     "hit@10": 0.7694,
-     "random_hit@10": 0.7677,
+     "escalated": 0.0293,
+     "hit@10": 0.7724,
+     "random_hit@10": 0.7721,
      "cost": 0.0
     },
     {
      "threshold": 0.3568,
-     "escalated": 0.0376,
-     "hit@10": 0.7694,
-     "random_hit@10": 0.7671,
+     "escalated": 0.0328,
+     "hit@10": 0.7724,
+     "random_hit@10": 0.7712,
      "cost": 0.0
     },
     {
      "threshold": 0.3569,
-     "escalated": 0.04,
-     "hit@10": 0.7671,
-     "random_hit@10": 0.7665,
+     "escalated": 0.0345,
+     "hit@10": 0.7707,
+     "random_hit@10": 0.7708,
      "cost": 0.0
     },
     {
      "threshold": 0.3636,
-     "escalated": 0.0424,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7659,
+     "escalated": 0.0379,
+     "hit@10": 0.769,
+     "random_hit@10": 0.77,
      "cost": 0.0
     },
     {
      "threshold": 0.3688,
-     "escalated": 0.0447,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7653,
+     "escalated": 0.0397,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7695,
      "cost": 0.0
     },
     {
      "threshold": 0.3692,
-     "escalated": 0.0471,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7647,
+     "escalated": 0.0414,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7691,
      "cost": 0.0
     },
     {
      "threshold": 0.3738,
-     "escalated": 0.0494,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7641,
+     "escalated": 0.0431,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7687,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3754,
+     "escalated": 0.0448,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7683,
      "cost": 0.0
     },
     {
      "threshold": 0.3806,
-     "escalated": 0.0518,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7636,
+     "escalated": 0.0466,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7678,
      "cost": 0.0
     },
     {
      "threshold": 0.3825,
-     "escalated": 0.0541,
-     "hit@10": 0.7671,
-     "random_hit@10": 0.763,
+     "escalated": 0.0483,
+     "hit@10": 0.7707,
+     "random_hit@10": 0.7674,
      "cost": 0.0
     },
     {
      "threshold": 0.3838,
-     "escalated": 0.0565,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7624,
+     "escalated": 0.05,
+     "hit@10": 0.769,
+     "random_hit@10": 0.767,
      "cost": 0.0
     },
     {
      "threshold": 0.3841,
-     "escalated": 0.0588,
-     "hit@10": 0.7671,
-     "random_hit@10": 0.7618,
+     "escalated": 0.0517,
+     "hit@10": 0.7707,
+     "random_hit@10": 0.7666,
      "cost": 0.0
     },
     {
      "threshold": 0.3852,
-     "escalated": 0.0612,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7612,
+     "escalated": 0.0534,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7661,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3887,
+     "escalated": 0.0552,
+     "hit@10": 0.769,
+     "random_hit@10": 0.7657,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.3899,
+     "escalated": 0.0569,
+     "hit@10": 0.7672,
+     "random_hit@10": 0.7653,
      "cost": 0.0
     },
     {
      "threshold": 0.3956,
-     "escalated": 0.0635,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7606,
+     "escalated": 0.0586,
+     "hit@10": 0.7672,
+     "random_hit@10": 0.7649,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4049,
+     "escalated": 0.0603,
+     "hit@10": 0.7672,
+     "random_hit@10": 0.7644,
      "cost": 0.0
     },
     {
      "threshold": 0.4053,
-     "escalated": 0.0659,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.76,
+     "escalated": 0.0621,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.764,
      "cost": 0.0
     },
     {
      "threshold": 0.4113,
-     "escalated": 0.0682,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7595,
+     "escalated": 0.0638,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7636,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4129,
+     "escalated": 0.0655,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7632,
      "cost": 0.0
     },
     {
      "threshold": 0.4144,
-     "escalated": 0.0706,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7589,
+     "escalated": 0.0672,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7627,
      "cost": 0.0
     },
     {
      "threshold": 0.4149,
-     "escalated": 0.0729,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7583,
+     "escalated": 0.069,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7623,
      "cost": 0.0
     },
     {
      "threshold": 0.4159,
-     "escalated": 0.0753,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7577,
+     "escalated": 0.0707,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7619,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4162,
+     "escalated": 0.0724,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7615,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4207,
+     "escalated": 0.0741,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.761,
      "cost": 0.0
     },
     {
      "threshold": 0.4236,
-     "escalated": 0.0776,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7571,
+     "escalated": 0.0759,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7606,
      "cost": 0.0
     },
     {
      "threshold": 0.4243,
-     "escalated": 0.08,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7565,
+     "escalated": 0.0776,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7602,
      "cost": 0.0
     },
     {
      "threshold": 0.4288,
-     "escalated": 0.0824,
-     "hit@10": 0.7671,
-     "random_hit@10": 0.7559,
+     "escalated": 0.0793,
+     "hit@10": 0.7672,
+     "random_hit@10": 0.7598,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4304,
+     "escalated": 0.081,
+     "hit@10": 0.7655,
+     "random_hit@10": 0.7593,
      "cost": 0.0
     },
     {
      "threshold": 0.4331,
-     "escalated": 0.0847,
-     "hit@10": 0.7647,
-     "random_hit@10": 0.7553,
+     "escalated": 0.0828,
+     "hit@10": 0.7638,
+     "random_hit@10": 0.7589,
      "cost": 0.0
     },
     {
      "threshold": 0.4334,
-     "escalated": 0.0871,
-     "hit@10": 0.7624,
-     "random_hit@10": 0.7548,
+     "escalated": 0.0845,
+     "hit@10": 0.7621,
+     "random_hit@10": 0.7585,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4336,
+     "escalated": 0.0862,
+     "hit@10": 0.7621,
+     "random_hit@10": 0.7581,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4348,
+     "escalated": 0.0879,
+     "hit@10": 0.7621,
+     "random_hit@10": 0.7576,
      "cost": 0.0
     },
     {
      "threshold": 0.4391,
-     "escalated": 0.0894,
-     "hit@10": 0.7624,
-     "random_hit@10": 0.7542,
+     "escalated": 0.0897,
+     "hit@10": 0.7638,
+     "random_hit@10": 0.7572,
      "cost": 0.0
     },
     {
      "threshold": 0.4392,
-     "escalated": 0.0918,
-     "hit@10": 0.7624,
-     "random_hit@10": 0.7536,
+     "escalated": 0.0914,
+     "hit@10": 0.7638,
+     "random_hit@10": 0.7568,
      "cost": 0.0
     },
     {
      "threshold": 0.4401,
-     "escalated": 0.0941,
-     "hit@10": 0.7624,
-     "random_hit@10": 0.753,
+     "escalated": 0.0931,
+     "hit@10": 0.7638,
+     "random_hit@10": 0.7564,
      "cost": 0.0
     },
     {
      "threshold": 0.4418,
-     "escalated": 0.0965,
-     "hit@10": 0.76,
-     "random_hit@10": 0.7524,
+     "escalated": 0.0948,
+     "hit@10": 0.7621,
+     "random_hit@10": 0.7559,
      "cost": 0.0
     },
     {
      "threshold": 0.4446,
-     "escalated": 0.0988,
-     "hit@10": 0.76,
-     "random_hit@10": 0.7518,
+     "escalated": 0.0966,
+     "hit@10": 0.7621,
+     "random_hit@10": 0.7555,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4485,
+     "escalated": 0.0983,
+     "hit@10": 0.7603,
+     "random_hit@10": 0.7551,
      "cost": 0.0
     },
     {
      "threshold": 0.4503,
-     "escalated": 0.1012,
-     "hit@10": 0.7576,
-     "random_hit@10": 0.7512,
+     "escalated": 0.1,
+     "hit@10": 0.7603,
+     "random_hit@10": 0.7547,
      "cost": 0.0
     },
     {
      "threshold": 0.4509,
-     "escalated": 0.1035,
-     "hit@10": 0.7553,
-     "random_hit@10": 0.7506,
+     "escalated": 0.1017,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7542,
      "cost": 0.0
     },
     {
      "threshold": 0.454,
-     "escalated": 0.1059,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7501,
+     "escalated": 0.1034,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7538,
      "cost": 0.0
     },
     {
      "threshold": 0.4584,
-     "escalated": 0.1082,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7495,
+     "escalated": 0.1052,
+     "hit@10": 0.7552,
+     "random_hit@10": 0.7534,
      "cost": 0.0
     },
     {
      "threshold": 0.4586,
-     "escalated": 0.1106,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7489,
+     "escalated": 0.1069,
+     "hit@10": 0.7552,
+     "random_hit@10": 0.753,
      "cost": 0.0
     },
     {
      "threshold": 0.4603,
-     "escalated": 0.1129,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7483,
+     "escalated": 0.1086,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7525,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4618,
+     "escalated": 0.1103,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7521,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4632,
+     "escalated": 0.1121,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7517,
      "cost": 0.0
     },
     {
      "threshold": 0.4638,
-     "escalated": 0.1153,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7477,
+     "escalated": 0.1138,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7513,
      "cost": 0.0
     },
     {
      "threshold": 0.4656,
-     "escalated": 0.1176,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7471,
+     "escalated": 0.1155,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7508,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4664,
+     "escalated": 0.1172,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7504,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.468,
+     "escalated": 0.119,
+     "hit@10": 0.7603,
+     "random_hit@10": 0.75,
      "cost": 0.0
     },
     {
      "threshold": 0.4721,
-     "escalated": 0.12,
-     "hit@10": 0.7553,
-     "random_hit@10": 0.7465,
+     "escalated": 0.1207,
+     "hit@10": 0.7603,
+     "random_hit@10": 0.7496,
      "cost": 0.0
     },
     {
      "threshold": 0.4738,
      "escalated": 0.1224,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.746,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7491,
      "cost": 0.0
     },
     {
      "threshold": 0.4743,
-     "escalated": 0.1247,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7454,
+     "escalated": 0.1241,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7487,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4744,
+     "escalated": 0.1259,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7483,
      "cost": 0.0
     },
     {
      "threshold": 0.4808,
-     "escalated": 0.1271,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7448,
+     "escalated": 0.1276,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7479,
      "cost": 0.0
     },
     {
      "threshold": 0.4817,
-     "escalated": 0.1294,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7442,
+     "escalated": 0.1293,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7474,
      "cost": 0.0
     },
     {
      "threshold": 0.4838,
-     "escalated": 0.1318,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7436,
+     "escalated": 0.131,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.747,
      "cost": 0.0
     },
     {
      "threshold": 0.4851,
-     "escalated": 0.1341,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.743,
+     "escalated": 0.1328,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7466,
      "cost": 0.0
     },
     {
      "threshold": 0.487,
-     "escalated": 0.1365,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7424,
+     "escalated": 0.1345,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7462,
      "cost": 0.0
     },
     {
      "threshold": 0.4882,
-     "escalated": 0.1388,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7418,
+     "escalated": 0.1362,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7457,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4892,
+     "escalated": 0.1379,
+     "hit@10": 0.7586,
+     "random_hit@10": 0.7453,
      "cost": 0.0
     },
     {
      "threshold": 0.4918,
-     "escalated": 0.1412,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7413,
+     "escalated": 0.1397,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7449,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4933,
+     "escalated": 0.1414,
+     "hit@10": 0.7569,
+     "random_hit@10": 0.7445,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4934,
+     "escalated": 0.1431,
+     "hit@10": 0.7552,
+     "random_hit@10": 0.744,
      "cost": 0.0
     },
     {
      "threshold": 0.4949,
-     "escalated": 0.1435,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7407,
+     "escalated": 0.1448,
+     "hit@10": 0.7552,
+     "random_hit@10": 0.7436,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.4955,
+     "escalated": 0.1466,
+     "hit@10": 0.7534,
+     "random_hit@10": 0.7432,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5036,
+     "escalated": 0.1483,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7428,
      "cost": 0.0
     },
     {
      "threshold": 0.5038,
-     "escalated": 0.1459,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7401,
+     "escalated": 0.15,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7423,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5096,
+     "escalated": 0.1517,
+     "hit@10": 0.7534,
+     "random_hit@10": 0.7419,
      "cost": 0.0
     },
     {
      "threshold": 0.5099,
-     "escalated": 0.1482,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7395,
+     "escalated": 0.1534,
+     "hit@10": 0.7534,
+     "random_hit@10": 0.7415,
      "cost": 0.0
     },
     {
      "threshold": 0.5101,
-     "escalated": 0.1506,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7389,
+     "escalated": 0.1552,
+     "hit@10": 0.7534,
+     "random_hit@10": 0.7411,
      "cost": 0.0
     },
     {
      "threshold": 0.5102,
-     "escalated": 0.1529,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.7383,
+     "escalated": 0.1569,
+     "hit@10": 0.7534,
+     "random_hit@10": 0.7406,
      "cost": 0.0
     },
     {
      "threshold": 0.5117,
-     "escalated": 0.1553,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7377,
+     "escalated": 0.1586,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7402,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5132,
+     "escalated": 0.1603,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7398,
      "cost": 0.0
     },
     {
      "threshold": 0.5139,
-     "escalated": 0.1576,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7372,
+     "escalated": 0.1621,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7394,
      "cost": 0.0
     },
     {
      "threshold": 0.5158,
-     "escalated": 0.16,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7366,
+     "escalated": 0.1638,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7389,
      "cost": 0.0
     },
     {
      "threshold": 0.5162,
-     "escalated": 0.1624,
-     "hit@10": 0.7529,
-     "random_hit@10": 0.736,
+     "escalated": 0.1655,
+     "hit@10": 0.7534,
+     "random_hit@10": 0.7385,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5176,
+     "escalated": 0.1672,
+     "hit@10": 0.7517,
+     "random_hit@10": 0.7381,
      "cost": 0.0
     },
     {
      "threshold": 0.5181,
-     "escalated": 0.1647,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7354,
+     "escalated": 0.169,
+     "hit@10": 0.75,
+     "random_hit@10": 0.7377,
      "cost": 0.0
     },
     {
      "threshold": 0.52,
-     "escalated": 0.1671,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7348,
+     "escalated": 0.1707,
+     "hit@10": 0.75,
+     "random_hit@10": 0.7372,
      "cost": 0.0
     },
     {
      "threshold": 0.5203,
-     "escalated": 0.1694,
-     "hit@10": 0.7482,
-     "random_hit@10": 0.7342,
+     "escalated": 0.1724,
+     "hit@10": 0.7483,
+     "random_hit@10": 0.7368,
      "cost": 0.0
     },
     {
      "threshold": 0.5204,
-     "escalated": 0.1718,
-     "hit@10": 0.7506,
-     "random_hit@10": 0.7336,
+     "escalated": 0.1741,
+     "hit@10": 0.75,
+     "random_hit@10": 0.7364,
      "cost": 0.0
     },
     {
      "threshold": 0.5221,
-     "escalated": 0.1741,
-     "hit@10": 0.7482,
-     "random_hit@10": 0.733,
+     "escalated": 0.1776,
+     "hit@10": 0.7483,
+     "random_hit@10": 0.7355,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5226,
+     "escalated": 0.1793,
+     "hit@10": 0.7483,
+     "random_hit@10": 0.7351,
      "cost": 0.0
     },
     {
      "threshold": 0.5242,
-     "escalated": 0.1765,
-     "hit@10": 0.7482,
-     "random_hit@10": 0.7325,
+     "escalated": 0.181,
+     "hit@10": 0.7466,
+     "random_hit@10": 0.7347,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5291,
+     "escalated": 0.1828,
+     "hit@10": 0.7466,
+     "random_hit@10": 0.7343,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5314,
+     "escalated": 0.1845,
+     "hit@10": 0.7466,
+     "random_hit@10": 0.7338,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5315,
+     "escalated": 0.1862,
+     "hit@10": 0.7466,
+     "random_hit@10": 0.7334,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5339,
+     "escalated": 0.1879,
+     "hit@10": 0.7448,
+     "random_hit@10": 0.733,
      "cost": 0.0
     },
     {
      "threshold": 0.5355,
-     "escalated": 0.1788,
-     "hit@10": 0.7482,
-     "random_hit@10": 0.7319,
+     "escalated": 0.1897,
+     "hit@10": 0.7431,
+     "random_hit@10": 0.7326,
      "cost": 0.0
     },
     {
      "threshold": 0.5357,
-     "escalated": 0.1812,
-     "hit@10": 0.7459,
-     "random_hit@10": 0.7313,
+     "escalated": 0.1914,
+     "hit@10": 0.7414,
+     "random_hit@10": 0.7321,
      "cost": 0.0
     },
     {
      "threshold": 0.5374,
-     "escalated": 0.1835,
-     "hit@10": 0.7435,
-     "random_hit@10": 0.7307,
+     "escalated": 0.1931,
+     "hit@10": 0.7397,
+     "random_hit@10": 0.7317,
      "cost": 0.0
     },
     {
      "threshold": 0.5409,
-     "escalated": 0.1859,
-     "hit@10": 0.7435,
-     "random_hit@10": 0.7301,
+     "escalated": 0.1948,
+     "hit@10": 0.7397,
+     "random_hit@10": 0.7313,
      "cost": 0.0
     },
     {
      "threshold": 0.5413,
-     "escalated": 0.1882,
-     "hit@10": 0.7435,
-     "random_hit@10": 0.7295,
+     "escalated": 0.1966,
+     "hit@10": 0.7397,
+     "random_hit@10": 0.7309,
      "cost": 0.0
     },
     {
      "threshold": 0.5414,
-     "escalated": 0.1906,
-     "hit@10": 0.7412,
-     "random_hit@10": 0.7289,
+     "escalated": 0.1983,
+     "hit@10": 0.7379,
+     "random_hit@10": 0.7304,
      "cost": 0.0
     },
     {
      "threshold": 0.5419,
-     "escalated": 0.1929,
-     "hit@10": 0.7412,
-     "random_hit@10": 0.7283,
+     "escalated": 0.2,
+     "hit@10": 0.7379,
+     "random_hit@10": 0.73,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5452,
+     "escalated": 0.2017,
+     "hit@10": 0.7397,
+     "random_hit@10": 0.7296,
      "cost": 0.0
     },
     {
      "threshold": 0.547,
-     "escalated": 0.1953,
-     "hit@10": 0.7435,
-     "random_hit@10": 0.7278,
+     "escalated": 0.2034,
+     "hit@10": 0.7397,
+     "random_hit@10": 0.7291,
      "cost": 0.0
     },
     {
      "threshold": 0.5515,
-     "escalated": 0.2,
-     "hit@10": 0.7412,
-     "random_hit@10": 0.7266,
+     "escalated": 0.2069,
+     "hit@10": 0.7379,
+     "random_hit@10": 0.7283,
      "cost": 0.0
     },
     {
      "threshold": 0.5554,
-     "escalated": 0.2024,
-     "hit@10": 0.7435,
-     "random_hit@10": 0.726,
+     "escalated": 0.2086,
+     "hit@10": 0.7397,
+     "random_hit@10": 0.7279,
      "cost": 0.0
     },
     {
      "threshold": 0.5578,
-     "escalated": 0.2047,
-     "hit@10": 0.7412,
-     "random_hit@10": 0.7254,
+     "escalated": 0.2103,
+     "hit@10": 0.7379,
+     "random_hit@10": 0.7274,
      "cost": 0.0
     },
     {
      "threshold": 0.561,
-     "escalated": 0.2071,
-     "hit@10": 0.7388,
-     "random_hit@10": 0.7248,
+     "escalated": 0.2121,
+     "hit@10": 0.7362,
+     "random_hit@10": 0.727,
      "cost": 0.0
     },
     {
      "threshold": 0.5612,
-     "escalated": 0.2094,
-     "hit@10": 0.7365,
-     "random_hit@10": 0.7242,
+     "escalated": 0.2138,
+     "hit@10": 0.7345,
+     "random_hit@10": 0.7266,
      "cost": 0.0
     },
     {
      "threshold": 0.5619,
-     "escalated": 0.2118,
-     "hit@10": 0.7365,
-     "random_hit@10": 0.7237,
+     "escalated": 0.2155,
+     "hit@10": 0.7345,
+     "random_hit@10": 0.7262,
      "cost": 0.0
     },
     {
      "threshold": 0.5625,
-     "escalated": 0.2141,
-     "hit@10": 0.7365,
-     "random_hit@10": 0.7231,
+     "escalated": 0.2172,
+     "hit@10": 0.7345,
+     "random_hit@10": 0.7257,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5636,
+     "escalated": 0.219,
+     "hit@10": 0.7345,
+     "random_hit@10": 0.7253,
      "cost": 0.0
     },
     {
      "threshold": 0.5645,
-     "escalated": 0.2165,
-     "hit@10": 0.7365,
-     "random_hit@10": 0.7225,
+     "escalated": 0.2207,
+     "hit@10": 0.7328,
+     "random_hit@10": 0.7249,
      "cost": 0.0
     },
     {
      "threshold": 0.5654,
-     "escalated": 0.2188,
-     "hit@10": 0.7341,
-     "random_hit@10": 0.7219,
+     "escalated": 0.2224,
+     "hit@10": 0.731,
+     "random_hit@10": 0.7245,
      "cost": 0.0
     },
     {
      "threshold": 0.5672,
-     "escalated": 0.2212,
-     "hit@10": 0.7341,
-     "random_hit@10": 0.7213,
+     "escalated": 0.2241,
+     "hit@10": 0.731,
+     "random_hit@10": 0.724,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.572,
+     "escalated": 0.2259,
+     "hit@10": 0.731,
+     "random_hit@10": 0.7236,
      "cost": 0.0
     },
     {
      "threshold": 0.5753,
-     "escalated": 0.2235,
-     "hit@10": 0.7341,
-     "random_hit@10": 0.7207,
+     "escalated": 0.2276,
+     "hit@10": 0.7293,
+     "random_hit@10": 0.7232,
      "cost": 0.0
     },
     {
      "threshold": 0.5754,
-     "escalated": 0.2259,
-     "hit@10": 0.7341,
-     "random_hit@10": 0.7201,
+     "escalated": 0.2293,
+     "hit@10": 0.7293,
+     "random_hit@10": 0.7228,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5763,
+     "escalated": 0.231,
+     "hit@10": 0.7276,
+     "random_hit@10": 0.7223,
      "cost": 0.0
     },
     {
      "threshold": 0.5769,
-     "escalated": 0.2282,
-     "hit@10": 0.7318,
-     "random_hit@10": 0.7195,
+     "escalated": 0.2328,
+     "hit@10": 0.7259,
+     "random_hit@10": 0.7219,
      "cost": 0.0
     },
     {
      "threshold": 0.5775,
-     "escalated": 0.2306,
-     "hit@10": 0.7294,
-     "random_hit@10": 0.719,
+     "escalated": 0.2345,
+     "hit@10": 0.7241,
+     "random_hit@10": 0.7215,
      "cost": 0.0
     },
     {
      "threshold": 0.5785,
-     "escalated": 0.2329,
-     "hit@10": 0.7271,
-     "random_hit@10": 0.7184,
+     "escalated": 0.2362,
+     "hit@10": 0.7224,
+     "random_hit@10": 0.7211,
      "cost": 0.0
     },
     {
      "threshold": 0.5791,
-     "escalated": 0.2353,
-     "hit@10": 0.7271,
-     "random_hit@10": 0.7178,
+     "escalated": 0.2379,
+     "hit@10": 0.7224,
+     "random_hit@10": 0.7206,
      "cost": 0.0
     },
     {
      "threshold": 0.5804,
-     "escalated": 0.2376,
-     "hit@10": 0.7294,
-     "random_hit@10": 0.7172,
+     "escalated": 0.2397,
+     "hit@10": 0.7241,
+     "random_hit@10": 0.7202,
      "cost": 0.0
     },
     {
      "threshold": 0.5811,
-     "escalated": 0.24,
-     "hit@10": 0.7271,
-     "random_hit@10": 0.7166,
+     "escalated": 0.2414,
+     "hit@10": 0.7224,
+     "random_hit@10": 0.7198,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5835,
+     "escalated": 0.2431,
+     "hit@10": 0.7207,
+     "random_hit@10": 0.7194,
      "cost": 0.0
     },
     {
      "threshold": 0.5842,
-     "escalated": 0.2424,
-     "hit@10": 0.7247,
-     "random_hit@10": 0.716,
+     "escalated": 0.2448,
+     "hit@10": 0.7207,
+     "random_hit@10": 0.7189,
      "cost": 0.0
     },
     {
      "threshold": 0.5851,
-     "escalated": 0.2447,
-     "hit@10": 0.7224,
-     "random_hit@10": 0.7154,
+     "escalated": 0.2466,
+     "hit@10": 0.719,
+     "random_hit@10": 0.7185,
      "cost": 0.0
     },
     {
      "threshold": 0.5869,
-     "escalated": 0.2471,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7149,
+     "escalated": 0.2483,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7181,
      "cost": 0.0
     },
     {
      "threshold": 0.5903,
-     "escalated": 0.2494,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7143,
+     "escalated": 0.25,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7177,
      "cost": 0.0
     },
     {
      "threshold": 0.5942,
-     "escalated": 0.2518,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7137,
+     "escalated": 0.2517,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7172,
      "cost": 0.0
     },
     {
      "threshold": 0.5951,
-     "escalated": 0.2541,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7131,
+     "escalated": 0.2534,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7168,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.598,
+     "escalated": 0.2552,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7164,
      "cost": 0.0
     },
     {
      "threshold": 0.5981,
-     "escalated": 0.2565,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7125,
+     "escalated": 0.2569,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.716,
      "cost": 0.0
     },
     {
      "threshold": 0.5992,
-     "escalated": 0.2588,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7119,
+     "escalated": 0.2586,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7155,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.5994,
+     "escalated": 0.2603,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7151,
      "cost": 0.0
     },
     {
      "threshold": 0.6038,
-     "escalated": 0.2612,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7113,
+     "escalated": 0.2621,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7147,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6044,
+     "escalated": 0.2638,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7143,
      "cost": 0.0
     },
     {
      "threshold": 0.6054,
-     "escalated": 0.2635,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7107,
+     "escalated": 0.2655,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7138,
      "cost": 0.0
     },
     {
      "threshold": 0.6058,
-     "escalated": 0.2659,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7102,
+     "escalated": 0.2672,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7134,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6062,
+     "escalated": 0.269,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.713,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6067,
+     "escalated": 0.2707,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7126,
      "cost": 0.0
     },
     {
      "threshold": 0.6094,
-     "escalated": 0.2682,
-     "hit@10": 0.72,
-     "random_hit@10": 0.7096,
+     "escalated": 0.2724,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7121,
      "cost": 0.0
     },
     {
      "threshold": 0.6097,
-     "escalated": 0.2706,
-     "hit@10": 0.72,
-     "random_hit@10": 0.709,
+     "escalated": 0.2741,
+     "hit@10": 0.7172,
+     "random_hit@10": 0.7117,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6099,
+     "escalated": 0.2759,
+     "hit@10": 0.7155,
+     "random_hit@10": 0.7113,
      "cost": 0.0
     },
     {
      "threshold": 0.6102,
-     "escalated": 0.2729,
-     "hit@10": 0.7176,
-     "random_hit@10": 0.7084,
+     "escalated": 0.2776,
+     "hit@10": 0.7155,
+     "random_hit@10": 0.7109,
      "cost": 0.0
     },
     {
      "threshold": 0.6127,
-     "escalated": 0.2753,
-     "hit@10": 0.7153,
-     "random_hit@10": 0.7078,
+     "escalated": 0.2793,
+     "hit@10": 0.7138,
+     "random_hit@10": 0.7104,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6128,
+     "escalated": 0.281,
+     "hit@10": 0.7138,
+     "random_hit@10": 0.71,
      "cost": 0.0
     },
     {
      "threshold": 0.6131,
-     "escalated": 0.2776,
-     "hit@10": 0.7153,
-     "random_hit@10": 0.7072,
+     "escalated": 0.2828,
+     "hit@10": 0.7121,
+     "random_hit@10": 0.7096,
      "cost": 0.0
     },
     {
      "threshold": 0.6137,
-     "escalated": 0.28,
-     "hit@10": 0.7153,
-     "random_hit@10": 0.7066,
+     "escalated": 0.2845,
+     "hit@10": 0.7121,
+     "random_hit@10": 0.7092,
      "cost": 0.0
     },
     {
      "threshold": 0.6147,
-     "escalated": 0.2824,
-     "hit@10": 0.7176,
-     "random_hit@10": 0.706,
+     "escalated": 0.2862,
+     "hit@10": 0.7138,
+     "random_hit@10": 0.7087,
      "cost": 0.0
     },
     {
      "threshold": 0.6154,
-     "escalated": 0.2847,
-     "hit@10": 0.7153,
-     "random_hit@10": 0.7055,
+     "escalated": 0.2879,
+     "hit@10": 0.7121,
+     "random_hit@10": 0.7083,
      "cost": 0.0
     },
     {
      "threshold": 0.6164,
-     "escalated": 0.2871,
-     "hit@10": 0.7129,
-     "random_hit@10": 0.7049,
+     "escalated": 0.2897,
+     "hit@10": 0.7103,
+     "random_hit@10": 0.7079,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6174,
+     "escalated": 0.2914,
+     "hit@10": 0.7086,
+     "random_hit@10": 0.7075,
      "cost": 0.0
     },
     {
      "threshold": 0.6198,
-     "escalated": 0.2894,
-     "hit@10": 0.7106,
-     "random_hit@10": 0.7043,
+     "escalated": 0.2931,
+     "hit@10": 0.7103,
+     "random_hit@10": 0.707,
      "cost": 0.0
     },
     {
      "threshold": 0.62,
-     "escalated": 0.2918,
-     "hit@10": 0.7082,
-     "random_hit@10": 0.7037,
+     "escalated": 0.2948,
+     "hit@10": 0.7086,
+     "random_hit@10": 0.7066,
      "cost": 0.0
     },
     {
      "threshold": 0.6205,
-     "escalated": 0.2941,
-     "hit@10": 0.7082,
-     "random_hit@10": 0.7031,
+     "escalated": 0.2966,
+     "hit@10": 0.7086,
+     "random_hit@10": 0.7062,
      "cost": 0.0
     },
     {
      "threshold": 0.6215,
-     "escalated": 0.2965,
-     "hit@10": 0.7082,
-     "random_hit@10": 0.7025,
+     "escalated": 0.2983,
+     "hit@10": 0.7086,
+     "random_hit@10": 0.7058,
      "cost": 0.0
     },
     {
      "threshold": 0.6219,
-     "escalated": 0.2988,
-     "hit@10": 0.7059,
-     "random_hit@10": 0.7019,
+     "escalated": 0.3,
+     "hit@10": 0.7069,
+     "random_hit@10": 0.7053,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6223,
+     "escalated": 0.3017,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7049,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6225,
+     "escalated": 0.3034,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7045,
      "cost": 0.0
     },
     {
      "threshold": 0.6234,
-     "escalated": 0.3012,
-     "hit@10": 0.7035,
-     "random_hit@10": 0.7014,
+     "escalated": 0.3052,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7041,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6269,
+     "escalated": 0.3069,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7036,
      "cost": 0.0
     },
     {
      "threshold": 0.6272,
-     "escalated": 0.3035,
-     "hit@10": 0.7035,
-     "random_hit@10": 0.7008,
+     "escalated": 0.3086,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7032,
      "cost": 0.0
     },
     {
      "threshold": 0.6275,
-     "escalated": 0.3059,
-     "hit@10": 0.7035,
-     "random_hit@10": 0.7002,
+     "escalated": 0.3103,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7028,
      "cost": 0.0
     },
     {
      "threshold": 0.6281,
-     "escalated": 0.3106,
-     "hit@10": 0.7059,
-     "random_hit@10": 0.699,
+     "escalated": 0.3138,
+     "hit@10": 0.7069,
+     "random_hit@10": 0.7019,
      "cost": 0.0
     },
     {
      "threshold": 0.6283,
-     "escalated": 0.3129,
-     "hit@10": 0.7059,
-     "random_hit@10": 0.6984,
+     "escalated": 0.3172,
+     "hit@10": 0.7069,
+     "random_hit@10": 0.7011,
      "cost": 0.0
     },
     {
      "threshold": 0.6296,
-     "escalated": 0.3176,
-     "hit@10": 0.7035,
-     "random_hit@10": 0.6972,
+     "escalated": 0.3207,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.7002,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6333,
+     "escalated": 0.3224,
+     "hit@10": 0.7052,
+     "random_hit@10": 0.6998,
      "cost": 0.0
     },
     {
      "threshold": 0.6347,
-     "escalated": 0.32,
-     "hit@10": 0.7035,
-     "random_hit@10": 0.6967,
+     "escalated": 0.3241,
+     "hit@10": 0.7034,
+     "random_hit@10": 0.6994,
      "cost": 0.0
     },
     {
      "threshold": 0.6361,
-     "escalated": 0.3224,
-     "hit@10": 0.7035,
-     "random_hit@10": 0.6961,
+     "escalated": 0.3259,
+     "hit@10": 0.7034,
+     "random_hit@10": 0.699,
      "cost": 0.0
     },
     {
      "threshold": 0.6365,
-     "escalated": 0.3247,
-     "hit@10": 0.7012,
-     "random_hit@10": 0.6955,
+     "escalated": 0.3276,
+     "hit@10": 0.7017,
+     "random_hit@10": 0.6985,
      "cost": 0.0
     },
     {
      "threshold": 0.6391,
-     "escalated": 0.3271,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6949,
+     "escalated": 0.3293,
+     "hit@10": 0.7,
+     "random_hit@10": 0.6981,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6402,
+     "escalated": 0.3328,
+     "hit@10": 0.6983,
+     "random_hit@10": 0.6973,
      "cost": 0.0
     },
     {
      "threshold": 0.642,
-     "escalated": 0.3294,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6943,
+     "escalated": 0.3345,
+     "hit@10": 0.6983,
+     "random_hit@10": 0.6968,
      "cost": 0.0
     },
     {
      "threshold": 0.6444,
-     "escalated": 0.3318,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6937,
+     "escalated": 0.3362,
+     "hit@10": 0.6983,
+     "random_hit@10": 0.6964,
      "cost": 0.0
     },
     {
      "threshold": 0.6451,
-     "escalated": 0.3341,
-     "hit@10": 0.7012,
-     "random_hit@10": 0.6931,
+     "escalated": 0.3379,
+     "hit@10": 0.7,
+     "random_hit@10": 0.696,
      "cost": 0.0
     },
     {
      "threshold": 0.6484,
-     "escalated": 0.3365,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6926,
+     "escalated": 0.3397,
+     "hit@10": 0.6983,
+     "random_hit@10": 0.6956,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6505,
+     "escalated": 0.3414,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6951,
      "cost": 0.0
     },
     {
      "threshold": 0.6509,
-     "escalated": 0.3388,
-     "hit@10": 0.6965,
-     "random_hit@10": 0.692,
+     "escalated": 0.3431,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6947,
      "cost": 0.0
     },
     {
      "threshold": 0.6527,
-     "escalated": 0.3412,
-     "hit@10": 0.6965,
-     "random_hit@10": 0.6914,
+     "escalated": 0.3448,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6943,
      "cost": 0.0
     },
     {
      "threshold": 0.6528,
-     "escalated": 0.3435,
-     "hit@10": 0.6965,
-     "random_hit@10": 0.6908,
+     "escalated": 0.3466,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6939,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6535,
+     "escalated": 0.3483,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6934,
      "cost": 0.0
     },
     {
      "threshold": 0.6536,
-     "escalated": 0.3459,
-     "hit@10": 0.6965,
-     "random_hit@10": 0.6902,
+     "escalated": 0.35,
+     "hit@10": 0.6948,
+     "random_hit@10": 0.693,
      "cost": 0.0
     },
     {
      "threshold": 0.6544,
-     "escalated": 0.3482,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6896,
+     "escalated": 0.3517,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6926,
      "cost": 0.0
     },
     {
      "threshold": 0.6549,
-     "escalated": 0.3506,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.689,
+     "escalated": 0.3534,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6922,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6557,
+     "escalated": 0.3552,
+     "hit@10": 0.6966,
+     "random_hit@10": 0.6917,
      "cost": 0.0
     },
     {
      "threshold": 0.6576,
-     "escalated": 0.3529,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6884,
+     "escalated": 0.3569,
+     "hit@10": 0.6948,
+     "random_hit@10": 0.6913,
      "cost": 0.0
     },
     {
      "threshold": 0.6577,
-     "escalated": 0.3553,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6879,
+     "escalated": 0.3586,
+     "hit@10": 0.6948,
+     "random_hit@10": 0.6909,
      "cost": 0.0
     },
     {
      "threshold": 0.6584,
-     "escalated": 0.3576,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6873,
+     "escalated": 0.3603,
+     "hit@10": 0.6948,
+     "random_hit@10": 0.6905,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6586,
+     "escalated": 0.3621,
+     "hit@10": 0.6948,
+     "random_hit@10": 0.69,
      "cost": 0.0
     },
     {
      "threshold": 0.659,
-     "escalated": 0.36,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6867,
+     "escalated": 0.3638,
+     "hit@10": 0.6931,
+     "random_hit@10": 0.6896,
      "cost": 0.0
     },
     {
      "threshold": 0.6592,
-     "escalated": 0.3624,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6861,
+     "escalated": 0.3655,
+     "hit@10": 0.6931,
+     "random_hit@10": 0.6892,
      "cost": 0.0
     },
     {
      "threshold": 0.6594,
-     "escalated": 0.3647,
-     "hit@10": 0.6988,
-     "random_hit@10": 0.6855,
+     "escalated": 0.3672,
+     "hit@10": 0.6931,
+     "random_hit@10": 0.6888,
      "cost": 0.0
     },
     {
      "threshold": 0.6595,
-     "escalated": 0.3671,
-     "hit@10": 0.6965,
-     "random_hit@10": 0.6849,
+     "escalated": 0.369,
+     "hit@10": 0.6914,
+     "random_hit@10": 0.6883,
      "cost": 0.0
     },
     {
      "threshold": 0.6598,
-     "escalated": 0.3718,
-     "hit@10": 0.6941,
-     "random_hit@10": 0.6837,
+     "escalated": 0.3724,
+     "hit@10": 0.6897,
+     "random_hit@10": 0.6875,
      "cost": 0.0
     },
     {
      "threshold": 0.66,
      "escalated": 0.3741,
-     "hit@10": 0.6941,
-     "random_hit@10": 0.6832,
+     "hit@10": 0.6897,
+     "random_hit@10": 0.6871,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6605,
+     "escalated": 0.3759,
+     "hit@10": 0.6897,
+     "random_hit@10": 0.6866,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6608,
+     "escalated": 0.3776,
+     "hit@10": 0.6897,
+     "random_hit@10": 0.6862,
      "cost": 0.0
     },
     {
      "threshold": 0.6616,
-     "escalated": 0.3765,
-     "hit@10": 0.6941,
-     "random_hit@10": 0.6826,
+     "escalated": 0.3793,
+     "hit@10": 0.6897,
+     "random_hit@10": 0.6858,
      "cost": 0.0
     },
     {
      "threshold": 0.6623,
-     "escalated": 0.3788,
-     "hit@10": 0.6918,
-     "random_hit@10": 0.682,
+     "escalated": 0.381,
+     "hit@10": 0.6879,
+     "random_hit@10": 0.6854,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.663,
+     "escalated": 0.3828,
+     "hit@10": 0.6879,
+     "random_hit@10": 0.6849,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6638,
+     "escalated": 0.3845,
+     "hit@10": 0.6862,
+     "random_hit@10": 0.6845,
      "cost": 0.0
     },
     {
      "threshold": 0.6642,
-     "escalated": 0.3812,
-     "hit@10": 0.6918,
-     "random_hit@10": 0.6814,
+     "escalated": 0.3862,
+     "hit@10": 0.6845,
+     "random_hit@10": 0.6841,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6654,
+     "escalated": 0.3879,
+     "hit@10": 0.6845,
+     "random_hit@10": 0.6837,
      "cost": 0.0
     },
     {
      "threshold": 0.6678,
-     "escalated": 0.3835,
-     "hit@10": 0.6918,
-     "random_hit@10": 0.6808,
+     "escalated": 0.3897,
+     "hit@10": 0.6845,
+     "random_hit@10": 0.6832,
      "cost": 0.0
     },
     {
      "threshold": 0.6682,
-     "escalated": 0.3859,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6802,
+     "escalated": 0.3914,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6828,
      "cost": 0.0
     },
     {
      "threshold": 0.6711,
-     "escalated": 0.3882,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6796,
+     "escalated": 0.3931,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6824,
      "cost": 0.0
     },
     {
      "threshold": 0.6721,
-     "escalated": 0.3906,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6791,
+     "escalated": 0.3948,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.682,
      "cost": 0.0
     },
     {
      "threshold": 0.673,
-     "escalated": 0.3929,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6785,
+     "escalated": 0.3966,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6815,
      "cost": 0.0
     },
     {
      "threshold": 0.6739,
-     "escalated": 0.3953,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6779,
+     "escalated": 0.3983,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6811,
      "cost": 0.0
     },
     {
      "threshold": 0.6745,
-     "escalated": 0.3976,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6773,
+     "escalated": 0.4,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6807,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6748,
+     "escalated": 0.4017,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6803,
      "cost": 0.0
     },
     {
      "threshold": 0.6752,
-     "escalated": 0.4,
-     "hit@10": 0.6894,
-     "random_hit@10": 0.6767,
+     "escalated": 0.4034,
+     "hit@10": 0.6828,
+     "random_hit@10": 0.6798,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.676,
+     "escalated": 0.4052,
+     "hit@10": 0.681,
+     "random_hit@10": 0.6794,
      "cost": 0.0
     },
     {
      "threshold": 0.6762,
-     "escalated": 0.4024,
-     "hit@10": 0.6871,
-     "random_hit@10": 0.6761,
+     "escalated": 0.4069,
+     "hit@10": 0.681,
+     "random_hit@10": 0.679,
      "cost": 0.0
     },
     {
      "threshold": 0.6787,
-     "escalated": 0.4047,
-     "hit@10": 0.6871,
-     "random_hit@10": 0.6755,
+     "escalated": 0.4086,
+     "hit@10": 0.681,
+     "random_hit@10": 0.6786,
      "cost": 0.0
     },
     {
      "threshold": 0.6818,
-     "escalated": 0.4071,
-     "hit@10": 0.6871,
-     "random_hit@10": 0.6749,
+     "escalated": 0.4103,
+     "hit@10": 0.681,
+     "random_hit@10": 0.6781,
      "cost": 0.0
     },
     {
      "threshold": 0.6827,
-     "escalated": 0.4094,
-     "hit@10": 0.6847,
-     "random_hit@10": 0.6744,
+     "escalated": 0.4121,
+     "hit@10": 0.6793,
+     "random_hit@10": 0.6777,
      "cost": 0.0
     },
     {
      "threshold": 0.6835,
-     "escalated": 0.4118,
-     "hit@10": 0.6824,
-     "random_hit@10": 0.6738,
+     "escalated": 0.4138,
+     "hit@10": 0.6776,
+     "random_hit@10": 0.6773,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6838,
+     "escalated": 0.4155,
+     "hit@10": 0.6759,
+     "random_hit@10": 0.6769,
      "cost": 0.0
     },
     {
      "threshold": 0.684,
-     "escalated": 0.4141,
-     "hit@10": 0.68,
-     "random_hit@10": 0.6732,
+     "escalated": 0.4172,
+     "hit@10": 0.6741,
+     "random_hit@10": 0.6764,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6883,
+     "escalated": 0.419,
+     "hit@10": 0.6724,
+     "random_hit@10": 0.676,
      "cost": 0.0
     },
     {
      "threshold": 0.6898,
-     "escalated": 0.4165,
-     "hit@10": 0.6776,
-     "random_hit@10": 0.6726,
+     "escalated": 0.4207,
+     "hit@10": 0.6724,
+     "random_hit@10": 0.6756,
      "cost": 0.0
     },
     {
      "threshold": 0.69,
-     "escalated": 0.4188,
-     "hit@10": 0.6753,
-     "random_hit@10": 0.672,
+     "escalated": 0.4224,
+     "hit@10": 0.6707,
+     "random_hit@10": 0.6752,
      "cost": 0.0
     },
     {
      "threshold": 0.6914,
-     "escalated": 0.4212,
-     "hit@10": 0.6729,
-     "random_hit@10": 0.6714,
+     "escalated": 0.4241,
+     "hit@10": 0.669,
+     "random_hit@10": 0.6747,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6945,
+     "escalated": 0.4259,
+     "hit@10": 0.669,
+     "random_hit@10": 0.6743,
      "cost": 0.0
     },
     {
      "threshold": 0.6948,
-     "escalated": 0.4235,
-     "hit@10": 0.6729,
-     "random_hit@10": 0.6708,
+     "escalated": 0.4276,
+     "hit@10": 0.669,
+     "random_hit@10": 0.6739,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6967,
+     "escalated": 0.4293,
+     "hit@10": 0.6672,
+     "random_hit@10": 0.6735,
      "cost": 0.0
     },
     {
      "threshold": 0.6972,
-     "escalated": 0.4259,
-     "hit@10": 0.6706,
-     "random_hit@10": 0.6703,
+     "escalated": 0.431,
+     "hit@10": 0.6672,
+     "random_hit@10": 0.673,
      "cost": 0.0
     },
     {
      "threshold": 0.6975,
-     "escalated": 0.4282,
-     "hit@10": 0.6682,
-     "random_hit@10": 0.6697,
+     "escalated": 0.4328,
+     "hit@10": 0.6655,
+     "random_hit@10": 0.6726,
      "cost": 0.0
     },
     {
      "threshold": 0.6987,
-     "escalated": 0.4306,
-     "hit@10": 0.6659,
-     "random_hit@10": 0.6691,
+     "escalated": 0.4345,
+     "hit@10": 0.6638,
+     "random_hit@10": 0.6722,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6989,
+     "escalated": 0.4362,
+     "hit@10": 0.6638,
+     "random_hit@10": 0.6718,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6992,
+     "escalated": 0.4379,
+     "hit@10": 0.6621,
+     "random_hit@10": 0.6713,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.6997,
+     "escalated": 0.4397,
+     "hit@10": 0.6603,
+     "random_hit@10": 0.6709,
      "cost": 0.0
     },
     {
      "threshold": 0.7023,
-     "escalated": 0.4329,
-     "hit@10": 0.6659,
-     "random_hit@10": 0.6685,
+     "escalated": 0.4414,
+     "hit@10": 0.6586,
+     "random_hit@10": 0.6705,
      "cost": 0.0
     },
     {
      "threshold": 0.7049,
-     "escalated": 0.4353,
-     "hit@10": 0.6635,
-     "random_hit@10": 0.6679,
+     "escalated": 0.4431,
+     "hit@10": 0.6569,
+     "random_hit@10": 0.6701,
      "cost": 0.0
     },
     {
      "threshold": 0.705,
-     "escalated": 0.4376,
-     "hit@10": 0.6612,
-     "random_hit@10": 0.6673,
+     "escalated": 0.4448,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6696,
      "cost": 0.0
     },
     {
      "threshold": 0.7051,
-     "escalated": 0.44,
-     "hit@10": 0.6612,
-     "random_hit@10": 0.6667,
+     "escalated": 0.4466,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6692,
      "cost": 0.0
     },
     {
      "threshold": 0.7056,
-     "escalated": 0.4424,
-     "hit@10": 0.6612,
-     "random_hit@10": 0.6661,
+     "escalated": 0.4483,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6688,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7065,
+     "escalated": 0.45,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6684,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7075,
+     "escalated": 0.4517,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6679,
      "cost": 0.0
     },
     {
      "threshold": 0.7079,
-     "escalated": 0.4447,
-     "hit@10": 0.6612,
-     "random_hit@10": 0.6656,
+     "escalated": 0.4534,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6675,
      "cost": 0.0
     },
     {
      "threshold": 0.7082,
-     "escalated": 0.4471,
-     "hit@10": 0.6612,
-     "random_hit@10": 0.665,
+     "escalated": 0.4552,
+     "hit@10": 0.6552,
+     "random_hit@10": 0.6671,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7087,
+     "escalated": 0.4569,
+     "hit@10": 0.6534,
+     "random_hit@10": 0.6667,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.709,
+     "escalated": 0.4586,
+     "hit@10": 0.6534,
+     "random_hit@10": 0.6662,
      "cost": 0.0
     },
     {
      "threshold": 0.7091,
-     "escalated": 0.4494,
-     "hit@10": 0.6588,
-     "random_hit@10": 0.6644,
+     "escalated": 0.4603,
+     "hit@10": 0.6534,
+     "random_hit@10": 0.6658,
      "cost": 0.0
     },
     {
      "threshold": 0.7094,
-     "escalated": 0.4518,
-     "hit@10": 0.6565,
-     "random_hit@10": 0.6638,
+     "escalated": 0.4621,
+     "hit@10": 0.6517,
+     "random_hit@10": 0.6654,
      "cost": 0.0
     },
     {
      "threshold": 0.7098,
-     "escalated": 0.4541,
-     "hit@10": 0.6541,
-     "random_hit@10": 0.6632,
+     "escalated": 0.4638,
+     "hit@10": 0.65,
+     "random_hit@10": 0.665,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.71,
+     "escalated": 0.4655,
+     "hit@10": 0.65,
+     "random_hit@10": 0.6645,
      "cost": 0.0
     },
     {
      "threshold": 0.7115,
-     "escalated": 0.4565,
-     "hit@10": 0.6541,
-     "random_hit@10": 0.6626,
+     "escalated": 0.4672,
+     "hit@10": 0.65,
+     "random_hit@10": 0.6641,
      "cost": 0.0
     },
     {
      "threshold": 0.7117,
-     "escalated": 0.4588,
-     "hit@10": 0.6518,
-     "random_hit@10": 0.662,
+     "escalated": 0.469,
+     "hit@10": 0.6483,
+     "random_hit@10": 0.6637,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7126,
+     "escalated": 0.4707,
+     "hit@10": 0.6483,
+     "random_hit@10": 0.6633,
      "cost": 0.0
     },
     {
      "threshold": 0.7129,
-     "escalated": 0.4612,
-     "hit@10": 0.6518,
-     "random_hit@10": 0.6614,
+     "escalated": 0.4724,
+     "hit@10": 0.65,
+     "random_hit@10": 0.6628,
      "cost": 0.0
     },
     {
      "threshold": 0.7147,
-     "escalated": 0.4635,
-     "hit@10": 0.6518,
-     "random_hit@10": 0.6609,
+     "escalated": 0.4759,
+     "hit@10": 0.6483,
+     "random_hit@10": 0.662,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.715,
+     "escalated": 0.4776,
+     "hit@10": 0.6483,
+     "random_hit@10": 0.6616,
      "cost": 0.0
     },
     {
      "threshold": 0.7157,
-     "escalated": 0.4659,
-     "hit@10": 0.6518,
-     "random_hit@10": 0.6603,
+     "escalated": 0.4793,
+     "hit@10": 0.6483,
+     "random_hit@10": 0.6611,
      "cost": 0.0
     },
     {
      "threshold": 0.7171,
-     "escalated": 0.4682,
-     "hit@10": 0.6518,
-     "random_hit@10": 0.6597,
+     "escalated": 0.481,
+     "hit@10": 0.6483,
+     "random_hit@10": 0.6607,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7182,
+     "escalated": 0.4828,
+     "hit@10": 0.6466,
+     "random_hit@10": 0.6603,
      "cost": 0.0
     },
     {
      "threshold": 0.7189,
-     "escalated": 0.4706,
-     "hit@10": 0.6494,
-     "random_hit@10": 0.6591,
+     "escalated": 0.4845,
+     "hit@10": 0.6466,
+     "random_hit@10": 0.6599,
      "cost": 0.0
     },
     {
      "threshold": 0.7202,
-     "escalated": 0.4729,
-     "hit@10": 0.6494,
-     "random_hit@10": 0.6585,
+     "escalated": 0.4862,
+     "hit@10": 0.6466,
+     "random_hit@10": 0.6594,
      "cost": 0.0
     },
     {
      "threshold": 0.7225,
-     "escalated": 0.4753,
-     "hit@10": 0.6494,
-     "random_hit@10": 0.6579,
+     "escalated": 0.4879,
+     "hit@10": 0.6466,
+     "random_hit@10": 0.659,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.723,
+     "escalated": 0.4897,
+     "hit@10": 0.6448,
+     "random_hit@10": 0.6586,
      "cost": 0.0
     },
     {
      "threshold": 0.724,
-     "escalated": 0.4776,
-     "hit@10": 0.6471,
-     "random_hit@10": 0.6573,
+     "escalated": 0.4914,
+     "hit@10": 0.6448,
+     "random_hit@10": 0.6582,
      "cost": 0.0
     },
     {
      "threshold": 0.7263,
-     "escalated": 0.48,
-     "hit@10": 0.6471,
-     "random_hit@10": 0.6568,
+     "escalated": 0.4931,
+     "hit@10": 0.6448,
+     "random_hit@10": 0.6577,
      "cost": 0.0
     },
     {
      "threshold": 0.727,
-     "escalated": 0.4824,
-     "hit@10": 0.6447,
-     "random_hit@10": 0.6562,
+     "escalated": 0.4948,
+     "hit@10": 0.6431,
+     "random_hit@10": 0.6573,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7298,
+     "escalated": 0.4966,
+     "hit@10": 0.6431,
+     "random_hit@10": 0.6569,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7301,
+     "escalated": 0.4983,
+     "hit@10": 0.6431,
+     "random_hit@10": 0.6565,
      "cost": 0.0
     },
     {
      "threshold": 0.7306,
-     "escalated": 0.4847,
-     "hit@10": 0.6447,
-     "random_hit@10": 0.6556,
+     "escalated": 0.5,
+     "hit@10": 0.6431,
+     "random_hit@10": 0.656,
      "cost": 0.0
     },
     {
      "threshold": 0.7312,
-     "escalated": 0.4871,
-     "hit@10": 0.6447,
-     "random_hit@10": 0.655,
+     "escalated": 0.5017,
+     "hit@10": 0.6431,
+     "random_hit@10": 0.6556,
      "cost": 0.0
     },
     {
      "threshold": 0.7344,
-     "escalated": 0.4894,
-     "hit@10": 0.6424,
-     "random_hit@10": 0.6544,
+     "escalated": 0.5034,
+     "hit@10": 0.6414,
+     "random_hit@10": 0.6552,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7376,
+     "escalated": 0.5052,
+     "hit@10": 0.6414,
+     "random_hit@10": 0.6548,
      "cost": 0.0
     },
     {
      "threshold": 0.7391,
-     "escalated": 0.4918,
-     "hit@10": 0.6424,
-     "random_hit@10": 0.6538,
+     "escalated": 0.5069,
+     "hit@10": 0.6414,
+     "random_hit@10": 0.6543,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7402,
+     "escalated": 0.5086,
+     "hit@10": 0.6397,
+     "random_hit@10": 0.6539,
      "cost": 0.0
     },
     {
      "threshold": 0.7415,
-     "escalated": 0.4941,
-     "hit@10": 0.64,
-     "random_hit@10": 0.6532,
+     "escalated": 0.5103,
+     "hit@10": 0.6379,
+     "random_hit@10": 0.6535,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7416,
+     "escalated": 0.5138,
+     "hit@10": 0.6362,
+     "random_hit@10": 0.6526,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7417,
+     "escalated": 0.5155,
+     "hit@10": 0.6345,
+     "random_hit@10": 0.6522,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7444,
+     "escalated": 0.5172,
+     "hit@10": 0.6345,
+     "random_hit@10": 0.6518,
      "cost": 0.0
     },
     {
      "threshold": 0.7452,
-     "escalated": 0.4988,
-     "hit@10": 0.6376,
-     "random_hit@10": 0.6521,
+     "escalated": 0.519,
+     "hit@10": 0.6345,
+     "random_hit@10": 0.6514,
      "cost": 0.0
     },
     {
      "threshold": 0.7457,
-     "escalated": 0.5012,
-     "hit@10": 0.6353,
-     "random_hit@10": 0.6515,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7475,
-     "escalated": 0.5035,
-     "hit@10": 0.6353,
+     "escalated": 0.5207,
+     "hit@10": 0.6328,
      "random_hit@10": 0.6509,
      "cost": 0.0
     },
     {
-     "threshold": 0.7483,
-     "escalated": 0.5059,
-     "hit@10": 0.6329,
-     "random_hit@10": 0.6503,
+     "threshold": 0.746,
+     "escalated": 0.5224,
+     "hit@10": 0.6328,
+     "random_hit@10": 0.6505,
      "cost": 0.0
     },
     {
-     "threshold": 0.7514,
-     "escalated": 0.5082,
-     "hit@10": 0.6329,
+     "threshold": 0.7475,
+     "escalated": 0.5241,
+     "hit@10": 0.6345,
+     "random_hit@10": 0.6501,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7481,
+     "escalated": 0.5259,
+     "hit@10": 0.6328,
      "random_hit@10": 0.6497,
      "cost": 0.0
     },
     {
+     "threshold": 0.7483,
+     "escalated": 0.5276,
+     "hit@10": 0.6328,
+     "random_hit@10": 0.6492,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7514,
+     "escalated": 0.5293,
+     "hit@10": 0.6328,
+     "random_hit@10": 0.6488,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.7541,
-     "escalated": 0.5106,
-     "hit@10": 0.6329,
-     "random_hit@10": 0.6491,
+     "escalated": 0.531,
+     "hit@10": 0.6328,
+     "random_hit@10": 0.6484,
      "cost": 0.0
     },
     {
      "threshold": 0.7551,
-     "escalated": 0.5129,
-     "hit@10": 0.6329,
-     "random_hit@10": 0.6485,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7557,
-     "escalated": 0.5153,
-     "hit@10": 0.6306,
+     "escalated": 0.5328,
+     "hit@10": 0.6328,
      "random_hit@10": 0.648,
      "cost": 0.0
     },
     {
+     "threshold": 0.7557,
+     "escalated": 0.5345,
+     "hit@10": 0.631,
+     "random_hit@10": 0.6475,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.7577,
-     "escalated": 0.5176,
-     "hit@10": 0.6282,
-     "random_hit@10": 0.6474,
+     "escalated": 0.5362,
+     "hit@10": 0.6293,
+     "random_hit@10": 0.6471,
      "cost": 0.0
     },
     {
      "threshold": 0.7585,
-     "escalated": 0.52,
-     "hit@10": 0.6282,
-     "random_hit@10": 0.6468,
+     "escalated": 0.5379,
+     "hit@10": 0.6293,
+     "random_hit@10": 0.6467,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7613,
+     "escalated": 0.5397,
+     "hit@10": 0.6276,
+     "random_hit@10": 0.6463,
      "cost": 0.0
     },
     {
      "threshold": 0.7616,
-     "escalated": 0.5224,
-     "hit@10": 0.6259,
-     "random_hit@10": 0.6462,
+     "escalated": 0.5414,
+     "hit@10": 0.6276,
+     "random_hit@10": 0.6458,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7617,
+     "escalated": 0.5431,
+     "hit@10": 0.6276,
+     "random_hit@10": 0.6454,
      "cost": 0.0
     },
     {
      "threshold": 0.762,
-     "escalated": 0.5247,
-     "hit@10": 0.6259,
-     "random_hit@10": 0.6456,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7622,
-     "escalated": 0.5271,
-     "hit@10": 0.6259,
+     "escalated": 0.5448,
+     "hit@10": 0.6276,
      "random_hit@10": 0.645,
      "cost": 0.0
     },
     {
+     "threshold": 0.7622,
+     "escalated": 0.5466,
+     "hit@10": 0.6276,
+     "random_hit@10": 0.6446,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.7627,
-     "escalated": 0.5294,
-     "hit@10": 0.6259,
-     "random_hit@10": 0.6444,
+     "escalated": 0.5483,
+     "hit@10": 0.6276,
+     "random_hit@10": 0.6441,
      "cost": 0.0
     },
     {
      "threshold": 0.7629,
-     "escalated": 0.5318,
-     "hit@10": 0.6235,
-     "random_hit@10": 0.6438,
+     "escalated": 0.55,
+     "hit@10": 0.6259,
+     "random_hit@10": 0.6437,
      "cost": 0.0
     },
     {
-     "threshold": 0.7664,
-     "escalated": 0.5341,
-     "hit@10": 0.6235,
+     "threshold": 0.7647,
+     "escalated": 0.5517,
+     "hit@10": 0.6259,
      "random_hit@10": 0.6433,
      "cost": 0.0
     },
     {
+     "threshold": 0.7654,
+     "escalated": 0.5534,
+     "hit@10": 0.6259,
+     "random_hit@10": 0.6429,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7655,
+     "escalated": 0.5552,
+     "hit@10": 0.6259,
+     "random_hit@10": 0.6424,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7661,
+     "escalated": 0.5569,
+     "hit@10": 0.6259,
+     "random_hit@10": 0.642,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7664,
+     "escalated": 0.5586,
+     "hit@10": 0.6259,
+     "random_hit@10": 0.6416,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.7688,
-     "escalated": 0.5365,
-     "hit@10": 0.6235,
-     "random_hit@10": 0.6427,
+     "escalated": 0.5603,
+     "hit@10": 0.6259,
+     "random_hit@10": 0.6412,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7694,
+     "escalated": 0.5621,
+     "hit@10": 0.6241,
+     "random_hit@10": 0.6407,
      "cost": 0.0
     },
     {
      "threshold": 0.7697,
-     "escalated": 0.5388,
-     "hit@10": 0.6212,
-     "random_hit@10": 0.6421,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7736,
-     "escalated": 0.5412,
-     "hit@10": 0.6188,
-     "random_hit@10": 0.6415,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.777,
-     "escalated": 0.5435,
-     "hit@10": 0.6188,
-     "random_hit@10": 0.6409,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7771,
-     "escalated": 0.5459,
-     "hit@10": 0.6165,
+     "escalated": 0.5638,
+     "hit@10": 0.6241,
      "random_hit@10": 0.6403,
      "cost": 0.0
     },
     {
-     "threshold": 0.7791,
-     "escalated": 0.5482,
-     "hit@10": 0.6165,
-     "random_hit@10": 0.6397,
+     "threshold": 0.7736,
+     "escalated": 0.5655,
+     "hit@10": 0.6224,
+     "random_hit@10": 0.6399,
      "cost": 0.0
     },
     {
-     "threshold": 0.7805,
-     "escalated": 0.5506,
-     "hit@10": 0.6141,
-     "random_hit@10": 0.6391,
+     "threshold": 0.777,
+     "escalated": 0.5672,
+     "hit@10": 0.6224,
+     "random_hit@10": 0.6395,
      "cost": 0.0
     },
     {
-     "threshold": 0.7815,
-     "escalated": 0.5529,
-     "hit@10": 0.6141,
+     "threshold": 0.7771,
+     "escalated": 0.569,
+     "hit@10": 0.6207,
+     "random_hit@10": 0.639,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.779,
+     "escalated": 0.5707,
+     "hit@10": 0.6207,
      "random_hit@10": 0.6386,
      "cost": 0.0
     },
     {
+     "threshold": 0.7791,
+     "escalated": 0.5724,
+     "hit@10": 0.6207,
+     "random_hit@10": 0.6382,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7805,
+     "escalated": 0.5741,
+     "hit@10": 0.619,
+     "random_hit@10": 0.6378,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7809,
+     "escalated": 0.5759,
+     "hit@10": 0.619,
+     "random_hit@10": 0.6373,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7815,
+     "escalated": 0.5776,
+     "hit@10": 0.619,
+     "random_hit@10": 0.6369,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7816,
+     "escalated": 0.5793,
+     "hit@10": 0.6172,
+     "random_hit@10": 0.6365,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.7819,
-     "escalated": 0.5553,
-     "hit@10": 0.6118,
-     "random_hit@10": 0.638,
+     "escalated": 0.581,
+     "hit@10": 0.6172,
+     "random_hit@10": 0.6361,
      "cost": 0.0
     },
     {
      "threshold": 0.7828,
-     "escalated": 0.5576,
-     "hit@10": 0.6118,
-     "random_hit@10": 0.6374,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7843,
-     "escalated": 0.56,
-     "hit@10": 0.6141,
-     "random_hit@10": 0.6368,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7918,
-     "escalated": 0.5624,
-     "hit@10": 0.6141,
-     "random_hit@10": 0.6362,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.7926,
-     "escalated": 0.5647,
-     "hit@10": 0.6118,
+     "escalated": 0.5828,
+     "hit@10": 0.6172,
      "random_hit@10": 0.6356,
      "cost": 0.0
     },
     {
-     "threshold": 0.7936,
-     "escalated": 0.5671,
-     "hit@10": 0.6094,
-     "random_hit@10": 0.635,
+     "threshold": 0.7843,
+     "escalated": 0.5845,
+     "hit@10": 0.619,
+     "random_hit@10": 0.6352,
      "cost": 0.0
     },
     {
-     "threshold": 0.7964,
-     "escalated": 0.5694,
-     "hit@10": 0.6071,
-     "random_hit@10": 0.6345,
+     "threshold": 0.7903,
+     "escalated": 0.5862,
+     "hit@10": 0.619,
+     "random_hit@10": 0.6348,
      "cost": 0.0
     },
     {
-     "threshold": 0.7984,
-     "escalated": 0.5718,
-     "hit@10": 0.6047,
+     "threshold": 0.7918,
+     "escalated": 0.5879,
+     "hit@10": 0.6172,
+     "random_hit@10": 0.6344,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7926,
+     "escalated": 0.5897,
+     "hit@10": 0.6155,
      "random_hit@10": 0.6339,
      "cost": 0.0
     },
     {
-     "threshold": 0.7985,
-     "escalated": 0.5741,
-     "hit@10": 0.6047,
-     "random_hit@10": 0.6333,
+     "threshold": 0.7936,
+     "escalated": 0.5914,
+     "hit@10": 0.6138,
+     "random_hit@10": 0.6335,
      "cost": 0.0
     },
     {
-     "threshold": 0.7999,
-     "escalated": 0.5765,
-     "hit@10": 0.6047,
+     "threshold": 0.7952,
+     "escalated": 0.5931,
+     "hit@10": 0.6121,
+     "random_hit@10": 0.6331,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7964,
+     "escalated": 0.5948,
+     "hit@10": 0.6121,
      "random_hit@10": 0.6327,
      "cost": 0.0
     },
     {
+     "threshold": 0.7981,
+     "escalated": 0.5966,
+     "hit@10": 0.6103,
+     "random_hit@10": 0.6322,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7984,
+     "escalated": 0.5983,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.6318,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7985,
+     "escalated": 0.6,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.6314,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.7999,
+     "escalated": 0.6017,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.631,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.8004,
-     "escalated": 0.5788,
-     "hit@10": 0.6047,
-     "random_hit@10": 0.6321,
+     "escalated": 0.6034,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.6305,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8022,
+     "escalated": 0.6052,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.6301,
      "cost": 0.0
     },
     {
      "threshold": 0.8034,
-     "escalated": 0.5812,
-     "hit@10": 0.6047,
-     "random_hit@10": 0.6315,
+     "escalated": 0.6069,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.6297,
      "cost": 0.0
     },
     {
      "threshold": 0.8047,
-     "escalated": 0.5835,
-     "hit@10": 0.6047,
-     "random_hit@10": 0.6309,
+     "escalated": 0.6086,
+     "hit@10": 0.6086,
+     "random_hit@10": 0.6293,
      "cost": 0.0
     },
     {
      "threshold": 0.8057,
-     "escalated": 0.5859,
-     "hit@10": 0.6024,
-     "random_hit@10": 0.6303,
+     "escalated": 0.6103,
+     "hit@10": 0.6069,
+     "random_hit@10": 0.6288,
      "cost": 0.0
     },
     {
      "threshold": 0.8061,
-     "escalated": 0.5882,
-     "hit@10": 0.6024,
-     "random_hit@10": 0.6298,
+     "escalated": 0.6121,
+     "hit@10": 0.6069,
+     "random_hit@10": 0.6284,
      "cost": 0.0
     },
     {
-     "threshold": 0.8108,
-     "escalated": 0.5906,
-     "hit@10": 0.6,
-     "random_hit@10": 0.6292,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8112,
-     "escalated": 0.5929,
-     "hit@10": 0.6,
-     "random_hit@10": 0.6286,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8116,
-     "escalated": 0.5953,
-     "hit@10": 0.6,
+     "threshold": 0.809,
+     "escalated": 0.6138,
+     "hit@10": 0.6052,
      "random_hit@10": 0.628,
      "cost": 0.0
     },
     {
+     "threshold": 0.8098,
+     "escalated": 0.6155,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6276,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8104,
+     "escalated": 0.6172,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6271,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8108,
+     "escalated": 0.619,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6267,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8112,
+     "escalated": 0.6207,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6263,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8116,
+     "escalated": 0.6224,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6259,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8121,
+     "escalated": 0.6241,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6254,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.813,
+     "escalated": 0.6259,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.625,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.8138,
-     "escalated": 0.5976,
-     "hit@10": 0.6,
-     "random_hit@10": 0.6274,
+     "escalated": 0.6276,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6246,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.814,
+     "escalated": 0.6293,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6242,
      "cost": 0.0
     },
     {
      "threshold": 0.8143,
-     "escalated": 0.6,
-     "hit@10": 0.6,
-     "random_hit@10": 0.6268,
+     "escalated": 0.631,
+     "hit@10": 0.6052,
+     "random_hit@10": 0.6237,
      "cost": 0.0
     },
     {
-     "threshold": 0.8158,
-     "escalated": 0.6024,
-     "hit@10": 0.5976,
-     "random_hit@10": 0.6262,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.817,
-     "escalated": 0.6047,
-     "hit@10": 0.5953,
-     "random_hit@10": 0.6256,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8173,
-     "escalated": 0.6071,
-     "hit@10": 0.5953,
-     "random_hit@10": 0.6251,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8175,
-     "escalated": 0.6094,
-     "hit@10": 0.5929,
-     "random_hit@10": 0.6245,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.818,
-     "escalated": 0.6118,
-     "hit@10": 0.5929,
-     "random_hit@10": 0.6239,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8189,
-     "escalated": 0.6141,
-     "hit@10": 0.5929,
+     "threshold": 0.8154,
+     "escalated": 0.6328,
+     "hit@10": 0.6034,
      "random_hit@10": 0.6233,
      "cost": 0.0
     },
     {
-     "threshold": 0.8274,
-     "escalated": 0.6165,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6227,
+     "threshold": 0.8158,
+     "escalated": 0.6362,
+     "hit@10": 0.6034,
+     "random_hit@10": 0.6225,
      "cost": 0.0
     },
     {
-     "threshold": 0.8275,
-     "escalated": 0.6188,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6221,
+     "threshold": 0.817,
+     "escalated": 0.6379,
+     "hit@10": 0.6017,
+     "random_hit@10": 0.622,
      "cost": 0.0
     },
     {
-     "threshold": 0.8276,
-     "escalated": 0.6212,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6215,
+     "threshold": 0.8173,
+     "escalated": 0.6397,
+     "hit@10": 0.6017,
+     "random_hit@10": 0.6216,
      "cost": 0.0
     },
     {
-     "threshold": 0.8281,
-     "escalated": 0.6235,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.621,
+     "threshold": 0.8175,
+     "escalated": 0.6414,
+     "hit@10": 0.6,
+     "random_hit@10": 0.6212,
      "cost": 0.0
     },
     {
-     "threshold": 0.8302,
-     "escalated": 0.6259,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6204,
+     "threshold": 0.818,
+     "escalated": 0.6431,
+     "hit@10": 0.6,
+     "random_hit@10": 0.6208,
      "cost": 0.0
     },
     {
-     "threshold": 0.8306,
-     "escalated": 0.6282,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6198,
+     "threshold": 0.8189,
+     "escalated": 0.6448,
+     "hit@10": 0.6,
+     "random_hit@10": 0.6203,
      "cost": 0.0
     },
     {
-     "threshold": 0.8311,
-     "escalated": 0.6306,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6192,
+     "threshold": 0.8202,
+     "escalated": 0.6466,
+     "hit@10": 0.5983,
+     "random_hit@10": 0.6199,
      "cost": 0.0
     },
     {
-     "threshold": 0.8319,
-     "escalated": 0.6329,
-     "hit@10": 0.5906,
+     "threshold": 0.8211,
+     "escalated": 0.6483,
+     "hit@10": 0.5983,
+     "random_hit@10": 0.6195,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.824,
+     "escalated": 0.65,
+     "hit@10": 0.5966,
+     "random_hit@10": 0.6191,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8263,
+     "escalated": 0.6517,
+     "hit@10": 0.5948,
      "random_hit@10": 0.6186,
      "cost": 0.0
     },
     {
-     "threshold": 0.8325,
-     "escalated": 0.6353,
-     "hit@10": 0.5929,
-     "random_hit@10": 0.618,
+     "threshold": 0.8274,
+     "escalated": 0.6534,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6182,
      "cost": 0.0
     },
     {
-     "threshold": 0.8339,
-     "escalated": 0.6376,
-     "hit@10": 0.5929,
+     "threshold": 0.8275,
+     "escalated": 0.6552,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6178,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8276,
+     "escalated": 0.6569,
+     "hit@10": 0.5948,
      "random_hit@10": 0.6174,
      "cost": 0.0
     },
     {
-     "threshold": 0.8345,
-     "escalated": 0.64,
-     "hit@10": 0.5929,
-     "random_hit@10": 0.6168,
+     "threshold": 0.8281,
+     "escalated": 0.6586,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6169,
      "cost": 0.0
     },
     {
-     "threshold": 0.8347,
-     "escalated": 0.6424,
-     "hit@10": 0.5929,
-     "random_hit@10": 0.6163,
+     "threshold": 0.8286,
+     "escalated": 0.6603,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6165,
      "cost": 0.0
     },
     {
-     "threshold": 0.8359,
-     "escalated": 0.6447,
-     "hit@10": 0.5929,
+     "threshold": 0.8302,
+     "escalated": 0.6621,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6161,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8306,
+     "escalated": 0.6638,
+     "hit@10": 0.5948,
      "random_hit@10": 0.6157,
      "cost": 0.0
     },
     {
-     "threshold": 0.8365,
-     "escalated": 0.6471,
-     "hit@10": 0.5929,
-     "random_hit@10": 0.6151,
+     "threshold": 0.8311,
+     "escalated": 0.6672,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6148,
      "cost": 0.0
     },
     {
-     "threshold": 0.839,
-     "escalated": 0.6494,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6145,
+     "threshold": 0.8319,
+     "escalated": 0.669,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6144,
      "cost": 0.0
     },
     {
-     "threshold": 0.8403,
-     "escalated": 0.6518,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6139,
+     "threshold": 0.8325,
+     "escalated": 0.6707,
+     "hit@10": 0.5966,
+     "random_hit@10": 0.614,
      "cost": 0.0
     },
     {
-     "threshold": 0.8408,
-     "escalated": 0.6541,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6133,
+     "threshold": 0.8339,
+     "escalated": 0.6724,
+     "hit@10": 0.5966,
+     "random_hit@10": 0.6135,
      "cost": 0.0
     },
     {
-     "threshold": 0.8445,
-     "escalated": 0.6565,
-     "hit@10": 0.5906,
+     "threshold": 0.8345,
+     "escalated": 0.6741,
+     "hit@10": 0.5966,
+     "random_hit@10": 0.6131,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8347,
+     "escalated": 0.6759,
+     "hit@10": 0.5966,
      "random_hit@10": 0.6127,
      "cost": 0.0
     },
     {
-     "threshold": 0.8455,
-     "escalated": 0.6588,
-     "hit@10": 0.5906,
-     "random_hit@10": 0.6122,
+     "threshold": 0.8359,
+     "escalated": 0.6776,
+     "hit@10": 0.5966,
+     "random_hit@10": 0.6123,
      "cost": 0.0
     },
     {
-     "threshold": 0.8459,
-     "escalated": 0.6612,
-     "hit@10": 0.5882,
-     "random_hit@10": 0.6116,
+     "threshold": 0.8365,
+     "escalated": 0.6793,
+     "hit@10": 0.5966,
+     "random_hit@10": 0.6118,
      "cost": 0.0
     },
     {
-     "threshold": 0.8467,
-     "escalated": 0.6635,
-     "hit@10": 0.5859,
+     "threshold": 0.8372,
+     "escalated": 0.681,
+     "hit@10": 0.5948,
+     "random_hit@10": 0.6114,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8378,
+     "escalated": 0.6828,
+     "hit@10": 0.5931,
      "random_hit@10": 0.611,
      "cost": 0.0
     },
     {
-     "threshold": 0.847,
-     "escalated": 0.6659,
-     "hit@10": 0.5835,
-     "random_hit@10": 0.6104,
+     "threshold": 0.839,
+     "escalated": 0.6845,
+     "hit@10": 0.5914,
+     "random_hit@10": 0.6105,
      "cost": 0.0
     },
     {
-     "threshold": 0.8474,
-     "escalated": 0.6682,
-     "hit@10": 0.5812,
-     "random_hit@10": 0.6098,
+     "threshold": 0.8403,
+     "escalated": 0.6862,
+     "hit@10": 0.5914,
+     "random_hit@10": 0.6101,
      "cost": 0.0
     },
     {
-     "threshold": 0.8483,
-     "escalated": 0.6706,
-     "hit@10": 0.5788,
-     "random_hit@10": 0.6092,
+     "threshold": 0.8408,
+     "escalated": 0.6879,
+     "hit@10": 0.5914,
+     "random_hit@10": 0.6097,
      "cost": 0.0
     },
     {
-     "threshold": 0.8485,
-     "escalated": 0.6729,
-     "hit@10": 0.5765,
-     "random_hit@10": 0.6086,
+     "threshold": 0.8441,
+     "escalated": 0.6897,
+     "hit@10": 0.5914,
+     "random_hit@10": 0.6093,
      "cost": 0.0
     },
     {
-     "threshold": 0.8505,
-     "escalated": 0.6753,
-     "hit@10": 0.5741,
+     "threshold": 0.8445,
+     "escalated": 0.6914,
+     "hit@10": 0.5914,
+     "random_hit@10": 0.6088,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8448,
+     "escalated": 0.6931,
+     "hit@10": 0.5914,
+     "random_hit@10": 0.6084,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8455,
+     "escalated": 0.6948,
+     "hit@10": 0.5914,
      "random_hit@10": 0.608,
      "cost": 0.0
     },
     {
-     "threshold": 0.8508,
-     "escalated": 0.6776,
-     "hit@10": 0.5718,
-     "random_hit@10": 0.6075,
+     "threshold": 0.8459,
+     "escalated": 0.6966,
+     "hit@10": 0.5897,
+     "random_hit@10": 0.6076,
      "cost": 0.0
     },
     {
-     "threshold": 0.8544,
-     "escalated": 0.68,
-     "hit@10": 0.5718,
-     "random_hit@10": 0.6069,
+     "threshold": 0.8467,
+     "escalated": 0.6983,
+     "hit@10": 0.5879,
+     "random_hit@10": 0.6071,
      "cost": 0.0
     },
     {
-     "threshold": 0.8575,
-     "escalated": 0.6824,
-     "hit@10": 0.5718,
+     "threshold": 0.847,
+     "escalated": 0.7,
+     "hit@10": 0.5862,
+     "random_hit@10": 0.6067,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8474,
+     "escalated": 0.7017,
+     "hit@10": 0.5845,
      "random_hit@10": 0.6063,
      "cost": 0.0
     },
     {
-     "threshold": 0.8584,
-     "escalated": 0.6847,
-     "hit@10": 0.5718,
-     "random_hit@10": 0.6057,
+     "threshold": 0.8483,
+     "escalated": 0.7034,
+     "hit@10": 0.5828,
+     "random_hit@10": 0.6059,
      "cost": 0.0
     },
     {
-     "threshold": 0.8596,
-     "escalated": 0.6871,
-     "hit@10": 0.5718,
-     "random_hit@10": 0.6051,
+     "threshold": 0.8485,
+     "escalated": 0.7052,
+     "hit@10": 0.581,
+     "random_hit@10": 0.6054,
      "cost": 0.0
     },
     {
-     "threshold": 0.8597,
-     "escalated": 0.6894,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.6045,
+     "threshold": 0.8502,
+     "escalated": 0.7069,
+     "hit@10": 0.5793,
+     "random_hit@10": 0.605,
      "cost": 0.0
     },
     {
-     "threshold": 0.86,
-     "escalated": 0.6918,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.6039,
+     "threshold": 0.8505,
+     "escalated": 0.7086,
+     "hit@10": 0.5776,
+     "random_hit@10": 0.6046,
      "cost": 0.0
     },
     {
-     "threshold": 0.8611,
-     "escalated": 0.6941,
-     "hit@10": 0.5694,
+     "threshold": 0.8508,
+     "escalated": 0.7103,
+     "hit@10": 0.5759,
+     "random_hit@10": 0.6042,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8528,
+     "escalated": 0.7121,
+     "hit@10": 0.5759,
+     "random_hit@10": 0.6037,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8544,
+     "escalated": 0.7138,
+     "hit@10": 0.5741,
      "random_hit@10": 0.6033,
      "cost": 0.0
     },
     {
-     "threshold": 0.8618,
-     "escalated": 0.6965,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.6028,
+     "threshold": 0.8575,
+     "escalated": 0.7155,
+     "hit@10": 0.5741,
+     "random_hit@10": 0.6029,
      "cost": 0.0
     },
     {
-     "threshold": 0.8632,
-     "escalated": 0.6988,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.6022,
+     "threshold": 0.8581,
+     "escalated": 0.7172,
+     "hit@10": 0.5741,
+     "random_hit@10": 0.6025,
      "cost": 0.0
     },
     {
-     "threshold": 0.8638,
-     "escalated": 0.7012,
-     "hit@10": 0.5694,
+     "threshold": 0.8584,
+     "escalated": 0.719,
+     "hit@10": 0.5741,
+     "random_hit@10": 0.602,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8596,
+     "escalated": 0.7207,
+     "hit@10": 0.5741,
      "random_hit@10": 0.6016,
      "cost": 0.0
     },
     {
+     "threshold": 0.8597,
+     "escalated": 0.7224,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.6012,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.86,
+     "escalated": 0.7241,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.6008,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8609,
+     "escalated": 0.7259,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.6003,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8611,
+     "escalated": 0.7276,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.5999,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8618,
+     "escalated": 0.7293,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.5995,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8632,
+     "escalated": 0.731,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.5991,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8635,
+     "escalated": 0.7328,
+     "hit@10": 0.5724,
+     "random_hit@10": 0.5986,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8638,
+     "escalated": 0.7345,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5982,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8649,
+     "escalated": 0.7362,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5978,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.8652,
-     "escalated": 0.7035,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.601,
+     "escalated": 0.7379,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5974,
      "cost": 0.0
     },
     {
      "threshold": 0.8657,
-     "escalated": 0.7059,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.6004,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8664,
-     "escalated": 0.7082,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5998,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.867,
-     "escalated": 0.7106,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5992,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8672,
-     "escalated": 0.7129,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5987,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.868,
-     "escalated": 0.7153,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5981,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8697,
-     "escalated": 0.7176,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5975,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8704,
-     "escalated": 0.72,
-     "hit@10": 0.5671,
+     "escalated": 0.7397,
+     "hit@10": 0.5707,
      "random_hit@10": 0.5969,
      "cost": 0.0
     },
     {
-     "threshold": 0.8725,
-     "escalated": 0.7224,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5963,
+     "threshold": 0.8664,
+     "escalated": 0.7414,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5965,
      "cost": 0.0
     },
     {
-     "threshold": 0.8729,
-     "escalated": 0.7247,
-     "hit@10": 0.5671,
+     "threshold": 0.867,
+     "escalated": 0.7431,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5961,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8672,
+     "escalated": 0.7448,
+     "hit@10": 0.5707,
      "random_hit@10": 0.5957,
      "cost": 0.0
     },
     {
-     "threshold": 0.8735,
-     "escalated": 0.7271,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5951,
+     "threshold": 0.8674,
+     "escalated": 0.7466,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5952,
      "cost": 0.0
     },
     {
-     "threshold": 0.8745,
-     "escalated": 0.7294,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5945,
+     "threshold": 0.868,
+     "escalated": 0.7483,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5948,
      "cost": 0.0
     },
     {
-     "threshold": 0.8748,
-     "escalated": 0.7318,
-     "hit@10": 0.5671,
+     "threshold": 0.8687,
+     "escalated": 0.75,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5944,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8689,
+     "escalated": 0.7517,
+     "hit@10": 0.5707,
      "random_hit@10": 0.594,
      "cost": 0.0
     },
     {
-     "threshold": 0.8752,
-     "escalated": 0.7341,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5934,
+     "threshold": 0.8697,
+     "escalated": 0.7534,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5935,
      "cost": 0.0
     },
     {
-     "threshold": 0.8761,
-     "escalated": 0.7365,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5928,
+     "threshold": 0.8704,
+     "escalated": 0.7552,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5931,
      "cost": 0.0
     },
     {
-     "threshold": 0.8766,
-     "escalated": 0.7388,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5922,
+     "threshold": 0.8725,
+     "escalated": 0.7569,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5927,
      "cost": 0.0
     },
     {
-     "threshold": 0.8776,
-     "escalated": 0.7412,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5916,
+     "threshold": 0.8729,
+     "escalated": 0.7586,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5923,
      "cost": 0.0
     },
     {
-     "threshold": 0.878,
-     "escalated": 0.7435,
-     "hit@10": 0.5694,
+     "threshold": 0.8735,
+     "escalated": 0.7603,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5918,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8745,
+     "escalated": 0.7621,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5914,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8748,
+     "escalated": 0.7638,
+     "hit@10": 0.569,
      "random_hit@10": 0.591,
      "cost": 0.0
     },
     {
-     "threshold": 0.8796,
-     "escalated": 0.7459,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5904,
+     "threshold": 0.8752,
+     "escalated": 0.7655,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5906,
      "cost": 0.0
     },
     {
-     "threshold": 0.8797,
-     "escalated": 0.7482,
-     "hit@10": 0.5694,
-     "random_hit@10": 0.5899,
+     "threshold": 0.8761,
+     "escalated": 0.7672,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5901,
      "cost": 0.0
     },
     {
-     "threshold": 0.88,
-     "escalated": 0.7506,
-     "hit@10": 0.5694,
+     "threshold": 0.8766,
+     "escalated": 0.769,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5897,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8776,
+     "escalated": 0.7707,
+     "hit@10": 0.5707,
      "random_hit@10": 0.5893,
      "cost": 0.0
     },
     {
+     "threshold": 0.878,
+     "escalated": 0.7724,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5889,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8796,
+     "escalated": 0.7741,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5884,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8797,
+     "escalated": 0.7759,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.588,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.88,
+     "escalated": 0.7776,
+     "hit@10": 0.5707,
+     "random_hit@10": 0.5876,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.881,
-     "escalated": 0.7553,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5881,
+     "escalated": 0.781,
+     "hit@10": 0.569,
+     "random_hit@10": 0.5867,
      "cost": 0.0
     },
     {
      "threshold": 0.8814,
-     "escalated": 0.7576,
-     "hit@10": 0.5671,
-     "random_hit@10": 0.5875,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8835,
-     "escalated": 0.7624,
-     "hit@10": 0.5647,
+     "escalated": 0.7828,
+     "hit@10": 0.569,
      "random_hit@10": 0.5863,
      "cost": 0.0
     },
     {
-     "threshold": 0.8837,
-     "escalated": 0.7647,
-     "hit@10": 0.5647,
-     "random_hit@10": 0.5857,
+     "threshold": 0.8822,
+     "escalated": 0.7862,
+     "hit@10": 0.5672,
+     "random_hit@10": 0.5855,
      "cost": 0.0
     },
     {
-     "threshold": 0.8842,
-     "escalated": 0.7671,
-     "hit@10": 0.5624,
-     "random_hit@10": 0.5852,
+     "threshold": 0.8835,
+     "escalated": 0.7879,
+     "hit@10": 0.5672,
+     "random_hit@10": 0.585,
      "cost": 0.0
     },
     {
-     "threshold": 0.8861,
-     "escalated": 0.7694,
-     "hit@10": 0.5624,
+     "threshold": 0.8836,
+     "escalated": 0.7897,
+     "hit@10": 0.5672,
      "random_hit@10": 0.5846,
      "cost": 0.0
     },
     {
+     "threshold": 0.8837,
+     "escalated": 0.7914,
+     "hit@10": 0.5672,
+     "random_hit@10": 0.5842,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8842,
+     "escalated": 0.7931,
+     "hit@10": 0.5655,
+     "random_hit@10": 0.5838,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8861,
+     "escalated": 0.7948,
+     "hit@10": 0.5655,
+     "random_hit@10": 0.5833,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.8864,
-     "escalated": 0.7718,
-     "hit@10": 0.56,
-     "random_hit@10": 0.584,
+     "escalated": 0.7966,
+     "hit@10": 0.5638,
+     "random_hit@10": 0.5829,
      "cost": 0.0
     },
     {
      "threshold": 0.8866,
-     "escalated": 0.7741,
-     "hit@10": 0.56,
-     "random_hit@10": 0.5834,
+     "escalated": 0.7983,
+     "hit@10": 0.5638,
+     "random_hit@10": 0.5825,
      "cost": 0.0
     },
     {
      "threshold": 0.8876,
-     "escalated": 0.7765,
-     "hit@10": 0.56,
-     "random_hit@10": 0.5828,
+     "escalated": 0.8,
+     "hit@10": 0.5638,
+     "random_hit@10": 0.5821,
      "cost": 0.0
     },
     {
      "threshold": 0.8896,
-     "escalated": 0.7788,
-     "hit@10": 0.56,
-     "random_hit@10": 0.5822,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8897,
-     "escalated": 0.7812,
-     "hit@10": 0.56,
+     "escalated": 0.8017,
+     "hit@10": 0.5638,
      "random_hit@10": 0.5816,
      "cost": 0.0
     },
     {
+     "threshold": 0.8897,
+     "escalated": 0.8034,
+     "hit@10": 0.5638,
+     "random_hit@10": 0.5812,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.8898,
-     "escalated": 0.7835,
-     "hit@10": 0.56,
-     "random_hit@10": 0.581,
+     "escalated": 0.8052,
+     "hit@10": 0.5638,
+     "random_hit@10": 0.5808,
      "cost": 0.0
     },
     {
-     "threshold": 0.8905,
-     "escalated": 0.7859,
-     "hit@10": 0.56,
-     "random_hit@10": 0.5805,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.8925,
-     "escalated": 0.7882,
-     "hit@10": 0.5576,
+     "threshold": 0.8903,
+     "escalated": 0.8086,
+     "hit@10": 0.5621,
      "random_hit@10": 0.5799,
      "cost": 0.0
     },
     {
-     "threshold": 0.8933,
-     "escalated": 0.7906,
-     "hit@10": 0.5576,
-     "random_hit@10": 0.5793,
+     "threshold": 0.8905,
+     "escalated": 0.8103,
+     "hit@10": 0.5621,
+     "random_hit@10": 0.5795,
      "cost": 0.0
     },
     {
-     "threshold": 0.8943,
-     "escalated": 0.7929,
-     "hit@10": 0.5576,
+     "threshold": 0.8925,
+     "escalated": 0.8121,
+     "hit@10": 0.5603,
+     "random_hit@10": 0.5791,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8933,
+     "escalated": 0.8138,
+     "hit@10": 0.5603,
      "random_hit@10": 0.5787,
      "cost": 0.0
     },
     {
+     "threshold": 0.8943,
+     "escalated": 0.8155,
+     "hit@10": 0.5603,
+     "random_hit@10": 0.5782,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8945,
+     "escalated": 0.8172,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.5778,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8954,
+     "escalated": 0.819,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.5774,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.8956,
-     "escalated": 0.7953,
-     "hit@10": 0.5553,
-     "random_hit@10": 0.5781,
+     "escalated": 0.8207,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.577,
      "cost": 0.0
     },
     {
      "threshold": 0.8961,
-     "escalated": 0.7976,
-     "hit@10": 0.5553,
-     "random_hit@10": 0.5775,
+     "escalated": 0.8224,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.5765,
      "cost": 0.0
     },
     {
      "threshold": 0.8965,
-     "escalated": 0.8,
-     "hit@10": 0.5553,
-     "random_hit@10": 0.5769,
+     "escalated": 0.8241,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.5761,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.8968,
+     "escalated": 0.8259,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.5757,
      "cost": 0.0
     },
     {
      "threshold": 0.8976,
-     "escalated": 0.8024,
-     "hit@10": 0.5553,
-     "random_hit@10": 0.5764,
+     "escalated": 0.8276,
+     "hit@10": 0.5586,
+     "random_hit@10": 0.5753,
      "cost": 0.0
     },
     {
      "threshold": 0.899,
-     "escalated": 0.8047,
-     "hit@10": 0.5529,
-     "random_hit@10": 0.5758,
+     "escalated": 0.8293,
+     "hit@10": 0.5569,
+     "random_hit@10": 0.5748,
      "cost": 0.0
     },
     {
      "threshold": 0.8995,
-     "escalated": 0.8071,
-     "hit@10": 0.5529,
-     "random_hit@10": 0.5752,
+     "escalated": 0.831,
+     "hit@10": 0.5569,
+     "random_hit@10": 0.5744,
      "cost": 0.0
     },
     {
      "threshold": 0.9005,
-     "escalated": 0.8094,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5746,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.9015,
-     "escalated": 0.8118,
-     "hit@10": 0.5506,
+     "escalated": 0.8328,
+     "hit@10": 0.5552,
      "random_hit@10": 0.574,
      "cost": 0.0
     },
     {
+     "threshold": 0.9015,
+     "escalated": 0.8345,
+     "hit@10": 0.5552,
+     "random_hit@10": 0.5736,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.902,
-     "escalated": 0.8141,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5734,
+     "escalated": 0.8379,
+     "hit@10": 0.5534,
+     "random_hit@10": 0.5727,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9032,
+     "escalated": 0.8397,
+     "hit@10": 0.5534,
+     "random_hit@10": 0.5723,
      "cost": 0.0
     },
     {
      "threshold": 0.9033,
-     "escalated": 0.8165,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5728,
+     "escalated": 0.8414,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.5719,
      "cost": 0.0
     },
     {
      "threshold": 0.9048,
-     "escalated": 0.8188,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5722,
+     "escalated": 0.8431,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.5714,
      "cost": 0.0
     },
     {
      "threshold": 0.9073,
-     "escalated": 0.8212,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5717,
+     "escalated": 0.8448,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.571,
      "cost": 0.0
     },
     {
      "threshold": 0.9083,
-     "escalated": 0.8259,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5705,
+     "escalated": 0.8483,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.5702,
      "cost": 0.0
     },
     {
      "threshold": 0.9089,
-     "escalated": 0.8282,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5699,
+     "escalated": 0.85,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.5697,
      "cost": 0.0
     },
     {
      "threshold": 0.9102,
-     "escalated": 0.8329,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5687,
+     "escalated": 0.8534,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.5689,
      "cost": 0.0
     },
     {
      "threshold": 0.9111,
-     "escalated": 0.8353,
-     "hit@10": 0.5506,
-     "random_hit@10": 0.5681,
+     "escalated": 0.8552,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.5685,
      "cost": 0.0
     },
     {
      "threshold": 0.9112,
-     "escalated": 0.8376,
-     "hit@10": 0.5506,
+     "escalated": 0.8569,
+     "hit@10": 0.5517,
+     "random_hit@10": 0.568,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9114,
+     "escalated": 0.8586,
+     "hit@10": 0.55,
      "random_hit@10": 0.5676,
      "cost": 0.0
     },
     {
      "threshold": 0.9123,
-     "escalated": 0.84,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.567,
+     "escalated": 0.8603,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5672,
      "cost": 0.0
     },
     {
      "threshold": 0.913,
-     "escalated": 0.8424,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.5664,
+     "escalated": 0.8621,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5668,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9131,
+     "escalated": 0.8638,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5663,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9132,
+     "escalated": 0.8655,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5659,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9139,
+     "escalated": 0.8672,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5655,
      "cost": 0.0
     },
     {
      "threshold": 0.9146,
-     "escalated": 0.8447,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.5658,
+     "escalated": 0.869,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5651,
      "cost": 0.0
     },
     {
      "threshold": 0.9147,
-     "escalated": 0.8471,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.5652,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.9151,
-     "escalated": 0.8494,
-     "hit@10": 0.5482,
+     "escalated": 0.8707,
+     "hit@10": 0.55,
      "random_hit@10": 0.5646,
      "cost": 0.0
     },
     {
+     "threshold": 0.9151,
+     "escalated": 0.8741,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5638,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.9161,
-     "escalated": 0.8518,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.564,
+     "escalated": 0.8759,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5634,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9163,
+     "escalated": 0.8793,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5625,
      "cost": 0.0
     },
     {
      "threshold": 0.9165,
-     "escalated": 0.8565,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.5629,
+     "escalated": 0.881,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5621,
      "cost": 0.0
     },
     {
      "threshold": 0.9175,
-     "escalated": 0.8588,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.5623,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.9176,
-     "escalated": 0.8612,
-     "hit@10": 0.5482,
+     "escalated": 0.8828,
+     "hit@10": 0.55,
      "random_hit@10": 0.5617,
      "cost": 0.0
     },
     {
+     "threshold": 0.9176,
+     "escalated": 0.8845,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5612,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9181,
+     "escalated": 0.8862,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5608,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.9192,
-     "escalated": 0.8635,
-     "hit@10": 0.5482,
-     "random_hit@10": 0.5611,
+     "escalated": 0.8879,
+     "hit@10": 0.55,
+     "random_hit@10": 0.5604,
      "cost": 0.0
     },
     {
      "threshold": 0.9195,
-     "escalated": 0.8659,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5605,
+     "escalated": 0.8897,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.56,
      "cost": 0.0
     },
     {
      "threshold": 0.9201,
-     "escalated": 0.8682,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5599,
+     "escalated": 0.8914,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5595,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9202,
+     "escalated": 0.8931,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5591,
      "cost": 0.0
     },
     {
      "threshold": 0.9213,
-     "escalated": 0.8706,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5593,
-     "cost": 0.0
-    },
-    {
-     "threshold": 0.9234,
-     "escalated": 0.8729,
-     "hit@10": 0.5459,
+     "escalated": 0.8948,
+     "hit@10": 0.5483,
      "random_hit@10": 0.5587,
      "cost": 0.0
     },
     {
+     "threshold": 0.9228,
+     "escalated": 0.8966,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5583,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9234,
+     "escalated": 0.8983,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5578,
+     "cost": 0.0
+    },
+    {
      "threshold": 0.9237,
-     "escalated": 0.8753,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5582,
+     "escalated": 0.9,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5574,
      "cost": 0.0
     },
     {
      "threshold": 0.9242,
-     "escalated": 0.88,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.557,
+     "escalated": 0.9034,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5566,
      "cost": 0.0
     },
     {
      "threshold": 0.9245,
-     "escalated": 0.8824,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5564,
+     "escalated": 0.9052,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5561,
      "cost": 0.0
     },
     {
      "threshold": 0.9278,
-     "escalated": 0.8847,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5558,
+     "escalated": 0.9069,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5557,
      "cost": 0.0
     },
     {
      "threshold": 0.9284,
-     "escalated": 0.8871,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5552,
+     "escalated": 0.9086,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5553,
      "cost": 0.0
     },
     {
      "threshold": 0.9285,
-     "escalated": 0.8894,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5546,
+     "escalated": 0.9103,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5549,
      "cost": 0.0
     },
     {
      "threshold": 0.9291,
-     "escalated": 0.8918,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5541,
+     "escalated": 0.9121,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5544,
      "cost": 0.0
     },
     {
      "threshold": 0.9297,
-     "escalated": 0.8941,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5535,
+     "escalated": 0.9138,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.554,
      "cost": 0.0
     },
     {
      "threshold": 0.93,
-     "escalated": 0.8965,
-     "hit@10": 0.5459,
-     "random_hit@10": 0.5529,
+     "escalated": 0.9155,
+     "hit@10": 0.5483,
+     "random_hit@10": 0.5536,
      "cost": 0.0
     },
     {
      "threshold": 0.9302,
-     "escalated": 0.8988,
-     "hit@10": 0.5435,
-     "random_hit@10": 0.5523,
+     "escalated": 0.9172,
+     "hit@10": 0.5466,
+     "random_hit@10": 0.5532,
      "cost": 0.0
     },
     {
      "threshold": 0.9304,
-     "escalated": 0.9012,
-     "hit@10": 0.5435,
-     "random_hit@10": 0.5517,
+     "escalated": 0.919,
+     "hit@10": 0.5466,
+     "random_hit@10": 0.5527,
      "cost": 0.0
     },
     {
      "threshold": 0.9306,
-     "escalated": 0.9035,
-     "hit@10": 0.5412,
-     "random_hit@10": 0.5511,
+     "escalated": 0.9207,
+     "hit@10": 0.5448,
+     "random_hit@10": 0.5523,
      "cost": 0.0
     },
     {
      "threshold": 0.9312,
-     "escalated": 0.9059,
-     "hit@10": 0.5388,
-     "random_hit@10": 0.5505,
+     "escalated": 0.9224,
+     "hit@10": 0.5431,
+     "random_hit@10": 0.5519,
      "cost": 0.0
     },
     {
      "threshold": 0.9317,
-     "escalated": 0.9082,
-     "hit@10": 0.5388,
-     "random_hit@10": 0.5499,
+     "escalated": 0.9259,
+     "hit@10": 0.5431,
+     "random_hit@10": 0.551,
      "cost": 0.0
     },
     {
      "threshold": 0.9339,
-     "escalated": 0.9106,
-     "hit@10": 0.5365,
-     "random_hit@10": 0.5494,
+     "escalated": 0.9276,
+     "hit@10": 0.5414,
+     "random_hit@10": 0.5506,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9353,
+     "escalated": 0.9293,
+     "hit@10": 0.5414,
+     "random_hit@10": 0.5502,
      "cost": 0.0
     },
     {
      "threshold": 0.9359,
-     "escalated": 0.9129,
-     "hit@10": 0.5365,
-     "random_hit@10": 0.5488,
+     "escalated": 0.931,
+     "hit@10": 0.5414,
+     "random_hit@10": 0.5498,
      "cost": 0.0
     },
     {
      "threshold": 0.9366,
-     "escalated": 0.9153,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5482,
+     "escalated": 0.9328,
+     "hit@10": 0.5397,
+     "random_hit@10": 0.5493,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9369,
+     "escalated": 0.9345,
+     "hit@10": 0.5397,
+     "random_hit@10": 0.5489,
      "cost": 0.0
     },
     {
      "threshold": 0.9389,
-     "escalated": 0.9176,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5476,
+     "escalated": 0.9362,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5485,
      "cost": 0.0
     },
     {
      "threshold": 0.939,
-     "escalated": 0.92,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.547,
+     "escalated": 0.9379,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5481,
      "cost": 0.0
     },
     {
      "threshold": 0.9396,
-     "escalated": 0.9224,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5464,
+     "escalated": 0.9397,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5476,
      "cost": 0.0
     },
     {
      "threshold": 0.9418,
-     "escalated": 0.9247,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5458,
+     "escalated": 0.9414,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5472,
      "cost": 0.0
     },
     {
      "threshold": 0.9457,
-     "escalated": 0.9271,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5453,
+     "escalated": 0.9431,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5468,
      "cost": 0.0
     },
     {
      "threshold": 0.9467,
-     "escalated": 0.9294,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5447,
+     "escalated": 0.9448,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5464,
      "cost": 0.0
     },
     {
      "threshold": 0.9476,
-     "escalated": 0.9318,
-     "hit@10": 0.5341,
-     "random_hit@10": 0.5441,
+     "escalated": 0.9466,
+     "hit@10": 0.5379,
+     "random_hit@10": 0.5459,
      "cost": 0.0
     },
     {
      "threshold": 0.9493,
-     "escalated": 0.9341,
-     "hit@10": 0.5318,
-     "random_hit@10": 0.5435,
+     "escalated": 0.9483,
+     "hit@10": 0.5362,
+     "random_hit@10": 0.5455,
      "cost": 0.0
     },
     {
      "threshold": 0.9499,
-     "escalated": 0.9365,
-     "hit@10": 0.5318,
-     "random_hit@10": 0.5429,
+     "escalated": 0.95,
+     "hit@10": 0.5362,
+     "random_hit@10": 0.5451,
      "cost": 0.0
     },
     {
      "threshold": 0.9505,
-     "escalated": 0.9388,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5423,
+     "escalated": 0.9517,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5447,
      "cost": 0.0
     },
     {
      "threshold": 0.9509,
-     "escalated": 0.9412,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5417,
+     "escalated": 0.9534,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5442,
      "cost": 0.0
     },
     {
      "threshold": 0.9511,
-     "escalated": 0.9435,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5411,
+     "escalated": 0.9552,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5438,
      "cost": 0.0
     },
     {
      "threshold": 0.9514,
-     "escalated": 0.9459,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5406,
+     "escalated": 0.9569,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5434,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9516,
+     "escalated": 0.9586,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.543,
      "cost": 0.0
     },
     {
      "threshold": 0.9526,
-     "escalated": 0.9482,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.54,
+     "escalated": 0.9603,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5425,
      "cost": 0.0
     },
     {
      "threshold": 0.9538,
-     "escalated": 0.9506,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5394,
+     "escalated": 0.9621,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5421,
      "cost": 0.0
     },
     {
      "threshold": 0.9581,
-     "escalated": 0.9529,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5388,
+     "escalated": 0.9638,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5417,
      "cost": 0.0
     },
     {
      "threshold": 0.96,
-     "escalated": 0.9553,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5382,
+     "escalated": 0.9655,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5413,
      "cost": 0.0
     },
     {
      "threshold": 0.9606,
-     "escalated": 0.9576,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5376,
+     "escalated": 0.9672,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5408,
      "cost": 0.0
     },
     {
      "threshold": 0.9623,
-     "escalated": 0.96,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.537,
+     "escalated": 0.969,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.5404,
      "cost": 0.0
     },
     {
      "threshold": 0.9626,
-     "escalated": 0.9624,
-     "hit@10": 0.5294,
-     "random_hit@10": 0.5364,
+     "escalated": 0.9707,
+     "hit@10": 0.5345,
+     "random_hit@10": 0.54,
      "cost": 0.0
     },
     {
      "threshold": 0.9631,
-     "escalated": 0.9647,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5359,
+     "escalated": 0.9724,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5396,
      "cost": 0.0
     },
     {
      "threshold": 0.9636,
-     "escalated": 0.9671,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5353,
+     "escalated": 0.9741,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5391,
      "cost": 0.0
     },
     {
      "threshold": 0.9661,
-     "escalated": 0.9694,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5347,
+     "escalated": 0.9759,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5387,
      "cost": 0.0
     },
     {
      "threshold": 0.9688,
-     "escalated": 0.9718,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5341,
+     "escalated": 0.9776,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5383,
      "cost": 0.0
     },
     {
      "threshold": 0.9726,
-     "escalated": 0.9741,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5335,
+     "escalated": 0.9793,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5379,
      "cost": 0.0
     },
     {
      "threshold": 0.9736,
-     "escalated": 0.9765,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5329,
+     "escalated": 0.981,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5374,
      "cost": 0.0
     },
     {
      "threshold": 0.9743,
-     "escalated": 0.9788,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5323,
+     "escalated": 0.9828,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.537,
      "cost": 0.0
     },
     {
      "threshold": 0.9757,
-     "escalated": 0.9812,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5318,
+     "escalated": 0.9845,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5366,
      "cost": 0.0
     },
     {
      "threshold": 0.9774,
-     "escalated": 0.9835,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5312,
+     "escalated": 0.9862,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5362,
      "cost": 0.0
     },
     {
      "threshold": 0.9779,
-     "escalated": 0.9882,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.53,
+     "escalated": 0.9897,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5353,
      "cost": 0.0
     },
     {
      "threshold": 0.9781,
-     "escalated": 0.9906,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5294,
+     "escalated": 0.9914,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5349,
      "cost": 0.0
     },
     {
      "threshold": 0.9834,
-     "escalated": 0.9929,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5288,
+     "escalated": 0.9931,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5345,
      "cost": 0.0
     },
     {
      "threshold": 0.9864,
-     "escalated": 0.9953,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5282,
+     "escalated": 0.9948,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.534,
+     "cost": 0.0
+    },
+    {
+     "threshold": 0.9879,
+     "escalated": 0.9966,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5336,
      "cost": 0.0
     },
     {
      "threshold": 0.9893,
-     "escalated": 0.9976,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5276,
+     "escalated": 0.9983,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5332,
      "cost": 0.0
     },
     {
      "threshold": 1.01,
      "escalated": 1.0,
-     "hit@10": 0.5271,
-     "random_hit@10": 0.5271,
+     "hit@10": 0.5328,
+     "random_hit@10": 0.5328,
      "cost": 0.0
     }
    ],
    "chosen": {
-    "threshold": 0.7918,
-    "escalated": 0.5624,
-    "hit@10": 0.6141,
-    "random_hit@10": 0.6362,
+    "threshold": 0.7903,
+    "escalated": 0.5862,
+    "hit@10": 0.619,
+    "random_hit@10": 0.6348,
     "cost": 0.0
    }
   },
@@ -31357,63 +32358,63 @@
     "p_holm": 0.002
    },
    "gemini-single:hit@1": {
-    "issues": 425,
-    "delta": -0.0541,
+    "issues": 580,
+    "delta": -0.0672,
     "ci95": [
-     -0.1082,
-     0.0
+     -0.1121,
+     -0.0224
     ],
-    "p": 0.0616,
-    "wins": 58,
-    "losses": 81,
-    "p_holm": 0.4928
+    "p": 0.0048,
+    "wins": 72,
+    "losses": 111,
+    "p_holm": 0.0528
    },
    "gemini-single:hit@5": {
-    "issues": 425,
-    "delta": -0.1882,
+    "issues": 580,
+    "delta": -0.1845,
     "ci95": [
-     -0.2376,
-     -0.1388
+     -0.2276,
+     -0.1397
     ],
     "p": 0.0,
-    "wins": 26,
-    "losses": 106,
+    "wins": 40,
+    "losses": 147,
     "p_holm": 0.0
    },
    "gemini-single:hit@10": {
-    "issues": 425,
-    "delta": -0.2259,
+    "issues": 580,
+    "delta": -0.2207,
     "ci95": [
-     -0.2729,
-     -0.1788
+     -0.2621,
+     -0.1793
     ],
     "p": 0.0,
-    "wins": 19,
-    "losses": 115,
+    "wins": 28,
+    "losses": 156,
     "p_holm": 0.0
    },
    "gemini-single:all@10": {
-    "issues": 425,
-    "delta": -0.1694,
+    "issues": 580,
+    "delta": -0.1534,
     "ci95": [
-     -0.2094,
-     -0.1294
+     -0.1879,
+     -0.119
     ],
     "p": 0.0,
-    "wins": 10,
-    "losses": 82,
+    "wins": 15,
+    "losses": 104,
     "p_holm": 0.0
    },
    "gemini-single:mrr": {
-    "issues": 425,
-    "delta": -0.1145,
+    "issues": 580,
+    "delta": -0.1219,
     "ci95": [
-     -0.1605,
-     -0.0682
+     -0.1616,
+     -0.0825
     ],
     "p": 0.0001,
-    "wins": 77,
-    "losses": 144,
+    "wins": 101,
+    "losses": 205,
     "p_holm": 0.002
    },
    "open-single-gpt-oss-120b:hit@1": {
@@ -31582,7 +32583,7 @@
     "p": 0.0352,
     "wins": 31,
     "losses": 51,
-    "p_holm": 0.3168
+    "p_holm": 0.2816
    },
    "swerank-embed-large:mrr": {
     "issues": 580,
@@ -31678,7 +32679,7 @@
     "p": 0.0067,
     "wins": 45,
     "losses": 22,
-    "p_holm": 0.0737
+    "p_holm": 0.067
    },
    "website-gpu:hit@10": {
     "issues": 580,
@@ -31690,7 +32691,7 @@
     "p": 0.0237,
     "wins": 27,
     "losses": 12,
-    "p_holm": 0.237
+    "p_holm": 0.2133
    },
    "website-gpu:all@10": {
     "issues": 580,
@@ -31821,51 +32822,51 @@
   },
   "gemini-single": {
    "go": {
-    "issues": 67,
-    "hit@10": 0.6567,
+    "issues": 100,
+    "hit@10": 0.69,
     "hit@10_ci95": [
-     0.4912,
-     0.7867
+     0.5714,
+     0.8
     ]
    },
    "java": {
-    "issues": 73,
-    "hit@10": 0.5616,
+    "issues": 80,
+    "hit@10": 0.5875,
     "hit@10_ci95": [
-     0.3571,
-     0.775
+     0.3919,
+     0.7865
     ]
    },
    "javascript": {
-    "issues": 71,
-    "hit@10": 0.5352,
+    "issues": 100,
+    "hit@10": 0.49,
     "hit@10_ci95": [
-     0.3529,
-     0.65
+     0.3582,
+     0.6174
     ]
    },
    "python": {
-    "issues": 91,
-    "hit@10": 0.6374,
+    "issues": 100,
+    "hit@10": 0.65,
     "hit@10_ci95": [
-     0.5254,
-     0.7477
+     0.5484,
+     0.75
     ]
    },
    "rust": {
-    "issues": 57,
-    "hit@10": 0.3333,
+    "issues": 100,
+    "hit@10": 0.36,
     "hit@10_ci95": [
-     0.1905,
-     0.4521
+     0.2717,
+     0.4545
     ]
    },
    "typescript": {
-    "issues": 66,
-    "hit@10": 0.3636,
+    "issues": 100,
+    "hit@10": 0.43,
     "hit@10_ci95": [
-     0.2609,
-     0.5
+     0.3267,
+     0.5443
     ]
    }
   },
@@ -32192,11 +33193,11 @@
     "p": 0.0
    },
    "gemini-single": {
-    "issues": 331,
-    "delta": -0.2931,
+    "issues": 445,
+    "delta": -0.2899,
     "ci95": [
-     -0.3535,
-     -0.2356
+     -0.3393,
+     -0.2404
     ],
     "p": 0.0
    },
@@ -32311,10 +33312,10 @@
    },
    {
     "system": "gemini-single",
-    "hit@10": 0.527059,
+    "hit@10": 0.532759,
     "hit@10_ci95": [
-     0.4556,
-     0.5958
+     0.4713,
+     0.5929
     ]
    },
    {
@@ -32383,21 +33384,21 @@
     ]
    },
    "gemini-single": {
-    "issues": 425,
-    "file_hit@1": 0.729412,
+    "issues": 580,
+    "file_hit@1": 0.710345,
     "file_hit@1_ci95": [
-     0.6709,
-     0.7807
+     0.6564,
+     0.7609
     ],
-    "file_hit@5": 0.870588,
+    "file_hit@5": 0.851724,
     "file_hit@5_ci95": [
-     0.8243,
-     0.9117
+     0.8062,
+     0.8946
     ],
-    "file_hit@10": 0.88,
+    "file_hit@10": 0.858621,
     "file_hit@10_ci95": [
-     0.8392,
-     0.9172
+     0.8146,
+     0.8997
     ]
    },
    "open-single-gpt-oss-120b": {
@@ -32538,7 +33539,7 @@
     "p": 0.3245,
     "wins": 46,
     "losses": 57,
-    "p_holm": 0.3245
+    "p_holm": 0.649
    },
    "codex-single": {
     "issues": 580,
@@ -32553,16 +33554,16 @@
     "p_holm": 0.0
    },
    "gemini-single": {
-    "issues": 425,
-    "delta": 0.04,
+    "issues": 580,
+    "delta": 0.0121,
     "ci95": [
-     0.0024,
-     0.08
+     -0.0207,
+     0.0431
     ],
-    "p": 0.0604,
-    "wins": 45,
-    "losses": 28,
-    "p_holm": 0.1812
+    "p": 0.5384,
+    "wins": 51,
+    "losses": 44,
+    "p_holm": 0.649
    },
    "open-single-gpt-oss-120b": {
     "issues": 580,
@@ -32622,7 +33623,7 @@
     "p": 0.0652,
     "wins": 24,
     "losses": 12,
-    "p_holm": 0.1812
+    "p_holm": 0.1956
    },
    "website": {
     "issues": 580,
