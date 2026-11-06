@@ -7,7 +7,7 @@
   label style={font=\small}, legend style={font=\footnotesize, at={(0.98,0.03)}, anchor=south east}]
 \addplot[only marks, mark=*, color=black, mark size=2.4pt] coordinates {(0.001178,76.77) (0.000100,77.27) (0.003188,77.27) (0.005300,42.93) (0.099581,55.56) (0.026891,61.62) (0.006490,40.91) (0.049141,51.01) (0.006322,31.31)};
 \addlegendentry{free to use}
-\addplot[only marks, mark=triangle*, color=gray, mark size=2.4pt] coordinates {(0.620430,67.37)};
+\addplot[only marks, mark=triangle*, color=gray, mark size=2.4pt] coordinates {(0.535998,67.37)};
 \addlegendentry{paid}
 \node[font=\scriptsize, anchor=west] at (axis cs:0.001472,76.77) {\toolgpu{}};
 \node[font=\scriptsize, anchor=west] at (axis cs:0.000125,77.27) {\tool{}, browser only};
@@ -18,7 +18,7 @@
 \node[font=\scriptsize, anchor=west] at (axis cs:0.008113,40.91) {Qwen3-Coder-Next, one call};
 \node[font=\scriptsize, anchor=west] at (axis cs:0.061427,51.01) {gpt-oss-120b, agent};
 \node[font=\scriptsize, anchor=west] at (axis cs:0.007902,31.31) {gpt-oss-120b, one call};
-\node[font=\scriptsize, anchor=west] at (axis cs:0.775538,67.37) {gpt-6-astra, one call};
+\node[font=\scriptsize, anchor=west] at (axis cs:0.669998,67.37) {gpt-6-astra, one call};
 \end{axis}
 \end{tikzpicture}
 \caption{Accuracy against cost per bug, full reports, 198-bug subset. Costs are list prices for the tokens each run used, or GPU rental time; systems that cost nothing to run sit at the left edge.}
