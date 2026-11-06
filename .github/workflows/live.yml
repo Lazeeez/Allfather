@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 150
     steps:
+      - name: Free disk space for the repository cache
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL && df -h /
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v10.2.0
         with:
@@ -28,8 +30,8 @@ jobs:
           path: |
             .cache/repos
             ~/.cache/huggingface
-          key: live-${{ github.run_id }}
-          restore-keys: live-
+          key: live-v2-${{ github.run_id }}
+          restore-keys: live-v2-
       - name: Score last week's fixed bugs
         run: uv run python scripts/live_eval.py run
         env:
@@ -47,3 +49,14 @@ jobs:
         run: uv run python scripts/live_eval.py summary --publish https://allfather.dev/api/live
         env:
           LIVE_TOKEN: ${{ secrets.LIVE_TOKEN }}
+      - name: Keep the repository cache under 2.5 GB, least recently used dropped first
+        if: always()
+        run: |
+          total=0
+          for m in .cache/repos/*.git; do
+            [ -d "$m" ] && echo "$(find "$m" -type f -printf '%T@\n' | sort -n | tail -1) $m"
+          done | sort -rn | cut -d' ' -f2 | while read -r d; do
+            total=$((total + $(du -sk "$d" | cut -f1)))
+            if [ "$total" -gt 2500000 ]; then rm -rf "$d"; fi
+          done
+          du -sh .cache/repos 2>/dev/null || true
