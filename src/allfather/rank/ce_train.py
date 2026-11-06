@@ -135,6 +135,7 @@ def train_cross_encoder(
     full: bool = False,
     checkpoint: Path | None = None,
     every: int = 200,
+    query_tokens: int = 512,
 ) -> None:
     """LoRA fine-tuning with a listwise loss: gold vs its hardest negatives, same issue.
 
@@ -150,7 +151,7 @@ def train_cross_encoder(
 
     random.seed(seed)
     torch.manual_seed(seed)
-    ce = CrossEncoder(base=base)
+    ce = CrossEncoder(base=base, max_query_tokens=query_tokens)
     if full:
         model = ce.model
         for p in model.parameters():

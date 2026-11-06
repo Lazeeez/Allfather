@@ -47,6 +47,14 @@ CANDIDATES = {
     "A": {"base": "Qwen/Qwen3-Reranker-0.6B", "group": 8, "epochs": 1, "balanced": False},
     "B": {"base": "Qwen/Qwen3-Reranker-0.6B", "group": 16, "epochs": 2, "balanced": True},
     "C": {"base": "Qwen/Qwen3-Reranker-4B", "group": 16, "epochs": 2, "balanced": True},
+    "A-read2048": {"base": "Qwen/Qwen3-Reranker-0.6B", "adapters": "A", "query_tokens": 2048},
+    "L": {
+        "base": "Qwen/Qwen3-Reranker-0.6B",
+        "group": 8,
+        "epochs": 1,
+        "balanced": False,
+        "query_tokens": 2048,
+    },
 }
 
 
@@ -137,6 +145,10 @@ def cmd_train(args: argparse.Namespace) -> int:
     from allfather.rank.ce_train import train_cross_encoder
 
     cand = CANDIDATES[args.candidate]
+    if "adapters" in cand:
+        sys.exit(
+            f"candidate {args.candidate} reuses {cand['adapters']}'s adapters and is not trained"
+        )
     folds = fold_of()
     records = [json.loads(line) for line in RECORDS.open(encoding="utf-8")]
     if args.fold != "all":
@@ -158,7 +170,7 @@ def cmd_train(args: argparse.Namespace) -> int:
         return 0
     train_cross_encoder(
         records, out, epochs=epochs, group=cand["group"], base=cand["base"], seed=0,
-        checkpoint=out / "checkpoint",
+        checkpoint=out / "checkpoint", query_tokens=cand.get("query_tokens", 512),
     )  # fmt: skip
     shutil.rmtree(out / "checkpoint", ignore_errors=True)
     return 0
@@ -174,9 +186,11 @@ def cmd_score(args: argparse.Namespace) -> int:
         if target.exists()
         else set()
     )
+    cand = CANDIDATES[args.candidate]
     model = CrossEncoder(
-        adapter=MODELS / args.candidate / f"fold{args.fold}",
-        base=CANDIDATES[args.candidate]["base"],
+        adapter=MODELS / cand.get("adapters", args.candidate) / f"fold{args.fold}",
+        base=cand["base"],
+        max_query_tokens=cand.get("query_tokens", 512),
     )
     with target.open("a", encoding="utf-8", newline="\n") as handle:
         for t in tasks():
