@@ -1,0 +1,160 @@
+{
+ "rule": "long reports (> 2,000 characters): gain >= 2.0 points with p < 0.05; all bugs: no loss; no language loses more than 1.0 point (ADR 0036)",
+ "long_reports": 1428,
+ "candidates": {
+  "A-read2048": {
+   "long": {
+    "bugs": 1428,
+    "baseline_hit@10": 0.7332,
+    "candidate_hit@10": 0.7388,
+    "delta": 0.0056,
+    "wins": 24,
+    "losses": 16,
+    "p": 0.268187
+   },
+   "all": {
+    "bugs": 5902,
+    "baseline_hit@10": 0.7755,
+    "candidate_hit@10": 0.777,
+    "delta": 0.0015,
+    "wins": 26,
+    "losses": 17,
+    "p": 0.222053
+   },
+   "by_language": {
+    "go": {
+     "bugs": 816,
+     "baseline_hit@10": 0.7328,
+     "candidate_hit@10": 0.7365,
+     "delta": 0.0037,
+     "wins": 7,
+     "losses": 4,
+     "p": 0.548828
+    },
+    "java": {
+     "bugs": 768,
+     "baseline_hit@10": 0.7005,
+     "candidate_hit@10": 0.7083,
+     "delta": 0.0078,
+     "wins": 7,
+     "losses": 1,
+     "p": 0.070312
+    },
+    "javascript": {
+     "bugs": 438,
+     "baseline_hit@10": 0.7283,
+     "candidate_hit@10": 0.7352,
+     "delta": 0.0068,
+     "wins": 4,
+     "losses": 1,
+     "p": 0.375
+    },
+    "python": {
+     "bugs": 3174,
+     "baseline_hit@10": 0.839,
+     "candidate_hit@10": 0.8384,
+     "delta": -0.0006,
+     "wins": 6,
+     "losses": 8,
+     "p": 0.790527
+    },
+    "rust": {
+     "bugs": 120,
+     "baseline_hit@10": 0.8333,
+     "candidate_hit@10": 0.8333,
+     "delta": 0.0,
+     "wins": 0,
+     "losses": 0,
+     "p": 1.0
+    },
+    "typescript": {
+     "bugs": 586,
+     "baseline_hit@10": 0.6126,
+     "candidate_hit@10": 0.6109,
+     "delta": -0.0017,
+     "wins": 2,
+     "losses": 3,
+     "p": 1.0
+    }
+   },
+   "passes_accuracy": false
+  },
+  "L": {
+   "long": {
+    "bugs": 1428,
+    "baseline_hit@10": 0.7332,
+    "candidate_hit@10": 0.7458,
+    "delta": 0.0126,
+    "wins": 34,
+    "losses": 16,
+    "p": 0.015347
+   },
+   "all": {
+    "bugs": 5902,
+    "baseline_hit@10": 0.7755,
+    "candidate_hit@10": 0.7784,
+    "delta": 0.0029,
+    "wins": 83,
+    "losses": 66,
+    "p": 0.189759
+   },
+   "by_language": {
+    "go": {
+     "bugs": 816,
+     "baseline_hit@10": 0.7328,
+     "candidate_hit@10": 0.7463,
+     "delta": 0.0135,
+     "wins": 23,
+     "losses": 12,
+     "p": 0.089531
+    },
+    "java": {
+     "bugs": 768,
+     "baseline_hit@10": 0.7005,
+     "candidate_hit@10": 0.7083,
+     "delta": 0.0078,
+     "wins": 13,
+     "losses": 7,
+     "p": 0.263176
+    },
+    "javascript": {
+     "bugs": 438,
+     "baseline_hit@10": 0.7283,
+     "candidate_hit@10": 0.742,
+     "delta": 0.0137,
+     "wins": 12,
+     "losses": 6,
+     "p": 0.237885
+    },
+    "python": {
+     "bugs": 3174,
+     "baseline_hit@10": 0.839,
+     "candidate_hit@10": 0.8365,
+     "delta": -0.0025,
+     "wins": 27,
+     "losses": 35,
+     "p": 0.374152
+    },
+    "rust": {
+     "bugs": 120,
+     "baseline_hit@10": 0.8333,
+     "candidate_hit@10": 0.825,
+     "delta": -0.0083,
+     "wins": 2,
+     "losses": 3,
+     "p": 1.0
+    },
+    "typescript": {
+     "bugs": 586,
+     "baseline_hit@10": 0.6126,
+     "candidate_hit@10": 0.6177,
+     "delta": 0.0051,
+     "wins": 6,
+     "losses": 3,
+     "p": 0.507812
+    }
+   },
+   "passes_accuracy": false
+  }
+ }
+}

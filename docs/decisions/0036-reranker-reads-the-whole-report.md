@@ -37,3 +37,14 @@ The chosen configuration is frozen in `results/website-rerank/gpu_config.json` b
 ## Amendment, 2026-11-06: the upgrade is reported in the current fresh-2026 study
 
 Written before any candidate has been trained or scored. Instead of waiting for fresh-2026b, the chosen configuration runs once on fresh-2026's full reports, all 580 bugs and the 198-bug agent subset, as `website-gpu-v2`, and the paper reports it in its main tables as an upgrade of Allfather, compared with every system on the same bugs. The pre-registered `website-gpu` stays the primary Allfather system and is reported unchanged next to it. The paper states the upgrade's timeline in one place: the idea came from the interim fresh-2026 analysis (the reranker's gain shrinking on full reports); the candidate was chosen on training bugs by the rule above; its configuration was frozen; and it then ran once on fresh-2026. Its configuration is frozen in `results/website-rerank/gpu_config_v2.json`; `gpu_config.json`, the pre-registered one, is left as it is. If no candidate passes the rule, nothing new runs on fresh-2026, and the paper says so. fresh-2026b remains a later, confirmatory test.
+
+## Outcome, 2026-11-06: neither candidate passes; the site keeps A
+
+Scored on the training bugs' out-of-fold scores at the frozen depth and weights (`scripts/rerank_long.py`, `results/website-rerank/long_reports.json`), function hit@10 against candidate A:
+
+| Candidate | Reports over 2,000 characters | All 5,902 bugs | Per language |
+|---|---|---|---|
+| A-read2048 | +0.6 points (24 wins, 16 losses, p = 0.27) | +0.1 (p = 0.22) | −0.2 to +0.8 |
+| L | +1.3 points (34 wins, 16 losses, p = 0.015) | +0.3 (p = 0.19) | −0.8 (Rust) to +1.4 |
+
+L's gain on long reports is real and significant, but smaller than the 2.0 points the rule asks for, and A-read2048's is within noise. Neither passes, so by the rule the site keeps candidate A, the speed test is not needed, nothing new runs on fresh-2026, and the paper reports this as a negative result: reading more of a long report helps the reranker by about a point on training bugs, not enough to explain the gap between shortened and full reports on fresh-2026. That gap may lie elsewhere, for example in the browser ranker, which the reranker can only reorder.
