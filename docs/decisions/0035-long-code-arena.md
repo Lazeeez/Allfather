@@ -36,3 +36,18 @@ The system is the website's pipeline in the browser configuration (the `website`
 ## Amendment, 2026-11-06: replacing training bugs whose repository is gone
 
 Written after the training rankings were collected and before `choose` has computed any score from them. Two of the 150 Java training bugs (`hashgraph/hedera-mirror-node` #286 and #59) cannot be run: the repository no longer exists on GitHub. Counting them as misses would score every setting on 148 real bugs and two blanks. Instead, a training bug whose repository cannot be cloned is replaced by the next bug in a shuffle of the remaining training bugs (seed 1), skipping any whose repository cannot be cloned either, until the language has 150 bugs with a ranking; `choose` uses exactly those 150. The replacements are drawn by this rule, not chosen. The test split is not changed: a test bug that cannot be run counts as a miss, as the leaderboard defines its set.
+
+## Outcome, 2026-11-06
+
+The setting chosen on the training bugs (`results/lca/choice.json`, committed before the test split ran): Python names its top file only (training F1 0.443); Java names its top two files and each one's paired test file (training F1 0.331). The test split was run once with it (`results/lca/test.json`); all 100 bugs ran.
+
+| | Bugs | F1 | P | R | Files named | File hit@1 | File hit@5 |
+|---|---|---|---|---|---|---|---|
+| Python | 50 | 0.424 | 0.620 | 0.366 | 1.0 | 0.62 | 0.90 |
+| Java | 50 | 0.378 | 0.392 | 0.458 | 2.6 | 0.58 | 0.86 |
+| Both | 100 | 0.401 | 0.506 | 0.412 | 1.8 | | |
+| Both, projects Allfather never saw | 85 | 0.432 | 0.528 | 0.451 | 1.9 | | |
+
+On the leaderboard's F1 this sits between GPT-4o mini (0.416) and Llama 3.1 70B (0.351), but the comparison is not exact: the published scores are one average over all 150 test bugs, Kotlin included, and no per-language scores are published. Allfather's precision is close to the large models'; its recall is lower, because a fixed count of named files cannot follow the number of files a fix changes, while a model reading the issue can. Its ranking is strong on the same bugs: a changed file is first for 60 of the 100 and in the top five for 88.
+
+Whether to submit this entry, and any later version, is decided separately. A later version is developed on training bugs only, fixed in an amendment before its test run, and reported next to this one.
