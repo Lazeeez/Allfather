@@ -33,3 +33,7 @@ If both candidates pass, the one with the larger gain on long reports is chosen;
 ## What happens next
 
 The chosen configuration is frozen in `results/website-rerank/gpu_config.json` before it runs on any fresh-2026 bug. It is then run once on the 580 full reports as `website-gpu-long`, reported in the paper as a post-hoc system, because the idea came from fresh-2026 results, and never in place of the pre-registered `website-gpu`. The confirmatory test is fresh-2026b, a set of bugs reported after this decision, sealed before any system runs on it.
+
+## Amendment, 2026-11-06: the upgrade is reported in the current fresh-2026 study
+
+Written before any candidate has been trained or scored. Instead of waiting for fresh-2026b, the chosen configuration runs once on fresh-2026's full reports, all 580 bugs and the 198-bug agent subset, as `website-gpu-v2`, and the paper reports it in its main tables as an upgrade of Allfather, compared with every system on the same bugs. The pre-registered `website-gpu` stays the primary Allfather system and is reported unchanged next to it. The paper states the upgrade's timeline in one place: the idea came from the interim fresh-2026 analysis (the reranker's gain shrinking on full reports); the candidate was chosen on training bugs by the rule above; its configuration was frozen; and it then ran once on fresh-2026. If no candidate passes the rule, nothing new runs on fresh-2026, and the paper says so. fresh-2026b remains a later, confirmatory test.
