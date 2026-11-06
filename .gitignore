@@ -13,6 +13,7 @@ results/*
 !results/comparison/
 !results/provenance/
 !results/runs/
+!results/lca/
 !results/ties/
 !results/reproductions/
 !results/error-analysis/
