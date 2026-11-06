@@ -338,7 +338,7 @@ Retrievers: `random`, `oracle`, `bm25-naive`, `bm25-code`, `bm25-code-notests`, 
 
 ## Website
 
-`web/` is the product site: **TypeScript + Vite + Preact**, deployed to [allfather.dev](https://allfather.dev/) as a Cloudflare Worker with static assets ([docs/deploy.md](docs/deploy.md)). Searching runs in the visitor's browser; the only work done elsewhere is the optional GPU reranker. Every page has its own address for search engines ([ADR 0031](docs/decisions/0031-path-routes.md)): Home, `/search`, `/how-it-works`, `/benchmarks`, `/explore/<issue>`, `/case-study` and `/privacy`; older `#/…`, `?repo=` and `#issue=` links redirect.
+`web/` is the product site: **TypeScript + Vite + Preact**, deployed to [allfather.dev](https://allfather.dev/) as a Cloudflare Worker with static assets ([docs/deploy.md](docs/deploy.md)). Searching runs in the visitor's browser; the only work done elsewhere is the optional GPU reranker, which is off until the visitor switches it on. Every page has its own address for search engines ([ADR 0031](docs/decisions/0031-path-routes.md)): Home, `/search`, `/how-it-works`, `/benchmarks`, `/explore/<issue>`, `/case-study` and `/privacy`; older `#/…`, `?repo=` and `#issue=` links redirect.
 
 - **Search any public repository in Python, JavaScript, TypeScript, Go, Java or Rust.** It accepts `owner/name`, https or ssh URLs, and links to a branch, a folder (the search is then limited to it), a file, an issue or a pull request. Over the browser budget (6,000 files, 60 MB) it keeps the project's own code and drops docs, examples and vendored code first; committed virtualenvs are skipped. A Web Worker lists the repository through GitHub's API and downloads its source files (or one `.tar.gz` through an optional CORS relay, `proxy/`), parser threads split them into functions with Tree-sitter compiled to WebAssembly, and a code-aware BM25 index is built. Large repositories are searchable while they load. A learned ranker (LambdaMART, exported as JSON trees) orders candidates using what the issue names: traceback frames, quoted identifiers, module paths and title matches. In the background, a static code-embedding model (Model2Vec potion-code-16M, int8, 16.8 MB) embeds every function in seconds, a second ranker adds meaning to the evidence, and the fine-tuned reranker on a GPU server re-reads the top 50; when it is off or does not answer, a small language model in the browser (MiniLM, WebGPU or WebAssembly) reranks the top 20 instead. A file ranker orders whole files. Parsed repositories are cached in IndexedDB by git tree hash, embeddings by content hash; the main thread never blocks.
 - **Measured on projects it never saw.** `scripts/browser_ltr.py` trains the browser's rankers on 7,843 issues from 192 projects (SWE-bench minus Lite, 120 projects sampled from SWE-rebench, and 61 projects in five other languages from Multi-SWE-RL), choosing settings by project-grouped cross-validation, then scores this exact pipeline once on held-out data. On 747 bugs from 30 projects kept out of training entirely, a function the fix changed is in the top 10 for 76.6% (hit@10; keyword search alone 66.0%), and the file ranker finds the file in the top 10 for 94.2%. A parity test runs the TypeScript features, tokenizer and embeddings against the Python ones, value for value. See [ADR 0011](docs/decisions/0011-website-at-scale.md).
@@ -474,6 +474,9 @@ docs/decisions/               why things are the way they are
 30. [Odin is renamed Allfather](docs/decisions/0030-rename-to-allfather.md)
 31. [Pages get real addresses, so search engines can index them](docs/decisions/0031-path-routes.md)
 32. [allfather-fast is frozen and spends its one holdout run](docs/decisions/0032-freeze-allfather-fast.md)
+33. [A pre-registered comparison with frontier and free models on bugs reported after their training (fresh-2026)](docs/decisions/0033-frontier-comparison-protocol.md)
+34. [One GPU reranker for all six languages](docs/decisions/0034-gpu-reranker-other-languages.md)
+35. [Allfather on the Long Code Arena bug-localization leaderboard](docs/decisions/0035-long-code-arena.md)
 
 ## Adding a retriever
 
@@ -491,9 +494,11 @@ Implement `retrieve(query, level, k) -> list[str]`, returning file paths for `le
 | 6 | Learning to rank (LambdaMART), git history and past-issue features | done (ADR 0006) |
 | 7 | Fine-tuned cross-encoder reranking, shared-prefix KV cache | done (ADR 0007) |
 | 9 | In-browser rankers trained on 131 projects, static-embedding semantic index | done (ADR 0010, 0011) |
-| 10 | The fine-tuned reranker for the website on a GPU server | done (ADR 0021, 0026); one held-out scoring run left |
-| 11 | Website in JavaScript, TypeScript, Go, Java and Rust | done (ADR 0025); no further languages planned |
+| 10 | The fine-tuned reranker for the website on a GPU server | done (ADR 0021, 0026, 0034): one adapter for all six languages, off by default |
+| 11 | Website in JavaScript, TypeScript, Go, Java and Rust | done (ADR 0025); C, C++, C# and PHP planned for early 2027 |
 | 12 | Live accuracy on bugs fixed each week | running (ADR 0023) |
+| 13 | fresh-2026: 580 bugs reported after every compared model's training cutoff, Allfather against frontier agents, free-tier and open-weight models and SweRank | running (ADR 0033); paper in preparation |
+| 14 | A public leaderboard entry: Long Code Arena bug localization, Python and Java | running (ADR 0035) |
 | 8 | LLM listwise reranking of the top 10 (needs an API model) | next |
 | 5 | Persistent on-disk index, incremental updates | planned |
 
