@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" font-family="Inter, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Allfather, the system as deployed</title>
-  <desc id="d">The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and, for Python repositories, sends the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains the models the site ships.</desc>
+  <desc id="d">The browser downloads a repository through a Cloudflare Worker relay, parses and ranks it in Web Workers, and, if the visitor switches it on, sends the report and the top 50 functions to a GPU reranker on Modal through the same Worker. A Python research pipeline on a laptop and the PACE cluster trains and evaluates the models the site ships.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 0 10 5 0 10Z" fill="#8a5b00"/>
@@ -35,7 +35,7 @@
   <text class="cs" x="66" y="243">static code embeddings (Model2Vec, 16 MB, int8)</text>
   <text class="cs" x="66" y="262">LambdaMART rankers shipped as JSON trees</text>
   <text class="cs" x="66" y="281">confidence estimate · blend of GPU scores</text>
-  <text class="cs" x="66" y="300">MiniLM fallback if the GPU does not answer</text>
+  <text class="cs" x="66" y="300">MiniLM rerank of the top 20 (WebGPU or WASM)</text>
 
   <rect class="card" x="50" y="322" width="356" height="80" rx="9"/>
   <text class="ct" x="66" y="348">Parse workers ×4</text>
@@ -79,8 +79,8 @@
   <text class="zt" x="866" y="62">Modal GPU</text>
   <rect class="gold" x="866" y="80" width="284" height="150" rx="9"/>
   <text class="ct" x="882" y="106">Fine-tuned reranker</text>
-  <text class="cs" x="882" y="128">Qwen3-Reranker-0.6B + two LoRA</text>
-  <text class="cs" x="882" y="147">adapters, scores the top 50 (Python)</text>
+  <text class="cs" x="882" y="128">Qwen3-Reranker-0.6B + one LoRA adapter,</text>
+  <text class="cs" x="882" y="147">six languages · top 50 · opt-in</text>
   <text class="cs" x="882" y="172">up to 2 GPUs (L4, else A10G/L40S),</text>
   <text class="cs" x="882" y="191">scale to zero after 3 minutes</text>
   <text class="cs" x="882" y="214">warm ≈ 2 s · after idle ≈ 14 s</text>
@@ -115,11 +115,11 @@
   <text class="ct" x="66" y="678">Evaluation harness</text>
   <text class="cs" x="66" y="698">every issue at its base commit,</text>
   <text class="cs" x="66" y="717">paired bootstrap, provenance,</text>
-  <text class="cs" x="66" y="736">a sealed holdout</text>
+  <text class="cs" x="66" y="736">sealed holdout, fresh-2026 study</text>
   <rect class="card" x="330" y="652" width="262" height="98" rx="9"/>
   <text class="ct" x="346" y="678">Training</text>
   <text class="cs" x="346" y="698">LambdaMART on up to 192 projects,</text>
-  <text class="cs" x="346" y="717">LoRA reranker adapters,</text>
+  <text class="cs" x="346" y="717">a LoRA reranker for six languages,</text>
   <text class="cs" x="346" y="736">project-grouped cross-validation</text>
   <rect class="card" x="610" y="652" width="262" height="98" rx="9"/>
   <text class="ct" x="626" y="678">Parity tests</text>
@@ -130,5 +130,5 @@
   <text class="ct" x="906" y="678">Ships to production</text>
   <text class="cs" x="906" y="698">rankers as JSON trees and</text>
   <text class="cs" x="906" y="717">benchmark data to the site;</text>
-  <text class="cs" x="906" y="736">adapters to Modal</text>
+  <text class="cs" x="906" y="736">the reranker adapter to Modal</text>
 </svg>
