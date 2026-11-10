@@ -9,13 +9,71 @@
 
 It ships three ways:
 
-- **A website** for any public repository in Python, JavaScript, TypeScript, Go, Java or Rust: **[allfather.dev](https://allfather.dev/)**. Paste a repository and a bug report; parsing, indexing, embedding and ranking happen on your device, and an optional GPU server re-reads the top 50 with the research pipeline's fine-tuned reranker.
+- **A website** for any public repository in Python, JavaScript, TypeScript, Go, Java or Rust: **[allfather.dev](https://allfather.dev/)**. Paste a repository and a bug report; parsing, indexing, embedding and ranking happen on your device, and an optional GPU server, off until you switch it on, re-reads the top 50 with a fine-tuned reranker.
 - **A GitHub Action** that comments on new issues with the functions most likely to need the fix ([set-up](#github-action)).
-- **A research pipeline** (`src/allfather`, Python): the full cascade on a GPU, evaluated on SWE-bench Lite against published systems.
+- **A research pipeline** (`src/allfather`, Python): the full cascade on a GPU, evaluated on SWE-bench Lite, a sealed holdout, and fresh-2026, a pre-registered comparison with frontier AI agents on bugs reported after their training.
 
 Two-minute version: the **[case study](https://allfather.dev/case-study)**. Every decision, including the ones that didn't work, is in [docs/decisions](docs/decisions/).
 
+## At a glance
+
+- **On 580 bugs reported after every compared model's training cutoff** (fresh-2026, six languages, 74 projects), Allfather finds a function the fix changed in its top 10 for **77.9%** of bugs, more than SweRank, the strongest published retriever (72.9%), and far more than frontier models asked once (gpt-6-astra 55.0%, Gemini 3.8 Flash 53.3%).
+- **On the 198-bug agent subset it ties the best free coding agent** (gpt-6-luna in Codex, 77.3% against Allfather's 77.3% in the browser) and beats open-weight models as agents. Paid frontier agents are ahead (gpt-6-astra 86.9%); sending only the bugs Allfather is least sure about to that agent reaches 89.9%, more than the agent alone, at a little over half its cost.
+- **It costs nothing in the browser** and about a tenth of a cent per bug with the GPU reranker, against $0.20 to $0.29 per bug for paid agents, and no code leaves the device unless the visitor opts in.
+- **79.4% function hit@10 on SWE-bench Lite** with the full GPU cascade, and **79.7% on a sealed holdout** of 311 bugs from 184 projects it never saw, scored once after freezing.
+- **Engineering:** Tree-sitter compiled to WebAssembly, LambdaMART rankers shipped as JSON trees, an int8 static code-embedding model, a LoRA fine-tuned Qwen3 reranker on Modal, one Cloudflare Worker, and a parity suite that holds the TypeScript engine to the Python one value for value.
+- **Process:** 36 decision records, protocols written before results, every test-set evaluation logged, 166 Python tests, 97 unit tests and 71 end-to-end tests in Chromium, Firefox, WebKit and two phone profiles.
+
 ## Headline results
+
+### Against frontier AI, on bugs they cannot have seen
+
+Frontier models can answer older benchmarks from memory: on a SWE-bench Verified pilot, Claude Opus 5.5 given only the list of file names did as well as Claude reading the code. So I built **fresh-2026**: 580 bugs from 74 popular projects in Python, JavaScript, TypeScript, Go, Java and Rust, every one reported between 1 August and 2 November 2026, after the published training cutoff of every model compared. Of 9,270 candidate issues, 4,072 qualified; I drew up to 100 per language with at most 12 per project, excluded issues and fixes written by bots or AI agents, and sealed the answer keys by hash before anything ran on them. The comparison was written down in advance ([ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md)), and every later change is a dated amendment written before the results it affects. Each system gets the full bug report and returns ten functions; agents get a read-only checkout and tools to list, search and read files, with web access off. The agents run on a stratified 198-bug subset.
+
+Full reports, the 198-bug subset (function hit@k: a function the fix changed is in the top k; intervals from a bootstrap over projects; tests are exact and paired, Holm-adjusted across the whole table):
+
+| System | Free | hit@1 | hit@10 [95% CI] | Cost per bug | vs Allfather + GPU (wins/losses, Holm p) |
+|---|---|---|---|---|---|
+| gpt-6-astra agent (Codex) |  | 79.3% | 86.9% [81.7, 91.5] | $0.28 | +10.1 (35/15, 0.198) |
+| gpt-6-luna agent (Codex) | yes | 65.2% | 77.3% [70.9, 83.3] | $0.0032 | +0.5 (26/25, 1.000) |
+| **Allfather, browser only** | yes | 46.0% | 77.3% [71.0, 83.1] | $0 | +0.5 (7/6, 1.000) |
+| **Allfather + GPU reranker** | yes | 47.5% | 76.8% [69.8, 83.0] | $0.0012 | reference |
+| SweRankEmbed-Large | yes | 40.4% | 72.7% [66.1, 79.6] | – | −4.0 (14/22, 1.000) |
+| SweRankEmbed-Small | yes | 38.4% | 62.1% [54.5, 69.7] | – | −14.6 (11/40, 0.005) |
+| Qwen3-Coder-Next agent | yes | 53.5% | 61.6% [53.5, 69.5] | $0.027 | −15.2 (15/45, 0.005) |
+| gpt-6-astra, one call |  | 49.0% | 60.6% [51.9, 69.0] | $0.54 | −16.2 (16/48, 0.005) |
+| Gemini 3.8 Flash, one call | yes | 42.4% | 55.6% [46.3, 64.9] | $0.10 | −21.2 (11/53, <0.001) |
+| gpt-oss-120b agent | yes | 48.5% | 51.0% [42.3, 59.5] | $0.049 | −25.8 (10/61, <0.001) |
+| gpt-6-luna, one call | yes | 37.4% | 42.9% [33.7, 52.4] | $0.0053 | −33.8 (4/71, <0.001) |
+| Qwen3-Coder-Next, one call | yes | 31.8% | 40.9% [31.7, 50.0] | $0.0065 | −35.9 (5/76, <0.001) |
+| gpt-oss-120b, one call | yes | 25.8% | 31.3% [22.8, 40.0] | $0.0063 | −45.5 (3/93, <0.001) |
+
+All 580 bugs, for every system that ran on the whole set:
+
+| System | hit@1 | hit@10 [95% CI] | vs Allfather + GPU (wins/losses, Holm p) |
+|---|---|---|---|
+| **Allfather + GPU reranker** | 46.7% | **77.9%** [73.4, 82.4] | reference |
+| **Allfather, browser only** | 46.0% | 75.3% [70.1, 80.1] | −2.6 (12/27, 0.142) |
+| SweRankEmbed-Large | 43.3% | 72.9% [66.5, 78.5] | −5.0 (35/64, 0.041) |
+| SweRankEmbed-Small | 37.4% | 65.9% [59.4, 71.9] | −12.1 (30/100, <0.001) |
+| gpt-6-astra, one call | 45.0% | 55.0% [48.5, 60.9] | −22.9 (33/166, <0.001) |
+| Gemini 3.8 Flash, one call | 39.3% | 53.3% [47.1, 59.3] | −24.7 (26/169, <0.001) |
+| gpt-6-luna, one call | 34.0% | 39.8% [33.3, 46.3] | −38.1 (8/229, <0.001) |
+| Qwen3-Coder-Next, one call | 29.0% | 36.7% [30.6, 42.8] | −41.2 (10/249, <0.001) |
+| gpt-oss-120b, one call | 21.7% | 27.2% [21.1, 33.5] | −50.7 (4/298, <0.001) |
+
+What the numbers say:
+
+- **Among free tools, Allfather is tied for first at hit@10** and significantly ahead of SweRank on the full set, of both open-weight models as agents and as single calls, and of every model asked once. Costs are list prices for the tokens each run used, or GPU rental time; SweRank's GPU time was not priced.
+- **Agents rank better.** The free agent puts a changed function first for 65.2% of bugs against Allfather's 47.5%; ranking first is where agents earn their cost.
+- **Paid agents are more accurate, and Allfather can decide when to call one.** Allfather's confidence estimate, with a threshold fixed before the study, escalates 56.1% of bugs to an agent and keeps its own answer for the rest. With gpt-6-astra that reaches 89.9% hit@10, against 86.9% for the agent on every bug and 82.4% for escalating the same number of bugs at random. On shortened reports, where Claude Opus 5.5 in Claude Code also ran, Claude reached 90.9% and the same gate, escalating 62.6%, reached 91.4% at about two thirds of its cost.
+- **Models asked once fall far behind on new bugs.** gpt-6-astra reaches 60.6% asked once and 86.9% as an agent on the same bugs, while on the SWE-bench Verified pilot Claude asked once matched Claude as an agent. A model that cannot read the code is much weaker on bugs it cannot remember.
+- **At file level the gap narrows.** Allfather's file ranker puts a changed file in its top 10 for 87.9% of the subset and 86.7% of all 580 bugs, level with Gemini (87.4% and 85.9%), behind the agents (89.4% to 93.4%), and still behind every frontier model at putting it first (63.6% against 68.7% to 87.9%).
+- **Repeatability.** Asked again on 50 bugs, gpt-6-astra as an agent kept its outcome on all 50 and asked once changed it on 4; Allfather is deterministic.
+
+Every number here is regenerated from the run records by `scripts/fresh_analysis.py`; the full tables, file-level results, per-language and per-hint breakdowns and run logs are in [results/research/](results/research/). A paper on this study is in preparation.
+
+### On SWE-bench Lite
 
 SWE-bench Lite test, 300 issues across 12 repositories, each searched at its own `base_commit`, out of 399 to 30,836 candidate functions per snapshot (about 10,900 on average). Nothing was trained or tuned on these issues, but the rankers trained on other issues from the same 12 projects and Lite guided development, so the sealed holdout below is the clean test. File-level rows score all 300; function-level rows score 291, the 300 minus the 9 whose fix touches only module-level code and so has no function or class to find.
 
@@ -80,9 +138,11 @@ The site can send the bug report and its top 50 functions to a GPU server (Modal
 
 Since November 2026 the server runs one LoRA adapter trained on bugs from all six languages, chosen from three candidates by a rule fixed in advance ([ADR 0034](docs/decisions/0034-gpu-reranker-other-languages.md)). Cross-validated with whole projects held out, it lifts function hit@10 in every language: Python 79.3% → 83.6%, Go 68.9% → 73.3%, Java 62.9% → 70.1%, JavaScript 68.3% → 72.8%, TypeScript 56.3% → 61.3% and Rust 73.3% → 83.3%. Its scores are blended with weight 1 in Python and 2 elsewhere. The browser skips its own language model when the GPU answers only for Python, the one language where I have tested that it costs nothing (hit@10 +0.1 points, 95% interval [−0.3, 0.5], p = 0.77); in the other five the GPU re-reads the language model's order, as in the configuration I evaluated. The reranker is off until a visitor switches it on, because it sends the bug report and the top 50 functions off the device; the search page offers it next to the results, more firmly when its own confidence is low.
 
+The reranker reads at most 512 tokens of a report, and most fresh-2026 reports are longer. I tested two fixes on the training bugs against a rule fixed in advance ([ADR 0036](docs/decisions/0036-reranker-reads-the-whole-report.md)): the same adapter reading 2,048 tokens gained 0.6 points of function hit@10 on reports over 2,000 characters (not significant), and an adapter retrained on 2,048 tokens gained 1.3 points (p = 0.015). The rule asked for 2 points, so the site keeps the current adapter; reading more of a report helps, but by less than its cost in a new release.
+
 ### Live, on bugs fixed this week
 
-A nightly job collects bugs that popular projects in all six languages fixed in the past week, runs the website's pipeline at the commit before each fix, and scores where the changed function ranked ([ADR 0023](docs/decisions/0023-live-accuracy.md), [results/live/](results/live/)). The first night, 2026-10-15, with the Python-only ranker: 80 bugs from 13 projects, function hit@10 66.3% [56.3, 76.3], file hit@10 90.0%. Since 2026-10-16 it also covers JavaScript, TypeScript, Go, Java and Rust projects and reports each language.
+A nightly job collects bugs that popular projects in all six languages fixed in the past week, runs the website's pipeline at the commit before each fix, and scores where the changed function ranked ([ADR 0023](docs/decisions/0023-live-accuracy.md), [results/live/](results/live/)). The first night, 2026-10-15, with the Python-only ranker: 80 bugs from 13 projects, function hit@10 66.3% [56.3, 76.3], file hit@10 90.0%. Since 2026-10-16 it also covers JavaScript, TypeScript, Go, Java and Rust projects and reports each language. By 2026-11-10 it had scored 866 bugs from 41 projects: a function the fix changed was in the top 10 for 70.4% (95% interval 67.4 to 73.4), and the file for 89.5%. On the 441 bugs from projects the rankers never trained on, function hit@10 is 76.0%; on projects they did, 64.7%. The site's live page shows the last 30 days.
 
 ### In the browser, in other languages
 
@@ -98,6 +158,10 @@ The same rankers on bugs in other languages, from two public test sets and proje
 | Java | SWE-PolyBench | 125 | 71.2% | 55.2% | +16.0 (p < 0.001) | <0.001 |
 | JavaScript | SWE-PolyBench | 115 | 79.1% | 55.6% | +23.5 (p < 0.001) | <0.001 |
 | TypeScript | SWE-PolyBench | 100 | 60.0% | 44.0% | +16.0 (p < 0.001) | 0.002 |
+
+### On a public leaderboard: Long Code Arena
+
+JetBrains' Long Code Arena scores bug localization by the set of files a system names: precision, recall and F1, no credit for ranking ([ADR 0035](docs/decisions/0035-long-code-arena.md)). Allfather reads its Python and Java bugs but not Kotlin. I chose how many files to name on 150 training bugs per language (Python: the top file; Java: the top two and their test files), then ran the hand-checked test split once: F1 0.401 on the 100 Python and Java bugs, precision 0.51, recall 0.41. On the leaderboard's F1 that sits between GPT-4o mini (0.416) and Llama 3.1 70B (0.351), though their scores also include Kotlin. The ranking is stronger than the set score suggests: a changed file is first for 60 of the 100 bugs and in the top five for 88. A fixed number of files cannot follow how many files a fix changes, which is where the language models gain; I have not submitted this entry.
 
 ### Every retriever
 
@@ -255,8 +319,9 @@ flowchart LR
     PT --> SE["static embeddings<br/>every function, int8"]
     BM --> L1["LambdaMART, instant<br/>33 features"]
     SE --> L2["LambdaMART, semantic<br/>+7 features"]
-    L1 --> L2 --> GPU["fine-tuned reranker<br/>top 50, GPU server (Modal)"]
-    L2 -.->|"GPU off or no answer"| RR["MiniLM rerank<br/>top 20, WebGPU or WASM"]
+    L1 --> L2 --> RR["MiniLM rerank<br/>top 20, WebGPU or WASM"]
+    RR -->|"if switched on"| GPU["fine-tuned reranker, six languages<br/>top 50, GPU server (Modal)"]
+    L2 -.->|"Python: skips MiniLM when the GPU answers"| GPU
     L2 --> FR[file ranker]
     PT --> IDB[(IndexedDB: parsed repos<br/>by tree hash, vectors by content)]
 ```
@@ -272,7 +337,10 @@ flowchart LR
 | Website | TypeScript (strict), Preact, Vite, Web Workers, Tree-sitter compiled to WebAssembly (six languages), Model2Vec static embeddings (int8), Transformers.js + ONNX Runtime (MiniLM on WebGPU or WASM, the fallback), IndexedDB, a service worker (COOP/COEP isolation, offline cache) |
 | Hosting | One Cloudflare Worker at allfather.dev (`deploy/cloudflare/`, `proxy/`): static files, a relay for repository archives (`/relay`), a GitHub API proxy with a token and an edge cache (`/gh`), search counts and votes in D1 (`/api`), and the GPU reranker's front door (`/rerank`), which checks, rate-limits and caches requests to a Modal endpoint (`deploy/modal/reranker.py`) |
 | Quality | pytest, Vitest, Playwright end-to-end tests (desktop and phone), a Python/TypeScript parity suite, ruff, GitHub Actions CI, axe accessibility checks |
-| Data | SWE-bench (Lite, Verified, full), SWE-rebench (CC-BY-4.0) for 150 more projects |
+| Research computing | The PACE cluster at Georgia Tech (Slurm; L40S, A100 and H100 GPUs) for reranker training and open-weight models served with vLLM; a 6 GB laptop GPU (RTX 4050) for everything else |
+| Frontier comparison | Codex CLI (gpt-6-luna, gpt-6-astra), Claude Code (Claude Opus 5.5), the Gemini API, vLLM (Qwen3-Coder-Next, gpt-oss-120b) in a read-only agent harness of my own, SweRank's published retrievers |
+| Paper | LaTeX (ACM `acmart`), every table, figure and number generated from the run records by `scripts/paper_tables.py` |
+| Data | SWE-bench (Lite, Verified, full), SWE-rebench (CC-BY-4.0) for 150 more projects, Multi-SWE-RL, SWE-bench Multilingual, SWE-PolyBench, Long Code Arena, and fresh-2026, built here from GitHub |
 
 ## Evaluation methodology
 
@@ -281,6 +349,7 @@ flowchart LR
 - **Held-out tuning.** Anything with a knob is tuned off Lite: fusion and expansion on SWE-bench Verified minus Lite (407 issues, `allfather tune`), learned rankers on SWE-bench test minus Lite (1,941 issues, `allfather ltr`, 5-fold CV grouped by query), and the reranker's depth and weights on 250 issues held out from its training (`allfather ce-tune`), with the selection rule written down before looking.
 - **How often Lite has been looked at.** I trained or tuned no number here on Lite, but Lite is not untouched: I have scored it 92 times, and [results/test-evals.log](results/test-evals.log) lists each one with what was decided from it. Most are one run per reported row. The exceptions: I scored the early browser pipeline on Lite at several rerank depths and with two stage-2 models (I chose its settings on dev data and cross-validation, but I looked at Lite each time), and I rejected the distilled reranker on a Lite result, a decision taken on the test set, in the conservative direction. Every later evaluation appends to the log.
 - **A sealed holdout for what comes next.** 324 issues created on or after 2025-09-01, after the cascade's models were published, from 189 projects that appear in no training, dev or test data here; 311 of them have a function-level target. Only three final configurations may ever be evaluated on it, each once per level, and `allfather eval` refuses anything else ([ADR 0013](docs/decisions/0013-sealed-holdout.md)). allfather-fast has used its run ([ADR 0032](docs/decisions/0032-freeze-allfather-fast.md)).
+- **Written before the results.** The fresh-2026 comparison was fixed in [ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md) before its answer keys were scored, and every later change is a dated amendment written before the results it affects; so were the six-language reranker ([ADR 0034](docs/decisions/0034-gpu-reranker-other-languages.md)), the long-report test ([ADR 0036](docs/decisions/0036-reranker-reads-the-whole-report.md)) and the Long Code Arena entry ([ADR 0035](docs/decisions/0035-long-code-arena.md)). Every run on a test set, fresh-2026 included, is logged in [results/test-evals.log](results/test-evals.log).
 - **No leakage through features.** Git history uses only strict ancestors of the base commit (`git rev-list`). Earlier-issue features only see issues opened at least 30 days before the query. Both boundaries have tests.
 - **Reproducibility.** Cached features and trained models carry a fingerprint of the source code that produced them, and a model refuses to load against different feature code. Result files written by `allfather eval` record the git commit, library versions, model hashes and command line; some early files and the derived summaries do not.
 - **Significance.** `allfather compare` reports Δ, a 95% paired-bootstrap interval (10k resamples), a two-sided p-value from a paired randomization test (exact McNemar when the outcome is yes or no; Urbano et al., SIGIR 2019) and win/loss counts. Tables of several tests also give Holm-adjusted p-values. A difference that isn't significant is reported as such.
@@ -330,6 +399,11 @@ make test
 uv run python scripts/sample_rebench.py         # the fixed project sample (committed)
 uv run allfather gold --dataset rebench --split train
 uv run python scripts/browser_ltr.py            # trains, cross-validates, exports web/src/assets/
+
+# fresh-2026 (ADR 0033): run records are committed, so the analysis and the paper rebuild offline
+uv run python scripts/fresh_analysis.py --set fresh-full --reference website-gpu --also-reference website
+uv run python scripts/paper_tables.py           # every table, figure and number in docs/paper/
+uv run python scripts/frontier.py run --set fresh-full-agents --system codex-agent   # rerun one system
 ```
 
 The first evaluation clones 12 blobless mirrors (about 400 MB) and fetches the source blobs for every needed commit in one request per repository. Later runs are offline.
@@ -353,7 +427,7 @@ npm test && npm run typecheck          # Vitest + strict TypeScript
 uv run python scripts/export_site.py   # refresh web/public/data/ from results/*.json
 ```
 
-The page is 41 KB of JavaScript and 13 KB of CSS (gzipped); the map, the game and the command palette are separate 1–2 KB chunks loaded on first use. Searching adds the workers, about 140 KB (gzipped) of parser WebAssembly for Python and 36 to 132 KB for each other language a repository contains, the ranker (387 KB gzipped) and the 16.8 MB static embedding model, each fetched once and cached. The browser's language model, needed only when the GPU reranker is off or does not answer, comes from Hugging Face, its runtime from unpkg. `npm run e2e` runs the Playwright suite against a built preview.
+The page is 41 KB of JavaScript and 13 KB of CSS (gzipped); the map, the game and the command palette are separate 1–2 KB chunks loaded on first use. Searching adds the workers, about 140 KB (gzipped) of parser WebAssembly for Python and 36 to 132 KB for each other language a repository contains, the ranker (387 KB gzipped) and the 16.8 MB static embedding model, each fetched once and cached. The browser's language model, needed only when the GPU reranker is off or does not answer, comes from Hugging Face, its runtime from unpkg. `npm run e2e` runs the Playwright suite against a built preview: 71 tests in Chromium, Firefox and WebKit, plus Android and iPhone profiles. CI runs it with the Python tests (166), the Vitest unit tests (97), the TypeScript type check, ruff and a check of every number in this README.
 
 **Archive relay.** `proxy/cloudflare-worker.js` passes GitHub's repository archives through, so a repository downloads as one `.tar.gz` instead of one request per file: Django is ready in 3.5 s instead of 13.8 s, transformers in 5.8 s instead of about a minute. It runs in the same Worker as the site, at `/relay` on the same origin, and answers only the site's own pages. With the relay on, the file list and the commit also come from the archive, so loading makes no call to GitHub's API and its limit of 60 requests an hour does not apply ([ADR 0012](docs/decisions/0012-archive-file-list.md)). A build without `VITE_ARCHIVE_PROXY`, or a relay that is down, falls back to listing files through the API and loading them one by one.
 
@@ -432,6 +506,15 @@ src/allfather/
   rank/ce_tune.py             reranker depth and blend weights on held-out training issues
   rank/browser.py             the website's ranker features, pools and tree predictions
 scripts/                      browser ranker training and export, site data, examples, preview image
+  fresh_set.py                fresh-2026: mining, vetting and sealing post-cutoff bugs
+  frontier.py                 runs every compared system (Codex, Claude Code, Gemini, vLLM, SweRank)
+  open_agent.py               the read-only agent harness for open-weight models
+  fresh_analysis.py           the pre-registered analysis: paired tests, intervals, escalation
+  paper_tables.py             the paper's tables, figures and numbers from the run records
+  lca_bug_localization.py     Allfather on Long Code Arena
+cluster/                      Slurm jobs for PACE: reranker training, vLLM models, SweRank
+deploy/                       Cloudflare Worker config and the Modal GPU reranker
+docs/paper/                   the paper draft (LaTeX)
 web/                          the website: engine/ (port of the Python engine), worker/, pages/
 proxy/                        Cloudflare Worker relay for repository archives
 tests/                        pytest, including Python/TypeScript parity (tests/js/)
@@ -477,6 +560,7 @@ docs/decisions/               why things are the way they are
 33. [A pre-registered comparison with frontier and free models on bugs reported after their training (fresh-2026)](docs/decisions/0033-frontier-comparison-protocol.md)
 34. [One GPU reranker for all six languages](docs/decisions/0034-gpu-reranker-other-languages.md)
 35. [Allfather on the Long Code Arena bug-localization leaderboard](docs/decisions/0035-long-code-arena.md)
+36. [A GPU reranker that reads the whole bug report (tested, not adopted)](docs/decisions/0036-reranker-reads-the-whole-report.md)
 
 ## Adding a retriever
 
@@ -497,15 +581,18 @@ Implement `retrieve(query, level, k) -> list[str]`, returning file paths for `le
 | 10 | The fine-tuned reranker for the website on a GPU server | done (ADR 0021, 0026, 0034): one adapter for all six languages, off by default |
 | 11 | Website in JavaScript, TypeScript, Go, Java and Rust | done (ADR 0025); C, C++, C# and PHP planned for early 2027 |
 | 12 | Live accuracy on bugs fixed each week | running (ADR 0023) |
-| 13 | fresh-2026: 580 bugs reported after every compared model's training cutoff, Allfather against frontier agents, free-tier and open-weight models and SweRank | running (ADR 0033); paper in preparation |
-| 14 | A public leaderboard entry: Long Code Arena bug localization, Python and Java | running (ADR 0035) |
+| 13 | fresh-2026: 580 bugs reported after every compared model's training cutoff, Allfather against frontier agents, free-tier and open-weight models and SweRank | done (ADR 0033) apart from Claude Opus 5.5 as an agent on full reports; paper in preparation |
+| 14 | A public leaderboard entry: Long Code Arena bug localization, Python and Java | first version scored (F1 0.401), not submitted (ADR 0035) |
+| 15 | A GPU reranker that reads the whole report | tested, not adopted (ADR 0036) |
 | 8 | LLM listwise reranking of the top 10 (needs an API model) | next |
 | 5 | Persistent on-disk index, incremental updates | planned |
 
-What would move the numbers further, in expected order of impact:
+What would move the numbers further, in expected order of impact. Each is developed on training data and measured on fresh-2026b, a new set of bugs sealed after this one, so fresh-2026 stays a clean test:
 
-1. **A frontier LLM as the final stage.** Published SWE-bench localization agents get their precision from large models reading candidate code. The cascade already reduces each issue to about 20 candidates, which keeps that affordable.
-2. **A bigger reranker base model.** I adopted a 4B LoRA reranker for allfather-max: first place +6 points, top 10 unchanged ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next. More epochs, LTR-mined negatives and a two-adapter ensemble were tried earlier and kept ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Fine-tuning the embedding model was tried and did not help.
+1. **Ranking first, not just top 10.** Frontier agents put a changed function first far more often (65% to 79% on fresh-2026 against Allfather's 47%). A model reading Allfather's top 10, an open model on the GPU server or an agent starting from Allfather's shortlist, targets exactly that, and the cascade already reduces each bug to a few candidates.
+2. **More of the right candidates.** On reports that name neither a function nor a file, the browser's small static embeddings carry the search; a stronger embedding model on the GPU tier and more training bugs outside Python (Java and TypeScript trail Python by about 10 points) should raise recall before the reranker starts.
+3. **Naming the right number of files.** A count chosen from Allfather's own confidence, instead of a fixed one, for set-scored leaderboards such as Long Code Arena.
+4. **A bigger reranker base model.** I adopted a 4B LoRA reranker for allfather-max: first place +6 points, top 10 unchanged ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next. More epochs, LTR-mined negatives and a two-adapter ensemble were tried earlier and kept ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Fine-tuning the embedding model was tried and did not help.
 
 Tried recently and not adopted: distilling the two-adapter reranker into one (better on validation, MRR 0.634 vs 0.623, but file hit@1 fell 0.690 → 0.660 on Lite, p = 0.049; I rejected it on that Lite result, which is a decision taken on the test set, in the conservative direction), and a learned query projection for the static embeddings (semantic-only MRR 0.287 → 0.220 on held-out projects). The website's *How it works* page lists every result that did and didn't work.
 
