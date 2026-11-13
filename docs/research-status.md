@@ -99,8 +99,14 @@ Final Ruff checks passed; README consistency checked 568 numbers with zero misma
 That consistency check still verifies the explicitly archived historical table against
 its historical inputs; it does not validate the superseded scientific claims.
 
-The PACE job has not yet run on the cluster. It requests CPU resources only. Its smoke
+The PACE inventory job has not yet been reported as run on the cluster. It requests CPU resources only. Its smoke
 run must complete before the full inventory collection; see the [handoff](../cluster/research/README.md).
+
+PACE hardware probe job 7009034 successfully allocated an L40S (46,068 MiB VRAM,
+driver 615.71.09) under `coc` / `coc-ice`. The supplied QoS output shows a 50-job
+pending/running limit. A separate GPU preflight job now checks the existing Python
+model libraries and CUDA dtypes without downloading weights. Its cluster result is
+pending; the hardware probe alone does not validate PyTorch or any research outcome.
 
 - [Structural inventory](../results/research/corrections/repository-inventory-2026-11-13.json)
 - [Import correction audit](../results/research/corrections/import-v1/audit.json)
