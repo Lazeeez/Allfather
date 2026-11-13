@@ -64,9 +64,13 @@ class Gpu:
         if not setting or len(ranked) < 2:
             return ranked, None
         fn, _, _ = site.snaps.get(inst.repo, inst.base_commit)
-        row = {u: i for i, u in enumerate(fn.ids)}
+        rows = site.last_ranked_rows
+        if len(rows) != len(ranked) or any(
+            fn.ids[row] != uid for row, uid in zip(rows, ranked, strict=True)
+        ):
+            raise ValueError("GPU reranking requires aligned row identities from Site.rank")
         top = ranked[: setting["depth"]]
-        texts = site.snaps.r.indexer.unit_texts(fn, [row[u] for u in top])
+        texts = site.snaps.r.indexer.unit_texts(fn, rows[: len(top)])
         scores = [m.score(inst.problem_statement, texts).tolist() for m in self.members]
         task = {"ids": ranked, "ranker_scores": (-np.log1p(np.arange(1, len(ranked) + 1))).tolist()}
         return blended(task, scores, setting["depth"], setting["weight"]), lang

@@ -60,12 +60,17 @@ def extract(
     names: Counter,
     sem: np.ndarray | None = None,
     title_sem: np.ndarray | None = None,
+    *,
+    budgets: dict[str, int] | None = None,
 ) -> tuple[np.ndarray, np.ndarray]:
     """Candidate pool and its features, for one query against one snapshot's function index.
 
     With `sem`/`title_sem` (similarity of every unit to the issue and its title), the pool
     also takes the semantic top candidates and the SEMANTIC columns are appended.
     """  # fmt: skip
+    budgets = POOL if budgets is None else budgets
+    if set(budgets) != set(POOL) or any(type(v) is not int or v < 0 for v in budgets.values()):
+        raise ValueError("candidate budgets must specify all POOL keys with nonnegative integers")
     n_files = len(fn.files)
     file_of = fn.file_of_doc
     file_max = np.zeros(n_files)
@@ -73,14 +78,14 @@ def extract(
     file_sum = np.bincount(file_of, weights=lex, minlength=n_files)
     units_in_file = np.bincount(file_of, minlength=n_files)
 
-    pool = {int(i) for i in top_k(lex, POOL["bm25"]) if lex[i] > 0}
-    pool |= {int(i) for i in top_k(title_lex, POOL["title"]) if title_lex[i] > 0}
-    pool |= {int(i) for i in top_k(code_lex, POOL["code"]) if code_lex[i] > 0}
+    pool = {int(i) for i in top_k(lex, budgets["bm25"]) if lex[i] > 0}
+    pool |= {int(i) for i in top_k(title_lex, budgets["title"]) if title_lex[i] > 0}
+    pool |= {int(i) for i in top_k(code_lex, budgets["code"]) if code_lex[i] > 0}
     if sem is not None and title_sem is not None:
-        pool |= {int(i) for i in top_k(sem, POOL["sem"])} | {
-            int(i) for i in top_k(title_sem, POOL["title_sem"])
+        pool |= {int(i) for i in top_k(sem, budgets["sem"])} | {
+            int(i) for i in top_k(title_sem, budgets["title_sem"])
         }
-    top_files = {int(f) for f in top_k(file_max, POOL["files"]) if file_max[f] > 0}
+    top_files = {int(f) for f in top_k(file_max, budgets["files"]) if file_max[f] > 0}
     mentioned = {
         f for f, p in enumerate(fn.files)
         if any(path_matches(x, p, m.multilang) for x in (*m.frame_paths, *m.py_paths))

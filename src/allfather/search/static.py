@@ -16,7 +16,11 @@ DEFAULT_STATIC = "minishlab/potion-code-16M"
 
 class StaticEncoder:
     def __init__(
-        self, repo: str = DEFAULT_STATIC, max_tokens: int = 512, quantize: bool = False
+        self,
+        repo: str = DEFAULT_STATIC,
+        max_tokens: int = 512,
+        quantize: bool = False,
+        revision: str | None = None,
     ) -> None:
         from huggingface_hub import hf_hub_download
         from safetensors.numpy import load_file
@@ -24,13 +28,15 @@ class StaticEncoder:
 
         self.name = repo
         self.max_tokens = max_tokens
-        self.tokenizer = Tokenizer.from_file(hf_hub_download(repo, "tokenizer.json"))
+        self.tokenizer = Tokenizer.from_file(
+            hf_hub_download(repo, "tokenizer.json", revision=revision)
+        )
         # Truncation counts [UNK]s, which are dropped afterwards (web/src/engine/static.ts too).
         self.tokenizer.enable_truncation(max_tokens)
         # The tokenizer file enables padding: batch encoding would pad every text to the longest
         # in its batch, and the [PAD] vectors would join the mean. Each text stands alone.
         self.tokenizer.no_padding()
-        t = load_file(hf_hub_download(repo, "model.safetensors"))
+        t = load_file(hf_hub_download(repo, "model.safetensors", revision=revision))
         emb = t["embeddings"].astype(np.float32)
         if "mapping" in t:  # quantized vocabulary: token -> shared row, times a per-token weight
             emb = emb[t["mapping"]] * t["weights"].astype(np.float32)[:, None]

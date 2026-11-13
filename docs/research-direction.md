@@ -169,8 +169,10 @@ on a single minified line, a parser error overlapping a Traefik gold function, a
 a Zed parser error far from its gold method. A line-number suffix alone cannot
 resolve the Next.js collision. Retain these cases explicitly; do not select a
 metric interpretation because it favors a system.
-Prepare development-only stage/action logging and an existing-weight GPU replay.
-The GPU replay is a planned next job, not an executable command claimed to exist today.
+Development-only stage/action logging and an existing-weight GPU replay are now
+implemented in the [pilot protocol](development-replay.md). Its seeded 47 rows span
+24 projects. Run the six-issue L40S smoke job first. This phase tests candidate-pool
+coverage and action diversity; it does not fit or establish a routing method.
 
 The offline [split audit](../results/research/corrections/split-audit-v1.json) rules out
 using the historical ten-issue pilot as an unseen-issue test of the full pipeline:

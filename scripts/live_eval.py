@@ -174,6 +174,7 @@ class Site:
         self.snaps = bl.Snapshots()
         self.embed = bl.make_embedder()
         self.last_semantic = None
+        self.last_ranked_rows: list[int] = []
 
     def predict(self, stage: str, X: np.ndarray) -> np.ndarray:
         from allfather.rank.browser import predict
@@ -190,6 +191,8 @@ class Site:
         from allfather.rank.browser import extract
 
         bl = self.bl
+        self.last_semantic = None
+        self.last_ranked_rows = []
         fn, M, names = self.snaps.get(inst.repo, inst.base_commit)
         lex, title_lex, code_lex, sem, tsem, m, _ = self.snaps.signals(
             fn, M, inst.problem_statement
@@ -205,9 +208,15 @@ class Site:
         self.last_semantic = (s_b, it.xb, len(inst.problem_statement))
         bl.pass2([it], [s_b], self.snaps, self.embed, "live")
         if "rerank" in self.ranker and len(it.sel):
-            ranked = bl.reranked(it, s_b, self.predict("rerank", it.xc))
+            s_c = self.predict("rerank", it.xc)
+            chosen = set(it.sel.tolist())
+            positions = [int(it.sel[i]) for i in bl.order(s_c)] + [
+                i for i in bl.order(s_b) if i not in chosen
+            ]
         else:
-            ranked = [it.ids[i] for i in bl.order(s_b)]
+            positions = bl.order(s_b)
+        self.last_ranked_rows = [int(it.rows_b[i]) for i in positions]
+        ranked = [it.ids[i] for i in positions]
         ranked_files = (
             [it.fpaths[i] for i in bl.order(self.predict("file", it.xf))] if len(it.xf) else []
         )

@@ -155,7 +155,7 @@ class SnapshotIndexer:
     _repo: str | None = None
     _reader: BlobReader | None = None
     _pool: ProcessPoolExecutor | None = None
-    _text_cache: dict[str, dict[str, str]] = field(default_factory=dict)
+    _text_cache: dict[str, dict[bytes, str]] = field(default_factory=dict)
 
     def prefetch(self, repo: str, commits: Iterable[str]) -> None:
         """Fetch every source blob of every commit in one request instead of per file."""
@@ -369,6 +369,7 @@ class SnapshotIndexer:
     def unit_texts(self, index: SnapshotIndex, rows: Sequence[int]) -> list[str]:
         """Source of the given function-level units, re-chunked from their blobs."""
         assert index.oids is not None and index.file_of_doc is not None and self._reader
+        assert index.unit_keys is not None
         out = []
         for r in rows:
             f = index.file_of_doc[r]
@@ -378,12 +379,15 @@ class SnapshotIndexer:
             if chunks is None:
                 if len(self._text_cache) > 2048:
                     self._text_cache.clear()
-                chunks = self._text_cache[f"{oid}:{path}"] = {
-                    c.qualname: unit_text(c.qualname, c.text)
+                texts = [
+                    unit_text(c.qualname, c.text)
                     for c in chunk_file(self._reader.read(oid), path)
                     if c.kind != MODULE
-                }
-            out.append(chunks[index.ids[r].split("::", 1)[1]])
+                ]
+                chunks = self._text_cache[f"{oid}:{path}"] = {unit_key(t): t for t in texts}
+            # Qualified names are not unique (overloads, conditional definitions,
+            # generated bundles). Match the content indexed for this exact row.
+            out.append(chunks[index.unit_keys[r]])
         return out
 
     def close(self) -> None:

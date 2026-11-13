@@ -233,7 +233,7 @@ snapshot files). It contains symbol IDs, kinds, ranges and Git blob IDs, not sou
 `collection_complete` means every selected file was visited; parser-error files must
 still be reviewed before treating aliases as reliably unique.
 
-The next GPU job will replay existing weights on development projects while logging
-candidate pools and stage outcomes. It will be specified after inventory validation and
-the development split audit. No large training sweep or new paid model calls are needed
-for this first job.
+The next GPU job is now available: [development replay smoke](../../docs/development-replay.md).
+It uses pinned existing weights on six exploratory issues, logging complete candidate
+pools and six actions. Run it on one L40S with eight CPUs and 32 GiB host RAM before
+sizing the 47-row pilot. No training sweep or paid model calls are involved.

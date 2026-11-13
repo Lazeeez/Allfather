@@ -1,0 +1,531 @@
+{
+  "schema": "development-pilot-v1",
+  "seed": 37,
+  "status": "Exploratory exposed fresh data; not a new confirmation set.",
+  "selection": "Four seeded projects per language, two underlying issues per project where available; include all PR rows for each selected issue; round-robin execution by language.",
+  "projects": {
+    "quantumnous/new-api": {
+      "language": "go",
+      "split": "fit"
+    },
+    "ollama/ollama": {
+      "language": "go",
+      "split": "fit"
+    },
+    "avelino/awesome-go": {
+      "language": "go",
+      "split": "validation"
+    },
+    "traefik/traefik": {
+      "language": "go",
+      "split": "validation"
+    },
+    "dbeaver/dbeaver": {
+      "language": "java",
+      "split": "fit"
+    },
+    "spring-projects/spring-boot": {
+      "language": "java",
+      "split": "fit"
+    },
+    "keycloak/keycloak": {
+      "language": "java",
+      "split": "validation"
+    },
+    "skylot/jadx": {
+      "language": "java",
+      "split": "validation"
+    },
+    "tt-a1i/archify": {
+      "language": "javascript",
+      "split": "fit"
+    },
+    "leonxlnx/taste-skill": {
+      "language": "javascript",
+      "split": "fit"
+    },
+    "louislam/uptime-kuma": {
+      "language": "javascript",
+      "split": "validation"
+    },
+    "nodejs/node": {
+      "language": "javascript",
+      "split": "validation"
+    },
+    "comfy-org/comfyui": {
+      "language": "python",
+      "split": "fit"
+    },
+    "significant-gravitas/autogpt": {
+      "language": "python",
+      "split": "fit"
+    },
+    "open-webui/open-webui": {
+      "language": "python",
+      "split": "validation"
+    },
+    "microsoft/markitdown": {
+      "language": "python",
+      "split": "validation"
+    },
+    "ultraworkers/claw-code": {
+      "language": "rust",
+      "split": "fit"
+    },
+    "zed-industries/zed": {
+      "language": "rust",
+      "split": "fit"
+    },
+    "astral-sh/uv": {
+      "language": "rust",
+      "split": "validation"
+    },
+    "storytold/photocraft": {
+      "language": "rust",
+      "split": "validation"
+    },
+    "immich-app/immich": {
+      "language": "typescript",
+      "split": "fit"
+    },
+    "supabase/supabase": {
+      "language": "typescript",
+      "split": "fit"
+    },
+    "anomalyco/opencode": {
+      "language": "typescript",
+      "split": "validation"
+    },
+    "thedotmack/claude-mem": {
+      "language": "typescript",
+      "split": "validation"
+    }
+  },
+  "instances": [
+    {
+      "id": "QuantumNous/new-api#7761",
+      "repo": "QuantumNous/new-api",
+      "base_commit": "b22a43b6e89e5349d8cdbddc88d570b16e15fb1f",
+      "issue": 7711,
+      "language": "go",
+      "split": "fit",
+      "text_sha256": "ffee7147312436f15849d6d0c59d833190d7d67f214f0315bd6958815910f6d5"
+    },
+    {
+      "id": "dbeaver/dbeaver#42432",
+      "repo": "dbeaver/dbeaver",
+      "base_commit": "cefa9de4398b2dfdb5c3c97bbef89bcd6ac4e71e",
+      "issue": 42407,
+      "language": "java",
+      "split": "fit",
+      "text_sha256": "f976a54420085651557a02939bba0886d31278fc8c7a2cb6da0187b0efb248e4"
+    },
+    {
+      "id": "tt-a1i/archify#991",
+      "repo": "tt-a1i/archify",
+      "base_commit": "bc2a6bb94087f045bd9984d3366f6ae84bde1219",
+      "issue": 927,
+      "language": "javascript",
+      "split": "fit",
+      "text_sha256": "333472543c2afcb1f4366ecf67fd773a2372e9a17b3d77add9dceca4a009379e"
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#15922",
+      "repo": "Comfy-Org/ComfyUI",
+      "base_commit": "d3eaf6adb388c27245374ac26e585fef4936c485",
+      "issue": 15192,
+      "language": "python",
+      "split": "fit",
+      "text_sha256": "3b4db6f342e678039a1c3789a2f10fe300138143b8991f56c55ce0ec089ca36f"
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "repo": "ultraworkers/claw-code",
+      "base_commit": "20578124c4c02156ce328dee48c3854fd9f513ca",
+      "issue": 3323,
+      "language": "rust",
+      "split": "fit",
+      "text_sha256": "7b815ecab6372c7dc800551b7b43d95a29a560823dc56b8cf4dac95a8a975faa"
+    },
+    {
+      "id": "immich-app/immich#31348",
+      "repo": "immich-app/immich",
+      "base_commit": "6874c07dbe0f6443d43e8a014fd18cfa6783c7c5",
+      "issue": 30949,
+      "language": "typescript",
+      "split": "fit",
+      "text_sha256": "86029539263c0f1cdd52a9c91dcd719a9fa0b0a26e69fddb3802bcbebbc7e3ee"
+    },
+    {
+      "id": "QuantumNous/new-api#7844",
+      "repo": "QuantumNous/new-api",
+      "base_commit": "ad561128202c0a1f0a547df6c283d1efeb803692",
+      "issue": 7842,
+      "language": "go",
+      "split": "fit",
+      "text_sha256": "9193438ecc232fd497f8f88c7404cb693523c16f7d2d9771a6c598851d6f85db"
+    },
+    {
+      "id": "dbeaver/dbeaver#42026",
+      "repo": "dbeaver/dbeaver",
+      "base_commit": "2d2a1af5e2562d2fc6b815ef0efdb20816596c1f",
+      "issue": 42025,
+      "language": "java",
+      "split": "fit",
+      "text_sha256": "f012f241a9790d367470f2d54dac11f39c36d788f741171be34117587ebc958d"
+    },
+    {
+      "id": "tt-a1i/archify#515",
+      "repo": "tt-a1i/archify",
+      "base_commit": "aafcdbff991d9a2349b65fc80068133c07fad83f",
+      "issue": 514,
+      "language": "javascript",
+      "split": "fit",
+      "text_sha256": "2682b61d9052b1dcf5e44494b1978a8445a8477ce355cd063fe78c6be9117c09"
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#16485",
+      "repo": "Comfy-Org/ComfyUI",
+      "base_commit": "95539f56344958339e39b7582a476267d489b0ee",
+      "issue": 16484,
+      "language": "python",
+      "split": "fit",
+      "text_sha256": "5cf082a76c20aa48196cbc51116264dddf26d9b83b357638199e7c48ea26f566"
+    },
+    {
+      "id": "zed-industries/zed#62785",
+      "repo": "zed-industries/zed",
+      "base_commit": "3624a5bfda8a4610bf9926499517a776c7028321",
+      "issue": 62528,
+      "language": "rust",
+      "split": "fit",
+      "text_sha256": "9f9dcdf46ef556b3f79abfce7ca3aa344c1976fdc27e0d8dda19dc57cd5ec016"
+    },
+    {
+      "id": "immich-app/immich#31079",
+      "repo": "immich-app/immich",
+      "base_commit": "2ccd0effc8d551086f6445046206f0f8731b789a",
+      "issue": 30931,
+      "language": "typescript",
+      "split": "fit",
+      "text_sha256": "bcc1847a6dea3aa11f3e2ca27da19c9372d3e7317866cb2e81b7b26dec8d5d7a"
+    },
+    {
+      "id": "ollama/ollama#19188",
+      "repo": "ollama/ollama",
+      "base_commit": "de25dd526f4c9ba367ee69022168c6c5f2dc3285",
+      "issue": 19177,
+      "language": "go",
+      "split": "fit",
+      "text_sha256": "59225656d7741858274cbaa9dd30596a2b550f632c5f7f678fd37c0d6155fc60"
+    },
+    {
+      "id": "spring-projects/spring-boot#52201",
+      "repo": "spring-projects/spring-boot",
+      "base_commit": "ac1b357395ee443a87c6d20a4faf815f40550b88",
+      "issue": 52041,
+      "language": "java",
+      "split": "fit",
+      "text_sha256": "bc6c69fad4f6d189c604efb3300314c293904dc9310123b42f2141c99204308a"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#165",
+      "repo": "Leonxlnx/taste-skill",
+      "base_commit": "5fac2066df0731ae58e7a2d673a015acaa2e32c2",
+      "issue": 162,
+      "language": "javascript",
+      "split": "fit",
+      "text_sha256": "8c79d05ec5fdf5a06ffbd1d04c5f3738ce1d36b8c311997c6def5a8842240250"
+    },
+    {
+      "id": "Significant-Gravitas/AutoGPT#14536",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "base_commit": "bb4b2e488abbb7422a359e52696da63e06f7ab33",
+      "issue": 14533,
+      "language": "python",
+      "split": "fit",
+      "text_sha256": "6dd3c91a315c0358ffaaa7b5a5db0aaaf56f912593e14a3a4894abd20c5764fa"
+    },
+    {
+      "id": "zed-industries/zed#62534",
+      "repo": "zed-industries/zed",
+      "base_commit": "bc463bc205f944d620d5925f01dc59b1adc4084e",
+      "issue": 62529,
+      "language": "rust",
+      "split": "fit",
+      "text_sha256": "71d654f8abc282759d3195c45584691d5346be6805dd1f9a194d00b4ae1cfef0"
+    },
+    {
+      "id": "supabase/supabase#49940",
+      "repo": "supabase/supabase",
+      "base_commit": "e4ea619251c1e6eaa4ac23483ef896c6e772a6ef",
+      "issue": 49903,
+      "language": "typescript",
+      "split": "fit",
+      "text_sha256": "6440813284e79dee6a412b79dc48c41c3112cf7e631288d248e3a62141cec37b"
+    },
+    {
+      "id": "ollama/ollama#17757",
+      "repo": "ollama/ollama",
+      "base_commit": "f427fa075361d51f4b3a1cf4237f22dda4c1e624",
+      "issue": 17754,
+      "language": "go",
+      "split": "fit",
+      "text_sha256": "22747d8be3c3c58ed5e226e3e09024d9a984b72c4eb1ae8161f482e562f2b498"
+    },
+    {
+      "id": "spring-projects/spring-boot#51774",
+      "repo": "spring-projects/spring-boot",
+      "base_commit": "d28fc5b5ffe3bb26d83960bb4b0fbd03a0b894f0",
+      "issue": 51561,
+      "language": "java",
+      "split": "fit",
+      "text_sha256": "26d0d101992e9b2c09988ad41f96b45108b94702491f9f8fe4ba43c2526c8427"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#158",
+      "repo": "Leonxlnx/taste-skill",
+      "base_commit": "63aba5f43b5056758b15bbe7d683da8c86a7a7ad",
+      "issue": 157,
+      "language": "javascript",
+      "split": "fit",
+      "text_sha256": "e5e2a61b8d2369d03b0169912705b5ccc1e12c92d909e355aff7687637a620b2"
+    },
+    {
+      "id": "Significant-Gravitas/AutoGPT#14008",
+      "repo": "Significant-Gravitas/AutoGPT",
+      "base_commit": "58fb04c1c6fe758edcc1d3578e338645bd96a8f3",
+      "issue": 14007,
+      "language": "python",
+      "split": "fit",
+      "text_sha256": "2787d8024dfb2caaae2ef95166cc3c4c1162e5eca210d1b6b71417472b8bd389"
+    },
+    {
+      "id": "astral-sh/uv#22055",
+      "repo": "astral-sh/uv",
+      "base_commit": "c9dab42beb393eaa04d399bf41b33908cf8641f3",
+      "issue": 22046,
+      "language": "rust",
+      "split": "validation",
+      "text_sha256": "a9aa68b963f82531fde25d8b341a5a823d6557c98cd541f90f6aef5641301ffd"
+    },
+    {
+      "id": "supabase/supabase#50426",
+      "repo": "supabase/supabase",
+      "base_commit": "7ab2a0d84f7a0f326b479d3707c6750f7b022dee",
+      "issue": 49859,
+      "language": "typescript",
+      "split": "fit",
+      "text_sha256": "32fccc587aeb4399166d454b1eafbfd873252fab061e846b1e789481ef131ff8"
+    },
+    {
+      "id": "avelino/awesome-go#6737",
+      "repo": "avelino/awesome-go",
+      "base_commit": "2cbf46ba436617720030cf7eb2a32c934123498c",
+      "issue": 6685,
+      "language": "go",
+      "split": "validation",
+      "text_sha256": "efd9d7e9addc51bcef6130076ee26de836c60aeb283704232c5d2344fb95a1b4"
+    },
+    {
+      "id": "keycloak/keycloak#51484",
+      "repo": "keycloak/keycloak",
+      "base_commit": "1712fae48cd18a3147981aaa3ab11708ee2fefeb",
+      "issue": 51469,
+      "language": "java",
+      "split": "validation",
+      "text_sha256": "62a66211f51739cd4c45f4d79c0a08142a358a982f5b6c50cf5731123f0a55b5"
+    },
+    {
+      "id": "louislam/uptime-kuma#8082",
+      "repo": "louislam/uptime-kuma",
+      "base_commit": "4a8adbe271ec25ca0d53cbb13accbc23b999eb46",
+      "issue": 7656,
+      "language": "javascript",
+      "split": "validation",
+      "text_sha256": "ddaa31fa80e89941157eee15f18c1207cc5d8840bb80375b88c039b9f8520a2e"
+    },
+    {
+      "id": "open-webui/open-webui#31416",
+      "repo": "open-webui/open-webui",
+      "base_commit": "e8d6a8734a96cbccc434e7ade89c459d564e896e",
+      "issue": 31413,
+      "language": "python",
+      "split": "validation",
+      "text_sha256": "610ba3c76f164b05e24359241cca39f28e9dd2695176fc19f3ddec80d352b44e"
+    },
+    {
+      "id": "astral-sh/uv#21275",
+      "repo": "astral-sh/uv",
+      "base_commit": "45e75a4f89c56cd61ba0dbe0df252d7a45c97cb5",
+      "issue": 21216,
+      "language": "rust",
+      "split": "validation",
+      "text_sha256": "23362afbdd5b9e25bccb382f90d9be670d0ab35deb74ac6f2d37054cc5fea5ae"
+    },
+    {
+      "id": "anomalyco/opencode#41522",
+      "repo": "anomalyco/opencode",
+      "base_commit": "2b8a5969e932c15083e599c82d34ce0268f81b9e",
+      "issue": 41521,
+      "language": "typescript",
+      "split": "validation",
+      "text_sha256": "91da6bfbf7b1c4837105e69e6753e5a8eb66e0ffadd39bb4eda05ea2e222c958"
+    },
+    {
+      "id": "traefik/traefik#14153",
+      "repo": "traefik/traefik",
+      "base_commit": "70336717e9fa555cb60eed3b754cd46f0209ae2d",
+      "issue": 14151,
+      "language": "go",
+      "split": "validation",
+      "text_sha256": "06788cfa5eb0ed250f9db7af41fb4dafa4293c437fb72e5791d3155ef2ecc932"
+    },
+    {
+      "id": "keycloak/keycloak#51591",
+      "repo": "keycloak/keycloak",
+      "base_commit": "898fea015f480d35470d4b16b503b4c97d8b75cb",
+      "issue": 51590,
+      "language": "java",
+      "split": "validation",
+      "text_sha256": "cf2571259d5d9c8ade325080e1a74ce52a44a6e4c53a8669503a70ecf518d570"
+    },
+    {
+      "id": "louislam/uptime-kuma#7754",
+      "repo": "louislam/uptime-kuma",
+      "base_commit": "a0546c0db982d26e443b31c89d39bbca57fad024",
+      "issue": 7752,
+      "language": "javascript",
+      "split": "validation",
+      "text_sha256": "9ddfb11140f36065243dd349c35cc3403b073ad5785035282d305f1fce14b412"
+    },
+    {
+      "id": "open-webui/open-webui#31862",
+      "repo": "open-webui/open-webui",
+      "base_commit": "8c34af303329e80a0c68bd93c214f1808af29d99",
+      "issue": 31861,
+      "language": "python",
+      "split": "validation",
+      "text_sha256": "85282d5fdaf4349c7aafd1c93ea03725dc15fb563881e59261c119da10ce1e67"
+    },
+    {
+      "id": "storytold/photocraft#660",
+      "repo": "storytold/photocraft",
+      "base_commit": "1e1f78325c021cf15d976562d1cc6cfbe8843d82",
+      "issue": 602,
+      "language": "rust",
+      "split": "validation",
+      "text_sha256": "69d11191eac57de2f5eacfc8dd5110172dc8f8e213dc82c256438164adb2ee38"
+    },
+    {
+      "id": "anomalyco/opencode#41793",
+      "repo": "anomalyco/opencode",
+      "base_commit": "d6ed520c25907065d8d8b288965c05d51cecba9d",
+      "issue": 41696,
+      "language": "typescript",
+      "split": "validation",
+      "text_sha256": "11c81c5766e36060b89e6c526efb7972d28326bdfcf865c4867ed115501a8fa8"
+    },
+    {
+      "id": "traefik/traefik#14054",
+      "repo": "traefik/traefik",
+      "base_commit": "ee45d7a18e0f9efe87ffc74dfb793abc6c095da3",
+      "issue": 14053,
+      "language": "go",
+      "split": "validation",
+      "text_sha256": "09b6770bc0152c5df6ba011cc48ef862a86bc0ecb78fb7c2287aac31e13721c7"
+    },
+    {
+      "id": "skylot/jadx#3044",
+      "repo": "skylot/jadx",
+      "base_commit": "979acd9b31f324077df5a4c66e9c854d25a2163c",
+      "issue": 3034,
+      "language": "java",
+      "split": "validation",
+      "text_sha256": "e9f0d6cf49058831cada44bba538a93c65185e8c84e38ed0a09546665676ee85"
+    },
+    {
+      "id": "nodejs/node#65083",
+      "repo": "nodejs/node",
+      "base_commit": "bcb680c08cd4b874745f40d2064163cea9ebebc8",
+      "issue": 65082,
+      "language": "javascript",
+      "split": "validation",
+      "text_sha256": "85922beabb664d0c6affe9d1f06fed7cf33892e8b6ed500f6ede2194431f4ca5"
+    },
+    {
+      "id": "microsoft/markitdown#2430",
+      "repo": "microsoft/markitdown",
+      "base_commit": "b6e8bbdce628d564c6af031b5f26cda6e818ea10",
+      "issue": 2390,
+      "language": "python",
+      "split": "validation",
+      "text_sha256": "5dc091088799b3e60d1bfacc06a68b14bd109ab97a8d978a45fbe17be43fc923"
+    },
+    {
+      "id": "storytold/photocraft#799",
+      "repo": "storytold/photocraft",
+      "base_commit": "385e8979de6c2f208ea3e43ab7f6bf91becc4f62",
+      "issue": 719,
+      "language": "rust",
+      "split": "validation",
+      "text_sha256": "905e9dfd5b97a1635641dc199def8fce55aa9dd778b64e6f75c14d6d86b2405d"
+    },
+    {
+      "id": "thedotmack/claude-mem#4620",
+      "repo": "thedotmack/claude-mem",
+      "base_commit": "b4e014525ef83bb643c425a214b7dc01585e7d0e",
+      "issue": 4618,
+      "language": "typescript",
+      "split": "validation",
+      "text_sha256": "c74a59d315f9f2c94dd1b80e09f36d4149890989f2a6d0d4a52e8e2afee591b6"
+    },
+    {
+      "id": "skylot/jadx#2995",
+      "repo": "skylot/jadx",
+      "base_commit": "ee3310cda7d93751b827c56f265cca6c6426c4a7",
+      "issue": 2989,
+      "language": "java",
+      "split": "validation",
+      "text_sha256": "992198bcea1e808ac4fa9b4e39b35a2b15940f92b4ce888d8a0209a20910d213"
+    },
+    {
+      "id": "nodejs/node#65076",
+      "repo": "nodejs/node",
+      "base_commit": "46a7dbd2d016412b574f7b4a81aa5908048c48f8",
+      "issue": 65069,
+      "language": "javascript",
+      "split": "validation",
+      "text_sha256": "95f042292fe8e14d26bd0b96d83d4ecb2e29cc719e483441629705fb049ed3f5"
+    },
+    {
+      "id": "microsoft/markitdown#2342",
+      "repo": "microsoft/markitdown",
+      "base_commit": "d04418ec9a507b711051e71e7b05862aed2ef2c0",
+      "issue": 2340,
+      "language": "python",
+      "split": "validation",
+      "text_sha256": "6b3cd87180d9cc7aee20ea51310dc742afb6b23cd49f2a29e0dbe50e09c19397"
+    },
+    {
+      "id": "thedotmack/claude-mem#4868",
+      "repo": "thedotmack/claude-mem",
+      "base_commit": "4e8929319513732d0356c6256accae0a03dbaef7",
+      "issue": 4809,
+      "language": "typescript",
+      "split": "validation",
+      "text_sha256": "724816cd6f9d600c0299a4a3a27b331f7d192b1c62397947528ecf1211bb5006"
+    },
+    {
+      "id": "microsoft/markitdown#2356",
+      "repo": "microsoft/markitdown",
+      "base_commit": "0b3a45234ef8cc060e9a64e4dbd36d80eaa81ff3",
+      "issue": 2340,
+      "language": "python",
+      "split": "validation",
+      "text_sha256": "6b3cd87180d9cc7aee20ea51310dc742afb6b23cd49f2a29e0dbe50e09c19397"
+    }
+  ],
+  "dataset_sha256": "ee111883a714b7cab37f8fdb81fad95c0fcb03d803f5f41196be98737771e994",
+  "planner_sha256": "f9eb8d9b3cc8d09bc09871783e300b8802cf09ccca5868478cb86760e6e6be53"
+}

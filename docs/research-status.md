@@ -90,6 +90,15 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 
 ## Verification and artifacts
 
+Development replay v1 is now implemented; see the [protocol and PACE command](development-replay.md).
+It freezes 47 exploratory rows from 24 projects and records complete candidate pools
+and six fixed actions without gold inputs. Implementation exposed two linked source
+identity bugs: name-keyed text caching and the GPU ID-to-last-row lookup. Both are
+fixed for future inference with content keys and retained row indices. Saved results
+remain historical; this repair requires new inference to measure its effect.
+All 211 Python tests passed, and the six actions passed a synthetic integration check
+with the real cached models on the local GPU. The six-issue PACE smoke run is pending.
+
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox
 permissions prevented pytest temp access and Vite configuration discovery initially;

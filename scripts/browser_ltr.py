@@ -96,11 +96,13 @@ class Item:
 class Snapshots:
     """Repository snapshots with a static embedding of every unit (kept per repository)."""
 
-    def __init__(self) -> None:
+    def __init__(self, static_revision: str | None = None) -> None:
         self.r = BM25Retriever(
             tokenizer="code", exclude_tests=True, languages=ALL_LANGUAGES if MULTILANG else None
         )
-        self.static = StaticEncoder(STATIC_MODEL, STATIC_TOKENS, quantize=True)
+        self.static = StaticEncoder(
+            STATIC_MODEL, STATIC_TOKENS, quantize=True, revision=static_revision
+        )
         self._repo: str | None = None
         self._vecs: dict[bytes, np.ndarray] = {}
         self._key: tuple[str, str] | None = None

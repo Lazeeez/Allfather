@@ -1,0 +1,59 @@
+{
+  "scope": "Synthetic three-unit real-model integration check; not benchmark inference or latency evidence.",
+  "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "models": {
+    "minishlab/potion-code-16M": "1b0ff71095656b23306542bbad34a09109673720",
+    "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "Qwen/Qwen3-Reranker-0.6B": "e61197ed45024b0ed8a2d74b80b4d909f1255473"
+  },
+  "actions": {
+    "base_local": {
+      "rows": [
+        0,
+        1,
+        2
+      ],
+      "tokens_computed": null
+    },
+    "wide_local": {
+      "rows": [
+        0,
+        1,
+        2
+      ],
+      "tokens_computed": null
+    },
+    "base_ce200": {
+      "rows": [
+        0,
+        2,
+        1
+      ],
+      "tokens_computed": 136
+    },
+    "wide_ce200": {
+      "rows": [
+        0,
+        2,
+        1
+      ],
+      "tokens_computed": 136
+    },
+    "wide_ce50": {
+      "rows": [
+        0,
+        2,
+        1
+      ],
+      "tokens_computed": 136
+    },
+    "base_ce50": {
+      "rows": [
+        0,
+        2,
+        1
+      ],
+      "tokens_computed": 136
+    }
+  }
+}
