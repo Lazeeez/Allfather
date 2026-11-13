@@ -29,7 +29,11 @@ Collection job 7008760 completed 580/580 snapshots with no recorded failures in
 1:59:59. Its user-supplied [summary](../../results/research/corrections/pace-inventories-7008760.json)
 flags parser-error files in 400 snapshots and colliding IDs in 512; 372 have both,
 and 40 have neither. These are repository-wide flags, not counts of invalid gold
-targets. The full inventory artifacts still need integrity and gold-coverage checks.
+targets. Follow-up audit job 7012218 passed integrity checks for all 580 snapshots:
+2,808 gold IDs are unique, 65 ambiguous and zero missing; 557 issues have all gold
+IDs unique, 23 have at least one ambiguous gold ID. Thirteen gold IDs across ten
+issues occur in files with parser errors. See the supplied
+[audit result](../../results/research/corrections/pace-inventory-audit-7012218.json).
 Do not repeat the collection solely because these flags are present.
 
 The first job is **CPU-only inventory extraction**, not training or agent inference.
@@ -156,6 +160,49 @@ summed over instance snapshots, so repeated source blobs are counted repeatedly.
 An ambiguous gold ID can reflect an overload, repeated declaration or extraction
 defect. A parser error somewhere in a gold file need not affect its target symbol.
 Do not drop affected issues or silently repair their names based on these flags.
+
+## Rescore saved predictions against the audited inventories
+
+Audit job 7012218 passed. The following job uses those results and the existing
+corrected SweRank imports; it does not repeat extraction or inference:
+
+```bash
+sbatch --account=coc --qos=coc-ice --partition=coc-cpu \
+  --nodes=1 --ntasks=1 --cpus-per-task=1 --mem=8G --time=01:00:00 \
+  --job-name=allfather-inventory-rescore \
+  --output=results/research/corrections/pace-logs/inventory-rescore-%j.log \
+  --export=ALL,INVENTORY_AUDIT=results/research/corrections/inventory-audit-7012218 \
+  cluster/research/rescore.sbatch
+```
+
+Pull the new code before submission. One hour is an allocation allowance. This job
+requires matching audit/gold/index/manifest hashes and rechecks every snapshot hash.
+Original inputs are unchanged; outputs go to `inventory-rescore-JOBID/` alongside
+the other correction artifacts. Missing corrected SweRank imports fail explicitly.
+
+Two named sensitivities are computed for every saved full-report run:
+
+- `strict_symbol`: duplicated inventory IDs cannot resolve and receive no credit.
+  Ambiguous gold IDs still count in recall/all-target denominators.
+- `name_group`: the same file/name is one target regardless of declaration count.
+  This is a name-group interpretation, not occurrence-level correctness.
+
+Both resolve from the complete inventory without gold assistance. Invalid,
+ambiguous and duplicate predictions retain their submitted positions. Only the
+first ten submitted slots are considered, including for `mrr@10`. The report shows
+all observed issues, all-gold-unique issues, and the latter without gold-file parser
+flags. These are explicit population sensitivities, not a silent exclusion policy.
+The primary historical scorer is unchanged until the final evaluator is settled.
+
+Absent result rows are listed, never imputed as model failures. Observed empty or
+malformed answers count as failures. Compare systems only on identical IDs; partial
+runs are not directly comparable to full runs. No significance or cost claim follows
+from this descriptive table. Unique aliases in parser-error files are separately
+counted because extraction errors may hide declarations.
+
+Send `table.txt` first and attach `review-gold.json` for diagnosis of ambiguous IDs
+and gold-file parser flags. Keep `scores.jsonl`, `summary.json` and `provenance.json`:
+they preserve per-slot statuses, per-issue metrics, exact cohort IDs and input hashes.
 
 ## Return artifacts
 

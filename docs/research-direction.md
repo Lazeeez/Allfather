@@ -151,8 +151,9 @@ power analysis. No margin or positive outcome is being selected from the exposed
 
 Full CPU inventory job 7008760 completed 580/580 snapshots, and L40S environment
 preflight job 7009198 passed; see [cluster/research/README.md](../cluster/research/README.md).
-Run the prepared inventory audit to distinguish repository-wide parser/collision
-flags from missing or ambiguous gold targets and validate saved-artifact integrity.
+Audit job 7012218 passed saved-artifact integrity, finding 65 ambiguous gold IDs
+across 23 issues and zero missing IDs. Run the prepared inventory-based rescoring
+sensitivities and inspect flagged gold source ranges before freezing identity policy.
 Prepare development-only stage/action logging and an existing-weight GPU replay.
 The GPU replay is a planned next job, not an executable command claimed to exist today.
 

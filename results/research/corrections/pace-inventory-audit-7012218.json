@@ -1,0 +1,30 @@
+{
+  "provenance": "Selected fields transcribed from the user's pasted summary; original audit files have not been retrieved locally.",
+  "job_id": "7012218",
+  "schema": "inventory-gold-audit-v1",
+  "expected_instances": 580,
+  "integrity_ok": true,
+  "counts": {
+    "validated_instances": 580,
+    "files": 1907193,
+    "symbols": 19950268,
+    "colliding_ids": 402924,
+    "parser_error_files": 11010,
+    "gold_count": 2873,
+    "gold_in_parser_error_files": 13,
+    "duplicate_gold_entries": 0,
+    "instances_all_gold_unique": 557,
+    "instances_any_gold_unique": 572,
+    "instances_with_parser_error_files": 400,
+    "instances_with_colliding_ids": 512,
+    "instances_with_gold_in_parser_error_files": 10,
+    "gold_unique": 2808,
+    "instances_with_unique_gold": 572,
+    "gold_ambiguous": 65,
+    "instances_with_ambiguous_gold": 23,
+    "gold_missing": 0,
+    "instances_with_missing_gold": 0
+  },
+  "failures": [],
+  "scope": "Saved-artifact consistency and extracted gold-identity coverage. Counts do not establish semantic parser correctness, causal gold validity or model accuracy; file/symbol totals repeat across snapshots."
+}
