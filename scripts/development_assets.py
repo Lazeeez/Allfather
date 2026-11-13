@@ -17,6 +17,24 @@ def digest(path: Path) -> str:
         return hashlib.file_digest(stream, "sha256").hexdigest()
 
 
+def cached_models(spec: dict, cache_dir: Path | None = None) -> dict[str, Path]:
+    """Resolve only the pinned inference files, matching the filtered download."""
+    from huggingface_hub import snapshot_download
+
+    return {
+        name: Path(
+            snapshot_download(
+                name,
+                revision=model["revision"],
+                cache_dir=cache_dir,
+                allow_patterns=list(model["files_sha256"]),
+                local_files_only=True,
+            )
+        )
+        for name, model in spec["models"].items()
+    }
+
+
 def check_assets(spec: dict, store: Path, repo: Path = ROOT) -> list[str]:
     errors = []
     for name, model in spec["models"].items():

@@ -1,0 +1,29 @@
+{
+  "scope": "Offline synthetic model-loading check from an isolated filtered cache; not benchmark evidence",
+  "huggingface_hub": "1.33.0",
+  "device": "NVIDIA GeForce RTX 4050 Laptop GPU",
+  "assets_sha256": "d6f32981acd47cc8d44d934a1279de070aa582e89d380eee313131941bd6f364",
+  "old_unfiltered_lookup_failed": [
+    "minishlab/potion-code-16M",
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "Qwen/Qwen3-Reranker-0.6B"
+  ],
+  "filtered_lookup_passed": [
+    "minishlab/potion-code-16M",
+    "sentence-transformers/all-MiniLM-L6-v2",
+    "Qwen/Qwen3-Reranker-0.6B"
+  ],
+  "static_shape": [
+    2,
+    256
+  ],
+  "minilm_shape": [
+    2,
+    384
+  ],
+  "ce_scores": [
+    -1.9375,
+    -1.9375
+  ],
+  "ok": true
+}

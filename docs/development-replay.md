@@ -73,6 +73,8 @@ The job ignores inherited `HF_STORE` and removes its temporary directory on norm
 exit, errors and handled termination signals (SIGKILL/node failure cannot run cleanup).
 Each new job downloads its own copy. Adapter weights must exist under
 `models/ce_multi/A/foldall/` in the PACE checkout.
+Offline snapshot resolution uses the same explicit file list as the download;
+unneeded repository files such as README and training scripts are not required.
 
 Each output namespace records model-file hashes, adapter/ranker hashes, all Python
 package source hashes, parser/model library versions, device/driver information,
@@ -118,6 +120,16 @@ Job 7017410 exited before inference because the configured Potion cache director
 was absent. Follow-up checks found all three models absent from both checked caches
 and the trained adapter weights missing. No replay summary or research outcome was
 produced. Once assets pass the check, the unused smoke output namespace can be reused.
+
+Job 7017731 successfully verified the adapter and downloaded/verified all pinned
+model files in compute-node `/tmp`, then failed before inference: the offline
+loader requested an unfiltered repository snapshot, so Hugging Face required
+intentionally excluded README/training files. The loader now uses the download's
+manifest file filter. Eleven targeted tests passed, including a cached-tree
+regression that reproduces the error and still rejects missing model weights.
+An isolated filtered-cache check loaded and ran all three real models offline on
+the local GPU; see its [record](../results/research/corrections/development-filtered-cache-smoke-v1.json).
+This verifies model loading, not completion of the PACE benchmark smoke run.
 
 ```bash
 cd ~/scratch/Odin

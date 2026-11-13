@@ -27,6 +27,7 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 import browser_ltr as bl  # noqa: E402
 import numpy as np  # noqa: E402
 from development_assets import MANIFEST as ASSET_MANIFEST  # noqa: E402
+from development_assets import cached_models  # noqa: E402
 from website_rerank import blended  # noqa: E402
 
 from allfather.rank.browser import FEATURES, POOL, SEMANTIC, extract, predict_many  # noqa: E402
@@ -34,10 +35,6 @@ from allfather.search.retriever import Query  # noqa: E402
 
 VERSION = "development-stage-replay-v1"
 MODEL_IDS = (bl.STATIC_MODEL, bl.EMBEDDER, "Qwen/Qwen3-Reranker-0.6B")
-MODEL_REVISIONS = {
-    name: item["revision"]
-    for name, item in json.loads(ASSET_MANIFEST.read_bytes())["models"].items()
-}
 
 
 def digest(path: Path) -> str:
@@ -181,7 +178,6 @@ def main() -> int:
         ):
             parser.error("pilot metadata mismatch")
     import torch
-    from huggingface_hub import snapshot_download
     from sentence_transformers import SentenceTransformer
 
     from allfather.rank.cross_encoder import CrossEncoder
@@ -191,10 +187,7 @@ def main() -> int:
     threads = int(os.environ.get("SLURM_CPUS_PER_TASK", "2"))
     torch.set_num_threads(threads)
     torch.manual_seed(plan["seed"])
-    locations = {
-        name: Path(snapshot_download(name, revision=MODEL_REVISIONS[name], local_files_only=True))
-        for name in MODEL_IDS
-    }
+    locations = cached_models(json.loads(ASSET_MANIFEST.read_bytes()))
     model_identity = {
         name: {
             "revision": path.name,

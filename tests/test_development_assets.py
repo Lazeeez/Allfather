@@ -109,3 +109,52 @@ def test_download_requires_explicit_store(monkeypatch):
     with pytest.raises(SystemExit) as error:
         assets.main()
     assert error.value.code == 2
+
+
+def test_offline_filtered_snapshot_ignores_non_inference_files(tmp_path, monkeypatch):
+    """Reproduce PACE's complete tree listing with intentionally partial file storage."""
+    import httpx
+    from huggingface_hub import snapshot_download
+    from huggingface_hub.errors import IncompleteSnapshotError
+
+    def no_network(*args, **kwargs):
+        raise AssertionError("offline resolution attempted network access")
+
+    monkeypatch.setattr(httpx.Client, "send", no_network)
+    revision = "a" * 40
+    cache = tmp_path / "hub"
+    repo = cache / "models--org--model"
+    snapshot = repo / "snapshots" / revision
+    snapshot.mkdir(parents=True)
+    required = snapshot / "model.safetensors"
+    required.write_bytes(b"weights")
+    (repo / "trees").mkdir()
+    (repo / "trees" / f"{revision}.json").write_text(
+        json.dumps(
+            {
+                "format_version": 1,
+                "files": {
+                    name: {"size": 7, "blob_id": "b" * 40}
+                    for name in ("model.safetensors", "README.md", "train.py", ".gitattributes")
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    # The old unfiltered lookup fails even though every inference asset is present.
+    with pytest.raises(IncompleteSnapshotError):
+        snapshot_download("org/model", revision=revision, cache_dir=cache, local_files_only=True)
+    spec = {
+        "models": {
+            "org/model": {
+                "revision": revision,
+                "files_sha256": {
+                    "model.safetensors": hashlib.sha256(b"weights").hexdigest(),
+                },
+            }
+        }
+    }
+    assert assets.cached_models(spec, cache) == {"org/model": snapshot}
+    required.unlink()
+    with pytest.raises(IncompleteSnapshotError):
+        assets.cached_models(spec, cache)

@@ -102,7 +102,12 @@ inference because assets were missing. The login-node checker verifies only the
 transferred adapter. Per the author's storage constraint, the batch job downloads
 pinned base weights into compute-node temporary storage, verifies file hashes,
 runs inference offline and cleans up that temporary directory on exit. The
-Git-ignored adapter weights still need transfer before submission.
+Git-ignored adapter was successfully transferred and verified in job 7017731.
+That job downloaded and verified all base weights in `/tmp`, then failed before
+inference because offline snapshot lookup demanded intentionally excluded repository
+files. The loader now uses the same file filter as the downloader. Eleven targeted
+tests and a real-model offline check from an isolated filtered cache passed; a
+successful PACE replay is still pending.
 
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox
