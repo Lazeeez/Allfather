@@ -116,6 +116,14 @@ pending. A long-token warning occurs before the cross-encoder's explicit token
 slicing and does not itself establish an oversized model input. The saved-trace
 validator checks hashes, rows, pool inclusion, shared features and stage rankings;
 13 targeted validator/replay tests passed. The 47-row run is gated on its success.
+The author subsequently supplied a successful validator report (6/6, no failures,
+manifest hash `8f0f6ce4e77e429be44f2988bf3225b6311e32d8c5bf01fcfd3f4337d19e1723`)
+and submission confirmation for full-pilot job 7019874. Its completion is not yet
+reported. The [saved validation report](../results/research/corrections/pace-development-validation-7018060.json)
+matches the earlier summary and all six pool/universe counts. Original trace
+transfer and independent local validation/scoring remain pending. First-action
+latencies and sequential cache reuse preclude treating these timings as controlled
+standalone action costs; substantial script time is outside the saved trace timers.
 
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox

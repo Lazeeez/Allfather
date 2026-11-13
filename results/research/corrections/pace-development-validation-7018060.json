@@ -1,0 +1,237 @@
+{
+  "schema": "author-reported-replay-validation-v1",
+  "source": "PACE validator output pasted by the author; original traces not yet transferred for local verification.",
+  "paste_sha256": "93fb89cf9a1b2ea6bf80f25ec95cf5c588fd129b7348c99d60464c22da88a7a7",
+  "validation": {
+    "schema": "development-replay-integrity-v1",
+    "ok": true,
+    "expected": 6,
+    "validated": 6,
+    "failures": [],
+    "summary": {
+      "expected": 6,
+      "completed": 6,
+      "failures": [],
+      "startup_seconds": 5.268230300047435,
+      "script_seconds": 251.2182944760425,
+      "slurm_job_id": "7018060",
+      "git_commit": "a24ed6985d46b41c151d3bf099384a78db0c7e07"
+    },
+    "manifest_sha256": "8f0f6ce4e77e429be44f2988bf3225b6311e32d8c5bf01fcfd3f4337d19e1723",
+    "records": [
+      {
+        "id": "QuantumNous/new-api#7761",
+        "universe": 12753,
+        "base_pool": 207,
+        "wide_pool": 1022,
+        "total_seconds": 34.309072242002,
+        "actions": {
+          "base_local": {
+            "seconds": 8.56063775694929,
+            "tokens_computed": null
+          },
+          "wide_local": {
+            "seconds": 0.16588770993985236,
+            "tokens_computed": null
+          },
+          "base_ce50": {
+            "seconds": 7.132719757035375,
+            "tokens_computed": 11482
+          },
+          "wide_ce50": {
+            "seconds": 0.3322618140373379,
+            "tokens_computed": 11971
+          },
+          "base_ce200": {
+            "seconds": 1.1696282769553363,
+            "tokens_computed": 33930
+          },
+          "wide_ce200": {
+            "seconds": 1.0763541030464694,
+            "tokens_computed": 42423
+          }
+        }
+      },
+      {
+        "id": "dbeaver/dbeaver#42432",
+        "universe": 67401,
+        "base_pool": 214,
+        "wide_pool": 846,
+        "total_seconds": 29.507475159945898,
+        "actions": {
+          "base_local": {
+            "seconds": 0.2523940069368109,
+            "tokens_computed": null
+          },
+          "wide_local": {
+            "seconds": 0.27901902492158115,
+            "tokens_computed": null
+          },
+          "base_ce50": {
+            "seconds": 0.36034450796432793,
+            "tokens_computed": 11165
+          },
+          "wide_ce50": {
+            "seconds": 0.2932672059396282,
+            "tokens_computed": 11318
+          },
+          "base_ce200": {
+            "seconds": 1.1065675739664584,
+            "tokens_computed": 34531
+          },
+          "wide_ce200": {
+            "seconds": 0.9585922569967806,
+            "tokens_computed": 39296
+          }
+        }
+      },
+      {
+        "id": "tt-a1i/archify#991",
+        "universe": 2433,
+        "base_pool": 196,
+        "wide_pool": 806,
+        "total_seconds": 10.767949793953449,
+        "actions": {
+          "base_local": {
+            "seconds": 0.36293654690962285,
+            "tokens_computed": null
+          },
+          "wide_local": {
+            "seconds": 0.20275859395042062,
+            "tokens_computed": null
+          },
+          "wide_ce50": {
+            "seconds": 0.7252875309204683,
+            "tokens_computed": 13586
+          },
+          "wide_ce200": {
+            "seconds": 2.914955019019544,
+            "tokens_computed": 47645
+          },
+          "base_ce200": {
+            "seconds": 1.2564417709363624,
+            "tokens_computed": 38849
+          },
+          "base_ce50": {
+            "seconds": 0.5738365999422967,
+            "tokens_computed": 13586
+          }
+        }
+      },
+      {
+        "id": "Comfy-Org/ComfyUI#15922",
+        "universe": 14917,
+        "base_pool": 876,
+        "wide_pool": 2275,
+        "total_seconds": 10.480256994022056,
+        "actions": {
+          "base_local": {
+            "seconds": 0.20653845299966633,
+            "tokens_computed": null
+          },
+          "wide_local": {
+            "seconds": 0.25687348598148674,
+            "tokens_computed": null
+          },
+          "wide_ce50": {
+            "seconds": 0.3359175469959155,
+            "tokens_computed": 11123
+          },
+          "wide_ce200": {
+            "seconds": 1.244885471998714,
+            "tokens_computed": 41151
+          },
+          "base_ce200": {
+            "seconds": 0.7677068850025535,
+            "tokens_computed": 33451
+          },
+          "base_ce50": {
+            "seconds": 0.2026253220392391,
+            "tokens_computed": 10070
+          }
+        }
+      },
+      {
+        "id": "ultraworkers/claw-code#3332",
+        "universe": 3743,
+        "base_pool": 1203,
+        "wide_pool": 1790,
+        "total_seconds": 5.898067064001225,
+        "actions": {
+          "base_local": {
+            "seconds": 0.2982088379794732,
+            "tokens_computed": null
+          },
+          "wide_local": {
+            "seconds": 0.20633194502443075,
+            "tokens_computed": null
+          },
+          "base_ce50": {
+            "seconds": 0.564142152084969,
+            "tokens_computed": 9454
+          },
+          "wide_ce200": {
+            "seconds": 1.027429270092398,
+            "tokens_computed": 34034
+          },
+          "wide_ce50": {
+            "seconds": 0.29484154807869345,
+            "tokens_computed": 9363
+          },
+          "base_ce200": {
+            "seconds": 0.7886284439591691,
+            "tokens_computed": 31276
+          }
+        }
+      },
+      {
+        "id": "immich-app/immich#31348",
+        "universe": 5936,
+        "base_pool": 906,
+        "wide_pool": 1491,
+        "total_seconds": 6.9566057219635695,
+        "actions": {
+          "base_local": {
+            "seconds": 0.2351769310189411,
+            "tokens_computed": null
+          },
+          "wide_local": {
+            "seconds": 0.15844640601426363,
+            "tokens_computed": null
+          },
+          "wide_ce200": {
+            "seconds": 0.9074999790173024,
+            "tokens_computed": 36191
+          },
+          "base_ce50": {
+            "seconds": 0.26659333100542426,
+            "tokens_computed": 11108
+          },
+          "base_ce200": {
+            "seconds": 0.7715575139736757,
+            "tokens_computed": 33003
+          },
+          "wide_ce50": {
+            "seconds": 0.26962370600085706,
+            "tokens_computed": 11181
+          }
+        }
+      }
+    ],
+    "scope": "Saved-trace integrity and internal stage consistency only; no gold scoring, model recomputation, Git-tree completeness or scientific claim validation."
+  },
+  "next_job": {
+    "id": "7019874",
+    "status": "submitted; completion not yet reported",
+    "expected_rows": 47,
+    "output": "results/research/corrections/development-pilot-v1"
+  },
+  "timing_diagnostics": {
+    "summed_trace_seconds": 97.9194269758882,
+    "script_seconds_outside_traces_and_model_startup": 148.03063720010687,
+    "limitations": [
+      "The residual includes unseparated preparation, hashing, serialization and other overhead; it is not attributed to a specific component.",
+      "Sequential actions share caches and first-use startup costs; these are not controlled standalone action latencies."
+    ]
+  }
+}

@@ -201,3 +201,15 @@ tar -czf results/research/corrections/development-smoke-7018060.tar.gz \
 After full-pilot completion, validate its bundle with the same command and transfer
 its manifest, summary, index and all compressed traces. Outcome scoring and diagnosis
 are a separate gold join, with ambiguity policies explicit.
+
+The author supplied the validator's successful 6/6 report and full-pilot submission
+7019874; see the [retained report](../results/research/corrections/pace-development-validation-7018060.json).
+The original traces are still pending local transfer. In the first smoke issue,
+the base local stage takes 8.56 seconds and base CE50 takes 7.13 seconds, compared
+with substantially shorter subsequent calls. This is consistent with first-use
+costs and shared caches, not evidence that wide retrieval is intrinsically faster.
+The six capture timers sum to about 97.92 seconds; about 148.03 seconds of the
+251.22-second script total remain outside capture and the 5.27-second model-startup
+timer. These costs are retained and unallocated, not silently discarded. A later
+controlled timing experiment must separate these boundaries before cost superiority
+or deployed-policy latency claims. The currently submitted pilot recipe is unchanged.
