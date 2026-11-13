@@ -93,7 +93,7 @@ def paired_bootstrap(a: np.ndarray, b: np.ndarray, n: int = 10000, seed: int = 0
     return PairedDiff(
         round(float(observed), 4),
         (round(float(lo), 4), round(float(hi), 4)),
-        round(sign_flip_p(diff, n, seed), 4),
+        sign_flip_p(diff, n, seed),
         int((diff > 0).sum()),
         int((diff < 0).sum()),
     )
@@ -128,7 +128,7 @@ def holm(p_values: dict[str, float]) -> dict[str, float]:
     out, running = {}, 0.0
     for i, (key, p) in enumerate(ordered):
         running = max(running, min(1.0, (len(ordered) - i) * p))
-        out[key] = round(running, 4)
+        out[key] = running
     return out
 
 

@@ -37,7 +37,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from allfather.eval.dataset import load_instances  # noqa: E402
 from allfather.eval.metrics import aggregate, score  # noqa: E402
-from allfather.parsing.symbols import is_test_path  # noqa: E402
+from allfather.parsing.symbols import is_test_path, language_of  # noqa: E402
 from allfather.repos import RepoCache  # noqa: E402
 
 OUT = ROOT / "results" / "research" / "frontier"
@@ -201,12 +201,13 @@ def export(cache: RepoCache, repo: str, commit: str, target: Path) -> None:
 
 
 def source_files(root: Path) -> str:
-    suffixes = {".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".java", ".rs"}
     return "\n".join(
         sorted(
             p.relative_to(root).as_posix()
             for p in root.rglob("*")
-            if p.suffix in suffixes and not is_test_path(p.relative_to(root).as_posix())
+            if p.is_file()
+            and language_of(p.name)
+            and not is_test_path(p.relative_to(root).as_posix())
         )
     )
 

@@ -89,18 +89,18 @@ def escalation(ref: dict, other: dict, ids: list[str], threshold: float | None) 
     b = np.array([other[q]["hit@10"] for q in ids])
     cost_a = np.array([ref[q]["cost"] for q in ids])
     cost_b = np.array([other[q]["cost"] for q in ids])
-    curve = []
-    for t in sorted({0.0, 1.01, *np.round(conf, 4).tolist()}):
+
+    def point(t: float) -> dict:
         send = conf < t
-        curve.append(
-            {
-                "threshold": round(float(t), 4),
-                "escalated": round(float(send.mean()), 4),
-                "hit@10": round(float(np.where(send, b, a).mean()), 4),
-                "random_hit@10": round(float(a.mean() + send.mean() * (b.mean() - a.mean())), 4),
-                "cost": round(float((cost_a + send * cost_b).mean()), 5),
-            }
-        )
+        return {
+            "threshold": float(t),
+            "escalated": round(float(send.mean()), 4),
+            "hit@10": round(float(np.where(send, b, a).mean()), 4),
+            "random_hit@10": round(float(a.mean() + send.mean() * (b.mean() - a.mean())), 4),
+            "cost": round(float((cost_a + send * cost_b).mean()), 5),
+        }
+
+    curve = [point(t) for t in sorted({0.0, 1.01, *conf.tolist()})]
     out = {
         "reference_hit@10": round(float(a.mean()), 4),
         "other_hit@10": round(float(b.mean()), 4),
@@ -108,7 +108,7 @@ def escalation(ref: dict, other: dict, ids: list[str], threshold: float | None) 
         "curve": curve,
     }
     if threshold is not None:
-        out["chosen"] = next((c for c in curve if c["threshold"] >= threshold), curve[-1])
+        out["chosen"] = point(threshold)
     return out
 
 

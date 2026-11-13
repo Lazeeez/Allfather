@@ -1,5 +1,11 @@
 # Allfather
 
+> **Research correction in progress (13 November 2026).** The fresh-study baseline import,
+> scoring and cost audit changes the interpretation of the original results. The former
+> significant-superiority claim over SweRankEmbed-Large is withdrawn. See the
+> [current status](docs/research-status.md), [correction ADR](docs/decisions/0037-research-corrections.md),
+> and [proposed research direction](docs/research-direction.md). Historical outputs remain available.
+
 [![Parity](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml)
 [![Live accuracy](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -17,14 +23,22 @@ Two-minute version: the **[case study](https://allfather.dev/case-study)**. Ever
 
 ## At a glance
 
-- **On 580 bugs reported after every compared model's training cutoff** (fresh-2026, six languages, 74 projects), Allfather finds a function the fix changed in its top 10 for **77.9%** of bugs, more than SweRank, the strongest published retriever (72.9%), and far more than frontier models asked once (gpt-6-astra 55.0%, Gemini 3.8 Flash 53.3%).
-- **On the 198-bug agent subset it ties the best free coding agent** (gpt-6-luna in Codex, 77.3% against Allfather's 77.3% in the browser) and beats open-weight models as agents. Paid frontier agents are ahead (gpt-6-astra 86.9%); sending only the bugs Allfather is least sure about to that agent reaches 89.9%, more than the agent alone, at a little over half its cost.
-- **It costs nothing in the browser** and about a tenth of a cent per bug with the GPU reranker, against $0.20 to $0.29 per bug for paid agents, and no code leaves the device unless the visitor opts in.
+- **Import-only correction:** on 580 full reports, SweRankEmbed-Large reaches **77.59%** hit@10 after recovering saved identifiers, against **77.93%** for Allfather+GPU. The legacy paired test gives p=0.9099 (Holm 1.0). These provisional values isolate the import defect; gold-independent rescoring remains necessary.
+- **Research focus:** localization and selective escalation on held-out projects, with explicit rescue/harm outcomes and measured per-issue costs. Current comparisons do not establish equivalence, a reliable cost saving, or memorization.
+- **Browser execution has no per-query API fee.** Device compute and optional GPU service costs still matter; the fresh-study Python replay does not establish browser latency.
 - **79.4% function hit@10 on SWE-bench Lite** with the full GPU cascade, and **79.7% on a sealed holdout** of 311 bugs from 184 projects it never saw, scored once after freezing.
 - **Engineering:** Tree-sitter compiled to WebAssembly, LambdaMART rankers shipped as JSON trees, an int8 static code-embedding model, a LoRA fine-tuned Qwen3 reranker on Modal, one Cloudflare Worker, and a parity suite that holds the TypeScript engine to the Python one value for value.
 - **Process:** 36 decision records, protocols written before results, every test-set evaluation logged, 166 Python tests, 97 unit tests and 71 end-to-end tests in Chromium, Firefox, WebKit and two phone profiles.
 
 ## Headline results
+
+The original fresh-study narrative below is retained as a **withdrawn historical record**.
+Its import, scoring, cost, contamination and superiority claims must not be cited as
+current findings. The replacement diagnostic is [import-v1/audit.json](results/research/corrections/import-v1/audit.json);
+the full repaired comparison is still in progress.
+
+<details>
+<summary>Historical fresh-study tables and narrative — superseded pending evaluator repair</summary>
 
 ### Against frontier AI, on bugs they cannot have seen
 
@@ -72,6 +86,8 @@ What the numbers say:
 - **Repeatability.** Asked again on 50 bugs, gpt-6-astra as an agent kept its outcome on all 50 and asked once changed it on 4; Allfather is deterministic.
 
 Every number here is regenerated from the run records by `scripts/fresh_analysis.py`; the full tables, file-level results, per-language and per-hint breakdowns and run logs are in [results/research/](results/research/). A paper on this study is in preparation.
+
+</details>
 
 ### On SWE-bench Lite
 

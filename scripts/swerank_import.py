@@ -21,13 +21,15 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from frontier import OUT, load_set, log_test_run  # noqa: E402
 
-SOURCE = (".py", ".js", ".jsx", ".ts", ".tsx", ".go", ".java", ".rs")
+from allfather.parsing.symbols import EXTENSIONS  # noqa: E402
+
+SOURCE = tuple(EXTENSIONS)
 
 
 def split_id(doc: str) -> dict[str, str]:
     parts = doc.split("/")
     for i, part in enumerate(parts):
-        if part.endswith(SOURCE):
+        if part.lower().endswith(SOURCE):
             return {"file": "/".join(parts[: i + 1]), "name": ".".join(parts[i + 1 :])}
     return {"file": doc, "name": ""}
 

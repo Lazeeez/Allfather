@@ -1,5 +1,12 @@
 # The ISSTA 2027 paper
 
+**Not submission-ready.** The draft and generated tables still reflect the historical
+evaluation. The significant SweRank superiority claim is withdrawn; normalization,
+cost accounting and sampling/annotation wording need correction. Do not regenerate the
+main tables from mixed evaluator versions. Follow [ADR 0037](../decisions/0037-research-corrections.md)
+and [the current worklist](../research-status.md). The new research direction is a proposal,
+not an established result.
+
 Target: ISSTA 2027 research track (abstract 8 January 2027, paper 11 January 2027). The method is [ADR 0033](../decisions/0033-frontier-comparison-protocol.md) and [ADR 0034](../decisions/0034-gpu-reranker-other-languages.md); [outline.md](outline.md) is the original plan.
 
 ## Building

@@ -16,18 +16,13 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from allfather.parsing.symbols import EXTENSIONS
+
 MAX_TURNS = 40
 MAX_RESULTS = 200
 MAX_LINES = 400
 SOURCE = {
-    ".py",
-    ".js",
-    ".jsx",
-    ".ts",
-    ".tsx",
-    ".go",
-    ".java",
-    ".rs",
+    *EXTENSIONS,
     ".md",
     ".toml",
     ".json",
@@ -138,7 +133,7 @@ def grep(root: Path, pattern: str, glob: str | None) -> str:
         return f"invalid pattern: {exc}"
     hits = []
     for p in matches(root, glob):
-        if p.suffix not in SOURCE or p.stat().st_size > 1_000_000:
+        if p.suffix.lower() not in SOURCE or p.stat().st_size > 1_000_000:
             continue
         for n, line in enumerate(p.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
             if rx.search(line):

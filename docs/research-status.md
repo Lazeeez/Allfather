@@ -1,0 +1,110 @@
+# Research status and codebase map
+
+Updated 2026-11-13. Current scope: localization and selective escalation; no repair or
+developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
+
+## What has been inspected
+
+The first structural pass reads and hashes all 1,444 tracked files at starting commit
+`99e4cdf57e7bc99bffd303e93cc04b1d6ed46a84`. All 118 tracked Python files AST-parse; all
+986 JSON and 97 JSONL files parse. Binary assets are hashed. The inventory contains
+Python imports, top-level definitions and Markdown headings.
+
+This is not a claim that every line has been manually audited. Detailed inspection so
+far concentrates on parsing/indexing interfaces, gold extraction, experiment harnesses,
+baseline import/export, scoring, statistics, costs, paper generation and their tests.
+The browser and deployment code have received structural and selected entry-point review.
+GPU training, full historical reconstruction and live service behavior are not certified.
+
+## Codebase map
+
+| Area | Role and important boundaries |
+|---|---|
+| `src/allfather/repos.py` | Bare Git mirrors, commit/tree lookup, blob prefetch and batch reads. Base snapshots determine the candidate universe. |
+| `parsing/python_symbols.py`, `parsing/symbols.py` | Symbol extraction, language registry, qualified names, source/test exclusions. Names can collide for overloads; classes and other types are included. |
+| `index/chunker.py`, `snapshot.py`, `store.py` | Retrieval units; content-addressed parsed blobs; lexical indexes and call graph; persistent cache fingerprints. Parser changes can change both labels and candidates. |
+| `search/` | Code tokenization, BM25, static/dense embeddings, fusion, path features and graph expansion. `retriever.py` exposes the ranking interface and preparation boundary. |
+| `rank/` | Browser features and learned rankers, mention evidence, history/past issues, confidence calibration, cross-encoder training/tuning. Training targets and runtime stage must be distinguished. |
+| `eval/` | Dataset loading, diff-to-symbol labels, holdouts, external scoring protocols, metrics, run provenance and tuning. `resolution.py` is a draft independent resolver, not yet the active historical scorer. |
+| `scripts/browser_ltr.py`, `live_eval.py` | Train browser rankers and replay the browser recipe in Python. `Site.rank` exposes the semantic stage used by confidence. Python execution is not browser timing. |
+| `scripts/fresh_set.py`, `fresh_website.py`, `frontier.py`, `open_agent.py` | Mine/seal issue–PR snapshots; collect local and agent results; normalize and score predictions. These are the main fresh-study validity boundaries. |
+| `scripts/swerank_*` | Shared-chunker BEIR export, retrieval, full-report query replacement and import. SweRankEmbed evaluates a component, not full SweRank. |
+| `scripts/fresh_analysis.py`, `paper_tables.py`, `check_readme.py` | Statistics, gate evaluation, cost estimates and generated claims. The last script checks internal consistency, not scientific validity. |
+| `scripts/more_data.py`, `multilang_data.py`, `ce_multilang.py`, `rerank_choice.py`, `allfather_max.py` | Training collections, multilingual adapters, selection and historical model experiments. Test outcomes must not enter new method selection. |
+| Other `scripts/` | Baseline protocols, frozen reports, exports, holdouts, parity, latency and GitHub Action orchestration; all entry points are in the inventory. |
+| `web/src/engine`, `worker` | TypeScript retrieval/ranking, WASM parsing, downloads, worker pool, semantic inference, IndexedDB caches and optional GPU calls. |
+| `web/src/pages`, `components`, `lib` | User interface, benchmark displays, reports, navigation and sharing. Published fresh-study claims still require propagation of the final corrections. |
+| `proxy`, `deploy`, `web/api`, `action.yml` | Hosting/relay boundaries, optional GPU service and Action configuration. Local code execution/privacy varies by configuration. |
+| `data`, `models`, `results` | Gold/splits/manifests, frozen model recipes and retained runs. Treat original evidence as immutable. |
+| `cluster`, `benchmarks`, `.github`, `tests`, `web/test` | Cluster jobs, performance experiments, CI and correctness/parity checks. Passing these does not validate labels or confirm a hypothesis. |
+| `docs`, `PLAN.md` | Historical decisions, experimental notes and manuscript. This document is the current worklist; old ADR outcomes remain historical. |
+
+## System configurations
+
+| Configuration | Evidence that can legitimately describe it |
+|---|---|
+| Original research GPU cascade | BM25/Jina/LTR/Qwen experiments under their recorded recipe |
+| Frozen `allfather-fast` | Its own frozen configuration and holdout outputs |
+| Browser engine | Actual TypeScript/WASM behavior and measured browser performance |
+| `website` / `website-gpu` fresh runs | Python `Site` replay, optionally with the recorded multilingual GPU recipe |
+| Deployed browser + GPU | Actual deployed stage settings, including language-specific stage skipping |
+| GitHub Action | The Action's lighter semantic configuration |
+
+## Correction worklist
+
+Status meanings: **implemented** means code/tests exist; **diagnostic** means a provisional
+recomputation; **open** means no completion claim. Ordering follows validity dependencies.
+
+| Priority | Finding / work | Status and acceptance criterion |
+|---|---|---|
+| P0 | Missing `.mjs/.cjs/.mts/.cts` in import | Implemented shared registry and tests for all 12 extensions. Eight separate corrected runs generated. |
+| P0 | Original exported ID membership | Open: verify recovered IDs against original fresh corpora; round trips alone are insufficient. |
+| P0 | Unequal prompt/grep source extensions | Implemented access fix. Open: identify and rerun affected inference with a new run identity. |
+| P0 | Gold-dependent answer resolution | Draft resolver and CPU inventory builder implemented/tested; PACE job prepared. Open: collect complete base inventories, quantify collisions and gold coverage, wire versioned scoring and report resolution rates. |
+| P0 | Invalid predictions silently disappear | Draft resolver preserves failure/duplicate slots. Open: integrate and publish metric sensitivities. |
+| P0 | Null costs become zero; competing cost paths | Open: one per-record cost module shared by analysis and paper; explicit unknown/measured/estimated states. |
+| P0 | Hardware and token accounting | Open: recorded GPU count/type; per-request tier rules; retries/cache/setup boundaries; no difference-of-medians GPU estimate. |
+| P0 | Cascade cost uses unconditional mean | Open in paper generation: sum cheap + selected incremental agent costs on exactly the evaluated instances. |
+| P0 | Supplied gate threshold mislabeled/evaluated indirectly | Implemented direct threshold evaluation and precision-sensitive regression. |
+| P0 | Unsupported headline claims | Correction notice and corrected comparison available. Full manuscript, website and generated table replacement remains open until evaluator/cost freeze. |
+| P1 | Paired uncertainty ignores project dependence | Diagnostic paired project intervals in import audit. Open: integrate all metrics/file families, macro-project estimates and cluster-aware test sensitivity. |
+| P1 | P-values rounded before Holm | Implemented raw p-values through adjustment. Historical tables retained pending regeneration. |
+| P1 | Partial runs use sorted prefixes | Open: save seeded execution manifests for new runs; show exact IDs and project/language coverage for every partial comparison. Audit now exposes comparison IDs. |
+| P1 | Duplicate issue with two PRs | Open: issue–PR unit definition, split grouping and deterministic issue-deduplicated sensitivity. Never silently drop an original row. |
+| P1 | Pre-merge parent described as report-time snapshot | Open: operational wording, merge/parent provenance and multi-commit/rebase checks. |
+| P1 | Symbol granularity / overloaded IDs | Open: version labels, quantify classes/types/overloads; draft resolver marks duplicate inventory IDs ambiguous. |
+| P1 | Incomplete gold extraction and GraphQL error handling | Open: retain `GoldEntry.errors`, validate response shape/errors, patch/report hashes and extraction coverage in future mining. |
+| P1 | Diff labels are not necessarily causal | Open: blind stratified label audit, including added-only changes, renames, incidental edits and alternate valid locations. |
+| P1 | 50-row human check unfilled | Open: qualified human annotation; no fabricated answers or agreement. Retrospective gold-derived hints cannot be gate features. |
+| P1 | Confidence predicts the wrong stage/event | Open: development-only target definitions for final success and incremental action benefit, project-grouped calibration. |
+| P1 | Failed original RQ3 conjunction | Open manuscript correction: report escalation/cost/quality criteria together and the negative outcome, not a replacement success criterion. |
+| P1 | Missing cheap/full/specialized comparators | Open: mention heuristic, BM25/static/LTR ablations; full compatible research pipeline and a specialized agent. |
+| P1 | Incomplete routing controls | Exploratory action-overlap audit implemented. Open: confidence/margin/random, learned-benefit and failure-aware policies under matched actual budgets. |
+| P1 | Python latency attributed to browser | Open: real cold-download/index/warm-query/GPU timings, median/p95, hardware/cache/version/size boundaries. |
+| P1 | Absolute contamination / memorization claims | Open: replace with dated exposure controls, exact-model cutoff evidence and limits; no causal conclusion from the ten-instance pilot. |
+| P1 | Weak isolation and provenance | Open: effective model IDs/settings, CLI versions, full permitted traces, archive hashes, enforced network/tool policy and failed-attempt logs. |
+| P1 | Chronology / artifacts / stale docs | Open: history verification, ranker-count alignment, AI disclosure, actual anonymous artifact, current venue rules and bibliography checks. |
+| P1 | Dataset/model attribution and distribution | Open: fresh-data attribution and source/model license review; no new distribution claim. |
+| P2 | Confirmation and sample size | Open: clustered power/noninferiority planning, prospectively frozen new projects/time window. Current exposed fresh runs are exploratory for new methods. |
+| P2 | Repair and productivity | Outside selected initial scope; requires separate executable or human study before making those claims. |
+
+## Verification and artifacts
+
+First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
+**97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox
+permissions prevented pytest temp access and Vite configuration discovery initially;
+the approved reruns passed. After adding the resolver, headroom diagnostic and inventory
+builder, **23 targeted tests passed**, including a local Git snapshot inventory fixture.
+Final Ruff checks passed; README consistency checked 568 numbers with zero mismatches.
+That consistency check still verifies the explicitly archived historical table against
+its historical inputs; it does not validate the superseded scientific claims.
+
+The PACE job has not yet run on the cluster. It requests CPU resources only. Its smoke
+run must complete before the full inventory collection; see the [handoff](../cluster/research/README.md).
+
+- [Structural inventory](../results/research/corrections/repository-inventory-2026-11-13.json)
+- [Import correction audit](../results/research/corrections/import-v1/audit.json)
+- [Exploratory joint outcomes](../results/research/corrections/headroom-v1.json)
+- [Research direction and falsification plan](research-direction.md)
+
+No new paid inference, GPU training, external publication or deployment has been performed.
