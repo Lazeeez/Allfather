@@ -130,8 +130,13 @@ agent issues it is 0.7576 for website-gpu, 0.7626 for website, and 0.8636 for As
 The corresponding name-group values are 0.7845/0.7793 (580 issues) and
 0.7778/0.7828/0.8737 (198). These rounded marginal rates do not establish statistical
 superiority, equivalence, predictable escalation benefit or a cost advantage.
-The 20-row Sonnet run cannot be compared directly with 198-row totals. Original
-per-issue score/provenance files remain needed for matched, project-aware analysis.
+The 20-row Sonnet run cannot be compared directly with 198-row totals. The complete
+rescore/audit archive has now been received: 29 prediction input hashes and all 25
+run summaries verified. Project-paired analysis finds GPU versus SweRankEmbed-Large
+has 41 rescues and 37 harms, a +0.69-point strict hit@10 difference with a −2.69 to
++3.95-point project-bootstrap interval. Astra versus browser has 31 rescues and 11
+harms on the 198-issue subset. These remain exploratory; no test in the explicitly
+defined 60-test sensitivity family passes Holm-adjusted 0.05.
 
 The pasted gold review begins inside a record; only three complete issue records
 were recovered. Offline inspection of cached base blobs reproduces 15 Next.js
@@ -140,8 +145,13 @@ errors. Thus path/name/line is insufficient to distinguish these declarations.
 Traefik's parser errors overlap the gold method's lines; Zed's sole parser error is
 far outside the gold method. This distinguishes collision and parser-coverage cases
 without changing labels. Source hashes, parser versions, columns and error spans
-are recorded; the remaining gold review has not been received. These examples
-do not determine the intended changed occurrence or certify causal labels.
+are recorded. The complete review subsequently supplied contains 33 issues and
+78 flagged targets; all 78 were inspected from cached sources with no failures,
+and their occurrence-kind/line multisets agree with PACE. Of 13 targets in files
+with parser errors, only Traefik's target overlaps an error by line range. The
+other 12 still require semantic scrutiny. Fifty-three issues have over ten gold
+IDs, making all@10 structurally unattainable on those rows. No gold was edited.
+See the [verified evidence and limitations](research-evidence-2026-11-14.md).
 
 PACE hardware probe job 7009034 successfully allocated an L40S (46,068 MiB VRAM,
 driver 615.71.09) under `coc` / `coc-ice`. The supplied QoS output shows a 50-job
@@ -172,6 +182,9 @@ its three synthetic overlap/grouping regression tests passed.
 - [User-supplied rescoring table](../results/research/corrections/pace-rescore-7012506-table.txt)
 - [Partial gold review recovered from paste](../results/research/corrections/review-gold-partial-v1.json)
 - [Offline source inspection of the three complete records](../results/research/corrections/gold-source-review-partial-v1.json)
+- [Complete transferred PACE archive](../results/research/corrections/pace-rescore-7012506.tar.gz)
+- [Paired project analysis](../results/research/corrections/inventory-paired-v1.json)
+- [Complete flagged-target source inspection](../results/research/corrections/gold-source-review-v1.json)
 - [Research direction and falsification plan](research-direction.md)
 
 No new paid inference, GPU training, external publication or deployment has been performed.

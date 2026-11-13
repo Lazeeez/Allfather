@@ -207,6 +207,10 @@ they preserve per-slot statuses, per-issue metrics, exact cohort IDs and input h
 ## Return artifacts
 
 Rescore job 7012506 finished and its table was supplied. No resubmission is needed.
+The full archive was subsequently transferred and verified locally; all 78 flagged
+gold targets were inspected from cached snapshots. Paired project analysis is in
+[the evidence report](../../docs/research-evidence-2026-11-14.md). No further transfer
+or repeat of these jobs is needed. The commands below document the completed handoff.
 The pasted gold-review output was truncated at the beginning; only three complete
 issue records could be recovered. Transfer the original files as an archive rather
 than pasting the long JSON into the terminal conversation:
