@@ -107,7 +107,15 @@ That job downloaded and verified all base weights in `/tmp`, then failed before
 inference because offline snapshot lookup demanded intentionally excluded repository
 files. The loader now uses the same file filter as the downloader. Eleven targeted
 tests and a real-model offline check from an isolated filtered cache passed; a
-successful PACE replay is still pending.
+successful PACE replay was pending at that point. The author subsequently supplied
+job 7018060's summary and log: all six smoke issues completed without failures,
+251.22 seconds inside the replay script and 303 seconds Slurm walltime. All six
+wide pools are larger. The [reported record](../results/research/corrections/pace-development-smoke-7018060.json)
+preserves counts and trace hashes; full trace transfer/independent validation is
+pending. A long-token warning occurs before the cross-encoder's explicit token
+slicing and does not itself establish an oversized model input. The saved-trace
+validator checks hashes, rows, pool inclusion, shared features and stage rankings;
+13 targeted validator/replay tests passed. The 47-row run is gated on its success.
 
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox

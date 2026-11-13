@@ -171,8 +171,10 @@ resolve the Next.js collision. Retain these cases explicitly; do not select a
 metric interpretation because it favors a system.
 Development-only stage/action logging and an existing-weight GPU replay are now
 implemented in the [pilot protocol](development-replay.md). Its seeded 47 rows span
-24 projects. Run the six-issue L40S smoke job first. This phase tests candidate-pool
-coverage and action diversity; it does not fit or establish a routing method.
+24 projects. The six-issue L40S smoke job 7018060 reports successful completion;
+validate its saved traces before submitting the full pilot via the protocol's
+conditional command. This phase tests candidate-pool coverage and action diversity;
+it does not fit or establish a routing method.
 
 The offline [split audit](../results/research/corrections/split-audit-v1.json) rules out
 using the historical ten-issue pilot as an unseen-issue test of the full pipeline:

@@ -233,7 +233,8 @@ snapshot files). It contains symbol IDs, kinds, ranges and Git blob IDs, not sou
 `collection_complete` means every selected file was visited; parser-error files must
 still be reviewed before treating aliases as reliably unique.
 
-The next GPU job is now available: [development replay smoke](../../docs/development-replay.md).
-It uses pinned existing weights on six exploratory issues, logging complete candidate
-pools and six actions. Run it on one L40S with eight CPUs and 32 GiB host RAM before
-sizing the 47-row pilot. No training sweep or paid model calls are involved.
+Development smoke job 7018060 reports six completed issues without failures. The
+[replay protocol](../../docs/development-replay.md) now provides a saved-trace check
+and a conditional 47-row pilot command on one L40S, eight CPUs and 32 GiB host RAM.
+Pinned base weights download only to compute-node temporary storage. No training
+sweep or paid model calls are involved; outcome analysis remains pending.

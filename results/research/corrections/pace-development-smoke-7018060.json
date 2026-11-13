@@ -1,0 +1,41 @@
+{
+  "schema": "author-reported-development-smoke-v1",
+  "source": "Summary and Slurm log pasted by the author; complete trace bundle not yet transferred or independently validated.",
+  "summary": {
+    "expected": 6,
+    "completed": 6,
+    "failures": [],
+    "startup_seconds": 5.268230300047435,
+    "script_seconds": 251.2182944760425,
+    "slurm_job_id": "7018060",
+    "git_commit": "a24ed6985d46b41c151d3bf099384a78db0c7e07"
+  },
+  "allocation": {
+    "gpu": "NVIDIA L40S",
+    "gpu_count": 1,
+    "cpus": 8,
+    "memory": "32G",
+    "slurm_walltime_seconds": 303,
+    "reported_memory_K": 5978560,
+    "model_download_location": "/tmp/allfather-models-7018060.uCZwca/huggingface"
+  },
+  "reported_checks": {"adapter": true, "pinned_base_weights": true},
+  "records": [
+    {"id": "QuantumNous/new-api#7761", "universe": 12753, "base_pool": 207, "wide_pool": 1022, "sha256": "3985e6706945d57524160f37f01e4425c20b8007d2aa28681084e8f71fde9fa7"},
+    {"id": "dbeaver/dbeaver#42432", "universe": 67401, "base_pool": 214, "wide_pool": 846, "sha256": "3312f361ca4975f1fc8098a1444819b7b868b4b50ff963a9218cec001ce7218d"},
+    {"id": "tt-a1i/archify#991", "universe": 2433, "base_pool": 196, "wide_pool": 806, "sha256": "cb13c51c56af727a353f517a0fd37a6c619f3544957560dc77e28d673fec2ef7"},
+    {"id": "Comfy-Org/ComfyUI#15922", "universe": 14917, "base_pool": 876, "wide_pool": 2275, "sha256": "e1da2150aa1832225a1c3b9060522101a149725add7349dd427d65400633f8d6"},
+    {"id": "ultraworkers/claw-code#3332", "universe": 3743, "base_pool": 1203, "wide_pool": 1790, "sha256": "ac87f49662435f1035734e0ab4533c54770beeaac7cb813207e69663b1e4651d"},
+    {"id": "immich-app/immich#31348", "universe": 5936, "base_pool": 906, "wide_pool": 1491, "sha256": "db8795229cf1eb915b3dfa4a58541a4d7876696f26496f580cb60516b868f3bb"}
+  ],
+  "warning": {
+    "reported_tokenized_length": 300007,
+    "tokenizer_model_limit": 131072,
+    "interpretation": "CrossEncoder._ids tokenizes before slicing to 512 query or 256 document tokens; the warning alone does not show that an oversized sequence reached a forward pass. The exact triggering input is not identified by this log."
+  },
+  "limitations": [
+    "Operational completion is not a validated localization outcome or novelty result.",
+    "Pool growth does not establish gold coverage or useful rescues.",
+    "Script and Slurm elapsed times have different boundaries; neither is browser latency or a deployed-policy cost."
+  ]
+}

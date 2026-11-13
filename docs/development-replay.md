@@ -150,3 +150,54 @@ is six traces with no failures. Preserve `manifest.json`, `index.json` and all g
 traces. If pinned caches or weights are missing, send the log; do not substitute a
 different model silently. After inspecting the smoke traces and timings, choose
 full-pilot resources and scoring. No training sweep or paid API run is part of this job.
+
+## Completed smoke and conditional full pilot
+
+The author reports job 7018060 completed 6/6 with no failures, 251.22 seconds inside
+the script and 303 seconds Slurm walltime. The six expanded pools are all larger;
+this does not measure target coverage or rescues. The [reported record](../results/research/corrections/pace-development-smoke-7018060.json)
+retains the summary, pool counts and printed trace hashes. Complete trace validation
+is still required. The warning about 300,007 tokens occurs during tokenization;
+`CrossEncoder._ids` slices to the query/document limits before model execution.
+The precise input is not identified by the log; long source tokenization may still
+add CPU work. No input or truncation policy is changed for the full pilot.
+
+Run the lightweight saved-trace validator on the login node. It checks the frozen
+selection, completion denominator, file/manifest hashes, row identities, finite
+features/scores, expanded-pool containment, common-row feature equality, MiniLM
+prefixes, local rankings and CE blends/tails. This does not rerun models, validate
+causal labels, or establish a localization result. Its regression suite covers
+corrupt hashes, wrong denominators, duplicate rows, altered features, wrong prefixes,
+changed tails, missing actions and nonfinite scores (13 targeted tests including
+the capture regressions).
+
+```bash
+cd ~/scratch/Odin
+git pull --ff-only origin main
+.venv/bin/python scripts/validate_development_replay.py \
+  --bundle results/research/corrections/development-smoke-v1 && \
+sbatch --account=coc --qos=coc-ice --partition=coc-gpu \
+  --nodes=1 --ntasks=1 --gres=gpu:l40s:1 \
+  --cpus-per-task=8 --mem=32G --time=04:00:00 \
+  --job-name=allfather-development-pilot \
+  --output=results/research/corrections/pace-logs/development-pilot-%j.log \
+  --export=ALL,PILOT_LIMIT=0,PILOT_OUT=results/research/corrections/development-pilot-v1 \
+  cluster/research/development-replay.sbatch
+```
+
+Four hours is a conservative allocation allowance, not a forecast. The new namespace
+reruns all 47 rows, including the six smoke rows; do not splice smoke outputs into it.
+Keep one replay job at a time because the analysis cache is shared. Base-model
+downloads remain entirely in compute-node temporary storage.
+
+Package the smoke evidence for transfer to local `reports/` while the pilot runs:
+
+```bash
+tar -czf results/research/corrections/development-smoke-7018060.tar.gz \
+  -C results/research/corrections \
+  development-smoke-v1 pace-logs/development-smoke-7018060.log
+```
+
+After full-pilot completion, validate its bundle with the same command and transfer
+its manifest, summary, index and all compressed traces. Outcome scoring and diagnosis
+are a separate gold join, with ambiguity policies explicit.
