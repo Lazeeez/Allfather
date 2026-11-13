@@ -149,11 +149,20 @@ power analysis. No margin or positive outcome is being selected from the exposed
 
 ## Immediate PACE work
 
-Run the CPU inventory smoke job and then full inventory collection described in
-[cluster/research/README.md](../cluster/research/README.md). This repairs the evaluator
-and exposes parser/identity limitations before any new training. Afterwards, prepare
-development-only stage/action logging and an existing-weight GPU replay. The GPU replay
-is a planned next job, not an executable command claimed to exist today.
+Full CPU inventory job 7008760 is running, and L40S environment preflight job 7009198
+passed; see [cluster/research/README.md](../cluster/research/README.md). Validate the
+inventory outputs to expose parser/identity limitations before any new training.
+Prepare development-only stage/action logging and an existing-weight GPU replay.
+The GPU replay is a planned next job, not an executable command claimed to exist today.
+
+The offline [split audit](../results/research/corrections/split-audit-v1.json) rules out
+using the historical ten-issue pilot as an unseen-issue test of the full pipeline:
+all ten appear in the browser ranker's declared training pool. The 580 fresh full-report
+rows have no case-normalized project overlap with the reconstructed browser training
+pool or available eligible CE records. Use these only for exploratory development,
+with project-grouped validation; do not relabel them as new confirmation data. Group
+the two PR rows for `microsoft/markitdown` issue 2340 together. Historical trained-row
+provenance, repository aliases/forks and upstream model exposure still need investigation.
 
 The defensible statement today is: **we have a concrete, falsifiable candidate method and
 an experimental platform, plus a verified reason to rebuild the evidence**. The stronger

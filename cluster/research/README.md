@@ -4,8 +4,12 @@
 
 The author's job 7009034 successfully allocated one `gpu:l40s:1` on `coc-gpu`
 with account `coc` and QoS `coc-ice`. It reported NVIDIA L40S, 46,068 MiB VRAM
-and driver 615.71.09. This confirms allocation and driver visibility; it does not
-yet verify the project's PyTorch environment or model throughput.
+and driver 615.71.09. Follow-up preflight job 7009198 at commit `4731578` also
+passed model-library imports and CUDA float32/float16/bfloat16 matrix operations.
+It used PyTorch 2.14.0+cu130, Transformers 5.17.0, Sentence Transformers 6.1.0,
+PEFT 0.21.0 and safetensors 0.8.0. The author's supplied result is recorded in
+[pace-preflight-7009198.json](../../results/research/corrections/pace-preflight-7009198.json).
+Model loading, inference throughput and research outcomes are not yet validated.
 
 The supplied QoS query reports `MaxSubmitJobsPU=50` for `coc-ice`; use this as
 the pending/running job ceiling, rather than the association's larger limit of
@@ -107,6 +111,16 @@ allowance, not a performance estimate. Send back the JSON and log even if it fai
 
 This validates environment readiness only. Existing-weight stage/action replay still
 requires inventory validation and a development split audit before submission.
+
+Preflight job 7009198 passed; do not rerun it for the unchanged environment. The
+offline [split audit](../../results/research/corrections/split-audit-v1.json) finds
+all 10 historical pilot issues in the browser ranker's declared training pool.
+Do not use that pilot to claim unseen-issue/project performance of the full pipeline.
+The 580 full-report fresh rows have no ID, snapshot or case-normalized project overlap
+with either the reconstructed browser pool or available eligible CE records. They
+are still exposed exploratory data, not a new confirmation set. Two PR rows for
+`microsoft/markitdown` issue 2340 must remain grouped. The audit does not establish
+absence of foundation-model exposure or renamed/forked-project overlap.
 
 ## Return artifacts
 

@@ -99,18 +99,33 @@ Final Ruff checks passed; README consistency checked 568 numbers with zero misma
 That consistency check still verifies the explicitly archived historical table against
 its historical inputs; it does not validate the superseded scientific claims.
 
-The PACE inventory job has not yet been reported as run on the cluster. It requests CPU resources only. Its smoke
-run must complete before the full inventory collection; see the [handoff](../cluster/research/README.md).
+The author reports full CPU inventory job 7008760 running with a four-hour allocation.
+Its completion and artifacts remain pending; see the [handoff](../cluster/research/README.md).
 
 PACE hardware probe job 7009034 successfully allocated an L40S (46,068 MiB VRAM,
 driver 615.71.09) under `coc` / `coc-ice`. The supplied QoS output shows a 50-job
-pending/running limit. A separate GPU preflight job now checks the existing Python
-model libraries and CUDA dtypes without downloading weights. Its cluster result is
-pending; the hardware probe alone does not validate PyTorch or any research outcome.
+pending/running limit. GPU preflight job 7009198 passed model-library imports and
+CUDA float32/float16/bfloat16 checks on the cluster at commit `4731578`. The supplied
+report records PyTorch 2.14.0+cu130 and Transformers 5.17.0. Its 211-second Slurm
+walltime is environment-check duration, not model inference latency. No model weights
+were loaded and no research outcome was measured.
+
+Offline split audit v1 finds all 10 historical pilot issues (five projects) in the
+browser ranker's reconstructed declared training pool. None match available eligible
+CE records. The 580 full-report fresh rows (74 projects) have no ID, snapshot or
+case-normalized project overlap with either reference. This permits exploratory
+unseen-project analysis relative to those references, not prospective confirmation:
+fresh results were already exposed. Two PR rows share `microsoft/markitdown` issue
+2340 and must stay in one split. Exact historical trained-row provenance, foundation
+model exposure, renamed/forked repositories and semantic duplicates remain unaudited.
+The script records input hashes, overlap IDs and missing reference availability;
+its three synthetic overlap/grouping regression tests passed.
 
 - [Structural inventory](../results/research/corrections/repository-inventory-2026-11-13.json)
 - [Import correction audit](../results/research/corrections/import-v1/audit.json)
 - [Exploratory joint outcomes](../results/research/corrections/headroom-v1.json)
+- [Split and training-pool overlap audit](../results/research/corrections/split-audit-v1.json)
+- [User-supplied PACE preflight result](../results/research/corrections/pace-preflight-7009198.json)
 - [Research direction and falsification plan](research-direction.md)
 
 No new paid inference, GPU training, external publication or deployment has been performed.
