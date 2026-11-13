@@ -28,6 +28,11 @@ def check_assets(spec: dict, store: Path, repo: Path = ROOT) -> list[str]:
                 errors.append(f"Missing: {path}")
             elif digest(path) != expected:
                 errors.append(f"SHA256 mismatch: {path}")
+    return errors + check_adapter(spec, repo)
+
+
+def check_adapter(spec: dict, repo: Path = ROOT) -> list[str]:
+    errors = []
     adapter = repo / spec["adapter"]["path"]
     weights = adapter / "adapter_model.safetensors"
     if not weights.is_file():
@@ -48,20 +53,41 @@ def main() -> int:
     parser.add_argument(
         "--store",
         type=Path,
-        default=Path(os.environ.get("HF_STORE", Path.home() / "scratch/odin-cache/huggingface")),
-        help="Hugging Face root containing hub/ (same meaning as HF_STORE)",
+        help="Explicit Hugging Face root containing hub/; use compute-node temporary storage",
     )
     parser.add_argument(
         "--download",
         action="store_true",
         help="Fetch pinned base-model files; never train or replace the adapter",
     )
+    parser.add_argument(
+        "--adapter-only",
+        action="store_true",
+        help="Check the transferred adapter without accessing model caches or downloading",
+    )
     args = parser.parse_args()
+    if args.adapter_only and args.download:
+        parser.error("--adapter-only cannot be combined with --download")
+    if not args.adapter_only and args.store is None:
+        parser.error("--store is required unless --adapter-only is used")
     spec = json.loads(MANIFEST.read_bytes())
+    if args.adapter_only:
+        failures = check_adapter(spec)
+        print(
+            json.dumps(
+                {"ok": not failures, "scope": "adapter only", "failures": failures}, indent=2
+            )
+        )
+        return int(bool(failures))
     failures = []
     if args.download:
         # Set before importing huggingface_hub, whose settings are read at import.
         os.environ["HF_HUB_OFFLINE"] = "0"
+        os.environ["HF_HOME"] = str(args.store)
+        os.environ["HF_HUB_CACHE"] = str(args.store / "hub")
+        os.environ["HUGGINGFACE_HUB_CACHE"] = str(args.store / "hub")
+        os.environ["HF_XET_CACHE"] = str(args.store / "xet")
+        os.environ["HF_ASSETS_CACHE"] = str(args.store / "assets")
         from huggingface_hub import snapshot_download
 
         for name, model in spec["models"].items():

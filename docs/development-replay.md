@@ -61,12 +61,17 @@ the records are Python execution times, not browser performance.
 
 ## Weights, provenance and resumption
 
-Only locally cached weights are used. Revisions are pinned to the locally tested
+Inference uses verified local weights. Revisions are pinned to the locally tested
 snapshots for Potion, MiniLM and Qwen3-Reranker-0.6B in
 `data/research/development-assets-v1.json`, together with expected file hashes.
-There is no fallback to an unpinned revision and no automatic weight download.
-The PACE job stages existing caches on node-local disk; `HF_STORE` selects the
-existing shared cache location. Adapter weights must exist under
+There is no fallback to an unpinned revision. The PACE job downloads approximately
+1.4 GB of pinned base-model files directly into a unique directory under the compute
+node's `$TMPDIR` (or `/tmp`), checks their SHA256 values, then runs inference offline.
+Hugging Face Hub/Xet/assets, Transformers, Torch and temporary download caches are
+redirected there; no base-model download is stored in home or shared scratch.
+The job ignores inherited `HF_STORE` and removes its temporary directory on normal
+exit, errors and handled termination signals (SIGKILL/node failure cannot run cleanup).
+Each new job downloads its own copy. Adapter weights must exist under
 `models/ce_multi/A/foldall/` in the PACE checkout.
 
 Each output namespace records model-file hashes, adapter/ranker hashes, all Python
@@ -91,24 +96,23 @@ identifies the tested model revisions.
 First run six issues (one per language) on one L40S. Two hours is an allocation
 allowance, not an expected runtime:
 
-Before submission, check the assets on the login node (no GPU or model loading):
+Before submission, check only the transferred adapter on the login node (no GPU,
+model-cache access or downloads):
 
 ```bash
 cd ~/scratch/Odin
 git pull --ff-only origin main
-export HF_STORE="$HOME/scratch/odin-cache/huggingface"
-.venv/bin/python scripts/development_assets.py --store "$HF_STORE"
+.venv/bin/python scripts/development_assets.py --adapter-only
 ```
 
-If base weights are missing, explicitly fetch the pinned public files with
-`.venv/bin/python scripts/development_assets.py --store "$HF_STORE" --download`.
-This downloads approximately 1.4 GB with two workers, reuses cached files, and checks
-their SHA256 values against the locally tested weights. It does not train a model.
+Do not download base weights on the login node. The batch script prepares them on
+the allocated compute node with two download workers and verifies every required
+file against the locally tested weights. It does not train a model.
 The trained `models/ce_multi/A/foldall/adapter_model.safetensors` is Git-ignored and
 must be transferred separately from the local project; its expected SHA256 is
 `cfb03fda28c7aed89c9b397440fdc72eabb0c1d3c55dc168a6d2195aeb1fcd82`.
 The checker validates the adapter weights and configuration too. Submit only after
-it returns `"ok": true`; the batch script repeats this check before staging.
+it returns `"ok": true`; the batch script repeats this adapter check before downloading.
 
 Job 7017410 exited before inference because the configured Potion cache directory
 was absent. Follow-up checks found all three models absent from both checked caches
@@ -119,6 +123,7 @@ produced. Once assets pass the check, the unused smoke output namespace can be r
 cd ~/scratch/Odin
 git pull --ff-only origin main
 mkdir -p results/research/corrections/pace-logs
+.venv/bin/python scripts/development_assets.py --adapter-only && \
 sbatch --account=coc --qos=coc-ice --partition=coc-gpu \
   --nodes=1 --ntasks=1 --gres=gpu:l40s:1 \
   --cpus-per-task=8 --mem=32G --time=02:00:00 \

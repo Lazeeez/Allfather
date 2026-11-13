@@ -98,9 +98,11 @@ fixed for future inference with content keys and retained row indices. Saved res
 remain historical; this repair requires new inference to measure its effect.
 All 211 Python tests passed, and the six actions passed a synthetic integration check
 with the real cached models on the local GPU. PACE smoke job 7017410 stopped before
-inference because assets were missing. The login-node asset checker now verifies
-pinned model-file hashes and trained adapter identity before another submission;
-base weights must be staged and the Git-ignored adapter weights transferred.
+inference because assets were missing. The login-node checker verifies only the
+transferred adapter. Per the author's storage constraint, the batch job downloads
+pinned base weights into compute-node temporary storage, verifies file hashes,
+runs inference offline and cleans up that temporary directory on exit. The
+Git-ignored adapter weights still need transfer before submission.
 
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox

@@ -1,6 +1,11 @@
 import hashlib
 import json
+import sys
+from types import SimpleNamespace
 
+import pytest
+
+from scripts import development_assets as assets
 from scripts.development_assets import check_assets
 
 
@@ -41,3 +46,66 @@ def test_adapter_identity_and_cross_platform_config(tmp_path):
     errors = check_assets(spec, store, repo)
     assert any("Missing trained weights" in error for error in errors)
     assert any("Adapter config mismatch" in error for error in errors)
+
+
+def test_download_redirects_inherited_caches_and_pins_files(tmp_path, monkeypatch):
+    spec, store, repo, _, _, _ = fixture_assets(tmp_path)
+    spec["adapter"]["path"] = str(repo / "adapter")
+    manifest = tmp_path / "assets.json"
+    manifest.write_text(json.dumps(spec), encoding="utf-8")
+    monkeypatch.setattr(assets, "MANIFEST", manifest)
+    monkeypatch.setattr(sys, "argv", ["assets", "--store", str(store), "--download"])
+    for name in (
+        "HF_HOME",
+        "HF_HUB_CACHE",
+        "HUGGINGFACE_HUB_CACHE",
+        "HF_XET_CACHE",
+        "HF_ASSETS_CACHE",
+        "HF_HUB_OFFLINE",
+    ):
+        monkeypatch.setenv(name, "inherited-value")
+    calls = []
+
+    def download(name, **kwargs):
+        calls.append((name, kwargs))
+        assert assets.os.environ["HF_HUB_OFFLINE"] == "0"
+        for key in (
+            "HF_HOME",
+            "HF_HUB_CACHE",
+            "HUGGINGFACE_HUB_CACHE",
+            "HF_XET_CACHE",
+            "HF_ASSETS_CACHE",
+        ):
+            assert assets.os.environ[key].startswith(str(store))
+
+    monkeypatch.setitem(sys.modules, "huggingface_hub", SimpleNamespace(snapshot_download=download))
+    assert assets.main() == 0
+    assert calls == [
+        (
+            "org/model",
+            {
+                "revision": "pinned",
+                "cache_dir": store / "hub",
+                "allow_patterns": ["model.safetensors"],
+                "max_workers": 2,
+            },
+        )
+    ]
+
+
+def test_adapter_only_does_not_require_model_cache(tmp_path, monkeypatch):
+    spec, _, repo, model, _, _ = fixture_assets(tmp_path)
+    model.unlink()
+    spec["adapter"]["path"] = str(repo / "adapter")
+    manifest = tmp_path / "assets.json"
+    manifest.write_text(json.dumps(spec), encoding="utf-8")
+    monkeypatch.setattr(assets, "MANIFEST", manifest)
+    monkeypatch.setattr(sys, "argv", ["assets", "--adapter-only"])
+    assert assets.main() == 0
+
+
+def test_download_requires_explicit_store(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["assets", "--download"])
+    with pytest.raises(SystemExit) as error:
+        assets.main()
+    assert error.value.code == 2
