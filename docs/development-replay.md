@@ -62,7 +62,8 @@ the records are Python execution times, not browser performance.
 ## Weights, provenance and resumption
 
 Only locally cached weights are used. Revisions are pinned to the locally tested
-snapshots for Potion, MiniLM and Qwen3-Reranker-0.6B in `development_replay.py`.
+snapshots for Potion, MiniLM and Qwen3-Reranker-0.6B in
+`data/research/development-assets-v1.json`, together with expected file hashes.
 There is no fallback to an unpinned revision and no automatic weight download.
 The PACE job stages existing caches on node-local disk; `HF_STORE` selects the
 existing shared cache location. Adapter weights must exist under
@@ -89,6 +90,30 @@ identifies the tested model revisions.
 
 First run six issues (one per language) on one L40S. Two hours is an allocation
 allowance, not an expected runtime:
+
+Before submission, check the assets on the login node (no GPU or model loading):
+
+```bash
+cd ~/scratch/Odin
+git pull --ff-only origin main
+export HF_STORE="$HOME/scratch/odin-cache/huggingface"
+.venv/bin/python scripts/development_assets.py --store "$HF_STORE"
+```
+
+If base weights are missing, explicitly fetch the pinned public files with
+`.venv/bin/python scripts/development_assets.py --store "$HF_STORE" --download`.
+This downloads approximately 1.4 GB with two workers, reuses cached files, and checks
+their SHA256 values against the locally tested weights. It does not train a model.
+The trained `models/ce_multi/A/foldall/adapter_model.safetensors` is Git-ignored and
+must be transferred separately from the local project; its expected SHA256 is
+`cfb03fda28c7aed89c9b397440fdc72eabb0c1d3c55dc168a6d2195aeb1fcd82`.
+The checker validates the adapter weights and configuration too. Submit only after
+it returns `"ok": true`; the batch script repeats this check before staging.
+
+Job 7017410 exited before inference because the configured Potion cache directory
+was absent. Follow-up checks found all three models absent from both checked caches
+and the trained adapter weights missing. No replay summary or research outcome was
+produced. Once assets pass the check, the unused smoke output namespace can be reused.
 
 ```bash
 cd ~/scratch/Odin

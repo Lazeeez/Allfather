@@ -26,6 +26,7 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 
 import browser_ltr as bl  # noqa: E402
 import numpy as np  # noqa: E402
+from development_assets import MANIFEST as ASSET_MANIFEST  # noqa: E402
 from website_rerank import blended  # noqa: E402
 
 from allfather.rank.browser import FEATURES, POOL, SEMANTIC, extract, predict_many  # noqa: E402
@@ -34,9 +35,8 @@ from allfather.search.retriever import Query  # noqa: E402
 VERSION = "development-stage-replay-v1"
 MODEL_IDS = (bl.STATIC_MODEL, bl.EMBEDDER, "Qwen/Qwen3-Reranker-0.6B")
 MODEL_REVISIONS = {
-    bl.STATIC_MODEL: "1b0ff71095656b23306542bbad34a09109673720",
-    bl.EMBEDDER: "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
-    "Qwen/Qwen3-Reranker-0.6B": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    name: item["revision"]
+    for name, item in json.loads(ASSET_MANIFEST.read_bytes())["models"].items()
 }
 
 
@@ -212,12 +212,14 @@ def main() -> int:
     sources = [
         *sorted((ROOT / "src/allfather").rglob("*.py")),
         Path(__file__),
+        ROOT / "scripts/development_assets.py",
         ROOT / "scripts/browser_ltr.py",
         ROOT / "scripts/website_rerank.py",
     ]
     config = {
         "schema": VERSION,
         "plan_sha256": digest(args.plan),
+        "assets_sha256": digest(ASSET_MANIFEST),
         "python": sys.version,
         "platform": platform.platform(),
         "instances": selected,
