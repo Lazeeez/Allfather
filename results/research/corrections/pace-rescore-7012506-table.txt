@@ -1,0 +1,28 @@
+Provenance: transcribed from the user's pasted table; original score/provenance files not yet retrieved.
+Exploratory hit@10; compare only matching issue IDs. Strict/name-group are different target interpretations.
+run | observed/expected | strict all | name-group all | strict unique-gold | unique-gold n
+fresh-full_codex-single-astra | 580/580 | 0.5259 | 0.5310 | 0.5422 | 557
+fresh-full_codex-single | 580/580 | 0.3810 | 0.3862 | 0.3932 | 557
+fresh-full_gemini-single | 580/580 | 0.5155 | 0.5241 | 0.5296 | 557
+fresh-full_open-single-gpt-oss-120b | 580/580 | 0.2379 | 0.2379 | 0.2478 | 557
+fresh-full_open-single-qwen3-coder-next-fp8 | 580/580 | 0.3534 | 0.3603 | 0.3645 | 557
+fresh-full_swerank-embed-large | 580/580 | 0.7690 | 0.7793 | 0.7810 | 557
+fresh-full_swerank-embed-small | 580/580 | 0.7000 | 0.7069 | 0.7110 | 557
+fresh-full_website-files | 580/580 | 0.7483 | 0.7569 | 0.7648 | 557
+fresh-full_website-gpu | 580/580 | 0.7759 | 0.7845 | 0.7899 | 557
+fresh-full_website | 580/580 | 0.7483 | 0.7569 | 0.7648 | 557
+fresh-full-agents_claude-single-sonnet | 20/198 | 0.8500 | 0.8500 | 0.8947 | 19
+fresh-full-agents_codex-agent-astra | 198/198 | 0.8636 | 0.8737 | 0.8901 | 191
+fresh-full-agents_codex-agent | 198/198 | 0.7525 | 0.7626 | 0.7749 | 191
+fresh-full-agents_codex-single-astra | 198/198 | 0.5707 | 0.5808 | 0.5916 | 191
+fresh-full-agents_codex-single | 198/198 | 0.3939 | 0.4040 | 0.4084 | 191
+fresh-full-agents_gemini-single | 198/198 | 0.5152 | 0.5354 | 0.5288 | 191
+fresh-full-agents_open-agent-gpt-oss-120b | 198/198 | 0.4949 | 0.5051 | 0.5079 | 191
+fresh-full-agents_open-agent-qwen3-coder-next-fp8 | 198/198 | 0.5960 | 0.6162 | 0.6126 | 191
+fresh-full-agents_open-single-gpt-oss-120b | 198/198 | 0.2778 | 0.2778 | 0.2880 | 191
+fresh-full-agents_open-single-qwen3-coder-next-fp8 | 198/198 | 0.3939 | 0.4040 | 0.4031 | 191
+fresh-full-agents_swerank-embed-large | 198/198 | 0.7576 | 0.7828 | 0.7801 | 191
+fresh-full-agents_swerank-embed-small | 198/198 | 0.6515 | 0.6717 | 0.6702 | 191
+fresh-full-agents_website-files | 198/198 | 0.7626 | 0.7828 | 0.7853 | 191
+fresh-full-agents_website-gpu | 198/198 | 0.7576 | 0.7778 | 0.7801 | 191
+fresh-full-agents_website | 198/198 | 0.7626 | 0.7828 | 0.7853 | 191

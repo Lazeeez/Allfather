@@ -1,0 +1,392 @@
+{
+  "provenance": "Only complete issue-level JSON objects recovered from a paste that begins inside a record; this is not the full gold review.",
+  "attachment_sha256": "970a8db904982b3e4c720adda3c0d3cbce89828b09c5efb521debce991c3f9d5",
+  "complete_records": 3,
+  "records": [
+    {
+      "id": "traefik/traefik#13726",
+      "repo": "traefik/traefik",
+      "base_commit": "a45081336754c669819e729fe272b72725e9d09c",
+      "files": 643,
+      "symbols": 4890,
+      "colliding_ids": 1,
+      "parser_error_files": 7,
+      "by_language": {
+        "go": {
+          "files": 497,
+          "parser_error_files": 6,
+          "symbol_occurrences": 4597,
+          "colliding_ids": 1
+        },
+        "javascript": {
+          "files": 5,
+          "parser_error_files": 0,
+          "symbol_occurrences": 26
+        },
+        "tsx": {
+          "files": 113,
+          "parser_error_files": 1,
+          "symbol_occurrences": 228
+        },
+        "typescript": {
+          "files": 28,
+          "parser_error_files": 0,
+          "symbol_occurrences": 39
+        }
+      },
+      "gold_count": 1,
+      "duplicate_gold_entries": 0,
+      "gold_status_counts": {
+        "unique": 1
+      },
+      "gold_in_parser_error_files": 1,
+      "all_gold_unique": true,
+      "any_gold_unique": true,
+      "gold": [
+        {
+          "id": "pkg/provider/kubernetes/ingress-nginx/middleware.go::Provider.buildCORS",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": true,
+          "occurrences": [
+            {
+              "id": "pkg/provider/kubernetes/ingress-nginx/middleware.go::Provider.buildCORS",
+              "kind": "method",
+              "start_line": 260,
+              "end_line": 273
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vercel/next.js#98607",
+      "repo": "vercel/next.js",
+      "base_commit": "996f957c060aa17957a166216c69565c72996f4a",
+      "files": 6843,
+      "symbols": 77578,
+      "colliding_ids": 1767,
+      "parser_error_files": 76,
+      "by_language": {
+        "javascript": {
+          "files": 2191,
+          "parser_error_files": 19,
+          "symbol_occurrences": 53800,
+          "colliding_ids": 1602
+        },
+        "typescript": {
+          "files": 2102,
+          "parser_error_files": 12,
+          "symbol_occurrences": 8202,
+          "colliding_ids": 21
+        },
+        "tsx": {
+          "files": 1603,
+          "parser_error_files": 38,
+          "symbol_occurrences": 3142
+        },
+        "rust": {
+          "files": 946,
+          "parser_error_files": 7,
+          "symbol_occurrences": 12416,
+          "colliding_ids": 144
+        },
+        "python": {
+          "files": 1,
+          "parser_error_files": 0,
+          "symbol_occurrences": 18
+        }
+      },
+      "gold_count": 1,
+      "duplicate_gold_entries": 0,
+      "gold_status_counts": {
+        "ambiguous": 1
+      },
+      "gold_in_parser_error_files": 0,
+      "all_gold_unique": false,
+      "any_gold_unique": false,
+      "gold": [
+        {
+          "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+          "status": "ambiguous",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            },
+            {
+              "id": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+              "kind": "function",
+              "start_line": 1,
+              "end_line": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zed-industries/zed#64039",
+      "repo": "zed-industries/zed",
+      "base_commit": "52e0b848dafed5d59a7634995b8b7021672dc5ab",
+      "files": 1929,
+      "symbols": 50858,
+      "colliding_ids": 405,
+      "parser_error_files": 14,
+      "by_language": {
+        "javascript": {
+          "files": 11,
+          "parser_error_files": 0,
+          "symbol_occurrences": 335,
+          "colliding_ids": 28
+        },
+        "rust": {
+          "files": 1881,
+          "parser_error_files": 14,
+          "symbol_occurrences": 50097,
+          "colliding_ids": 377
+        },
+        "python": {
+          "files": 36,
+          "parser_error_files": 0,
+          "symbol_occurrences": 426
+        },
+        "typescript": {
+          "files": 1,
+          "parser_error_files": 0
+        }
+      },
+      "gold_count": 10,
+      "duplicate_gold_entries": 0,
+      "gold_status_counts": {
+        "unique": 10
+      },
+      "gold_in_parser_error_files": 1,
+      "all_gold_unique": true,
+      "any_gold_unique": true,
+      "gold": [
+        {
+          "id": "crates/editor/src/editor.rs::Editor.lsp_data_enabled",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": true,
+          "occurrences": [
+            {
+              "id": "crates/editor/src/editor.rs::Editor.lsp_data_enabled",
+              "kind": "method",
+              "start_line": 11288,
+              "end_line": 11290
+            }
+          ]
+        },
+        {
+          "id": "crates/editor/src/element.rs::EditorElement.register_actions",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/editor/src/element.rs::EditorElement.register_actions",
+              "kind": "method",
+              "start_line": 275,
+              "end_line": 750
+            }
+          ]
+        },
+        {
+          "id": "crates/editor/src/hover_links.rs::Editor.cmd_click_reveal_task",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/editor/src/hover_links.rs::Editor.cmd_click_reveal_task",
+              "kind": "method",
+              "start_line": 253,
+              "end_line": 337
+            }
+          ]
+        },
+        {
+          "id": "crates/editor/src/hover_links.rs::Editor.handle_click_hovered_link",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/editor/src/hover_links.rs::Editor.handle_click_hovered_link",
+              "kind": "method",
+              "start_line": 202,
+              "end_line": 227
+            }
+          ]
+        },
+        {
+          "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsDelegate",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsDelegate",
+              "kind": "class",
+              "start_line": 402,
+              "end_line": 412
+            }
+          ]
+        },
+        {
+          "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsDelegate.new",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsDelegate.new",
+              "kind": "method",
+              "start_line": 415,
+              "end_line": 451
+            }
+          ]
+        },
+        {
+          "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsDelegate.open_selected",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsDelegate.open_selected",
+              "kind": "method",
+              "start_line": 490,
+              "end_line": 507
+            }
+          ]
+        },
+        {
+          "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsPicker.new",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsPicker.new",
+              "kind": "method",
+              "start_line": 346,
+              "end_line": 364
+            }
+          ]
+        },
+        {
+          "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsPicker.open",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/lsp_locations/src/lsp_locations.rs::LspLocationsPicker.open",
+              "kind": "method",
+              "start_line": 276,
+              "end_line": 344
+            }
+          ]
+        },
+        {
+          "id": "crates/lsp_locations/src/lsp_locations.rs::register",
+          "status": "unique",
+          "file_in_inventory": true,
+          "file_has_parser_error": false,
+          "occurrences": [
+            {
+              "id": "crates/lsp_locations/src/lsp_locations.rs::register",
+              "kind": "function",
+              "start_line": 37,
+              "end_line": 109
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

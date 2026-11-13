@@ -206,6 +206,23 @@ they preserve per-slot statuses, per-issue metrics, exact cohort IDs and input h
 
 ## Return artifacts
 
+Rescore job 7012506 finished and its table was supplied. No resubmission is needed.
+The pasted gold-review output was truncated at the beginning; only three complete
+issue records could be recovered. Transfer the original files as an archive rather
+than pasting the long JSON into the terminal conversation:
+
+```bash
+cd ~/scratch/Odin
+tar -czf ~/scratch/allfather-rescore-7012506.tar.gz \
+  -C results/research/corrections \
+  inventory-rescore-7012506 inventory-audit-7012218
+```
+
+Download and attach this archive through the usual PACE file-transfer method.
+It includes per-slot scores, cohort IDs, provenance and the complete gold review;
+it does not include the large snapshot inventories. This enables paired analysis
+and targeted gold diagnosis locally without another cluster job.
+
 Send `summary.json` and the job log first. For actual rescoring, bring back the full
 `inventories-fresh-v1/` directory (`manifest.json`, `index.json`, `summary.json` and compressed
 snapshot files). It contains symbol IDs, kinds, ranges and Git blob IDs, not source text.

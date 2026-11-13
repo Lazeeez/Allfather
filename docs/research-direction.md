@@ -152,8 +152,19 @@ power analysis. No margin or positive outcome is being selected from the exposed
 Full CPU inventory job 7008760 completed 580/580 snapshots, and L40S environment
 preflight job 7009198 passed; see [cluster/research/README.md](../cluster/research/README.md).
 Audit job 7012218 passed saved-artifact integrity, finding 65 ambiguous gold IDs
-across 23 issues and zero missing IDs. Run the prepared inventory-based rescoring
-sensitivities and inspect flagged gold source ranges before freezing identity policy.
+across 23 issues and zero missing IDs. Rescore job 7012506 produced descriptive
+sensitivities; retrieve its per-issue scores for paired, project-aware analysis.
+The full-set strict gap between website-gpu and SweRankEmbed-Large is only four
+hits; on the agent subset website-gpu has one fewer hit than website. Neither
+marginal comparison establishes how often an action rescues or harms an individual
+issue, or whether a controller can predict that benefit. These results still do
+not justify a complicated GPU stage by themselves.
+Inspect the complete flagged gold records before freezing identity policy. The
+three complete records received so far include 15 same-name Next.js constructors
+on a single minified line, a parser error overlapping a Traefik gold function, and
+a Zed parser error far from its gold method. A line-number suffix alone cannot
+resolve the Next.js collision. Retain these cases explicitly; do not select a
+metric interpretation because it favors a system.
 Prepare development-only stage/action logging and an existing-weight GPU replay.
 The GPU replay is a planned next job, not an executable command claimed to exist today.
 

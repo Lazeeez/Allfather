@@ -1,6 +1,6 @@
 # Research status and codebase map
 
-Updated 2026-11-13. Current scope: localization and selective escalation; no repair or
+Updated 2026-11-14. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
 ## What has been inspected
@@ -124,7 +124,24 @@ It verifies the successful audit's input hashes and every snapshot before scorin
 corrected SweRank imports are required. Original/default metrics remain unchanged.
 Fifteen targeted tests passed, including an end-to-end saved-inventory fixture,
 stale-audit rejection, duplicate rows, ambiguous IDs, truncated MRR and slot retention.
-PACE rescoring and detailed diagnosis of the flagged gold records remain pending.
+PACE rescore job 7012506 produced a table supplied by the author. On 580 issues,
+strict hit@10 is 0.7759 for website-gpu versus 0.7690 for SweRankEmbed-Large; on 198
+agent issues it is 0.7576 for website-gpu, 0.7626 for website, and 0.8636 for Astra.
+The corresponding name-group values are 0.7845/0.7793 (580 issues) and
+0.7778/0.7828/0.8737 (198). These rounded marginal rates do not establish statistical
+superiority, equivalence, predictable escalation benefit or a cost advantage.
+The 20-row Sonnet run cannot be compared directly with 198-row totals. Original
+per-issue score/provenance files remain needed for matched, project-aware analysis.
+
+The pasted gold review begins inside a record; only three complete issue records
+were recovered. Offline inspection of cached base blobs reproduces 15 Next.js
+`e.constructor` occurrences at distinct byte columns on line 1, with no parser
+errors. Thus path/name/line is insufficient to distinguish these declarations.
+Traefik's parser errors overlap the gold method's lines; Zed's sole parser error is
+far outside the gold method. This distinguishes collision and parser-coverage cases
+without changing labels. Source hashes, parser versions, columns and error spans
+are recorded; the remaining gold review has not been received. These examples
+do not determine the intended changed occurrence or certify causal labels.
 
 PACE hardware probe job 7009034 successfully allocated an L40S (46,068 MiB VRAM,
 driver 615.71.09) under `coc` / `coc-ice`. The supplied QoS output shows a 50-job
@@ -152,6 +169,9 @@ its three synthetic overlap/grouping regression tests passed.
 - [User-supplied PACE preflight result](../results/research/corrections/pace-preflight-7009198.json)
 - [User-supplied completed inventory summary](../results/research/corrections/pace-inventories-7008760.json)
 - [User-supplied inventory integrity/gold audit](../results/research/corrections/pace-inventory-audit-7012218.json)
+- [User-supplied rescoring table](../results/research/corrections/pace-rescore-7012506-table.txt)
+- [Partial gold review recovered from paste](../results/research/corrections/review-gold-partial-v1.json)
+- [Offline source inspection of the three complete records](../results/research/corrections/gold-source-review-partial-v1.json)
 - [Research direction and falsification plan](research-direction.md)
 
 No new paid inference, GPU training, external publication or deployment has been performed.

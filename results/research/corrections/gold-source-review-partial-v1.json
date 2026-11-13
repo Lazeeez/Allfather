@@ -1,0 +1,257 @@
+{
+  "scope": "Only supplied complete records and flagged targets; no inference, gold edits or Git fetches.",
+  "limitations": [
+    "Line overlap is not proof of semantic extraction failure or gold invalidity.",
+    "Columns are zero-based byte columns; lines are one-based.",
+    "Source hashes identify local blobs; equivalence to PACE audit blobs requires its inventories."
+  ],
+  "review_sha256": "ffde3c89234617fd002909f515561543e6accfd3646c97f351ec5fe85a03ecb3",
+  "source_sha256": {
+    "scripts/inspect_gold_sources.py": "89f7bbc9f00a00791253bdc656a7ecbddbd1a7bf47a6d926ab9378770ec98689",
+    "src/allfather/parsing/symbols.py": "2ea767d4b3c948a0766e152d19ce8387b860cfc358faa4aa06bb1d6dc5e82a2a",
+    "src/allfather/parsing/python_symbols.py": "a0ce292424e854876f233665e5c36270177988930c17146fae8c7f20ab722d70"
+  },
+  "parser_versions": {
+    "tree-sitter": "0.26.0",
+    "tree-sitter-python": "0.25.0",
+    "tree-sitter-go": "0.25.0",
+    "tree-sitter-javascript": "0.25.0",
+    "tree-sitter-typescript": "0.23.2",
+    "tree-sitter-java": "0.23.5",
+    "tree-sitter-rust": "0.24.2"
+  },
+  "records_received": 3,
+  "targets": [
+    {
+      "id": "traefik/traefik#13726",
+      "repo": "traefik/traefik",
+      "base_commit": "a45081336754c669819e729fe272b72725e9d09c",
+      "target": "pkg/provider/kubernetes/ingress-nginx/middleware.go::Provider.buildCORS",
+      "source_sha256": "b4d77c08ff16ee13221cb38d9077e69f37e7d1915eda6cb4ca7d5d98bc0f80b0",
+      "source_bytes": 16824,
+      "language": "go",
+      "matches": [
+        {
+          "kind": "method",
+          "start_line": 260,
+          "end_line": 273,
+          "start_column": 0
+        }
+      ],
+      "errors": [
+        {
+          "kind": ")",
+          "missing": true,
+          "start": [
+            271,
+            42
+          ],
+          "end": [
+            271,
+            42
+          ],
+          "byte_range": [
+            8624,
+            8624
+          ],
+          "line_overlap_with_target": true,
+          "text_prefix": ""
+        },
+        {
+          "kind": "ERROR",
+          "missing": false,
+          "start": [
+            271,
+            85
+          ],
+          "end": [
+            271,
+            86
+          ],
+          "byte_range": [
+            8667,
+            8668
+          ],
+          "line_overlap_with_target": true,
+          "text_prefix": ")"
+        },
+        {
+          "kind": ")",
+          "missing": true,
+          "start": [
+            508,
+            40
+          ],
+          "end": [
+            508,
+            40
+          ],
+          "byte_range": [
+            15640,
+            15640
+          ],
+          "line_overlap_with_target": false,
+          "text_prefix": ""
+        },
+        {
+          "kind": "ERROR",
+          "missing": false,
+          "start": [
+            508,
+            43
+          ],
+          "end": [
+            508,
+            44
+          ],
+          "byte_range": [
+            15643,
+            15644
+          ],
+          "line_overlap_with_target": false,
+          "text_prefix": ")"
+        }
+      ]
+    },
+    {
+      "id": "vercel/next.js#98607",
+      "repo": "vercel/next.js",
+      "base_commit": "996f957c060aa17957a166216c69565c72996f4a",
+      "target": "packages/next/src/compiled/@mswjs/interceptors/ClientRequest/index.js::e.constructor",
+      "source_sha256": "5ba80aded1aaec12da222f70e3a4688400033fe65aff3b66095e37fe1e6e5873",
+      "source_bytes": 62815,
+      "language": "javascript",
+      "matches": [
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 364
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 1335
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 1589
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 4865
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 6980
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 8996
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 24874
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 32165
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 34404
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 38940
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 39111
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 39312
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 51637
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 52401
+        },
+        {
+          "kind": "function",
+          "start_line": 1,
+          "end_line": 1,
+          "start_column": 53314
+        }
+      ],
+      "errors": []
+    },
+    {
+      "id": "zed-industries/zed#64039",
+      "repo": "zed-industries/zed",
+      "base_commit": "52e0b848dafed5d59a7634995b8b7021672dc5ab",
+      "target": "crates/editor/src/editor.rs::Editor.lsp_data_enabled",
+      "source_sha256": "167139354f9e57f8102ace2eaf789e71304e4144f96e2f4b11b9e0ccb08f98f5",
+      "source_bytes": 480211,
+      "language": "rust",
+      "matches": [
+        {
+          "kind": "method",
+          "start_line": 11288,
+          "end_line": 11290,
+          "start_column": 4
+        }
+      ],
+      "errors": [
+        {
+          "kind": "ERROR",
+          "missing": false,
+          "start": [
+            1131,
+            12
+          ],
+          "end": [
+            1131,
+            15
+          ],
+          "byte_range": [
+            38800,
+            38803
+          ],
+          "line_overlap_with_target": false,
+          "text_prefix": "dyn"
+        }
+      ]
+    }
+  ],
+  "failures": []
+}
