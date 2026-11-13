@@ -25,6 +25,13 @@ not currently available resources. Start model work on the confirmed L40S.
 
 ## Inventory purpose
 
+Collection job 7008760 completed 580/580 snapshots with no recorded failures in
+1:59:59. Its user-supplied [summary](../../results/research/corrections/pace-inventories-7008760.json)
+flags parser-error files in 400 snapshots and colliding IDs in 512; 372 have both,
+and 40 have neither. These are repository-wide flags, not counts of invalid gold
+targets. The full inventory artifacts still need integrity and gold-coverage checks.
+Do not repeat the collection solely because these flags are present.
+
 The first job is **CPU-only inventory extraction**, not training or agent inference.
 It builds complete candidate inventories at the 580 fresh base snapshots, using the
 same supported languages/test exclusions as the shared chunker. This enables a scorer
@@ -121,6 +128,34 @@ with either the reconstructed browser pool or available eligible CE records. The
 are still exposed exploratory data, not a new confirmation set. Two PR rows for
 `microsoft/markitdown` issue 2340 must remain grouped. The audit does not establish
 absence of foundation-model exposure or renamed/forked-project overlap.
+
+## Audit the completed inventories
+
+The next CPU job reads the existing gzip files one snapshot at a time. It verifies
+SHA256 hashes, snapshot identities and internal counts, then reports unique,
+ambiguous and missing gold IDs and whether their files have parser errors. Labels
+and predictions stay unchanged; this job does not score systems. Run after pulling
+the audit commit into the checkout:
+
+```bash
+sbatch --account=coc --qos=coc-ice --partition=coc-cpu \
+  --nodes=1 --ntasks=1 --cpus-per-task=1 --mem=8G --time=01:00:00 \
+  --job-name=allfather-inventory-audit \
+  --output=results/research/corrections/pace-logs/inventory-audit-%j.log \
+  cluster/research/inventory-audit.sbatch
+```
+
+One hour is an allocation allowance, not a measured duration. No repositories are
+fetched or reparsed, and no inference is run. Results go to a fresh
+`results/research/corrections/inventory-audit-JOBID/` directory. Send `summary.json`
+and the job log first; retain `instances.jsonl` and `provenance.json` for detailed
+diagnosis. `integrity_ok: true` confirms saved-artifact consistency, not semantic
+parser correctness or complete extraction against Git. File and symbol totals are
+summed over instance snapshots, so repeated source blobs are counted repeatedly.
+
+An ambiguous gold ID can reflect an overload, repeated declaration or extraction
+defect. A parser error somewhere in a gold file need not affect its target symbol.
+Do not drop affected issues or silently repair their names based on these flags.
 
 ## Return artifacts
 

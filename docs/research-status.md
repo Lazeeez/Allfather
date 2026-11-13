@@ -60,7 +60,7 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | P0 | Missing `.mjs/.cjs/.mts/.cts` in import | Implemented shared registry and tests for all 12 extensions. Eight separate corrected runs generated. |
 | P0 | Original exported ID membership | Open: verify recovered IDs against original fresh corpora; round trips alone are insufficient. |
 | P0 | Unequal prompt/grep source extensions | Implemented access fix. Open: identify and rerun affected inference with a new run identity. |
-| P0 | Gold-dependent answer resolution | Draft resolver and CPU inventory builder implemented/tested; PACE job prepared. Open: collect complete base inventories, quantify collisions and gold coverage, wire versioned scoring and report resolution rates. |
+| P0 | Gold-dependent answer resolution | Draft resolver implemented/tested; 580/580 inventory collection reported complete. Integrity/gold-coverage audit prepared. Open: validate artifacts, quantify target-level collisions/coverage, wire versioned scoring and report resolution rates. |
 | P0 | Invalid predictions silently disappear | Draft resolver preserves failure/duplicate slots. Open: integrate and publish metric sensitivities. |
 | P0 | Null costs become zero; competing cost paths | Open: one per-record cost module shared by analysis and paper; explicit unknown/measured/estimated states. |
 | P0 | Hardware and token accounting | Open: recorded GPU count/type; per-request tier rules; retries/cache/setup boundaries; no difference-of-medians GPU estimate. |
@@ -99,8 +99,16 @@ Final Ruff checks passed; README consistency checked 568 numbers with zero misma
 That consistency check still verifies the explicitly archived historical table against
 its historical inputs; it does not validate the superseded scientific claims.
 
-The author reports full CPU inventory job 7008760 running with a four-hour allocation.
-Its completion and artifacts remain pending; see the [handoff](../cluster/research/README.md).
+The author reports full CPU inventory job 7008760 completed all 580 snapshots with
+no failures in 1:59:59. Parser-error files occur in 400 snapshots and colliding IDs
+in 512 (372 both; 40 neither). These repository-wide flags do not establish that
+the corresponding gold targets are invalid. Full files have not yet been retrieved
+locally. A CPU audit now verifies hashes/identities/internal counts and measures
+gold-specific unique, ambiguous, missing and parser-error-file coverage; its PACE
+result is pending. The audit preserves all labels and records integrity failures
+against the full expected denominator. Ten relevant tests passed, including corrupt
+hash, mismatched snapshot, unrelated parser flag and ambiguous gold fixtures.
+See the [handoff](../cluster/research/README.md).
 
 PACE hardware probe job 7009034 successfully allocated an L40S (46,068 MiB VRAM,
 driver 615.71.09) under `coc` / `coc-ice`. The supplied QoS output shows a 50-job
@@ -126,6 +134,7 @@ its three synthetic overlap/grouping regression tests passed.
 - [Exploratory joint outcomes](../results/research/corrections/headroom-v1.json)
 - [Split and training-pool overlap audit](../results/research/corrections/split-audit-v1.json)
 - [User-supplied PACE preflight result](../results/research/corrections/pace-preflight-7009198.json)
+- [User-supplied completed inventory summary](../results/research/corrections/pace-inventories-7008760.json)
 - [Research direction and falsification plan](research-direction.md)
 
 No new paid inference, GPU training, external publication or deployment has been performed.
