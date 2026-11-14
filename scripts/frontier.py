@@ -36,6 +36,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from allfather.eval.dataset import load_instances  # noqa: E402
+from allfather.eval.execution import bind_run, make_plan, source_hashes  # noqa: E402
 from allfather.eval.metrics import aggregate, score  # noqa: E402
 from allfather.parsing.symbols import is_test_path, language_of  # noqa: E402
 from allfather.repos import RepoCache  # noqa: E402
@@ -71,7 +72,7 @@ ANSWER = {
     "required": ["functions"],
     "additionalProperties": False,
 }
-PROMPT = """You are localizing a bug. The repository is in the current directory, checked out at the commit where the bug was reported.
+PROMPT = """You are localizing a bug. The repository is in the current directory, checked out at the supplied pre-merge base commit.
 
 Read the bug report, explore the code with the read-only tools you have, and decide which functions or methods must change to fix it. Do not edit anything and do not try to run code.
 
@@ -81,7 +82,7 @@ Answer with JSON only, in this shape, at most 10 entries, the most likely first:
 Bug report:
 {report}
 """
-SINGLE = """You are localizing a bug in {repo}. You cannot open files; below are the bug report and the list of the repository's source files at the commit where the bug was reported.
+SINGLE = """You are localizing a bug in {repo}. You cannot open files; below are the bug report and the list of the repository's source files at the supplied pre-merge base commit.
 
 Decide which functions or methods must change to fix it. Answer with JSON only, in this shape, at most 10 entries, the most likely first:
 {{"functions": [{{"file": "path/relative/to/repo.py", "name": "ClassName.method_name or function_name"}}]}}
@@ -153,7 +154,7 @@ def log_test_run(name: str, system: str, model: str, path: Path) -> None:
     with log_path.open("a", encoding="utf-8", newline="\n") as log:
         log.write(
             f"{datetime.now(UTC).date().isoformat()} | {name} | {system} ({model}) | function | {path.relative_to(ROOT).as_posix()} | "
-            "ADR 0033 run on the sealed fresh-2026 set; nothing decided from it\n"
+            "Exploratory run on previously exposed data; see its execution manifest; no prospective confirmation claim\n"
         )
 
 
@@ -533,23 +534,45 @@ def reuse_subsample(set_name: str, name: str, target: Path, done: set[str]) -> s
 
 
 def cmd_run(args: argparse.Namespace) -> int:
-    if args.system.startswith("gemini") and not args.allow_billing and not free_tier_only():
-        sys.exit(
-            "GEMINI_API_KEY is not limited to the free tier (a paid model answered); pass --allow-billing to run anyway"
-        )
     issues, items = load_set(args.set)
     runner, model, agent = SYSTEMS[args.system]
     model = args.model or model
     name = f"{args.system}-{args.tag}" if args.tag else args.system
     target = OUT / f"{args.set}_{name}.jsonl"
-    done = (
-        {json.loads(line)["id"] for line in target.open(encoding="utf-8")}
-        if target.exists()
-        else set()
+    plan = make_plan(
+        issues,
+        items,
+        {
+            "set": args.set,
+            "system": name,
+            "model": model,
+            "agent": agent,
+            "errors_last": args.errors_last,
+            "timeout_seconds": TIMEOUT_S,
+            "sources": source_hashes(ROOT, ["scripts/frontier.py", "scripts/open_agent.py"]),
+        },
+        args.execution_seed,
+        args.limit,
     )
+    execution_hash, done = bind_run(target, plan)
+    if args.plan_only or len(done) == len(plan["ids"]):
+        print(
+            json.dumps(
+                {
+                    "manifest_sha256": execution_hash,
+                    "planned": len(plan["ids"]),
+                    "completed": len(done),
+                    "projects": plan["projects"],
+                }
+            )
+        )
+        return 0
+    if args.system.startswith("gemini") and not args.allow_billing and not free_tier_only():
+        sys.exit(
+            "GEMINI_API_KEY is not limited to the free tier (a paid model answered); pass --allow-billing to run anyway"
+        )
     cache = RepoCache(ROOT / ".cache" / "repos")
     started = bool(done)
-    done |= reuse_subsample(args.set, name, target, done)
     if not started:
         log_test_run(args.set, name, model, target)
     failed = target.with_suffix(".errors.jsonl")
@@ -558,7 +581,7 @@ def cmd_run(args: argparse.Namespace) -> int:
         for r in (map(json.loads, failed.open(encoding="utf-8")) if failed.exists() else [])
         if str(r.get("error", "")).startswith("network: TimeoutError")
     }
-    queue = issues[: args.limit or None]
+    queue = plan["ids"]
     if args.errors_last:
         queue = [q for q in queue if q not in timed_out_before] + [
             q for q in queue if q in timed_out_before
@@ -586,6 +609,7 @@ def cmd_run(args: argparse.Namespace) -> int:
             record = {
                 "id": q, "system": name, "requested_model": model, "date": datetime.now(UTC).isoformat(timespec="seconds"),
                 "seconds": round(time.perf_counter() - start, 1), **record,
+                "execution_manifest_sha256": execution_hash,
                 "web_tool_used": any(WEB_TOOLS.search(t) for t in record.get("tools") or []),
             }  # fmt: skip
             if str(record.get("error") or "").startswith("network: TimeoutError") and (
@@ -675,6 +699,12 @@ def main() -> int:
         "--tag", help="added to the system name in the output file, e.g. the open model"
     )
     rn.add_argument("--limit", type=int, default=0)
+    rn.add_argument("--execution-seed", type=int, default=37)
+    rn.add_argument(
+        "--plan-only",
+        action="store_true",
+        help="freeze/verify the plan without exporting repositories or invoking models",
+    )
     rn.add_argument("--keep", action="store_true")
     rn.add_argument("--allow-billing", action="store_true")
     rn.add_argument("--errors-last", action="store_true")

@@ -28,10 +28,11 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from frontier import OUT, load_set, log_test_run  # noqa: E402
-from live_eval import Site  # noqa: E402
+from live_eval import RANKER, Site  # noqa: E402
 from website_rerank import blended  # noqa: E402
 
 from allfather.eval.dataset import Instance  # noqa: E402
+from allfather.eval.execution import bind_run, digest, make_plan, source_hashes  # noqa: E402
 from allfather.parsing.symbols import language_of  # noqa: E402
 from allfather.rank.confidence import confidence_features, predict_confidence  # noqa: E402
 
@@ -81,15 +82,59 @@ def main() -> int:
     ap.add_argument("--set", required=True)
     ap.add_argument("--gpu", type=Path)
     ap.add_argument("--files", action="store_true")
+    ap.add_argument(
+        "--tag", help="new identity for a changed recipe; historical outputs cannot be resumed"
+    )
+    ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--execution-seed", type=int, default=37)
+    ap.add_argument("--plan-only", action="store_true")
     args = ap.parse_args()
     ids, items = load_set(args.set)
     system = "website-gpu" if args.gpu else "website-files" if args.files else "website"
+    if args.tag:
+        system += "-" + args.tag
     target = OUT / f"{args.set}_{system}.jsonl"
-    done = (
-        {json.loads(line)["id"] for line in target.open(encoding="utf-8")}
-        if target.exists()
-        else set()
+    assets = {"ranker": digest(RANKER.read_bytes()), "confidence": digest(CONFIDENCE.read_bytes())}
+    if args.gpu:
+        assets["gpu_config"] = digest(args.gpu.read_bytes())
+        for adapter in json.loads(args.gpu.read_bytes())["adapters"]:
+            for name in ("adapter_config.json", "adapter_model.safetensors"):
+                assets[f"{adapter}/{name}"] = digest((ROOT / adapter / name).read_bytes())
+    plan = make_plan(
+        ids,
+        items,
+        {
+            "set": args.set,
+            "system": system,
+            "files": args.files,
+            "assets": assets,
+            "sources": source_hashes(
+                ROOT,
+                [
+                    "scripts/fresh_website.py",
+                    "scripts/frontier.py",
+                    "scripts/live_eval.py",
+                    "scripts/browser_ltr.py",
+                    "scripts/website_rerank.py",
+                ],
+            ),
+        },
+        args.execution_seed,
+        args.limit,
     )
+    execution_hash, done = bind_run(target, plan)
+    if args.plan_only or len(done) == len(plan["ids"]):
+        print(
+            json.dumps(
+                {
+                    "manifest_sha256": execution_hash,
+                    "planned": len(plan["ids"]),
+                    "completed": len(done),
+                    "projects": plan["projects"],
+                }
+            )
+        )
+        return 0
     site = Site()
     gpu = Gpu(args.gpu) if args.gpu else None
     model = json.loads(CONFIDENCE.read_text(encoding="utf-8"))
@@ -97,14 +142,14 @@ def main() -> int:
     if not done:
         log_test_run(args.set, system, label, target)
     with target.open("a", encoding="utf-8", newline="\n") as handle:
-        for q in ids:
-            if q in done or not items[q]["gold"]:
+        for q in plan["ids"]:
+            if q in done:
                 continue
             item = items[q]
             inst = Instance(q, item["repo"], item["base_commit"], "", item["text"])
             start = time.perf_counter()
             site.last_semantic = None
-            ranked, ranked_files, units = site.rank(inst, set(item["gold"]), set())
+            ranked, ranked_files, units = site.rank(inst, set(), set())
             sure = None
             if site.last_semantic is not None:
                 s_b, X, chars = site.last_semantic
@@ -118,6 +163,7 @@ def main() -> int:
             record = {
                 "id": q,
                 "system": system,
+                "execution_manifest_sha256": execution_hash,
                 "requested_model": label,
                 "date": datetime.now(UTC).isoformat(timespec="seconds"),
                 "seconds": round(time.perf_counter() - start, 1),

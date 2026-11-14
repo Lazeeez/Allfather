@@ -10,6 +10,12 @@ run rows monetarily unknown. Mining rejects incomplete edit-history responses an
 gold extraction errors. Historical datasets/results are preserved; these repairs do not
 establish cost superiority or certify old mining decisions.
 
+The [review handoff and intake tool](research-review-handoff.md) now validate packet and
+sheet identity, preserve initial submissions, enforce the recorded Stage A/Stage B sequence,
+and compare declared independent human reviews without inventing adjudication. No returned
+reviews exist. [Future execution manifests](research-execution-manifests.md) freeze seeded
+orders and reject incompatible resumptions; no new inference has been launched.
+
 Latest study checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
 The fixed sample contains 95 issues across 50 projects, excluding all 24 original
 development projects. Two review waves (50 and 45 cases) were selected without using
@@ -106,9 +112,9 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | P0 | Unsupported headline claims | Correction notice and corrected comparison available. Full manuscript, website and generated table replacement remains open until evaluator/cost freeze. |
 | P1 | Paired uncertainty ignores project dependence | Diagnostic paired project intervals in import audit. Open: integrate all metrics/file families, macro-project estimates and cluster-aware test sensitivity. |
 | P1 | P-values rounded before Holm | Implemented raw p-values through adjustment. Historical tables retained pending regeneration. |
-| P1 | Partial runs use sorted prefixes | Open: save seeded execution manifests for new runs; show exact IDs and project/language coverage for every partial comparison. Audit now exposes comparison IDs. |
+| P1 | Partial runs use sorted prefixes | Implemented seeded manifests and exact ID/project coverage for future frontier and website runs, with strict resume validation. Historical partial-run comparability and language coverage reporting remain open. |
 | P1 | Duplicate issue with two PRs | Open: issue–PR unit definition, split grouping and deterministic issue-deduplicated sensitivity. Never silently drop an original row. |
-| P1 | Pre-merge parent described as report-time snapshot | Open: operational wording, merge/parent provenance and multi-commit/rebase checks. |
+| P1 | Pre-merge parent described as report-time snapshot | New prompts use pre-merge base wording; future mining records all merge parents. Historical wording propagation and multi-commit/rebase checks remain open. |
 | P1 | Symbol granularity / overloaded IDs | Open: version labels, quantify classes/types/overloads; draft resolver marks duplicate inventory IDs ambiguous. |
 | P1 | Incomplete gold extraction and GraphQL error handling | Future mining now retains the full GoldEntry, rejects partial extraction and malformed/error edit responses, and records report/patch hashes and merge parents. Historical completeness, parser coverage and API diff truncation remain open. |
 | P1 | Diff labels are not necessarily causal | Open: blind stratified label audit, including added-only changes, renames, incidental edits and alternate valid locations. |
