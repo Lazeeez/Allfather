@@ -1,0 +1,36 @@
+{
+  "schema": "task-audit-stage-a-v1",
+  "status": "Frozen provisional analyst report-only annotations before a new Stage B review; not independent annotation or consensus.",
+  "cases": 23,
+  "task_kind": {
+    "bug": 19,
+    "feature": 3,
+    "maintenance": 1
+  },
+  "scope": {
+    "focused": 22,
+    "umbrella": 1
+  },
+  "reproduction_evidence": {
+    "concrete_steps": 18,
+    "not_applicable": 3,
+    "example_or_log": 1,
+    "assertion_only": 1
+  },
+  "underspecification": {
+    "none_identified": 21,
+    "external_context_required": 1,
+    "multiple_plausible_subtasks": 1
+  },
+  "input_manifest_sha256": "812ae751dd1c6498631cf41426c2ffc095fc0442b1311101ea7d66257aa83b7b",
+  "rubric_sha256": "aee4b11b3cf35de821d86535177f5efe7144b0bf419ba149d64936f7de410bca",
+  "rows_sha256": "c50da259265ff51d0bbe4a39b89eb574bacfb8557f7e750057c3b4c4a967c78f",
+  "quote_validation": "Every quote and anchor is an exact substring of its original report; offsets are Unicode code points.",
+  "limitations": [
+    "All 23 are exposed fit cases, not an outcome-independent sample of the complete dataset.",
+    "Single analyst with prior outcome/patch exposure; agreement and causal validity are not established.",
+    "Linked images, external documents, examples and claimed root causes were not independently tested.",
+    "none_identified means no clear missing requirement identified in this pass, not that the report is proven sufficient.",
+    "No reference labels or evaluation denominators changed."
+  ]
+}

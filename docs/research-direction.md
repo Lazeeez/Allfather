@@ -227,3 +227,27 @@ winner from validation. Further work should address fit-only candidate coverage
 or task validity with a new falsifiable mechanism and explicit prior-work comparison.
 The present evidence does not establish a novel method; any later confirmation
 requires new frozen data. No additional PACE job is needed to resolve this branch.
+
+## Coverage decision, 2026-11-15
+
+The [fit-only CPU probe](research-coverage-probe-2026-11-15.md) tests full BM25,
+field fusion, lexical-reference injection and random injection under 50/200 candidate
+limits on every original fit issue. None creates multi-project gains over the matching
+base limit. The only new issue at 200 is already reached by wide retrieval; no proposed
+control passes the frozen follow-up gate. Do not start a GPU sweep or a routing fit.
+
+The same review identified especially close prior art in
+[CuraLoc](https://arxiv.org/html/2610.31809v1), which plans structural inspection and
+separates selected-reference coverage from final recovery. Generic corrective search
+plus that decomposition is insufficient differentiation. The detailed source comparison
+is in the probe report. Next, audit report specificity and patch alignment across all
+fit cases using the [fixed task-audit rubric](research-task-audit-v1.md). A method claim
+remains conditional on a differentiated mechanism and new evidence; an independently
+annotated evaluation study is an alternative, not an already established contribution.
+
+The [provisional report audit](research-task-audit-progress-2026-11-15.md) is now frozen
+for all 23 fit cases. A checked AutoGPT patch includes incidental formatting edits among
+the reference targets, alongside new implementation outside the base-symbol universe.
+This motivates completing the adequacy audit before interpreting target coverage as
+useful evidence. One example and an exposed single-analyst review cannot establish a
+new evaluation contribution or justify changing gold labels.

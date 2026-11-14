@@ -1,3 +1,7 @@
 * text=auto eol=lf
 *.jsonl text eol=lf
 *.wasm binary
+# Preserve the original bytes of these hash-linked, frozen audit artifacts.
+data/research/coverage-probe-v1.json -text whitespace=cr-at-eol
+results/research/corrections/task-audit-preparation-v1.json -text whitespace=cr-at-eol
+results/research/corrections/task-audit-stage-a-v1/rows.jsonl -text whitespace=cr-at-eol

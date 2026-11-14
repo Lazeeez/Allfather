@@ -1,0 +1,16 @@
+Fit-only candidate read coverage; this is NOT hit@10 or a confirmatory comparison.
+action | any/23 | all/23 | targets/52 | mean target recall | added/lost issues
+base_50 | 19 | 17 | 36 | 0.7935 | 0/0
+wide_50 | 19 | 17 | 36 | 0.7935 | 0/0
+bm25_full_50 | 18 | 15 | 34 | 0.7343 | 0/1
+field_rrf_50 | 18 | 15 | 33 | 0.7343 | 0/1
+inject_rrf_50 | 19 | 16 | 35 | 0.7790 | 0/0
+inject_refs_50 | 19 | 16 | 35 | 0.7790 | 0/0
+inject_random_50 | 19 | 16 | 35 | 0.7790 | 0/0
+base_200 | 19 | 18 | 37 | 0.8043 | 0/0
+wide_200 | 20 | 19 | 39 | 0.8587 | 1/0
+bm25_full_200 | 20 | 19 | 38 | 0.8478 | 1/0
+field_rrf_200 | 19 | 18 | 37 | 0.8043 | 0/0
+inject_rrf_200 | 19 | 18 | 37 | 0.8043 | 0/0
+inject_refs_200 | 20 | 19 | 38 | 0.8478 | 1/0
+inject_random_200 | 19 | 18 | 37 | 0.8043 | 0/0

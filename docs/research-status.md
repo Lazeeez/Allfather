@@ -3,14 +3,22 @@
 Updated 2026-11-15. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
-Latest step: [validation job 7049176 is verified and scored](research-text-view-validation-2026-11-15.md).
-All 24 PR rows and 384 action outputs pass integrity checks; 48 original baselines
-reproduce exactly. The frozen candidate loses one validation issue: 21/23 to 20/23,
-with zero rescues. All-PR sensitivity agrees (21/24 to 20/24), and the all-control
-oracle adds no successes beyond the baseline. Retain prefix reranking, close this
-context-view improvement candidate and defer its router. Twenty-nine focused analysis
-tests pass and every previous fit score reproduces unchanged. No new PACE run is
-needed for this branch; candidate-coverage and task-validity work comes next.
+Latest step: [the fit-only coverage probe is complete](research-coverage-probe-2026-11-15.md).
+All 23 issues pass source reconstruction and exact lexical-feature parity checks.
+No new control adds issue coverage at 50 candidates; at 200, the only newly covered
+issue is already reached by original wide retrieval. Every control fails the frozen
+multi-project follow-up gate. The full suite passes 268 tests. No additional GPU sweep is
+justified. Next is the [report-to-patch task audit](research-task-audit-v1.md).
+
+The [first audit pass is now frozen](research-task-audit-progress-2026-11-15.md): all
+23 reports provisionally annotated, with prior exposure disclosed. One inspected patch
+contains two incidental edits among its gold targets; no labels or scores are changed.
+Thirty-four file diffs remain unavailable locally. Seventeen new focused tests pass.
+Complete patch review and independent adjudication are the next evidence requirements.
+
+The preceding [text-view validation is negative](research-text-view-validation-2026-11-15.md):
+21/23 to 20/23 with zero rescues. Retain prefix reranking and defer the router.
+The new controls and closer prior work do not establish a novel method.
 
 ## What has been inspected
 

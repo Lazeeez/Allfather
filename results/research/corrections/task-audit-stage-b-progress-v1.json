@@ -1,0 +1,352 @@
+{
+  "schema": "task-audit-stage-b-progress-v1",
+  "scope": "Availability inventory for all fit cases; targeted provisional annotation of one case, not a completed semantic patch audit.",
+  "stage_a_rows_sha256": "c50da259265ff51d0bbe4a39b89eb574bacfb8557f7e750057c3b4c4a967c78f",
+  "capture_index_sha256": "ab758972d346e8596a1fe9fe0b58dd71e6073ec904a1055b0e03688e51db33c5",
+  "cases": 23,
+  "cases_with_all_file_diffs_available": 8,
+  "changed_files": 71,
+  "unavailable_file_diffs": 34,
+  "captures": {
+    "QuantumNous/new-api#7761": {
+      "file": "921429993b0f4085f763c70f8760597650e9013df16eed1299725d59049f2d00.json",
+      "sha256": "a7328885162733f8c1942ffcd933fc2651d130cacd22c64553e4d8f382212da4",
+      "changed_files": 2,
+      "unavailable_patches": 0
+    },
+    "dbeaver/dbeaver#42432": {
+      "file": "25445a6a3376ea9ec14f492876d098a4d21bd86bc81e75e4eeb2a7ccdb72fde7.json",
+      "sha256": "37a621ef7a141d6f9354d6b220bb971661c1e9af82c82c9da155a6ad47e4dad8",
+      "changed_files": 2,
+      "unavailable_patches": 0
+    },
+    "tt-a1i/archify#991": {
+      "file": "3c288f46eb6d1368facb1e901e1be40ceb5960c6abd60dfe41503280d0949aa7.json",
+      "sha256": "98477e2f429855457a050e65ff5776d3e6e0b1331f3ab242a8194d8a78befd71",
+      "changed_files": 3,
+      "unavailable_patches": 3
+    },
+    "Comfy-Org/ComfyUI#15922": {
+      "file": "a8e38c7d587dbf2d510f81e9ac9509db4b2bf7cf970f51e3e7b5e7b16a77dc8c.json",
+      "sha256": "4f7153a47583f75aedf7f77c425b806a7680afd33cfcc1941614c58f7108fbcc",
+      "changed_files": 12,
+      "unavailable_patches": 2
+    },
+    "ultraworkers/claw-code#3332": {
+      "file": "6816b81ef3aa13f05b48b9bbbdee368fd66c5aadce38a325e73b038c5537d247.json",
+      "sha256": "75dbbaa6b38625c629d18101ae26d10ca79703200e4a1d9e5606296da259eb0f",
+      "changed_files": 5,
+      "unavailable_patches": 4
+    },
+    "immich-app/immich#31348": {
+      "file": "7fa3ea18a02b6ccdf6b519de1698da728baf139683da654469bb92170dac2ee3.json",
+      "sha256": "9c1809ea9e72c4c8ccaaebb690c3be99b02b7024033251275d30dec1dd798a2d",
+      "changed_files": 2,
+      "unavailable_patches": 0
+    },
+    "QuantumNous/new-api#7844": {
+      "file": "8a5951f869b865e8c8210fcaa5874f02bf116565ee6f2f0c22d296731a153646.json",
+      "sha256": "dc0757755d561a996e78a28e46b15449f868f7ceb29b5b27ba8ceebcf614e464",
+      "changed_files": 2,
+      "unavailable_patches": 2
+    },
+    "dbeaver/dbeaver#42026": {
+      "file": "805c3ca1969d247846ed37b025906f02d7779bb06de03910be8b937f3ad4f4b9.json",
+      "sha256": "948292d0401c092b0a8da9e92c0016d6a5b34bd5fae1faf23ec997ab6d2039cd",
+      "changed_files": 1,
+      "unavailable_patches": 1
+    },
+    "tt-a1i/archify#515": {
+      "file": "e3a5ead0e6ebddcade77b140ea21dfcbc336fb353defb3e67cce614b720cfd5f.json",
+      "sha256": "a8c13ae44cd8267f89e987678f1fab8fbb56cf5f8e7e0adeabef9b2424c2a46e",
+      "changed_files": 5,
+      "unavailable_patches": 2
+    },
+    "Comfy-Org/ComfyUI#16485": {
+      "file": "fa3ba8f779dc2b0856407e30438371e2ee2c778d19b3f14bb62e5bf6ed7a2eb6.json",
+      "sha256": "39423b558631d8cf9cda55a2d89cb74ad72b92385f02f11a87016ae3c155bd26",
+      "changed_files": 2,
+      "unavailable_patches": 0
+    },
+    "zed-industries/zed#62785": {
+      "file": "e44670c8a00636145837c578889ba939429654f6d305cfc83627af3e9263f620.json",
+      "sha256": "c789a3d136faa1020ea97b0803e57bac51be2a291337f11b99e1cef4d6f18dd2",
+      "changed_files": 1,
+      "unavailable_patches": 1
+    },
+    "immich-app/immich#31079": {
+      "file": "029385748596d6ae4675ae83a941bdbd5fcf6ba448beb3c0d61ae6094b9e0416.json",
+      "sha256": "8bc4157e0306cff73d5f941e1e4f6cd82d6421437408b26ec280c9ddad1b2720",
+      "changed_files": 1,
+      "unavailable_patches": 0
+    },
+    "ollama/ollama#19188": {
+      "file": "2018978cc96177af4bb3293dfe98874c6138ff37455fe81b0e5e336afe24104d.json",
+      "sha256": "df57ebf39563cd3201340f41898c1a30e8376a1725353fb55b350a298a41dc88",
+      "changed_files": 3,
+      "unavailable_patches": 3
+    },
+    "spring-projects/spring-boot#52201": {
+      "file": "788dacec8e9397e72e3b17cde22e9b254753c81e70abe8b3b0593b1596b2a879.json",
+      "sha256": "2dcc59653a3b86f6957fed1ccf7fc797cdaa55de5a0d2ae46d4fc4733cfa9722",
+      "changed_files": 2,
+      "unavailable_patches": 2
+    },
+    "Leonxlnx/taste-skill#165": {
+      "file": "3d31e3824679bba4e226e47e211824a53b7ee6994833b8105a0464b49730ebb5.json",
+      "sha256": "ed5d626d8c784d6aca60e844870d6bc1889b77b434c25811e3c03e99ece266de",
+      "changed_files": 3,
+      "unavailable_patches": 3
+    },
+    "Significant-Gravitas/AutoGPT#14536": {
+      "file": "45375012c2895675b6c3c985d3ef810930982e91ee7e46841a001dcd773bf2b5.json",
+      "sha256": "1de03b1bd43fa5bd5f41400d8ff28c8383c6dcc710022d387b8e3d2caca389ed",
+      "changed_files": 6,
+      "unavailable_patches": 0
+    },
+    "zed-industries/zed#62534": {
+      "file": "dd1909dc1849c5c0bc9f39a36cf21517614b1db486c452e648e63153fdad75a4.json",
+      "sha256": "53c624558b6d4e7fd6f0ea1c223f46a5f7c66b4b8d1ee5948ded96b135bcaec3",
+      "changed_files": 3,
+      "unavailable_patches": 2
+    },
+    "supabase/supabase#49940": {
+      "file": "2caea5b23713f0e9e2f079c19adf8af2292b9add027878335bd50a7b71243b6b.json",
+      "sha256": "22e943b93bd911309d03b5f674cf313a00ed4e5b1f7c1544dfb205b3c1f3bca2",
+      "changed_files": 2,
+      "unavailable_patches": 0
+    },
+    "ollama/ollama#17757": {
+      "file": "4fd4c65a3e9ae23e1b5c840a6fbd71b99b67b4be5698e14079172f0f86abf48a.json",
+      "sha256": "3ba7a792b16bfbd5e63ccad4390b8fb979c9a25757c80db19b79a7f9b47d3241",
+      "changed_files": 3,
+      "unavailable_patches": 2
+    },
+    "spring-projects/spring-boot#51774": {
+      "file": "57e4302bd98f06a4c978077bd00d32cc7fc2041c0f64430312b2cda8d740af4a.json",
+      "sha256": "b3348b3ee5ba0d095ffa064d8e922582a656b3bb44ff93cb81274234f7016604",
+      "changed_files": 3,
+      "unavailable_patches": 3
+    },
+    "Leonxlnx/taste-skill#158": {
+      "file": "66829ce376e01bbcfdfa777743de3882ec2c13d39d5741d28ea9a9fac35cde27.json",
+      "sha256": "e9c99739b60d912831ceec212a088f0ee4ff35fb00ce53b0e3513e8eaf2e7fd2",
+      "changed_files": 3,
+      "unavailable_patches": 2
+    },
+    "Significant-Gravitas/AutoGPT#14008": {
+      "file": "2a968922e1ea82199656a24d3f7a6e2e7f136748657acc75d97a6a84780b6c65.json",
+      "sha256": "2402be93618a70ade3fea711125f0dc630cf38d4653e1b68604bd72c4eef3958",
+      "changed_files": 3,
+      "unavailable_patches": 0
+    },
+    "supabase/supabase#50426": {
+      "file": "9dc34bbbe312153a93ee3f47d6c9daa421c667b310211686c6fa11e4ef58b396.json",
+      "sha256": "c81c77af25e2740aa4087b78db623944d0e37ddad879dae4979dfe806391b115",
+      "changed_files": 2,
+      "unavailable_patches": 2
+    }
+  },
+  "missing": [
+    {
+      "id": "tt-a1i/archify#991",
+      "path": "archify.zip",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 10a13a04cfa7f7d964be1ffcfd2734529c676a16 from promisor remote\n"
+    },
+    {
+      "id": "tt-a1i/archify#991",
+      "path": "archify/bin/preview.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 2274bb831bc592b3464eeacb527df9f554dedfdf from promisor remote\n"
+    },
+    {
+      "id": "tt-a1i/archify#991",
+      "path": "test/preview-shell-status.test.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch b10cc209e30baf58cbd122ec719a20fb21ebfdc1 from promisor remote\n"
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#15922",
+      "path": "comfy/model_detection.py",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 098e6a0880e6d88a95cb08b62047f7421d63aa82 from promisor remote\n"
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#15922",
+      "path": "nodes.py",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch b27a21463dbae9a25d18cf596ef8721099cadcff from promisor remote\n"
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "path": "docs/gjc-compat/tool-semantics-phase1.md",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 4f4d03cff5fefb716e627e1f4072e3b400f097ce from promisor remote\n"
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "path": "rust/crates/runtime/src/lib.rs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 4691f941efb6dcb6fbde705e3dabe6b52a34d577 from promisor remote\n"
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "path": "rust/crates/runtime/src/line_range_selector.rs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 13affe150317f59cf70f09ad202d881418b64ff0 from promisor remote\n"
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "path": "rust/crates/tools/src/lib.rs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 627adfb42cb2bb59db24bc00a62a89db76c6f2f6 from promisor remote\n"
+    },
+    {
+      "id": "QuantumNous/new-api#7844",
+      "path": "pkg/perf_metrics/metrics_test.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 9a05478f6d6daeb31fc0768a6da4680d8ae0d109 from promisor remote\n"
+    },
+    {
+      "id": "QuantumNous/new-api#7844",
+      "path": "pkg/perf_metrics/outcome.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 83db90d9303305d1ef361bb29efd6fe450db6159 from promisor remote\n"
+    },
+    {
+      "id": "dbeaver/dbeaver#42026",
+      "path": "plugins/org.jkiss.dbeaver.ui.editors.sql/src/org/jkiss/dbeaver/ui/editors/sql/SQLEditor.java",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 5f3da43fc50508f6dd11fd9997be64e2fa78afb5 from promisor remote\n"
+    },
+    {
+      "id": "tt-a1i/archify#515",
+      "path": "CHANGELOG.md",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch adfc5c1e6f3aebb7659681675b3e7153f47954ca from promisor remote\n"
+    },
+    {
+      "id": "tt-a1i/archify#515",
+      "path": "archify.zip",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 417bcacbbc5e05af26ff223ec66b5673b39dc8a6 from promisor remote\n"
+    },
+    {
+      "id": "zed-industries/zed#62785",
+      "path": "crates/markdown/src/markdown.rs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 2c622018a82ff5d3099908e6c884164059bdd6ff from promisor remote\n"
+    },
+    {
+      "id": "ollama/ollama#19188",
+      "path": "middleware/anthropic.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch c557bff3afc0d9ff30c3aee2c8d6ec756b9a7c19 from promisor remote\n"
+    },
+    {
+      "id": "ollama/ollama#19188",
+      "path": "middleware/anthropic_test.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 57a185d0588a172a9bd8b9c82702a8513efd657b from promisor remote\n"
+    },
+    {
+      "id": "ollama/ollama#19188",
+      "path": "server/routes_remote_test.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 65274b06a483711194df48773f18a101b3e75a08 from promisor remote\n"
+    },
+    {
+      "id": "spring-projects/spring-boot#52201",
+      "path": "loader/spring-boot-jarmode-tools/src/main/java/org/springframework/boot/jarmode/tools/ExtractCommand.java",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch db47c9a3f005cfe8031006ef3ec4a6a3c0a4dcf7 from promisor remote\n"
+    },
+    {
+      "id": "spring-projects/spring-boot#52201",
+      "path": "loader/spring-boot-jarmode-tools/src/test/java/org/springframework/boot/jarmode/tools/ExtractCommandTests.java",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 4dede8d987bbcd9d901e696ee57fcfc022593b9c from promisor remote\n"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#165",
+      "path": "skills/taste-skill/scripts/inspect.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch e1dff0d1180eb2fe5d212a210c488690dbeb368a from promisor remote\n"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#165",
+      "path": "skills/taste-skill/scripts/lib/inspection-files.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch d375fcb6b1db149eb11b9ccde3d2f485060b51ca from promisor remote\n"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#165",
+      "path": "tests/inspection-files.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch b6466df124f78e0b10bc001b2bd6e4e5f86273f9 from promisor remote\n"
+    },
+    {
+      "id": "zed-industries/zed#62534",
+      "path": "Cargo.lock",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch a8d41d773ffba0e794e725ab5a2203cae0f02926 from promisor remote\n"
+    },
+    {
+      "id": "zed-industries/zed#62534",
+      "path": "Cargo.toml",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 9af94b2395a260a819ce12a3ab7fadabd23a10ff from promisor remote\n"
+    },
+    {
+      "id": "ollama/ollama#17757",
+      "path": "model/renderers/qwen35.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 7be891e57b39ae123ff5cc7c67a0266ec0a20233 from promisor remote\n"
+    },
+    {
+      "id": "ollama/ollama#17757",
+      "path": "model/renderers/qwen38_test.go",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 9645131e90f919dd011cb762cb5916f3efb95dc5 from promisor remote\n"
+    },
+    {
+      "id": "spring-projects/spring-boot#51774",
+      "path": "module/spring-boot-kafka/src/main/java/org/springframework/boot/kafka/autoconfigure/ConcurrentKafkaListenerContainerFactoryConfigurer.java",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 47b78c357268ede72a7c180362ba80fa42da2df9 from promisor remote\n"
+    },
+    {
+      "id": "spring-projects/spring-boot#51774",
+      "path": "module/spring-boot-kafka/src/main/java/org/springframework/boot/kafka/autoconfigure/KafkaProperties.java",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 9696a4ee4d7c0ca35d6f560f6d52a75ad7df925e from promisor remote\n"
+    },
+    {
+      "id": "spring-projects/spring-boot#51774",
+      "path": "module/spring-boot-kafka/src/test/java/org/springframework/boot/kafka/autoconfigure/KafkaAutoConfigurationTests.java",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 82391224ddd78a238cff008cafa5fb747eb901f5 from promisor remote\n"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#158",
+      "path": "skills/taste-skill/scripts/lib/cdp.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 5ab666c031bac6fb950f9cd715bae032bdac5d27 from promisor remote\n"
+    },
+    {
+      "id": "Leonxlnx/taste-skill#158",
+      "path": "tests/profile-cleanup.mjs",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 66e89b9e07c14f40b134134bd857f1c73864b27f from promisor remote\n"
+    },
+    {
+      "id": "supabase/supabase#50426",
+      "path": "apps/studio/components/interfaces/Organization/TeamSettings/InviteMemberButton.tsx",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 516b9ed8a2616f27bcf2ffc6bac44948b8e946c8 from promisor remote\n"
+    },
+    {
+      "id": "supabase/supabase#50426",
+      "path": "apps/studio/tests/components/Organization/TeamSettings/InviteMemberButton.test.tsx",
+      "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 0efc0e0a1d3682f1707c0438b52864c24d72dd03 from promisor remote\n"
+    }
+  ],
+  "case_review": {
+    "id": "Significant-Gravitas/AutoGPT#14536",
+    "base_commit": "bb4b2e488abbb7422a359e52696da63e06f7ab33",
+    "merge_commit": "80c4e7af7b90613f885d7eca745afb45c3f67451",
+    "patch_alignment": "direct core task plus incidental edits",
+    "confidence": "medium; provisional analyst review, independent adjudication pending",
+    "evidence": {
+      "path": ".github/scripts/detect_overlaps.py",
+      "patch_sha256": "4cf2a1ca0f50a744326a22632d4c207f15cd3563325a1ed5526ac702d424064b",
+      "patch": "diff --git a/.github/scripts/detect_overlaps.py b/.github/scripts/detect_overlaps.py\nindex 20b7bbc51..ac89a4478 100644\n--- a/.github/scripts/detect_overlaps.py\n+++ b/.github/scripts/detect_overlaps.py\n@@ -350,7 +350,7 @@ def find_file_overlap_candidates(\n     current_files: list[str], other_prs: list[dict], max_age_days: int = 14\n ) -> list[tuple[dict, list[str]]]:\n     \"\"\"Find PRs that share files with the current PR.\"\"\"\n-    from datetime import datetime, timezone, timedelta\n+    from datetime import datetime, timedelta, timezone\n \n     current_files_set = set(f for f in current_files if not should_ignore_file(f))\n     candidates = []\n@@ -1139,7 +1139,7 @@ def post_or_update_comment(pr_number: int, body: str):\n         \"\"\"\n         result = run_gh([\"api\", \"graphql\", \"-f\", f\"query={mutation}\"], check=False)\n         if result.returncode == 0:\n-            print(f\"Updated existing overlap comment\")\n+            print(\"Updated existing overlap comment\")\n         else:\n             # Fallback to posting new comment\n             print(\n"
+    },
+    "reference_target_roles": {
+      ".github/scripts/detect_overlaps.py::find_file_overlap_candidates": "incidental: only reorders datetime imports in the recorded diff",
+      ".github/scripts/detect_overlaps.py::post_or_update_comment": "incidental: only removes an f prefix from a string without substitutions",
+      ".github/scripts/validate_junit.py::parse_args": "supporting/integration: adds Python-version option",
+      ".github/scripts/validate_junit.py::main": "supporting/integration: loads version-aware skip policy"
+    },
+    "new_implementation_not_in_base_symbol_gold": [
+      ".github/scripts/validate_backend_skips.py::validate_shard_reports",
+      ".github/scripts/validate_backend_skips.py::main"
+    ],
+    "new_file_patch_sha256": "447612986f611f7aed36131573068ff2d293524cfc4539fb07734630f598b01a",
+    "interpretation": "The two incidental targets cannot establish report-specific localization by themselves. The original six local conditions all already hit validate_junit main/parse_args, so this observation does not overturn their any-hit@10 result. No labels or scores are changed."
+  },
+  "limitations": [
+    "Missing diffs do not count as misaligned patches.",
+    "All report-to-patch classifications need independent review.",
+    "Presence in reference edits does not establish causal necessity.",
+    "Only the described case has a recorded target-role annotation in this artifact."
+  ]
+}

@@ -7,6 +7,10 @@ No further text-view job is queued or required. Preserve these runs; the earlier
 submission commands are historical reproduction instructions. Model downloads
 continue to be restricted to compute-node `/tmp` for any future job.
 
+The subsequent [CPU candidate-coverage probe](../../docs/research-coverage-probe-2026-11-15.md)
+also completed locally on all 23 fit cases. None of its controls passes the multi-project
+follow-up gate. No new PACE job is requested; task-validity review comes next.
+
 ## Confirmed hardware and account (2026-11-13)
 
 The author's job 7009034 successfully allocated one `gpu:l40s:1` on `coc-gpu`
