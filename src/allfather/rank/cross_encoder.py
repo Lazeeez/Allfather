@@ -107,13 +107,31 @@ class CrossEncoder:
     def score(self, query: str, docs: Sequence[str]) -> np.ndarray:
         if not docs:
             return np.zeros(0, np.float32)
+        return self._score_encoded(self.prefix_ids(query), [self.doc_ids(d) for d in docs])
+
+    def score_tokenized(self, query: list[int], docs: list[list[int]]) -> np.ndarray:
+        """Score explicit token views under the same prompt and per-field token limits.
+
+        This permits controlled context-selection experiments without decoding and
+        retokenizing a view, which can silently change its boundary or token budget.
+        """
+        if len(query) > self.max_query_tokens or any(len(d) > self.max_doc_tokens for d in docs):
+            raise ValueError("token view exceeds the configured query/document limit")
+        if any(type(t) is not int or t < 0 for seq in [query, *docs] for t in seq):
+            raise ValueError("token views must contain nonnegative integer IDs")
+        head = self._fixed(f"{_PREFIX}<Instruct>: {INSTRUCTION}\n<Query>: ")
+        prefix = head + query + self._fixed("\n<Document>: ")
+        return self._score_encoded(prefix, [d + self._fixed(_SUFFIX) for d in docs])
+
+    def _score_encoded(self, prefix_ids: list[int], encoded: list[list[int]]) -> np.ndarray:
+        if not encoded:
+            return np.zeros(0, np.float32)
         torch = self.torch
-        prefix = torch.tensor([self.prefix_ids(query)], device=self.device)
+        prefix = torch.tensor([prefix_ids], device=self.device)
         with torch.no_grad():
             cache = self.model(prefix, use_cache=True, logits_to_keep=1).past_key_values
             self.tokens_computed += prefix.shape[1]
-            out = np.zeros(len(docs), np.float32)
-            encoded = [self.doc_ids(d) for d in docs]
+            out = np.zeros(len(encoded), np.float32)
             # Similar lengths share a batch, so right-padding wastes little.
             order = np.argsort([len(e) for e in encoded])
             for start in range(0, len(order), self.batch):

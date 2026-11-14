@@ -1,0 +1,890 @@
+{
+  "schema": "fit-evidence-audit-v1",
+  "scope": "Post-hoc fit-only evidence visibility and source review; not causal annotation or a scored new method.",
+  "analysis_sha256": "751b5fd1917a867808cddd786aa87cf0d43dcfbabb1610f84ce46a1d4c5209bf",
+  "script_sha256": "81b69fd72c5710b32962c89c892d6677abd0d635bf1498e0fa4fcd869b242dbd",
+  "tokenizer_revisions": {
+    "minishlab/potion-code-16M": "1b0ff71095656b23306542bbad34a09109673720",
+    "sentence-transformers/all-MiniLM-L6-v2": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "Qwen/Qwen3-Reranker-0.6B": "e61197ed45024b0ed8a2d74b80b4d909f1255473"
+  },
+  "query_profiles": [
+    {
+      "id": "QuantumNous/new-api#7761",
+      "query_characters": 1781,
+      "query_sha256": "ffee7147312436f15849d6d0c59d833190d7d67f214f0315bd6958815910f6d5",
+      "ce_query_tokens": 936,
+      "visible_char_end": {
+        "ce512": 974,
+        "minilm256": 352,
+        "static512": 710
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "dbeaver/dbeaver#42432",
+      "query_characters": 1463,
+      "query_sha256": "f976a54420085651557a02939bba0886d31278fc8c7a2cb6da0187b0efb248e4",
+      "ce_query_tokens": 391,
+      "visible_char_end": {
+        "ce512": 1463,
+        "minilm256": 863,
+        "static512": 1463
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "tt-a1i/archify#991",
+      "query_characters": 2321,
+      "query_sha256": "333472543c2afcb1f4366ecf67fd773a2372e9a17b3d77add9dceca4a009379e",
+      "ce_query_tokens": 519,
+      "visible_char_end": {
+        "ce512": 2279,
+        "minilm256": 954,
+        "static512": 2120
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#15922",
+      "query_characters": 213,
+      "query_sha256": "3b4db6f342e678039a1c3789a2f10fe300138143b8991f56c55ce0ec089ca36f",
+      "ce_query_tokens": 63,
+      "visible_char_end": {
+        "ce512": 213,
+        "minilm256": 213,
+        "static512": 213
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": false,
+        "static512": false
+      }
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "query_characters": 1747,
+      "query_sha256": "7b815ecab6372c7dc800551b7b43d95a29a560823dc56b8cf4dac95a8a975faa",
+      "ce_query_tokens": 476,
+      "visible_char_end": {
+        "ce512": 1747,
+        "minilm256": 923,
+        "static512": 1747
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "immich-app/immich#31348",
+      "query_characters": 2001,
+      "query_sha256": "86029539263c0f1cdd52a9c91dcd719a9fa0b0a26e69fddb3802bcbebbc7e3ee",
+      "ce_query_tokens": 428,
+      "visible_char_end": {
+        "ce512": 2001,
+        "minilm256": 1242,
+        "static512": 2001
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "QuantumNous/new-api#7844",
+      "query_characters": 2057,
+      "query_sha256": "9193438ecc232fd497f8f88c7404cb693523c16f7d2d9771a6c598851d6f85db",
+      "ce_query_tokens": 1105,
+      "visible_char_end": {
+        "ce512": 965,
+        "minilm256": 344,
+        "static512": 712
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "dbeaver/dbeaver#42026",
+      "query_characters": 2980,
+      "query_sha256": "f012f241a9790d367470f2d54dac11f39c36d788f741171be34117587ebc958d",
+      "ce_query_tokens": 685,
+      "visible_char_end": {
+        "ce512": 2247,
+        "minilm256": 1015,
+        "static512": 2096
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "tt-a1i/archify#515",
+      "query_characters": 4073,
+      "query_sha256": "2682b61d9052b1dcf5e44494b1978a8445a8477ce355cd063fe78c6be9117c09",
+      "ce_query_tokens": 1038,
+      "visible_char_end": {
+        "ce512": 1863,
+        "minilm256": 962,
+        "static512": 1904
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#16485",
+      "query_characters": 5516,
+      "query_sha256": "5cf082a76c20aa48196cbc51116264dddf26d9b83b357638199e7c48ea26f566",
+      "ce_query_tokens": 1656,
+      "visible_char_end": {
+        "ce512": 1623,
+        "minilm256": 798,
+        "static512": 1556
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "zed-industries/zed#62785",
+      "query_characters": 1497,
+      "query_sha256": "9f9dcdf46ef556b3f79abfce7ca3aa344c1976fdc27e0d8dda19dc57cd5ec016",
+      "ce_query_tokens": 477,
+      "visible_char_end": {
+        "ce512": 1497,
+        "minilm256": 878,
+        "static512": 1497
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "immich-app/immich#31079",
+      "query_characters": 13954,
+      "query_sha256": "bcc1847a6dea3aa11f3e2ca27da19c9372d3e7317866cb2e81b7b26dec8d5d7a",
+      "ce_query_tokens": 4213,
+      "visible_char_end": {
+        "ce512": 2058,
+        "minilm256": 1056,
+        "static512": 2149
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "ollama/ollama#19188",
+      "query_characters": 1282,
+      "query_sha256": "59225656d7741858274cbaa9dd30596a2b550f632c5f7f678fd37c0d6155fc60",
+      "ce_query_tokens": 309,
+      "visible_char_end": {
+        "ce512": 1282,
+        "minilm256": 892,
+        "static512": 1282
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "spring-projects/spring-boot#52201",
+      "query_characters": 3055,
+      "query_sha256": "bc6c69fad4f6d189c604efb3300314c293904dc9310123b42f2141c99204308a",
+      "ce_query_tokens": 761,
+      "visible_char_end": {
+        "ce512": 2000,
+        "minilm256": 829,
+        "static512": 1934
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "Leonxlnx/taste-skill#165",
+      "query_characters": 934,
+      "query_sha256": "8c79d05ec5fdf5a06ffbd1d04c5f3738ce1d36b8c311997c6def5a8842240250",
+      "ce_query_tokens": 299,
+      "visible_char_end": {
+        "ce512": 934,
+        "minilm256": 743,
+        "static512": 933
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "Significant-Gravitas/AutoGPT#14536",
+      "query_characters": 2141,
+      "query_sha256": "6dd3c91a315c0358ffaaa7b5a5db0aaaf56f912593e14a3a4894abd20c5764fa",
+      "ce_query_tokens": 501,
+      "visible_char_end": {
+        "ce512": 2141,
+        "minilm256": 932,
+        "static512": 2140
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "zed-industries/zed#62534",
+      "query_characters": 2956,
+      "query_sha256": "71d654f8abc282759d3195c45584691d5346be6805dd1f9a194d00b4ae1cfef0",
+      "ce_query_tokens": 786,
+      "visible_char_end": {
+        "ce512": 2111,
+        "minilm256": 910,
+        "static512": 2117
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "supabase/supabase#49940",
+      "query_characters": 1945,
+      "query_sha256": "6440813284e79dee6a412b79dc48c41c3112cf7e631288d248e3a62141cec37b",
+      "ce_query_tokens": 504,
+      "visible_char_end": {
+        "ce512": 1945,
+        "minilm256": 988,
+        "static512": 1889
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "ollama/ollama#17757",
+      "query_characters": 900,
+      "query_sha256": "22747d8be3c3c58ed5e226e3e09024d9a984b72c4eb1ae8161f482e562f2b498",
+      "ce_query_tokens": 279,
+      "visible_char_end": {
+        "ce512": 900,
+        "minilm256": 900,
+        "static512": 900
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": false,
+        "static512": false
+      }
+    },
+    {
+      "id": "spring-projects/spring-boot#51774",
+      "query_characters": 1405,
+      "query_sha256": "26d0d101992e9b2c09988ad41f96b45108b94702491f9f8fe4ba43c2526c8427",
+      "ce_query_tokens": 322,
+      "visible_char_end": {
+        "ce512": 1405,
+        "minilm256": 969,
+        "static512": 1404
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "Leonxlnx/taste-skill#158",
+      "query_characters": 2138,
+      "query_sha256": "e5e2a61b8d2369d03b0169912705b5ccc1e12c92d909e355aff7687637a620b2",
+      "ce_query_tokens": 430,
+      "visible_char_end": {
+        "ce512": 2138,
+        "minilm256": 1060,
+        "static512": 2137
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    },
+    {
+      "id": "Significant-Gravitas/AutoGPT#14008",
+      "query_characters": 2661,
+      "query_sha256": "2787d8024dfb2caaae2ef95166cc3c4c1162e5eca210d1b6b71417472b8bd389",
+      "ce_query_tokens": 671,
+      "visible_char_end": {
+        "ce512": 2056,
+        "minilm256": 905,
+        "static512": 1751
+      },
+      "truncated": {
+        "ce512": true,
+        "minilm256": true,
+        "static512": true
+      }
+    },
+    {
+      "id": "supabase/supabase#50426",
+      "query_characters": 1842,
+      "query_sha256": "32fccc587aeb4399166d454b1eafbfd873252fab061e846b1e789481ef131ff8",
+      "ce_query_tokens": 445,
+      "visible_char_end": {
+        "ce512": 1842,
+        "minilm256": 1036,
+        "static512": 1839
+      },
+      "truncated": {
+        "ce512": false,
+        "minilm256": true,
+        "static512": false
+      }
+    }
+  ],
+  "failures_reviewed": [
+    {
+      "id": "QuantumNous/new-api#7761",
+      "repo": "QuantumNous/new-api",
+      "issue": 7711,
+      "pr": 7761,
+      "base_commit": "b22a43b6e89e5349d8cdbddc88d570b16e15fb1f",
+      "merge_commit": "34b19421237fc4695e919cdd799c1b7813023085",
+      "query_views": {
+        "id": "QuantumNous/new-api#7761",
+        "query_characters": 1781,
+        "query_sha256": "ffee7147312436f15849d6d0c59d833190d7d67f214f0315bd6958815910f6d5",
+        "ce_query_tokens": 936,
+        "visible_char_end": {
+          "ce512": 974,
+          "minilm256": 352,
+          "static512": 710
+        },
+        "truncated": {
+          "ce512": true,
+          "minilm256": true,
+          "static512": true
+        }
+      },
+      "changed_paths": [
+        {
+          "status": "M",
+          "path": "middleware/header_nav.go"
+        },
+        {
+          "status": "M",
+          "path": "middleware/header_nav_test.go"
+        }
+      ],
+      "merge_subject": "fix(pricing): allow root access when the model square is disabled (#7761)",
+      "unavailable_patches": [],
+      "targets": [
+        {
+          "id": "middleware/header_nav.go::HeaderNavModuleAuth",
+          "kind": "function",
+          "source_lines": [
+            104,
+            123
+          ],
+          "source_sha256": "d02e76860694a8ec91a879f4891b44ac064181c56c0c3aa6b036c2e6766c02d5",
+          "text_key": "3c616e8ada0c36e832d04deb60a90668",
+          "indexed_characters": 401,
+          "document_tokens": 114,
+          "visible_char_end": 401,
+          "visible_indexed_lines": 21,
+          "prefix_sha256": "d8767287e78cbc5bad89dc038f27cff575e41ae7a20adb10a5048e90d8097d80",
+          "prefix_preview": "HeaderNavModuleAuth\nfunc HeaderNavModuleAuth(module string) gin.HandlerFunc {\n\treturn func(c *gin.Context) {\n\t\taccess := getHeaderNavAccess(module)\n\t\tif !access.Enabled {\n\t\t\tc.JSON(http.StatusForbidden, gin.H{\n\t\t\t\t\"success\": false,\n\t\t\t\t\"message\": fmt.Sprintf(\"%s is disabled\", module),\n\t\t\t})\n\t\t\tc.Abo"
+        }
+      ],
+      "review_file": "921429993b0f4085f763c70f8760597650e9013df16eed1299725d59049f2d00.json",
+      "review_sha256": "1d7372fb4af75462546bf791f23cf10569a6895e70a866e1e54c2d1136e17fc1",
+      "patch_sha256": {
+        "middleware/header_nav.go": "0bf59597712e9497ba8dbd46e037c06e1b70b3ab2a82645c1196fab0c870566e"
+      }
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#15922",
+      "repo": "Comfy-Org/ComfyUI",
+      "issue": 15192,
+      "pr": 15922,
+      "base_commit": "d3eaf6adb388c27245374ac26e585fef4936c485",
+      "merge_commit": "3216c62e9962c3babd28a4dfea6e5aef50b8fe16",
+      "query_views": {
+        "id": "Comfy-Org/ComfyUI#15922",
+        "query_characters": 213,
+        "query_sha256": "3b4db6f342e678039a1c3789a2f10fe300138143b8991f56c55ce0ec089ca36f",
+        "ce_query_tokens": 63,
+        "visible_char_end": {
+          "ce512": 213,
+          "minilm256": 213,
+          "static512": 213
+        },
+        "truncated": {
+          "ce512": false,
+          "minilm256": false,
+          "static512": false
+        }
+      },
+      "changed_paths": [
+        {
+          "status": "A",
+          "path": "comfy/ldm/sensenova/__init__.py"
+        },
+        {
+          "status": "A",
+          "path": "comfy/ldm/sensenova/conditioning.py"
+        },
+        {
+          "status": "A",
+          "path": "comfy/ldm/sensenova/model.py"
+        },
+        {
+          "status": "A",
+          "path": "comfy/ldm/sensenova/sampling.py"
+        },
+        {
+          "status": "M",
+          "path": "comfy/model_base.py"
+        },
+        {
+          "status": "M",
+          "path": "comfy/model_detection.py"
+        },
+        {
+          "status": "M",
+          "path": "comfy/supported_models.py"
+        },
+        {
+          "status": "A",
+          "path": "comfy/text_encoders/sensenova.py"
+        },
+        {
+          "status": "M",
+          "path": "comfy_extras/nodes_hidream_o1.py"
+        },
+        {
+          "status": "A",
+          "path": "comfy_extras/nodes_sensenova.py"
+        },
+        {
+          "status": "M",
+          "path": "nodes.py"
+        },
+        {
+          "status": "A",
+          "path": "tests-unit/comfy_test/test_sensenova.py"
+        }
+      ],
+      "merge_subject": "Support SenseNova U1.5 (CORE-411) (#15922)",
+      "unavailable_patches": [
+        {
+          "path": "comfy/model_detection.py",
+          "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 098e6a0880e6d88a95cb08b62047f7421d63aa82 from promisor remote\n"
+        },
+        {
+          "path": "nodes.py",
+          "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch b27a21463dbae9a25d18cf596ef8721099cadcff from promisor remote\n"
+        }
+      ],
+      "targets": [
+        {
+          "id": "comfy/model_detection.py::detect_unet_config",
+          "kind": "function",
+          "source_lines": [
+            44,
+            1272
+          ],
+          "source_sha256": "ead7ef2738fecd266eddd1eb36dbd7c29d1f16d13768f294d176c5354f744212",
+          "text_key": "766eea0685b1c9bf693a74e73996a5b4",
+          "indexed_characters": 65969,
+          "document_tokens": 17433,
+          "visible_char_end": 1060,
+          "visible_indexed_lines": 21,
+          "prefix_sha256": "5fcbd8335d10a1da482c44892225a698054f44b9a6b7831d78092d5eedcfda74",
+          "prefix_preview": "detect_unet_config\ndef detect_unet_config(state_dict, key_prefix, metadata=None):\n    state_dict_keys = list(state_dict.keys())\n\n    if (\n        '{}cond_layer_logits'.format(key_prefix) in state_dict_keys\n        and '{}latent_conditioners.0.weight'.format(key_prefix) in state_dict_keys\n        and"
+        },
+        {
+          "id": "comfy/model_detection.py::unet_prefix_from_state_dict",
+          "kind": "function",
+          "source_lines": [
+            1299,
+            1319
+          ],
+          "source_sha256": "ead7ef2738fecd266eddd1eb36dbd7c29d1f16d13768f294d176c5354f744212",
+          "text_key": "6ce249704e64ee13a1326e45ff079608",
+          "indexed_characters": 751,
+          "document_tokens": 182,
+          "visible_char_end": 751,
+          "visible_indexed_lines": 22,
+          "prefix_sha256": "29f332376c073d8de903d7cf4731b3e82a83368d07e3a7b630fba01d7aced501",
+          "prefix_preview": "unet_prefix_from_state_dict\ndef unet_prefix_from_state_dict(state_dict):\n    # SAM3: detector.* and tracker.* at top level, no common prefix\n    if any(k.startswith(\"detector.\") for k in state_dict) and any(k.startswith(\"tracker.\") for k in state_dict):\n        return \"\"\n\n    candidates = [\"model.di"
+        },
+        {
+          "id": "comfy_extras/nodes_hidream_o1.py::HiDreamO1ReferenceImages",
+          "kind": "class",
+          "source_lines": [
+            42,
+            80
+          ],
+          "source_sha256": "0079f5f694a1e9febf008e36af46186f940be27c976672a62bdf47ced73a4607",
+          "text_key": "051f2ac528b0be740a573795c27b3dbe",
+          "indexed_characters": 150,
+          "document_tokens": 31,
+          "visible_char_end": 150,
+          "visible_indexed_lines": 4,
+          "prefix_sha256": "90ac1e0a1e67c2711e6ce8dd45bb5c9248bb7e0b899bf96df1302afc67c28c3c",
+          "prefix_preview": "HiDreamO1ReferenceImages\nclass HiDreamO1ReferenceImages(io.ComfyNode):\n    \"\"\"Attach reference images to both positive and negative conditioning.\"\"\"\n\n"
+        },
+        {
+          "id": "comfy_extras/nodes_hidream_o1.py::HiDreamO1ReferenceImages.define_schema",
+          "kind": "method",
+          "source_lines": [
+            45,
+            73
+          ],
+          "source_sha256": "0079f5f694a1e9febf008e36af46186f940be27c976672a62bdf47ced73a4607",
+          "text_key": "5f3c119962fd014452ad52c8bf773052",
+          "indexed_characters": 1236,
+          "document_tokens": 228,
+          "visible_char_end": 1236,
+          "visible_indexed_lines": 30,
+          "prefix_sha256": "83492962a07afcb69c3c1abf3a742b11f84c3e7a9a6859e5e2cb2d06df55f958",
+          "prefix_preview": "HiDreamO1ReferenceImages.define_schema\n    @classmethod\n    def define_schema(cls) -> io.Schema:\n        return io.Schema(\n            node_id=\"HiDreamO1ReferenceImages\",\n            display_name=\"HiDream-O1 Reference Images\",\n            category=\"model/conditioning/hidream\",\n            descriptio"
+        },
+        {
+          "id": "comfy_extras/nodes_hidream_o1.py::HiDreamO1ReferenceImages.execute",
+          "kind": "method",
+          "source_lines": [
+            75,
+            80
+          ],
+          "source_sha256": "0079f5f694a1e9febf008e36af46186f940be27c976672a62bdf47ced73a4607",
+          "text_key": "f13d99d409e5737f971a56e546136c12",
+          "indexed_characters": 488,
+          "document_tokens": 123,
+          "visible_char_end": 488,
+          "visible_indexed_lines": 7,
+          "prefix_sha256": "5c5b705b2a9d17dbadac0a9fe64de60679bd2cfaf3a35e4508e97214d1bae340",
+          "prefix_preview": "HiDreamO1ReferenceImages.execute\n    @classmethod\n    def execute(cls, *, positive, negative, images: io.Autogrow.Type) -> io.NodeOutput:\n        refs = [images[f\"image_{i}\"] for i in range(1, 11) if f\"image_{i}\" in images]\n        positive = node_helpers.conditioning_set_values(positive, {\"referenc"
+        },
+        {
+          "id": "nodes.py::init_builtin_extra_nodes",
+          "kind": "function",
+          "source_lines": [
+            2389,
+            2541
+          ],
+          "source_sha256": "2a10ff79c5f8e4f1329362c117b3ff941cf493b54e0af06a325fc1484189e29d",
+          "text_key": "55241ad483ed6388f0c50b389779e8b2",
+          "indexed_characters": 4625,
+          "document_tokens": 1153,
+          "visible_char_end": 1087,
+          "visible_indexed_lines": 33,
+          "prefix_sha256": "239f51ff70b8a50730dabd44383c03b88a4ab6850e58b5e05d78207495d2f4d2",
+          "prefix_preview": "init_builtin_extra_nodes\nasync def init_builtin_extra_nodes():\n    \"\"\"\n    Initializes the built-in extra nodes in ComfyUI.\n\n    This function loads the extra node files located in the \"comfy_extras\" directory and imports them into ComfyUI.\n    If any of the extra node files fail to import, a warnin"
+        }
+      ],
+      "review_file": "a8e38c7d587dbf2d510f81e9ac9509db4b2bf7cf970f51e3e7b5e7b16a77dc8c.json",
+      "review_sha256": "f4e4d575d72d1807c41dd03ead3f0c4c2bb34d58dd94c2bcca63850b8b49a41a",
+      "patch_sha256": {
+        "comfy_extras/nodes_hidream_o1.py": "7afa799032bbb2a80ac7189e650e0b8b9b91d2a8c73d9825f15c3535c5babf6d"
+      }
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "repo": "ultraworkers/claw-code",
+      "issue": 3323,
+      "pr": 3332,
+      "base_commit": "20578124c4c02156ce328dee48c3854fd9f513ca",
+      "merge_commit": "a2eb74c00effdc815770f030d3a979aa89295d1b",
+      "query_views": {
+        "id": "ultraworkers/claw-code#3332",
+        "query_characters": 1747,
+        "query_sha256": "7b815ecab6372c7dc800551b7b43d95a29a560823dc56b8cf4dac95a8a975faa",
+        "ce_query_tokens": 476,
+        "visible_char_end": {
+          "ce512": 1747,
+          "minilm256": 923,
+          "static512": 1747
+        },
+        "truncated": {
+          "ce512": false,
+          "minilm256": true,
+          "static512": false
+        }
+      },
+      "changed_paths": [
+        {
+          "status": "A",
+          "path": "docs/gjc-compat/tool-semantics-phase1.md"
+        },
+        {
+          "status": "M",
+          "path": "rust/crates/runtime/src/file_ops.rs"
+        },
+        {
+          "status": "M",
+          "path": "rust/crates/runtime/src/lib.rs"
+        },
+        {
+          "status": "A",
+          "path": "rust/crates/runtime/src/line_range_selector.rs"
+        },
+        {
+          "status": "M",
+          "path": "rust/crates/tools/src/lib.rs"
+        }
+      ],
+      "merge_subject": "Merge pull request #3332 from ultraworkers/lane/gjc-s21",
+      "unavailable_patches": [
+        {
+          "path": "rust/crates/tools/src/lib.rs",
+          "error": "warning: lazy fetching disabled; some objects may not be available\nfatal: could not fetch 627adfb42cb2bb59db24bc00a62a89db76c6f2f6 from promisor remote\n"
+        }
+      ],
+      "targets": [
+        {
+          "id": "rust/crates/runtime/src/file_ops.rs::ReadFileOutput",
+          "kind": "class",
+          "source_lines": [
+            87,
+            91
+          ],
+          "source_sha256": "c73a3a3793dfcc6faa16cd3298969be48a8c6b0d56fcaaa32fef2d6b05c418be",
+          "text_key": "bec50940108f3534c7fc90497c606923",
+          "indexed_characters": 127,
+          "document_tokens": 33,
+          "visible_char_end": 127,
+          "visible_indexed_lines": 6,
+          "prefix_sha256": "acd175ddf8bfaf6d80a2ae4aaf16c72616b9370a013a7a1ad21b638e9f749cc8",
+          "prefix_preview": "ReadFileOutput\npub struct ReadFileOutput {\n    #[serde(rename = \"type\")]\n    pub kind: String,\n    pub file: TextFilePayload,\n}"
+        },
+        {
+          "id": "rust/crates/runtime/src/file_ops.rs::read_file",
+          "kind": "function",
+          "source_lines": [
+            200,
+            246
+          ],
+          "source_sha256": "c73a3a3793dfcc6faa16cd3298969be48a8c6b0d56fcaaa32fef2d6b05c418be",
+          "text_key": "b2d35b953f5b473aab23d0d0ba5f58d0",
+          "indexed_characters": 1484,
+          "document_tokens": 338,
+          "visible_char_end": 1112,
+          "visible_indexed_lines": 36,
+          "prefix_sha256": "c1a1dda0796d4bae7c5906a5276bd277593ed431e77b0a4bb71f167b5b025d32",
+          "prefix_preview": "read_file\npub fn read_file(\n    path: &str,\n    offset: Option<usize>,\n    limit: Option<usize>,\n) -> io::Result<ReadFileOutput> {\n    let absolute_path = normalize_path(path)?;\n\n    // Check file size before reading\n    let metadata = fs::metadata(&absolute_path)?;\n    if metadata.len() > MAX_READ_"
+        },
+        {
+          "id": "rust/crates/runtime/src/file_ops.rs::read_file_in_workspace",
+          "kind": "function",
+          "source_lines": [
+            713,
+            723
+          ],
+          "source_sha256": "c73a3a3793dfcc6faa16cd3298969be48a8c6b0d56fcaaa32fef2d6b05c418be",
+          "text_key": "4c4b12b779ec730e099d2c90df16786b",
+          "indexed_characters": 404,
+          "document_tokens": 91,
+          "visible_char_end": 404,
+          "visible_indexed_lines": 12,
+          "prefix_sha256": "5440acff49d6c621d962c9896db43fe8fe2c6e590f49054f0ee9d83e1688d45d",
+          "prefix_preview": "read_file_in_workspace\npub fn read_file_in_workspace(\n    path: &str,\n    offset: Option<usize>,\n    limit: Option<usize>,\n    workspace_root: &Path,\n) -> io::Result<ReadFileOutput> {\n    let absolute_path = normalize_path(path)?;\n    let canonical_root = canonicalize_workspace_root(workspace_root);"
+        },
+        {
+          "id": "rust/crates/tools/src/lib.rs::ReadFileInput",
+          "kind": "class",
+          "source_lines": [
+            2884,
+            2888
+          ],
+          "source_sha256": "cd5b7e9dd8ab1ddb80bcf8b2122d1f986de8c269ba1ecb07ca1dfd22ca349098",
+          "text_key": "1306c65782a76924387b14ccbeb2a56c",
+          "indexed_characters": 109,
+          "document_tokens": 27,
+          "visible_char_end": 109,
+          "visible_indexed_lines": 6,
+          "prefix_sha256": "eaba2b0dbfa935a3dbfb5153032441902e4e866a94dfd0a40f780957617ac6a3",
+          "prefix_preview": "ReadFileInput\nstruct ReadFileInput {\n    path: String,\n    offset: Option<usize>,\n    limit: Option<usize>,\n}"
+        },
+        {
+          "id": "rust/crates/tools/src/lib.rs::run_read_file",
+          "kind": "function",
+          "source_lines": [
+            2569,
+            2575
+          ],
+          "source_sha256": "cd5b7e9dd8ab1ddb80bcf8b2122d1f986de8c269ba1ecb07ca1dfd22ca349098",
+          "text_key": "7d6bdd59a343b47dbac202db5381afb2",
+          "indexed_characters": 309,
+          "document_tokens": 78,
+          "visible_char_end": 309,
+          "visible_indexed_lines": 8,
+          "prefix_sha256": "1fd56e74c05544ad612d1a188b25866812fe004b67d469eb6976feadf0b0f754",
+          "prefix_preview": "run_read_file\nfn run_read_file(input: ReadFileInput) -> Result<String, String> {\n    let workspace = std::env::current_dir().map_err(|error| error.to_string())?;\n    to_pretty_json(\n        read_file_in_workspace(&input.path, input.offset, input.limit, &workspace)\n            .map_err(io_to_string)?"
+        }
+      ],
+      "review_file": "6816b81ef3aa13f05b48b9bbbdee368fd66c5aadce38a325e73b038c5537d247.json",
+      "review_sha256": "c871c672c03583c642bb82ca025185b6741a41f300613e0377dcb9cc1c1ec5fc",
+      "patch_sha256": {
+        "rust/crates/runtime/src/file_ops.rs": "437f9e3a9687d2d09c83cf8ab36a3a9ad0b384e2fb49706279fbdb45dda59922"
+      }
+    },
+    {
+      "id": "immich-app/immich#31079",
+      "repo": "immich-app/immich",
+      "issue": 30931,
+      "pr": 31079,
+      "base_commit": "2ccd0effc8d551086f6445046206f0f8731b789a",
+      "merge_commit": "e598e108966814fe8f70f81cd2a47c66dd5e7c71",
+      "query_views": {
+        "id": "immich-app/immich#31079",
+        "query_characters": 13954,
+        "query_sha256": "bcc1847a6dea3aa11f3e2ca27da19c9372d3e7317866cb2e81b7b26dec8d5d7a",
+        "ce_query_tokens": 4213,
+        "visible_char_end": {
+          "ce512": 2058,
+          "minilm256": 1056,
+          "static512": 2149
+        },
+        "truncated": {
+          "ce512": true,
+          "minilm256": true,
+          "static512": true
+        }
+      },
+      "changed_paths": [
+        {
+          "status": "M",
+          "path": "server/src/app.common.ts"
+        }
+      ],
+      "merge_subject": "fix(server): attach error handler to accepted sockets to prevent crash on connection reset (#31079)",
+      "unavailable_patches": [],
+      "targets": [
+        {
+          "id": "server/src/app.common.ts::configureExpress",
+          "kind": "function",
+          "source_lines": [
+            24,
+            95
+          ],
+          "source_sha256": "0be8d32ff4060efb82a5784a4d16abc37dcb00b3524ed5571756978cb2bcf19c",
+          "text_key": "8b555d80a9cb4807b34c377c6dff6981",
+          "indexed_characters": 2259,
+          "document_tokens": 590,
+          "visible_char_end": 1088,
+          "visible_indexed_lines": 39,
+          "prefix_sha256": "8a6d47bd891a3033176de9464f975abdf092d550e1033b84230c3d166a82324d",
+          "prefix_preview": "configureExpress\nexport async function configureExpress(\n  app: NestExpressApplication,\n  {\n    permitSwaggerWrite = true,\n    ssr,\n  }: {\n    /**\n     * Whether to allow swagger module to write to the specs.json\n     * This is not desirable when the API is not available\n     * @default true\n     */"
+        }
+      ],
+      "review_file": "029385748596d6ae4675ae83a941bdbd5fcf6ba448beb3c0d61ae6094b9e0416.json",
+      "review_sha256": "43806ca233c9643d8d6e0861bfbf9514dd0fab40236705429d4d7365495ad3ab",
+      "patch_sha256": {
+        "server/src/app.common.ts": "c0e9b614e95dba45de934c1a6d2d77cd304c5dc064416dacf59b3e6ba6ffd833"
+      }
+    },
+    {
+      "id": "supabase/supabase#49940",
+      "repo": "supabase/supabase",
+      "issue": 49903,
+      "pr": 49940,
+      "base_commit": "e4ea619251c1e6eaa4ac23483ef896c6e772a6ef",
+      "merge_commit": "b8d28b36d9b30ac3fe78a2494be206de42b76696",
+      "query_views": {
+        "id": "supabase/supabase#49940",
+        "query_characters": 1945,
+        "query_sha256": "6440813284e79dee6a412b79dc48c41c3112cf7e631288d248e3a62141cec37b",
+        "ce_query_tokens": 504,
+        "visible_char_end": {
+          "ce512": 1945,
+          "minilm256": 988,
+          "static512": 1889
+        },
+        "truncated": {
+          "ce512": false,
+          "minilm256": true,
+          "static512": true
+        }
+      },
+      "changed_paths": [
+        {
+          "status": "M",
+          "path": "packages/ui-patterns/src/MultipleCodeBlock/index.test.tsx"
+        },
+        {
+          "status": "M",
+          "path": "packages/ui-patterns/src/MultipleCodeBlock/index.tsx"
+        }
+      ],
+      "merge_subject": "fix(ui-patterns): prevent duplicate horizontal scrollbar in MultipleCodeBlock (#49940)",
+      "unavailable_patches": [],
+      "targets": [
+        {
+          "id": "packages/ui-patterns/src/MultipleCodeBlock/index.tsx::MultipleCodeBlock",
+          "kind": "function",
+          "source_lines": [
+            95,
+            169
+          ],
+          "source_sha256": "35fb9f6712fe47cced2466eb9e81129046a00fc1209058a58e2112e82efafb0f",
+          "text_key": "9a3fabce7a9f323bacfebbf7c7b65d57",
+          "indexed_characters": 2139,
+          "document_tokens": 523,
+          "visible_char_end": 1038,
+          "visible_indexed_lines": 43,
+          "prefix_sha256": "b155ff3f99515ad864c28a222f2c15de0d653d80e50435bff0923a8c1d06e742",
+          "prefix_preview": "MultipleCodeBlock\nexport const MultipleCodeBlock = ({\n  files,\n  value,\n  onValueChange,\n  className,\n}: MultipleCodeBlockProps) => {\n  if (!files?.length) {\n    return null\n  }\n\n  const defaultValue = files[0]?.name ?? ''\n  const isControlled = value !== undefined\n  const [internalValue, setInterna"
+        }
+      ],
+      "review_file": "2caea5b23713f0e9e2f079c19adf8af2292b9add027878335bd50a7b71243b6b.json",
+      "review_sha256": "45fccc5bc96d03d152bf164bd5a578a9393a4deb0af6c56160cf980f7b40508b",
+      "patch_sha256": {
+        "packages/ui-patterns/src/MultipleCodeBlock/index.tsx": "31e9aaf30d5eb8c7796893dd15fdee946682fea2e09cf77fb64d90471e76bba8"
+      }
+    }
+  ],
+  "limitations": [
+    "Merge and gold information is diagnostic only and must not enter action selection.",
+    "A token window ending before an edit-related line does not alone prove that truncation caused failure.",
+    "Feature-addition reports are retained; additions outside base-snapshot target space require explicit task interpretation.",
+    "Unavailable post-merge blobs are reported without fetching."
+  ]
+}

@@ -1,5 +1,10 @@
 # PACE research jobs
 
+Next job: [fit-only text-view experiment](../../docs/research-fit-evidence-2026-11-14.md#pace-submission-and-return).
+The prior 47-row replay is complete and verified. `text-views.sbatch` tests 16
+controlled variants on the original 23 fit rows, using one L40S and temporary
+compute-node `/tmp` model caches. It does not train or evaluate validation rows.
+
 ## Confirmed hardware and account (2026-11-13)
 
 The author's job 7009034 successfully allocated one `gpu:l40s:1` on `coc-gpu`

@@ -200,3 +200,10 @@ examples. Do not train a benefit router or claim improved allocation from this
 pilot. Keep the simple reference and audit fit failures before proposing a new
 action; the failure/evaluation-study fallback remains open. This is a small
 exploratory result, not proof of equivalence or impossibility of useful routing.
+
+The subsequent [fit audit and text-view protocol](research-fit-evidence-2026-11-14.md)
+identifies two in-read-set failures with edit-related code beyond the document
+prefix, plus query truncation and feature-extension interpretation issues. The next
+job tests fixed-budget context views on all 23 fit rows. Passage selection, query
+reformulation and cost-aware routing have close prior art; this is a mechanism
+experiment, not an established new method. The router remains deferred.

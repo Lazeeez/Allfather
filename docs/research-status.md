@@ -3,6 +3,12 @@
 Updated 2026-11-14. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
+Latest step: the [fit audit and frozen text-view experiment](research-fit-evidence-2026-11-14.md)
+are ready. All 23 fit cases pass offline source/token-view preparation; 236 Python
+tests pass. GPU execution and numerical parity are pending. This tests visibility
+under fixed token budgets, not a proven novel method. No router is trained: the
+previous six-action menu supplied no incremental fit-set rescues.
+
 ## What has been inspected
 
 The first structural pass reads and hashes all 1,444 tracked files at starting commit
