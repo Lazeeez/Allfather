@@ -1,4 +1,4 @@
-"""Verify and score the frozen fit-only context experiment, without inference."""
+"""Verify and score frozen project-split context experiments, without inference."""
 
 from __future__ import annotations
 
@@ -95,7 +95,7 @@ def score_substitutions(record: dict, parent: dict, targets: list[dict]) -> list
     return results
 
 
-def read_archive(path: Path, expected: set[str]) -> dict[str, bytes]:
+def read_archive(path: Path, expected: set[str], folder="fit-text-views-v1") -> dict[str, bytes]:
     """Read only the exact expected regular members; never extract archive paths."""
     files, seen = {}, set()
     with tarfile.open(path, "r:gz") as handle:
@@ -106,14 +106,14 @@ def read_archive(path: Path, expected: set[str]) -> dict[str, bytes]:
             seen.add(name)
             require(
                 parts
-                and parts[0] == "fit-text-views-v1"
+                and parts[0] == folder
                 and ".." not in parts
                 and "\\" not in name
                 and ":" not in name,
                 "unsafe archive path",
             )
             if member.isdir():
-                require(name == "fit-text-views-v1", "unexpected archive directory")
+                require(name == folder, "unexpected archive directory")
                 continue
             require(member.isfile(), "unsupported archive entry")
             require(len(parts) == 2 and parts[1] in expected, "unexpected archive file")
@@ -262,10 +262,24 @@ def score_capture(record: dict, parent: dict, gold: dict, audit: dict, item: dic
     return result
 
 
-def summarize(rows: list[dict], mode: str) -> dict:
+def issue_rows(rows: list[dict]) -> list[dict]:
+    """Frozen, outcome-independent representative for each underlying issue."""
+    chosen, seen = [], set()
+    for row in sorted(rows, key=lambda r: r["id"]):
+        key = (row["repo"].casefold(), str(row["issue"]))
+        if key not in seen:
+            chosen.append(row)
+        seen.add(key)
+    return chosen
+
+
+def summarize(rows: list[dict], mode: str, allow_related_prs=False) -> dict:
     require(bool(rows), "empty scored cohort")
     groups = {(r["repo"].casefold(), str(r["issue"])) for r in rows}
-    require(len(groups) == len(rows), "duplicate underlying issues need a deduplicated sensitivity")
+    require(
+        allow_related_prs or len(groups) == len(rows),
+        "duplicate underlying issues need a deduplicated sensitivity",
+    )
     actions = {}
     for name in ACTIONS:
         baseline = name.split("_", 1)[0] + "_prefix_prefix"
@@ -310,22 +324,35 @@ def summarize(rows: list[dict], mode: str) -> dict:
     }
 
 
-def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, out: Path) -> dict:
+def analyze(
+    archive: Path,
+    parent: Path,
+    preparation: Path,
+    historical: Path,
+    out: Path,
+    protocol_path: Path = PROTOCOL,
+) -> dict:
     require(not out.exists(), "output exists; preserve evidence and choose a new directory")
-    protocol = json.loads(PROTOCOL.read_bytes())
-    expected = {
-        hashlib.sha256(q.encode()).hexdigest() + ".json.gz" for q in protocol["fit_ids"]
-    } | {"manifest.json", "index.json", "summary.json"}
-    files = read_archive(archive, expected)
+    protocol = json.loads(protocol_path.read_bytes())
+    split = protocol.get("split", "fit")
+    require(split in ("fit", "validation"), "invalid protocol split")
+    ids = protocol[f"{split}_ids"]
+    folder = f"{split}-text-views-v1"
+    expected = {hashlib.sha256(q.encode()).hexdigest() + ".json.gz" for q in ids} | {
+        "manifest.json",
+        "index.json",
+        "summary.json",
+    }
+    files = read_archive(archive, expected, folder)
     manifest, index, summary = (
         json.loads(files[n]) for n in ("manifest.json", "index.json", "summary.json")
     )
     require(
-        manifest["schema"] == "fit-text-views-v1" and manifest["prepare_only"] is False,
+        manifest["schema"] == folder and manifest["prepare_only"] is False,
         "not an inference run",
     )
     require(
-        manifest["protocol"] == protocol and manifest["protocol_sha256"] == digest(PROTOCOL),
+        manifest["protocol"] == protocol and manifest["protocol_sha256"] == digest(protocol_path),
         "protocol mismatch",
     )
     require(
@@ -337,8 +364,8 @@ def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, ou
         "run incomplete or failed",
     )
     require(
-        summary["expected"] == summary["completed"] == len(protocol["fit_ids"])
-        and set(index["completed"]) == set(protocol["fit_ids"]),
+        summary["expected"] == summary["completed"] == len(ids)
+        and set(index["completed"]) == set(ids),
         "completion denominator mismatch",
     )
     require(summary["slurm_job_id"] == manifest["slurm_job_id"], "job identity mismatch")
@@ -348,7 +375,12 @@ def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, ou
     for path, expected_hash in manifest["source_sha256"].items():
         content = subprocess.check_output(["git", "show", f"{commit}:{path}"], cwd=ROOT)
         require(sha(content) == expected_hash, f"source differs from recorded commit: {path}")
-    reference_path = ROOT / "results/research/corrections/text-view-preparation-v1.json"
+    reference_name = (
+        "text-view-preparation-v1.json"
+        if split == "fit"
+        else "text-view-validation-preparation-v1.json"
+    )
+    reference_path = ROOT / "results/research/corrections" / reference_name
     reference = json.loads(reference_path.read_bytes())
     for name, expected_hash in reference["files_sha256"].items():
         require(
@@ -365,7 +397,7 @@ def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, ou
         "preparation protocol differs",
     )
     prep_index = json.loads((preparation / "index.json").read_bytes())["completed"]
-    require(set(prep_index) == set(protocol["fit_ids"]), "preparation membership mismatch")
+    require(set(prep_index) == set(ids), "preparation membership mismatch")
     parent_provenance = provenance(parent)
     selected = inputs(parent, protocol)
     _, gold, history_verification = verify_bundle(historical)
@@ -406,10 +438,13 @@ def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, ou
     inference_seconds = sum(
         v["seconds"] for r in scored for v in r["modes"]["strict_symbol"].values()
     )
+    primary_rows = scored if split == "fit" else issue_rows(scored)
     result = {
-        "schema": "fit-text-view-analysis-v1",
-        "scope": "All frozen fit rows and all 16 controls; exploratory, no training, validation scoring or novelty claim.",
-        "summaries": {mode: summarize(scored, mode) for mode in ("strict_symbol", "name_group")},
+        "schema": f"{split}-text-view-analysis-v1",
+        "scope": f"All frozen {split} rows and all 16 controls; exploratory, no training or novelty claim.",
+        "summaries": {
+            mode: summarize(primary_rows, mode) for mode in ("strict_symbol", "name_group")
+        },
         "timing": {
             "script_seconds": summary["script_seconds"],
             "shared_preparation_seconds": preparation_seconds,
@@ -462,6 +497,28 @@ def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, ou
             "The new run manifest records verified asset-manifest identity and checking code, not a separate copy of each model-file hash.",
         ],
     }
+    if split == "validation":
+        result["issue_pr_sensitivity"] = {
+            mode: summarize(scored, mode, allow_related_prs=True)
+            for mode in ("strict_symbol", "name_group")
+        }
+        primary = protocol["primary_comparison"]
+        candidate, reference_name = primary["candidate"], primary["reference"]
+        require(candidate in ACTIONS and reference_name in ACTIONS, "invalid primary actions")
+        values = result["summaries"]["strict_symbol"]["actions"]
+        require(
+            values[candidate]["baseline"] == reference_name,
+            "primary reference differs from paired analysis",
+        )
+        result["primary_comparison"] = {
+            "frozen_specification": primary,
+            "rows": len(primary_rows),
+            "ids": [r["id"] for r in primary_rows],
+            "excluded_related_pr_ids": sorted(set(ids) - {r["id"] for r in primary_rows}),
+            "reference": values[reference_name],
+            "candidate": values[candidate],
+            "interpretation_scope": "Frozen fit-selected candidate on previously exposed development-validation projects; other controls cannot replace it based on these results.",
+        }
     out.mkdir(parents=True)
     (out / "analysis.json").write_text(
         json.dumps(result, indent=2) + "\n", encoding="utf-8", newline="\n"
@@ -470,15 +527,20 @@ def analyze(archive: Path, parent: Path, preparation: Path, historical: Path, ou
         "".join(json.dumps(r) + "\n" for r in scored), encoding="utf-8", newline="\n"
     )
     lines = [
-        "Exploratory fit-only results; rescues/harms against the same pool's prefix/prefix baseline.",
+        f"Exploratory {split} results, {len(primary_rows)} underlying issues; rescues/harms against the same pool's prefix/prefix baseline.",
         "action | hit@10 | MRR@10 | recall@10 | all@10 | rescues | harms",
     ]
     for name, value in result["summaries"]["strict_symbol"]["actions"].items():
         m = value["metrics"]
         lines.append(
-            f"{name} | {value['hits']}/{len(scored)} | {m['mrr@10']:.4f} | {m['recall@10']:.4f} | {m['all@10']:.4f} | {len(value['rescues'])} | {len(value['harms'])}"
+            f"{name} | {value['hits']}/{len(primary_rows)} | {m['mrr@10']:.4f} | {m['recall@10']:.4f} | {m['all@10']:.4f} | {len(value['rescues'])} | {len(value['harms'])}"
         )
     (out / "table.txt").write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    if split == "validation":
+        p = result["primary_comparison"]
+        print(
+            f"FROZEN PRIMARY: {reference_name} {p['reference']['hits']}/{p['rows']} -> {candidate} {p['candidate']['hits']}/{p['rows']}; rescues={p['candidate']['rescues']}, harms={p['candidate']['harms']}"
+        )
     print("\n".join(lines))
     return result
 
@@ -490,8 +552,11 @@ def main() -> int:
     parser.add_argument("--preparation", type=Path, required=True)
     parser.add_argument("--historical-bundle", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument("--protocol", type=Path, default=PROTOCOL)
     args = parser.parse_args()
-    analyze(args.archive, args.parent, args.preparation, args.historical_bundle, args.out)
+    analyze(
+        args.archive, args.parent, args.preparation, args.historical_bundle, args.out, args.protocol
+    )
     return 0
 
 

@@ -215,3 +215,15 @@ score can improve while its rank worsens, showing why visibility alone is insuff
 Freeze base-50 head/tail query+document views against base-50 prefix views for
 development validation; keep every other condition diagnostic. This is a small
 engineering/mechanism result, not a differentiated research contribution yet.
+
+## Validation decision, 2026-11-15
+
+The [frozen primary comparison fails to improve](research-text-view-validation-2026-11-15.md):
+base-50 head/tail query+document scores 20/23 versus 21/23 for prefix reranking,
+with no rescues and one uv regression. The all-PR sensitivity agrees. None of the
+16 controls rescues a validation miss; their oracle union equals the baseline.
+Retain the prefix reference, end this context-view sweep, and do not select a new
+winner from validation. Further work should address fit-only candidate coverage
+or task validity with a new falsifiable mechanism and explicit prior-work comparison.
+The present evidence does not establish a novel method; any later confirmation
+requires new frozen data. No additional PACE job is needed to resolve this branch.

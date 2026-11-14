@@ -1,5 +1,9 @@
 # Controlled text-view results and validation handoff
 
+Follow-up, 2026-11-15: validation job 7049176 is [verified and scored](research-text-view-validation-2026-11-15.md).
+The frozen candidate loses one validation issue and rescues none. The submission
+instructions below record the completed handoff; no resubmission is needed.
+
 Updated 2026-11-14. PACE job **7035289**, commit `609f2fe`, completed all 23 fit
 cases. Its transferred archive has been independently verified and scored. The
 result is a **one-case fit improvement**, with no demonstrated novelty or validated

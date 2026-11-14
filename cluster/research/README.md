@@ -1,10 +1,11 @@
 # PACE research jobs
 
-Next job: [frozen development validation](../../docs/research-text-view-results-2026-11-14.md#frozen-next-decision-and-pace-job).
-The 47-row replay and 23-row text-view fit job 7035289 are complete and verified.
-The next command supplies `VIEW_PROTOCOL` and `VIEW_OUT` to `text-views.sbatch`
-for 24 validation PR rows. Its primary comparison is frozen; the other controls
-are diagnostic. One L40S is used, with model caches only in compute-node `/tmp`.
+The text-view fit job 7035289 and validation job 7049176 are complete, transferred,
+verified and scored. The [frozen validation comparison is negative](../../docs/research-text-view-validation-2026-11-15.md):
+21/23 baseline hits versus 20/23 for the selected candidate, with no rescues.
+No further text-view job is queued or required. Preserve these runs; the earlier
+submission commands are historical reproduction instructions. Model downloads
+continue to be restricted to compute-node `/tmp` for any future job.
 
 ## Confirmed hardware and account (2026-11-13)
 

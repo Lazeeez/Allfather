@@ -1,15 +1,16 @@
 # Research status and codebase map
 
-Updated 2026-11-14. Current scope: localization and selective escalation; no repair or
+Updated 2026-11-15. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
-Latest step: [text-view job 7035289 is verified and scored](research-text-view-results-2026-11-14.md).
-All 23 fit rows and 368 action outputs pass integrity checks; 46 original baselines
-reproduce exactly. Several fixed controls improve hit@10 from 18/23 to 19/23 by
-rescuing one Immich case. Supabase remains a miss; some wide controls introduce
-regressions. The oracle union is also 19/23, so no fit-set routing advantage is
-established. The full suite passes 248 tests. A fixed primary comparison is frozen
-for the separate development-validation projects; novel-method claims remain open.
+Latest step: [validation job 7049176 is verified and scored](research-text-view-validation-2026-11-15.md).
+All 24 PR rows and 384 action outputs pass integrity checks; 48 original baselines
+reproduce exactly. The frozen candidate loses one validation issue: 21/23 to 20/23,
+with zero rescues. All-PR sensitivity agrees (21/24 to 20/24), and the all-control
+oracle adds no successes beyond the baseline. Retain prefix reranking, close this
+context-view improvement candidate and defer its router. Twenty-nine focused analysis
+tests pass and every previous fit score reproduces unchanged. No new PACE run is
+needed for this branch; candidate-coverage and task-validity work comes next.
 
 ## What has been inspected
 

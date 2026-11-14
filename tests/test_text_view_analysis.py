@@ -6,6 +6,7 @@ import pytest
 
 from scripts.analyze_text_views import (
     ACTIONS,
+    issue_rows,
     read_archive,
     score_substitutions,
     summarize,
@@ -160,3 +161,53 @@ def test_equal_aggregate_hits_still_exposes_rescue_and_harm():
     assert "project_sign_flip_p" not in view["paired_diagnostic"]["issue_weighted"]
     with pytest.raises(ValueError, match="duplicate underlying"):
         summarize([rows[0], rows[0]], "strict_symbol")
+
+
+def test_issue_representative_is_frozen_before_outcomes_and_ignores_repo_case():
+    rows = [
+        {"id": "repo#2356", "repo": "Org/Repo", "issue": 2340, "hit": 1},
+        {"id": "repo#2342", "repo": "org/repo", "issue": "2340", "hit": 0},
+        {"id": "repo#2430", "repo": "org/repo", "issue": 2429, "hit": 1},
+    ]
+    assert [r["id"] for r in issue_rows(rows)] == ["repo#2342", "repo#2430"]
+    for row in rows:
+        row["hit"] = 1 - row["hit"]
+    assert [r["id"] for r in issue_rows(rows[::-1])] == ["repo#2342", "repo#2430"]
+
+
+def test_issue_pr_sensitivity_preserves_related_rows():
+    actions = {
+        a: {k: 1 for k in ("hit@1", "hit@5", "hit@10", "recall@10", "all@10", "mrr@10")}
+        for a in ACTIONS
+    }
+    for v in actions.values():
+        v.update(failure="success", tokens_computed=100, seconds=1)
+    row = {
+        "id": "repo#2",
+        "repo": "org/repo",
+        "issue": 1,
+        "gold_count": 1,
+        "modes": {"strict_symbol": actions},
+    }
+    related = {**copy.deepcopy(row), "id": "repo#3"}
+    for v in related["modes"]["strict_symbol"].values():
+        for key in ("hit@1", "hit@5", "hit@10", "recall@10", "all@10", "mrr@10"):
+            v[key] = 0
+        v["failure"] = "ranking_miss"
+    primary = summarize(issue_rows([related, row]), "strict_symbol")
+    sensitivity = summarize([related, row], "strict_symbol", allow_related_prs=True)
+    assert primary["rows"] == 1 and primary["actions"]["base_prefix_prefix"]["hits"] == 1
+    assert sensitivity["rows"] == 2 and sensitivity["actions"]["base_prefix_prefix"]["hits"] == 1
+
+
+def test_validation_archive_cannot_be_read_as_fit(tmp_path):
+    archive = tmp_path / "validation.tar.gz"
+    with tarfile.open(archive, "w:gz") as handle:
+        member = tarfile.TarInfo("validation-text-views-v1/summary.json")
+        member.size = 2
+        handle.addfile(member, io.BytesIO(b"{}"))
+    assert read_archive(archive, {"summary.json"}, "validation-text-views-v1") == {
+        "summary.json": b"{}"
+    }
+    with pytest.raises(ValueError, match="unsafe archive path"):
+        read_archive(archive, {"summary.json"})
