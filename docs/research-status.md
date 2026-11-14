@@ -118,12 +118,21 @@ validator checks hashes, rows, pool inclusion, shared features and stage ranking
 13 targeted validator/replay tests passed. The 47-row run is gated on its success.
 The author subsequently supplied a successful validator report (6/6, no failures,
 manifest hash `8f0f6ce4e77e429be44f2988bf3225b6311e32d8c5bf01fcfd3f4337d19e1723`)
-and submission confirmation for full-pilot job 7019874. Its completion is not yet
-reported. The [saved validation report](../results/research/corrections/pace-development-validation-7018060.json)
+and submission confirmation for full-pilot job 7019874. The
+[saved validation report](../results/research/corrections/pace-development-validation-7018060.json)
 matches the earlier summary and all six pool/universe counts. Original trace
 transfer and independent local validation/scoring remain pending. First-action
 latencies and sequential cache reuse preclude treating these timings as controlled
 standalone action costs; substantial script time is outside the saved trace timers.
+Full-pilot job 7019874 subsequently reports 47/47 completed without failures,
+797.93 seconds inside the script and 856 seconds Slurm walltime. All logged IDs
+match the frozen 24-project plan and all wide pools are larger. The
+[reported pilot record](../results/research/corrections/pace-development-pilot-7019874.json)
+retains all printed trace hashes and counts. Complete trace validation, transfer,
+gold joining and outcome analysis remain pending; no routing benefit is established.
+Supabase #49940 grows from 165 to 14,359 candidates. The fourfold channel budgets
+do not cap the final pool size because file expansion admits all units in selected
+files. Keep this behavior visible in resource accounting and failure analysis.
 
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox

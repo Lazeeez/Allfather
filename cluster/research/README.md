@@ -233,8 +233,9 @@ snapshot files). It contains symbol IDs, kinds, ranges and Git blob IDs, not sou
 `collection_complete` means every selected file was visited; parser-error files must
 still be reviewed before treating aliases as reliably unique.
 
-Development smoke job 7018060 reports six completed issues without failures. The
-[replay protocol](../../docs/development-replay.md) now provides a saved-trace check
-and a conditional 47-row pilot command on one L40S, eight CPUs and 32 GiB host RAM.
+Development smoke job 7018060 passed the saved-trace check for all six issues.
+Full-pilot job 7019874 now reports 47/47 completed without failures. The
+[replay protocol](../../docs/development-replay.md) provides validation and archive
+commands; transfer both runs for local analysis before further model experiments.
 Pinned base weights download only to compute-node temporary storage. No training
 sweep or paid model calls are involved; outcome analysis remains pending.

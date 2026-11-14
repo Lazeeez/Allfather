@@ -213,3 +213,40 @@ The six capture timers sum to about 97.92 seconds; about 148.03 seconds of the
 timer. These costs are retained and unallocated, not silently discarded. A later
 controlled timing experiment must separate these boundaries before cost superiority
 or deployed-policy latency claims. The currently submitted pilot recipe is unchanged.
+
+## Reported full-pilot completion
+
+Job 7019874 reports 47/47 rows completed with no failures at commit
+`cc570796e78cf84661c5cccf16e5e183786f04c1`: 797.93 script seconds, 856 Slurm seconds,
+one L40S, eight CPUs and 32 GiB allocated RAM. The author-pasted log matches every
+frozen plan ID in order; all 47 expanded pools are larger. The
+[reported record](../results/research/corrections/pace-development-pilot-7019874.json)
+retains the summary and all printed trace hashes. These have not yet been checked
+against the original files locally. Gold coverage, action rescues/harms and routing
+predictability remain unmeasured.
+
+The largest expansion is Supabase #49940, from 165 to 14,359 candidates. Candidate
+generation includes all units in selected files, so multiplying channel budgets
+by four does not impose a fourfold final-pool bound. Preserve this case and measure
+its stage costs rather than silently capping or dropping it after observing results.
+
+Validate and package both runs for one transfer, without another GPU allocation:
+
+```bash
+cd ~/scratch/Odin
+.venv/bin/python scripts/validate_development_replay.py \
+  --bundle results/research/corrections/development-pilot-v1 \
+  --out results/research/corrections/development-pilot-7019874-integrity.json \
+  > results/research/corrections/pace-logs/development-pilot-validation-7019874.log && \
+tar -czf results/research/corrections/development-replay-7019874.tar.gz \
+  -C results/research/corrections \
+  development-pilot-v1 development-smoke-v1 \
+  development-pilot-7019874-integrity.json \
+  pace-logs/development-pilot-7019874.log \
+  pace-logs/development-smoke-7018060.log \
+  pace-logs/development-pilot-validation-7019874.log
+```
+
+Transfer the archive to local `reports/`. If validation fails, retain all evidence
+and inspect the validation log; do not modify traces to make the check pass. The
+validator refuses to overwrite its report, so use a new report filename on reruns.
