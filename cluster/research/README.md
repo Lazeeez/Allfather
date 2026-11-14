@@ -1,5 +1,11 @@
 # PACE research jobs
 
+Next requested job: the [saved SweRank export membership audit](../../docs/research-swerank-membership.md).
+It reads existing exports only, uses 2 CPUs/8 GB for up to one hour, and makes no model
+downloads or inference calls. Original exports are required; do not regenerate them as
+substitutes. The command and result-transfer instructions are in the linked handoff.
+Earlier statements below about no new jobs describe their respective study checkpoints.
+
 The text-view fit job 7035289 and validation job 7049176 are complete, transferred,
 verified and scored. The [frozen validation comparison is negative](../../docs/research-text-view-validation-2026-11-15.md):
 21/23 baseline hits versus 20/23 for the selected candidate, with no rescues.
