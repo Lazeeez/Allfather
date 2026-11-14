@@ -1,0 +1,3328 @@
+{
+  "schema": "broader-task-audit-sample-v1",
+  "seed": "allfather-task-audit-v1:37",
+  "scope": "Existing exposed data; independent of outcomes in selection, not prospective confirmation.",
+  "selection": "Exclude every original development project; group by case-normalized repo and underlying issue; take up to two lowest SHA256 ranks per project. Represent each issue by lexicographically first PR ID and retain all related IDs.",
+  "excluded_projects": [
+    "anomalyco/opencode",
+    "astral-sh/uv",
+    "avelino/awesome-go",
+    "comfy-org/comfyui",
+    "dbeaver/dbeaver",
+    "immich-app/immich",
+    "keycloak/keycloak",
+    "leonxlnx/taste-skill",
+    "louislam/uptime-kuma",
+    "microsoft/markitdown",
+    "nodejs/node",
+    "ollama/ollama",
+    "open-webui/open-webui",
+    "quantumnous/new-api",
+    "significant-gravitas/autogpt",
+    "skylot/jadx",
+    "spring-projects/spring-boot",
+    "storytold/photocraft",
+    "supabase/supabase",
+    "thedotmack/claude-mem",
+    "traefik/traefik",
+    "tt-a1i/archify",
+    "ultraworkers/claw-code",
+    "zed-industries/zed"
+  ],
+  "exclusions": {
+    "development_project_rows": 179
+  },
+  "frame": {
+    "addyosmani/agent-skills": {
+      "language": "javascript",
+      "eligible_issues": 1,
+      "selected_issues": 1,
+      "issue_groups": {
+        "572": [
+          "addyosmani/agent-skills#573"
+        ]
+      }
+    },
+    "affaan-m/ecc": {
+      "language": "javascript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "3017": [
+          "affaan-m/ECC#3060"
+        ],
+        "3160": [
+          "affaan-m/ECC#3168"
+        ],
+        "3182": [
+          "affaan-m/ECC#3184"
+        ],
+        "3438": [
+          "affaan-m/ECC#3440"
+        ],
+        "3460": [
+          "affaan-m/ECC#3464"
+        ],
+        "3461": [
+          "affaan-m/ECC#3490"
+        ],
+        "3469": [
+          "affaan-m/ECC#3470"
+        ],
+        "3514": [
+          "affaan-m/ECC#3523"
+        ],
+        "3546": [
+          "affaan-m/ECC#3590"
+        ],
+        "3696": [
+          "affaan-m/ECC#3730"
+        ],
+        "3761": [
+          "affaan-m/ECC#3775"
+        ],
+        "3786": [
+          "affaan-m/ECC#3794"
+        ]
+      }
+    },
+    "alibaba/arthas": {
+      "language": "java",
+      "eligible_issues": 1,
+      "selected_issues": 1,
+      "issue_groups": {
+        "3270": [
+          "alibaba/arthas#3274"
+        ]
+      }
+    },
+    "alistgo/alist": {
+      "language": "go",
+      "eligible_issues": 3,
+      "selected_issues": 2,
+      "issue_groups": {
+        "9606": [
+          "AlistGo/alist#9636"
+        ],
+        "9620": [
+          "AlistGo/alist#9624"
+        ],
+        "9667": [
+          "AlistGo/alist#9676"
+        ]
+      }
+    },
+    "career-ops-hq/career-ops": {
+      "language": "javascript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "2486": [
+          "career-ops-hq/career-ops#2497"
+        ],
+        "2600": [
+          "career-ops-hq/career-ops#2639"
+        ],
+        "2630": [
+          "career-ops-hq/career-ops#2864"
+        ],
+        "2824": [
+          "career-ops-hq/career-ops#2825"
+        ],
+        "3274": [
+          "career-ops-hq/career-ops#3400"
+        ],
+        "3560": [
+          "career-ops-hq/career-ops#3747"
+        ],
+        "3601": [
+          "career-ops-hq/career-ops#3631"
+        ],
+        "3652": [
+          "career-ops-hq/career-ops#3653"
+        ],
+        "3697": [
+          "career-ops-hq/career-ops#3912"
+        ],
+        "3704": [
+          "career-ops-hq/career-ops#3931"
+        ],
+        "3850": [
+          "career-ops-hq/career-ops#3851"
+        ],
+        "3913": [
+          "career-ops-hq/career-ops#3925"
+        ]
+      }
+    },
+    "clash-verge-rev/clash-verge-rev": {
+      "language": "rust",
+      "eligible_issues": 7,
+      "selected_issues": 2,
+      "issue_groups": {
+        "7659": [
+          "clash-verge-rev/clash-verge-rev#7662"
+        ],
+        "7774": [
+          "clash-verge-rev/clash-verge-rev#7893"
+        ],
+        "8019": [
+          "clash-verge-rev/clash-verge-rev#8054"
+        ],
+        "8062": [
+          "clash-verge-rev/clash-verge-rev#8064"
+        ],
+        "8067": [
+          "clash-verge-rev/clash-verge-rev#8068"
+        ],
+        "8253": [
+          "clash-verge-rev/clash-verge-rev#8291"
+        ],
+        "8409": [
+          "clash-verge-rev/clash-verge-rev#8411"
+        ]
+      }
+    },
+    "dani-garcia/vaultwarden": {
+      "language": "rust",
+      "eligible_issues": 6,
+      "selected_issues": 2,
+      "issue_groups": {
+        "7568": [
+          "dani-garcia/vaultwarden#7827"
+        ],
+        "7581": [
+          "dani-garcia/vaultwarden#7722"
+        ],
+        "7630": [
+          "dani-garcia/vaultwarden#7639"
+        ],
+        "7698": [
+          "dani-garcia/vaultwarden#7699"
+        ],
+        "7794": [
+          "dani-garcia/vaultwarden#7795"
+        ],
+        "7805": [
+          "dani-garcia/vaultwarden#7807"
+        ]
+      }
+    },
+    "denoland/deno": {
+      "language": "rust",
+      "eligible_issues": 8,
+      "selected_issues": 2,
+      "issue_groups": {
+        "36418": [
+          "denoland/deno#36574"
+        ],
+        "36425": [
+          "denoland/deno#36437"
+        ],
+        "36537": [
+          "denoland/deno#36546"
+        ],
+        "36609": [
+          "denoland/deno#36650"
+        ],
+        "36614": [
+          "denoland/deno#36619"
+        ],
+        "36622": [
+          "denoland/deno#36630"
+        ],
+        "36783": [
+          "denoland/deno#36784"
+        ],
+        "36959": [
+          "denoland/deno#36976"
+        ]
+      }
+    },
+    "dietrichgebert/ponytail": {
+      "language": "javascript",
+      "eligible_issues": 5,
+      "selected_issues": 2,
+      "issue_groups": {
+        "1058": [
+          "DietrichGebert/ponytail#1059"
+        ],
+        "1087": [
+          "DietrichGebert/ponytail#1090"
+        ],
+        "1114": [
+          "DietrichGebert/ponytail#1115"
+        ],
+        "1290": [
+          "DietrichGebert/ponytail#1291"
+        ],
+        "953": [
+          "DietrichGebert/ponytail#963"
+        ]
+      }
+    },
+    "earendil-works/pi": {
+      "language": "typescript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "10160": [
+          "earendil-works/pi#10913"
+        ],
+        "10633": [
+          "earendil-works/pi#10680"
+        ],
+        "10785": [
+          "earendil-works/pi#10887"
+        ],
+        "11203": [
+          "earendil-works/pi#11230"
+        ],
+        "11225": [
+          "earendil-works/pi#11293"
+        ],
+        "11532": [
+          "earendil-works/pi#11617"
+        ],
+        "7465": [
+          "earendil-works/pi#7612"
+        ],
+        "7925": [
+          "earendil-works/pi#7953"
+        ],
+        "8896": [
+          "earendil-works/pi#10020"
+        ],
+        "9068": [
+          "earendil-works/pi#9662"
+        ],
+        "9440": [
+          "earendil-works/pi#9601"
+        ],
+        "9946": [
+          "earendil-works/pi#10557"
+        ]
+      }
+    },
+    "elastic/elasticsearch": {
+      "language": "java",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "155772": [
+          "elastic/elasticsearch#156537"
+        ],
+        "155827": [
+          "elastic/elasticsearch#155838"
+        ],
+        "155958": [
+          "elastic/elasticsearch#156148"
+        ],
+        "155963": [
+          "elastic/elasticsearch#156075"
+        ],
+        "155979": [
+          "elastic/elasticsearch#156162"
+        ],
+        "156079": [
+          "elastic/elasticsearch#156414"
+        ],
+        "156173": [
+          "elastic/elasticsearch#156585"
+        ],
+        "156228": [
+          "elastic/elasticsearch#156545"
+        ],
+        "156402": [
+          "elastic/elasticsearch#156690"
+        ],
+        "156492": [
+          "elastic/elasticsearch#156635"
+        ],
+        "156664": [
+          "elastic/elasticsearch#156674"
+        ],
+        "156917": [
+          "elastic/elasticsearch#156945"
+        ]
+      }
+    },
+    "ethereum/go-ethereum": {
+      "language": "go",
+      "eligible_issues": 8,
+      "selected_issues": 2,
+      "issue_groups": {
+        "35630": [
+          "ethereum/go-ethereum#35983"
+        ],
+        "35632": [
+          "ethereum/go-ethereum#35637"
+        ],
+        "35671": [
+          "ethereum/go-ethereum#35672"
+        ],
+        "35751": [
+          "ethereum/go-ethereum#35753"
+        ],
+        "35817": [
+          "ethereum/go-ethereum#35821"
+        ],
+        "35897": [
+          "ethereum/go-ethereum#35905"
+        ],
+        "35932": [
+          "ethereum/go-ethereum#35933"
+        ],
+        "35963": [
+          "ethereum/go-ethereum#35978"
+        ]
+      }
+    },
+    "farion1231/cc-switch": {
+      "language": "rust",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "6181": [
+          "farion1231/cc-switch#6228"
+        ],
+        "6224": [
+          "farion1231/cc-switch#6232"
+        ],
+        "6660": [
+          "farion1231/cc-switch#9026"
+        ],
+        "6836": [
+          "farion1231/cc-switch#6851"
+        ],
+        "7634": [
+          "farion1231/cc-switch#7635"
+        ],
+        "7652": [
+          "farion1231/cc-switch#7653"
+        ],
+        "7852": [
+          "farion1231/cc-switch#7853"
+        ],
+        "7877": [
+          "farion1231/cc-switch#7878"
+        ],
+        "7976": [
+          "farion1231/cc-switch#7991"
+        ],
+        "8126": [
+          "farion1231/cc-switch#8281"
+        ],
+        "8435": [
+          "farion1231/cc-switch#8437"
+        ],
+        "8762": [
+          "farion1231/cc-switch#8764"
+        ]
+      }
+    },
+    "freecodecamp/freecodecamp": {
+      "language": "typescript",
+      "eligible_issues": 3,
+      "selected_issues": 2,
+      "issue_groups": {
+        "69262": [
+          "freeCodeCamp/freeCodeCamp#69263"
+        ],
+        "69473": [
+          "freeCodeCamp/freeCodeCamp#69474"
+        ],
+        "70412": [
+          "freeCodeCamp/freeCodeCamp#70413"
+        ]
+      }
+    },
+    "garrytan/gstack": {
+      "language": "typescript",
+      "eligible_issues": 6,
+      "selected_issues": 2,
+      "issue_groups": {
+        "3082": [
+          "garrytan/gstack#3134"
+        ],
+        "3110": [
+          "garrytan/gstack#3142"
+        ],
+        "3294": [
+          "garrytan/gstack#3304"
+        ],
+        "3344": [
+          "garrytan/gstack#3380"
+        ],
+        "3349": [
+          "garrytan/gstack#3402"
+        ],
+        "3650": [
+          "garrytan/gstack#3848"
+        ]
+      }
+    },
+    "github/spec-kit": {
+      "language": "python",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "3939": [
+          "github/spec-kit#3952"
+        ],
+        "4044": [
+          "github/spec-kit#4045"
+        ],
+        "4086": [
+          "github/spec-kit#4104"
+        ],
+        "4131": [
+          "github/spec-kit#4133"
+        ],
+        "4132": [
+          "github/spec-kit#4134"
+        ],
+        "4231": [
+          "github/spec-kit#4250"
+        ],
+        "4282": [
+          "github/spec-kit#4284"
+        ],
+        "4491": [
+          "github/spec-kit#4492"
+        ],
+        "4613": [
+          "github/spec-kit#4957"
+        ],
+        "4680": [
+          "github/spec-kit#4764"
+        ],
+        "4953": [
+          "github/spec-kit#4960"
+        ],
+        "5090": [
+          "github/spec-kit#5106"
+        ]
+      }
+    },
+    "halo-dev/halo": {
+      "language": "java",
+      "eligible_issues": 9,
+      "selected_issues": 2,
+      "issue_groups": {
+        "10236": [
+          "halo-dev/halo#10329"
+        ],
+        "10271": [
+          "halo-dev/halo#10272"
+        ],
+        "10281": [
+          "halo-dev/halo#10289"
+        ],
+        "10336": [
+          "halo-dev/halo#10373"
+        ],
+        "10341": [
+          "halo-dev/halo#10344"
+        ],
+        "10353": [
+          "halo-dev/halo#10368"
+        ],
+        "10359": [
+          "halo-dev/halo#10403"
+        ],
+        "10360": [
+          "halo-dev/halo#10362"
+        ],
+        "10397": [
+          "halo-dev/halo#10436"
+        ]
+      }
+    },
+    "infiniflow/ragflow": {
+      "language": "go",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "17687": [
+          "infiniflow/ragflow#17688"
+        ],
+        "17757": [
+          "infiniflow/ragflow#18321"
+        ],
+        "17885": [
+          "infiniflow/ragflow#18188"
+        ],
+        "17985": [
+          "infiniflow/ragflow#18018"
+        ],
+        "18107": [
+          "infiniflow/ragflow#18132"
+        ],
+        "18157": [
+          "infiniflow/ragflow#18168"
+        ],
+        "18468": [
+          "infiniflow/ragflow#18469"
+        ],
+        "18585": [
+          "infiniflow/ragflow#18889"
+        ],
+        "18621": [
+          "infiniflow/ragflow#18649"
+        ],
+        "18653": [
+          "infiniflow/ragflow#18663"
+        ],
+        "18746": [
+          "infiniflow/ragflow#18753"
+        ],
+        "18833": [
+          "infiniflow/ragflow#18842"
+        ]
+      }
+    },
+    "juliusbrussee/caveman": {
+      "language": "go",
+      "eligible_issues": 1,
+      "selected_issues": 1,
+      "issue_groups": {
+        "793": [
+          "JuliusBrussee/caveman#794"
+        ]
+      }
+    },
+    "kubernetes/kubernetes": {
+      "language": "go",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "141210": [
+          "kubernetes/kubernetes#141211"
+        ],
+        "141274": [
+          "kubernetes/kubernetes#141276"
+        ],
+        "141433": [
+          "kubernetes/kubernetes#141966"
+        ],
+        "141467": [
+          "kubernetes/kubernetes#141556"
+        ],
+        "141555": [
+          "kubernetes/kubernetes#141557"
+        ],
+        "141620": [
+          "kubernetes/kubernetes#141648"
+        ],
+        "141842": [
+          "kubernetes/kubernetes#141861"
+        ],
+        "141885": [
+          "kubernetes/kubernetes#141886"
+        ],
+        "142195": [
+          "kubernetes/kubernetes#142197"
+        ],
+        "142606": [
+          "kubernetes/kubernetes#142607"
+        ],
+        "142757": [
+          "kubernetes/kubernetes#142758"
+        ],
+        "142936": [
+          "kubernetes/kubernetes#143002"
+        ]
+      }
+    },
+    "langchain-ai/langchain": {
+      "language": "python",
+      "eligible_issues": 11,
+      "selected_issues": 2,
+      "issue_groups": {
+        "39249": [
+          "langchain-ai/langchain#39590"
+        ],
+        "39298": [
+          "langchain-ai/langchain#39301"
+        ],
+        "39977": [
+          "langchain-ai/langchain#39978"
+        ],
+        "40025": [
+          "langchain-ai/langchain#40026"
+        ],
+        "40077": [
+          "langchain-ai/langchain#40213"
+        ],
+        "40202": [
+          "langchain-ai/langchain#40211"
+        ],
+        "40367": [
+          "langchain-ai/langchain#41093"
+        ],
+        "40807": [
+          "langchain-ai/langchain#40815"
+        ],
+        "40853": [
+          "langchain-ai/langchain#40864"
+        ],
+        "41007": [
+          "langchain-ai/langchain#41062"
+        ],
+        "41526": [
+          "langchain-ai/langchain#41553"
+        ]
+      }
+    },
+    "langflow-ai/langflow": {
+      "language": "python",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "14445": [
+          "langflow-ai/langflow#14448"
+        ],
+        "14602": [
+          "langflow-ai/langflow#14604"
+        ],
+        "14623": [
+          "langflow-ai/langflow#14694"
+        ],
+        "14865": [
+          "langflow-ai/langflow#14925"
+        ],
+        "14866": [
+          "langflow-ai/langflow#15074"
+        ],
+        "14867": [
+          "langflow-ai/langflow#15064"
+        ],
+        "14966": [
+          "langflow-ai/langflow#15029"
+        ],
+        "14994": [
+          "langflow-ai/langflow#15030"
+        ],
+        "15252": [
+          "langflow-ai/langflow#15372"
+        ],
+        "15261": [
+          "langflow-ai/langflow#15262"
+        ],
+        "15463": [
+          "langflow-ai/langflow#15466"
+        ],
+        "15685": [
+          "langflow-ai/langflow#15752"
+        ]
+      }
+    },
+    "langgenius/dify": {
+      "language": "python",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "39871": [
+          "langgenius/dify#39872"
+        ],
+        "39976": [
+          "langgenius/dify#41222"
+        ],
+        "40054": [
+          "langgenius/dify#40055"
+        ],
+        "40389": [
+          "langgenius/dify#40443"
+        ],
+        "40431": [
+          "langgenius/dify#40738"
+        ],
+        "40459": [
+          "langgenius/dify#40746"
+        ],
+        "40741": [
+          "langgenius/dify#40742"
+        ],
+        "40878": [
+          "langgenius/dify#40905"
+        ],
+        "40944": [
+          "langgenius/dify#40945"
+        ],
+        "41106": [
+          "langgenius/dify#41107"
+        ],
+        "41134": [
+          "langgenius/dify#41145"
+        ],
+        "41580": [
+          "langgenius/dify#41581"
+        ]
+      }
+    },
+    "mintplex-labs/anything-llm": {
+      "language": "javascript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "6161": [
+          "Mintplex-Labs/anything-llm#6176"
+        ],
+        "6239": [
+          "Mintplex-Labs/anything-llm#6241"
+        ],
+        "6334": [
+          "Mintplex-Labs/anything-llm#6343"
+        ],
+        "6357": [
+          "Mintplex-Labs/anything-llm#6358"
+        ],
+        "6367": [
+          "Mintplex-Labs/anything-llm#6371"
+        ],
+        "6499": [
+          "Mintplex-Labs/anything-llm#6500"
+        ],
+        "6526": [
+          "Mintplex-Labs/anything-llm#6527"
+        ],
+        "6533": [
+          "Mintplex-Labs/anything-llm#6534"
+        ],
+        "6737": [
+          "Mintplex-Labs/anything-llm#6738"
+        ],
+        "6792": [
+          "Mintplex-Labs/anything-llm#6793"
+        ],
+        "6858": [
+          "Mintplex-Labs/anything-llm#6886"
+        ],
+        "6878": [
+          "Mintplex-Labs/anything-llm#6879"
+        ]
+      }
+    },
+    "moby/moby": {
+      "language": "go",
+      "eligible_issues": 4,
+      "selected_issues": 2,
+      "issue_groups": {
+        "53713": [
+          "moby/moby#53723"
+        ],
+        "53917": [
+          "moby/moby#53934"
+        ],
+        "53929": [
+          "moby/moby#53933"
+        ],
+        "53962": [
+          "moby/moby#54006"
+        ]
+      }
+    },
+    "morluto/rea": {
+      "language": "typescript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "1113": [
+          "morluto/rea#1116"
+        ],
+        "1170": [
+          "morluto/rea#1195"
+        ],
+        "1219": [
+          "morluto/rea#1297"
+        ],
+        "1245": [
+          "morluto/rea#1715"
+        ],
+        "1290": [
+          "morluto/rea#1303"
+        ],
+        "1459": [
+          "morluto/rea#1463"
+        ],
+        "1634": [
+          "morluto/rea#1635"
+        ],
+        "1846": [
+          "morluto/rea#1876"
+        ],
+        "2204": [
+          "morluto/rea#2206"
+        ],
+        "501": [
+          "morluto/rea#503"
+        ],
+        "528": [
+          "morluto/rea#535"
+        ],
+        "551": [
+          "morluto/rea#585"
+        ]
+      }
+    },
+    "multica-ai/multica": {
+      "language": "go",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "6336": [
+          "multica-ai/multica#6338"
+        ],
+        "6402": [
+          "multica-ai/multica#6422"
+        ],
+        "7289": [
+          "multica-ai/multica#7323"
+        ],
+        "7300": [
+          "multica-ai/multica#7312"
+        ],
+        "7368": [
+          "multica-ai/multica#7373"
+        ],
+        "7376": [
+          "multica-ai/multica#7391"
+        ],
+        "7487": [
+          "multica-ai/multica#7489"
+        ],
+        "7498": [
+          "multica-ai/multica#7574"
+        ],
+        "7688": [
+          "multica-ai/multica#7689"
+        ],
+        "7727": [
+          "multica-ai/multica#7805"
+        ],
+        "8178": [
+          "multica-ai/multica#8657"
+        ],
+        "8292": [
+          "multica-ai/multica#8297"
+        ]
+      }
+    },
+    "n8n-io/n8n": {
+      "language": "typescript",
+      "eligible_issues": 3,
+      "selected_issues": 2,
+      "issue_groups": {
+        "35800": [
+          "n8n-io/n8n#35802"
+        ],
+        "35899": [
+          "n8n-io/n8n#35939"
+        ],
+        "35917": [
+          "n8n-io/n8n#36082"
+        ]
+      }
+    },
+    "nationalsecurityagency/ghidra": {
+      "language": "java",
+      "eligible_issues": 7,
+      "selected_issues": 2,
+      "issue_groups": {
+        "9505": [
+          "NationalSecurityAgency/ghidra#9508"
+        ],
+        "9594": [
+          "NationalSecurityAgency/ghidra#9595"
+        ],
+        "9650": [
+          "NationalSecurityAgency/ghidra#9676"
+        ],
+        "9684": [
+          "NationalSecurityAgency/ghidra#9690"
+        ],
+        "9748": [
+          "NationalSecurityAgency/ghidra#9773"
+        ],
+        "9875": [
+          "NationalSecurityAgency/ghidra#9892"
+        ],
+        "9963": [
+          "NationalSecurityAgency/ghidra#9993"
+        ]
+      }
+    },
+    "netdata/netdata": {
+      "language": "go",
+      "eligible_issues": 5,
+      "selected_issues": 2,
+      "issue_groups": {
+        "23395": [
+          "netdata/netdata#23423"
+        ],
+        "23584": [
+          "netdata/netdata#23588"
+        ],
+        "24183": [
+          "netdata/netdata#24186"
+        ],
+        "24363": [
+          "netdata/netdata#24367"
+        ],
+        "24447": [
+          "netdata/netdata#24448"
+        ]
+      }
+    },
+    "nextlevelbuilder/ui-ux-pro-max-skill": {
+      "language": "python",
+      "eligible_issues": 3,
+      "selected_issues": 2,
+      "issue_groups": {
+        "454": [
+          "nextlevelbuilder/ui-ux-pro-max-skill#533"
+        ],
+        "459": [
+          "nextlevelbuilder/ui-ux-pro-max-skill#460"
+        ],
+        "496": [
+          "nextlevelbuilder/ui-ux-pro-max-skill#501"
+        ]
+      }
+    },
+    "nousresearch/hermes-agent": {
+      "language": "python",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "77244": [
+          "NousResearch/hermes-agent#82313"
+        ],
+        "77268": [
+          "NousResearch/hermes-agent#77337"
+        ],
+        "79156": [
+          "NousResearch/hermes-agent#82149"
+        ],
+        "79768": [
+          "NousResearch/hermes-agent#80912"
+        ],
+        "80003": [
+          "NousResearch/hermes-agent#80004"
+        ],
+        "80395": [
+          "NousResearch/hermes-agent#80491"
+        ],
+        "80450": [
+          "NousResearch/hermes-agent#80465"
+        ],
+        "81373": [
+          "NousResearch/hermes-agent#81691"
+        ],
+        "81791": [
+          "NousResearch/hermes-agent#81946"
+        ],
+        "81969": [
+          "NousResearch/hermes-agent#82171"
+        ],
+        "82920": [
+          "NousResearch/hermes-agent#83044"
+        ],
+        "83588": [
+          "NousResearch/hermes-agent#83636"
+        ]
+      }
+    },
+    "openclaw/openclaw": {
+      "language": "typescript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "117154": [
+          "openclaw/openclaw#117176"
+        ],
+        "117291": [
+          "openclaw/openclaw#117292"
+        ],
+        "117409": [
+          "openclaw/openclaw#117410"
+        ],
+        "117411": [
+          "openclaw/openclaw#117449"
+        ],
+        "117435": [
+          "openclaw/openclaw#117436"
+        ],
+        "117470": [
+          "openclaw/openclaw#117580"
+        ],
+        "117622": [
+          "openclaw/openclaw#117636"
+        ],
+        "117674": [
+          "openclaw/openclaw#117675"
+        ],
+        "117713": [
+          "openclaw/openclaw#117714"
+        ],
+        "117736": [
+          "openclaw/openclaw#117737"
+        ],
+        "117793": [
+          "openclaw/openclaw#117845"
+        ],
+        "117851": [
+          "openclaw/openclaw#117853"
+        ]
+      }
+    },
+    "oven-sh/bun": {
+      "language": "rust",
+      "eligible_issues": 9,
+      "selected_issues": 2,
+      "issue_groups": {
+        "36968": [
+          "oven-sh/bun#36969"
+        ],
+        "36987": [
+          "oven-sh/bun#36989"
+        ],
+        "37022": [
+          "oven-sh/bun#37023"
+        ],
+        "37151": [
+          "oven-sh/bun#37154"
+        ],
+        "38188": [
+          "oven-sh/bun#38243"
+        ],
+        "40111": [
+          "oven-sh/bun#40112"
+        ],
+        "40114": [
+          "oven-sh/bun#40116"
+        ],
+        "40606": [
+          "oven-sh/bun#40608"
+        ],
+        "40653": [
+          "oven-sh/bun#40655"
+        ]
+      }
+    },
+    "pbakaus/impeccable": {
+      "language": "rust",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "472": [
+          "pbakaus/impeccable#532"
+        ],
+        "476": [
+          "pbakaus/impeccable#533"
+        ],
+        "547": [
+          "pbakaus/impeccable#553"
+        ],
+        "570": [
+          "pbakaus/impeccable#594"
+        ],
+        "592": [
+          "pbakaus/impeccable#630"
+        ],
+        "633": [
+          "pbakaus/impeccable#707"
+        ],
+        "642": [
+          "pbakaus/impeccable#644"
+        ],
+        "652": [
+          "pbakaus/impeccable#653"
+        ],
+        "657": [
+          "pbakaus/impeccable#658"
+        ],
+        "660": [
+          "pbakaus/impeccable#682"
+        ],
+        "662": [
+          "pbakaus/impeccable#663"
+        ],
+        "847": [
+          "pbakaus/impeccable#996"
+        ]
+      }
+    },
+    "rclone/rclone": {
+      "language": "go",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "10044": [
+          "rclone/rclone#10045"
+        ],
+        "10069": [
+          "rclone/rclone#10072"
+        ],
+        "10100": [
+          "rclone/rclone#10109"
+        ],
+        "10102": [
+          "rclone/rclone#10108"
+        ],
+        "10131": [
+          "rclone/rclone#10135"
+        ],
+        "10165": [
+          "rclone/rclone#10166"
+        ],
+        "10200": [
+          "rclone/rclone#10202"
+        ],
+        "9727": [
+          "rclone/rclone#9752"
+        ],
+        "9822": [
+          "rclone/rclone#9823"
+        ],
+        "9910": [
+          "rclone/rclone#9912"
+        ],
+        "9917": [
+          "rclone/rclone#9918"
+        ],
+        "9958": [
+          "rclone/rclone#9959"
+        ]
+      }
+    },
+    "router-for-me/cliproxyapi": {
+      "language": "go",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "4863": [
+          "router-for-me/CLIProxyAPI#4865"
+        ],
+        "4959": [
+          "router-for-me/CLIProxyAPI#5048"
+        ],
+        "5209": [
+          "router-for-me/CLIProxyAPI#5228"
+        ],
+        "5490": [
+          "router-for-me/CLIProxyAPI#5496"
+        ],
+        "5494": [
+          "router-for-me/CLIProxyAPI#5596"
+        ],
+        "5715": [
+          "router-for-me/CLIProxyAPI#5820"
+        ],
+        "6174": [
+          "router-for-me/CLIProxyAPI#6175"
+        ],
+        "6519": [
+          "router-for-me/CLIProxyAPI#6547"
+        ],
+        "7093": [
+          "router-for-me/CLIProxyAPI#7095"
+        ],
+        "7140": [
+          "router-for-me/CLIProxyAPI#7141"
+        ],
+        "7161": [
+          "router-for-me/CLIProxyAPI#7166"
+        ],
+        "7186": [
+          "router-for-me/CLIProxyAPI#7187"
+        ]
+      }
+    },
+    "rtk-ai/rtk": {
+      "language": "rust",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "3469": [
+          "rtk-ai/rtk#3519"
+        ],
+        "3727": [
+          "rtk-ai/rtk#3728"
+        ],
+        "3769": [
+          "rtk-ai/rtk#3788"
+        ],
+        "4071": [
+          "rtk-ai/rtk#4076"
+        ],
+        "4317": [
+          "rtk-ai/rtk#4335"
+        ],
+        "4355": [
+          "rtk-ai/rtk#4356"
+        ],
+        "4413": [
+          "rtk-ai/rtk#4740"
+        ],
+        "4433": [
+          "rtk-ai/rtk#4444"
+        ],
+        "4604": [
+          "rtk-ai/rtk#4622"
+        ],
+        "4651": [
+          "rtk-ai/rtk#4658"
+        ],
+        "4704": [
+          "rtk-ai/rtk#4738"
+        ],
+        "4762": [
+          "rtk-ai/rtk#4785"
+        ]
+      }
+    },
+    "rust-lang/rust": {
+      "language": "rust",
+      "eligible_issues": 8,
+      "selected_issues": 2,
+      "issue_groups": {
+        "160512": [
+          "rust-lang/rust#160518"
+        ],
+        "160685": [
+          "rust-lang/rust#161024"
+        ],
+        "160716": [
+          "rust-lang/rust#160719"
+        ],
+        "160968": [
+          "rust-lang/rust#160970"
+        ],
+        "161100": [
+          "rust-lang/rust#161131"
+        ],
+        "161101": [
+          "rust-lang/rust#161190"
+        ],
+        "161213": [
+          "rust-lang/rust#161411"
+        ],
+        "161365": [
+          "rust-lang/rust#161467"
+        ]
+      }
+    },
+    "rustdesk/rustdesk": {
+      "language": "rust",
+      "eligible_issues": 4,
+      "selected_issues": 2,
+      "issue_groups": {
+        "15922": [
+          "rustdesk/rustdesk#15924"
+        ],
+        "15952": [
+          "rustdesk/rustdesk#15978"
+        ],
+        "16012": [
+          "rustdesk/rustdesk#16390"
+        ],
+        "16506": [
+          "rustdesk/rustdesk#16519"
+        ]
+      }
+    },
+    "ruvnet/ruview": {
+      "language": "rust",
+      "eligible_issues": 6,
+      "selected_issues": 2,
+      "issue_groups": {
+        "1630": [
+          "ruvnet/RuView#1631"
+        ],
+        "1703": [
+          "ruvnet/RuView#2101"
+        ],
+        "1755": [
+          "ruvnet/RuView#2152"
+        ],
+        "2091": [
+          "ruvnet/RuView#2108"
+        ],
+        "2097": [
+          "ruvnet/RuView#2126"
+        ],
+        "2099": [
+          "ruvnet/RuView#2128"
+        ]
+      }
+    },
+    "shubhamsaboo/awesome-llm-apps": {
+      "language": "python",
+      "eligible_issues": 1,
+      "selected_issues": 1,
+      "issue_groups": {
+        "1245": [
+          "Shubhamsaboo/awesome-llm-apps#1246"
+        ]
+      }
+    },
+    "spring-projects/spring-framework": {
+      "language": "java",
+      "eligible_issues": 3,
+      "selected_issues": 2,
+      "issue_groups": {
+        "37200": [
+          "spring-projects/spring-framework#37202"
+        ],
+        "37201": [
+          "spring-projects/spring-framework#37203"
+        ],
+        "37385": [
+          "spring-projects/spring-framework#37386"
+        ]
+      }
+    },
+    "stablyai/orca": {
+      "language": "typescript",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "12094": [
+          "stablyai/orca#12622"
+        ],
+        "12329": [
+          "stablyai/orca#12462"
+        ],
+        "12350": [
+          "stablyai/orca#12477"
+        ],
+        "12520": [
+          "stablyai/orca#12564"
+        ],
+        "12656": [
+          "stablyai/orca#12786"
+        ],
+        "12856": [
+          "stablyai/orca#12863"
+        ],
+        "12900": [
+          "stablyai/orca#13139"
+        ],
+        "13044": [
+          "stablyai/orca#14359"
+        ],
+        "13597": [
+          "stablyai/orca#13598"
+        ],
+        "13976": [
+          "stablyai/orca#13981"
+        ],
+        "14178": [
+          "stablyai/orca#14179"
+        ],
+        "14460": [
+          "stablyai/orca#14462"
+        ]
+      }
+    },
+    "tauri-apps/tauri": {
+      "language": "rust",
+      "eligible_issues": 4,
+      "selected_issues": 2,
+      "issue_groups": {
+        "16194": [
+          "tauri-apps/tauri#16195"
+        ],
+        "16229": [
+          "tauri-apps/tauri#16231"
+        ],
+        "16234": [
+          "tauri-apps/tauri#16235"
+        ],
+        "16319": [
+          "tauri-apps/tauri#16326"
+        ]
+      }
+    },
+    "thealgorithms/java": {
+      "language": "java",
+      "eligible_issues": 1,
+      "selected_issues": 1,
+      "issue_groups": {
+        "7632": [
+          "TheAlgorithms/Java#7633"
+        ]
+      }
+    },
+    "thealgorithms/python": {
+      "language": "python",
+      "eligible_issues": 2,
+      "selected_issues": 2,
+      "issue_groups": {
+        "15337": [
+          "TheAlgorithms/Python#15356"
+        ],
+        "15449": [
+          "TheAlgorithms/Python#15492"
+        ]
+      }
+    },
+    "usememos/memos": {
+      "language": "go",
+      "eligible_issues": 9,
+      "selected_issues": 2,
+      "issue_groups": {
+        "6139": [
+          "usememos/memos#6156"
+        ],
+        "6158": [
+          "usememos/memos#6494"
+        ],
+        "6207": [
+          "usememos/memos#6208"
+        ],
+        "6213": [
+          "usememos/memos#6215"
+        ],
+        "6288": [
+          "usememos/memos#6310"
+        ],
+        "6316": [
+          "usememos/memos#6324"
+        ],
+        "6419": [
+          "usememos/memos#6424"
+        ],
+        "6489": [
+          "usememos/memos#6491"
+        ],
+        "6503": [
+          "usememos/memos#6504"
+        ]
+      }
+    },
+    "vercel/next.js": {
+      "language": "javascript",
+      "eligible_issues": 11,
+      "selected_issues": 2,
+      "issue_groups": {
+        "96612": [
+          "vercel/next.js#96681"
+        ],
+        "96768": [
+          "vercel/next.js#98607"
+        ],
+        "96897": [
+          "vercel/next.js#97353"
+        ],
+        "97467": [
+          "vercel/next.js#97502"
+        ],
+        "97668": [
+          "vercel/next.js#97723"
+        ],
+        "97939": [
+          "vercel/next.js#97953"
+        ],
+        "98205": [
+          "vercel/next.js#98661"
+        ],
+        "98251": [
+          "vercel/next.js#98252"
+        ],
+        "98493": [
+          "vercel/next.js#98674"
+        ],
+        "98543": [
+          "vercel/next.js#98767"
+        ],
+        "98958": [
+          "vercel/next.js#98997"
+        ]
+      }
+    },
+    "yunaiv/ruoyi-vue-pro": {
+      "language": "java",
+      "eligible_issues": 12,
+      "selected_issues": 2,
+      "issue_groups": {
+        "1210": [
+          "YunaiV/ruoyi-vue-pro#1211"
+        ],
+        "1216": [
+          "YunaiV/ruoyi-vue-pro#1217"
+        ],
+        "1225": [
+          "YunaiV/ruoyi-vue-pro#1227"
+        ],
+        "1253": [
+          "YunaiV/ruoyi-vue-pro#1254"
+        ],
+        "1257": [
+          "YunaiV/ruoyi-vue-pro#1258"
+        ],
+        "1260": [
+          "YunaiV/ruoyi-vue-pro#1262"
+        ],
+        "1263": [
+          "YunaiV/ruoyi-vue-pro#1264"
+        ],
+        "1269": [
+          "YunaiV/ruoyi-vue-pro#1270"
+        ],
+        "1314": [
+          "YunaiV/ruoyi-vue-pro#1315"
+        ],
+        "1316": [
+          "YunaiV/ruoyi-vue-pro#1317"
+        ],
+        "1318": [
+          "YunaiV/ruoyi-vue-pro#1319"
+        ],
+        "1322": [
+          "YunaiV/ruoyi-vue-pro#1323"
+        ]
+      }
+    }
+  },
+  "instances": [
+    {
+      "id": "addyosmani/agent-skills#573",
+      "repo": "addyosmani/agent-skills",
+      "issue": 572,
+      "base_commit": "e77fed035bcc7a8180d48f8ce7efa0685b005f7c",
+      "project_language": "javascript",
+      "text_sha256": "8cc180ac567c3207697b8c97358077b081e19186b811e2081e4cead7e9d9ae32",
+      "project_key": "addyosmani/agent-skills",
+      "wave": 1,
+      "related_pr_ids": [
+        "addyosmani/agent-skills#573"
+      ],
+      "selection_hash": "70a1cc36fcf6f48c6ddb9e3bac2097417ff9a8fe192045971485b432c9bea530",
+      "nominal_inclusion": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    {
+      "id": "affaan-m/ECC#3464",
+      "repo": "affaan-m/ECC",
+      "issue": 3460,
+      "base_commit": "41ce11d88987b82c48d148047708beac5b0f00de",
+      "project_language": "javascript",
+      "text_sha256": "637c7caa7566823086c9168b8560ba7239f762f6fb7a291a297fedbaa09ac219",
+      "project_key": "affaan-m/ecc",
+      "wave": 1,
+      "related_pr_ids": [
+        "affaan-m/ECC#3464"
+      ],
+      "selection_hash": "0c1536a1f4101cd52e46ee5bd40ca6dc1de2059129bec6f39f27e2b479d81c17",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "alibaba/arthas#3274",
+      "repo": "alibaba/arthas",
+      "issue": 3270,
+      "base_commit": "65589689d0df9ca6b9d7441c0221b8627e5b3301",
+      "project_language": "java",
+      "text_sha256": "6385ff153195b78a17369303ac94cc50f8ab81bb8f7684b215cbedc4bc7c80d4",
+      "project_key": "alibaba/arthas",
+      "wave": 1,
+      "related_pr_ids": [
+        "alibaba/arthas#3274"
+      ],
+      "selection_hash": "bf3d17d636a1353a9f66ce4c972950b9234cc8d634f07f00e2b861043d4b4f14",
+      "nominal_inclusion": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    {
+      "id": "AlistGo/alist#9624",
+      "repo": "AlistGo/alist",
+      "issue": 9620,
+      "base_commit": "508aa2ba18a3b83c75db550492c17854c422a724",
+      "project_language": "go",
+      "text_sha256": "7c756aefdfd9addabea880f5df55f326f04d80d5955e7a031f756d146926f21e",
+      "project_key": "alistgo/alist",
+      "wave": 1,
+      "related_pr_ids": [
+        "AlistGo/alist#9624"
+      ],
+      "selection_hash": "0c52e330e287023e1c37a9b603d43798488bfc5771467157334eeb80a584345b",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "career-ops-hq/career-ops#2639",
+      "repo": "career-ops-hq/career-ops",
+      "issue": 2600,
+      "base_commit": "ad382c0b7f1fc2d4fc9a32094a49931c114e2a4b",
+      "project_language": "javascript",
+      "text_sha256": "5002f11ca0e37d98b196fc9a167fa6553e1cbf78908fb466ca02377b2fd8feb0",
+      "project_key": "career-ops-hq/career-ops",
+      "wave": 1,
+      "related_pr_ids": [
+        "career-ops-hq/career-ops#2639"
+      ],
+      "selection_hash": "02bd24a7609cf966f84791a4e612d1d3a9c05deb7c5a398bdb4f9f5a1b1f166b",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "clash-verge-rev/clash-verge-rev#7662",
+      "repo": "clash-verge-rev/clash-verge-rev",
+      "issue": 7659,
+      "base_commit": "8ef6f0cc2387c28038537f586439a908b34c0976",
+      "project_language": "rust",
+      "text_sha256": "6f9f3d1296d1511c4283b53f673093bacecc215f49da1cebaa5f3928261b6906",
+      "project_key": "clash-verge-rev/clash-verge-rev",
+      "wave": 1,
+      "related_pr_ids": [
+        "clash-verge-rev/clash-verge-rev#7662"
+      ],
+      "selection_hash": "3d87a4b8a4f2553a98b986621c8c1e5ef1c04fb7948dac81fb7d73eb9b1fb299",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 7
+      }
+    },
+    {
+      "id": "dani-garcia/vaultwarden#7795",
+      "repo": "dani-garcia/vaultwarden",
+      "issue": 7794,
+      "base_commit": "c925c04de088104f365f8fe9ce6a81da6bfcf72f",
+      "project_language": "rust",
+      "text_sha256": "a0a31c85d5d8c8149c43d30d2b2fb6d2e4546a7194942c277c199b2e45b03882",
+      "project_key": "dani-garcia/vaultwarden",
+      "wave": 1,
+      "related_pr_ids": [
+        "dani-garcia/vaultwarden#7795"
+      ],
+      "selection_hash": "29cb144f0e890f8980ace5e391757ac5b9467638e41cd3c001141a7d0130c316",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 6
+      }
+    },
+    {
+      "id": "denoland/deno#36784",
+      "repo": "denoland/deno",
+      "issue": 36783,
+      "base_commit": "60e01b1dabc1fce03ccd819a01796b52496671a4",
+      "project_language": "rust",
+      "text_sha256": "206b0aad57086399d6a98f26d96675f9b537b312989cc9fe95557dfe555da135",
+      "project_key": "denoland/deno",
+      "wave": 1,
+      "related_pr_ids": [
+        "denoland/deno#36784"
+      ],
+      "selection_hash": "2b0d15beecdf92d285417817cc171ab59074570a3af27d1ed1693b97b19cf7b8",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 8
+      }
+    },
+    {
+      "id": "DietrichGebert/ponytail#1115",
+      "repo": "DietrichGebert/ponytail",
+      "issue": 1114,
+      "base_commit": "2961b52fc1fe6a5a87c7a959a79512e5c2f3ffe5",
+      "project_language": "javascript",
+      "text_sha256": "62435194266c2d1b22609f23b397bd8ef17152182fd7d2d016c8e105a6b0200e",
+      "project_key": "dietrichgebert/ponytail",
+      "wave": 1,
+      "related_pr_ids": [
+        "DietrichGebert/ponytail#1115"
+      ],
+      "selection_hash": "1b9b6fcfa0a1f1b60c02cf83a0033b822c99cd5a0045550876979749f6b9b70b",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 5
+      }
+    },
+    {
+      "id": "earendil-works/pi#11293",
+      "repo": "earendil-works/pi",
+      "issue": 11225,
+      "base_commit": "64627838b276da852f312800ff423d83bba0b139",
+      "project_language": "typescript",
+      "text_sha256": "cb34d964315ba851a9392878ebac668b37204911c43ac30588a003bb522c45ec",
+      "project_key": "earendil-works/pi",
+      "wave": 1,
+      "related_pr_ids": [
+        "earendil-works/pi#11293"
+      ],
+      "selection_hash": "242c529aada247975ed627f8bd8e86d1bf744a94f9241193ee1c3a62a61dc184",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "elastic/elasticsearch#156075",
+      "repo": "elastic/elasticsearch",
+      "issue": 155963,
+      "base_commit": "f0fc81936a2fb94dcdb88e1554ee7ad034911e37",
+      "project_language": "java",
+      "text_sha256": "9e637f24afc9ddb872ee74b868cef97dbfa60b642e2f88f3658d10e48c79e7f8",
+      "project_key": "elastic/elasticsearch",
+      "wave": 1,
+      "related_pr_ids": [
+        "elastic/elasticsearch#156075"
+      ],
+      "selection_hash": "04d87da8e33244e375347c6c510d1a82ad0040cf775b2d79d01fb44c8661a2c9",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "ethereum/go-ethereum#35753",
+      "repo": "ethereum/go-ethereum",
+      "issue": 35751,
+      "base_commit": "c6e3a0d7de3dee3e213eab2dfceda89cb6f7f8ef",
+      "project_language": "go",
+      "text_sha256": "8275b0607fd5eab8a514c20964113374adac2e920567bebeb326cad9eb09c1b5",
+      "project_key": "ethereum/go-ethereum",
+      "wave": 1,
+      "related_pr_ids": [
+        "ethereum/go-ethereum#35753"
+      ],
+      "selection_hash": "0696ca43811b97397194401a450b6c5a1f5d1b9d7f3c8a9d282b983ed495dcc9",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 8
+      }
+    },
+    {
+      "id": "farion1231/cc-switch#6228",
+      "repo": "farion1231/cc-switch",
+      "issue": 6181,
+      "base_commit": "40d747c009bff6a6097d5094e57d205420d9b24c",
+      "project_language": "rust",
+      "text_sha256": "03712876dc24b82d9f75e36d4968034fa698d930c2ca47303efa816b3bfb223f",
+      "project_key": "farion1231/cc-switch",
+      "wave": 1,
+      "related_pr_ids": [
+        "farion1231/cc-switch#6228"
+      ],
+      "selection_hash": "07803112fd9019e34d5d63de23b52e4db184b64d1abbe1426a1d646a1af8f007",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "freeCodeCamp/freeCodeCamp#69474",
+      "repo": "freeCodeCamp/freeCodeCamp",
+      "issue": 69473,
+      "base_commit": "41874d4bba0c7e96fed191189d2a3125abfe0758",
+      "project_language": "typescript",
+      "text_sha256": "d0ee9fb838538aa265fdde89c566d2b8b9093aa16fe2ae355e2671186433bd79",
+      "project_key": "freecodecamp/freecodecamp",
+      "wave": 1,
+      "related_pr_ids": [
+        "freeCodeCamp/freeCodeCamp#69474"
+      ],
+      "selection_hash": "25eb161d368a8e8cfdef307ebba985199d87e5e8addd6df0e499c09fa73b15ab",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "garrytan/gstack#3848",
+      "repo": "garrytan/gstack",
+      "issue": 3650,
+      "base_commit": "82e9d7ec7a2c222f20b04aaf5b965fa50d7b6bdb",
+      "project_language": "typescript",
+      "text_sha256": "bdc98e7664ff3f6c73efdd73ff6607d6836805579a3e1b77e0acf1c304249c0c",
+      "project_key": "garrytan/gstack",
+      "wave": 1,
+      "related_pr_ids": [
+        "garrytan/gstack#3848"
+      ],
+      "selection_hash": "1c6eb0c84545fc7021db92134fa60033bd2e150487321330d9085b2707c119f2",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 6
+      }
+    },
+    {
+      "id": "github/spec-kit#3952",
+      "repo": "github/spec-kit",
+      "issue": 3939,
+      "base_commit": "4751777a38ce9d12d396797664d457bad4b125a1",
+      "project_language": "python",
+      "text_sha256": "e5ae77f83dfbbadd7beb4ad1f17f8023fe0a00f76dc09a62df08ed49503c48d1",
+      "project_key": "github/spec-kit",
+      "wave": 1,
+      "related_pr_ids": [
+        "github/spec-kit#3952"
+      ],
+      "selection_hash": "16f8a5465237b1b959395d526473b7d2b5ce170f870fb6dc80a0bfa54641aba7",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "halo-dev/halo#10329",
+      "repo": "halo-dev/halo",
+      "issue": 10236,
+      "base_commit": "40fcfd775c014a625037a2d37822e741aad1ff65",
+      "project_language": "java",
+      "text_sha256": "58179522a5c4487f4b1caf6b4de2c9da91d20eefab69011c245246c14d517e5e",
+      "project_key": "halo-dev/halo",
+      "wave": 1,
+      "related_pr_ids": [
+        "halo-dev/halo#10329"
+      ],
+      "selection_hash": "041eb459133d5d5881f2dd6fd0803bfb77f89cc14ea66e8bec81efec037c57c5",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 9
+      }
+    },
+    {
+      "id": "infiniflow/ragflow#18321",
+      "repo": "infiniflow/ragflow",
+      "issue": 17757,
+      "base_commit": "e3d46efce362b9730de4141422add47142639ec7",
+      "project_language": "go",
+      "text_sha256": "fc566575d7596e3852e7984d184fcf115143332e060b207a593ded87ef2a2c2d",
+      "project_key": "infiniflow/ragflow",
+      "wave": 1,
+      "related_pr_ids": [
+        "infiniflow/ragflow#18321"
+      ],
+      "selection_hash": "06b7f6259335246666ce5e22f6bdcb571471345bed4d61a4b700dda5eba1be48",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "JuliusBrussee/caveman#794",
+      "repo": "JuliusBrussee/caveman",
+      "issue": 793,
+      "base_commit": "dbbc0929b019c1f59d5e04a6e6d062e16e3bf0e1",
+      "project_language": "go",
+      "text_sha256": "a5eaa6416bf6886c7f358826d4e1f75ce224c15fe3b80fa6096b1ce79695dc23",
+      "project_key": "juliusbrussee/caveman",
+      "wave": 1,
+      "related_pr_ids": [
+        "JuliusBrussee/caveman#794"
+      ],
+      "selection_hash": "c74b508112afe67dcea7af99fff4104a1a6df70aa9ed6760b9fb789ba381dec4",
+      "nominal_inclusion": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    {
+      "id": "kubernetes/kubernetes#141211",
+      "repo": "kubernetes/kubernetes",
+      "issue": 141210,
+      "base_commit": "06b066f1bc5bf656ffa7e9edcd05efd404ed8ac8",
+      "project_language": "go",
+      "text_sha256": "4447e38dd117ad60c0524403c309f3c401bf27b9efc27384931ef35fa46c747e",
+      "project_key": "kubernetes/kubernetes",
+      "wave": 1,
+      "related_pr_ids": [
+        "kubernetes/kubernetes#141211"
+      ],
+      "selection_hash": "148913768ac602ddba477ff23a235d468c0fcdfb63f14fa8b70bcc71f1358c5b",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "langchain-ai/langchain#40815",
+      "repo": "langchain-ai/langchain",
+      "issue": 40807,
+      "base_commit": "021dce467195a8c767ec3e1a807eda546c17994c",
+      "project_language": "python",
+      "text_sha256": "ed8278abbf18ee40ac50b0a0d85547eb9da9de0994b7490e9977137f5feff705",
+      "project_key": "langchain-ai/langchain",
+      "wave": 1,
+      "related_pr_ids": [
+        "langchain-ai/langchain#40815"
+      ],
+      "selection_hash": "0f2bb351c5c3c52fb5702a05b8a0b9666bd0b8fd6e5424558d5a80baca4aa664",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 11
+      }
+    },
+    {
+      "id": "langflow-ai/langflow#15752",
+      "repo": "langflow-ai/langflow",
+      "issue": 15685,
+      "base_commit": "1bd7a4116c3e0f4e0c78b839d4fdcd583f39c1d8",
+      "project_language": "python",
+      "text_sha256": "99fbd89b2c0f9ea923b6388cd4fab61d99c6494181e440d1190f474e8779bbb1",
+      "project_key": "langflow-ai/langflow",
+      "wave": 1,
+      "related_pr_ids": [
+        "langflow-ai/langflow#15752"
+      ],
+      "selection_hash": "05d982fabc6338735f27018092b578cfc31d8ec6f231aa0fa323f64cd5349f2d",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "langgenius/dify#41222",
+      "repo": "langgenius/dify",
+      "issue": 39976,
+      "base_commit": "9643dcacce2f475bfbdc9dd9fc02b12371194961",
+      "project_language": "python",
+      "text_sha256": "301a2077beaba7d42e52a223fbc3404981286c3fb786ab535097d2f64b828ca3",
+      "project_key": "langgenius/dify",
+      "wave": 1,
+      "related_pr_ids": [
+        "langgenius/dify#41222"
+      ],
+      "selection_hash": "0369523a153abaa017d4461abcec09282af5b97be74581eb3d458d394304b96c",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "Mintplex-Labs/anything-llm#6500",
+      "repo": "Mintplex-Labs/anything-llm",
+      "issue": 6499,
+      "base_commit": "c09759673fa34ab430db76740d9a8b8e61195692",
+      "project_language": "javascript",
+      "text_sha256": "3941c59d4f69ee8f7ec7e83a1411260fcd9f4c5421bb24a1fb52fe593bec98a3",
+      "project_key": "mintplex-labs/anything-llm",
+      "wave": 1,
+      "related_pr_ids": [
+        "Mintplex-Labs/anything-llm#6500"
+      ],
+      "selection_hash": "0a64ad2009c8f9b4f1a07ea66c28e4b6364e95fb0950d36dff55230da59c594b",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "moby/moby#53933",
+      "repo": "moby/moby",
+      "issue": 53929,
+      "base_commit": "899ce4e7f9a138a35b811c4300165862672f5633",
+      "project_language": "go",
+      "text_sha256": "210e56e219ccba9d53cd6295d2d246bb0034e9fdcf0e82ba4fad76991f6a503c",
+      "project_key": "moby/moby",
+      "wave": 1,
+      "related_pr_ids": [
+        "moby/moby#53933"
+      ],
+      "selection_hash": "105f54d85e6a0f10cecafe0b96c7eb244a142513683285776640839c738d6ef3",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "morluto/rea#1463",
+      "repo": "morluto/rea",
+      "issue": 1459,
+      "base_commit": "b118f044926ae6b4880c4214621ae6c5b2a71f17",
+      "project_language": "typescript",
+      "text_sha256": "5abe4520e3fccf9ddc81565cd42b087206721e695dfca76badbc6f556a122e3a",
+      "project_key": "morluto/rea",
+      "wave": 1,
+      "related_pr_ids": [
+        "morluto/rea#1463"
+      ],
+      "selection_hash": "0538ca3e983aa9b55d66ee0c14e58a8c3de013bbb5f1c11fe2fa48c8ebb6bc56",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "multica-ai/multica#7574",
+      "repo": "multica-ai/multica",
+      "issue": 7498,
+      "base_commit": "26c04803c8d1f92345c528e5d1ebc692ed9aadb1",
+      "project_language": "go",
+      "text_sha256": "acc214fb81a4c6444ccd55759592417fdf9c6cc6e7b030a534ee11471777b7d8",
+      "project_key": "multica-ai/multica",
+      "wave": 1,
+      "related_pr_ids": [
+        "multica-ai/multica#7574"
+      ],
+      "selection_hash": "061a524b1e564c3ec74a3fcf580093506e7906459d9cee13053270723bd68f0a",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "n8n-io/n8n#35802",
+      "repo": "n8n-io/n8n",
+      "issue": 35800,
+      "base_commit": "14cd525465a9b287e4df7a866f3a1ae3dc0293c6",
+      "project_language": "typescript",
+      "text_sha256": "d916a8dc8b1316284c7fea1dc6d599c2d2c5021114bb67e256e861759bcd876b",
+      "project_key": "n8n-io/n8n",
+      "wave": 1,
+      "related_pr_ids": [
+        "n8n-io/n8n#35802"
+      ],
+      "selection_hash": "21c3f3c793078a4d361cbdfe111c882c4f131c739ca255095e3e42c0366f9072",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "NationalSecurityAgency/ghidra#9690",
+      "repo": "NationalSecurityAgency/ghidra",
+      "issue": 9684,
+      "base_commit": "8ea5e45f8cb09e1fe959fac00fc680ea67cf3487",
+      "project_language": "java",
+      "text_sha256": "7116a6aeebbb9a6060199617a29c4290b2b8d186ea92e4f062277faed2e7adfa",
+      "project_key": "nationalsecurityagency/ghidra",
+      "wave": 1,
+      "related_pr_ids": [
+        "NationalSecurityAgency/ghidra#9690"
+      ],
+      "selection_hash": "122c478e07a97e4101a37e16bf18062bf54385aae93e271c296203f888be47a8",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 7
+      }
+    },
+    {
+      "id": "netdata/netdata#23588",
+      "repo": "netdata/netdata",
+      "issue": 23584,
+      "base_commit": "524e761d1d5a26be2790166103a44059e1253f13",
+      "project_language": "go",
+      "text_sha256": "8c12a5db6cda09010d085a977a4dc269ca5a7c01c09b1907dce9642d8a1d209a",
+      "project_key": "netdata/netdata",
+      "wave": 1,
+      "related_pr_ids": [
+        "netdata/netdata#23588"
+      ],
+      "selection_hash": "5cce26d9243099e9fd0ede9ea13fbb8faa8449db10e8da1745ad5af023c2b0f3",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 5
+      }
+    },
+    {
+      "id": "nextlevelbuilder/ui-ux-pro-max-skill#501",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "issue": 496,
+      "base_commit": "15de38fb70bc80ae9276fa7703b48ae861a672e6",
+      "project_language": "python",
+      "text_sha256": "2ab42fe920f6e2b8c48bb0cc6fa37c82b39b75de3db105e0cd3a9988e8351724",
+      "project_key": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "wave": 1,
+      "related_pr_ids": [
+        "nextlevelbuilder/ui-ux-pro-max-skill#501"
+      ],
+      "selection_hash": "35e1adb2036d2c1ea8f4e57ea0f7eecd3f789e7dff264ba2f2e6b2c604d9e4af",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "NousResearch/hermes-agent#83044",
+      "repo": "NousResearch/hermes-agent",
+      "issue": 82920,
+      "base_commit": "7e1bfeab8899bb0603db422b7a1bb374a99335a4",
+      "project_language": "python",
+      "text_sha256": "5295cebc751a4d368b3a99ee98635e7dbf3b4d740b780a7381b553cafca7c7db",
+      "project_key": "nousresearch/hermes-agent",
+      "wave": 1,
+      "related_pr_ids": [
+        "NousResearch/hermes-agent#83044"
+      ],
+      "selection_hash": "18b94de284b3a7985f96b6de0d054dfa3de4b6ffb17aa9066ec15d6d7b152f87",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "openclaw/openclaw#117292",
+      "repo": "openclaw/openclaw",
+      "issue": 117291,
+      "base_commit": "b721cffa44618b7b556d06cceb9b1907e0382984",
+      "project_language": "typescript",
+      "text_sha256": "ed2309deee796064fe68dd7fb617ca7da88074cd5806aa797629d6bf93800fd2",
+      "project_key": "openclaw/openclaw",
+      "wave": 1,
+      "related_pr_ids": [
+        "openclaw/openclaw#117292"
+      ],
+      "selection_hash": "041e54a6219cd1819e7f3e04ab49fe10418dd13733a7aeb2661d4e7158d4f15a",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "oven-sh/bun#40608",
+      "repo": "oven-sh/bun",
+      "issue": 40606,
+      "base_commit": "e0ead955399c5be0707ed839b4b98454a4063a44",
+      "project_language": "rust",
+      "text_sha256": "2031369c9e68e3f760fd68ab3100bbf16ec5c0c1065892b515a0d01f73145bf4",
+      "project_key": "oven-sh/bun",
+      "wave": 1,
+      "related_pr_ids": [
+        "oven-sh/bun#40608"
+      ],
+      "selection_hash": "2c4666be0f358e10c555426133795b49cdf9d45d6ba6f336c1cc63175bb4d45e",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 9
+      }
+    },
+    {
+      "id": "pbakaus/impeccable#553",
+      "repo": "pbakaus/impeccable",
+      "issue": 547,
+      "base_commit": "3b96bd5090cd7dc7a8355edee7c53f094548ccce",
+      "project_language": "rust",
+      "text_sha256": "72f3ae63b4d2225a739f1f8f1cf62ffca7cea95d335dec51bc31c319c0055015",
+      "project_key": "pbakaus/impeccable",
+      "wave": 1,
+      "related_pr_ids": [
+        "pbakaus/impeccable#553"
+      ],
+      "selection_hash": "07ae189a389a32c4ebe43330bcef447ffbb8096f9208f49e0d42bb3a589134ce",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "rclone/rclone#10202",
+      "repo": "rclone/rclone",
+      "issue": 10200,
+      "base_commit": "a89766467ea3c1fab84f30da43b35f042af7a1c9",
+      "project_language": "go",
+      "text_sha256": "ac188a9fb6453900027c3456728ef57c936b6428c85d4d422c52277eaa6a8d68",
+      "project_key": "rclone/rclone",
+      "wave": 1,
+      "related_pr_ids": [
+        "rclone/rclone#10202"
+      ],
+      "selection_hash": "07a70f7a3b067494d42cde9ecdcd70ccaec9589f2fe0041266f01af951bc6a24",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "router-for-me/CLIProxyAPI#5596",
+      "repo": "router-for-me/CLIProxyAPI",
+      "issue": 5494,
+      "base_commit": "82f4f370df45f7a5a4be52f8101d4294f656ff02",
+      "project_language": "go",
+      "text_sha256": "33f7d37700887984b257d0fce23cb3db95beca6ba8d9c7c3985c26c781c0dd96",
+      "project_key": "router-for-me/cliproxyapi",
+      "wave": 1,
+      "related_pr_ids": [
+        "router-for-me/CLIProxyAPI#5596"
+      ],
+      "selection_hash": "0cd23e8c52f7351bf1307f4c5fa789fbef376c33708fc76f515523fb0671960b",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "rtk-ai/rtk#3728",
+      "repo": "rtk-ai/rtk",
+      "issue": 3727,
+      "base_commit": "0022842eb28bc254d734ca306e99fabc36b276bf",
+      "project_language": "rust",
+      "text_sha256": "c2474afd2d4c2261ffecb30bda421c4d72d5112d3610effdbc29961f30b8a356",
+      "project_key": "rtk-ai/rtk",
+      "wave": 1,
+      "related_pr_ids": [
+        "rtk-ai/rtk#3728"
+      ],
+      "selection_hash": "0a2178c08a2b4d56da398ca452f8b90a75fd6cdfcd65d9d9a6bc210e36839a9f",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "rust-lang/rust#160518",
+      "repo": "rust-lang/rust",
+      "issue": 160512,
+      "base_commit": "3c91a88cc87bbe3003dc3af7d9efc50e05053195",
+      "project_language": "rust",
+      "text_sha256": "b33c86ecd737ec72ce84b876651f9ad9c6f8d28bedcad2adff696e66a877d88f",
+      "project_key": "rust-lang/rust",
+      "wave": 1,
+      "related_pr_ids": [
+        "rust-lang/rust#160518"
+      ],
+      "selection_hash": "5586ba0942d43c66a5f1c91225aec5f42d169e547f43c71f9445e1111514d9aa",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 8
+      }
+    },
+    {
+      "id": "rustdesk/rustdesk#15924",
+      "repo": "rustdesk/rustdesk",
+      "issue": 15922,
+      "base_commit": "f1a06f67653029baa2a3959763ed52d7959c2bf6",
+      "project_language": "rust",
+      "text_sha256": "aac5fd6e7f014399aa72df007352b4920c0bc8428c88f32365272cd6ad007aa9",
+      "project_key": "rustdesk/rustdesk",
+      "wave": 1,
+      "related_pr_ids": [
+        "rustdesk/rustdesk#15924"
+      ],
+      "selection_hash": "75a58f6587aac5b0a37901e5b25d6daa7b77cc1fe2ba23e93fa469d47a05dba3",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "ruvnet/RuView#2108",
+      "repo": "ruvnet/RuView",
+      "issue": 2091,
+      "base_commit": "add075595842cc39c93602d9cd5535a2515c8439",
+      "project_language": "rust",
+      "text_sha256": "55515c7304a06c8cf0a73a74726d588110e3a1c5539ac449ce6ae0bb15c548cb",
+      "project_key": "ruvnet/ruview",
+      "wave": 1,
+      "related_pr_ids": [
+        "ruvnet/RuView#2108"
+      ],
+      "selection_hash": "450b42a55f5b4525af524a6566e0ab4ac858062bab971b290811850450bf13bf",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 6
+      }
+    },
+    {
+      "id": "Shubhamsaboo/awesome-llm-apps#1246",
+      "repo": "Shubhamsaboo/awesome-llm-apps",
+      "issue": 1245,
+      "base_commit": "346fef055d0945ee64ea26aacaabe195338c6c7c",
+      "project_language": "python",
+      "text_sha256": "aa56d7c79e169ef9ca30dd9d268713d6da8ca857b4f8f52af2843ecaf6295e86",
+      "project_key": "shubhamsaboo/awesome-llm-apps",
+      "wave": 1,
+      "related_pr_ids": [
+        "Shubhamsaboo/awesome-llm-apps#1246"
+      ],
+      "selection_hash": "2c2854d6eba69388609947921af6068c178c8f8f3bffe652a0114046b6b1735e",
+      "nominal_inclusion": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    {
+      "id": "spring-projects/spring-framework#37386",
+      "repo": "spring-projects/spring-framework",
+      "issue": 37385,
+      "base_commit": "429dd1932ba5c0e270400e76ae656fa86eef7d30",
+      "project_language": "java",
+      "text_sha256": "63b2e3003a72fd54d78961e2fc6ef711f8fd36c5d8d11f6a577c884739e530c9",
+      "project_key": "spring-projects/spring-framework",
+      "wave": 1,
+      "related_pr_ids": [
+        "spring-projects/spring-framework#37386"
+      ],
+      "selection_hash": "230579b301c7df5d8e571fa76ddbe3f3fdedf69d894dab123457167849d93b35",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "stablyai/orca#13981",
+      "repo": "stablyai/orca",
+      "issue": 13976,
+      "base_commit": "36dfcc3955e38dfe16d84f28aa4153ed05569b16",
+      "project_language": "typescript",
+      "text_sha256": "8271eec8327e0b09d04287cae7ef68519b9247d6b828c11ac7a00a6f1d18911c",
+      "project_key": "stablyai/orca",
+      "wave": 1,
+      "related_pr_ids": [
+        "stablyai/orca#13981"
+      ],
+      "selection_hash": "021fae3a8badc8f86aea24d2b41ef60d146b5954733e6254c5a325425fa0a877",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "tauri-apps/tauri#16326",
+      "repo": "tauri-apps/tauri",
+      "issue": 16319,
+      "base_commit": "4a6f512519286ff9862b2e86c67ef39f4562aee5",
+      "project_language": "rust",
+      "text_sha256": "5d714eb31a24c0ac69a88d839d1c56c4d83d90ad2ae00d8b8dc265507a9a6b10",
+      "project_key": "tauri-apps/tauri",
+      "wave": 1,
+      "related_pr_ids": [
+        "tauri-apps/tauri#16326"
+      ],
+      "selection_hash": "1840454ea47f77d6d43a213b669b72a3d098a14294f5d73098ff6b3ecd9db196",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "TheAlgorithms/Java#7633",
+      "repo": "TheAlgorithms/Java",
+      "issue": 7632,
+      "base_commit": "2fdcde75a497bdedcd5385bda224b4fb80ea3d15",
+      "project_language": "java",
+      "text_sha256": "4426996f0179922204bde4e55113e84246c885e3b29930fac9c87d91cd8f3288",
+      "project_key": "thealgorithms/java",
+      "wave": 1,
+      "related_pr_ids": [
+        "TheAlgorithms/Java#7633"
+      ],
+      "selection_hash": "9dce986ad01341f3577329fb06cbee5d61e1f7669e8e5f1c3cfa11480c87dbf8",
+      "nominal_inclusion": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    {
+      "id": "TheAlgorithms/Python#15492",
+      "repo": "TheAlgorithms/Python",
+      "issue": 15449,
+      "base_commit": "f465ad780670dffc467c5fd5363f9fecc9dd172c",
+      "project_language": "python",
+      "text_sha256": "591514e594b95f7b96fc01bc17ded170e45960e01d9e28230ef7394687d55b3f",
+      "project_key": "thealgorithms/python",
+      "wave": 1,
+      "related_pr_ids": [
+        "TheAlgorithms/Python#15492"
+      ],
+      "selection_hash": "4c1aca17d906a45e61160ff22587e86b32dd6c15d765bffbbbec61bf0d9719fb",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 2
+      }
+    },
+    {
+      "id": "usememos/memos#6491",
+      "repo": "usememos/memos",
+      "issue": 6489,
+      "base_commit": "334925a5f10c58e17b66dbc67fd4b27ed0d3fa8e",
+      "project_language": "go",
+      "text_sha256": "57a7a0c81103a609b5d905d6d9acf65fb701d128ef9111bd1ea7c108fe69d327",
+      "project_key": "usememos/memos",
+      "wave": 1,
+      "related_pr_ids": [
+        "usememos/memos#6491"
+      ],
+      "selection_hash": "0215490aee4e95bbf754935a945ab1c34944c7677b26bf7064beaafc9c765e19",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 9
+      }
+    },
+    {
+      "id": "vercel/next.js#98767",
+      "repo": "vercel/next.js",
+      "issue": 98543,
+      "base_commit": "b1c15da6c6b2a09ac02abf371a98b39b9d8482e9",
+      "project_language": "javascript",
+      "text_sha256": "7b729d6ce5e4a9ccca3ae6438ced6b4256903e29fdfc352e85328e28369131ca",
+      "project_key": "vercel/next.js",
+      "wave": 1,
+      "related_pr_ids": [
+        "vercel/next.js#98767"
+      ],
+      "selection_hash": "0560ef977ab52452360b42d2cf2382bee717d6abb996625cab92d486b51bf3cb",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 11
+      }
+    },
+    {
+      "id": "YunaiV/ruoyi-vue-pro#1211",
+      "repo": "YunaiV/ruoyi-vue-pro",
+      "issue": 1210,
+      "base_commit": "256280e8ba8ddf38bc732eade38aaf1d7111fe34",
+      "project_language": "java",
+      "text_sha256": "23a9103808ea6f29183df7d63109446c16bfeb27b36b2c2923bb0bd1f623b873",
+      "project_key": "yunaiv/ruoyi-vue-pro",
+      "wave": 1,
+      "related_pr_ids": [
+        "YunaiV/ruoyi-vue-pro#1211"
+      ],
+      "selection_hash": "16a7415d888f611bb735dfa3602180ef1d246fdd23e10d8f58434e87f271894e",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "affaan-m/ECC#3590",
+      "repo": "affaan-m/ECC",
+      "issue": 3546,
+      "base_commit": "e3292b00102412fad4f1f85b570c1affdbf04af6",
+      "project_language": "javascript",
+      "text_sha256": "b07a3ae99781188edfa2b66aa43eb2a927ab6a18fbd7d838b8504f40ee342542",
+      "project_key": "affaan-m/ecc",
+      "wave": 2,
+      "related_pr_ids": [
+        "affaan-m/ECC#3590"
+      ],
+      "selection_hash": "325b1d20b06e1c0394281e41657d3457f9eb973e07bdb5d4ed994029b8826a1d",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "AlistGo/alist#9636",
+      "repo": "AlistGo/alist",
+      "issue": 9606,
+      "base_commit": "cb3a98a6f0aa5f01540073c1b7437f854f3e14e6",
+      "project_language": "go",
+      "text_sha256": "bfdb02814aa0c1d6aa9bb179755ce3a2595a02e1aca9f09dfe41eb594a5b29dd",
+      "project_key": "alistgo/alist",
+      "wave": 2,
+      "related_pr_ids": [
+        "AlistGo/alist#9636"
+      ],
+      "selection_hash": "be4146d95581b1002e6ff555de1d46a886dae87b7acf9c52535c99afaca5c2c5",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "career-ops-hq/career-ops#2864",
+      "repo": "career-ops-hq/career-ops",
+      "issue": 2630,
+      "base_commit": "3bc0053368f202bb22c83e9422f6b533a5fa9b1d",
+      "project_language": "javascript",
+      "text_sha256": "81b44d5f93163e0c27df5e363f6a37389b1108e5a03ffcc0b4d552fbe3a68043",
+      "project_key": "career-ops-hq/career-ops",
+      "wave": 2,
+      "related_pr_ids": [
+        "career-ops-hq/career-ops#2864"
+      ],
+      "selection_hash": "0c0676fd7e6199491e56381cc4261ac117b9f5f16a4e9164180868d7d2921655",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "clash-verge-rev/clash-verge-rev#8411",
+      "repo": "clash-verge-rev/clash-verge-rev",
+      "issue": 8409,
+      "base_commit": "eefd025806f255b85e7bc28158c30fdad477935d",
+      "project_language": "rust",
+      "text_sha256": "4dab393fdf399874a43847861b2d609ed96c4de79fc3f3088ce20c312c87a5b6",
+      "project_key": "clash-verge-rev/clash-verge-rev",
+      "wave": 2,
+      "related_pr_ids": [
+        "clash-verge-rev/clash-verge-rev#8411"
+      ],
+      "selection_hash": "5a7b28e13a6f9f15a283769d9135e3402138545e49c13180ebe48e2cb980dcce",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 7
+      }
+    },
+    {
+      "id": "dani-garcia/vaultwarden#7827",
+      "repo": "dani-garcia/vaultwarden",
+      "issue": 7568,
+      "base_commit": "acbf49018f616e52e9310789cf861f6e3923c8be",
+      "project_language": "rust",
+      "text_sha256": "706daee8e5f76a40db1373e84c2b819975dd4a1b98cdb67f9b26f136dfbe2d70",
+      "project_key": "dani-garcia/vaultwarden",
+      "wave": 2,
+      "related_pr_ids": [
+        "dani-garcia/vaultwarden#7827"
+      ],
+      "selection_hash": "37acbc7e2dd4e8e1cf588be9a6e24cee241d28717782d0c3194ba5ef9910b310",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 6
+      }
+    },
+    {
+      "id": "denoland/deno#36574",
+      "repo": "denoland/deno",
+      "issue": 36418,
+      "base_commit": "851406c4fb913cf324076288763584b7b49b1cdf",
+      "project_language": "rust",
+      "text_sha256": "a85ef09a882b6042448c5240eda3cb4d083d5505bb833a495972d990905b2a0a",
+      "project_key": "denoland/deno",
+      "wave": 2,
+      "related_pr_ids": [
+        "denoland/deno#36574"
+      ],
+      "selection_hash": "3310519b393f64589fff941027509c4e6f9df4d4c32a7f3453951248007a5c4f",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 8
+      }
+    },
+    {
+      "id": "DietrichGebert/ponytail#1059",
+      "repo": "DietrichGebert/ponytail",
+      "issue": 1058,
+      "base_commit": "d65a612f36cb672b43ed245337b6245688ec96c2",
+      "project_language": "javascript",
+      "text_sha256": "009e2869e895c59f276253c5690b6e2b33a9830a30f0641030af32335a15935a",
+      "project_key": "dietrichgebert/ponytail",
+      "wave": 2,
+      "related_pr_ids": [
+        "DietrichGebert/ponytail#1059"
+      ],
+      "selection_hash": "3aa80303e25115b39cc9059a1658cbe7d7ba3f711011b22365a776921469f50c",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 5
+      }
+    },
+    {
+      "id": "earendil-works/pi#10680",
+      "repo": "earendil-works/pi",
+      "issue": 10633,
+      "base_commit": "ce950d78f424dcaf9f5d6a03ce80ab141130eb1d",
+      "project_language": "typescript",
+      "text_sha256": "6474a935bb624e2aec5de29154039da075999f65dd922a94bc56d002797140c3",
+      "project_key": "earendil-works/pi",
+      "wave": 2,
+      "related_pr_ids": [
+        "earendil-works/pi#10680"
+      ],
+      "selection_hash": "243857c9a5fa7ed10cbab18923e4c32832995a739acbbe5a7911afbfebca4274",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "elastic/elasticsearch#156162",
+      "repo": "elastic/elasticsearch",
+      "issue": 155979,
+      "base_commit": "75b7472dbc708851e614f1c550649e30dbcfcff9",
+      "project_language": "java",
+      "text_sha256": "51b7706001f1f86af49a1ea4669876ca3270564738f489a2c8266ebf3fba8f61",
+      "project_key": "elastic/elasticsearch",
+      "wave": 2,
+      "related_pr_ids": [
+        "elastic/elasticsearch#156162"
+      ],
+      "selection_hash": "17488d2ed60964901d572e56bf7ee276f603b64a57e5ee69337a891bf257b71d",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "ethereum/go-ethereum#35672",
+      "repo": "ethereum/go-ethereum",
+      "issue": 35671,
+      "base_commit": "94a0b9917fc4822867c33e15da8ef650849492fb",
+      "project_language": "go",
+      "text_sha256": "cec35e0a088395059bf6d0dd4bd890454830c287f86e7ba1c29694476a01c407",
+      "project_key": "ethereum/go-ethereum",
+      "wave": 2,
+      "related_pr_ids": [
+        "ethereum/go-ethereum#35672"
+      ],
+      "selection_hash": "2ba08b3ae17778f469815128761e63d710530ed94ca9c8eef329e7125f881a70",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 8
+      }
+    },
+    {
+      "id": "farion1231/cc-switch#8281",
+      "repo": "farion1231/cc-switch",
+      "issue": 8126,
+      "base_commit": "c1051f8e4eb3d96c35c1e073bccac2c94da10c95",
+      "project_language": "rust",
+      "text_sha256": "1de2b2cdaf2c19933523d5b522e0ca59629c00b127871fd858b000e76ef6e0b5",
+      "project_key": "farion1231/cc-switch",
+      "wave": 2,
+      "related_pr_ids": [
+        "farion1231/cc-switch#8281"
+      ],
+      "selection_hash": "28d5b6467e43ccec8a1a52c210b6efb093f9f8946f3b494a237bb1b8aaa15383",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "freeCodeCamp/freeCodeCamp#69263",
+      "repo": "freeCodeCamp/freeCodeCamp",
+      "issue": 69262,
+      "base_commit": "7f796364b30fbedefdd957d2148318180c7f4737",
+      "project_language": "typescript",
+      "text_sha256": "6be771bc04bfac4b2f720125b1121c3d731fd7ac80548c5e63651aa804f477fc",
+      "project_key": "freecodecamp/freecodecamp",
+      "wave": 2,
+      "related_pr_ids": [
+        "freeCodeCamp/freeCodeCamp#69263"
+      ],
+      "selection_hash": "68afb9ef73f71e4005866840939339f244129f08018a05d75dbb49694b63d58c",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "garrytan/gstack#3142",
+      "repo": "garrytan/gstack",
+      "issue": 3110,
+      "base_commit": "e6edff026519da3e06dce1e91d83932c43527a8d",
+      "project_language": "typescript",
+      "text_sha256": "840149cdb3d34cecc9cb6597d27271f20aa3fb78e3b0d0541927cb9cc5e7c583",
+      "project_key": "garrytan/gstack",
+      "wave": 2,
+      "related_pr_ids": [
+        "garrytan/gstack#3142"
+      ],
+      "selection_hash": "6ce3fbaba827f6d29e36af3f5a29a58d50dec13e4d412cc8fdc828c0a8d1c2a8",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 6
+      }
+    },
+    {
+      "id": "github/spec-kit#4045",
+      "repo": "github/spec-kit",
+      "issue": 4044,
+      "base_commit": "85d3ed289df560bc19270da34b3df600f0c9099d",
+      "project_language": "python",
+      "text_sha256": "942d54d2f1e70488f473cec9af8575061640eaf8de8dee48ca805bd5acc9a338",
+      "project_key": "github/spec-kit",
+      "wave": 2,
+      "related_pr_ids": [
+        "github/spec-kit#4045"
+      ],
+      "selection_hash": "52c2a0056c86b55f645744c35b9ac9b29c9cbdee32f313eaf20eb738e65072eb",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "halo-dev/halo#10289",
+      "repo": "halo-dev/halo",
+      "issue": 10281,
+      "base_commit": "b754b542d5593acd5a6aa76c83a08da2d958630a",
+      "project_language": "java",
+      "text_sha256": "a7247e832065490a3b26a6ff128f362fbf369ca936b15ff14528103db0a0b330",
+      "project_key": "halo-dev/halo",
+      "wave": 2,
+      "related_pr_ids": [
+        "halo-dev/halo#10289"
+      ],
+      "selection_hash": "10efdae4842f25da775a2e5cdb17fe9bb98e8fdd16326c49e04b6a8694683af2",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 9
+      }
+    },
+    {
+      "id": "infiniflow/ragflow#18168",
+      "repo": "infiniflow/ragflow",
+      "issue": 18157,
+      "base_commit": "7646afab1ba476395ae8d5d247ede1f6470717fc",
+      "project_language": "go",
+      "text_sha256": "726ca4b67b32436105840a371d587f1027120b8377d096f7fcaf80b705b5dabc",
+      "project_key": "infiniflow/ragflow",
+      "wave": 2,
+      "related_pr_ids": [
+        "infiniflow/ragflow#18168"
+      ],
+      "selection_hash": "1426f63caf7ddf7cff6b422bd749420f0a2bee6f1ad21ef45e78b50d32be4e04",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "kubernetes/kubernetes#141276",
+      "repo": "kubernetes/kubernetes",
+      "issue": 141274,
+      "base_commit": "13f9a12cdb4fba8269e8c214e20d4143073a83d1",
+      "project_language": "go",
+      "text_sha256": "0b739bf98b4c0aa2773ca66bc971cb1d44df2a7aaecfaeef1a0bb87a0e425a08",
+      "project_key": "kubernetes/kubernetes",
+      "wave": 2,
+      "related_pr_ids": [
+        "kubernetes/kubernetes#141276"
+      ],
+      "selection_hash": "1c66d9a52e082875864ceeff0a9452c27bf88928adfe72f937138473cd3972fe",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "langchain-ai/langchain#40864",
+      "repo": "langchain-ai/langchain",
+      "issue": 40853,
+      "base_commit": "80b74090515a594cc8421fb2d82e98f4e256c29f",
+      "project_language": "python",
+      "text_sha256": "2b200cc4dc29b037097c830e0bd3db0b22c95b7cc5d18933e461de7f40fa2a7f",
+      "project_key": "langchain-ai/langchain",
+      "wave": 2,
+      "related_pr_ids": [
+        "langchain-ai/langchain#40864"
+      ],
+      "selection_hash": "1187ccdde2e78091f93d87d8d01e18fa9bcd1febb54bd2f2540b60f2d51b0026",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 11
+      }
+    },
+    {
+      "id": "langflow-ai/langflow#15372",
+      "repo": "langflow-ai/langflow",
+      "issue": 15252,
+      "base_commit": "7cea329499d0ec1bfdfb7927d1987e49e25428c0",
+      "project_language": "python",
+      "text_sha256": "5ebffb89ef918096c4213818cdf01f085d84560e022b47d50d1e9b531df97075",
+      "project_key": "langflow-ai/langflow",
+      "wave": 2,
+      "related_pr_ids": [
+        "langflow-ai/langflow#15372"
+      ],
+      "selection_hash": "2ff9656039fee6f284c6f1631bc16b28ca3b8f092e559e8e886cf8c63b2658aa",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "langgenius/dify#40443",
+      "repo": "langgenius/dify",
+      "issue": 40389,
+      "base_commit": "5018f8aa8a7fe56d47aac3a29fe6080cd2a9610c",
+      "project_language": "python",
+      "text_sha256": "b05b54f6f26178cabc74869c1acad61dfbde3ee09491217ec73558c1748d90f2",
+      "project_key": "langgenius/dify",
+      "wave": 2,
+      "related_pr_ids": [
+        "langgenius/dify#40443"
+      ],
+      "selection_hash": "23cf05e1cb7182f6bb78f93d69941a7b52c0a7b00bab782de0fa22fa89dd9ef1",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "Mintplex-Labs/anything-llm#6879",
+      "repo": "Mintplex-Labs/anything-llm",
+      "issue": 6878,
+      "base_commit": "c67eafed8c39992a27fb804726c3055a548c9c49",
+      "project_language": "javascript",
+      "text_sha256": "2903db61242ee8e5ce781674b83d48cbd31f08f5bc019615655da5a22103a510",
+      "project_key": "mintplex-labs/anything-llm",
+      "wave": 2,
+      "related_pr_ids": [
+        "Mintplex-Labs/anything-llm#6879"
+      ],
+      "selection_hash": "11081340f0864b88159830fb77d8d57cc400fe77d2cc48baec3c44355ba1621c",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "moby/moby#53934",
+      "repo": "moby/moby",
+      "issue": 53917,
+      "base_commit": "cdfbf7d3199d400441298ca155f823f195edd4a8",
+      "project_language": "go",
+      "text_sha256": "06a0cd380e7e6dec98091583c9e85e8fdb96f3b2517b6d2837d4703903c3eed8",
+      "project_key": "moby/moby",
+      "wave": 2,
+      "related_pr_ids": [
+        "moby/moby#53934"
+      ],
+      "selection_hash": "1b727fe2e227ed0b6949c134f6973442ff830814b2c8d6a15bc0ef1f113b24b0",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "morluto/rea#585",
+      "repo": "morluto/rea",
+      "issue": 551,
+      "base_commit": "205a9777776476b4f361e38f25d1c75baaccd420",
+      "project_language": "typescript",
+      "text_sha256": "664d0531f431f7ff9615ad46486cb9efd7bdf841d30701712958fc8dae7b7747",
+      "project_key": "morluto/rea",
+      "wave": 2,
+      "related_pr_ids": [
+        "morluto/rea#585"
+      ],
+      "selection_hash": "0be2678e9c39f10ced854a3a73f628d24250959bd61b04a69c07c0797eb17361",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "multica-ai/multica#7323",
+      "repo": "multica-ai/multica",
+      "issue": 7289,
+      "base_commit": "fbb4ec59da35df249f63690e5c37ce3e592be683",
+      "project_language": "go",
+      "text_sha256": "8a7edad48df08b142d989dcc5e4bae9b337cab900b1ba553cbdd5148d3d1a861",
+      "project_key": "multica-ai/multica",
+      "wave": 2,
+      "related_pr_ids": [
+        "multica-ai/multica#7323"
+      ],
+      "selection_hash": "550cb0564c1d5d94858f43e9b73b5b3fc15db4bdba35a079bf56d8f9613034ae",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "n8n-io/n8n#36082",
+      "repo": "n8n-io/n8n",
+      "issue": 35917,
+      "base_commit": "42adcc0e7b0dd93f962aa8e85c0bf3fee3fe2106",
+      "project_language": "typescript",
+      "text_sha256": "6d2b79e45ba0ee1cde434a36fadb478a77abe7c9dd7107a8c974bfc912564d9a",
+      "project_key": "n8n-io/n8n",
+      "wave": 2,
+      "related_pr_ids": [
+        "n8n-io/n8n#36082"
+      ],
+      "selection_hash": "b0de850cd7c1630998c643a59f60191fc8db9c3b7295d521e2e180fc96e3d616",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "NationalSecurityAgency/ghidra#9676",
+      "repo": "NationalSecurityAgency/ghidra",
+      "issue": 9650,
+      "base_commit": "e54510eb317a72556e4e5e44011df8e99b7db17b",
+      "project_language": "java",
+      "text_sha256": "7a5ff65b1368191358a4aab8f8d77ea7b0604c82cc09d5942bf4c7183767c671",
+      "project_key": "nationalsecurityagency/ghidra",
+      "wave": 2,
+      "related_pr_ids": [
+        "NationalSecurityAgency/ghidra#9676"
+      ],
+      "selection_hash": "13b801b6280a7d7115cba54aa0411753e93a65d7c5417d4e2318d2446dff0aec",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 7
+      }
+    },
+    {
+      "id": "netdata/netdata#24448",
+      "repo": "netdata/netdata",
+      "issue": 24447,
+      "base_commit": "29ab6180cce15e546194d8af306e0bd10beb6160",
+      "project_language": "go",
+      "text_sha256": "9b9c824fab8bc04ce29eb4af2eccb9a214ef997e30259f054235ea509b59c8c7",
+      "project_key": "netdata/netdata",
+      "wave": 2,
+      "related_pr_ids": [
+        "netdata/netdata#24448"
+      ],
+      "selection_hash": "693f93ef0852165b6c7b6c50cc5c67a9ca5712d9cdb5836615a0f98408a6491f",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 5
+      }
+    },
+    {
+      "id": "nextlevelbuilder/ui-ux-pro-max-skill#533",
+      "repo": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "issue": 454,
+      "base_commit": "616663179c5f9b5e2b3e07cab23ac9cad76378f3",
+      "project_language": "python",
+      "text_sha256": "aaddcff40c8264d8f3ada33c878e3a05c420a7222809f99e093f1afaeb79c12c",
+      "project_key": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "wave": 2,
+      "related_pr_ids": [
+        "nextlevelbuilder/ui-ux-pro-max-skill#533"
+      ],
+      "selection_hash": "788e54111cfbd4e6ce0af47f091f2e6e41692f9128c169d5fba7ce1558291b1e",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "NousResearch/hermes-agent#81946",
+      "repo": "NousResearch/hermes-agent",
+      "issue": 81791,
+      "base_commit": "91a545ab1e09a266aead11da62665ab7230d9840",
+      "project_language": "python",
+      "text_sha256": "c788d7f2a19d6bf678d438ad3b4fc5659e4ee403c9fc0cea6ea54a87014811ad",
+      "project_key": "nousresearch/hermes-agent",
+      "wave": 2,
+      "related_pr_ids": [
+        "NousResearch/hermes-agent#81946"
+      ],
+      "selection_hash": "24946580f1445dbc26665d0bb55b7037e57dd45732e274a553f767498cdad536",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "openclaw/openclaw#117737",
+      "repo": "openclaw/openclaw",
+      "issue": 117736,
+      "base_commit": "b8cd96fba799ff044577b4f4f5e1b67c34100d66",
+      "project_language": "typescript",
+      "text_sha256": "66d8769dead6ea2b982ef695532289603ece981653ea46f50fddc7c12645c474",
+      "project_key": "openclaw/openclaw",
+      "wave": 2,
+      "related_pr_ids": [
+        "openclaw/openclaw#117737"
+      ],
+      "selection_hash": "0721198f9546c30d124cd6b87d14d5a2d4e7482161d9b0861a8b1118c45ea365",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "oven-sh/bun#40112",
+      "repo": "oven-sh/bun",
+      "issue": 40111,
+      "base_commit": "bf6f8a96f8a557c93bc56c291a4da65a9eb66d44",
+      "project_language": "rust",
+      "text_sha256": "b5f70447e1c07fa890096a63a55f2f3e4e790c9ba06d5a94933bf45f77826c35",
+      "project_key": "oven-sh/bun",
+      "wave": 2,
+      "related_pr_ids": [
+        "oven-sh/bun#40112"
+      ],
+      "selection_hash": "4fa66ca77e1e3d274889e5564dbcdeeed5b6ed21ca25b9baede2df4121df4b01",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 9
+      }
+    },
+    {
+      "id": "pbakaus/impeccable#594",
+      "repo": "pbakaus/impeccable",
+      "issue": 570,
+      "base_commit": "1159100c96e1fe4e38f26142983dd360f1869049",
+      "project_language": "rust",
+      "text_sha256": "b09dc3c50617ad0e03cbe04cd7a26ff84b6419148784fb41d35443dc08f8d569",
+      "project_key": "pbakaus/impeccable",
+      "wave": 2,
+      "related_pr_ids": [
+        "pbakaus/impeccable#594"
+      ],
+      "selection_hash": "2750fdd1b0363b0779e3e2457ae802a1c8fd700ac00a8bb83f393adbc4fc8303",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "rclone/rclone#10166",
+      "repo": "rclone/rclone",
+      "issue": 10165,
+      "base_commit": "ea465cbb97d97a2257ff70ddcd54fb7230a9f950",
+      "project_language": "go",
+      "text_sha256": "9409d47bdda0441b8f32d85012574f948854e3361bbbb72fbd28232ac073d706",
+      "project_key": "rclone/rclone",
+      "wave": 2,
+      "related_pr_ids": [
+        "rclone/rclone#10166"
+      ],
+      "selection_hash": "183defdc436dc3ffbd4ca66bd66ca7e79065873fe0b18fb84c9bc89dabf0c07d",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "router-for-me/CLIProxyAPI#5048",
+      "repo": "router-for-me/CLIProxyAPI",
+      "issue": 4959,
+      "base_commit": "55397bf68d01a99dc8fd523fe56719857afd579c",
+      "project_language": "go",
+      "text_sha256": "f40041e6a7d34d2194dfaf6957fec34c564f0a04e4deac3dde2d31215250ff81",
+      "project_key": "router-for-me/cliproxyapi",
+      "wave": 2,
+      "related_pr_ids": [
+        "router-for-me/CLIProxyAPI#5048"
+      ],
+      "selection_hash": "1f360ab3fe7a9ee9c01c450b4bab65f84e911219d79bbc00b0da15383fe3d5ae",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "rtk-ai/rtk#4356",
+      "repo": "rtk-ai/rtk",
+      "issue": 4355,
+      "base_commit": "a4cddfc5ce6e6412c66e9729c4200792d822a964",
+      "project_language": "rust",
+      "text_sha256": "41d5c989838f083342a603b09001ec21ecea26962ebbbc06d38e018e62f04bab",
+      "project_key": "rtk-ai/rtk",
+      "wave": 2,
+      "related_pr_ids": [
+        "rtk-ai/rtk#4356"
+      ],
+      "selection_hash": "22682b52622dff1ecfa4e84cbf45c847b6f0c43155f442cedf136f114c2f89ba",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "rust-lang/rust#161467",
+      "repo": "rust-lang/rust",
+      "issue": 161365,
+      "base_commit": "2a07cd54bfa31f3d7ff50bdde2e886d8eed65511",
+      "project_language": "rust",
+      "text_sha256": "fdec6f201141609229dbe1e65c0625bd3f6255593ec2b3f48315253664b23b78",
+      "project_key": "rust-lang/rust",
+      "wave": 2,
+      "related_pr_ids": [
+        "rust-lang/rust#161467"
+      ],
+      "selection_hash": "5ce42a4290b7645f1ac3282708add1e187ad1a60bbceadbae39cb134cae62908",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 8
+      }
+    },
+    {
+      "id": "rustdesk/rustdesk#16519",
+      "repo": "rustdesk/rustdesk",
+      "issue": 16506,
+      "base_commit": "67090d3aa14cec95af702aa01e1f3800c0c8e13c",
+      "project_language": "rust",
+      "text_sha256": "a5d66f48569425994e9be297a93c08f03d6d69b02500d1916f48277083e1ac8e",
+      "project_key": "rustdesk/rustdesk",
+      "wave": 2,
+      "related_pr_ids": [
+        "rustdesk/rustdesk#16519"
+      ],
+      "selection_hash": "b67cbfeabfaf95ca030476b6dd5305aea23c4f842e02f943acc2e163bd082dca",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "ruvnet/RuView#2101",
+      "repo": "ruvnet/RuView",
+      "issue": 1703,
+      "base_commit": "e223d86ba27c8ea4e699b8ad1897c57b98c1d1e3",
+      "project_language": "rust",
+      "text_sha256": "48c4599a25fa58278b52b9082867d83560deef7e6aac01c2ceaeaf48e5b20726",
+      "project_key": "ruvnet/ruview",
+      "wave": 2,
+      "related_pr_ids": [
+        "ruvnet/RuView#2101"
+      ],
+      "selection_hash": "5c386533a749ca562d4572c6440b724be456c0d6d855413d7c88fce0c56c4e3f",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 6
+      }
+    },
+    {
+      "id": "spring-projects/spring-framework#37202",
+      "repo": "spring-projects/spring-framework",
+      "issue": 37200,
+      "base_commit": "8f4fcb6cbc3b85ba0cdaae7fc2b1c552f7ef9715",
+      "project_language": "java",
+      "text_sha256": "2c79352c068755b233ca68e307a36bda4527c5514e4dc57f52b75fc58dbaceaf",
+      "project_key": "spring-projects/spring-framework",
+      "wave": 2,
+      "related_pr_ids": [
+        "spring-projects/spring-framework#37202"
+      ],
+      "selection_hash": "8707da99b70ffe5731570937f697a3883614532cfbf1c626aca11b332a154f1a",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 3
+      }
+    },
+    {
+      "id": "stablyai/orca#14462",
+      "repo": "stablyai/orca",
+      "issue": 14460,
+      "base_commit": "3035aa92110cdcc383ac197661ca3bd70cbbaba6",
+      "project_language": "typescript",
+      "text_sha256": "5cfc1b3d1dbd8df38c7b80ebbd8f7109e8d8534be96aa2c81ea332a566ff9181",
+      "project_key": "stablyai/orca",
+      "wave": 2,
+      "related_pr_ids": [
+        "stablyai/orca#14462"
+      ],
+      "selection_hash": "16b9a312180474380d0725f2f031532acac6f6f1c0f2755f3000701d1a9194f5",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    },
+    {
+      "id": "tauri-apps/tauri#16195",
+      "repo": "tauri-apps/tauri",
+      "issue": 16194,
+      "base_commit": "7c87f907ebca5e46f59c99ed1d30381d6e5bda5d",
+      "project_language": "rust",
+      "text_sha256": "864b5ee152d496a591002f10cce55ef6310ff5d6bdfbdf0e1b622acdb5a251e7",
+      "project_key": "tauri-apps/tauri",
+      "wave": 2,
+      "related_pr_ids": [
+        "tauri-apps/tauri#16195"
+      ],
+      "selection_hash": "3649a7bbdea22c7394714c4853cc9c5b41b00c5c5aa12ee7c1233ea7df91bc89",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 4
+      }
+    },
+    {
+      "id": "TheAlgorithms/Python#15356",
+      "repo": "TheAlgorithms/Python",
+      "issue": 15337,
+      "base_commit": "17d96feaa38dbfbc9feb1afc6f8a524b028fb489",
+      "project_language": "python",
+      "text_sha256": "cc98664c0b261027899b5ed9c0d0f5c76a5578626e7c97309d4274b6a53e1e0e",
+      "project_key": "thealgorithms/python",
+      "wave": 2,
+      "related_pr_ids": [
+        "TheAlgorithms/Python#15356"
+      ],
+      "selection_hash": "fe478a9a3209fd9cb6522af0888ffd297798599cd14fa07b9a866dbc16bf76d9",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 2
+      }
+    },
+    {
+      "id": "usememos/memos#6324",
+      "repo": "usememos/memos",
+      "issue": 6316,
+      "base_commit": "49b7ecc5834112e4732c864d753cdec9bdc5696c",
+      "project_language": "go",
+      "text_sha256": "3009bd12915fa67711dd1d6dcd72a8817f9570b39fc3cdfa3365e34d20303614",
+      "project_key": "usememos/memos",
+      "wave": 2,
+      "related_pr_ids": [
+        "usememos/memos#6324"
+      ],
+      "selection_hash": "1382f5a31f6c2a5729d9227d3c94fc978fb7648a252724339b2985bf892e7ba1",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 9
+      }
+    },
+    {
+      "id": "vercel/next.js#98997",
+      "repo": "vercel/next.js",
+      "issue": 98958,
+      "base_commit": "851b6cb093a75d69175df45ce34389b7ac01ee44",
+      "project_language": "javascript",
+      "text_sha256": "714a824f501672529f944051d8bccc8c69cdd14c521cd52749a5450bd0c5526f",
+      "project_key": "vercel/next.js",
+      "wave": 2,
+      "related_pr_ids": [
+        "vercel/next.js#98997"
+      ],
+      "selection_hash": "0ee4397fedc5713a4b599903cee5f6c5d5da2ca5486f46437e938553fca382db",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 11
+      }
+    },
+    {
+      "id": "YunaiV/ruoyi-vue-pro#1258",
+      "repo": "YunaiV/ruoyi-vue-pro",
+      "issue": 1257,
+      "base_commit": "3dcbf38249ced4dffd13b7c4fa787a3a6b45ddc6",
+      "project_language": "java",
+      "text_sha256": "8725f81a0cd33249d5ba2660ca27267bc6615bc3e056767710b03f3406cf1ee5",
+      "project_key": "yunaiv/ruoyi-vue-pro",
+      "wave": 2,
+      "related_pr_ids": [
+        "YunaiV/ruoyi-vue-pro#1258"
+      ],
+      "selection_hash": "251895658a83bcbe3033c755e307579cf6fb50cedb5dfc3c3b9f5b855945492d",
+      "nominal_inclusion": {
+        "numerator": 2,
+        "denominator": 12
+      }
+    }
+  ],
+  "counts": {
+    "input_rows": 580,
+    "eligible_projects": 50,
+    "eligible_issues": 401,
+    "eligible_pr_rows": 401,
+    "selected_issues": 95,
+    "waves": {
+      "1": 50,
+      "2": 45
+    },
+    "selected_by_language": {
+      "go": 21,
+      "java": 12,
+      "javascript": 11,
+      "python": 15,
+      "rust": 22,
+      "typescript": 14
+    }
+  },
+  "provenance": {
+    "dataset_sha256": "ee111883a714b7cab37f8fdb81fad95c0fcb03d803f5f41196be98737771e994",
+    "development_plan_sha256": "b2f57dba9d2978c97baa4511adef06b349a3c67a2a8e4e9b860fac33cb7a000f",
+    "sampler_sha256": "4726f0e4109cc0632f65d2081a03f14e5dd1873d392bc5245f7469083336836e",
+    "packet_helper_sha256": "17dbd375f12556f9696a6fd6ec825987b499ca2f9d3c836bcad7a2fd18504b0b",
+    "rubric_sha256": "1c827ae24a2553b5dfb277b8413839f0756128d6f64469be8dacc18d46b36bc1"
+  }
+}

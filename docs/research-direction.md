@@ -260,3 +260,10 @@ and an upstream dependency fix distinguish reference recovery from causal locali
 Tangled-fix labels already have substantial prior work, so this is measurement repair,
 not novelty by itself. Prepare independent adjudication and broader outcome-independent
 sampling before choosing a new claim; retain the simple baseline and defer router fitting.
+
+The [broader audit sample is now frozen](research-broader-audit-preparation-2026-11-15.md):
+95 issues across all 50 eligible projects outside the original development projects.
+Selection uses only metadata and a fixed hash order; the reviewer packet contains
+original reports and blank sheets. This is a broader measurement audit of exposed data,
+not a fresh confirmation set. Independent initial reviews and adjudication remain open;
+no prevalence estimate or differentiated research claim follows from preparing the sample.

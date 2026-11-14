@@ -16,6 +16,11 @@ complete for all 23 fit cases. Missing source blobs were verified in local tempo
 storage; no cluster job or model download was needed. Independent review is the next
 measurement requirement, and its packet is prepared locally.
 
+The [broader audit packet](../../docs/research-broader-audit-preparation-2026-11-15.md)
+also is prepared: 95 issues across 50 projects outside the original development projects,
+selected without model outcomes. Reviewing these reports needs no cluster allocation.
+There are no completed independent reviews or new performance results at this stage.
+
 ## Confirmed hardware and account (2026-11-13)
 
 The author's job 7009034 successfully allocated one `gpu:l40s:1` on `coc-gpu`

@@ -3,12 +3,18 @@
 Updated 2026-11-15. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
-Latest checkpoint: [the provisional task audit is complete](research-task-audit-results-2026-11-15.md).
+Latest checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
+The fixed sample contains 95 issues across 50 projects, excluding all 24 original
+development projects. Two review waves (50 and 45 cases) were selected without using
+gold labels or model outcomes. No new cases are annotated, no independent review is
+complete, and these exposed data are not prospective confirmation. No PACE job is required.
+
+Previous checkpoint: [the provisional task audit is complete](research-task-audit-results-2026-11-15.md).
 All 71 file diffs are available; 23 case-alignment judgments and 52 target-role judgments
 are frozen. Three targets are provisionally incidental, but none of the six local
 conditions earns a hit solely through them. Original base CE50 remains 18/23. The full
-suite passes 277 tests. Independent-review material is prepared; independent adjudication
-and broader outcome-independent sampling remain open. No new GPU job is required.
+suite passed 277 tests at that checkpoint. Independent-review material is prepared;
+independent adjudication remains open. Broader sampling is now frozen as linked above.
 
 Previous step: [the fit-only coverage probe is complete](research-coverage-probe-2026-11-15.md).
 All 23 issues pass source reconstruction and exact lexical-feature parity checks.
