@@ -251,3 +251,12 @@ the reference targets, alongside new implementation outside the base-symbol univ
 This motivates completing the adequacy audit before interpreting target coverage as
 useful evidence. One example and an exposed single-analyst review cannot establish a
 new evaluation contribution or justify changing gold labels.
+
+The [completed provisional alignment audit](research-task-audit-results-2026-11-15.md)
+adds verified evidence for every fit patch and all 52 target roles. Three targets are
+incidental under the analyst rubric, but zero local-condition hits depend solely on
+them; original scores stand. A partial-subtask patch, newly introduced implementations,
+and an upstream dependency fix distinguish reference recovery from causal localization.
+Tangled-fix labels already have substantial prior work, so this is measurement repair,
+not novelty by itself. Prepare independent adjudication and broader outcome-independent
+sampling before choosing a new claim; retain the simple baseline and defer router fitting.

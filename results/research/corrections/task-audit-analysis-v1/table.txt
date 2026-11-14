@@ -1,0 +1,10 @@
+Provisional task audit; original strict hit@10 counts, no relabeling.
+stratum | n | base_local | wide_local | base_ce50 | base_ce200 | wide_ce50 | wide_ce200
+all | 23 | 18 | 17 | 18 | 17 | 18 | 18
+task_kind/bug | 19 | 16 | 15 | 16 | 15 | 16 | 16
+task_kind/feature | 3 | 1 | 1 | 1 | 1 | 1 | 1
+task_kind/maintenance | 1 | 1 | 1 | 1 | 1 | 1 | 1
+alignment/broader_than_report | 3 | 3 | 3 | 3 | 3 | 3 | 3
+alignment/direct | 18 | 14 | 13 | 14 | 13 | 14 | 14
+alignment/partial_subtask | 1 | 1 | 1 | 1 | 1 | 1 | 1
+alignment/unclear | 1 | 0 | 0 | 0 | 0 | 0 | 0

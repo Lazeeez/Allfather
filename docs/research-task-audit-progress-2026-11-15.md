@@ -1,5 +1,8 @@
 # Task audit: first report pass and patch availability
 
+Historical checkpoint. The missing patches have since been recovered and the
+[provisional all-case audit completed](research-task-audit-results-2026-11-15.md).
+
 All 23 original fit reports have a frozen, provisional Stage A annotation under
 the [fixed rubric](research-task-audit-v1.md). This is a single analyst's review
 with prior outcome and some patch exposure, not a blind or independently validated

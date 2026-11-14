@@ -1,0 +1,15 @@
+{
+  "schema": "task-audit-stage-b-annotations-v1",
+  "status": "Frozen provisional all-case alignment and all-target role annotations before this stage outcome join.",
+  "annotations_sha256": "6563350ca65a6121d6b8918855a6eb8931b2aa2ba5e86b7caf357e719939d2bd",
+  "stage_a_rows_sha256": "c50da259265ff51d0bbe4a39b89eb574bacfb8557f7e750057c3b4c4a967c78f",
+  "capture_manifest_sha256": "25d912ee5ee8d7997911b42f0a3dccd8ba096f43b72fd868c7e4eb113e929788",
+  "capture_index_sha256": "f7758d7ab06cf37ca6199aa9fe831ce8b62a9ed8b7765a979106d3ea10598f01",
+  "upstream_pet_sha256": "3c1f1e4154408eee58592c294ef858b1870fdef298ab1d51f0e7b8baa1e9a2aa",
+  "limitations": [
+    "Single analyst, not independent agreement or causal adjudication.",
+    "Role categories describe reference edits and do not replace official gold.",
+    "Added symbol IDs can reflect refactoring or parser limitations; they are not counts of new behavior.",
+    "Complete patch availability is not proof of complete semantic review or correctness."
+  ]
+}

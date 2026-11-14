@@ -3,7 +3,14 @@
 Updated 2026-11-15. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
-Latest step: [the fit-only coverage probe is complete](research-coverage-probe-2026-11-15.md).
+Latest checkpoint: [the provisional task audit is complete](research-task-audit-results-2026-11-15.md).
+All 71 file diffs are available; 23 case-alignment judgments and 52 target-role judgments
+are frozen. Three targets are provisionally incidental, but none of the six local
+conditions earns a hit solely through them. Original base CE50 remains 18/23. The full
+suite passes 277 tests. Independent-review material is prepared; independent adjudication
+and broader outcome-independent sampling remain open. No new GPU job is required.
+
+Previous step: [the fit-only coverage probe is complete](research-coverage-probe-2026-11-15.md).
 All 23 issues pass source reconstruction and exact lexical-feature parity checks.
 No new control adds issue coverage at 50 candidates; at 200, the only newly covered
 issue is already reached by original wide retrieval. Every control fails the frozen
@@ -13,8 +20,8 @@ justified. Next is the [report-to-patch task audit](research-task-audit-v1.md).
 The [first audit pass is now frozen](research-task-audit-progress-2026-11-15.md): all
 23 reports provisionally annotated, with prior exposure disclosed. One inspected patch
 contains two incidental edits among its gold targets; no labels or scores are changed.
-Thirty-four file diffs remain unavailable locally. Seventeen new focused tests pass.
-Complete patch review and independent adjudication are the next evidence requirements.
+At that checkpoint, 34 file diffs were unavailable; they have now been recovered and
+verified. The completed analyst pass and independent-review boundary are linked above.
 
 The preceding [text-view validation is negative](research-text-view-validation-2026-11-15.md):
 21/23 to 20/23 with zero rescues. Retain prefix reranking and defer the router.

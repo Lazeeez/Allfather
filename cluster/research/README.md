@@ -11,6 +11,11 @@ The subsequent [CPU candidate-coverage probe](../../docs/research-coverage-probe
 also completed locally on all 23 fit cases. None of its controls passes the multi-project
 follow-up gate. No new PACE job is requested; task-validity review comes next.
 
+The [provisional task audit](../../docs/research-task-audit-results-2026-11-15.md) is now
+complete for all 23 fit cases. Missing source blobs were verified in local temporary
+storage; no cluster job or model download was needed. Independent review is the next
+measurement requirement, and its packet is prepared locally.
+
 ## Confirmed hardware and account (2026-11-13)
 
 The author's job 7009034 successfully allocated one `gpu:l40s:1` on `coc-gpu`

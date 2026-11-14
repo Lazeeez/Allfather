@@ -1,0 +1,7 @@
+{
+  "schema": "task-audit-archive-v1",
+  "evidence_archive_sha256": "b32aea1f2a42f16cb31a51c34e042e891cc4188fc59c80552250c232960c2173",
+  "evidence_archive_bytes": 285922,
+  "reviewer_archive_sha256": "96651fbcb50c031c1d3448a9f4fb64bd347a080ae96c60ccb44d96660b86f6e9",
+  "reviewer_archive_bytes": 166620
+}
