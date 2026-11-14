@@ -27,10 +27,12 @@ import random
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from collections import Counter
-from datetime import date
+from dataclasses import asdict
+from datetime import date, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -157,6 +159,36 @@ def cmd_projects(args: argparse.Namespace) -> int:
     return 0
 
 
+def checked_last_edit(response: object) -> str | None:
+    """Only an explicitly present null edit field means no recorded edit."""
+    if not isinstance(response, dict):
+        raise ValueError("GraphQL response is not an object")
+    errors = response.get("errors")
+    if "errors" in response and not isinstance(errors, list):
+        raise ValueError("GraphQL errors field is malformed")
+    if errors:
+        if isinstance(errors, list) and any(
+            isinstance(e, dict) and e.get("type") == "RATE_LIMITED" for e in errors
+        ):
+            raise RateLimited("GitHub GraphQL rate limit")
+        raise ValueError("GraphQL returned errors; edit history is unknown")
+    node = response
+    for key in ("data", "repository", "issue"):
+        node = node.get(key) if isinstance(node, dict) else None
+        if not isinstance(node, dict):
+            raise ValueError(f"GraphQL response missing object: {key}")
+    if "lastEditedAt" not in node:
+        raise ValueError("GraphQL response missing lastEditedAt")
+    edited = node["lastEditedAt"]
+    if edited is not None:
+        if not isinstance(edited, str):
+            raise ValueError("invalid lastEditedAt timestamp")
+        stamp = datetime.fromisoformat(edited)
+        if stamp.tzinfo is None:
+            raise ValueError("lastEditedAt timestamp lacks timezone")
+    return edited
+
+
 def last_body_edit(repo: str, issue: int) -> str | None:
     owner, name = repo.split("/")
     query = {
@@ -172,9 +204,14 @@ def last_body_edit(repo: str, issue: int) -> str | None:
         },
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=60) as r:
-        data = json.loads(r.read())
-    return ((data.get("data") or {}).get("repository") or {}).get("issue", {}).get("lastEditedAt")
+    try:
+        with urllib.request.urlopen(request, timeout=60) as r:
+            data = json.loads(r.read())
+    except urllib.error.HTTPError as exc:
+        if exc.code in (403, 429):
+            raise RateLimited("GitHub GraphQL HTTP rate/access limit") from exc
+        raise
+    return checked_last_edit(data)
 
 
 def cmd_mine(args: argparse.Namespace) -> int:
@@ -249,13 +286,16 @@ def mined(
     if issue["created_at"] > pr_item["created_at"]:
         return {"skipped": "issue opened after the pull request"}
     edited = last_body_edit(repo, number)
-    if edited and edited > pr_item["created_at"]:
+    if edited and datetime.fromisoformat(edited) > datetime.fromisoformat(pr_item["created_at"]):
         return {"skipped": "issue text edited after the pull request opened", "edited": edited}
     pr = github(f"/repos/{repo}/pulls/{pr_item['number']}")
     merge = pr.get("merge_commit_sha")
-    if not merge:
+    if not merge or not pr.get("merged_at"):
         return {"skipped": "no merge commit"}
-    parent = github(f"/repos/{repo}/commits/{merge}")["parents"][0]["sha"]
+    parents = github(f"/repos/{repo}/commits/{merge}")["parents"]
+    if not parents or any(not isinstance(p.get("sha"), str) for p in parents):
+        raise ValueError("merge commit has no valid parent evidence")
+    parent = parents[0]["sha"]
     patch = github(
         f"/repos/{repo}/compare/{parent}...{merge}", accept="application/vnd.github.diff"
     )
@@ -271,7 +311,22 @@ def mined(
         "base_commit": parent, "merge_commit": merge, "text": text,
         "gold_functions": targets, "gold_files": files, "language": language_of_fix(set(targets)) if targets else None,
     }  # fmt: skip
-    if not files:
+    out["provenance"] = {
+        "schema": "fresh-mining-evidence-v1",
+        "base_relation": "first_parent_of_merge_commit; not necessarily report-time",
+        "merge_parents": [p["sha"] for p in parents],
+        "last_edited_at": edited,
+        "edit_lookup": "validated_graphql_response",
+        "patch_text_sha256": hashlib.sha256(patch.encode()).hexdigest(),
+        "report_text_sha256": hashlib.sha256(text.encode()).hexdigest(),
+        "full_report_text_sha256": hashlib.sha256(
+            f"{issue['title']}\n\n{issue.get('body') or ''}".encode()
+        ).hexdigest(),
+    }
+    out["gold_extraction"] = asdict(gold)
+    if gold.errors:
+        out["skipped"] = "incomplete gold extraction; see gold_extraction.errors"
+    elif not files:
         out["skipped"] = "the fix changes no file outside tests"
     return out
 
@@ -418,7 +473,9 @@ def cmd_full(_: argparse.Namespace) -> int:
             edited = last_body_edit(row["repo"], row["issue"])
             if not full.startswith(row["text"]):
                 status = "differs from the sealed text"
-            elif edited and edited > row["pr_created"]:
+            elif edited and datetime.fromisoformat(edited) > datetime.fromisoformat(
+                row["pr_created"]
+            ):
                 status = "edited after the pull request opened"
             else:
                 status = "unchanged"

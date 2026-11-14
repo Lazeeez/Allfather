@@ -1,17 +1,18 @@
 """Write every table and number the paper uses, from the committed results only.
 
-    uv run python scripts/paper_tables.py
+    uv run python scripts/paper_tables.py --out reports/paper-tables-review
 
 Reads results/research/analysis_<set>.json, the run records in results/research/frontier/ (for cost
 and time), data/fresh/ (for the test set's composition) and the reranker study's choice.json, and
 writes docs/paper/generated/: one .tex file per table and numbers.tex, a list of \\newcommand macros
-the text uses instead of typing numbers. Prices are the per-token rates listed in PRICES, with their
-sources in the paper; a run on a subscription records no price, so its cost is computed from its own
-token counts at those rates.
+the text uses instead of typing numbers. Monetary accounting shares the analysis module's
+per-record evidence rules. Missing costs remain unknown; historical aggregate token counts
+and unattributed wall times are not silently converted into list-price or GPU estimates.
 """
 
 from __future__ import annotations
 
+import argparse
 import json
 import statistics as st
 import sys
@@ -23,6 +24,13 @@ RUNS = RESULTS / "frontier"
 OUT = ROOT / "docs" / "paper" / "generated"
 sys.path.insert(0, str(ROOT / "scripts"))
 from fresh_analysis import load_set, per_issue  # noqa: E402
+
+from allfather.eval.costs import (  # noqa: E402
+    cost_from_scored,
+    nonnegative,
+    selected_costs,
+    summarize,
+)
 
 NAMES = {
     "website-gpu": "\\toolgpu{}",
@@ -57,12 +65,6 @@ LANG = {
     "java": "Java",
     "rust": "Rust",
 }
-PRICES = {
-    "astra": (10.0, 1.0, 50.0, 20.0, 75.0),
-    "luna": (0.10, 0.01, 0.50, 0.20, 0.75),
-    "gemini": (0.75, 3.75),
-    "gpu_hour": {"l40s": 1.00, "l4": 0.80},
-}
 MIN_ISSUES = 50
 CHECK = "\\checkmark"
 
@@ -76,55 +78,27 @@ def rows(set_name: str, system: str) -> list[dict]:
     return [json.loads(line) for line in path.open(encoding="utf-8")] if path.exists() else []
 
 
-def codex_cost(usage: dict, model: str) -> float:
-    i, c, o, il, ol = PRICES[model]
-    inp, cached, out = (
-        usage.get("input_tokens", 0),
-        usage.get("cached_input_tokens", 0),
-        usage.get("output_tokens", 0),
-    )
-    if inp > 272_000:
-        i, o, c = il, ol, il / 10
-    return ((inp - cached) * i + cached * c + out * o) / 1e6
-
-
 def cost_per_bug(set_name: str, system: str) -> float | None:
     rs = rows(set_name, system)
     if not rs:
         return None
-    if system.startswith("claude"):
-        return st.mean(r.get("cost_usd") or 0.0 for r in rs)
-    if system.startswith("codex"):
-        return st.mean(
-            codex_cost(r.get("usage") or {}, "astra" if "astra" in system else "luna") for r in rs
-        )
-    if system.startswith("gemini"):
-        i, o = PRICES["gemini"]
-        return st.mean(
-            ((u := r.get("usage") or {}).get("promptTokenCount", 0) * i
-             + (u.get("candidatesTokenCount", 0) + u.get("thoughtsTokenCount", 0)) * o) / 1e6
-            for r in rs
-        )  # fmt: skip
-    if system.startswith("open-"):
-        return (
-            st.mean(
-                ((r.get("usage") or {}).get("gpu_seconds") or r.get("seconds") or 0) for r in rs
-            )
-            / 3600
-            * 4
-            * PRICES["gpu_hour"]["l40s"]
-        )
-    if system in ("website", "allfather-fast"):
-        return 0.0
-    if system == "website-gpu":
-        gpu = median_seconds(set_name, "website-gpu") - median_seconds(set_name, "website")
-        return max(gpu, 0) / 3600 * PRICES["gpu_hour"]["l4"]
-    return None
+    _, items = load_set(set_name)
+    scored = per_issue(rs, items)
+    return summarize([cost_from_scored(r) for r in scored.values()])["mean_usd"]
 
 
-def median_seconds(set_name: str, system: str) -> float:
-    rs = rows(set_name, system)
-    return st.median(r.get("seconds") or 0 for r in rs) if rs else 0.0
+def median_seconds(set_name: str, system: str) -> float | None:
+    timings = [nonnegative(r.get("seconds")) for r in rows(set_name, system)]
+    return st.median(timings) if timings and all(t is not None for t in timings) else None
+
+
+def cascade_cost(set_name: str, reference: str, system: str, threshold: float) -> dict:
+    _, items = load_set(set_name)
+    ref, other = (per_issue(rows(set_name, s), items) for s in (reference, system))
+    ids = sorted(set(ref) & set(other))
+    if any(ref[q]["confidence"] is None for q in ids):
+        raise ValueError("cascade requires observed confidence for every paired issue")
+    return selected_costs(ref, other, ids, [ref[q]["confidence"] < threshold for q in ids])
 
 
 def pct(x: float) -> str:
@@ -219,15 +193,14 @@ def escalation_table(set_name: str, label: str) -> str:
              "\\caption{Confidence-gated escalation (RQ3): the bugs \\tool{} is least confident about, at the threshold fixed before the study (0.7899), go to an agent; the rest keep \\tool{}'s answer. Random escalates the same share at random.}",
              f"\\label{{{label}}}", "\\begin{tabular}{lrrrrr}", "\\toprule",
              "Agent & Escalated & Cascade & Random & Agent alone & Cascade cost/bug \\\\", "\\midrule"]  # fmt: skip
-    ref_cost = cost_per_bug(set_name, a["reference"]) or 0.0
     for s, e in sorted(a["escalation"].items(), key=lambda kv: -kv[1]["chosen"]["hit@10"]):
         if s not in NAMES or "agent" not in s:
             continue
         c = e["chosen"]
-        agent_cost = cost_per_bug(set_name, s) or 0.0
+        accounting = cascade_cost(set_name, a["reference"], s, c["threshold"])
         lines.append(
             f"{NAMES[s]} & {pct(c['escalated'])}\\% & {pct(c['hit@10'])} & {pct(c['random_hit@10'])} & "
-            f"{pct(a['systems'][s]['hit@10'])} & {money(ref_cost + c['escalated'] * agent_cost)} \\\\"
+            f"{pct(e['other_hit@10'])} & {money(accounting['mean_usd'])} \\\\"
         )
     lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}", ""]
     return "\n".join(lines)
@@ -402,7 +375,8 @@ def results_macros() -> str:
             put(name, system, "mrr", f"{e['mrr']:.3f}")
             put(name, system, "n", str(e["issues"]))
             put(name, system, "cost", money(cost_per_bug(name, system)))
-            put(name, system, "sec", f"{median_seconds(name, system):.1f}")
+            seconds = median_seconds(name, system)
+            put(name, system, "sec", f"{seconds:.1f}" if seconds is not None else "--")
         families = [("", a["paired"])]
         if "also_reference" in a:
             families.append(("browser-", a["also_reference"]["paired"]))
@@ -458,7 +432,7 @@ def cost_figure(set_name: str, label: str, caption: str) -> str:
         "\\centering",
         "\\begin{tikzpicture}",
         "\\begin{axis}[width=0.92\\linewidth, height=6.2cm, xmode=log, xmin=5e-5, xmax=2,",
-        "  xlabel={Cost per bug (US\\$, log scale; free systems at the left edge)}, ylabel={Function hit@10 (\\%)},",
+        "  xlabel={Recorded run charge per bug (US\\$, log scale)}, ylabel={Function hit@10 (\\%)},",
         "  ymin=20, ymax=100, grid=major, grid style={gray!20}, tick label style={font=\\footnotesize},",
         "  label style={font=\\small}, legend style={font=\\footnotesize, at={(0.98,0.03)}, anchor=south east}]",
     ]
@@ -636,7 +610,11 @@ def fit(text: str) -> str:
 
 
 def main() -> int:
-    OUT.mkdir(parents=True, exist_ok=True)
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--out", required=True, type=Path)
+    args = ap.parse_args()
+    if args.out.exists():
+        ap.error("use a new output directory; preserve historical tables")
     files = {
         "dataset.tex": dataset_table("tab:dataset"),
         "main_full_agents.tex": systems_table(
@@ -671,7 +649,7 @@ def main() -> int:
         "fig_cost.tex": cost_figure(
             "fresh-full-agents",
             "fig:cost",
-            "Accuracy against cost per bug, full reports, 198-bug subset. Costs are list prices for the tokens each run used, or GPU rental time; systems that cost nothing to run sit at the left edge.",
+            "Accuracy against recorded run charge, full reports, 198-bug subset. Unknown costs are omitted, not treated as zero. Recorded charges are harness reports, not independently verified bills or total compute costs.",
         ),
         "fig_escalation.tex": escalation_figure(
             "fig:escalation",
@@ -694,9 +672,10 @@ def main() -> int:
             "File-level results, full reports, all 580 bugs; systems still running are shown on the bugs completed. Columns as in Table~\\ref{tab:files198}.",
         ),
     }
+    args.out.mkdir(parents=True)
     for name, text in files.items():
-        (OUT / name).write_text(fit(text), encoding="utf-8", newline="\n")
-    print(f"wrote {len(files)} files to {OUT}")
+        (args.out / name).write_text(fit(text), encoding="utf-8", newline="\n")
+    print(f"wrote {len(files)} files to {args.out}")
     return 0
 
 

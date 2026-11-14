@@ -1,7 +1,7 @@
 """The analysis of ADR 0033, for any set scripts/frontier.py and scripts/fresh_website.py have run.
 
-    uv run python scripts/fresh_analysis.py --set pilot
-    uv run python scripts/fresh_analysis.py --set fresh --threshold 0.62
+    uv run python scripts/fresh_analysis.py --set pilot --out reports/analysis-pilot.json
+    uv run python scripts/fresh_analysis.py --set fresh --threshold 0.62 --out reports/analysis-fresh.json
 
 RQ1: every system's function-level metrics with 95% intervals from a bootstrap over projects, and
 paired tests against the reference (exact McNemar on yes/no metrics, a randomization test on MRR),
@@ -9,7 +9,7 @@ Holm-adjusted across the whole table. RQ2: mean cost and time per bug and the sy
 beats on both accuracy and cost. RQ3: escalating the bugs the reference is least confident about to
 each other system, across thresholds, against escalating the same number at random; --threshold
 reports the operating point chosen beforehand on development data. RQ4: hit@10 by what the report
-names. Writes results/research/analysis_<set>.json.
+names. Requires a new output path; historical results are never overwritten implicitly.
 """
 
 from __future__ import annotations
@@ -30,6 +30,14 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from frontier import FRESH, OUT, load_set, matched, unit_ids  # noqa: E402
 
+from allfather.eval.costs import (  # noqa: E402
+    cost_from_scored,
+    nonnegative,
+    record_cost,
+    selected_costs,
+    serialize,
+    summarize,
+)
 from allfather.eval.metrics import holm, paired_bootstrap, score  # noqa: E402
 
 METRICS = ("hit@1", "hit@5", "hit@10", "all@10", "mrr")
@@ -48,9 +56,13 @@ def per_issue(rows: list[dict], items: dict[str, dict]) -> dict[str, dict[str, f
         if not gold:
             continue
         s = score(matched(unit_ids(r.get("answer")), gold), gold, [1, 5, 10])
+        if r["id"] in out:
+            raise ValueError(f"duplicate result ID: {r['id']}")
+        cost = record_cost(r)
         out[r["id"]] = {
             "hit@1": s.hit[1], "hit@5": s.hit[5], "hit@10": s.hit[10], "all@10": s.full[10], "mrr": s.rr,
-            "cost": r.get("cost_usd") or 0.0, "seconds": r.get("seconds") or 0.0, "confidence": r.get("confidence"),
+            "cost": cost.usd, "cost_accounting": serialize(cost),
+            "seconds": nonnegative(r.get("seconds")), "confidence": r.get("confidence"),
         }  # fmt: skip
     return out
 
@@ -82,29 +94,35 @@ def project_ci(
 
 
 def escalation(ref: dict, other: dict, ids: list[str], threshold: float | None) -> dict:
+    if not ids or len(ids) != len(set(ids)):
+        raise ValueError("escalation requires a nonempty, unique paired cohort")
+    if any(nonnegative(ref[q]["confidence"]) is None or ref[q]["confidence"] > 1 for q in ids):
+        raise ValueError("escalation requires observed confidence in [0, 1]")
+    if threshold is not None and not np.isfinite(threshold):
+        raise ValueError("threshold must be finite")
     conf = np.array(
         [ref[q]["confidence"] if ref[q]["confidence"] is not None else 0.0 for q in ids]
     )
     a = np.array([ref[q]["hit@10"] for q in ids])
     b = np.array([other[q]["hit@10"] for q in ids])
-    cost_a = np.array([ref[q]["cost"] for q in ids])
-    cost_b = np.array([other[q]["cost"] for q in ids])
 
     def point(t: float) -> dict:
         send = conf < t
+        accounting = selected_costs(ref, other, ids, send.tolist())
         return {
             "threshold": float(t),
             "escalated": round(float(send.mean()), 4),
             "hit@10": round(float(np.where(send, b, a).mean()), 4),
             "random_hit@10": round(float(a.mean() + send.mean() * (b.mean() - a.mean())), 4),
-            "cost": round(float((cost_a + send * cost_b).mean()), 5),
+            "cost": accounting["mean_usd"],
+            "cost_accounting": accounting,
         }
 
     curve = [point(t) for t in sorted({0.0, 1.01, *conf.tolist()})]
     out = {
         "reference_hit@10": round(float(a.mean()), 4),
         "other_hit@10": round(float(b.mean()), 4),
-        "other_cost": round(float(cost_b.mean()), 5),
+        "other_cost": summarize([cost_from_scored(other[q]) for q in ids])["mean_usd"],
         "curve": curve,
     }
     if threshold is not None:
@@ -271,6 +289,8 @@ def paired_family(runs: dict, reference: str) -> dict:
         if system == reference:
             continue
         common = sorted(set(res) & set(ref))
+        if not common:
+            continue
         for m in METRICS:
             d = paired_bootstrap(
                 np.array([ref[q][m] for q in common]), np.array([res[q][m] for q in common])
@@ -290,13 +310,44 @@ def paired_family(runs: dict, reference: str) -> dict:
     return out
 
 
+def cost_frontiers(runs: dict, systems: dict) -> list[dict]:
+    """Descriptive frontiers require identical evaluated IDs and accounting boundaries."""
+    groups = {}
+    for system, entry in systems.items():
+        if entry["cost_usd"] is None:
+            continue
+        key = (tuple(sorted(runs[system])), tuple(entry["cost_accounting"]["scopes"]))
+        groups.setdefault(key, []).append(system)
+    out = []
+    for (ids, scopes), members in sorted(groups.items()):
+        best, frontier = -1.0, []
+        for system in sorted(
+            members, key=lambda s: (systems[s]["cost_usd"], -systems[s]["hit@10"])
+        ):
+            if systems[system]["hit@10"] > best:
+                frontier.append(system)
+                best = systems[system]["hit@10"]
+        out.append(
+            {
+                "ids": list(ids),
+                "scopes": list(scopes),
+                "eligible_systems": sorted(members),
+                "systems": frontier,
+            }
+        )
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--set", required=True)
     ap.add_argument("--reference", default="website")
     ap.add_argument("--threshold", type=float, default=0.7899)
     ap.add_argument("--also-reference")
+    ap.add_argument("--out", type=Path, required=True)
     args = ap.parse_args()
+    if args.out.exists():
+        sys.exit("use a new analysis output path; preserve historical results")
     _, items = load_set(args.set)
     runs, files = {}, {}
     for path in sorted(OUT.glob(f"{args.set}_*.jsonl")):
@@ -332,13 +383,20 @@ def main() -> int:
             v = np.array([res[q][m] for q in ids])
             entry[m] = round(float(v.mean()), 6)
             entry[f"{m}_ci95"] = project_ci(v, projects)
-        entry["cost_usd"] = round(float(np.mean([res[q]["cost"] for q in ids])), 5)
-        entry["seconds"] = round(float(np.mean([res[q]["seconds"] for q in ids])), 1)
+        entry["cost_accounting"] = summarize([cost_from_scored(res[q]) for q in ids])
+        entry["cost_usd"] = entry["cost_accounting"]["mean_usd"]
+        timings = [res[q]["seconds"] for q in ids]
+        entry["seconds"] = (
+            round(float(np.mean(timings)), 1)
+            if timings and all(t is not None for t in timings)
+            else None
+        )
+        entry["seconds_observed"] = sum(t is not None for t in timings)
         report["systems"][system] = entry
         if system == args.reference:
             continue
         common = sorted(set(res) & set(ref))
-        if all(ref[q]["confidence"] is not None for q in common):
+        if common and all(ref[q]["confidence"] is not None for q in common):
             report["escalation"][system] = escalation(ref, res, common, args.threshold)
     langs = languages(args.set)
     if langs:
@@ -386,13 +444,13 @@ def main() -> int:
             for s in STRATA
             if (qs := [q for q in res if strata.get(q) == s])
         }
-    order = sorted(report["systems"].items(), key=lambda kv: (kv[1]["cost_usd"], -kv[1]["hit@10"]))
-    best = -1.0
-    report["pareto"] = []
-    for system, e in order:
-        if e["hit@10"] > best:
-            report["pareto"].append(system)
-            best = e["hit@10"]
+    report["pareto_excluded_unknown_cost"] = sorted(
+        s for s, e in report["systems"].items() if e["cost_usd"] is None
+    )
+    report["pareto_by_cohort"] = cost_frontiers(runs, report["systems"])
+    report["pareto"] = (
+        report["pareto_by_cohort"][0]["systems"] if len(report["pareto_by_cohort"]) == 1 else []
+    )
     free = sorted(
         (name for name in report["systems"] if free_to_use(name)),
         key=lambda n: -report["systems"][n]["hit@10"],
@@ -409,11 +467,12 @@ def main() -> int:
         ],
     }
     report["file_level"] = file_level(files, items, args.reference)
-    target = ROOT / "results" / "research" / f"analysis_{args.set}.json"
+    target = args.out
+    target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(report, indent=1) + "\n", encoding="utf-8", newline="\n")
     for system, e in report["systems"].items():
         print(
-            f"{system:16} n={e['issues']:4} hit@1 {e['hit@1']:.3f} hit@10 {e['hit@10']:.3f} {e['hit@10_ci95']} all@10 {e['all@10']:.3f} MRR {e['mrr']:.3f} ${e['cost_usd']:.4f} {e['seconds']} s"
+            f"{system:16} n={e['issues']:4} hit@1 {e['hit@1']:.3f} hit@10 {e['hit@10']:.3f} {e['hit@10_ci95']} all@10 {e['all@10']:.3f} MRR {e['mrr']:.3f} cost={e['cost_usd']} USD {e['seconds']} s"
         )
     for key, v in report["paired"].items():
         if key.endswith("hit@10"):

@@ -126,7 +126,14 @@ def main() -> int:
                 "confidence": sure,
                 "gpu_language": reranked_for,
                 **({"files": ranked_files[:10]} if args.files else {}),
-                "cost_usd": 0.0,
+                "cost_usd": None,
+                "cost_accounting": {
+                    "schema": "run-cost-v1",
+                    "usd": None,
+                    "state": "unknown",
+                    "basis": "local compute was not monetized",
+                    "scope": "run_charge",
+                },
                 "tools": [],
                 "web_tool_used": False,
             }

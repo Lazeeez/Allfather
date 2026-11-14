@@ -3,7 +3,14 @@
 Updated 2026-11-15. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
-Latest checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
+Latest engineering checkpoint: [accounting and future-mining corrections](research-accounting-and-mining-2026-11-15.md).
+Analysis and paper generation share explicit recorded/estimated/unknown costs and charge
+only selected cascade calls on paired IDs. The 47-run audit leaves 14,528 of 14,825 saved
+run rows monetarily unknown. Mining rejects incomplete edit-history responses and retains
+gold extraction errors. Historical datasets/results are preserved; these repairs do not
+establish cost superiority or certify old mining decisions.
+
+Latest study checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
 The fixed sample contains 95 issues across 50 projects, excluding all 24 original
 development projects. Two review waves (50 and 45 cases) were selected without using
 gold labels or model outcomes. No new cases are annotated, no independent review is
@@ -92,9 +99,9 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | P0 | Unequal prompt/grep source extensions | Implemented access fix. Open: identify and rerun affected inference with a new run identity. |
 | P0 | Gold-dependent answer resolution | Draft resolver implemented/tested; 580/580 inventory integrity audit passed on PACE. 65 gold IDs ambiguous, zero missing. Versioned inventory rescoring prepared; PACE results and final identity policy pending. |
 | P0 | Invalid predictions silently disappear | Versioned rescorer preserves invalid/ambiguous/duplicate slots and records resolution rates. Open: run and publish sensitivities; historical default scorer unchanged. |
-| P0 | Null costs become zero; competing cost paths | Open: one per-record cost module shared by analysis and paper; explicit unknown/measured/estimated states. |
+| P0 | Null costs become zero; competing cost paths | Implemented shared per-record accounting and explicit recorded/estimated/unknown states. 47-run evidence audit complete; recorded harness amounts are not independently verified bills. |
 | P0 | Hardware and token accounting | Open: recorded GPU count/type; per-request tier rules; retries/cache/setup boundaries; no difference-of-medians GPU estimate. |
-| P0 | Cascade cost uses unconditional mean | Open in paper generation: sum cheap + selected incremental agent costs on exactly the evaluated instances. |
+| P0 | Cascade cost uses unconditional mean | Implemented in analysis and paper generation: cheap + selected incremental agent costs on exact paired IDs; unknown required components propagate. |
 | P0 | Supplied gate threshold mislabeled/evaluated indirectly | Implemented direct threshold evaluation and precision-sensitive regression. |
 | P0 | Unsupported headline claims | Correction notice and corrected comparison available. Full manuscript, website and generated table replacement remains open until evaluator/cost freeze. |
 | P1 | Paired uncertainty ignores project dependence | Diagnostic paired project intervals in import audit. Open: integrate all metrics/file families, macro-project estimates and cluster-aware test sensitivity. |
@@ -103,7 +110,7 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | P1 | Duplicate issue with two PRs | Open: issue–PR unit definition, split grouping and deterministic issue-deduplicated sensitivity. Never silently drop an original row. |
 | P1 | Pre-merge parent described as report-time snapshot | Open: operational wording, merge/parent provenance and multi-commit/rebase checks. |
 | P1 | Symbol granularity / overloaded IDs | Open: version labels, quantify classes/types/overloads; draft resolver marks duplicate inventory IDs ambiguous. |
-| P1 | Incomplete gold extraction and GraphQL error handling | Open: retain `GoldEntry.errors`, validate response shape/errors, patch/report hashes and extraction coverage in future mining. |
+| P1 | Incomplete gold extraction and GraphQL error handling | Future mining now retains the full GoldEntry, rejects partial extraction and malformed/error edit responses, and records report/patch hashes and merge parents. Historical completeness, parser coverage and API diff truncation remain open. |
 | P1 | Diff labels are not necessarily causal | Open: blind stratified label audit, including added-only changes, renames, incidental edits and alternate valid locations. |
 | P1 | 50-row human check unfilled | Open: qualified human annotation; no fabricated answers or agreement. Retrospective gold-derived hints cannot be gate features. |
 | P1 | Confidence predicts the wrong stage/event | Open: development-only target definitions for final success and incremental action benefit, project-grouped calibration. |
