@@ -134,6 +134,18 @@ Supabase #49940 grows from 165 to 14,359 candidates. The fourfold channel budget
 do not cap the final pool size because file expansion admits all units in selected
 files. Keep this behavior visible in resource accounting and failure analysis.
 
+The full transfer has now been received and independently verified locally:
+6/6 smoke and 47/47 pilot traces pass; run source hashes match both recorded Git
+commits, pinned assets agree, and all six repeated smoke issues have identical
+features, CE scores and action rankings. The [development result report](research-development-results-2026-11-14.md)
+records the gold join: all 118 pilot targets are audited unique and present in the
+retrieval universe. Base hit@10 is 37/47; base CE50 reaches 39/47. Wider retrieval
+adds 11 targets to pools but no additional hit@10 successes. The six-action oracle
+also reaches 39/47, and both rescues are on validation projects (none in fit).
+The current action menu therefore does not support training the proposed benefit
+router. Inspect fit failures and action design before further model experiments;
+no new routing or novelty claim is established. Twenty-seven relevant tests passed.
+
 First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
 **97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox
 permissions prevented pytest temp access and Vite configuration discovery initially;

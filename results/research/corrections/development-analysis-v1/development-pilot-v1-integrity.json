@@ -1,0 +1,1571 @@
+{
+  "schema": "development-replay-integrity-v1",
+  "ok": true,
+  "expected": 47,
+  "validated": 47,
+  "failures": [],
+  "summary": {
+    "expected": 47,
+    "completed": 47,
+    "failures": [],
+    "startup_seconds": 5.741270061931573,
+    "script_seconds": 797.9305402089376,
+    "slurm_job_id": "7019874",
+    "git_commit": "cc570796e78cf84661c5cccf16e5e183786f04c1"
+  },
+  "manifest_sha256": "92eb1583e21bff2837dab6f7dc73cda2818788bb6e0795abf563a3a6f759ebe6",
+  "records": [
+    {
+      "id": "QuantumNous/new-api#7761",
+      "universe": 12753,
+      "base_pool": 207,
+      "wide_pool": 1022,
+      "total_seconds": 36.63413111795671,
+      "actions": {
+        "base_local": {
+          "seconds": 14.056617207010277,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.16872647602576762,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 6.159879076993093,
+          "tokens_computed": 11482
+        },
+        "wide_ce50": {
+          "seconds": 0.3302332510938868,
+          "tokens_computed": 11971
+        },
+        "base_ce200": {
+          "seconds": 1.1586642250185832,
+          "tokens_computed": 33930
+        },
+        "wide_ce200": {
+          "seconds": 1.0699153920868412,
+          "tokens_computed": 42423
+        }
+      }
+    },
+    {
+      "id": "dbeaver/dbeaver#42432",
+      "universe": 67401,
+      "base_pool": 214,
+      "wide_pool": 846,
+      "total_seconds": 21.277614193968475,
+      "actions": {
+        "base_local": {
+          "seconds": 0.2538381339982152,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2782211039448157,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.3577731939731166,
+          "tokens_computed": 11165
+        },
+        "wide_ce50": {
+          "seconds": 0.2939238779945299,
+          "tokens_computed": 11318
+        },
+        "base_ce200": {
+          "seconds": 1.106981653952971,
+          "tokens_computed": 34531
+        },
+        "wide_ce200": {
+          "seconds": 0.9508790300460532,
+          "tokens_computed": 39296
+        }
+      }
+    },
+    {
+      "id": "tt-a1i/archify#991",
+      "universe": 2433,
+      "base_pool": 196,
+      "wide_pool": 806,
+      "total_seconds": 9.944826340069994,
+      "actions": {
+        "base_local": {
+          "seconds": 0.36229458008892834,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.22118806501384825,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.7389713480370119,
+          "tokens_computed": 13586
+        },
+        "wide_ce200": {
+          "seconds": 2.8099858890054747,
+          "tokens_computed": 47645
+        },
+        "base_ce200": {
+          "seconds": 1.269338991958648,
+          "tokens_computed": 38849
+        },
+        "base_ce50": {
+          "seconds": 0.593195527093485,
+          "tokens_computed": 13586
+        }
+      }
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#15922",
+      "universe": 14917,
+      "base_pool": 876,
+      "wide_pool": 2275,
+      "total_seconds": 10.95610318693798,
+      "actions": {
+        "base_local": {
+          "seconds": 0.21547086292412132,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2648227900499478,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.3134332919726148,
+          "tokens_computed": 11123
+        },
+        "wide_ce200": {
+          "seconds": 1.2492644469020888,
+          "tokens_computed": 41151
+        },
+        "base_ce200": {
+          "seconds": 0.7684620799263939,
+          "tokens_computed": 33451
+        },
+        "base_ce50": {
+          "seconds": 0.20229752792511135,
+          "tokens_computed": 10070
+        }
+      }
+    },
+    {
+      "id": "ultraworkers/claw-code#3332",
+      "universe": 3743,
+      "base_pool": 1203,
+      "wide_pool": 1790,
+      "total_seconds": 5.137734142947011,
+      "actions": {
+        "base_local": {
+          "seconds": 0.30223247199319303,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.20705576799809933,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.6985836959211156,
+          "tokens_computed": 9454
+        },
+        "wide_ce200": {
+          "seconds": 1.0213507559383288,
+          "tokens_computed": 34034
+        },
+        "wide_ce50": {
+          "seconds": 0.294876639964059,
+          "tokens_computed": 9363
+        },
+        "base_ce200": {
+          "seconds": 0.7845187049824744,
+          "tokens_computed": 31276
+        }
+      }
+    },
+    {
+      "id": "immich-app/immich#31348",
+      "universe": 5936,
+      "base_pool": 906,
+      "wide_pool": 1491,
+      "total_seconds": 6.293774836929515,
+      "actions": {
+        "base_local": {
+          "seconds": 0.24423391500022262,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.17210146598517895,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 0.9101981099229306,
+          "tokens_computed": 36191
+        },
+        "base_ce50": {
+          "seconds": 0.2679092849139124,
+          "tokens_computed": 11108
+        },
+        "base_ce200": {
+          "seconds": 0.7713860619114712,
+          "tokens_computed": 33003
+        },
+        "wide_ce50": {
+          "seconds": 0.272313664900139,
+          "tokens_computed": 11181
+        }
+      }
+    },
+    {
+      "id": "QuantumNous/new-api#7844",
+      "universe": 12925,
+      "base_pool": 247,
+      "wide_pool": 913,
+      "total_seconds": 10.644586278009228,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1438828509999439,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.16835282207466662,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 1.258924552006647,
+          "tokens_computed": 49073
+        },
+        "base_ce50": {
+          "seconds": 0.29619440995156765,
+          "tokens_computed": 12940
+        },
+        "base_ce200": {
+          "seconds": 0.9709962119814008,
+          "tokens_computed": 39067
+        },
+        "wide_ce50": {
+          "seconds": 0.3048695980105549,
+          "tokens_computed": 12437
+        }
+      }
+    },
+    {
+      "id": "dbeaver/dbeaver#42026",
+      "universe": 63120,
+      "base_pool": 593,
+      "wide_pool": 1333,
+      "total_seconds": 17.68123639409896,
+      "actions": {
+        "base_local": {
+          "seconds": 0.32203852210659534,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.28973046294413507,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.37810346693731844,
+          "tokens_computed": 10941
+        },
+        "base_ce50": {
+          "seconds": 0.30387889000121504,
+          "tokens_computed": 10346
+        },
+        "base_ce200": {
+          "seconds": 1.1480611320585012,
+          "tokens_computed": 38406
+        },
+        "wide_ce200": {
+          "seconds": 1.1127531240927055,
+          "tokens_computed": 41859
+        }
+      }
+    },
+    {
+      "id": "tt-a1i/archify#515",
+      "universe": 1435,
+      "base_pool": 178,
+      "wide_pool": 771,
+      "total_seconds": 7.342730329022743,
+      "actions": {
+        "base_local": {
+          "seconds": 0.20473908202257007,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.1308482529129833,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.9316060149576515,
+          "tokens_computed": 13113
+        },
+        "base_ce200": {
+          "seconds": 1.3660498789977282,
+          "tokens_computed": 33042
+        },
+        "wide_ce50": {
+          "seconds": 0.5519300239393488,
+          "tokens_computed": 13647
+        },
+        "wide_ce200": {
+          "seconds": 1.576569956028834,
+          "tokens_computed": 45334
+        }
+      }
+    },
+    {
+      "id": "Comfy-Org/ComfyUI#16485",
+      "universe": 15904,
+      "base_pool": 1422,
+      "wide_pool": 2325,
+      "total_seconds": 9.23530464596115,
+      "actions": {
+        "base_local": {
+          "seconds": 0.3031965419650078,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2992284280480817,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 1.2702327149454504,
+          "tokens_computed": 40218
+        },
+        "wide_ce200": {
+          "seconds": 1.0400737429736182,
+          "tokens_computed": 42771
+        },
+        "wide_ce50": {
+          "seconds": 0.3137968060327694,
+          "tokens_computed": 11304
+        },
+        "base_ce50": {
+          "seconds": 0.3080870530102402,
+          "tokens_computed": 10769
+        }
+      }
+    },
+    {
+      "id": "zed-industries/zed#62785",
+      "universe": 48916,
+      "base_pool": 270,
+      "wide_pool": 2218,
+      "total_seconds": 30.273863823967986,
+      "actions": {
+        "base_local": {
+          "seconds": 0.4669957678997889,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.3320381660014391,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.5316332989605144,
+          "tokens_computed": 9218
+        },
+        "base_ce200": {
+          "seconds": 2.2570258559426293,
+          "tokens_computed": 36029
+        },
+        "wide_ce200": {
+          "seconds": 1.3023499980336055,
+          "tokens_computed": 40764
+        },
+        "wide_ce50": {
+          "seconds": 0.36228115495759994,
+          "tokens_computed": 11033
+        }
+      }
+    },
+    {
+      "id": "immich-app/immich#31079",
+      "universe": 5964,
+      "base_pool": 276,
+      "wide_pool": 801,
+      "total_seconds": 4.45827908301726,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1370469470275566,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.16160782205406576,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.34321966499555856,
+          "tokens_computed": 9104
+        },
+        "wide_ce50": {
+          "seconds": 0.26184501696843654,
+          "tokens_computed": 9076
+        },
+        "wide_ce200": {
+          "seconds": 0.9403615690534934,
+          "tokens_computed": 36725
+        },
+        "base_ce200": {
+          "seconds": 0.8119535939767957,
+          "tokens_computed": 28194
+        }
+      }
+    },
+    {
+      "id": "ollama/ollama#19188",
+      "universe": 7595,
+      "base_pool": 355,
+      "wide_pool": 1045,
+      "total_seconds": 7.605501562007703,
+      "actions": {
+        "base_local": {
+          "seconds": 0.19967190292663872,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.15761306695640087,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.41466724197380245,
+          "tokens_computed": 12102
+        },
+        "wide_ce200": {
+          "seconds": 1.2007415470434353,
+          "tokens_computed": 42077
+        },
+        "base_ce200": {
+          "seconds": 0.7934617680730298,
+          "tokens_computed": 34971
+        },
+        "base_ce50": {
+          "seconds": 0.30942965392023325,
+          "tokens_computed": 12102
+        }
+      }
+    },
+    {
+      "id": "spring-projects/spring-boot#52201",
+      "universe": 30207,
+      "base_pool": 263,
+      "wide_pool": 820,
+      "total_seconds": 16.593690359964967,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1525901750428602,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.18734608602244407,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 0.6456945720128715,
+          "tokens_computed": 22997
+        },
+        "base_ce200": {
+          "seconds": 0.63153124100063,
+          "tokens_computed": 23073
+        },
+        "base_ce50": {
+          "seconds": 0.1773216900182888,
+          "tokens_computed": 5884
+        },
+        "wide_ce50": {
+          "seconds": 0.17905656702350825,
+          "tokens_computed": 6057
+        }
+      }
+    },
+    {
+      "id": "Leonxlnx/taste-skill#165",
+      "universe": 212,
+      "base_pool": 173,
+      "wide_pool": 212,
+      "total_seconds": 4.011567158042453,
+      "actions": {
+        "base_local": {
+          "seconds": 0.21956227102782577,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.08919687697198242,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.3581695300526917,
+          "tokens_computed": 11941
+        },
+        "base_ce200": {
+          "seconds": 0.6745347119867802,
+          "tokens_computed": 28289
+        },
+        "wide_ce200": {
+          "seconds": 0.7376187209738418,
+          "tokens_computed": 31417
+        },
+        "wide_ce50": {
+          "seconds": 0.3533289220649749,
+          "tokens_computed": 11941
+        }
+      }
+    },
+    {
+      "id": "Significant-Gravitas/AutoGPT#14536",
+      "universe": 21874,
+      "base_pool": 214,
+      "wide_pool": 1045,
+      "total_seconds": 26.91250083898194,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1668073870241642,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.18813489994499832,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.3624117060098797,
+          "tokens_computed": 12178
+        },
+        "wide_ce200": {
+          "seconds": 1.464025896973908,
+          "tokens_computed": 46724
+        },
+        "base_ce200": {
+          "seconds": 1.1199529140722007,
+          "tokens_computed": 43434
+        },
+        "wide_ce50": {
+          "seconds": 0.31509450799785554,
+          "tokens_computed": 11952
+        }
+      }
+    },
+    {
+      "id": "zed-industries/zed#62534",
+      "universe": 48610,
+      "base_pool": 1099,
+      "wide_pool": 1880,
+      "total_seconds": 22.725741935893893,
+      "actions": {
+        "base_local": {
+          "seconds": 0.2819226309657097,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2898539979942143,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.37248306500259787,
+          "tokens_computed": 12499
+        },
+        "wide_ce200": {
+          "seconds": 1.4778507039882243,
+          "tokens_computed": 43914
+        },
+        "base_ce200": {
+          "seconds": 0.927696664002724,
+          "tokens_computed": 35812
+        },
+        "base_ce50": {
+          "seconds": 0.2977170149097219,
+          "tokens_computed": 12499
+        }
+      }
+    },
+    {
+      "id": "supabase/supabase#49940",
+      "universe": 41669,
+      "base_pool": 165,
+      "wide_pool": 14359,
+      "total_seconds": 38.36676045891363,
+      "actions": {
+        "base_local": {
+          "seconds": 0.2008174810325727,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.8552651379723102,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 2.171809658058919,
+          "tokens_computed": 49814
+        },
+        "base_ce50": {
+          "seconds": 0.5165088700596243,
+          "tokens_computed": 13662
+        },
+        "base_ce200": {
+          "seconds": 3.3885900920722634,
+          "tokens_computed": 35352
+        },
+        "wide_ce50": {
+          "seconds": 0.42154603300150484,
+          "tokens_computed": 13526
+        }
+      }
+    },
+    {
+      "id": "ollama/ollama#17757",
+      "universe": 7131,
+      "base_pool": 328,
+      "wide_pool": 956,
+      "total_seconds": 6.272154379053973,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1967958559980616,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.17986577202100307,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 0.9755508699454367,
+          "tokens_computed": 31553
+        },
+        "wide_ce200": {
+          "seconds": 1.0350376829737797,
+          "tokens_computed": 41975
+        },
+        "base_ce50": {
+          "seconds": 0.29546183603815734,
+          "tokens_computed": 11917
+        },
+        "wide_ce50": {
+          "seconds": 0.3176430449821055,
+          "tokens_computed": 12526
+        }
+      }
+    },
+    {
+      "id": "spring-projects/spring-boot#51774",
+      "universe": 31831,
+      "base_pool": 412,
+      "wide_pool": 667,
+      "total_seconds": 9.631176458089612,
+      "actions": {
+        "base_local": {
+          "seconds": 0.17451713304035366,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.18086653109639883,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.16912453703116626,
+          "tokens_computed": 6259
+        },
+        "wide_ce50": {
+          "seconds": 0.17458520305808634,
+          "tokens_computed": 6451
+        },
+        "wide_ce200": {
+          "seconds": 0.5347713080700487,
+          "tokens_computed": 22205
+        },
+        "base_ce200": {
+          "seconds": 0.4467414889950305,
+          "tokens_computed": 17365
+        }
+      }
+    },
+    {
+      "id": "Leonxlnx/taste-skill#158",
+      "universe": 210,
+      "base_pool": 167,
+      "wide_pool": 210,
+      "total_seconds": 2.8617053139023483,
+      "actions": {
+        "base_local": {
+          "seconds": 0.08167367789428681,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.07937392499297857,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.3896195599809289,
+          "tokens_computed": 11187
+        },
+        "wide_ce50": {
+          "seconds": 0.3613213140051812,
+          "tokens_computed": 11187
+        },
+        "wide_ce200": {
+          "seconds": 0.7746378560550511,
+          "tokens_computed": 31489
+        },
+        "base_ce200": {
+          "seconds": 0.6831725890515372,
+          "tokens_computed": 27078
+        }
+      }
+    },
+    {
+      "id": "Significant-Gravitas/AutoGPT#14008",
+      "universe": 22976,
+      "base_pool": 204,
+      "wide_pool": 668,
+      "total_seconds": 13.371621055994183,
+      "actions": {
+        "base_local": {
+          "seconds": 0.16783048305660486,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.16886875906493515,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.319670083001256,
+          "tokens_computed": 10761
+        },
+        "wide_ce50": {
+          "seconds": 0.2829827880486846,
+          "tokens_computed": 10790
+        },
+        "wide_ce200": {
+          "seconds": 1.1268160949693993,
+          "tokens_computed": 42601
+        },
+        "base_ce200": {
+          "seconds": 0.8784372099908069,
+          "tokens_computed": 36693
+        }
+      }
+    },
+    {
+      "id": "astral-sh/uv#22055",
+      "universe": 9657,
+      "base_pool": 904,
+      "wide_pool": 1482,
+      "total_seconds": 14.280438357964158,
+      "actions": {
+        "base_local": {
+          "seconds": 0.38956634199712425,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.23366575001273304,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 1.8092152340104803,
+          "tokens_computed": 47999
+        },
+        "base_ce50": {
+          "seconds": 0.4651993130100891,
+          "tokens_computed": 13543
+        },
+        "wide_ce50": {
+          "seconds": 0.4693202059715986,
+          "tokens_computed": 13543
+        },
+        "base_ce200": {
+          "seconds": 1.360374410985969,
+          "tokens_computed": 45598
+        }
+      }
+    },
+    {
+      "id": "supabase/supabase#50426",
+      "universe": 42155,
+      "base_pool": 154,
+      "wide_pool": 585,
+      "total_seconds": 23.859532259055413,
+      "actions": {
+        "base_local": {
+          "seconds": 0.19646368199028075,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.23082040704321116,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 3.240634260000661,
+          "tokens_computed": 31228
+        },
+        "wide_ce200": {
+          "seconds": 1.43712085892912,
+          "tokens_computed": 48074
+        },
+        "wide_ce50": {
+          "seconds": 0.33381572598591447,
+          "tokens_computed": 12456
+        },
+        "base_ce50": {
+          "seconds": 0.315452121081762,
+          "tokens_computed": 12063
+        }
+      }
+    },
+    {
+      "id": "avelino/awesome-go#6737",
+      "universe": 104,
+      "base_pool": 103,
+      "wide_pool": 104,
+      "total_seconds": 1.932543806033209,
+      "actions": {
+        "base_local": {
+          "seconds": 0.09442223398946226,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.0728323720395565,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 0.3692083419300616,
+          "tokens_computed": 13722
+        },
+        "base_ce200": {
+          "seconds": 0.3632799469633028,
+          "tokens_computed": 13689
+        },
+        "base_ce50": {
+          "seconds": 0.266468335990794,
+          "tokens_computed": 9175
+        },
+        "wide_ce50": {
+          "seconds": 0.2684649920556694,
+          "tokens_computed": 9175
+        }
+      }
+    },
+    {
+      "id": "keycloak/keycloak#51484",
+      "universe": 59139,
+      "base_pool": 164,
+      "wide_pool": 1057,
+      "total_seconds": 28.014570281025954,
+      "actions": {
+        "base_local": {
+          "seconds": 0.23810624901670963,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2702229809947312,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.4026889430824667,
+          "tokens_computed": 11925
+        },
+        "base_ce50": {
+          "seconds": 0.2609867319697514,
+          "tokens_computed": 10849
+        },
+        "wide_ce200": {
+          "seconds": 1.1900013859849423,
+          "tokens_computed": 46229
+        },
+        "base_ce200": {
+          "seconds": 0.6033747090259567,
+          "tokens_computed": 25872
+        }
+      }
+    },
+    {
+      "id": "louislam/uptime-kuma#8082",
+      "universe": 1214,
+      "base_pool": 210,
+      "wide_pool": 657,
+      "total_seconds": 4.328268367913552,
+      "actions": {
+        "base_local": {
+          "seconds": 0.14143783994950354,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.12670105800498277,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 1.1241409219801426,
+          "tokens_computed": 42968
+        },
+        "base_ce50": {
+          "seconds": 0.3341972199268639,
+          "tokens_computed": 12700
+        },
+        "base_ce200": {
+          "seconds": 0.871331313974224,
+          "tokens_computed": 35745
+        },
+        "wide_ce50": {
+          "seconds": 0.32699426903855056,
+          "tokens_computed": 12700
+        }
+      }
+    },
+    {
+      "id": "open-webui/open-webui#31416",
+      "universe": 8360,
+      "base_pool": 347,
+      "wide_pool": 936,
+      "total_seconds": 13.076605055946857,
+      "actions": {
+        "base_local": {
+          "seconds": 0.24427241506054997,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.17137782194186002,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.40164775704033673,
+          "tokens_computed": 12416
+        },
+        "wide_ce200": {
+          "seconds": 1.281325762043707,
+          "tokens_computed": 44518
+        },
+        "base_ce200": {
+          "seconds": 0.937527316971682,
+          "tokens_computed": 40214
+        },
+        "wide_ce50": {
+          "seconds": 0.37146169308107346,
+          "tokens_computed": 12680
+        }
+      }
+    },
+    {
+      "id": "astral-sh/uv#21275",
+      "universe": 9180,
+      "base_pool": 838,
+      "wide_pool": 1861,
+      "total_seconds": 12.128465672954917,
+      "actions": {
+        "base_local": {
+          "seconds": 0.4011353680398315,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.31367053801659495,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.5609278939664364,
+          "tokens_computed": 13423
+        },
+        "base_ce200": {
+          "seconds": 1.6623942400328815,
+          "tokens_computed": 44963
+        },
+        "wide_ce200": {
+          "seconds": 1.6158307410078123,
+          "tokens_computed": 50950
+        },
+        "base_ce50": {
+          "seconds": 0.4082556179491803,
+          "tokens_computed": 12744
+        }
+      }
+    },
+    {
+      "id": "anomalyco/opencode#41522",
+      "universe": 15195,
+      "base_pool": 628,
+      "wide_pool": 1150,
+      "total_seconds": 19.130738554988056,
+      "actions": {
+        "base_local": {
+          "seconds": 0.20506439602468163,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.18840416299644858,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.28390379704069346,
+          "tokens_computed": 9095
+        },
+        "base_ce200": {
+          "seconds": 0.7475893510272726,
+          "tokens_computed": 27766
+        },
+        "wide_ce50": {
+          "seconds": 0.3263650900917128,
+          "tokens_computed": 10705
+        },
+        "wide_ce200": {
+          "seconds": 0.9526163230184466,
+          "tokens_computed": 35178
+        }
+      }
+    },
+    {
+      "id": "traefik/traefik#14153",
+      "universe": 4963,
+      "base_pool": 222,
+      "wide_pool": 902,
+      "total_seconds": 6.727979432907887,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1218848330900073,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.1394706079736352,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 1.3107456599827856,
+          "tokens_computed": 39797
+        },
+        "wide_ce200": {
+          "seconds": 1.107632140046917,
+          "tokens_computed": 45951
+        },
+        "wide_ce50": {
+          "seconds": 0.29818661499302834,
+          "tokens_computed": 10389
+        },
+        "base_ce50": {
+          "seconds": 0.2767213759943843,
+          "tokens_computed": 10542
+        }
+      }
+    },
+    {
+      "id": "keycloak/keycloak#51591",
+      "universe": 59192,
+      "base_pool": 1018,
+      "wide_pool": 1568,
+      "total_seconds": 14.941598022007383,
+      "actions": {
+        "base_local": {
+          "seconds": 0.30935348803177476,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.3209248640341684,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 0.9675583369098604,
+          "tokens_computed": 29715
+        },
+        "wide_ce50": {
+          "seconds": 0.3105089570162818,
+          "tokens_computed": 10655
+        },
+        "wide_ce200": {
+          "seconds": 0.9486141350353137,
+          "tokens_computed": 39792
+        },
+        "base_ce50": {
+          "seconds": 0.29344088898506016,
+          "tokens_computed": 10671
+        }
+      }
+    },
+    {
+      "id": "louislam/uptime-kuma#7754",
+      "universe": 1211,
+      "base_pool": 146,
+      "wide_pool": 595,
+      "total_seconds": 3.30206078896299,
+      "actions": {
+        "base_local": {
+          "seconds": 0.12464221892878413,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.1236326270736754,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.31403718004003167,
+          "tokens_computed": 10992
+        },
+        "wide_ce50": {
+          "seconds": 0.31935065891593695,
+          "tokens_computed": 10825
+        },
+        "base_ce200": {
+          "seconds": 0.6769937170902267,
+          "tokens_computed": 27546
+        },
+        "wide_ce200": {
+          "seconds": 1.0190123229986057,
+          "tokens_computed": 43493
+        }
+      }
+    },
+    {
+      "id": "open-webui/open-webui#31862",
+      "universe": 8386,
+      "base_pool": 281,
+      "wide_pool": 834,
+      "total_seconds": 7.458698586910032,
+      "actions": {
+        "base_local": {
+          "seconds": 0.1477375030517578,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.14153580099809915,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.3914535650983453,
+          "tokens_computed": 12197
+        },
+        "wide_ce200": {
+          "seconds": 1.4596991010475904,
+          "tokens_computed": 44343
+        },
+        "wide_ce50": {
+          "seconds": 0.33920566306915134,
+          "tokens_computed": 12404
+        },
+        "base_ce200": {
+          "seconds": 0.9849737600889057,
+          "tokens_computed": 37638
+        }
+      }
+    },
+    {
+      "id": "storytold/photocraft#660",
+      "universe": 10258,
+      "base_pool": 239,
+      "wide_pool": 944,
+      "total_seconds": 21.86632286803797,
+      "actions": {
+        "base_local": {
+          "seconds": 0.40384098002687097,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.14853211399167776,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 1.658522876095958,
+          "tokens_computed": 45707
+        },
+        "base_ce200": {
+          "seconds": 0.901195032056421,
+          "tokens_computed": 38023
+        },
+        "base_ce50": {
+          "seconds": 0.25592079700436443,
+          "tokens_computed": 11962
+        },
+        "wide_ce50": {
+          "seconds": 0.31112019799184054,
+          "tokens_computed": 12441
+        }
+      }
+    },
+    {
+      "id": "anomalyco/opencode#41793",
+      "universe": 13616,
+      "base_pool": 229,
+      "wide_pool": 654,
+      "total_seconds": 18.972805508994497,
+      "actions": {
+        "base_local": {
+          "seconds": 0.16024870006367564,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.17089812108315527,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.24719013995490968,
+          "tokens_computed": 7437
+        },
+        "wide_ce200": {
+          "seconds": 3.993765496998094,
+          "tokens_computed": 27795
+        },
+        "wide_ce50": {
+          "seconds": 0.3023567359196022,
+          "tokens_computed": 9822
+        },
+        "base_ce200": {
+          "seconds": 0.5577305260812864,
+          "tokens_computed": 17869
+        }
+      }
+    },
+    {
+      "id": "traefik/traefik#14054",
+      "universe": 5311,
+      "base_pool": 274,
+      "wide_pool": 824,
+      "total_seconds": 4.382152603007853,
+      "actions": {
+        "base_local": {
+          "seconds": 0.13833008997607976,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.15078800998162478,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.30062590003944933,
+          "tokens_computed": 11462
+        },
+        "base_ce200": {
+          "seconds": 0.8069334529573098,
+          "tokens_computed": 38109
+        },
+        "wide_ce50": {
+          "seconds": 0.2646677029551938,
+          "tokens_computed": 11858
+        },
+        "wide_ce200": {
+          "seconds": 0.9427287030266598,
+          "tokens_computed": 41718
+        }
+      }
+    },
+    {
+      "id": "skylot/jadx#3044",
+      "universe": 13838,
+      "base_pool": 196,
+      "wide_pool": 956,
+      "total_seconds": 5.545959831913933,
+      "actions": {
+        "base_local": {
+          "seconds": 0.11353604798205197,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.159359858953394,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 0.5602347539970651,
+          "tokens_computed": 20702
+        },
+        "wide_ce200": {
+          "seconds": 0.6580665619112551,
+          "tokens_computed": 30120
+        },
+        "wide_ce50": {
+          "seconds": 0.20656231604516506,
+          "tokens_computed": 8014
+        },
+        "base_ce50": {
+          "seconds": 0.1689317759592086,
+          "tokens_computed": 7333
+        }
+      }
+    },
+    {
+      "id": "nodejs/node#65083",
+      "universe": 43524,
+      "base_pool": 965,
+      "wide_pool": 1568,
+      "total_seconds": 31.34194196294993,
+      "actions": {
+        "base_local": {
+          "seconds": 0.49056997103616595,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2763512880774215,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 1.51642634102609,
+          "tokens_computed": 38895
+        },
+        "base_ce200": {
+          "seconds": 0.8250957929994911,
+          "tokens_computed": 31494
+        },
+        "wide_ce50": {
+          "seconds": 0.31706971500534564,
+          "tokens_computed": 10764
+        },
+        "base_ce50": {
+          "seconds": 0.27362689992878586,
+          "tokens_computed": 10263
+        }
+      }
+    },
+    {
+      "id": "microsoft/markitdown#2430",
+      "universe": 285,
+      "base_pool": 126,
+      "wide_pool": 285,
+      "total_seconds": 2.6511872760020196,
+      "actions": {
+        "base_local": {
+          "seconds": 0.08586753602139652,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.07872515392955393,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.3107001199387014,
+          "tokens_computed": 11961
+        },
+        "base_ce200": {
+          "seconds": 0.5766058970475569,
+          "tokens_computed": 24160
+        },
+        "wide_ce50": {
+          "seconds": 0.29054784099571407,
+          "tokens_computed": 11961
+        },
+        "wide_ce200": {
+          "seconds": 0.7695007940055802,
+          "tokens_computed": 34312
+        }
+      }
+    },
+    {
+      "id": "storytold/photocraft#799",
+      "universe": 10561,
+      "base_pool": 566,
+      "wide_pool": 1143,
+      "total_seconds": 9.389384060981683,
+      "actions": {
+        "base_local": {
+          "seconds": 0.2126054810360074,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.17616452497895807,
+          "tokens_computed": null
+        },
+        "base_ce200": {
+          "seconds": 1.4255553559632972,
+          "tokens_computed": 43250
+        },
+        "wide_ce200": {
+          "seconds": 1.4590951909776777,
+          "tokens_computed": 48055
+        },
+        "base_ce50": {
+          "seconds": 0.3133357330225408,
+          "tokens_computed": 12788
+        },
+        "wide_ce50": {
+          "seconds": 0.3087565749883652,
+          "tokens_computed": 12788
+        }
+      }
+    },
+    {
+      "id": "thedotmack/claude-mem#4620",
+      "universe": 23660,
+      "base_pool": 323,
+      "wide_pool": 964,
+      "total_seconds": 20.1906228660373,
+      "actions": {
+        "base_local": {
+          "seconds": 0.282194732921198,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.21221683092880994,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 1.9168378639733419,
+          "tokens_computed": 49611
+        },
+        "base_ce50": {
+          "seconds": 0.4135048419702798,
+          "tokens_computed": 13311
+        },
+        "wide_ce50": {
+          "seconds": 0.4340201560407877,
+          "tokens_computed": 13311
+        },
+        "base_ce200": {
+          "seconds": 1.419509678031318,
+          "tokens_computed": 42261
+        }
+      }
+    },
+    {
+      "id": "skylot/jadx#2995",
+      "universe": 13673,
+      "base_pool": 162,
+      "wide_pool": 557,
+      "total_seconds": 4.4591318080201745,
+      "actions": {
+        "base_local": {
+          "seconds": 0.21313982794526964,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.12964920094236732,
+          "tokens_computed": null
+        },
+        "wide_ce200": {
+          "seconds": 0.5364471450448036,
+          "tokens_computed": 24789
+        },
+        "wide_ce50": {
+          "seconds": 0.16571411897893995,
+          "tokens_computed": 7335
+        },
+        "base_ce200": {
+          "seconds": 0.4131433579605073,
+          "tokens_computed": 16665
+        },
+        "base_ce50": {
+          "seconds": 0.16352904203813523,
+          "tokens_computed": 7314
+        }
+      }
+    },
+    {
+      "id": "nodejs/node#65076",
+      "universe": 43752,
+      "base_pool": 938,
+      "wide_pool": 1564,
+      "total_seconds": 18.195814830018207,
+      "actions": {
+        "base_local": {
+          "seconds": 0.3175144869601354,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.2916906139580533,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.4563643540022895,
+          "tokens_computed": 12802
+        },
+        "wide_ce200": {
+          "seconds": 1.6375792730832472,
+          "tokens_computed": 46571
+        },
+        "base_ce50": {
+          "seconds": 0.34376683505252004,
+          "tokens_computed": 12426
+        },
+        "base_ce200": {
+          "seconds": 1.100228199036792,
+          "tokens_computed": 42378
+        }
+      }
+    },
+    {
+      "id": "microsoft/markitdown#2342",
+      "universe": 263,
+      "base_pool": 142,
+      "wide_pool": 263,
+      "total_seconds": 2.35329488303978,
+      "actions": {
+        "base_local": {
+          "seconds": 0.0859127789735794,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.08165665599517524,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 0.2984712260076776,
+          "tokens_computed": 11999
+        },
+        "wide_ce50": {
+          "seconds": 0.29044342099223286,
+          "tokens_computed": 11999
+        },
+        "wide_ce200": {
+          "seconds": 0.7353006609482691,
+          "tokens_computed": 31301
+        },
+        "base_ce200": {
+          "seconds": 0.5803630449809134,
+          "tokens_computed": 24490
+        }
+      }
+    },
+    {
+      "id": "thedotmack/claude-mem#4868",
+      "universe": 26646,
+      "base_pool": 9830,
+      "wide_pool": 13561,
+      "total_seconds": 26.09206933400128,
+      "actions": {
+        "base_local": {
+          "seconds": 2.962977697025053,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.7338021449977532,
+          "tokens_computed": null
+        },
+        "base_ce50": {
+          "seconds": 1.440671970951371,
+          "tokens_computed": 11927
+        },
+        "wide_ce50": {
+          "seconds": 0.3589724210323766,
+          "tokens_computed": 11927
+        },
+        "base_ce200": {
+          "seconds": 3.5375330839306116,
+          "tokens_computed": 37461
+        },
+        "wide_ce200": {
+          "seconds": 1.2228254730580375,
+          "tokens_computed": 43538
+        }
+      }
+    },
+    {
+      "id": "microsoft/markitdown#2356",
+      "universe": 268,
+      "base_pool": 141,
+      "wide_pool": 268,
+      "total_seconds": 2.2714352279435843,
+      "actions": {
+        "base_local": {
+          "seconds": 0.08450948202516884,
+          "tokens_computed": null
+        },
+        "wide_local": {
+          "seconds": 0.08178765699267387,
+          "tokens_computed": null
+        },
+        "wide_ce50": {
+          "seconds": 0.29148067894857377,
+          "tokens_computed": 11495
+        },
+        "base_ce200": {
+          "seconds": 0.5823552360525355,
+          "tokens_computed": 24597
+        },
+        "wide_ce200": {
+          "seconds": 0.7439471080433577,
+          "tokens_computed": 32090
+        },
+        "base_ce50": {
+          "seconds": 0.2868153239833191,
+          "tokens_computed": 11495
+        }
+      }
+    }
+  ],
+  "scope": "Saved-trace integrity and internal stage consistency only; no gold scoring, model recomputation, Git-tree completeness or scientific claim validation."
+}

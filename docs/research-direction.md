@@ -188,3 +188,15 @@ provenance, repository aliases/forks and upstream model exposure still need inve
 The defensible statement today is: **we have a concrete, falsifiable candidate method and
 an experimental platform, plus a verified reason to rebuild the evidence**. The stronger
 claim about improved allocation must be earned by the controlled experiments above.
+
+## Development decision, 2026-11-14
+
+The [verified 47-row pilot](research-development-results-2026-11-14.md) does not
+meet the current action-diversity prerequisite for a complex router: base CE50
+hits 39/47, the same success set as the six-action oracle. Wider retrieval adds
+11 labeled targets to candidate pools but no additional hit@10 success. Both
+rescues occur in validation projects; fit projects supply no positive rescue
+examples. Do not train a benefit router or claim improved allocation from this
+pilot. Keep the simple reference and audit fit failures before proposing a new
+action; the failure/evaluation-study fallback remains open. This is a small
+exploratory result, not proof of equivalence or impossibility of useful routing.

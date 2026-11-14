@@ -250,3 +250,9 @@ tar -czf results/research/corrections/development-replay-7019874.tar.gz \
 Transfer the archive to local `reports/`. If validation fails, retain all evidence
 and inspect the validation log; do not modify traces to make the check pass. The
 validator refuses to overwrite its report, so use a new report filename on reruns.
+
+The transfer has since been received, locally validated and scored; see the
+[verified development results and decision](research-development-results-2026-11-14.md).
+Base CE50 reaches the same 39/47 hit@10 success set as the six-action oracle.
+The next step is failure/action-design review, not a larger uniform budget sweep
+or fitting a router to a fit split with no positive hit@10 rescue examples.

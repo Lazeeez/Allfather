@@ -236,6 +236,8 @@ still be reviewed before treating aliases as reliably unique.
 Development smoke job 7018060 passed the saved-trace check for all six issues.
 Full-pilot job 7019874 now reports 47/47 completed without failures. The
 [replay protocol](../../docs/development-replay.md) provides validation and archive
-commands; transfer both runs for local analysis before further model experiments.
+commands. Both runs have now been transferred and locally verified/scored; see the
+[development results](../../docs/research-development-results-2026-11-14.md).
+The pilot does not justify training the proposed multi-action router yet.
 Pinned base weights download only to compute-node temporary storage. No training
-sweep or paid model calls are involved; outcome analysis remains pending.
+sweep or paid model calls are involved.
