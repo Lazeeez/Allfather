@@ -1,5 +1,9 @@
 # Fit failure audit and next controlled experiment
 
+Follow-up: job 7035289 completed and its traces are [verified and scored](research-text-view-results-2026-11-14.md).
+The preparation/protocol below records the pre-run state; use the follow-up for
+current findings and the next PACE submission.
+
 Updated 2026-11-14. This is exploratory development on exposed data, not confirmation
 or an established novel method. The [47-row pilot](research-development-results-2026-11-14.md)
 gave no incremental fit-set hit@10 rescues from the existing six-action menu.

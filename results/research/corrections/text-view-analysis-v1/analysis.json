@@ -1,0 +1,4237 @@
+{
+  "schema": "fit-text-view-analysis-v1",
+  "scope": "All frozen fit rows and all 16 controls; exploratory, no training, validation scoring or novelty claim.",
+  "summaries": {
+    "strict_symbol": {
+      "rows": 23,
+      "projects": 12,
+      "gold_count": 52,
+      "ids": [
+        "QuantumNous/new-api#7761",
+        "dbeaver/dbeaver#42432",
+        "tt-a1i/archify#991",
+        "Comfy-Org/ComfyUI#15922",
+        "ultraworkers/claw-code#3332",
+        "immich-app/immich#31348",
+        "QuantumNous/new-api#7844",
+        "dbeaver/dbeaver#42026",
+        "tt-a1i/archify#515",
+        "Comfy-Org/ComfyUI#16485",
+        "zed-industries/zed#62785",
+        "immich-app/immich#31079",
+        "ollama/ollama#19188",
+        "spring-projects/spring-boot#52201",
+        "Leonxlnx/taste-skill#165",
+        "Significant-Gravitas/AutoGPT#14536",
+        "zed-industries/zed#62534",
+        "supabase/supabase#49940",
+        "ollama/ollama#17757",
+        "spring-projects/spring-boot#51774",
+        "Leonxlnx/taste-skill#158",
+        "Significant-Gravitas/AutoGPT#14008",
+        "supabase/supabase#50426"
+      ],
+      "actions": {
+        "base_prefix_prefix": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.5786749482401656
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 29.09611350588966,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_prefix_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7391304347826086,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.5790890269151138
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.081476686289534,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_prefix_lexical": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.6213768115942029
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.083433075924404,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_prefix_random": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6521739130434783,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.6066252587991718
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.0889669607859105,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_prefix": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7681159420289854,
+            "all@10": 0.6956521739130435,
+            "mrr@10": 0.5765010351966874
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.080509451916441,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7681159420289854,
+            "all@10": 0.6956521739130435,
+            "mrr@10": 0.59824016563147
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.083373552071862,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_lexical": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.7246376811594202,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.6155797101449275
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.07893479091581,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_random": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6956521739130435,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7318840579710146,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.6142857142857142
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.081093702814542,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_prefix": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.391304347826087,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.5416666666666667
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 2
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.60445784125477,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.6956521739130435,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7391304347826086,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.5629744651483781
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 19,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.603949849144556,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_lexical": {
+          "hits": 17,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.7391304347826086,
+            "recall@10": 0.6473429951690821,
+            "all@10": 0.5652173913043478,
+            "mrr@10": 0.5942028985507246
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [
+            "immich-app/immich#31348"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 17,
+            "read_prefix_miss": 1,
+            "ranking_miss": 3
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.757443721056916,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 17,
+            "b_rescues_a": 0,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": -0.043478260869565216,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": -0.041666666666666664,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_random": {
+          "hits": 17,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6521739130434783,
+            "hit@10": 0.7391304347826086,
+            "recall@10": 0.6545893719806763,
+            "all@10": 0.5652173913043478,
+            "mrr@10": 0.5956521739130435
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [
+            "tt-a1i/archify#515"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 17,
+            "read_prefix_miss": 1,
+            "ranking_miss": 3
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.711829259991646,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 17,
+            "b_rescues_a": 0,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": -0.043478260869565216,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": -0.041666666666666664,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_prefix": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7681159420289854,
+            "all@10": 0.6956521739130435,
+            "mrr@10": 0.5721014492753622
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 19,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.616141589707695,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7463768115942028,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.5838164251207729
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 19,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.601003824849613,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_lexical": {
+          "hits": 17,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.7391304347826086,
+            "recall@10": 0.6811594202898551,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.5869565217391305
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [
+            "immich-app/immich#31348"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 17,
+            "read_prefix_miss": 1,
+            "ranking_miss": 3
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.891825575497933,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 17,
+            "b_rescues_a": 0,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": -0.043478260869565216,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": -0.041666666666666664,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_random": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6956521739130435,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6884057971014493,
+            "all@10": 0.5652173913043478,
+            "mrr@10": 0.5981884057971015
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [
+            "Significant-Gravitas/AutoGPT#14008"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 2
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.61275844660122,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 1,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        }
+      },
+      "oracle_hits": 19,
+      "all_actions_miss": [
+        "QuantumNous/new-api#7761",
+        "Comfy-Org/ComfyUI#15922",
+        "ultraworkers/claw-code#3332",
+        "supabase/supabase#49940"
+      ]
+    },
+    "name_group": {
+      "rows": 23,
+      "projects": 12,
+      "gold_count": 52,
+      "ids": [
+        "QuantumNous/new-api#7761",
+        "dbeaver/dbeaver#42432",
+        "tt-a1i/archify#991",
+        "Comfy-Org/ComfyUI#15922",
+        "ultraworkers/claw-code#3332",
+        "immich-app/immich#31348",
+        "QuantumNous/new-api#7844",
+        "dbeaver/dbeaver#42026",
+        "tt-a1i/archify#515",
+        "Comfy-Org/ComfyUI#16485",
+        "zed-industries/zed#62785",
+        "immich-app/immich#31079",
+        "ollama/ollama#19188",
+        "spring-projects/spring-boot#52201",
+        "Leonxlnx/taste-skill#165",
+        "Significant-Gravitas/AutoGPT#14536",
+        "zed-industries/zed#62534",
+        "supabase/supabase#49940",
+        "ollama/ollama#17757",
+        "spring-projects/spring-boot#51774",
+        "Leonxlnx/taste-skill#158",
+        "Significant-Gravitas/AutoGPT#14008",
+        "supabase/supabase#50426"
+      ],
+      "actions": {
+        "base_prefix_prefix": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.5786749482401656
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 29.09611350588966,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_prefix_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7391304347826086,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.5790890269151138
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.081476686289534,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_prefix_lexical": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.6213768115942029
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.083433075924404,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_prefix_random": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6521739130434783,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.6066252587991718
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.0889669607859105,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_prefix": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7681159420289854,
+            "all@10": 0.6956521739130435,
+            "mrr@10": 0.5765010351966874
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.080509451916441,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7681159420289854,
+            "all@10": 0.6956521739130435,
+            "mrr@10": 0.59824016563147
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.083373552071862,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_lexical": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.7246376811594202,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.6155797101449275
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.07893479091581,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "base_head_tail_random": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6956521739130435,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7318840579710146,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.6142857142857142
+          },
+          "baseline": "base_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 3,
+            "success": 19,
+            "read_prefix_miss": 1
+          },
+          "tokens_computed": 252808,
+          "observed_inference_seconds": 5.081093702814542,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_prefix": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.391304347826087,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6908212560386474,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.5416666666666667
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 2
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.60445784125477,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 0,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.6956521739130435,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7391304347826086,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.5629744651483781
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 19,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.603949849144556,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_lexical": {
+          "hits": 17,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.7391304347826086,
+            "recall@10": 0.6473429951690821,
+            "all@10": 0.5652173913043478,
+            "mrr@10": 0.5942028985507246
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [
+            "immich-app/immich#31348"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 17,
+            "read_prefix_miss": 1,
+            "ranking_miss": 3
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.757443721056916,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 17,
+            "b_rescues_a": 0,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": -0.043478260869565216,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": -0.041666666666666664,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_prefix_random": {
+          "hits": 17,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6521739130434783,
+            "hit@10": 0.7391304347826086,
+            "recall@10": 0.6545893719806763,
+            "all@10": 0.5652173913043478,
+            "mrr@10": 0.5956521739130435
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [
+            "tt-a1i/archify#515"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 17,
+            "read_prefix_miss": 1,
+            "ranking_miss": 3
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.711829259991646,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 17,
+            "b_rescues_a": 0,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": -0.043478260869565216,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": -0.041666666666666664,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_prefix": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.43478260869565216,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7681159420289854,
+            "all@10": 0.6956521739130435,
+            "mrr@10": 0.5721014492753622
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 19,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.616141589707695,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_head_tail": {
+          "hits": 19,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.782608695652174,
+            "hit@10": 0.8260869565217391,
+            "recall@10": 0.7463768115942028,
+            "all@10": 0.6521739130434783,
+            "mrr@10": 0.5838164251207729
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 19,
+            "read_prefix_miss": 1,
+            "ranking_miss": 1
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.601003824849613,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 19,
+            "b_rescues_a": 1,
+            "b_harms_a": 0,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.043478260869565216,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.041666666666666664,
+              "project_bootstrap_ci95": [
+                0.0,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_lexical": {
+          "hits": 17,
+          "metrics": {
+            "hit@1": 0.4782608695652174,
+            "hit@5": 0.7391304347826086,
+            "hit@10": 0.7391304347826086,
+            "recall@10": 0.6811594202898551,
+            "all@10": 0.6086956521739131,
+            "mrr@10": 0.5869565217391305
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [],
+          "harms": [
+            "immich-app/immich#31348"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 17,
+            "read_prefix_miss": 1,
+            "ranking_miss": 3
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.891825575497933,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 17,
+            "b_rescues_a": 0,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": -0.043478260869565216,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.0
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": -0.041666666666666664,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.0
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        },
+        "wide_head_tail_random": {
+          "hits": 18,
+          "metrics": {
+            "hit@1": 0.5217391304347826,
+            "hit@5": 0.6956521739130435,
+            "hit@10": 0.782608695652174,
+            "recall@10": 0.6884057971014493,
+            "all@10": 0.5652173913043478,
+            "mrr@10": 0.5981884057971015
+          },
+          "baseline": "wide_prefix_prefix",
+          "rescues": [
+            "immich-app/immich#31079"
+          ],
+          "harms": [
+            "Significant-Gravitas/AutoGPT#14008"
+          ],
+          "failure_counts": {
+            "candidate_miss": 2,
+            "success": 18,
+            "read_prefix_miss": 1,
+            "ranking_miss": 2
+          },
+          "tokens_computed": 920553,
+          "observed_inference_seconds": 16.61275844660122,
+          "paired_diagnostic": {
+            "issues": 23,
+            "projects": 12,
+            "a_hits": 18,
+            "b_hits": 18,
+            "b_rescues_a": 1,
+            "b_harms_a": 1,
+            "issue_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                -0.13043478260869565,
+                0.13043478260869565
+              ]
+            },
+            "project_weighted": {
+              "delta_b_minus_a": 0.0,
+              "project_bootstrap_ci95": [
+                -0.125,
+                0.125
+              ]
+            },
+            "by_project": {
+              "comfy-org/comfyui": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "dbeaver/dbeaver": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "immich-app/immich": {
+                "issues": 2,
+                "net_hits": 1.0,
+                "delta": 0.5
+              },
+              "leonxlnx/taste-skill": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ollama/ollama": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "quantumnous/new-api": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "significant-gravitas/autogpt": {
+                "issues": 2,
+                "net_hits": -1.0,
+                "delta": -0.5
+              },
+              "spring-projects/spring-boot": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "supabase/supabase": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "tt-a1i/archify": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "ultraworkers/claw-code": {
+                "issues": 1,
+                "net_hits": 0.0,
+                "delta": 0.0
+              },
+              "zed-industries/zed": {
+                "issues": 2,
+                "net_hits": 0.0,
+                "delta": 0.0
+              }
+            }
+          }
+        }
+      },
+      "oracle_hits": 19,
+      "all_actions_miss": [
+        "QuantumNous/new-api#7761",
+        "Comfy-Org/ComfyUI#15922",
+        "ultraworkers/claw-code#3332",
+        "supabase/supabase#49940"
+      ]
+    }
+  },
+  "timing": {
+    "script_seconds": 455.7006120920414,
+    "shared_preparation_seconds": 57.83750696456991,
+    "sequential_inference_seconds": 198.0733118347125,
+    "other_script_seconds": 199.789793292759
+  },
+  "integrity": {
+    "ok": true,
+    "cases": 23,
+    "actions": 368,
+    "exact_baseline_comparisons": 46,
+    "prepared_views_exactly_equal": true,
+    "recorded_source_files_verified": 46,
+    "parent_parity": {
+      "QuantumNous/new-api#7761": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "dbeaver/dbeaver#42432": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "tt-a1i/archify#991": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "Comfy-Org/ComfyUI#15922": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "ultraworkers/claw-code#3332": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "immich-app/immich#31348": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "QuantumNous/new-api#7844": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "dbeaver/dbeaver#42026": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "tt-a1i/archify#515": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "Comfy-Org/ComfyUI#16485": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "zed-industries/zed#62785": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "immich-app/immich#31079": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "ollama/ollama#19188": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "spring-projects/spring-boot#52201": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "Leonxlnx/taste-skill#165": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "Significant-Gravitas/AutoGPT#14536": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "zed-industries/zed#62534": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "supabase/supabase#49940": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "ollama/ollama#17757": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "spring-projects/spring-boot#51774": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "Leonxlnx/taste-skill#158": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "Significant-Gravitas/AutoGPT#14008": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      },
+      "supabase/supabase#50426": {
+        "base": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        },
+        "wide": {
+          "rankings_equal": true,
+          "scores_max_abs_difference": 0.0
+        }
+      }
+    }
+  },
+  "provenance": {
+    "archive_sha256": "b475d5bf445195752bcc37746a1b9f6914b498d5bebff03636c956b1b32c679b",
+    "archive_bytes": 5675761,
+    "archive_files_sha256": {
+      "manifest.json": "cc4e057a27d412111c94b7b3595c19b7847c555f5313159469c47a44e074f4d1",
+      "8a5951f869b865e8c8210fcaa5874f02bf116565ee6f2f0c22d296731a153646.json.gz": "7d570ce65c3487fc5ae20567feb04588cd6a4a3c5b049e8f48d8850a36c6fc9c",
+      "2a968922e1ea82199656a24d3f7a6e2e7f136748657acc75d97a6a84780b6c65.json.gz": "a4335c11326a9c81d78b21745d4ef178fda69f678daf974b9dc326bcca76bdd2",
+      "9dc34bbbe312153a93ee3f47d6c9daa421c667b310211686c6fa11e4ef58b396.json.gz": "00e7656fc8b6b48f3f32032f95c357abd1d9ad9eaf06e1fbc99c41e6b025f367",
+      "57e4302bd98f06a4c978077bd00d32cc7fc2041c0f64430312b2cda8d740af4a.json.gz": "53dcf46f161407f3767d660b92499d01b1c9654755803397ba80dc3071779561",
+      "029385748596d6ae4675ae83a941bdbd5fcf6ba448beb3c0d61ae6094b9e0416.json.gz": "4bb8bdf44f35b1d95c6c1c815af6c66e07d46f5c020b7cf262b0882ab54788f1",
+      "66829ce376e01bbcfdfa777743de3882ec2c13d39d5741d28ea9a9fac35cde27.json.gz": "78eb1a82ade8abf6150f5768c574f6e790f55a2f408880c5a2de44532b38f5e2",
+      "e44670c8a00636145837c578889ba939429654f6d305cfc83627af3e9263f620.json.gz": "adff3a01dbbbdd6373986fec60b9d3b500cdca6286bb3fe357a65912b9582419",
+      "788dacec8e9397e72e3b17cde22e9b254753c81e70abe8b3b0593b1596b2a879.json.gz": "25e49eecf0fce7c56bc386e01bf14922a173b8362690a49f6934fff1e941d71a",
+      "7fa3ea18a02b6ccdf6b519de1698da728baf139683da654469bb92170dac2ee3.json.gz": "9a1acf9e72e5c47e0cd9cc697b22995f4f95350a0e92138c558c8c0c3cdaf313",
+      "3c288f46eb6d1368facb1e901e1be40ceb5960c6abd60dfe41503280d0949aa7.json.gz": "ce648f2836479e0cd39fe36c109fb21d817ed1926275535886ff7f5b7d912925",
+      "45375012c2895675b6c3c985d3ef810930982e91ee7e46841a001dcd773bf2b5.json.gz": "b8395a765a74a716abc06efe155c456783a104a3f778f1ac8723ade0d277e715",
+      "a8e38c7d587dbf2d510f81e9ac9509db4b2bf7cf970f51e3e7b5e7b16a77dc8c.json.gz": "ff3e56c55c55f9d7698c10843603c175550fa87e807032d6b1960434901fd6fa",
+      "25445a6a3376ea9ec14f492876d098a4d21bd86bc81e75e4eeb2a7ccdb72fde7.json.gz": "64dae14a34bf017f6e0a670e584af5ac088c82985d0a053f3d6b55502d894a06",
+      "805c3ca1969d247846ed37b025906f02d7779bb06de03910be8b937f3ad4f4b9.json.gz": "06f735187660c4d02678e00672866f7b0ae58966d2e724766b9884378fa4fb35",
+      "921429993b0f4085f763c70f8760597650e9013df16eed1299725d59049f2d00.json.gz": "a49c47faa14e32b50e34c8fe3f2807b98c8a5a057c181a38db5cec38d771540b",
+      "2caea5b23713f0e9e2f079c19adf8af2292b9add027878335bd50a7b71243b6b.json.gz": "caecea151a2fe0cbc73a375c4b96a8b7161fc81701b6920692573d6516053c2b",
+      "6816b81ef3aa13f05b48b9bbbdee368fd66c5aadce38a325e73b038c5537d247.json.gz": "e62348acabdf8cc5f4705b145b0205f7bfbdd2dda524c3770bcd8ef78f4ad593",
+      "e3a5ead0e6ebddcade77b140ea21dfcbc336fb353defb3e67cce614b720cfd5f.json.gz": "b74b8431284ce15709437bb5c3801f6bc5cab72684138a2c33ccb79265b79428",
+      "4fd4c65a3e9ae23e1b5c840a6fbd71b99b67b4be5698e14079172f0f86abf48a.json.gz": "f2dfb77c54f9f7ac8e6f51c74ac5281c5be3fdf4cef2dd39af3215d403f8b3b2",
+      "dd1909dc1849c5c0bc9f39a36cf21517614b1db486c452e648e63153fdad75a4.json.gz": "ebfa475952c2b4f4f3517a3c22c5af266e4f7605f3f9407620104e724bbf5e88",
+      "summary.json": "c93a4f3a17f58c86e52860610cbafc303fa28a15c5d55637c3520af8266f3a93",
+      "fa3ba8f779dc2b0856407e30438371e2ee2c778d19b3f14bb62e5bf6ed7a2eb6.json.gz": "43acf1b54b93ad36a5b9c2ed30a3a067e6cc5c052d1dda114eb980ab82ad8b9c",
+      "index.json": "a8399c7cfc756e626e074aeb32d4298a4bbe21553b4676904798270de6eb5047",
+      "2018978cc96177af4bb3293dfe98874c6138ff37455fe81b0e5e336afe24104d.json.gz": "c3a9eb101717306b59a0303a57452cd7a20d6656bee4781ec5b8b58c274856ec",
+      "3d31e3824679bba4e226e47e211824a53b7ee6994833b8105a0464b49730ebb5.json.gz": "03e9ee6d4668b41c563b4bdea6065f014897e3672584b78e3659f2d019ce4d7b"
+    },
+    "run_manifest": {
+      "schema": "fit-text-views-v1",
+      "prepare_only": false,
+      "protocol_sha256": "033413e6b59a76126d95bf01e1cb201c3f544107da68d2b7e08027e674d74495",
+      "assets_sha256": "d6f32981acd47cc8d44d934a1279de070aa582e89d380eee313131941bd6f364",
+      "protocol": {
+        "schema": "fit-text-view-protocol-v1",
+        "status": "Exploratory fit-only mechanism experiment; frozen before new model scoring; no novelty or confirmatory claim.",
+        "seed": 37,
+        "plan_sha256": "b2f57dba9d2978c97baa4511adef06b349a3c67a2a8e4e9b860fac33cb7a000f",
+        "parent_manifest_sha256": "92eb1583e21bff2837dab6f7dc73cda2818788bb6e0795abf563a3a6f759ebe6",
+        "fit_ids": [
+          "QuantumNous/new-api#7761",
+          "dbeaver/dbeaver#42432",
+          "tt-a1i/archify#991",
+          "Comfy-Org/ComfyUI#15922",
+          "ultraworkers/claw-code#3332",
+          "immich-app/immich#31348",
+          "QuantumNous/new-api#7844",
+          "dbeaver/dbeaver#42026",
+          "tt-a1i/archify#515",
+          "Comfy-Org/ComfyUI#16485",
+          "zed-industries/zed#62785",
+          "immich-app/immich#31079",
+          "ollama/ollama#19188",
+          "spring-projects/spring-boot#52201",
+          "Leonxlnx/taste-skill#165",
+          "Significant-Gravitas/AutoGPT#14536",
+          "zed-industries/zed#62534",
+          "supabase/supabase#49940",
+          "ollama/ollama#17757",
+          "spring-projects/spring-boot#51774",
+          "Leonxlnx/taste-skill#158",
+          "Significant-Gravitas/AutoGPT#14008",
+          "supabase/supabase#50426"
+        ],
+        "trace_sha256": {
+          "QuantumNous/new-api#7761": "cef779d46e10287949c7587196139ee103a680644daed6985cc93c3c328e8f2a",
+          "dbeaver/dbeaver#42432": "b225cf155beac2d17f02702519d8675fc84d137e8886b9ccdb56a67c05b6c6de",
+          "tt-a1i/archify#991": "1585c2fc9728a02849f053008bf20287f30f4b984374ef05b285faa5929de43e",
+          "Comfy-Org/ComfyUI#15922": "8d1aaa9b6da04344b6c022a75c5812fb56951e8c4e61e9c20ebc28c2d4c25f05",
+          "ultraworkers/claw-code#3332": "e2adc28a97accaa1ef47c0231de27203c4ecd614c2cab7b3ab20fcbde27cf107",
+          "immich-app/immich#31348": "71eb3b2fa23323bf2a4af683ca51fe517fb4cd6ac0079937e1650c3805f126a4",
+          "QuantumNous/new-api#7844": "7722e04991c1f147c7a3c9bda51a2006d342ef1e2c3bbe32e228d240679df238",
+          "dbeaver/dbeaver#42026": "efae663a5cd2b608ec99a33c5b0f2a62e66dfb91e383411ce0c47cfffaf1fd4e",
+          "tt-a1i/archify#515": "90cda6fca9367c5884c2f28a60d944348bbcfee09ff523628fad37f6e8028370",
+          "Comfy-Org/ComfyUI#16485": "33479d85e1125eb145e9f199c5e202285c53b82a0523e1e51e4a763de87dce77",
+          "zed-industries/zed#62785": "f39fd8420f89ee0ce7072359590249c6757d4da1817e490a8e8978dcf451c180",
+          "immich-app/immich#31079": "4ae951825eac0ce7d3a05b32ca1812a6ac15fd62cf1c1da83de1358b9e1c8bd9",
+          "ollama/ollama#19188": "96d93bf876f9b9cd929d6f943260cb6b6b7cbda1d77d334eae027ba1e28cde82",
+          "spring-projects/spring-boot#52201": "949345ccecd920f5edc20c5ca2bcc00efc64a83d2c1602b4f573d35e5faf6758",
+          "Leonxlnx/taste-skill#165": "c9890412c9dee6fba0ac3d45d2c1b882f13edd47891b31a68b834fabd8797919",
+          "Significant-Gravitas/AutoGPT#14536": "b1e820770392b10148e2c013aa47061e9c44e65f870a59f19772d09f4df821c4",
+          "zed-industries/zed#62534": "d9ceae034af076434b9b8ad2d4cee2d32917b3a6ae41b1de7e922e145affa6e3",
+          "supabase/supabase#49940": "0351a58fbaaa9e23c6a3d53f4ef064ebd6af5585e4e7f86e1946ba574ecb2c8d",
+          "ollama/ollama#17757": "5ea43af0dbf108b103a353656f0724300df73f7e6b03b6f9391a86665feedc9a",
+          "spring-projects/spring-boot#51774": "515525f93c3a4774e0bcae4a31bab171b9f076f4f2324528744836ab35941b4b",
+          "Leonxlnx/taste-skill#158": "ae6c2e4b09d3f2e2141c895958480779d3f099a1917a0741f36d5537a85ff757",
+          "Significant-Gravitas/AutoGPT#14008": "11e5f51b37c2e50a5eb30d8a8ce7ab66f6ef89212ee61833ccce2285783a0be2",
+          "supabase/supabase#50426": "fb5e462a55802f953c2a821f959e33c3fcf6850b21a5c8beac917afd60cf2f74"
+        },
+        "query_views": [
+          "prefix",
+          "head_tail"
+        ],
+        "document_views": [
+          "prefix",
+          "head_tail",
+          "lexical",
+          "random"
+        ],
+        "pool_depths": {
+          "base": 50,
+          "wide": 200
+        },
+        "query_tokens": 512,
+        "document_tokens": 256,
+        "window_stride": 128,
+        "bm25": {
+          "k1": 1.2,
+          "b": 0.75,
+          "idf_scope": "overlapping windows within each candidate unit",
+          "query_terms": "selected query view only; existing code_counts tokenizer"
+        },
+        "blend_weight": 1.0,
+        "random_window": "SHA256 of 37:issue-id:content-key modulo window count",
+        "comparison": "Paired per issue within the same pool; same number of query/document token positions in every view. CPU selection and sequential inference times reported separately.",
+        "primary_metric": "strict symbol hit@10 on all 23 fit rows; report every variant, rescue and harm",
+        "secondary_metrics": [
+          "MRR@10",
+          "gold recall@10",
+          "all-gold hit@10"
+        ],
+        "decision": "Do not fit a router or claim a new method from this experiment. Inspect baseline parity before outcome comparisons; retain every row and disclose multiple exploratory variants."
+      },
+      "source_sha256": {
+        "src/allfather/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/allfather/cli.py": "f0e819af66424daba0364c6a45f2afdc7d633a50a74113cbb99ec96be8f23985",
+        "src/allfather/eval/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/allfather/eval/dataset.py": "cab64dc105425fe39c990baa3b1cffebd914e68bf239c9f00ce6d70dd3274e0e",
+        "src/allfather/eval/goldpatch.py": "adda56d7bb10ec7e4df3613839c9a4016d313a555960b3d9e30da9ad5f6210f4",
+        "src/allfather/eval/ground_truth.py": "002248eca520569db7bece9a81df87764e7271bcef1a97424682649a818d3a13",
+        "src/allfather/eval/holdout.py": "0c66151567c5d02df32c106ad8a9949d8db38c9c1f8589337a863509cc15e3d2",
+        "src/allfather/eval/metrics.py": "8e8a7249b12c647198192dc290f3de179ff28e0957859d621ecf59f4dee4847b",
+        "src/allfather/eval/protocols.py": "db8a0dc532ea266f3f15a1bce487c0e33b36bbf9e54b0dd2b29bdfa932db9245",
+        "src/allfather/eval/provenance.py": "a60d4fc7e4d1ccdd714ec083e3e77c7742d370ba5fc77a550849625e5abdb206",
+        "src/allfather/eval/resolution.py": "75e6237ee795ffd155a4db8298faaff90c74f5178af380672172b05640b0e620",
+        "src/allfather/eval/runner.py": "12acf189b1f58946c8ce732b0463576fdfd3808fb16fb870f8502858f3e3298a",
+        "src/allfather/eval/runs.py": "753c46e58c6e58c0f15963517b9a8f17a079ca22a44bbce3d2ca4d327c89ca18",
+        "src/allfather/eval/tune.py": "4bbbbfd9afd56b70c4658d10feddcfd2a29a320cd5a5963cda1fb9e83aa734ed",
+        "src/allfather/index/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/allfather/index/chunker.py": "71b82e862a36d9bacdc332ad85e5cf2ded5dbd0fb3b1354dfa01de2f4b43e0a8",
+        "src/allfather/index/snapshot.py": "f98ce29cb4686fbb22c3270cc7dcbbbab3029ed1796b0ac651f697d6f66adee6",
+        "src/allfather/index/store.py": "04d00d34cb27db1070aa7835f7d1344be1bdc8bbd331fb0e3dbe8f0d19ff0b58",
+        "src/allfather/parsing/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/allfather/parsing/python_symbols.py": "a0ce292424e854876f233665e5c36270177988930c17146fae8c7f20ab722d70",
+        "src/allfather/parsing/symbols.py": "2ea767d4b3c948a0766e152d19ce8387b860cfc358faa4aa06bb1d6dc5e82a2a",
+        "src/allfather/rank/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/allfather/rank/browser.py": "3cfffd448d4848b0e68f412f6f051ee71f8d00f011b9388910d6351b562693fe",
+        "src/allfather/rank/ce_train.py": "6175804b30588d3c1106c31fcf99948cc296f90c37d0d393a36e5ebf221effbe",
+        "src/allfather/rank/ce_tune.py": "2d421f49b4eb9250293617c5cf157229168e5017e604cc5d672b9ec860592e9b",
+        "src/allfather/rank/confidence.py": "3bc09090dc1da15d6acb93c269f2d5faab163bbb09dfdb5ae7fbd65933d4674d",
+        "src/allfather/rank/cross_encoder.py": "14fed8c36a58e862b4d9bfce18e8eb61b535d0dafcdf7cbeae9432aabd565f8d",
+        "src/allfather/rank/features.py": "25f2033d7e32289540b997d272346357c6dc2589141314bc0959ceafd9a67b6f",
+        "src/allfather/rank/history.py": "6fe173a4b3b7c3d69771f727f76c5538ee18fb7b08a31573ad19312acd591e85",
+        "src/allfather/rank/ltr.py": "cf23090a00ef1d447dc3781e066160cd18747c3093aaaf5e1540f70d461b098a",
+        "src/allfather/rank/mentions.py": "b261eb334bacc9194b06b76bef9d74c337e3638fb77888ded451f2526e65babf",
+        "src/allfather/rank/past_issues.py": "15c297531647e9ca2ae8abc2ac0ee26d84ca96e0df6afc5fadf03a1fbb2cd998",
+        "src/allfather/repos.py": "8584af5d5b6832be36416f3f7b3a0e203e39c8374500573f8dc56ee12fb57617",
+        "src/allfather/search/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/allfather/search/bm25.py": "318baf25df751738a48f2cc08df5f8b60db7c764efd249d65b2debf8bfe27174",
+        "src/allfather/search/dense.py": "41063cce8941d5e8cf4e7e5faf7b1c4b37c02c3c2bd961616e2e1263b14a165f",
+        "src/allfather/search/dense_train.py": "d11978d436894c59c45acad21ad3d64080508285f5feb64f44347934b7047853",
+        "src/allfather/search/graph.py": "c664e4bdff750fe894641ff46582b0ae1abc4186427c8bf99fd2b5923f5ea582",
+        "src/allfather/search/path_aware.py": "52168ee2fd19bb4716608498275edde61c1f8042e49774d68574e927d9c03996",
+        "src/allfather/search/retriever.py": "1203f289808a2612bc8f061b522fc55319e5df8ed0ec7d65253b83b6a71860b2",
+        "src/allfather/search/static.py": "fbf2c18271b02501f95d7be579ebcdf76201d7d4b0ab0326aa3ac2403fb8f32c",
+        "src/allfather/search/tokenize.py": "f59f99b839ba8968ed66c7f97ede4b84474fccb233c8e34ce088271f0dc96e5d",
+        "scripts/replay_text_views.py": "f9cc87ee230ccbf2629c2cb26c49c39046c1a6bc3a24a88c5bb706d94915789b",
+        "scripts/text_views.py": "66e6683c8311477e92c0dc334aeb97b2c29d59efda2e42c541ae18fc305c67b6",
+        "scripts/development_assets.py": "5acc3e205c918c89445b703542d5416479ce01c1c3736ba6b2283feababca9ab",
+        "scripts/website_rerank.py": "8e9c34b15af95715aab21e2657744858e22e06110355690e04b66d461006948f"
+      },
+      "python": "3.11.17 (main, Oct  9 2026, 15:21:28) [Clang 22.1.3 ]",
+      "platform": "Linux-5.14.0-687.64.1.el9_8.x86_64-x86_64-with-glibc2.34",
+      "packages": {
+        "torch": "2.14.0+cu130",
+        "transformers": "5.17.0",
+        "peft": "0.21.0",
+        "tokenizers": "0.23.2",
+        "numpy": "2.4.6",
+        "huggingface-hub": "1.33.0"
+      },
+      "device": "NVIDIA L40S",
+      "git_commit": "609f2fecdc8ba08da3c3de61ca339ba3c0443289",
+      "slurm_job_id": "7035289"
+    },
+    "run_summary": {
+      "expected": 23,
+      "completed": 23,
+      "failures": [],
+      "prepare_only": false,
+      "parent_parity": {
+        "QuantumNous/new-api#7761": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "dbeaver/dbeaver#42432": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "tt-a1i/archify#991": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "Comfy-Org/ComfyUI#15922": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "ultraworkers/claw-code#3332": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "immich-app/immich#31348": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "QuantumNous/new-api#7844": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "dbeaver/dbeaver#42026": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "tt-a1i/archify#515": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "Comfy-Org/ComfyUI#16485": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "zed-industries/zed#62785": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "immich-app/immich#31079": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "ollama/ollama#19188": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "spring-projects/spring-boot#52201": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "Leonxlnx/taste-skill#165": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "Significant-Gravitas/AutoGPT#14536": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "zed-industries/zed#62534": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "supabase/supabase#49940": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "ollama/ollama#17757": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "spring-projects/spring-boot#51774": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "Leonxlnx/taste-skill#158": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "Significant-Gravitas/AutoGPT#14008": {
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        },
+        "supabase/supabase#50426": {
+          "wide": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          },
+          "base": {
+            "rankings_equal": true,
+            "scores_max_abs_difference": 0.0
+          }
+        }
+      },
+      "script_seconds": 455.7006120920414,
+      "slurm_job_id": "7035289"
+    },
+    "parent_replay": {
+      "commit": "cc570796e78cf84661c5cccf16e5e183786f04c1",
+      "verified_source_files": 46,
+      "files_sha256": {
+        "manifest.json": "92eb1583e21bff2837dab6f7dc73cda2818788bb6e0795abf563a3a6f759ebe6",
+        "index.json": "874ac8555b64296096633fa5d824861929eb8b57ab9cf6f7d62a391d3cf2d252",
+        "summary.json": "5678d7dc87f3ea0a6b1716670b10998c2c505f610a6c27d860b44a6665d0bed5"
+      }
+    },
+    "historical_bundle": {
+      "verified_prediction_files": 29,
+      "verified_run_summaries": 25,
+      "review_issues": 33,
+      "bundle_sha256": {
+        "inventory-audit-7012218\\instances.jsonl": "cb922a2a346634ebe1d93d098bdf5108dece6090e3fa513c6d98736ace05c7fa",
+        "inventory-audit-7012218\\provenance.json": "649edb734ec0f90244de779a2dddeb4c85a532ca670129fc60374f36512ef1b0",
+        "inventory-audit-7012218\\summary.json": "a3f7d558f7ad06b661c3723dae7d1819bccda361f89a97bf8c42562b5e31c79a",
+        "inventory-rescore-7012506\\provenance.json": "0d18f2dbc5c3dc0ef87234df1fec6d54a50d8cd2c9cdb4637c592c7f707ca4c0",
+        "inventory-rescore-7012506\\review-gold.json": "78440725a05f21e63703718a725ae4c1de6a929655c41d17ee9d029f42d39b6d",
+        "inventory-rescore-7012506\\scores.jsonl": "96c0860ec3bed7519f24cd85fb9de5436f81edf4072971737ed6063e0bb4f873",
+        "inventory-rescore-7012506\\summary.json": "958277c82b1744109cb145936beddae5235fed4ae72d57f21761c8d9093b5dcd",
+        "inventory-rescore-7012506\\table.txt": "d74c8288acbb0d3a782dd39601224aefb7d9dc4dffe72731ee4967bb723e13ec"
+      }
+    },
+    "preparation_record_sha256": "2fb3c69bd9d009375bf13cd7edb8fdcfb68591ad168adccaee9051f66cde6211",
+    "gold_sha256": "ee111883a714b7cab37f8fdb81fad95c0fcb03d803f5f41196be98737771e994",
+    "audit_sha256": "cb922a2a346634ebe1d93d098bdf5108dece6090e3fa513c6d98736ace05c7fa",
+    "analysis_sources_sha256": {
+      "scripts/analyze_text_views.py": "55094a223d2fe133344bd467a4f3d5c8be335f6cfd1774b6434cabd319b6051d",
+      "scripts/analyze_development_replay.py": "436428353a70b9664f902dd382c696ed86817d584bef8099053234d43ca06556",
+      "scripts/analyze_inventory_scores.py": "6364f7efc15bd192ab25867e7bc00e51fe2595173684950d1dc2b1364068c490",
+      "scripts/validate_development_replay.py": "8f25cc5326f3ce0a70d5d02178fb882c8ed3e0e332843cde2acf968796bc2c16",
+      "scripts/replay_text_views.py": "ccce0b46586012f6324bdd4b7a78f508ef0c020e3033fc55e8e944d17ea887ac",
+      "scripts/text_views.py": "66e6683c8311477e92c0dc334aeb97b2c29d59efda2e42c541ae18fc305c67b6",
+      "scripts/development_assets.py": "5acc3e205c918c89445b703542d5416479ce01c1c3736ba6b2283feababca9ab"
+    }
+  },
+  "limitations": [
+    "Fit cases informed the interventions; gains are development observations, not confirmation.",
+    "No occurrence-level or causal gold repair; feature requests and all target denominators retained.",
+    "Pointwise project bootstrap intervals are descriptive, not simultaneous inference over the 16 variants.",
+    "Best observed variant and oracle union are optimistic post-hoc summaries, not deployable policies.",
+    "Equal model token positions do not establish equal end-to-end cost; CPU preparation is shared across controls.",
+    "Random-window control uses one frozen seed; no claims about its expected performance.",
+    "Single-target score substitutions use gold and saved pair scores post hoc; they are diagnostic reconstructions, not executed policies or proof about a specific source line.",
+    "The new run manifest records verified asset-manifest identity and checking code, not a separate copy of each model-file hash."
+  ]
+}

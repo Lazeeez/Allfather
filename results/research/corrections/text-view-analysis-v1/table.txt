@@ -1,0 +1,18 @@
+Exploratory fit-only results; rescues/harms against the same pool's prefix/prefix baseline.
+action | hit@10 | MRR@10 | recall@10 | all@10 | rescues | harms
+base_prefix_prefix | 18/23 | 0.5787 | 0.6908 | 0.6087 | 0 | 0
+base_prefix_head_tail | 19/23 | 0.5791 | 0.7391 | 0.6522 | 1 | 0
+base_prefix_lexical | 18/23 | 0.6214 | 0.6908 | 0.6087 | 0 | 0
+base_prefix_random | 18/23 | 0.6066 | 0.6908 | 0.6087 | 0 | 0
+base_head_tail_prefix | 19/23 | 0.5765 | 0.7681 | 0.6957 | 1 | 0
+base_head_tail_head_tail | 19/23 | 0.5982 | 0.7681 | 0.6957 | 1 | 0
+base_head_tail_lexical | 18/23 | 0.6156 | 0.7246 | 0.6522 | 0 | 0
+base_head_tail_random | 19/23 | 0.6143 | 0.7319 | 0.6087 | 1 | 0
+wide_prefix_prefix | 18/23 | 0.5417 | 0.6908 | 0.6087 | 0 | 0
+wide_prefix_head_tail | 19/23 | 0.5630 | 0.7391 | 0.6522 | 1 | 0
+wide_prefix_lexical | 17/23 | 0.5942 | 0.6473 | 0.5652 | 0 | 1
+wide_prefix_random | 17/23 | 0.5957 | 0.6546 | 0.5652 | 0 | 1
+wide_head_tail_prefix | 19/23 | 0.5721 | 0.7681 | 0.6957 | 1 | 0
+wide_head_tail_head_tail | 19/23 | 0.5838 | 0.7464 | 0.6522 | 1 | 0
+wide_head_tail_lexical | 17/23 | 0.5870 | 0.6812 | 0.6087 | 0 | 1
+wide_head_tail_random | 18/23 | 0.5982 | 0.6884 | 0.5652 | 1 | 1

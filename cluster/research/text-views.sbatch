@@ -1,5 +1,5 @@
 #!/bin/bash
-# All 23 fit rows, 16 controlled variants; one L40S. Downloads stay in node-local /tmp.
+# Frozen project split, 16 controlled variants; one L40S. Downloads stay in node-local /tmp.
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR:?submit from the Allfather repository}"
 PYTHON="${ALLFATHER_PYTHON:-$PWD/.venv/bin/python}"
@@ -22,5 +22,6 @@ mkdir -p "$TMPDIR"
 echo "Downloading and verifying pinned weights in $HF_HOME (compute-node temporary storage)"
 "$PYTHON" scripts/development_assets.py --store "$HF_HOME" --download
 "$PYTHON" scripts/replay_text_views.py \
+  --protocol "${VIEW_PROTOCOL:-data/research/text-view-pilot-v1.json}" \
   --bundle "${VIEW_PARENT:-results/research/corrections/development-pilot-v1}" \
   --out "${VIEW_OUT:-results/research/corrections/fit-text-views-v1}"

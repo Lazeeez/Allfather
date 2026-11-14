@@ -1,4 +1,4 @@
-"""Fit-only token-view experiment on frozen candidate rows; labels are never used.
+"""Project-split token-view experiment on frozen candidate rows; labels are never used.
 
 Reads verified existing traces and base Git blobs, with lazy fetching disabled.
 Only model inference needs a GPU. --prepare-only validates all inputs/views offline.
@@ -74,9 +74,13 @@ def inputs(bundle: Path, protocol: dict) -> list[tuple[dict, str, dict]]:
     if digest(plan_path) != protocol["plan_sha256"]:
         raise ValueError("original plan changed")
     plan = json.loads(plan_path.read_bytes())
-    fit = [r for r in plan["instances"] if r["split"] == "fit"]
-    if [r["id"] for r in fit] != protocol["fit_ids"]:
-        raise ValueError("protocol is not the original fit-only selection")
+    split = protocol.get("split", "fit")
+    if split not in ("fit", "validation"):
+        raise ValueError("protocol split must be fit or validation")
+    selected = [r for r in plan["instances"] if r["split"] == split]
+    ids = protocol[f"{split}_ids"]
+    if [r["id"] for r in selected] != ids:
+        raise ValueError("protocol is not the original project-split selection")
     if digest(bundle / "manifest.json") != protocol["parent_manifest_sha256"]:
         raise ValueError("parent replay manifest changed")
     data = ROOT / "data/fresh-full/gold.jsonl"
@@ -86,11 +90,11 @@ def inputs(bundle: Path, protocol: dict) -> list[tuple[dict, str, dict]]:
     queries = {
         r["id"]: {k: r[k] for k in ("repo", "base_commit", "text")}
         for r in map(json.loads, data.read_bytes().splitlines())
-        if r["id"] in protocol["fit_ids"]
+        if r["id"] in ids
     }
     index = json.loads((bundle / "index.json").read_bytes())["completed"]
     out = []
-    for item in fit:
+    for item in selected:
         qid = item["id"]
         q = queries[qid]
         checksum = hashlib.sha256(q["text"].encode()).hexdigest()
@@ -261,11 +265,12 @@ def main() -> int:
     parser.add_argument("--bundle", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--protocol", type=Path, default=PROTOCOL)
     args = parser.parse_args()
     if args.out.exists():
         parser.error("choose a new output directory; existing evidence is immutable")
     started = time.perf_counter()
-    protocol = json.loads(PROTOCOL.read_bytes())
+    protocol = json.loads(args.protocol.read_bytes())
     selected = inputs(args.bundle, protocol)
     spec = json.loads(ASSETS.read_bytes())
     name = "Qwen/Qwen3-Reranker-0.6B"
@@ -300,9 +305,11 @@ def main() -> int:
         ROOT / "scripts/website_rerank.py",
     ]
     manifest = {
-        "schema": "fit-text-views-v1",
+        "schema": "fit-text-views-v1"
+        if protocol.get("split", "fit") == "fit"
+        else "validation-text-views-v1",
         "prepare_only": args.prepare_only,
-        "protocol_sha256": digest(PROTOCOL),
+        "protocol_sha256": digest(args.protocol),
         "assets_sha256": digest(ASSETS),
         "protocol": protocol,
         "source_sha256": {p.relative_to(ROOT).as_posix(): digest(p) for p in sources},

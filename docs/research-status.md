@@ -3,11 +3,13 @@
 Updated 2026-11-14. Current scope: localization and selective escalation; no repair or
 developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
 
-Latest step: the [fit audit and frozen text-view experiment](research-fit-evidence-2026-11-14.md)
-are ready. All 23 fit cases pass offline source/token-view preparation; 236 Python
-tests pass. GPU execution and numerical parity are pending. This tests visibility
-under fixed token budgets, not a proven novel method. No router is trained: the
-previous six-action menu supplied no incremental fit-set rescues.
+Latest step: [text-view job 7035289 is verified and scored](research-text-view-results-2026-11-14.md).
+All 23 fit rows and 368 action outputs pass integrity checks; 46 original baselines
+reproduce exactly. Several fixed controls improve hit@10 from 18/23 to 19/23 by
+rescuing one Immich case. Supabase remains a miss; some wide controls introduce
+regressions. The oracle union is also 19/23, so no fit-set routing advantage is
+established. The full suite passes 248 tests. A fixed primary comparison is frozen
+for the separate development-validation projects; novel-method claims remain open.
 
 ## What has been inspected
 

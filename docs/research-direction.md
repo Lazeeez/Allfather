@@ -207,3 +207,11 @@ prefix, plus query truncation and feature-extension interpretation issues. The n
 job tests fixed-budget context views on all 23 fit rows. Passage selection, query
 reformulation and cost-aware routing have close prior art; this is a mechanism
 experiment, not an established new method. The router remains deferred.
+
+The [completed text-view study](research-text-view-results-2026-11-14.md) rescues
+one fit issue: 18/23 to 19/23 with several fixed controls. All-control oracle
+coverage is also 19/23, so this still does not justify a router. Supabase's target
+score can improve while its rank worsens, showing why visibility alone is insufficient.
+Freeze base-50 head/tail query+document views against base-50 prefix views for
+development validation; keep every other condition diagnostic. This is a small
+engineering/mechanism result, not a differentiated research contribution yet.

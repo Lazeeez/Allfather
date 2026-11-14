@@ -1,9 +1,10 @@
 # PACE research jobs
 
-Next job: [fit-only text-view experiment](../../docs/research-fit-evidence-2026-11-14.md#pace-submission-and-return).
-The prior 47-row replay is complete and verified. `text-views.sbatch` tests 16
-controlled variants on the original 23 fit rows, using one L40S and temporary
-compute-node `/tmp` model caches. It does not train or evaluate validation rows.
+Next job: [frozen development validation](../../docs/research-text-view-results-2026-11-14.md#frozen-next-decision-and-pace-job).
+The 47-row replay and 23-row text-view fit job 7035289 are complete and verified.
+The next command supplies `VIEW_PROTOCOL` and `VIEW_OUT` to `text-views.sbatch`
+for 24 validation PR rows. Its primary comparison is frozen; the other controls
+are diagnostic. One L40S is used, with model caches only in compute-node `/tmp`.
 
 ## Confirmed hardware and account (2026-11-13)
 
