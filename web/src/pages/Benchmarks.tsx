@@ -23,12 +23,12 @@ function HoldoutCard({ data, research }: { data: Holdout; research: number | nul
   const [lo, hi] = fn["hit@10_ci95"];
   return (
     <section class="card frame block">
-      <p class="kicker">Never seen before</p>
-      <h2>On bugs filed after its models, in projects it never saw</h2>
+      <p class="kicker">Recorded holdout</p>
+      <h2>Projects excluded from the declared ranker training</h2>
       <p class="card-lede">
-        A sealed set of recent bugs from 189 projects that appear nowhere in training, tuning or testing: {fn.issues} with a function to find
-        and {file.issues} at file level, all filed after the pretrained models in the pipeline were published. The pipeline, allfather-fast, was
-        frozen, every model hashed and every metric declared in advance, and then scored on it once per level.
+        The recorded allfather-fast holdout contains {fn.issues} issues with a reference function and {file.issues} at file level.
+        Its project exclusions concern the declared ranker data. They do not establish that pretrained models never encountered these
+        repositories or related code. The saved protocol and model hashes describe this historical evaluation.
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="The frozen pipeline on the sealed holdout and on SWE-bench Lite">
         <table class="label-first">
@@ -105,12 +105,16 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
     <div class="container" ref={root}>
       <PageHero kicker="Benchmarks" title="How often Allfather finds the fix">
         <p>
-          I measure on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the commit where the bug was
-          reported, and a result counts only if the maintainers' actual fix changed it. I used none of these issues for training, but my
-          rankers trained on other issues from the same 12 projects, and Lite guided my development, so the clean test is the sealed holdout
-          below.
+          I measure on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the base snapshot
+          supplied by the benchmark, and a hit means recovering a declaration changed by the reference patch. This does not prove that the
+          declaration caused the bug. The rankers trained on other issues from the same 12 projects, and Lite guided development; the
+          recorded holdout below is a separate evaluation.
         </p>
       </PageHero>
+      <p class="note">
+        Research correction: historical benchmark results are being audited. The fresh-study superiority and cost-advantage claims are
+        withdrawn; no contamination-free or causal memorization claim is established. See the <a href="https://github.com/Lazeeez/Allfather/blob/main/docs/research-status.md">current evidence and open checks</a>.
+      </p>
       {failed && <p class="error-text">Couldn't load the benchmark data. Try reloading the page.</p>}
       {!failed && (
         <div class="tiles">
@@ -140,9 +144,9 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
           </section>
 
           <section class="card frame block">
-            <p class="kicker">No lucky gains</p>
-            <h2>Is each step a real improvement?</h2>
-            <p class="card-lede">I test every step against the one before it on the same bugs, so a gain from luck shows up as not significant.</p>
+            <p class="kicker">Paired comparisons</p>
+            <h2>How uncertain is each measured change?</h2>
+            <p class="card-lede">Each stage is compared on the same issues. Statistical significance depends on the test assumptions and does not rule out evaluation bias.</p>
             <SignificanceTable summary={summary} />
           </section>
 
@@ -158,11 +162,11 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
       {lite && (
         <section class="card frame block">
           <p class="kicker">In your browser</p>
-          <h2>On projects it has never seen</h2>
+          <h2>On projects held out of ranker training</h2>
           <p class="card-lede">
             The <a href={href("search")}>search page</a> runs a lighter pipeline on your device. I trained its rankers on 192 other
-            projects in six languages; these {lite.held_out.unseen.keyword.n} bugs come from 30 projects I kept out of training entirely, the
-            situation the search page is in every time you paste a new repository.
+            projects in six languages; these {lite.held_out.unseen.keyword.n} bugs come from 30 projects excluded from that ranker training.
+            This does not establish absence from the pretrained models' data.
           </p>
           <BrowserComparison e={lite.held_out.unseen} depth={lite.depth} />
           <p class="note">Share of bugs with a function the real fix changed in the top 10.</p>
@@ -360,27 +364,25 @@ function NextStudy() {
   return (
     <section class="card frame block">
       <p class="kicker">In progress</p>
-      <h2>Next: against frontier AI agents</h2>
+      <h2>Correcting the localization study</h2>
       <p class="card-lede">
-        Frontier models can answer older benchmarks from memory: on SWE-bench Verified, Claude given only the list of file names did as well as
-        Claude reading the code. So I built a new test set, fresh-2026: 580 bugs from 74 popular projects in all six languages, every one
-        reported after August 1, 2026, so no model could have seen its fix in training. I sealed it before running anything on it.
+        The saved fresh-2026 study contains 580 issue–PR rows from 74 projects in six languages. Its results are now exposed and support
+        exploratory analysis. Report dates and artifact hashes do not prove that model training excluded the fixes, and the small older
+        pilot does not establish memorization.
       </p>
       <ul class="plain-list">
         <li>
-          <b>What I'm comparing.</b> Allfather against Claude Opus 5.5 in Claude Code, OpenAI's gpt-6-astra and gpt-6-luna in Codex, Gemini 3.8
-          Flash, the open-weight models gpt-oss-120b and Qwen3-Coder-Next, and SweRank, a published research system. Each AI model is tested
-          both as an agent that reads the code and with a single question that gives only the bug report and the list of files. Every system
-          gets the same full bug report.
+          <b>Corrected comparisons.</b> Saved local and agent runs are compared only on matching issue IDs. SweRankEmbed is a component
+          baseline, not the complete SweRank system. Recovered identifiers and inventory-based scoring do not support the earlier
+          significant-superiority claim over SweRankEmbed-Large.
         </li>
         <li>
-          <b>What I'm measuring.</b> Accuracy, cost and time per bug; whether sending only the bugs Allfather is least sure about to an agent
-          gets most of the agent's accuracy for a fraction of its cost; and how Allfather ranks among the tools that are free to use.
+          <b>Costs and timings.</b> Missing monetary amounts remain unknown. Local-compute placeholders are not evidence of zero cost,
+          and Python replay timings are not browser latency measurements. No completed cost-advantage claim is available.
         </li>
         <li>
-          <b>How I keep it fair.</b> I wrote down every method and decision before any result existed. Partway through, I read an interim
-          analysis of the systems that had finished, as the protocol allows; the runs still going keep the settings they had, and nothing about
-          them changed after I read it. I'll publish the full results here once every system has finished.
+          <b>What remains.</b> Independent report–patch review, retained-export checks and a frozen broader analysis are pending.
+          Development experiments have not established a novel routing method. Any new confirmation study needs fresh frozen data.
         </li>
       </ul>
     </section>
@@ -388,8 +390,8 @@ function NextStudy() {
 }
 
 const ROADMAP: [string, string, string][] = [
-  ["December 2026", "Results against frontier AI agents", "Once every system has run on fresh-2026, I'll publish the full comparison here: accuracy, cost, speed, and how Allfather ranks among the free tools."],
-  ["Early 2027", "More languages", "C, C++, C# and PHP come next, chosen for how widely they're used and whether public bug data exists to train and test on. Each new language gets its own held-out test before I claim anything for it."],
+  ["Current", "Corrected evidence and independent review", "Finish the validity audit and independent annotations before drawing new research conclusions."],
+  ["After validation", "New experiments and language support", "Choose the next experiment from the evidence and prior work. New capability claims need their own held-out evaluation."],
 ];
 
 function Roadmap() {

@@ -74,14 +74,14 @@ export function CaseStudy({ summary, lite }: { summary: Summary | null; lite: Li
 
       <section class="block">
         <p class="kicker">Results</p>
-        <h2>On bugs it never trained on.</h2>
+        <h2>Results on recorded evaluation splits</h2>
         <div class="tiles four">
-          <Tile label="Sealed holdout, never seen" value={holdout ? holdout.runs.holdout_function["hit@10"] : null}
+          <Tile label="Recorded holdout" value={holdout ? holdout.runs.holdout_function["hit@10"] : null}
             ci={holdout?.runs.holdout_function["hit@10_ci95"]}
-            note={holdout ? `allfather-fast, ${holdout.runs.holdout_function.issues} bugs from 184 projects it never saw` : ""} />
+            note={holdout ? `allfather-fast, ${holdout.runs.holdout_function.issues} issues; project exclusions apply to declared ranker data` : ""} />
           <Tile label="SWE-bench Lite" value={holdout ? holdout.runs.lite_function["hit@10"] : fn ? fn["hit@10"] : null}
             note={holdout ? `allfather-fast, ${holdout.runs.lite_function.issues} issues from 12 projects in its training data` : fn ? `full pipeline, ${fn.n} issues` : ""} />
-          <Tile label="In your browser, 30 unseen projects" value={gpu?.held_out?.unseen ? gpu.held_out.unseen.website["hit@10"] : unseen}
+          <Tile label="Browser pipeline, 30 held-out projects" value={gpu?.held_out?.unseen ? gpu.held_out.unseen.website["hit@10"] : unseen}
             note={gpu?.held_out?.unseen
               ? `${gpu.held_out.unseen.issues} bugs, Python; ${Math.round(gpu.held_out.unseen.with_reranker["hit@10"] * 1000) / 10}% with the first, Python-only GPU reranker`
               : lite ? `${lite.held_out.unseen.keyword.n} bugs, Python` : ""} />

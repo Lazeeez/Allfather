@@ -15,6 +15,16 @@ sheet identity, preserve initial submissions, enforce the recorded Stage A/Stage
 and compare declared independent human reviews without inventing adjudication. No returned
 reviews exist. [Future execution manifests](research-execution-manifests.md) freeze seeded
 orders and reject incompatible resumptions; no new inference has been launched.
+The [saved-export membership audit](research-swerank-membership.md) is ready for PACE.
+Original fresh BEIR exports are absent locally; its real-data result is pending.
+
+The [active manuscript](paper/main.tex) now uses a separately hashed number snapshot
+from six corrected artifacts and states the incomplete study requirements. The previous
+draft is preserved byte-for-byte as historical material. Benchmark-page source no longer
+asserts absolute unseen-model exposure or causal memorization, and distinguishes reference
+recovery from causal faults and unknown costs from zero. All 331 Python and 97 web tests
+pass, along with TypeScript checks. LaTeX source/provenance checks pass; PDF compilation
+and visual review remain unverified because no local LaTeX engine is installed.
 
 Latest study checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
 The fixed sample contains 95 issues across 50 projects, excluding all 24 original
@@ -101,7 +111,7 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | Priority | Finding / work | Status and acceptance criterion |
 |---|---|---|
 | P0 | Missing `.mjs/.cjs/.mts/.cts` in import | Implemented shared registry and tests for all 12 extensions. Eight separate corrected runs generated. |
-| P0 | Original exported ID membership | Open: verify recovered IDs against original fresh corpora; round trips alone are insufficient. |
+| P0 | Original exported ID membership | Auditor and PACE job prepared: verify retained export hashes, all slots and recovered-ID multiplicity. Real-data execution/transfer pending; historical inference did not pin corpus hashes. |
 | P0 | Unequal prompt/grep source extensions | Implemented access fix. Open: identify and rerun affected inference with a new run identity. |
 | P0 | Gold-dependent answer resolution | Draft resolver implemented/tested; 580/580 inventory integrity audit passed on PACE. 65 gold IDs ambiguous, zero missing. Versioned inventory rescoring prepared; PACE results and final identity policy pending. |
 | P0 | Invalid predictions silently disappear | Versioned rescorer preserves invalid/ambiguous/duplicate slots and records resolution rates. Open: run and publish sensitivities; historical default scorer unchanged. |
@@ -109,7 +119,7 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | P0 | Hardware and token accounting | Open: recorded GPU count/type; per-request tier rules; retries/cache/setup boundaries; no difference-of-medians GPU estimate. |
 | P0 | Cascade cost uses unconditional mean | Implemented in analysis and paper generation: cheap + selected incremental agent costs on exact paired IDs; unknown required components propagate. |
 | P0 | Supplied gate threshold mislabeled/evaluated indirectly | Implemented direct threshold evaluation and precision-sensitive regression. |
-| P0 | Unsupported headline claims | Correction notice and corrected comparison available. Full manuscript, website and generated table replacement remains open until evaluator/cost freeze. |
+| P0 | Unsupported headline claims | Active working manuscript replaced with corrected exploratory evidence; historical draft retained. Website source withdraws superiority/cost and absolute exposure claims. Final submission tables, complete claim audit and deployed-site verification remain open. |
 | P1 | Paired uncertainty ignores project dependence | Diagnostic paired project intervals in import audit. Open: integrate all metrics/file families, macro-project estimates and cluster-aware test sensitivity. |
 | P1 | P-values rounded before Holm | Implemented raw p-values through adjustment. Historical tables retained pending regeneration. |
 | P1 | Partial runs use sorted prefixes | Implemented seeded manifests and exact ID/project coverage for future frontier and website runs, with strict resume validation. Historical partial-run comparability and language coverage reporting remain open. |
