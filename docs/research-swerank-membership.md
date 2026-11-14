@@ -1,8 +1,12 @@
 # Saved-export membership audit
 
+Completed: [PACE job 7056950 and local verification](research-swerank-membership-results-7056950.md).
+Every saved prediction ID is present, including every recovered ID. Ambiguous IDs remain
+explicit. No repeat run is needed; commands below document the completed procedure.
+
 The corrected SweRank imports have been rescored against complete symbol inventories,
-but the recovered IDs still need checking against the original saved BEIR exports.
-The fresh exports are not present locally. The historical runbook locates them on PACE
+and recovered IDs have now been checked against retained BEIR exports on PACE.
+The fresh corpus bytes are not present locally. The historical runbook locates them on PACE
 at `~/scratch/swerank/fresh` and `~/scratch/swerank/fresh-full`.
 
 `scripts/audit_swerank_membership.py` verifies original prediction hashes against the
@@ -61,6 +65,6 @@ at inference time. It does establish membership in the supplied retained exports
 records their identities for future checks.
 
 The local tests cover duplicate IDs, absent IDs, unavailable corpora, unsafe index paths,
-and refusal of a correction that differs from the saved import procedure. No real PACE
-membership result is claimed until the job completes and its archive is verified locally.
-The full local Python suite passes 331 tests after adding this auditor.
+and refusal of a correction that differs from the saved import procedure. The completed
+PACE result and subsequent local verification are linked above. The suite passed 331
+tests when the collection auditor was added; the verifier adds further integrity checks.

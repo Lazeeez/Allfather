@@ -43,7 +43,8 @@ AI-use disclosure review, and a real anonymous artifact remain pending.
 
 ## Required before submission
 
-- Obtain the [PACE retained-export membership audit](../research-swerank-membership.md).
+- Completed: [PACE retained-export membership verification](../research-swerank-membership-results-7056950.md).
+  Duplicate IDs and the absence of historical inference-time corpus hashes remain limitations.
 - Complete [two independent initial reviews and adjudication](../research-review-handoff.md).
 - Version any rubric changes before annotating the fixed broader sample; freeze the
   outcome-analysis protocol before joining its model results.

@@ -1,10 +1,10 @@
 # PACE research jobs
 
-Next requested job: the [saved SweRank export membership audit](../../docs/research-swerank-membership.md).
-It reads existing exports only, uses 2 CPUs/8 GB for up to one hour, and makes no model
-downloads or inference calls. Original exports are required; do not regenerate them as
-substitutes. The command and result-transfer instructions are in the linked handoff.
-Earlier statements below about no new jobs describe their respective study checkpoints.
+Latest job: [SweRank membership audit 7056950 is complete and locally verified](../../docs/research-swerank-membership-results-7056950.md).
+Every saved and recovered ID is present in the retained exports; duplicate IDs remain
+explicit. No models were rerun or downloaded. No repeat PACE job is requested for this
+check. The [submission commands](../../docs/research-swerank-membership.md) are now
+historical reproduction instructions. Independent review remains a study dependency.
 
 The text-view fit job 7035289 and validation job 7049176 are complete, transferred,
 verified and scored. The [frozen validation comparison is negative](../../docs/research-text-view-validation-2026-11-15.md):

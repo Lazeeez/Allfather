@@ -15,15 +15,19 @@ sheet identity, preserve initial submissions, enforce the recorded Stage A/Stage
 and compare declared independent human reviews without inventing adjudication. No returned
 reviews exist. [Future execution manifests](research-execution-manifests.md) freeze seeded
 orders and reject incompatible resumptions; no new inference has been launched.
-The [saved-export membership audit](research-swerank-membership.md) is ready for PACE.
-Original fresh BEIR exports are absent locally; its real-data result is pending.
+The [saved-export membership audit is verified](research-swerank-membership-results-7056950.md).
+PACE job 7056950 found all 31,120 saved slots and all 2,346 recovered slots in retained
+corpora; 20 recovered slots have ambiguous IDs (six distinct issue/document pairs).
+All eight run summaries reproduce locally, and all 580 short/full corpus hashes match.
+Historical inference-byte provenance remains unproven; no scores or labels changed.
 
 The [active manuscript](paper/main.tex) now uses a separately hashed number snapshot
 from six corrected artifacts and states the incomplete study requirements. The previous
 draft is preserved byte-for-byte as historical material. Benchmark-page source no longer
 asserts absolute unseen-model exposure or causal memorization, and distinguishes reference
-recovery from causal faults and unknown costs from zero. All 331 Python and 97 web tests
-pass, along with TypeScript checks. LaTeX source/provenance checks pass; PDF compilation
+recovery from causal faults and unknown costs from zero. All 341 Python tests pass at
+this checkpoint; the preceding web checks passed 97 tests and TypeScript checks.
+LaTeX source/provenance checks pass; PDF compilation
 and visual review remain unverified because no local LaTeX engine is installed.
 
 Latest study checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
@@ -111,7 +115,7 @@ recomputation; **open** means no completion claim. Ordering follows validity dep
 | Priority | Finding / work | Status and acceptance criterion |
 |---|---|---|
 | P0 | Missing `.mjs/.cjs/.mts/.cts` in import | Implemented shared registry and tests for all 12 extensions. Eight separate corrected runs generated. |
-| P0 | Original exported ID membership | Auditor and PACE job prepared: verify retained export hashes, all slots and recovered-ID multiplicity. Real-data execution/transfer pending; historical inference did not pin corpus hashes. |
+| P0 | Original exported ID membership | Retained-export audit complete and locally verified for all eight runs; every recovered ID is present, with 20 ambiguous recovered slots explicitly retained. Historical inference did not pin corpus hashes, so original inference-byte provenance remains a limitation. |
 | P0 | Unequal prompt/grep source extensions | Implemented access fix. Open: identify and rerun affected inference with a new run identity. |
 | P0 | Gold-dependent answer resolution | Draft resolver implemented/tested; 580/580 inventory integrity audit passed on PACE. 65 gold IDs ambiguous, zero missing. Versioned inventory rescoring prepared; PACE results and final identity policy pending. |
 | P0 | Invalid predictions silently disappear | Versioned rescorer preserves invalid/ambiguous/duplicate slots and records resolution rates. Open: run and publish sensitivities; historical default scorer unchanged. |

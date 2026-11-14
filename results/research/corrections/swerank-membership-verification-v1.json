@@ -1,0 +1,318 @@
+{
+  "schema": "swerank-membership-verification-v1",
+  "verified": true,
+  "archive_sha256": "370e79d650dc472d8d93cc5421e4d39334aaeebe382e3bb7c1d8bdaf21c51665",
+  "archive_bytes": 934601,
+  "summary_sha256": "35e00755d3713230d1d286ae6771bc51bda0f10dea97e771dbd060a4abda59b4",
+  "verifier_sha256": "7074d6e1a2dbd51b93e6b4a754b85f1cb4e3685076659aa3fc443ee0196f521f",
+  "verified_checkout_differences": [
+    {
+      "path": "results/research/corrections/import-v1/audit.json",
+      "working_sha256": "7754fbd9238b424d1d1a02d15a86cbe7550313704f80c3aacc1d8fce5b2adbd0",
+      "committed_sha256": "2006bf575238492397a3b7e4400e1c3caf47d0b336ec2945e9418aa49fdfc481",
+      "difference": "CRLF checkout versus LF Git blob only",
+      "git_commit": "2e7faa8976212729d3e87dd13c26c25c46325f90"
+    }
+  ],
+  "verification": {
+    "source_files": 4,
+    "prediction_files": 16,
+    "output_files": 9,
+    "run_summaries": 8,
+    "corpus_records": 1160
+  },
+  "counts": {
+    "issues": 3112,
+    "corpora_available": 3112,
+    "slots": 31120,
+    "unique": 30660,
+    "recovered_slots": 2346,
+    "recovered_unique": 2326,
+    "ambiguous": 460,
+    "recovered_ambiguous": 20
+  },
+  "distinct_issue_document_pairs_recovered": 790,
+  "distinct_ambiguous_recovered_pairs": 6,
+  "short_full_corpus_pairs": 580,
+  "short_full_hashes_equal": 580,
+  "runs": {
+    "fresh-agents_swerank-embed-large": {
+      "expected_issues": 198,
+      "issues": 198,
+      "corpora_available": 198,
+      "slots": 1980,
+      "unique": 1943,
+      "recovered_slots": 154,
+      "recovered_unique": 153,
+      "ambiguous": 37,
+      "recovered_ambiguous": 1
+    },
+    "fresh-agents_swerank-embed-small": {
+      "expected_issues": 198,
+      "issues": 198,
+      "corpora_available": 198,
+      "slots": 1980,
+      "unique": 1936,
+      "recovered_slots": 153,
+      "recovered_unique": 151,
+      "ambiguous": 44,
+      "recovered_ambiguous": 2
+    },
+    "fresh-full-agents_swerank-embed-large": {
+      "expected_issues": 198,
+      "issues": 198,
+      "corpora_available": 198,
+      "slots": 1980,
+      "unique": 1943,
+      "recovered_slots": 158,
+      "recovered_unique": 156,
+      "ambiguous": 37,
+      "recovered_ambiguous": 2
+    },
+    "fresh-full-agents_swerank-embed-small": {
+      "expected_issues": 198,
+      "issues": 198,
+      "corpora_available": 198,
+      "slots": 1980,
+      "unique": 1942,
+      "recovered_slots": 152,
+      "recovered_unique": 150,
+      "ambiguous": 38,
+      "recovered_ambiguous": 2
+    },
+    "fresh-full_swerank-embed-large": {
+      "expected_issues": 580,
+      "issues": 580,
+      "corpora_available": 580,
+      "slots": 5800,
+      "unique": 5718,
+      "recovered_slots": 439,
+      "recovered_unique": 437,
+      "ambiguous": 82,
+      "recovered_ambiguous": 2
+    },
+    "fresh-full_swerank-embed-small": {
+      "expected_issues": 580,
+      "issues": 580,
+      "corpora_available": 580,
+      "slots": 5800,
+      "unique": 5732,
+      "recovered_slots": 434,
+      "recovered_unique": 430,
+      "ambiguous": 68,
+      "recovered_ambiguous": 4
+    },
+    "fresh_swerank-embed-large": {
+      "expected_issues": 580,
+      "issues": 580,
+      "corpora_available": 580,
+      "slots": 5800,
+      "unique": 5722,
+      "recovered_slots": 431,
+      "recovered_unique": 429,
+      "ambiguous": 78,
+      "recovered_ambiguous": 2
+    },
+    "fresh_swerank-embed-small": {
+      "expected_issues": 580,
+      "issues": 580,
+      "corpora_available": 580,
+      "slots": 5800,
+      "unique": 5724,
+      "recovered_slots": 425,
+      "recovered_unique": 420,
+      "ambiguous": 76,
+      "recovered_ambiguous": 5
+    }
+  },
+  "ambiguous_recovered_slots": [
+    {
+      "run": "fresh-agents_swerank-embed-large",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/prepareSessionExtras",
+      "recovered": true,
+      "occurrences": 4,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-agents_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3709",
+      "slot": 3,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-agents_swerank-embed-small",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 2,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 13,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full-agents_swerank-embed-large",
+      "id": "thedotmack/claude-mem#3709",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full-agents_swerank-embed-large",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/prepareSessionExtras",
+      "recovered": true,
+      "occurrences": 4,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full-agents_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3709",
+      "slot": 4,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full-agents_swerank-embed-small",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 2,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 13,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full_swerank-embed-large",
+      "id": "thedotmack/claude-mem#3709",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full_swerank-embed-large",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/prepareSessionExtras",
+      "recovered": true,
+      "occurrences": 4,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3709",
+      "slot": 4,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3878",
+      "slot": 3,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3878",
+      "slot": 4,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh-full_swerank-embed-small",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 2,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 13,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-large",
+      "id": "thedotmack/claude-mem#4483",
+      "slot": 10,
+      "document_id": "plugin/scripts/mcp-server.cjs/emptyStr",
+      "recovered": true,
+      "occurrences": 2,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-large",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/prepareSessionExtras",
+      "recovered": true,
+      "occurrences": 4,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3709",
+      "slot": 3,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3878",
+      "slot": 4,
+      "document_id": "plugin/scripts/worker-service.cjs/i",
+      "recovered": true,
+      "occurrences": 35,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3878",
+      "slot": 7,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-small",
+      "id": "thedotmack/claude-mem#3878",
+      "slot": 9,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 7,
+      "membership": "ambiguous"
+    },
+    {
+      "run": "fresh_swerank-embed-small",
+      "id": "thedotmack/claude-mem#5084",
+      "slot": 2,
+      "document_id": "plugin/scripts/worker-service.cjs/execute",
+      "recovered": true,
+      "occurrences": 13,
+      "membership": "ambiguous"
+    }
+  ],
+  "limitations": [
+    "Membership is in the supplied saved exports, not a reconstruction of missing originals.",
+    "Historical retrieval did not pin corpus hashes; this audit cannot prove these bytes are the original inference inputs.",
+    "Ambiguous export IDs can identify multiple declarations; membership alone does not repair identity or labels.",
+    "No predictions rerun, no outcomes rescored, and no labels removed or repaired.",
+    "The corpus bytes and index files were not transferred; local checks verify hashes and internal consistency of the PACE evidence, not an independent rescan of those files.",
+    "Totals count run slots and include repeated predictions and reused subsets; they are not distinct issues or independent observations."
+  ]
+}
