@@ -462,55 +462,39 @@ def check_prose(text: str, report: Report) -> None:
 
 
 FRESH_SYSTEMS = {
-    "gpt-6-astra agent (Codex)": "codex-agent-astra",
-    "gpt-6-luna agent (Codex)": "codex-agent",
-    "Allfather, browser only": "website",
     "Allfather + GPU reranker": "website-gpu",
+    "Allfather, browser only": "website",
     "SweRankEmbed-Large": "swerank-embed-large",
     "SweRankEmbed-Small": "swerank-embed-small",
+    "gpt-6-astra agent (Codex)": "codex-agent-astra",
+    "gpt-6-luna agent (Codex)": "codex-agent",
     "Qwen3-Coder-Next agent": "open-agent-qwen3-coder-next-fp8",
+    "gpt-oss-120b agent": "open-agent-gpt-oss-120b",
     "gpt-6-astra, one call": "codex-single-astra",
     "Gemini 3.8 Flash, one call": "gemini-single",
-    "gpt-oss-120b agent": "open-agent-gpt-oss-120b",
     "gpt-6-luna, one call": "codex-single",
     "Qwen3-Coder-Next, one call": "open-single-qwen3-coder-next-fp8",
     "gpt-oss-120b, one call": "open-single-gpt-oss-120b",
 }
+RESCORE = RESULTS / "research" / "corrections" / "pace-rescore-7012506-table.txt"
 
 
 def check_fresh(rows: list[list[str]], report: Report) -> None:
-    analysis = None
-    for row in rows:
-        if row[0] == "System":
-            name = "fresh-full-agents" if "Free" in row else "fresh-full"
-            analysis = json.loads(
-                (RESULTS / "research" / f"analysis_{name}.json").read_text(encoding="utf-8")
-            )
-            first = 2 if "Free" in row else 1
-            continue
+    strict = {}
+    for line in RESCORE.read_text(encoding="utf-8").splitlines():
+        cells = [c.strip() for c in line.split("|")]
+        if len(cells) == 6 and cells[0].startswith("fresh-full"):
+            strict[cells[0]] = float(cells[2])
+    for row in rows[1:]:
         system = FRESH_SYSTEMS[row[0]]
-        entry = analysis["systems"][system]
-        where = f"fresh {analysis['set']} {system}"
-        report.expect(f"{where} hit@1", numbers(row[first])[0], 100 * entry["hit@1"], 1)
-        hit, low, high = numbers(row[first + 1])
-        report.expect(f"{where} hit@10", hit, 100 * entry["hit@10"], 1)
-        report.expect(f"{where} ci low", low, 100 * entry["hit@10_ci95"][0], 1)
-        report.expect(f"{where} ci high", high, 100 * entry["hit@10_ci95"][1], 1)
-        paired = analysis["paired"].get(f"{system}:hit@10")
-        if paired is None:
-            continue
-        delta, wins, losses, *rest = numbers(row[-1].replace("−", "-"))
-        report.expect(f"{where} delta", delta, 100 * paired["delta"], 1)
-        report.expect(f"{where} wins", wins, paired["wins"], 0)
-        report.expect(f"{where} losses", losses, paired["losses"], 0)
-        if "<0.001" in row[-1]:
-            report.checked += 1
-            if paired["p_holm"] >= 0.001:
-                report.mismatches.append(
-                    f"{where} holm: README <0.001 vs result {paired['p_holm']}"
-                )
-        elif rest:
-            report.expect(f"{where} holm", rest[0], paired["p_holm"], 3)
+        for cell, prefix in zip(row[1:3], ("fresh-full", "fresh-full-agents"), strict=True):
+            if cell:
+                key = f"{prefix}_{system}"
+                report.checked += 1
+                if abs(numbers(cell)[0] - 100 * strict[key]) > 0.051:
+                    report.mismatches.append(
+                        f"fresh {key} strict hit@10: README {cell} vs result {100 * strict[key]:.2f}"
+                    )
 
 
 def main() -> int:
@@ -519,7 +503,7 @@ def main() -> int:
     found = tables(text)
     report = Report()
     check_headline(found["On SWE-bench Lite"], report)
-    check_fresh(found["Against frontier AI, on bugs they cannot have seen"], report)
+    check_fresh(found["On recent bugs in six languages (fresh-2026)"], report)
     check_frozen(found["On bugs filed after its models, in projects it never saw"], report)
     check_browser(found["In the browser, on projects it never saw"], report)
     check_languages(found["In the browser, in other languages"], report)

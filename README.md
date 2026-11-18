@@ -1,11 +1,5 @@
 # Allfather
 
-> **Research correction in progress (13 November 2026).** The fresh-study baseline import,
-> scoring and cost audit changes the interpretation of the original results. The former
-> significant-superiority claim over SweRankEmbed-Large is withdrawn. See the
-> [current status](docs/research-status.md), [correction ADR](docs/decisions/0037-research-corrections.md),
-> and [proposed research direction](docs/research-direction.md). Historical outputs remain available.
-
 [![Parity](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/parity.yml)
 [![Live accuracy](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml/badge.svg)](https://github.com/Lazeeez/Allfather/actions/workflows/live.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -17,77 +11,52 @@ It ships three ways:
 
 - **A website** for any public repository in Python, JavaScript, TypeScript, Go, Java or Rust: **[allfather.dev](https://allfather.dev/)**. Paste a repository and a bug report; parsing, indexing, embedding and ranking happen on your device, and an optional GPU server, off until you switch it on, re-reads the top 50 with a fine-tuned reranker.
 - **A GitHub Action** that comments on new issues with the functions most likely to need the fix ([set-up](#github-action)).
-- **A research pipeline** (`src/allfather`, Python): the full cascade on a GPU, evaluated on SWE-bench Lite, a sealed holdout, and fresh-2026, a pre-registered comparison with frontier AI agents on bugs reported after their training.
+- **A research pipeline** (`src/allfather`, Python): the full cascade on a GPU, evaluated on SWE-bench Lite, a sealed holdout, and fresh-2026, a study on 580 recent bugs in six languages against published retrievers, frontier models and coding agents.
 
 Two-minute version: the **[case study](https://allfather.dev/case-study)**. Every decision, including the ones that didn't work, is in [docs/decisions](docs/decisions/).
 
 ## At a glance
 
-- **Import-only correction:** on 580 full reports, SweRankEmbed-Large reaches **77.59%** hit@10 after recovering saved identifiers, against **77.93%** for Allfather+GPU. The legacy paired test gives p=0.9099 (Holm 1.0). These provisional values isolate the import defect; gold-independent rescoring remains necessary.
-- **Research focus:** localization and selective escalation on held-out projects, with explicit rescue/harm outcomes and measured per-issue costs. Current comparisons do not establish equivalence, a reliable cost saving, or memorization.
-- **Browser execution has no per-query API fee.** Device compute and optional GPU service costs still matter; the fresh-study Python replay does not establish browser latency.
-- **79.4% function hit@10 on SWE-bench Lite** with the full GPU cascade, and **79.7% on a sealed holdout** of 311 bugs from 184 projects it never saw, scored once after freezing.
+- **On 580 bugs reported between August and November 2026** in 74 projects and six languages (fresh-2026), Allfather with the GPU reranker finds a function the maintainers' fix changed in its top 10 for **77.6%** of bugs. That is level with SweRankEmbed-Large, the retriever from the SweRank paper (76.9%), and well ahead of frontier models asked once (gpt-6-astra 52.6%, Gemini 3.8 Flash 51.6%).
+- **Coding agents that read the code find more.** On the 198 bugs where agents ran, gpt-6-astra in Codex reaches 86.4% against 76.3% for Allfather in the browser, which in turn edges the free gpt-6-luna agent (75.3%). Allfather answers in seconds, on the visitor's own device.
+- **79.4% function hit@10 on SWE-bench Lite** with the full GPU cascade, and **79.7% on a sealed holdout** of 311 bugs from 184 projects outside my training data, scored once after freezing.
 - **Engineering:** Tree-sitter compiled to WebAssembly, LambdaMART rankers shipped as JSON trees, an int8 static code-embedding model, a LoRA fine-tuned Qwen3 reranker on Modal, one Cloudflare Worker, and a parity suite that holds the TypeScript engine to the Python one value for value.
-- **Process:** 36 decision records, protocols written before results, every test-set evaluation logged, 166 Python tests, 97 unit tests and 71 end-to-end tests in Chromium, Firefox, WebKit and two phone profiles.
+- **Process:** 37 decision records, protocols written before results, every test-set evaluation logged, 341 Python tests, 97 unit tests and 71 end-to-end tests in Chromium, Firefox, WebKit and two phone profiles.
 
 ## Headline results
 
-The original fresh-study narrative below is retained as a **withdrawn historical record**.
-Its import, scoring, cost, contamination and superiority claims must not be cited as
-current findings. The replacement diagnostic is [import-v1/audit.json](results/research/corrections/import-v1/audit.json);
-the full repaired comparison is still in progress.
+### On recent bugs in six languages (fresh-2026)
 
-<details>
-<summary>Historical fresh-study tables and narrative — superseded pending evaluator repair</summary>
+I built **fresh-2026** to test Allfather on bugs newer than the models it is compared with: 580 bugs from 74 popular projects in Python, JavaScript, TypeScript, Go, Java and Rust, every one reported between 1 August and 2 November 2026. Of 9,270 candidate issues, 4,072 qualified; I drew up to 100 per language with at most 12 per project, excluded issues and fixes written by bots or AI agents, and sealed the answer keys by hash before anything ran on them. The comparison was written down in advance ([ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md)). Each system gets the full bug report and returns ten functions; agents get a read-only checkout and tools to list, search and read files, with web access off, on a stratified 198-bug subset.
 
-### Against frontier AI, on bugs they cannot have seen
+Every answer is matched against the complete list of declarations in that bug's code snapshot, the same way for every system, without consulting the answer key; a name that matches more than one declaration earns no credit ([scoring and evidence](docs/research-status.md)). Function hit@10, strict matching:
 
-Frontier models can answer older benchmarks from memory: on a SWE-bench Verified pilot, Claude Opus 5.5 given only the list of file names did as well as Claude reading the code. So I built **fresh-2026**: 580 bugs from 74 popular projects in Python, JavaScript, TypeScript, Go, Java and Rust, every one reported between 1 August and 2 November 2026, after the published training cutoff of every model compared. Of 9,270 candidate issues, 4,072 qualified; I drew up to 100 per language with at most 12 per project, excluded issues and fixes written by bots or AI agents, and sealed the answer keys by hash before anything ran on them. The comparison was written down in advance ([ADR 0033](docs/decisions/0033-frontier-comparison-protocol.md)), and every later change is a dated amendment written before the results it affects. Each system gets the full bug report and returns ten functions; agents get a read-only checkout and tools to list, search and read files, with web access off. The agents run on a stratified 198-bug subset.
+| System | All 580 bugs | 198-bug agent subset |
+|---|---|---|
+| **Allfather + GPU reranker** | **77.6%** | 75.8% |
+| **Allfather, browser only** | 74.8% | 76.3% |
+| SweRankEmbed-Large | 76.9% | 75.8% |
+| SweRankEmbed-Small | 70.0% | 65.2% |
+| gpt-6-astra agent (Codex) | | 86.4% |
+| gpt-6-luna agent (Codex) | | 75.3% |
+| Qwen3-Coder-Next agent | | 59.6% |
+| gpt-oss-120b agent | | 49.5% |
+| gpt-6-astra, one call | 52.6% | 57.1% |
+| Gemini 3.8 Flash, one call | 51.6% | 51.5% |
+| gpt-6-luna, one call | 38.1% | 39.4% |
+| Qwen3-Coder-Next, one call | 35.3% | 39.4% |
+| gpt-oss-120b, one call | 23.8% | 27.8% |
 
-Full reports, the 198-bug subset (function hit@k: a function the fix changed is in the top k; intervals from a bootstrap over projects; tests are exact and paired, Holm-adjusted across the whole table):
+On all 580 bugs, Allfather with the GPU reranker and SweRankEmbed-Large finish within a point of each other: +0.7 points for Allfather, with a project-bootstrap interval of −2.7 to +4.0, so neither is ahead. The GPU reranker adds 2.8 points over the browser alone on the full set (interval +0.4 to +5.3). The paid agent's lead over the browser pipeline is 10.1 points on the subset (interval +4.4 to +15.9).
 
-| System | Free | hit@1 | hit@10 [95% CI] | Cost per bug | vs Allfather + GPU (wins/losses, Holm p) |
-|---|---|---|---|---|---|
-| gpt-6-astra agent (Codex) |  | 79.3% | 86.9% [81.7, 91.5] | $0.28 | +10.1 (35/15, 0.198) |
-| gpt-6-luna agent (Codex) | yes | 65.2% | 77.3% [70.9, 83.3] | $0.0032 | +0.5 (26/25, 1.000) |
-| **Allfather, browser only** | yes | 46.0% | 77.3% [71.0, 83.1] | $0 | +0.5 (7/6, 1.000) |
-| **Allfather + GPU reranker** | yes | 47.5% | 76.8% [69.8, 83.0] | $0.0012 | reference |
-| SweRankEmbed-Large | yes | 40.4% | 72.7% [66.1, 79.6] | – | −4.0 (14/22, 1.000) |
-| SweRankEmbed-Small | yes | 38.4% | 62.1% [54.5, 69.7] | – | −14.6 (11/40, 0.005) |
-| Qwen3-Coder-Next agent | yes | 53.5% | 61.6% [53.5, 69.5] | $0.027 | −15.2 (15/45, 0.005) |
-| gpt-6-astra, one call |  | 49.0% | 60.6% [51.9, 69.0] | $0.54 | −16.2 (16/48, 0.005) |
-| Gemini 3.8 Flash, one call | yes | 42.4% | 55.6% [46.3, 64.9] | $0.10 | −21.2 (11/53, <0.001) |
-| gpt-oss-120b agent | yes | 48.5% | 51.0% [42.3, 59.5] | $0.049 | −25.8 (10/61, <0.001) |
-| gpt-6-luna, one call | yes | 37.4% | 42.9% [33.7, 52.4] | $0.0053 | −33.8 (4/71, <0.001) |
-| Qwen3-Coder-Next, one call | yes | 31.8% | 40.9% [31.7, 50.0] | $0.0065 | −35.9 (5/76, <0.001) |
-| gpt-oss-120b, one call | yes | 25.8% | 31.3% [22.8, 40.0] | $0.0063 | −45.5 (3/93, <0.001) |
+What I tried to push accuracy further, each tested on development projects with a rule fixed before it ran:
 
-All 580 bugs, for every system that ran on the whole set:
+- **Choosing the next step per bug.** On a 47-bug pilot I ran six actions on every bug (wider candidate pools, deeper reranking, both) to see whether picking one per bug would help. Reranking the top 50 every time already found everything the best choice would have, so the site keeps that.
+- **What the reranker reads.** Reading the start and end of long reports and long functions, instead of their beginnings, helped one bug on the projects it was designed on and lost one on the validation projects.
+- **Building the candidate list differently.** Full-report BM25, field fusion and following names the report mentions added no coverage on more than one project.
+- **A reranker for long reports** ([ADR 0036](docs/decisions/0036-reranker-reads-the-whole-report.md)): retrained on 2,048-token reports, it gained 1.3 points on long reports, short of the 2-point bar I set, so the site keeps the original.
 
-| System | hit@1 | hit@10 [95% CI] | vs Allfather + GPU (wins/losses, Holm p) |
-|---|---|---|---|
-| **Allfather + GPU reranker** | 46.7% | **77.9%** [73.4, 82.4] | reference |
-| **Allfather, browser only** | 46.0% | 75.3% [70.1, 80.1] | −2.6 (12/27, 0.142) |
-| SweRankEmbed-Large | 43.3% | 72.9% [66.5, 78.5] | −5.0 (35/64, 0.041) |
-| SweRankEmbed-Small | 37.4% | 65.9% [59.4, 71.9] | −12.1 (30/100, <0.001) |
-| gpt-6-astra, one call | 45.0% | 55.0% [48.5, 60.9] | −22.9 (33/166, <0.001) |
-| Gemini 3.8 Flash, one call | 39.3% | 53.3% [47.1, 59.3] | −24.7 (26/169, <0.001) |
-| gpt-6-luna, one call | 34.0% | 39.8% [33.3, 46.3] | −38.1 (8/229, <0.001) |
-| Qwen3-Coder-Next, one call | 29.0% | 36.7% [30.6, 42.8] | −41.2 (10/249, <0.001) |
-| gpt-oss-120b, one call | 21.7% | 27.2% [21.1, 33.5] | −50.7 (4/298, <0.001) |
-
-What the numbers say:
-
-- **Among free tools, Allfather is tied for first at hit@10** and significantly ahead of SweRank on the full set, of both open-weight models as agents and as single calls, and of every model asked once. Costs are list prices for the tokens each run used, or GPU rental time; SweRank's GPU time was not priced.
-- **Agents rank better.** The free agent puts a changed function first for 65.2% of bugs against Allfather's 47.5%; ranking first is where agents earn their cost.
-- **Paid agents are more accurate, and Allfather can decide when to call one.** Allfather's confidence estimate, with a threshold fixed before the study, escalates 56.1% of bugs to an agent and keeps its own answer for the rest. With gpt-6-astra that reaches 89.9% hit@10, against 86.9% for the agent on every bug and 82.4% for escalating the same number of bugs at random. On shortened reports, where Claude Opus 5.5 in Claude Code also ran, Claude reached 90.9% and the same gate, escalating 62.6%, reached 91.4% at about two thirds of its cost.
-- **Models asked once fall far behind on new bugs.** gpt-6-astra reaches 60.6% asked once and 86.9% as an agent on the same bugs, while on the SWE-bench Verified pilot Claude asked once matched Claude as an agent. A model that cannot read the code is much weaker on bugs it cannot remember.
-- **At file level the gap narrows.** Allfather's file ranker puts a changed file in its top 10 for 87.9% of the subset and 86.7% of all 580 bugs, level with Gemini (87.4% and 85.9%), behind the agents (89.4% to 93.4%), and still behind every frontier model at putting it first (63.6% against 68.7% to 87.9%).
-- **Repeatability.** Asked again on 50 bugs, gpt-6-astra as an agent kept its outcome on all 50 and asked once changed it on 4; Allfather is deterministic.
-
-Every number here is regenerated from the run records by `scripts/fresh_analysis.py`; the full tables, file-level results, per-language and per-hint breakdowns and run logs are in [results/research/](results/research/). A paper on this study is in preparation.
-
-</details>
+Next: human-reviewed answer keys. Two reviewers read each bug report, then the maintainers' fix, and mark which edits are the behavior change, which are supporting work and which are incidental; the first set covers 95 bugs from 50 projects. The design, tools and every result file are in [docs/research-status.md](docs/research-status.md) and [results/research/](results/research/).
 
 ### On SWE-bench Lite
 
@@ -217,7 +186,7 @@ I made every tunable choice on data disjoint from Lite: a dev set (SWE-bench Ver
 | hybrid → learning to rank (LambdaMART) | **+0.087** | [+0.049, +0.128] | <0.001 | 36 / 9 |
 | LTR → + fine-tuned cross-encoder (ensemble of 2) | **+0.043** | [+0.013, +0.074] | 0.005 | 24 / 7 |
 
-The cross-encoder's main job is the top of the list: function MRR +0.063 and recall@1 +0.063 (both p < 0.01), file MRR +0.042 and recall@1 +0.063 (p < 0.01). Earlier LTR and cross-encoder numbers were measured on a corrupted embedding store and are superseded ([ADR 0008](docs/decisions/0008-embedding-store-corruption.md)).
+The cross-encoder's main job is the top of the list: function MRR +0.063 and recall@1 +0.063 (both p < 0.01), file MRR +0.042 and recall@1 +0.063 (p < 0.01).
 
 - **Code-aware tokenization** splits `get_queryset` and `HTTPServerError` into parts and keeps the whole identifier too, so both prose ("query set") and exact mentions match. It helps most at depth. At recall@1 the gain (+0.012) is not significant.
 - **Excluding tests** is the largest lexical win at recall@1 (+0.037, p = 0.006); hybrid retrieval, learning to rank and the cross-encoder each add more later. Test methods reuse every identifier in the issue, so they crowd out the source.
@@ -548,7 +517,7 @@ docs/decisions/               why things are the way they are
 5. [Dense embeddings cached by content hash, fused with BM25, searched exactly](docs/decisions/0005-dense-hybrid-retrieval.md)
 6. [Learn the ranking with LambdaMART over retrieval, structure, mention and history features](docs/decisions/0006-learning-to-rank.md)
 7. [A fine-tuned cross-encoder as the last stage of a ranking cascade](docs/decisions/0007-fine-tuned-cross-encoder.md)
-8. [An embedding-store corruption bug: detection, cause, repair](docs/decisions/0008-embedding-store-corruption.md)
+8. [Integrity checks for the content-addressed embedding store](docs/decisions/0008-embedding-store-corruption.md)
 9. [The first two stages, running in the visitor's browser on any repository](docs/decisions/0009-in-browser-search.md)
 10. [A learned ranker in the browser](docs/decisions/0010-browser-ranker.md)
 11. [The website at scale: 150 more projects, semantic search, faster loading](docs/decisions/0011-website-at-scale.md)
@@ -577,6 +546,7 @@ docs/decisions/               why things are the way they are
 34. [One GPU reranker for all six languages](docs/decisions/0034-gpu-reranker-other-languages.md)
 35. [Allfather on the Long Code Arena bug-localization leaderboard](docs/decisions/0035-long-code-arena.md)
 36. [A GPU reranker that reads the whole bug report (tested, not adopted)](docs/decisions/0036-reranker-reads-the-whole-report.md)
+37. [Inventory-based scoring and verified baseline imports for fresh-2026](docs/decisions/0037-research-corrections.md)
 
 ## Adding a retriever
 
@@ -597,20 +567,20 @@ Implement `retrieve(query, level, k) -> list[str]`, returning file paths for `le
 | 10 | The fine-tuned reranker for the website on a GPU server | done (ADR 0021, 0026, 0034): one adapter for all six languages, off by default |
 | 11 | Website in JavaScript, TypeScript, Go, Java and Rust | done (ADR 0025); C, C++, C# and PHP planned for early 2027 |
 | 12 | Live accuracy on bugs fixed each week | running (ADR 0023) |
-| 13 | fresh-2026: 580 bugs reported after every compared model's training cutoff, Allfather against frontier agents, free-tier and open-weight models and SweRank | done (ADR 0033) apart from Claude Opus 5.5 as an agent on full reports; paper in preparation |
+| 13 | fresh-2026: 580 bugs reported August to November 2026, Allfather against SweRank, frontier models and coding agents | scored with inventory-based matching (ADR 0033, 0037); human-reviewed answer keys in progress |
 | 14 | A public leaderboard entry: Long Code Arena bug localization, Python and Java | first version scored (F1 0.401), not submitted (ADR 0035) |
 | 15 | A GPU reranker that reads the whole report | tested, not adopted (ADR 0036) |
 | 8 | LLM listwise reranking of the top 10 (needs an API model) | next |
 | 5 | Persistent on-disk index, incremental updates | planned |
 
-What would move the numbers further, in expected order of impact. Each is developed on training data and measured on fresh-2026b, a new set of bugs sealed after this one, so fresh-2026 stays a clean test:
+What would move the numbers further, in expected order of impact. Each is developed on training data and measured on a new set of bugs sealed before it runs:
 
-1. **Ranking first, not just top 10.** Frontier agents put a changed function first far more often (65% to 79% on fresh-2026 against Allfather's 47%). A model reading Allfather's top 10, an open model on the GPU server or an agent starting from Allfather's shortlist, targets exactly that, and the cascade already reduces each bug to a few candidates.
+1. **Ranking first, not just top 10.** Frontier agents put a changed function first far more often than Allfather does. A model reading Allfather's top 10, an open model on the GPU server or an agent starting from Allfather's shortlist, targets exactly that, and the cascade already reduces each bug to a few candidates.
 2. **More of the right candidates.** On reports that name neither a function nor a file, the browser's small static embeddings carry the search; a stronger embedding model on the GPU tier and more training bugs outside Python (Java and TypeScript trail Python by about 10 points) should raise recall before the reranker starts.
 3. **Naming the right number of files.** A count chosen from Allfather's own confidence, instead of a fixed one, for set-scored leaderboards such as Long Code Arena.
 4. **A bigger reranker base model.** I adopted a 4B LoRA reranker for allfather-max: first place +6 points, top 10 unchanged ([ADR 0020](docs/decisions/0020-allfather-max-larger-reranker.md)); the 8B base is next. More epochs, LTR-mined negatives and a two-adapter ensemble were tried earlier and kept ([ADR 0007](docs/decisions/0007-fine-tuned-cross-encoder.md)). Fine-tuning the embedding model was tried and did not help.
 
-Tried recently and not adopted: distilling the two-adapter reranker into one (better on validation, MRR 0.634 vs 0.623, but file hit@1 fell 0.690 → 0.660 on Lite, p = 0.049; I rejected it on that Lite result, which is a decision taken on the test set, in the conservative direction), and a learned query projection for the static embeddings (semantic-only MRR 0.287 → 0.220 on held-out projects). The website's *How it works* page lists every result that did and didn't work.
+Tried recently and not adopted: distilling the two-adapter reranker into one (better on validation, MRR 0.634 vs 0.623, but file hit@1 fell 0.690 → 0.660 on Lite, p = 0.049, so I kept the two adapters), and a learned query projection for the static embeddings (semantic-only MRR 0.287 → 0.220 on held-out projects). The website's *How it works* page lists every result that did and didn't work.
 
 ## License
 
