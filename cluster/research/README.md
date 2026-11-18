@@ -71,7 +71,7 @@ It does not assess whether the benchmark labels are causally correct.
 
 ## Update the PACE checkout
 
-Pull the research-correction commit into your existing PACE checkout. The repository
+Pull the latest commit into your existing PACE checkout. The repository
 contains the Python source, tests and job; the existing checkout supplies its environment
 and caches. Use a clean checkout so the tested source can be identified unambiguously.
 
@@ -205,7 +205,7 @@ sbatch --account=coc --qos=coc-ice --partition=coc-cpu \
 Pull the new code before submission. One hour is an allocation allowance. This job
 requires matching audit/gold/index/manifest hashes and rechecks every snapshot hash.
 Original inputs are unchanged; outputs go to `inventory-rescore-JOBID/` alongside
-the other correction artifacts. Missing corrected SweRank imports fail explicitly.
+the other evaluation artifacts. Missing SweRank imports with recovered identifiers fail explicitly.
 
 Two named sensitivities are computed for every saved full-report run:
 

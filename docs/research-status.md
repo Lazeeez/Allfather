@@ -1,77 +1,84 @@
 # Research status and codebase map
 
-Updated 2026-11-15. Current scope: localization and selective escalation; no repair or
-developer-productivity claim. See [ADR 0037](decisions/0037-research-corrections.md).
+Updated 2026-11-18. Scope: issue localization and selective escalation on held-out projects.
+Repair success and developer productivity are outside this phase. The scoring and baseline
+decisions behind the current numbers are in [ADR 0037](decisions/0037-research-corrections.md);
+the research plan and its decision rules are in [research-direction.md](research-direction.md).
 
-Latest engineering checkpoint: [accounting and future-mining corrections](research-accounting-and-mining-2026-11-15.md).
-Analysis and paper generation share explicit recorded/estimated/unknown costs and charge
-only selected cascade calls on paired IDs. The 47-run audit leaves 14,528 of 14,825 saved
-run rows monetarily unknown. Mining rejects incomplete edit-history responses and retains
-gold extraction errors. Historical datasets/results are preserved; these repairs do not
-establish cost superiority or certify old mining decisions.
+## Where the study stands
 
-The [review handoff and intake tool](research-review-handoff.md) now validate packet and
-sheet identity, preserve initial submissions, enforce the recorded Stage A/Stage B sequence,
-and compare declared independent human reviews without inventing adjudication. No returned
-reviews exist. [Future execution manifests](research-execution-manifests.md) freeze seeded
-orders and reject incompatible resumptions; no new inference has been launched.
-The [saved-export membership audit is verified](research-swerank-membership-results-7056950.md).
-PACE job 7056950 found all 31,120 saved slots and all 2,346 recovered slots in retained
-corpora; 20 recovered slots have ambiguous IDs (six distinct issue/document pairs).
-All eight run summaries reproduce locally, and all 580 short/full corpus hashes match.
-Historical inference-byte provenance remains unproven; no scores or labels changed.
+fresh-2026 contains 580 issue–PR rows from 74 projects in six languages, reported between
+August and November 2026. Its results have been examined, so I use them for exploratory
+analysis; any new method will be confirmed on new bugs sealed before it runs.
 
-The [active manuscript](paper/main.tex) now uses a separately hashed number snapshot
-from six corrected artifacts and states the incomplete study requirements. The previous
-draft is preserved byte-for-byte as historical material. Benchmark-page source no longer
-asserts absolute unseen-model exposure or causal memorization, and distinguishes reference
-recovery from causal faults and unknown costs from zero. All 341 Python tests pass at
-this checkpoint; the preceding web checks passed 97 tests and TypeScript checks.
-LaTeX source/provenance checks pass; PDF compilation
-and visual review remain unverified because no local LaTeX engine is installed.
+Every prediction is resolved against the complete inventory of declarations in that bug's
+base snapshot, without consulting the answer key. A name that matches several declarations
+earns no strict credit; invalid and duplicate predictions keep their rank slots. Under this
+scoring, strict hit@10 on all 580 bugs is 77.59% for the local pipeline with the GPU
+reranker and 76.90% for SweRankEmbed-Large: a paired difference of +0.69 points with a
+project-bootstrap interval of −2.69 to +3.95. Neither system is shown to be ahead. On the
+198-bug agent subset, the gpt-6-astra agent reaches 86.36% against 76.26% for the browser
+pipeline (+10.10 points, interval +4.41 to +15.87). No test in the 60-test sensitivity
+family (two identity rules, three cohorts, two weightings) passes Holm-adjusted 0.05.
+See the [paired analysis](research-evidence-2026-11-14.md).
 
-Latest study checkpoint: [the broader audit sample and report-only packet are frozen](research-broader-audit-preparation-2026-11-15.md).
-The fixed sample contains 95 issues across 50 projects, excluding all 24 original
-development projects. Two review waves (50 and 45 cases) were selected without using
-gold labels or model outcomes. No new cases are annotated, no independent review is
-complete, and these exposed data are not prospective confirmation. No PACE job is required.
+### Experiments and outcomes
 
-Previous checkpoint: [the provisional task audit is complete](research-task-audit-results-2026-11-15.md).
-All 71 file diffs are available; 23 case-alignment judgments and 52 target-role judgments
-are frozen. Three targets are provisionally incidental, but none of the six local
-conditions earns a hit solely through them. Original base CE50 remains 18/23. The full
-suite passed 277 tests at that checkpoint. Independent-review material is prepared;
-independent adjudication remains open. Broader sampling is now frozen as linked above.
+| Experiment | Outcome |
+|---|---|
+| [Development pilot](research-development-results-2026-11-14.md): six actions on 47 rows from 24 projects | Reranking the base top 50 reaches 39/47, the same as the best per-issue choice among all six actions. No router trained. |
+| [Text views](research-text-view-results-2026-11-14.md): 16 query/document views on 23 fit issues | One fit issue gained (18 to 19 of 23). |
+| [Text-view validation](research-text-view-validation-2026-11-15.md): the frozen candidate on 23 validation issues | 20/23 against 21/23 for the prefix baseline; prefix reranking kept. |
+| [Coverage probe](research-coverage-probe-2026-11-15.md): new candidate-list controls on fit issues | No control adds coverage on more than one project; no GPU sweep needed. |
+| [Long-report reranker](decisions/0036-reranker-reads-the-whole-report.md) | +1.3 points on long reports, below the 2-point rule; site keeps the original. |
+| [Task audit](research-task-audit-results-2026-11-15.md): 23 fit cases, 52 reference targets | 3 targets judged incidental; no hit depends on them alone. Single-analyst, provisional. |
+| [Baseline export membership](research-swerank-membership-results-7056950.md) (PACE 7056950) | Every saved SweRank prediction ID verified present in the retained exports. |
 
-Previous step: [the fit-only coverage probe is complete](research-coverage-probe-2026-11-15.md).
-All 23 issues pass source reconstruction and exact lexical-feature parity checks.
-No new control adds issue coverage at 50 candidates; at 200, the only newly covered
-issue is already reached by original wide retrieval. Every control fails the frozen
-multi-project follow-up gate. The full suite passes 268 tests. No additional GPU sweep is
-justified. Next is the [report-to-patch task audit](research-task-audit-v1.md).
+### Evaluation tooling built in this phase
 
-The [first audit pass is now frozen](research-task-audit-progress-2026-11-15.md): all
-23 reports provisionally annotated, with prior exposure disclosed. One inspected patch
-contains two incidental edits among its gold targets; no labels or scores are changed.
-At that checkpoint, 34 file diffs were unavailable; they have now been recovered and
-verified. The completed analyst pass and independent-review boundary are linked above.
+- **Inventory-based scorer** (`eval/resolution.py`, `scripts/rescore_inventories.py`):
+  complete declaration inventories for all 580 snapshots, built and integrity-audited on PACE
+  (2,808 unique gold IDs, 65 ambiguous, none missing), with strict-symbol and name-group views.
+- **Shared extension registry** for baseline imports and agent source access, covering
+  `.mjs/.cjs/.mts/.cts`, with recovered identifiers kept in a separate namespace.
+- **Per-record cost accounting** (`eval/costs.py`) with explicit recorded, estimated and
+  unknown states; cascades charge the cheap run on every paired issue plus the selected agent
+  runs only. Of 14,825 saved run rows, 297 have recorded amounts.
+- **Execution manifests** (`eval/execution.py`): seeded, hash-ordered issue membership, frozen
+  before any model loads, with strict resume validation.
+- **Development replay** (`scripts/development_replay.py`): complete candidate universes,
+  pools, features and per-stage rankings for six fixed actions, with no gold inputs.
+- **Review tooling** (`scripts/review_task_audit.py`): packet and sheet identity checks, Stage A
+  before Stage B, and agreement statistics between independent human reviewers.
+- **Statistics:** raw p-values carried through Holm adjustment, project-clustered paired
+  intervals, and direct evaluation of a supplied gate threshold.
 
-The preceding [text-view validation is negative](research-text-view-validation-2026-11-15.md):
-21/23 to 20/23 with zero rescues. Retain prefix reranking and defer the router.
-The new controls and closer prior work do not establish a novel method.
+## Next
 
-## What has been inspected
+1. **Independent human review.** Two reviewers complete the
+   [23-case pilot packet](research-review-handoff.md), then the
+   [95-issue broader sample](research-broader-audit-preparation-2026-11-15.md) across 50
+   projects, selected without outcomes. No reviews have been returned yet.
+2. **Freeze the outcome analysis** for the broader sample before joining any model results.
+3. **Choose the contribution** from that evidence and close prior work (see
+   [research-direction.md](research-direction.md)); a new method claim needs fresh frozen
+   confirmation data and matched strong baselines.
+4. **Manuscript:** the [working draft](paper/main.tex) reads all numbers from a hashed
+   snapshot and compiles to a four-page PDF; venue rules, bibliography screening, an anonymous
+   artifact and visual review remain to do.
 
-The first structural pass reads and hashes all 1,444 tracked files at starting commit
-`99e4cdf57e7bc99bffd303e93cc04b1d6ed46a84`. All 118 tracked Python files AST-parse; all
-986 JSON and 97 JSONL files parse. Binary assets are hashed. The inventory contains
-Python imports, top-level definitions and Markdown headings.
+## Open work
 
-This is not a claim that every line has been manually audited. Detailed inspection so
-far concentrates on parsing/indexing interfaces, gold extraction, experiment harnesses,
-baseline import/export, scoring, statistics, costs, paper generation and their tests.
-The browser and deployment code have received structural and selected entry-point review.
-GPU training, full historical reconstruction and live service behavior are not certified.
+| Area | Remaining work |
+|---|---|
+| Inference reruns | Rerun inference affected by the source-access and duplicate-name fixes, under new run identities. |
+| Identity | Occurrence-level identities for minified code; version labels for overloaded names. |
+| Costs and timing | GPU count and type, per-request pricing tiers, retries and setup; real browser cold and warm timings. |
+| Labels | Blind stratified label review, including added-only changes, renames and alternative valid locations. |
+| Comparators | Mention heuristic, BM25/static/LTR ablations, the full research pipeline and a specialized agent. |
+| Routing controls | Confidence, margin, random, learned-benefit and failure-aware policies under matched budgets. |
+| Provenance | Effective model IDs, CLI versions, full traces and enforced tool policy for agent runs. |
+| Confirmation | Clustered power planning and a prospectively frozen set of new projects and time window. |
 
 ## Codebase map
 
@@ -81,223 +88,53 @@ GPU training, full historical reconstruction and live service behavior are not c
 | `parsing/python_symbols.py`, `parsing/symbols.py` | Symbol extraction, language registry, qualified names, source/test exclusions. Names can collide for overloads; classes and other types are included. |
 | `index/chunker.py`, `snapshot.py`, `store.py` | Retrieval units; content-addressed parsed blobs; lexical indexes and call graph; persistent cache fingerprints. Parser changes can change both labels and candidates. |
 | `search/` | Code tokenization, BM25, static/dense embeddings, fusion, path features and graph expansion. `retriever.py` exposes the ranking interface and preparation boundary. |
-| `rank/` | Browser features and learned rankers, mention evidence, history/past issues, confidence calibration, cross-encoder training/tuning. Training targets and runtime stage must be distinguished. |
-| `eval/` | Dataset loading, diff-to-symbol labels, holdouts, external scoring protocols, metrics, run provenance and tuning. `resolution.py` is a draft independent resolver, not yet the active historical scorer. |
+| `rank/` | Browser features and learned rankers, mention evidence, history/past issues, confidence calibration, cross-encoder training/tuning. |
+| `eval/` | Dataset loading, diff-to-symbol labels, holdouts, external scoring protocols, metrics, inventory resolution, costs, execution manifests and run provenance. |
 | `scripts/browser_ltr.py`, `live_eval.py` | Train browser rankers and replay the browser recipe in Python. `Site.rank` exposes the semantic stage used by confidence. Python execution is not browser timing. |
-| `scripts/fresh_set.py`, `fresh_website.py`, `frontier.py`, `open_agent.py` | Mine/seal issue–PR snapshots; collect local and agent results; normalize and score predictions. These are the main fresh-study validity boundaries. |
-| `scripts/swerank_*` | Shared-chunker BEIR export, retrieval, full-report query replacement and import. SweRankEmbed evaluates a component, not full SweRank. |
-| `scripts/fresh_analysis.py`, `paper_tables.py`, `check_readme.py` | Statistics, gate evaluation, cost estimates and generated claims. The last script checks internal consistency, not scientific validity. |
-| `scripts/more_data.py`, `multilang_data.py`, `ce_multilang.py`, `rerank_choice.py`, `allfather_max.py` | Training collections, multilingual adapters, selection and historical model experiments. Test outcomes must not enter new method selection. |
-| Other `scripts/` | Baseline protocols, frozen reports, exports, holdouts, parity, latency and GitHub Action orchestration; all entry points are in the inventory. |
+| `scripts/fresh_set.py`, `fresh_website.py`, `frontier.py`, `open_agent.py` | Mine and seal issue–PR snapshots; collect local and agent results; normalize and score predictions. |
+| `scripts/swerank_*`, `correct_swerank.py`, `verify_swerank_membership.py` | Shared-chunker BEIR export, retrieval, full-report queries, import and export-membership checks. SweRankEmbed evaluates a component, not full SweRank. |
+| `scripts/rescore_inventories.py`, `analyze_*.py`, `audit_*.py` | Inventory scoring, paired project analysis, development and audit analyses. |
+| `scripts/fresh_analysis.py`, `paper_tables.py`, `research_paper_snapshot.py`, `check_readme.py` | Statistics, gate evaluation, cost summaries, the manuscript's number snapshot and README consistency. |
+| `scripts/more_data.py`, `multilang_data.py`, `ce_multilang.py`, `rerank_choice.py`, `allfather_max.py` | Training collections, multilingual adapters, selection and earlier model experiments. Test outcomes do not enter new method selection. |
 | `web/src/engine`, `worker` | TypeScript retrieval/ranking, WASM parsing, downloads, worker pool, semantic inference, IndexedDB caches and optional GPU calls. |
-| `web/src/pages`, `components`, `lib` | User interface, benchmark displays, reports, navigation and sharing. Published fresh-study claims still require propagation of the final corrections. |
-| `proxy`, `deploy`, `web/api`, `action.yml` | Hosting/relay boundaries, optional GPU service and Action configuration. Local code execution/privacy varies by configuration. |
-| `data`, `models`, `results` | Gold/splits/manifests, frozen model recipes and retained runs. Treat original evidence as immutable. |
-| `cluster`, `benchmarks`, `.github`, `tests`, `web/test` | Cluster jobs, performance experiments, CI and correctness/parity checks. Passing these does not validate labels or confirm a hypothesis. |
-| `docs`, `PLAN.md` | Historical decisions, experimental notes and manuscript. This document is the current worklist; old ADR outcomes remain historical. |
+| `web/src/pages`, `components`, `lib` | User interface, benchmark displays, reports, navigation and sharing. |
+| `proxy`, `deploy`, `web/api`, `action.yml` | Hosting/relay boundaries, optional GPU service and Action configuration. |
+| `data`, `models`, `results` | Gold/splits/manifests, frozen model recipes and retained runs. Original evidence is immutable. |
+| `cluster`, `benchmarks`, `.github`, `tests`, `web/test` | Cluster jobs, performance experiments, CI and correctness/parity checks. |
+| `docs` | Decision records, dated experiment reports and the manuscript. This document is the current worklist. |
 
 ## System configurations
 
-| Configuration | Evidence that can legitimately describe it |
+| Configuration | Evidence that describes it |
 |---|---|
-| Original research GPU cascade | BM25/Jina/LTR/Qwen experiments under their recorded recipe |
+| Research GPU cascade | BM25/Jina/LTR/Qwen experiments under their recorded recipe |
 | Frozen `allfather-fast` | Its own frozen configuration and holdout outputs |
 | Browser engine | Actual TypeScript/WASM behavior and measured browser performance |
 | `website` / `website-gpu` fresh runs | Python `Site` replay, optionally with the recorded multilingual GPU recipe |
 | Deployed browser + GPU | Actual deployed stage settings, including language-specific stage skipping |
 | GitHub Action | The Action's lighter semantic configuration |
 
-## Correction worklist
+## Verification
 
-Status meanings: **implemented** means code/tests exist; **diagnostic** means a provisional
-recomputation; **open** means no completion claim. Ordering follows validity dependencies.
+All 341 Python tests pass, as do 97 web unit tests, 71 end-to-end tests and the TypeScript
+check; the README consistency check verifies 422 numbers. PACE work so far: hardware probe
+7009034 and GPU preflight 7009198 (L40S, PyTorch 2.14.0+cu130, Transformers 5.17.0);
+inventory build 7008760 and audit 7012218 (580/580 snapshots); rescoring 7012506; development
+smoke 7018060 and pilot 7019874; text views 7035289 and 7049176; SweRank export membership
+7056950. Every transferred archive is hash-verified locally before analysis; model weights are
+downloaded only into compute-node temporary storage and checked against pinned hashes.
 
-| Priority | Finding / work | Status and acceptance criterion |
-|---|---|---|
-| P0 | Missing `.mjs/.cjs/.mts/.cts` in import | Implemented shared registry and tests for all 12 extensions. Eight separate corrected runs generated. |
-| P0 | Original exported ID membership | Retained-export audit complete and locally verified for all eight runs; every recovered ID is present, with 20 ambiguous recovered slots explicitly retained. Historical inference did not pin corpus hashes, so original inference-byte provenance remains a limitation. |
-| P0 | Unequal prompt/grep source extensions | Implemented access fix. Open: identify and rerun affected inference with a new run identity. |
-| P0 | Gold-dependent answer resolution | Draft resolver implemented/tested; 580/580 inventory integrity audit passed on PACE. 65 gold IDs ambiguous, zero missing. Versioned inventory rescoring prepared; PACE results and final identity policy pending. |
-| P0 | Invalid predictions silently disappear | Versioned rescorer preserves invalid/ambiguous/duplicate slots and records resolution rates. Open: run and publish sensitivities; historical default scorer unchanged. |
-| P0 | Null costs become zero; competing cost paths | Implemented shared per-record accounting and explicit recorded/estimated/unknown states. 47-run evidence audit complete; recorded harness amounts are not independently verified bills. |
-| P0 | Hardware and token accounting | Open: recorded GPU count/type; per-request tier rules; retries/cache/setup boundaries; no difference-of-medians GPU estimate. |
-| P0 | Cascade cost uses unconditional mean | Implemented in analysis and paper generation: cheap + selected incremental agent costs on exact paired IDs; unknown required components propagate. |
-| P0 | Supplied gate threshold mislabeled/evaluated indirectly | Implemented direct threshold evaluation and precision-sensitive regression. |
-| P0 | Unsupported headline claims | Active working manuscript replaced with corrected exploratory evidence; historical draft retained. Website source withdraws superiority/cost and absolute exposure claims. Final submission tables, complete claim audit and deployed-site verification remain open. |
-| P1 | Paired uncertainty ignores project dependence | Diagnostic paired project intervals in import audit. Open: integrate all metrics/file families, macro-project estimates and cluster-aware test sensitivity. |
-| P1 | P-values rounded before Holm | Implemented raw p-values through adjustment. Historical tables retained pending regeneration. |
-| P1 | Partial runs use sorted prefixes | Implemented seeded manifests and exact ID/project coverage for future frontier and website runs, with strict resume validation. Historical partial-run comparability and language coverage reporting remain open. |
-| P1 | Duplicate issue with two PRs | Open: issue–PR unit definition, split grouping and deterministic issue-deduplicated sensitivity. Never silently drop an original row. |
-| P1 | Pre-merge parent described as report-time snapshot | New prompts use pre-merge base wording; future mining records all merge parents. Historical wording propagation and multi-commit/rebase checks remain open. |
-| P1 | Symbol granularity / overloaded IDs | Open: version labels, quantify classes/types/overloads; draft resolver marks duplicate inventory IDs ambiguous. |
-| P1 | Incomplete gold extraction and GraphQL error handling | Future mining now retains the full GoldEntry, rejects partial extraction and malformed/error edit responses, and records report/patch hashes and merge parents. Historical completeness, parser coverage and API diff truncation remain open. |
-| P1 | Diff labels are not necessarily causal | Open: blind stratified label audit, including added-only changes, renames, incidental edits and alternate valid locations. |
-| P1 | 50-row human check unfilled | Open: qualified human annotation; no fabricated answers or agreement. Retrospective gold-derived hints cannot be gate features. |
-| P1 | Confidence predicts the wrong stage/event | Open: development-only target definitions for final success and incremental action benefit, project-grouped calibration. |
-| P1 | Failed original RQ3 conjunction | Open manuscript correction: report escalation/cost/quality criteria together and the negative outcome, not a replacement success criterion. |
-| P1 | Missing cheap/full/specialized comparators | Open: mention heuristic, BM25/static/LTR ablations; full compatible research pipeline and a specialized agent. |
-| P1 | Incomplete routing controls | Exploratory action-overlap audit implemented. Open: confidence/margin/random, learned-benefit and failure-aware policies under matched actual budgets. |
-| P1 | Python latency attributed to browser | Open: real cold-download/index/warm-query/GPU timings, median/p95, hardware/cache/version/size boundaries. |
-| P1 | Absolute contamination / memorization claims | Open: replace with dated exposure controls, exact-model cutoff evidence and limits; no causal conclusion from the ten-instance pilot. |
-| P1 | Weak isolation and provenance | Open: effective model IDs/settings, CLI versions, full permitted traces, archive hashes, enforced network/tool policy and failed-attempt logs. |
-| P1 | Chronology / artifacts / stale docs | Open: history verification, ranker-count alignment, AI disclosure, actual anonymous artifact, current venue rules and bibliography checks. |
-| P1 | Dataset/model attribution and distribution | Open: fresh-data attribution and source/model license review; no new distribution claim. |
-| P2 | Confirmation and sample size | Open: clustered power/noninferiority planning, prospectively frozen new projects/time window. Current exposed fresh runs are exploratory for new methods. |
-| P2 | Repair and productivity | Outside selected initial scope; requires separate executable or human study before making those claims. |
-
-## Verification and artifacts
-
-Development replay v1 is now implemented; see the [protocol and PACE command](development-replay.md).
-It freezes 47 exploratory rows from 24 projects and records complete candidate pools
-and six fixed actions without gold inputs. Implementation exposed two linked source
-identity bugs: name-keyed text caching and the GPU ID-to-last-row lookup. Both are
-fixed for future inference with content keys and retained row indices. Saved results
-remain historical; this repair requires new inference to measure its effect.
-All 211 Python tests passed, and the six actions passed a synthetic integration check
-with the real cached models on the local GPU. PACE smoke job 7017410 stopped before
-inference because assets were missing. The login-node checker verifies only the
-transferred adapter. Per the author's storage constraint, the batch job downloads
-pinned base weights into compute-node temporary storage, verifies file hashes,
-runs inference offline and cleans up that temporary directory on exit. The
-Git-ignored adapter was successfully transferred and verified in job 7017731.
-That job downloaded and verified all base weights in `/tmp`, then failed before
-inference because offline snapshot lookup demanded intentionally excluded repository
-files. The loader now uses the same file filter as the downloader. Eleven targeted
-tests and a real-model offline check from an isolated filtered cache passed; a
-successful PACE replay was pending at that point. The author subsequently supplied
-job 7018060's summary and log: all six smoke issues completed without failures,
-251.22 seconds inside the replay script and 303 seconds Slurm walltime. All six
-wide pools are larger. The [reported record](../results/research/corrections/pace-development-smoke-7018060.json)
-preserves counts and trace hashes; full trace transfer/independent validation is
-pending. A long-token warning occurs before the cross-encoder's explicit token
-slicing and does not itself establish an oversized model input. The saved-trace
-validator checks hashes, rows, pool inclusion, shared features and stage rankings;
-13 targeted validator/replay tests passed. The 47-row run is gated on its success.
-The author subsequently supplied a successful validator report (6/6, no failures,
-manifest hash `8f0f6ce4e77e429be44f2988bf3225b6311e32d8c5bf01fcfd3f4337d19e1723`)
-and submission confirmation for full-pilot job 7019874. The
-[saved validation report](../results/research/corrections/pace-development-validation-7018060.json)
-matches the earlier summary and all six pool/universe counts. Original trace
-transfer and independent local validation/scoring remain pending. First-action
-latencies and sequential cache reuse preclude treating these timings as controlled
-standalone action costs; substantial script time is outside the saved trace timers.
-Full-pilot job 7019874 subsequently reports 47/47 completed without failures,
-797.93 seconds inside the script and 856 seconds Slurm walltime. All logged IDs
-match the frozen 24-project plan and all wide pools are larger. The
-[reported pilot record](../results/research/corrections/pace-development-pilot-7019874.json)
-retains all printed trace hashes and counts. Complete trace validation, transfer,
-gold joining and outcome analysis remain pending; no routing benefit is established.
-Supabase #49940 grows from 165 to 14,359 candidates. The fourfold channel budgets
-do not cap the final pool size because file expansion admits all units in selected
-files. Keep this behavior visible in resource accounting and failure analysis.
-
-The full transfer has now been received and independently verified locally:
-6/6 smoke and 47/47 pilot traces pass; run source hashes match both recorded Git
-commits, pinned assets agree, and all six repeated smoke issues have identical
-features, CE scores and action rankings. The [development result report](research-development-results-2026-11-14.md)
-records the gold join: all 118 pilot targets are audited unique and present in the
-retrieval universe. Base hit@10 is 37/47; base CE50 reaches 39/47. Wider retrieval
-adds 11 targets to pools but no additional hit@10 successes. The six-action oracle
-also reaches 39/47, and both rescues are on validation projects (none in fit).
-The current action menu therefore does not support training the proposed benefit
-router. Inspect fit failures and action design before further model experiments;
-no new routing or novelty claim is established. Twenty-seven relevant tests passed.
-
-First full run after import/statistics changes: **183 Python tests passed**. Web baseline:
-**97 tests passed**, TypeScript check passed. Ruff lint/format passed. Windows sandbox
-permissions prevented pytest temp access and Vite configuration discovery initially;
-the approved reruns passed. After adding the resolver, headroom diagnostic and inventory
-builder, **23 targeted tests passed**, including a local Git snapshot inventory fixture.
-Final Ruff checks passed; README consistency checked 568 numbers with zero mismatches.
-That consistency check still verifies the explicitly archived historical table against
-its historical inputs; it does not validate the superseded scientific claims.
-
-The author reports full CPU inventory job 7008760 completed all 580 snapshots with
-no failures in 1:59:59. Parser-error files occur in 400 snapshots and colliding IDs
-in 512 (372 both; 40 neither). These repository-wide flags do not establish that
-the corresponding gold targets are invalid. Full files have not yet been retrieved
-locally. The CPU audit verifies hashes/identities/internal counts and measures
-gold-specific unique, ambiguous, missing and parser-error-file coverage. It
-preserves all labels and records integrity failures
-against the full expected denominator. Ten relevant tests passed, including corrupt
-hash, mismatched snapshot, unrelated parser flag and ambiguous gold fixtures.
-See the [handoff](../cluster/research/README.md).
-
-Follow-up audit job 7012218 passed saved-artifact integrity for all 580 snapshots.
-Of 2,873 gold IDs, 2,808 are unique among extracted symbols, 65 ambiguous and none
-missing. All gold IDs are unique in 557 issues; 23 have ambiguous targets. Eight
-issues have no unique gold target. Thirteen gold IDs in ten issues occur in files
-with parser errors, which may be unrelated to the target's own source range.
-This does not certify causal gold labels or parser completeness against Git.
-
-Versioned `rescore_inventories.py` now prepares strict-symbol and name-group
-sensitivities, with all-observed and explicitly filtered cohort views. Resolution
-uses only complete inventories, and invalid/duplicate slots retain rank positions.
-It verifies the successful audit's input hashes and every snapshot before scoring;
-corrected SweRank imports are required. Original/default metrics remain unchanged.
-Fifteen targeted tests passed, including an end-to-end saved-inventory fixture,
-stale-audit rejection, duplicate rows, ambiguous IDs, truncated MRR and slot retention.
-PACE rescore job 7012506 produced a table supplied by the author. On 580 issues,
-strict hit@10 is 0.7759 for website-gpu versus 0.7690 for SweRankEmbed-Large; on 198
-agent issues it is 0.7576 for website-gpu, 0.7626 for website, and 0.8636 for Astra.
-The corresponding name-group values are 0.7845/0.7793 (580 issues) and
-0.7778/0.7828/0.8737 (198). These rounded marginal rates do not establish statistical
-superiority, equivalence, predictable escalation benefit or a cost advantage.
-The 20-row Sonnet run cannot be compared directly with 198-row totals. The complete
-rescore/audit archive has now been received: 29 prediction input hashes and all 25
-run summaries verified. Project-paired analysis finds GPU versus SweRankEmbed-Large
-has 41 rescues and 37 harms, a +0.69-point strict hit@10 difference with a −2.69 to
-+3.95-point project-bootstrap interval. Astra versus browser has 31 rescues and 11
-harms on the 198-issue subset. These remain exploratory; no test in the explicitly
-defined 60-test sensitivity family passes Holm-adjusted 0.05.
-
-The pasted gold review begins inside a record; only three complete issue records
-were recovered. Offline inspection of cached base blobs reproduces 15 Next.js
-`e.constructor` occurrences at distinct byte columns on line 1, with no parser
-errors. Thus path/name/line is insufficient to distinguish these declarations.
-Traefik's parser errors overlap the gold method's lines; Zed's sole parser error is
-far outside the gold method. This distinguishes collision and parser-coverage cases
-without changing labels. Source hashes, parser versions, columns and error spans
-are recorded. The complete review subsequently supplied contains 33 issues and
-78 flagged targets; all 78 were inspected from cached sources with no failures,
-and their occurrence-kind/line multisets agree with PACE. Of 13 targets in files
-with parser errors, only Traefik's target overlaps an error by line range. The
-other 12 still require semantic scrutiny. Fifty-three issues have over ten gold
-IDs, making all@10 structurally unattainable on those rows. No gold was edited.
-See the [verified evidence and limitations](research-evidence-2026-11-14.md).
-
-PACE hardware probe job 7009034 successfully allocated an L40S (46,068 MiB VRAM,
-driver 615.71.09) under `coc` / `coc-ice`. The supplied QoS output shows a 50-job
-pending/running limit. GPU preflight job 7009198 passed model-library imports and
-CUDA float32/float16/bfloat16 checks on the cluster at commit `4731578`. The supplied
-report records PyTorch 2.14.0+cu130 and Transformers 5.17.0. Its 211-second Slurm
-walltime is environment-check duration, not model inference latency. No model weights
-were loaded and no research outcome was measured.
-
-Offline split audit v1 finds all 10 historical pilot issues (five projects) in the
-browser ranker's reconstructed declared training pool. None match available eligible
-CE records. The 580 full-report fresh rows (74 projects) have no ID, snapshot or
-case-normalized project overlap with either reference. This permits exploratory
-unseen-project analysis relative to those references, not prospective confirmation:
-fresh results were already exposed. Two PR rows share `microsoft/markitdown` issue
-2340 and must stay in one split. Exact historical trained-row provenance, foundation
-model exposure, renamed/forked repositories and semantic duplicates remain unaudited.
-The script records input hashes, overlap IDs and missing reference availability;
-its three synthetic overlap/grouping regression tests passed.
+## Result files
 
 - [Structural inventory](../results/research/corrections/repository-inventory-2026-11-13.json)
-- [Import correction audit](../results/research/corrections/import-v1/audit.json)
-- [Exploratory joint outcomes](../results/research/corrections/headroom-v1.json)
+- [Baseline import audit](../results/research/corrections/import-v1/audit.json)
+- [Joint outcomes across systems](../results/research/corrections/headroom-v1.json)
 - [Split and training-pool overlap audit](../results/research/corrections/split-audit-v1.json)
-- [User-supplied PACE preflight result](../results/research/corrections/pace-preflight-7009198.json)
-- [User-supplied completed inventory summary](../results/research/corrections/pace-inventories-7008760.json)
-- [User-supplied inventory integrity/gold audit](../results/research/corrections/pace-inventory-audit-7012218.json)
-- [User-supplied rescoring table](../results/research/corrections/pace-rescore-7012506-table.txt)
-- [Partial gold review recovered from paste](../results/research/corrections/review-gold-partial-v1.json)
-- [Offline source inspection of the three complete records](../results/research/corrections/gold-source-review-partial-v1.json)
-- [Complete transferred PACE archive](../results/research/corrections/pace-rescore-7012506.tar.gz)
+- [PACE preflight](../results/research/corrections/pace-preflight-7009198.json)
+- [Inventory build summary](../results/research/corrections/pace-inventories-7008760.json)
+- [Inventory integrity and gold audit](../results/research/corrections/pace-inventory-audit-7012218.json)
+- [Rescoring table](../results/research/corrections/pace-rescore-7012506-table.txt) and [archive](../results/research/corrections/pace-rescore-7012506.tar.gz)
 - [Paired project analysis](../results/research/corrections/inventory-paired-v1.json)
-- [Complete flagged-target source inspection](../results/research/corrections/gold-source-review-v1.json)
-- [Research direction and falsification plan](research-direction.md)
-
-No new paid inference, GPU training, external publication or deployment has been performed.
+- [Flagged-target source inspection](../results/research/corrections/gold-source-review-v1.json)
+- [Cost accounting audit](../results/research/corrections/cost-accounting-v1.json)
+- [Development analysis](../results/research/corrections/development-analysis-v1/analysis.json)

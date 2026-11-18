@@ -4,22 +4,20 @@
 \usepackage{booktabs}
 \usepackage{hyperref}
 \input{current-evidence-v1/numbers}
-\title{Reference Recovery and Selective Escalation in Multilingual Issue Localization\\\large Corrected exploratory evidence and a pending annotation study}
+\title{Reference Recovery and Selective Escalation in Multilingual Issue Localization\\\large Exploratory evidence and an annotation study in progress}
 \author{Lajat Manekar}
 \date{Working draft, 15 November 2026}
 \begin{document}
 \maketitle
-\noindent\textbf{Status: not submission-ready.} This draft replaces the withdrawn historical
-claims. Independent annotation, complete related-work
+\noindent\textbf{Status: working draft.} Independent annotation, complete related-work
 screening and a final analysis protocol remain unfinished. No novel method or confirmed
-cost advantage is claimed. The prior manuscript is retained separately as historical material.
+cost advantage is claimed.
 
 \begin{abstract}
 Issue localization systems rank existing source declarations, but recovering declarations
 changed by a reference patch is not identical to identifying the cause of a reported defect.
-We examine this distinction while repairing a multilingual localization evaluation. An
-identifier-import defect and ambiguous declaration names affect the interpretation of
-saved results. Under a versioned inventory-based interpretation, the GPU-assisted local
+We examine this distinction in a multilingual localization evaluation in which identifier
+resolution and ambiguous declaration names affect how saved results are interpreted. Under a versioned inventory-based interpretation, the GPU-assisted local
 configuration reaches \GPUHits/\FullIssues\ strict hit@10, compared with
 \LargeHits/\FullIssues\ for SweRankEmbed-Large. The paired difference is
 \DeltaPoints\ percentage points, with a pointwise project-bootstrap interval of
@@ -30,7 +28,7 @@ oracle's success set. A subsequent fixed context-view comparison produces
 A provisional audit covers \AuditIssues\ report--patch pairs and \AuditTargets\ reference
 targets; its judgments are not independent human consensus. A broader outcome-independent
 sample of \BroaderIssues\ issues across \BroaderProjects\ projects is prepared for review.
-The present contribution is corrected exploratory evidence and reproducible study
+The present contribution is exploratory evidence and reproducible study
 preparation, not an established novel localization method or a completed benchmark audit.
 \end{abstract}
 
@@ -54,7 +52,7 @@ and agent harnesses. These configurations are not interchangeable. The fresh-stu
 not measurements of browser latency or developer productivity.
 
 The saved full-report cohort comprises \FullIssues\ issue--PR rows across \FullProjects\
-projects. Existing outcomes were exposed before the corrective experiments. They support
+projects. Existing outcomes were examined before the follow-up experiments. They support
 exploratory analysis, not prospective confirmation of a new method. Distinct PRs may close
 the same underlying issue; issue-deduplicated sensitivities and project grouping must be
 retained. The source snapshot is the supplied pre-merge base, not necessarily the code at
@@ -68,8 +66,8 @@ reference target is returned among ten slots. It is not all-target recovery, exe
 repair success, or proof of causal fault localization. Parser errors can hide declarations,
 so even apparent uniqueness is conditional on extraction coverage.
 
-\section{Corrected exploratory results}
-\subsection{Historical comparison}
+\section{Exploratory results}
+\subsection{Comparison with a published retriever}
 \begin{center}
 \begin{tabular}{lrr}
 \toprule
@@ -112,13 +110,13 @@ All \AuditDiffs\ changed-file diffs are available for the \AuditIssues\ fit case
 Base-source contexts and recovered blobs have recorded integrity checks. The exposed
 analyst's provisional judgments mark \IncidentalTargets\ of \AuditTargets\ reference
 targets incidental. Across the six local conditions, \IncidentalOnlyHits\ hits depend
-solely on those targets. Thus these annotations do not produce a corrected localizer gain.
+solely on those targets. Thus these annotations do not change any localizer's hit count.
 The findings describe this fit sample, not population prevalence or independently
 validated causal labels. Binary archive contents and some upstream behavior remain
 unverified. No human inter-rater agreement is reported.
 
 \section{Monetary evidence}
-The corrected accounting audit covers \CostRuns\ saved runs and \CostRows\ run rows,
+The accounting audit covers \CostRuns\ saved runs and \CostRows\ run rows,
 including reused subsets. Of those rows, \CostRecorded\ have recorded amounts and
 \CostUnknown\ remain monetarily unknown. Recorded amounts are harness reports, not
 independently verified bills. Local placeholder zeros, aggregate agent tokens and
@@ -128,8 +126,8 @@ Analysis and paper generation now share per-record accounting. A cascade pays fo
 reference run plus only the selected agent runs on identical paired IDs. Missing required
 components propagate to an unknown total. Historical aggregate token counts are not used
 to guess request-level pricing tiers, and GPU cost is not inferred from differences of
-median runtimes or an assumed device count. These repairs withdraw the previous economic
-claim; they do not supply missing measurements.
+median runtimes or an assumed device count. Cost comparisons therefore wait for the missing
+measurements.
 
 \section{Pending independent study}
 A fixed hash-order sample selects up to two issues from each of \BroaderProjects\ eligible
@@ -183,14 +181,13 @@ that those tasks are complete.
 \section*{Artifacts and AI assistance}
 The public working repository is \url{https://github.com/Lazeeez/Allfather}; it is not an
 anonymous artifact. Each quantitative macro here comes from a versioned snapshot of six
-corrected analysis artifacts, with input and output hashes. Historical outputs are retained
-separately and are not silently replaced by this draft.
+analysis artifacts, with input and output hashes. Earlier outputs are retained separately.
 
 AI assistance was used for code inspection and changes, experiment preparation, provisional
 annotations, literature discovery and drafting. Automated checks and repeated analyst work
 are not independent human review. The author must verify the final content, attribution,
 contribution and venue-specific disclosure before submission. PACE supplied the recorded
-cluster computation; no new paid model calls were made for these corrections.
+cluster computation; no new paid model calls were made for this work.
 
 \begin{thebibliography}{4}
 \bibitem{locagent} Z. Chen et al. \emph{LocAgent: Graph-Guided LLM Agents for Code Localization}.

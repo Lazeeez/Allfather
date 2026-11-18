@@ -142,7 +142,7 @@ power analysis. No margin or positive outcome is being selected from the exposed
 
 | Direction | Why consider it | Evidence burden / recommendation |
 |---|---|---|
-| Localization evaluation validity | The import defect already changes a headline conclusion; resolution/granularity may alter comparisons further. | Potential empirical contribution if independently generalized across multiple systems and datasets. Fixing only our own pipeline is insufficient for a broad claim. Keep as a serious fallback. |
+| Localization evaluation validity | Identifier resolution already changes how close systems are; granularity may alter comparisons further. | Potential empirical contribution if independently generalized across multiple systems and datasets. Fixing only our own pipeline is insufficient for a broad claim. Keep as a serious fallback. |
 | Robustness under report and repository change | Tests whether routing decisions survive benign wording or code-identity changes. | Needs semantics-preserving transformations, leakage controls and a separate prior-art review. Use as a targeted stress test first. |
 | Repair efficiency or diagnostic guidance | Broader downstream impact. | Crowded related work and executable environments; outside the chosen first phase. |
 | Another graph/RAG model or bigger reranker | Easy to fit the existing platform. | Not enough novelty without a specific demonstrated mechanism; no current reason to prioritize it. |
@@ -257,7 +257,7 @@ adds verified evidence for every fit patch and all 52 target roles. Three target
 incidental under the analyst rubric, but zero local-condition hits depend solely on
 them; original scores stand. A partial-subtask patch, newly introduced implementations,
 and an upstream dependency fix distinguish reference recovery from causal localization.
-Tangled-fix labels already have substantial prior work, so this is measurement repair,
+Tangled-fix labels already have substantial prior work, so this is measurement work,
 not novelty by itself. Prepare independent adjudication and broader outcome-independent
 sampling before choosing a new claim; retain the simple baseline and defer router fitting.
 
