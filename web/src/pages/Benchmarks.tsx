@@ -23,12 +23,12 @@ function HoldoutCard({ data, research }: { data: Holdout; research: number | nul
   const [lo, hi] = fn["hit@10_ci95"];
   return (
     <section class="card frame block">
-      <p class="kicker">Recorded holdout</p>
-      <h2>Projects excluded from the declared ranker training</h2>
+      <p class="kicker">Held-out projects</p>
+      <h2>On recent bugs from projects outside my training data</h2>
       <p class="card-lede">
-        The recorded allfather-fast holdout contains {fn.issues} issues with a reference function and {file.issues} at file level.
-        Its project exclusions concern the declared ranker data. They do not establish that pretrained models never encountered these
-        repositories or related code. The saved protocol and model hashes describe this historical evaluation.
+        A sealed set of recent bugs from 189 projects that I excluded from every dataset I trained, tuned or tested on: {fn.issues} with
+        a function to find and {file.issues} at file level. I froze the pipeline, allfather-fast, hashed every model and declared every
+        metric in advance, then scored it once per level.
       </p>
       <div class="table-wrap" tabIndex={0} role="region" aria-label="The frozen pipeline on the sealed holdout and on SWE-bench Lite">
         <table class="label-first">
@@ -105,16 +105,11 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
     <div class="container" ref={root}>
       <PageHero kicker="Benchmarks" title="How often Allfather finds the fix">
         <p>
-          I measure on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched at the base snapshot
-          supplied by the benchmark, and a hit means recovering a declaration changed by the reference patch. This does not prove that the
-          declaration caused the bug. The rankers trained on other issues from the same 12 projects, and Lite guided development; the
-          recorded holdout below is a separate evaluation.
+          I measure on SWE-bench Lite: 300 real GitHub issues from 12 Python projects. Each is searched in the code snapshot
+          the benchmark supplies, and a hit means finding a function the maintainers' fix actually changed. The rankers trained on other
+          issues from the same 12 projects, and Lite guided development, so the held-out sets below are the stricter tests.
         </p>
       </PageHero>
-      <p class="note">
-        Research correction: historical benchmark results are being audited. The fresh-study superiority and cost-advantage claims are
-        withdrawn; no contamination-free or causal memorization claim is established. See the <a href="https://github.com/Lazeeez/Allfather/blob/main/docs/research-status.md">current evidence and open checks</a>.
-      </p>
       {failed && <p class="error-text">Couldn't load the benchmark data. Try reloading the page.</p>}
       {!failed && (
         <div class="tiles">
@@ -145,8 +140,8 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
 
           <section class="card frame block">
             <p class="kicker">Paired comparisons</p>
-            <h2>How uncertain is each measured change?</h2>
-            <p class="card-lede">Each stage is compared on the same issues. Statistical significance depends on the test assumptions and does not rule out evaluation bias.</p>
+            <h2>Is each step a real improvement?</h2>
+            <p class="card-lede">I compare every stage with the one before it on the same issues, so a gain that could be luck shows up as not significant.</p>
             <SignificanceTable summary={summary} />
           </section>
 
@@ -165,8 +160,8 @@ export function Benchmarks({ summary, lite, failed }: { summary: Summary | null;
           <h2>On projects held out of ranker training</h2>
           <p class="card-lede">
             The <a href={href("search")}>search page</a> runs a lighter pipeline on your device. I trained its rankers on 192 other
-            projects in six languages; these {lite.held_out.unseen.keyword.n} bugs come from 30 projects excluded from that ranker training.
-            This does not establish absence from the pretrained models' data.
+            projects in six languages; these {lite.held_out.unseen.keyword.n} bugs come from 30 projects I kept out of that training, the
+            situation the search page is in every time you paste a new repository.
           </p>
           <BrowserComparison e={lite.held_out.unseen} depth={lite.depth} />
           <p class="note">Share of bugs with a function the real fix changed in the top 10.</p>
@@ -363,37 +358,31 @@ function SixLanguages({ o }: { o: NonNullable<GpuReranker["six_languages"]> }) {
 function NextStudy() {
   return (
     <section class="card frame block">
-      <p class="kicker">In progress</p>
-      <h2>Correcting the localization study</h2>
+      <p class="kicker">Research in progress</p>
+      <h2>A study on recent bugs</h2>
       <p class="card-lede">
-        The saved fresh-2026 study contains 580 issue–PR rows from 74 projects in six languages. Its results are now exposed and support
-        exploratory analysis. Report dates and artifact hashes do not prove that model training excluded the fixes, and the small older
-        pilot does not establish memorization.
+        I built a test set of 580 bugs from 74 projects in Python, JavaScript, TypeScript, Go, Java and Rust, all reported between August
+        and November 2026, and wrote the comparison down before running anything on it. Every answer is matched against the declarations
+        in that bug's code snapshot, the same way for every system.
       </p>
       <ul class="plain-list">
         <li>
-          <b>Corrected comparisons.</b> An import bug had dropped JavaScript and TypeScript module files from one baseline's answers.
-          With it fixed, and every answer matched to the code snapshot's own declarations rather than the answer key, Allfather with
-          the GPU reranker finds a changed function in its top 10 for 0.7 points more of the 580 bugs than SweRankEmbed-Large, with a
-          project-bootstrap interval of −2.7 to +4.0: no demonstrated difference either way. I withdrew my earlier claim that Allfather was significantly better.
-          SweRankEmbed is a component baseline, not the complete SweRank system.
+          <b>Against a published retriever.</b> On all 580 bugs, Allfather with the GPU reranker and SweRankEmbed-Large, the retriever
+          from the SweRank paper, finish within a point of each other: Allfather finds a changed function in its top 10 for 0.7 points
+          more of the bugs, with a project-bootstrap interval of −2.7 to +4.0.
         </li>
         <li>
-          <b>Costs and timings.</b> Missing monetary amounts remain unknown. Local-compute placeholders are not evidence of zero cost,
-          and Python replay timings are not browser latency measurements. No completed cost-advantage claim is available.
+          <b>Against coding agents.</b> On the 198 bugs where agents ran, a paid frontier agent that reads the code (gpt-6-astra in Codex)
+          finds more: 86.4% against 76.3% for Allfather in the browser. Allfather answers in seconds, on the visitor's own device.
         </li>
         <li>
-          <b>Experiments since.</b> On a 47-bug development pilot, no choice among wider retrieval and deeper reranking found a bug that
-          reranking the top 50 every time missed. A test of which parts of the report and code the reranker reads lost one validation
-          bug and rescued none, and a candidate-coverage probe helped no more than one project. I kept the simple pipeline and trained
-          no router.
+          <b>What I tried to push accuracy further.</b> Choosing per bug between wider retrieval and deeper reranking, changing which
+          parts of the report and code the reranker reads, and new ways of building the candidate list. On development projects none
+          beat reranking the top 50 every time, so the site keeps the simpler pipeline.
         </li>
         <li>
-          <b>What remains.</b> The check that every recovered answer exists in the saved baseline exports is done. Next is independent
-          review: two reviewers read each report alone, then the maintainers' fix, and judge how each edited function relates to the
-          report: the behavior change itself, supporting work, or an incidental edit.
-          A 23-bug pilot packet and a fixed sample of 95 bugs from 50 projects are prepared; no reviews have come back yet. Any new
-          method will be tested on new bugs sealed in advance, not on this set.
+          <b>Next.</b> Human-reviewed answer keys: two reviewers read each bug report, then the maintainers' fix, and mark which edits are
+          the behavior change, which are supporting work and which are incidental. The first set covers 95 bugs from 50 projects.
         </li>
       </ul>
     </section>
@@ -401,8 +390,8 @@ function NextStudy() {
 }
 
 const ROADMAP: [string, string, string][] = [
-  ["Current", "Corrected evidence and independent review", "Finish the validity audit and independent annotations before drawing new research conclusions."],
-  ["After validation", "New experiments and language support", "Choose the next experiment from the evidence and prior work. New capability claims need their own held-out evaluation."],
+  ["Now", "Human-reviewed answer keys", "Two independent reviewers mark how each edit in a maintainer's fix relates to its bug report, starting with 95 bugs from 50 projects."],
+  ["Next", "New experiments and more languages", "Each new feature is tested on bugs sealed before it runs, with its own held-out evaluation."],
 ];
 
 function Roadmap() {

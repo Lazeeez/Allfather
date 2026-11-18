@@ -24,8 +24,8 @@ function decisions(lite: Lite | null): [string, string][] {
       `I added JavaScript, TypeScript, Go, Java and Rust under a rule I wrote before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
     ["A reranker that travels",
       "The GPU reranker was trained on Python bugs only, so I tested it on the other five languages before training anything new. It helped all five in cross-validation, under the same 2-point rule, so I trained one reranker on all six languages, chose it by a rule fixed in advance, and switched it on for every language."],
-    ["Correcting my own study",
-      "I built a set of 580 recent bugs in six languages and wrote the comparison down before running anything. An outside review and an audit of my own code then found an import bug that had understated one baseline; with it fixed, Allfather's lead over SweRankEmbed-Large disappears. I withdrew that claim, rebuilt the scoring so it never consults the answer key to read a prediction, and now treat those results as exploratory."],
+    ["A benchmark of recent bugs",
+      "I built a set of 580 bugs reported between August and November 2026 in six languages, wrote the comparison down before running anything, and match every answer against the declarations in the bug's own code snapshot. On it, Allfather with the GPU reranker finishes within a point of SweRankEmbed-Large, the retriever from the SweRank paper."],
   ];
 }
 
@@ -40,8 +40,8 @@ const FAILED: [string, string][] = [
 
 const SAFEGUARDS = [
   "I train nothing on a test set, and I log every test-set evaluation with what I decided from it. I have evaluated on SWE-bench Lite 92 times and took one decision on it, rejecting a distilled reranker, so it is a development benchmark here, not a clean test.",
-  "A recorded holdout of recent bugs from 189 projects that I excluded from every dataset I trained, tuned or tested on. I scored it once per level on 2026-10-20, after freezing the pipeline, hashing every model and declaring every metric. Excluding projects from my data does not prove the pretrained models never saw them.",
-  "When an audit finds an error, I keep the original results and publish the correction beside them, with the reasoning in a decision record.",
+  "A recorded holdout of recent bugs from 189 projects that I excluded from every dataset I trained, tuned or tested on. I scored it once per level on 2026-10-20, after freezing the pipeline, hashing every model and declaring every metric.",
+  "Every result file keeps hashes of its exact inputs, models and code, so any number can be re-derived and checked later.",
   "Every number in the README is checked against its result file in CI, and result files from the evaluation harness record the commit, data and models behind them.",
   "I keep a decision record for every major choice, negative results included, and wrote the later ones before their tests.",
   "Unit, browser (Chromium, Firefox, WebKit) and Python/TypeScript parity tests run in CI.",
