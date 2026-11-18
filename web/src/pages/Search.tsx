@@ -702,7 +702,7 @@ function GpuHint({ unsure, onEnable, onDismiss }: { unsure: boolean; onEnable: (
     <aside class="gpu-hint" aria-label="GPU reranker">
       <p class="gpu-hint-text">
         <b>{unsure ? "Not sure about this one? A second read may help." : "Want a sharper ranking?"}</b>
-        Switch on the GPU reranker: a fine-tuned model re-reads the top 50 functions on my server. Tested on projects it never trained on, it put
+        Switch on the GPU reranker: a fine-tuned model re-reads the top 50 functions on my server. Cross-validated with whole projects held out of training, it put
         a function the fix changed in the top 10 for 4 to 10 more bugs in every 100, in all six languages. It sends your bug report and those 50
         functions to the server, which keeps only the scores, for a day. <a href={href("benchmarks")}>See the numbers</a>.
       </p>
@@ -723,7 +723,7 @@ const BAND_TEXT = {
 function Confidence({ p, gpu }: { p: number; gpu: boolean }) {
   const b = band(p);
   return (
-    <p class={`confidence ${b}`} title="Cross-validated on 7,843 bugs from projects the estimate never saw: when it says high, the fix was in the top 10 about 9 times in 10; medium, about 2 in 3; low, about 2 in 5. On SWE-bench Lite it ran about 10 points high and on SWE-bench Multilingual about 6, so read it as a rough guide.">
+    <p class={`confidence ${b}`} title="Cross-validated on 7,843 bugs, with whole projects held out of the estimate's training: when it says high, the fix was in the top 10 about 9 times in 10; medium, about 2 in 3; low, about 2 in 5. On SWE-bench Lite it ran about 10 points high and on SWE-bench Multilingual about 6, so read it as a rough guide.">
       <b>{BAND_TEXT[b]}</b> · {Math.round(p * 100)}% chance a function the fix changes is in the top 10{gpu ? " (estimated before the GPU reranker, which usually does a little better)" : ""}.
       {b === "low" && " Allfather reads stack traces, error messages and function names as separate clues, so adding any you have gives it more to go on."}
     </p>

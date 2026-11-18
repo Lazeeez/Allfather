@@ -19,13 +19,13 @@ function decisions(lite: Lite | null): [string, string][] {
     ["The same engine, twice",
       "I ported the Python engine to TypeScript so the website can run it in Web Workers. Parity tests run both on the same code and require identical units, keyword scores and ranker inputs, so I can measure the browser's accuracy in Python. The pinned parity run covers Python repositories; the other languages are covered by unit tests."],
     ["A GPU only where it pays",
-      "I put the full pipeline's reranker on a GPU server for the website only after a test I fixed in advance showed +2.6 points; a second test showed I could then skip the browser's own language model, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on unseen projects. I trained and measured it on Python first; the site now runs one reranker trained on all six languages."],
+      "I put the full pipeline's reranker on a GPU server for the website only after a test I fixed in advance showed +2.6 points; a second test showed I could then skip the browser's own language model, saving about 50 MB and 15 s. Scored once on held-out data, it adds 6.5 points on SWE-bench Lite and 2.7 on held-out projects. I trained and measured it on Python first; the site now runs one reranker trained on all six languages."],
     ["Six languages, each earning its ranker",
       `I added JavaScript, TypeScript, Go, Java and Rust under a rule I wrote before training: the learned ranker is used for a language only if it beats keywords and meaning by 2 points in cross-validation.${range}`],
     ["A reranker that travels",
       "The GPU reranker was trained on Python bugs only, so I tested it on the other five languages before training anything new. It helped all five in cross-validation, under the same 2-point rule, so I trained one reranker on all six languages, chose it by a rule fixed in advance, and switched it on for every language."],
-    ["A test the frontier can't have memorized",
-      "Frontier models answer older benchmarks from memory, so I sealed a new set of 580 bugs reported after their training, in all six languages, and wrote the whole comparison down before running anything on it."],
+    ["Correcting my own study",
+      "I built a set of 580 recent bugs in six languages and wrote the comparison down before running anything. An outside review and an audit of my own code then found an import bug that had understated one baseline; with it fixed, Allfather's lead over SweRankEmbed-Large disappears. I withdrew that claim, rebuilt the scoring so it never consults the answer key to read a prediction, and now treat those results as exploratory."],
   ];
 }
 
@@ -33,12 +33,15 @@ const FAILED: [string, string][] = [
   ["Following the call graph", "Expanding results to callers and callees added candidates but not hits; it is off by default."],
   ["One distilled reranker instead of two", "Better on validation, worse on the test set's first place: I rejected it, and the README says it was a test-set decision."],
   ["A learned query projection for the embeddings", "Semantic-only MRR fell from 0.287 to 0.220 on held-out projects."],
-  ["A small language model in the browser", "It added nothing on projects it never saw, so I replaced it with the GPU reranker."],
+  ["A small language model in the browser", "It added nothing on held-out projects, so I replaced it with the GPU reranker."],
+  ["A reranker that reads the whole report", "Retrained on 2,048-token reports, it gained 1.3 points on long reports, short of the 2-point bar I set in advance, so the site keeps the original."],
+  ["Choosing the next step for each bug", "On a 47-bug pilot, no choice among wider retrieval and deeper reranking found a bug that reranking the top 50 every time missed, so I trained no router."],
 ];
 
 const SAFEGUARDS = [
   "I train nothing on a test set, and I log every test-set evaluation with what I decided from it. I have evaluated on SWE-bench Lite 92 times and took one decision on it, rejecting a distilled reranker, so it is a development benchmark here, not a clean test.",
-  "The clean test is a sealed holdout of recent bugs from 189 projects outside every training, tuning and benchmark set. I scored it once per level on 2026-10-20, after freezing the pipeline, hashing every model and declaring every metric.",
+  "A recorded holdout of recent bugs from 189 projects that I excluded from every dataset I trained, tuned or tested on. I scored it once per level on 2026-10-20, after freezing the pipeline, hashing every model and declaring every metric. Excluding projects from my data does not prove the pretrained models never saw them.",
+  "When an audit finds an error, I keep the original results and publish the correction beside them, with the reasoning in a decision record.",
   "Every number in the README is checked against its result file in CI, and result files from the evaluation harness record the commit, data and models behind them.",
   "I keep a decision record for every major choice, negative results included, and wrote the later ones before their tests.",
   "Unit, browser (Chromium, Firefox, WebKit) and Python/TypeScript parity tests run in CI.",

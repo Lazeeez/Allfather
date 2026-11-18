@@ -56,7 +56,7 @@ export function LiveSection({ live }: { live: LiveSummary }) {
       {enough(trained) && enough(unseen) && (
         <p class="note">
           All time: {pct(trained.function["hit@10"])} of {trained.bugs} bugs in projects the website's rankers trained on (on older
-          issues), {pct(unseen.function["hit@10"])} of {unseen.bugs} bugs in projects they never saw.
+          issues), {pct(unseen.function["hit@10"])} of {unseen.bugs} bugs in projects outside their training data.
         </p>
       )}
       {live.history && live.history.length > 1 && <Trend history={live.history} />}

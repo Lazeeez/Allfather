@@ -104,7 +104,7 @@ const FAILED: Tried[] = [
     "The two fine-tuned cross-encoders distilled into one (soft labels from the ensemble, KL loss). Better on validation (MRR 0.634 vs 0.623), but not on SWE-bench Lite.",
     "file top-1 0.690 → 0.660 (p = 0.049); function MRR 0.560 → 0.545, not significant: kept the ensemble"],
   ["More training data, on the old benchmark",
-    "The browser rankers retrained on 131 projects improved on unseen projects but not on SWE-bench Lite's 12 familiar ones.",
+    "The browser rankers retrained on 131 projects improved on held-out projects but not on SWE-bench Lite's 12 familiar ones.",
     "Lite hit@10 0.701 → 0.691, not significant"],
 ];
 

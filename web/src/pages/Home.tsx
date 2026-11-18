@@ -148,8 +148,7 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
   };
   const fn = summary ? stagesAt(summary, "function").at(-1)! : null;
   const fl = summary ? stagesAt(summary, "file").at(-1)! : null;
-  const gpuUnseen = import.meta.env.VITE_RERANK_SERVER ? lite?.gpu_reranker?.held_out?.unseen : undefined;
-  const browser = gpuUnseen ? gpuUnseen.with_reranker["hit@10"] : lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
+  const browser = lite ? bestBrowserStage(lite.held_out.unseen)["hit@10"] : null;
   const multi = lite?.held_out.multilingual;
   return (
     <div ref={root}>
@@ -217,17 +216,17 @@ export function Home({ summary, lite }: { summary: Summary | null; lite: Lite | 
         <div class="container">
           <div>
             <p class="kicker">Measured, not claimed</p>
-            <h2>Tested on real bugs it never trained on.</h2>
+            <h2>Scored against the fixes maintainers actually made.</h2>
             <p class="section-lede">
               SWE-bench Lite: 300 real GitHub issues from 12 Python projects including Django, scikit-learn, SymPy and pytest, each searched
-              at the commit where the bug was reported. The browser ranker is also tested on 30 projects kept out of its training entirely,
+              in the code snapshot the benchmark supplies. The browser ranker is also tested on 30 projects excluded from its training,
               and on 498 bugs in JavaScript, TypeScript, Go, Java and Rust from two more public test sets.
             </p>
           </div>
           <div class="tiles four">
             <Tile label="Function to fix in the top 10" value={fn ? fn["hit@10"] : null} note={fn ? `full pipeline, ${fn.n} issues` : "full pipeline"} />
             <Tile label="File to fix in the top 5" value={fl ? fl["hit@5"] : null} note={fl ? `full pipeline, ${fl.n} issues` : "full pipeline"} />
-            <Tile label="Function to fix in the top 10" value={browser} note={lite ? `${gpuUnseen ? "what the site runs, with the GPU reranker" : "in your browser"}, ${lite.held_out.unseen.keyword.n} bugs from 30 projects it never trained on` : "in your browser"} />
+            <Tile label="Function to fix in the top 10" value={browser} note={lite ? `in your browser, ${lite.held_out.unseen.keyword.n} bugs from 30 projects held out of training` : "in your browser"} />
             <Tile label="Function to fix in the top 10" value={multi ? bestBrowserStage(multi)["hit@10"] : null}
               note={multi ? `in your browser, ${multi.keyword.n} bugs in Go, Java, JavaScript, Rust and TypeScript` : "in your browser, five more languages"} />
           </div>

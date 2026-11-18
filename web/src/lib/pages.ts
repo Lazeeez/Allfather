@@ -29,7 +29,7 @@ export const PAGE_META: Record<Page, PageMeta> = {
   },
   benchmarks: {
     title: "Benchmarks · Allfather",
-    description: "How often Allfather finds the function a real fix changed: stage-by-stage results on SWE-bench Lite, held-out projects and five more languages, with confidence intervals and paired significance tests, plus the comparison with frontier AI agents now in progress.",
+    description: "How often Allfather finds the function a real fix changed: stage-by-stage results on SWE-bench Lite, held-out projects and five more languages, with confidence intervals and paired significance tests, and the correction of my fresh-2026 study now in progress.",
   },
   explore: {
     title: "Explore real bugs · Allfather",

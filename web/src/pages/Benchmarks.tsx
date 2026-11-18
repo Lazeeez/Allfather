@@ -306,7 +306,7 @@ function Gpu({ g }: { g: GpuReranker }) {
                   const d = h["hit@10_gain"];
                   return (
                     <tr key={set}>
-                      <td>{set === "lite" ? "SWE-bench Lite" : "30 unseen projects"} <span class="muted">({h.issues})</span></td>
+                      <td>{set === "lite" ? "SWE-bench Lite" : "30 held-out projects"} <span class="muted">({h.issues})</span></td>
                       <td class="num">{pct(h.website["hit@10"])}</td>
                       <td class="num">{pct(h.with_reranker["hit@10"])}</td>
                       <td class={`num${d.p_value < 0.05 && d.delta > 0 ? " sig" : ""}`}>{d.delta >= 0 ? "+" : ""}{(d.delta * 100).toFixed(1)}</td>
@@ -372,17 +372,28 @@ function NextStudy() {
       </p>
       <ul class="plain-list">
         <li>
-          <b>Corrected comparisons.</b> Saved local and agent runs are compared only on matching issue IDs. SweRankEmbed is a component
-          baseline, not the complete SweRank system. Recovered identifiers and inventory-based scoring do not support the earlier
-          significant-superiority claim over SweRankEmbed-Large.
+          <b>Corrected comparisons.</b> An import bug had dropped JavaScript and TypeScript module files from one baseline's answers.
+          With it fixed, and every answer matched to the code snapshot's own declarations rather than the answer key, Allfather with
+          the GPU reranker finds a changed function in its top 10 for 0.7 points more of the 580 bugs than SweRankEmbed-Large, with a
+          project-bootstrap interval of −2.7 to +4.0: no demonstrated difference either way. I withdrew my earlier claim that Allfather was significantly better.
+          SweRankEmbed is a component baseline, not the complete SweRank system.
         </li>
         <li>
           <b>Costs and timings.</b> Missing monetary amounts remain unknown. Local-compute placeholders are not evidence of zero cost,
           and Python replay timings are not browser latency measurements. No completed cost-advantage claim is available.
         </li>
         <li>
-          <b>What remains.</b> Independent report–patch review, retained-export checks and a frozen broader analysis are pending.
-          Development experiments have not established a novel routing method. Any new confirmation study needs fresh frozen data.
+          <b>Experiments since.</b> On a 47-bug development pilot, no choice among wider retrieval and deeper reranking found a bug that
+          reranking the top 50 every time missed. A test of which parts of the report and code the reranker reads lost one validation
+          bug and rescued none, and a candidate-coverage probe helped no more than one project. I kept the simple pipeline and trained
+          no router.
+        </li>
+        <li>
+          <b>What remains.</b> The check that every recovered answer exists in the saved baseline exports is done. Next is independent
+          review: two reviewers read each report alone, then the maintainers' fix, and judge how each edited function relates to the
+          report: the behavior change itself, supporting work, or an incidental edit.
+          A 23-bug pilot packet and a fixed sample of 95 bugs from 50 projects are prepared; no reviews have come back yet. Any new
+          method will be tested on new bugs sealed in advance, not on this set.
         </li>
       </ul>
     </section>
@@ -408,7 +419,7 @@ function Roadmap() {
           </li>
         ))}
       </ol>
-      <p class="note">Rough dates, not promises; each step ships only when its test passes.</p>
+      <p class="note">An order, not dates: each step waits for the evidence from the one before it.</p>
     </section>
   );
 }
